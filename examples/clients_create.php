@@ -1,0 +1,24 @@
+<?php
+// require include only one file
+require_once '../src/mangoPayApi.inc';
+
+try {
+    // create object to manage MangoPay API
+    $api = new MangoPay\MangoPayApi();
+    
+    // CREATE CLIENT: POST /api/clients/
+    $client = $api->Clients->Create('testclientid', 'Test Client Name');
+    
+    // display result on screen
+    MangoPay\Logs::Debug('CREATED CLIENT', $client);
+    
+} catch (MangoPay\ResponseException $e) {
+    
+    MangoPay\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
+    MangoPay\Logs::Debug('Message', $e->GetMessage());
+    MangoPay\Logs::Debug('Details', $e->GetErrorDetails());
+    
+} catch (MangoPay\Exception $e) {
+    
+    MangoPay\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
+}
