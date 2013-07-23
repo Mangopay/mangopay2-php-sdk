@@ -81,9 +81,10 @@ class RestTool {
     
     /**
      * Call request to MangoPay API
-     * @param String $urlMethod Type of method in REST API
-     * @param RequestType $requestType Type of request
+     * @param string $urlMethod Type of method in REST API
+     * @param \MangoPay\RequestType $requestType Type of request
      * @param array $requestData Data to send in request
+     * @param \MangoPay\Pagination $pagination Pagination object
      * @return object Respons data
      */
     public function Request($urlMethod, $requestType, $requestData = null, & $pagination = null) {

@@ -1,5 +1,4 @@
 <?php
-
 namespace MangoPay;
 
 /**
@@ -10,23 +9,31 @@ class TransactionResultCode {
     /**
      * Type of transaction
      * @var String
-     * @access public
      */
     public $TransactionType;
         
     /**
-     * Code of error
+     * Type of error
      * @var Int
-     * @access public
      */
-    public $ErrorCode;
-    
+    public $ErrorType;
     
     /**
      * Code with details information
-     * @var String
-     * @access public
+     * @var int
      */
-    public $DetailsCode;
+    public $ErrorDetails;
     
+    /**
+     * Constructor
+     * @param string $resultCode Result code as string
+     */
+    function __construct($resultCode = '') {
+        
+        if (isset($resultCode)) {
+            $this->TransactionType = substr($resultCode, 0, 2);
+            $this->ErrorType = substr($resultCode, 2, 2);
+            $this->ErrorDetails = substr($resultCode, 4, 3);
+        }
+    }
 }

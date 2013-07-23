@@ -8,39 +8,49 @@ class ApiPayIns extends ApiBase {
     
     /**
      * Create new pay-in object
-     * @return MangoPay\PayIn Object returned from API
+     * @param \MangoPay\PayIn $payIn \MangoPay\PayIn object
+     * @return \MangoPay\PayIn Object returned from API
      */
     public function Create($payIn) {
         $paymentKey = $this->GetPaymentKey($payIn);
         $executionKey = $this->GetExecutionKey($payIn);
-        return $this->CreateObject('pay-ins_' . $paymentKey . '-' . $executionKey . '_create', $payIn, 'MangoPay\PayIn');
+        return $this->CreateObject('payins_' . $paymentKey . '-' . $executionKey . '_create', $payIn, '\MangoPay\PayIn');
     }
     
     /**
      * Get pay-in object
-     * @param  $payInId Pay-in identifier
-     * @return MangoPay\PayIn Object returned from API
+     * @param $payInId Pay-in identifier
+     * @return \MangoPay\PayIn Object returned from API
      */
     public function Get($payInId) {
-        return $this->GetObject('pay-ins_get', $payInId, 'MangoPay\PayIn');
+        return $this->GetObject('payins_get', $payInId, '\MangoPay\PayIn');
     }
     
     /**
      * Create refund for pay-in object
      * @param type $payInId Pay-in identifier
-     * @param MangoPay\Refund $refund Refund object to create
-     * @return MangoPay\Refund Object returned by REST API
+     * @param \MangoPay\Refund $refund Refund object to create
+     * @return \MangoPay\Refund Object returned by REST API
      */
     public function CreateRefunds($payInId, $refund) {
-        return $this->CreateObject('pay-ins_createrefunds', $payInId, 'MangoPay\Refund', $refund);
+        return $this->CreateObject('payins_createrefunds', $payInId, '\MangoPay\Refund', $refund);
+    }
+
+    /**
+     * Get refund for pay-in object
+     * @param type $payInId Pay-in identifier
+     * @return \MangoPay\Refund Object returned by REST API
+     */
+    public function Refunds($payInId) {
+        return $this->GetObject('payins_getrefunds', $payInId, '\MangoPay\Refund');
     }
     
     private function GetPaymentKey($payIn) {
         
-        if (!isset($payIn->MeanOfPayment) || !is_object($payIn->MeanOfPayment))
-            throw new Exception ('Mean of payment is not defined or it is not object type');
+        if (!isset($payIn->Payment) || !is_object($payIn->Payment))
+            throw new Exception ('Payment is not defined or it is not object type');
         
-        $className = str_replace('MangoPay\\', '', get_class($payIn->MeanOfPayment));
+        $className = str_replace('MangoPay\\', '', get_class($payIn->Payment));
         return strtolower($className);
     }
     

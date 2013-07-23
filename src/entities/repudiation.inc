@@ -4,11 +4,8 @@ namespace MangoPay;
 /**
  * Repudiation entity
  */
-class Repudiation extends EntityBase {
+class Repudiation extends PayObject {
     
-    public $DebitedFunds;
-    public $CreditedFunds;
-    public $Fees;
     public $InitialTransactionId;
     public $InitialTransacitonType;
     public $DebitedWalletId;

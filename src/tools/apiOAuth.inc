@@ -9,7 +9,6 @@ class ApiOAuth extends ApiBase {
     /**
      * Get token information to OAuth Authentication
      * @return \MangoPay\OAuth OAuth object with token information
-     * @throws Exception If response has wrong values
      */
     public function Token() {
         
@@ -26,6 +25,6 @@ class ApiOAuth extends ApiBase {
         $rest->AddRequestHttpHeader('Authorization: Basic ' . Authentication::GetHttpHeaderBasicKey());
         $rest->AddRequestHttpHeader('Content-Type: application/x-www-form-urlencoded');
         $response = $rest->Request($urlMethod, $requestType, $requestData);
-        return $this->CastResponseToEntity($response, 'MangoPay\OAuth');
+        return $this->CastResponseToEntity($response, '\MangoPay\OAuth');
     }
 }

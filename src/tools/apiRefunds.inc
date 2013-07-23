@@ -9,9 +9,9 @@ class ApiRefunds extends ApiBase {
     /**
      * Get refund object
      * @param int $refundId
-     * @return MangoPay\Refund
+     * @return \MangoPay\Refund
      */
     public function Get($refundId) {
-        return $this->GetObject('refunds_get', $refundId, 'MangoPay\Refund');
+        return $this->GetObject('refunds_get', $refundId, '\MangoPay\Refund');
     }
 }

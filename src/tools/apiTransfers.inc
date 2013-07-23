@@ -8,29 +8,38 @@ class ApiTransfers extends ApiBase {
     
     /**
      * Create new transfer
-     * @param Transfer $transfer
-     * @return MangoPay\Transfer Transfer object returned from API
+     * @param \MangoPay\Transfer $transfer
+     * @return \MangoPay\Transfer Transfer object returned from API
      */
     public function Create($transfer) {
-        return $this->CreateObject('transfers_create', $transfer, 'MangoPay\Transfer');
+        return $this->CreateObject('transfers_create', $transfer, '\MangoPay\Transfer');
     }
     
     /**
      * Get transfer
      * @param type $transferId Transfer identifier
-     * @return MangoPay\Transfer Transfer object returned from API
+     * @return \MangoPay\Transfer Transfer object returned from API
      */
     public function Get($transfer) {
-        return $this->GetObject('transfers_get', $transfer, 'MangoPay\Transfer');
+        return $this->GetObject('transfers_get', $transfer, '\MangoPay\Transfer');
     }
     
     /**
      * Create refund for transfer object
      * @param type $transferId Transfer identifier
-     * @param MangoPay\Refund $refund Refund object to create
-     * @return MangoPay\Refund Object returned by REST API
+     * @param \MangoPay\Refund $refund Refund object to create
+     * @return \MangoPay\Refund Object returned by REST API
      */
     public function CreateRefunds($transferId, $refund) {
-        return $this->CreateObject('transfers_createrefunds', $transferId, 'MangoPay\Refund', $refund);
+        return $this->CreateObject('transfers_createrefunds', $transferId, '\MangoPay\Refund', $refund);
+    }
+    
+    /**
+     * Get refund for transfer object
+     * @param type $transferId Transfer identifier
+     * @return \MangoPay\Refund Object returned by REST API
+     */
+    public function Refunds($transferId) {
+        return $this->GetObject('transfers_getrefunds', $transferId, '\MangoPay\Refund');
     }
 }

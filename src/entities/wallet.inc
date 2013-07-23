@@ -35,6 +35,6 @@ class Wallet extends EntityBase {
      * @return array
      */
     protected function GetSubObjects() {
-        return array( 'Balance' => 'MangoPay\Money' );
+        return array( 'Balance' => '\MangoPay\Money' );
     }
 }

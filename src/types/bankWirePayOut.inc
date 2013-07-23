@@ -6,6 +6,15 @@ namespace MangoPay;
  */
 class BankWirePayOut {
     
-    public $BankAccountId;
+    /**
+     * Bank account Id
+     * @var in  
+     */
+    public $BankDetailsId;
+    
+    /**
+     * Communication
+     * @var string 
+     */
     public $Communication;
 }

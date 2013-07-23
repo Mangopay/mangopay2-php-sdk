@@ -60,6 +60,42 @@ class MangoPayApi extends ApiBase {
      * @var ApiRefunds 
      */
     public $Refunds;
+    
+    /**
+     * CardRegistration methods
+     * @var ApiCardRegistration 
+     */
+    public $CardRegistration;
+    
+    /**
+     * Events methods
+     * @var ApiEvents
+     */
+    public $Events;
+    
+    /**
+     * Hooks methods
+     * @var ApiHooks
+     */
+    public $Hooks;
+    
+    /**
+     * Info methods
+     * @var ApiInfo 
+     */
+    public $Info;
+    
+    /**
+     * ReccurringPayInOrders methods
+     * @var ApiReccurringPayInOrders 
+     */
+    public $ReccurringPayInOrders;
+    
+    /**
+     * Repudiations methods
+     * @var ApiRepudiations 
+     */
+    public $Repudiations;
 
     /**
      * oAuth object with data to authentication with strong type
@@ -85,6 +121,12 @@ class MangoPayApi extends ApiBase {
         $this->PayIns = new ApiPayIns($oauth);
         $this->PayOuts = new ApiPayOuts($oauth);
         $this->Refunds = new ApiRefunds($oauth);
+        $this->CardRegistration = new ApiCardRegistration($oauth);
+        $this->Events = new ApiEvents($oauth);
+        $this->Hooks = new ApiHooks($oauth);
+        $this->Info = new ApiInfo($oauth);
+        $this->ReccurringPayInOrders = new ApiReccurringPayInOrders($oauth);
+        $this->Repudiations = new ApiRepudiations($oauth);
     }
 
     /**

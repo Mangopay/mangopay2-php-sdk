@@ -10,7 +10,7 @@ class ApiClients extends ApiBase {
      * Get client data for Basic Access Authentication 
      * @param string $clientId Client identifier
      * @param string $clientName Beautiful name for presentation
-     * @return Clinet Client object
+     * @return \MangoPay\Clinet Client object
      */
     public function Create($clientId, $clientName) {
 
@@ -23,6 +23,6 @@ class ApiClients extends ApiBase {
         
         $rest = $this->GetRestToolObject(false);
         $response = $rest->Request($urlMethod, $requestType, $requestData);
-        return $this->CastResponseToEntity($response, 'MangoPay\Client');
+        return $this->CastResponseToEntity($response, '\MangoPay\Client');
     }
 }
