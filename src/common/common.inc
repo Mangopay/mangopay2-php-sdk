@@ -28,7 +28,7 @@ function mangoPay_Autoload($className){
 
 function mangoPay_AutoloadCheckAndInclude($fileName, $module) {
     
-    $path = __DIR__ . '\\..\\' . $module . '\\' . $fileName . '.inc';
+    $path = __DIR__ . '/../' . $module . '/' . $fileName . '.inc';
     if (file_exists($path)){
         include_once $path;
         return true;
@@ -42,4 +42,4 @@ spl_autoload_register('mangoPay_Autoload');
 
 // include configuration file
 require_once 'config.inc';
-require_once __DIR__ . '\..\tools\enums.inc';
+require_once __DIR__ . '/../tools/enums.inc';
