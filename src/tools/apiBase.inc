@@ -62,9 +62,9 @@ abstract class ApiBase {
         'payins_getrefunds' => array( '/pay-ins/%s/refunds', RequestType::GET ),
         'payins_createrefunds' => array( '/pay-ins/%s/refunds', RequestType::POST ),
         
-        'payouts_bankwirepayout_create' => array( '/pay-outs/bankwire/', RequestType::POST ),
-        'payouts_merchantexpense_create' => array( '/pay-outs/merchantexpense/', RequestType::POST ),
-        'payouts_amazongiftcard_create' => array( '/pay-outs/amazongiftcard/', RequestType::POST ),
+        'payouts_bankwirepayout_create' => array( '/pay-outs/bank-wire/', RequestType::POST ),
+        'payouts_merchantexpense_create' => array( '/pay-outs/merchant-expense/', RequestType::POST ),
+        'payouts_amazongiftcard_create' => array( '/pay-outs/amazon-giftcard/', RequestType::POST ),
         'payouts_get' => array( '/pay-outs/%s', RequestType::GET ),
         'payouts_createrefunds' => array( '/pay-outs/%s/refunds', RequestType::POST ),
         'payouts_getrefunds' => array( '/pay-outs/%s/refunds', RequestType::GET ),

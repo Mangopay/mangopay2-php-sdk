@@ -1,7 +1,6 @@
 <?php
 namespace MangoPay\Tests;
 
-
 /**
  * Tests basic methods for wallets
  */
@@ -27,14 +26,12 @@ class Wallets extends Base {
     
     function test_Wallets_Save() {
         $wallet = $this->getJohnsWallet();
-        
         $wallet->Description = 'New description to test';
-        $wallet->Currency = 'PLN';
+        
         $saveWallet = $this->_api->Wallets->Save($wallet);
         
         $this->assertIdentical($wallet->Id, $saveWallet->Id);
         $this->assertIdentical('New description to test', $saveWallet->Description);
-        $this->assertIdentical('PLN', $saveWallet->Currency);
     }
     
     function test_Wallets_Transactions() {

@@ -20,11 +20,6 @@ class TestCasesCollector extends \SimpleCollector {
 
         // ignore base.php: with abstract test case class (throws Bad TestSuite [No runnable test cases] otherwise)
         if ($filename == "base.php") return true;
-        
-        
-        //if ($filename == "payIns.php") return true;
-        //if ($filename == "users.php") return true;
-        //if ($filename == "wallets.php") return true;
 
         return parent::isHidden($filename);
     }
