@@ -204,7 +204,7 @@ class ApiUsers extends ApiBase {
     /**
      * Get all wallets for user
      * @param Int/GUID $userId User identifier
-     * @return array Array with mangoPay\Wallet obects returned from API
+     * @return \MangoPay\Wallet[] Array with  obects returned from API
      * @throws \MangoPay\Exception If occur unexpected response from API 
      */
     public function Wallets($userId, & $pagination = null) {

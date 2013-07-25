@@ -15,7 +15,7 @@ class MangoPayApi extends ApiBase {
     
     /**
      * OAuth methods
-     * @var OAuth
+     * @var ApiAuth
      */
     public $OAuth;
     

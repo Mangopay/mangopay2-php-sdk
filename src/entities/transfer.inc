@@ -10,11 +10,23 @@ class Transfer extends PayObject {
      * Debited wallet Id
      * @var int  
      */
-    public $DebitedWalletId;
+    public $DebitedWalletID;
     
     /**
      * Credited wallet Id
      * @var int  
      */
-    public $CreditedWalletId;
+    public $CreditedWalletID;
+    
+    /**
+     * @todo UNDOCUMENTED
+     * @var string
+     */
+    public $Type;
+
+    /**
+     * @todo UNDOCUMENTED
+     * @var string
+     */
+    public $Nature;
 }

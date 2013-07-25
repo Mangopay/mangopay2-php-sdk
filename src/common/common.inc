@@ -1,6 +1,4 @@
 <?php
-// Constant to switch debug mode - display all request and response data
-define('MangoPay_DebugMode', 0);
 
 /**
  * Function to auto include files with entites and types

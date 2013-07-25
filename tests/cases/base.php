@@ -1,5 +1,6 @@
 <?php
 namespace MangoPay\Tests;
+require_once '../simpletest/autorun.php';
 require_once '../../src/mangoPayApi.inc';
 
 /**
@@ -198,7 +199,7 @@ abstract class Base extends \UnitTestCase {
             $payIn->CreditedWalletId = $wallet->Id;
             $payIn->Payment = $this->getPayInCard();
             $payIn->Execution = $this->getPayInWeb();
-                        
+            
             self::$PayInCardWeb = $this->_api->PayIns->Create($payIn);
         }
         
@@ -257,8 +258,8 @@ abstract class Base extends \UnitTestCase {
             $transfer->Fees->Currency = 'EUR';
             $transfer->Fees->Amount = 10;
 
-            $transfer->DebitedWalletId = $wallet->Id;
-            $transfer->CreditedWalletId = $wallet->Id;
+            $transfer->DebitedWalletID = $wallet->Id;
+            $transfer->CreditedWalletID = $wallet->Id;
 
             self::$Transfer = $this->_api->Transfers->Create($transfer);
         }

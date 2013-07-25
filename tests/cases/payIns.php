@@ -1,5 +1,6 @@
 <?php
 namespace MangoPay\Tests;
+require_once 'base.php';
 
 /**
  * Tests methods for pay-ins
@@ -8,7 +9,7 @@ class PayIns extends Base {
     
     function test_PayIns_Create_CardWeb() {
         $payIn = $this->getPayInCardWeb();
-        
+
         $this->assertTrue($payIn->Id > 0);
         $this->assertIdentical($payIn->PaymentType, 'CARD');
         $this->assertIsA($payIn->Payment, '\MangoPay\Card');

@@ -206,7 +206,7 @@ class RestTool {
         }
         
         if (strpos($header, 'Link: ') !== false) {
-            
+
             $strLinks = trim(str_replace('Link:', '', $header));
             $arrayLinks = explode(',', $strLinks);
             if ($arrayLinks !== false) {
@@ -262,9 +262,9 @@ class RestTool {
                 
                 $error = new Error();
                 $error->Message = $response->Message;
-                $error->Errors = property_exists($response, 'Error') 
+                $error->Errors = property_exists($response, 'Errors') 
                         ? $response->Errors 
-                        : property_exists($response, 'error') ? $response->errors : null;
+                        : property_exists($response, 'errors') ? $response->errors : null;
                 throw new ResponseException($this->_responseCode, $error);
                 
             } else         

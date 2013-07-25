@@ -33,14 +33,14 @@ abstract class EntityBase {
     
     /**
      * Magic function to set all properties as public for getting value
-     * @param string $propertyName
+     * @param string $name
      * @return mixed
      */
-    public function __get($propertyName) {
-        if (property_exists($this, $propertyName))
-            return $this->$propertyName;
+    public function __get($name) {
+        if (property_exists($this, $name))
+            return $this->$name;
         
-        throw new Exception('Property ' . $propertyName . ' in class ' . get_class($this) . ' not exist');
+        throw new Exception('Property ' . $name . ' in class ' . get_class($this) . ' not exist');
     }
     
     /**
