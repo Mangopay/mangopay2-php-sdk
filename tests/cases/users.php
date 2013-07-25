@@ -96,10 +96,10 @@ class Users extends Base {
         $this->assertIdentical($account->UserId, $john->Id);
     }
 
-    function test_Users_GetBankAccount() {
+    function test_Users_BankAccount() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
-        $accountFetched = $this->_api->Users->GetBankAccount($john->Id, $account->Id);
+        $accountFetched = $this->_api->Users->BankAccount($john->Id, $account->Id);
         $this->assertIdenticalInputProps($account, $accountFetched);
     }
     

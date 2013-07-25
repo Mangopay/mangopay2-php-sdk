@@ -48,7 +48,7 @@ class ApiWallets extends ApiBase {
      * @param type $walletId Wallet identifier
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Object to filter data
-     * @return array Array with \MangoPay\Transaction objects returned from API
+     * @return \MangoPay\Transaction[] Transactions for wallet returned from API
      */
     public function Transactions($walletId, & $pagination = null, $filter = null) {
         return $this->GetList('wallets_alltransactions', $pagination, '\MangoPay\Transaction', $walletId, $filter);

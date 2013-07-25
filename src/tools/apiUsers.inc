@@ -100,8 +100,8 @@ class ApiUsers extends ApiBase {
      * @param \MangoPay\KYCRequest $kycRequest Entity of KYC request object
      * @return \MangoPay\KYCRequest Create KYC request object
      */
-    public function CreateKycRequests($userId, $kycRequest) {
-        $response = $this->CreateObject('users_createkycrequests', $kycRequest, null, $userId);
+    public function CreateKycRequest($userId, $kycRequest) {
+        $response = $this->CreateObject('users_createkycrequest', $kycRequest, null, $userId);
         return $this->GetKycRequestResponse($response);
     }
 
@@ -130,8 +130,8 @@ class ApiUsers extends ApiBase {
      * @param int $kycRequestId KYC request Id
      * @return \MangoPay\KYCRequest Create KYC request object
      */
-    public function GetKycRequests($userId, $kycRequestId) {
-        $response = $this->GetObject('users_getkycrequests', $userId, null, $kycRequestId);
+    public function KycRequest($userId, $kycRequestId) {
+        $response = $this->GetObject('users_getkycrequest', $userId, null, $kycRequestId);
         return $this->GetKycRequestResponse($response);
     }
 
@@ -197,7 +197,7 @@ class ApiUsers extends ApiBase {
      * @param int $bankAccountId Bank account Id
      * @return \MangoPay\BankAccount Entity of bank account object
      */
-    public function GetBankAccount($userId, $bankAccountId) {
+    public function BankAccount($userId, $bankAccountId) {
         return $this->GetObject('users_getbankaccount', $userId, 'MangoPay\BankAccount', $bankAccountId);
     }
     
@@ -217,17 +217,17 @@ class ApiUsers extends ApiBase {
      * @param int $paymentCardId Payment card Id
      * @return \MangoPay\PaymentCard Entity of bank account object
      */
-    public function GetCards($userId, $paymentCardId) {
-        return $this->GetObject('users_getpaymentcards', $userId, 'MangoPay\PaymentCard', $paymentCardId);
+    public function PaymentCard($userId, $paymentCardId) {
+        return $this->GetObject('users_getpaymentcard', $userId, 'MangoPay\PaymentCard', $paymentCardId);
     }
     
     /**
      * Get all payment cards for user
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
-     * @return array Array with MangoPay\PaymentCard entities
+     * @return \MangoPay\PaymentCard[] cards entities
      */    
-    public function Cards($userId, & $pagination = null) {
+    public function PaymentCards($userId, & $pagination = null) {
         return $this->GetList('users_allpaymentcards', $pagination, 'MangoPay\PaymentCard', $userId);
     }
     

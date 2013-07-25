@@ -30,7 +30,7 @@ class ApiTransfers extends ApiBase {
      * @param \MangoPay\Refund $refund Refund object to create
      * @return \MangoPay\Refund Object returned by REST API
      */
-    public function CreateRefunds($transferId, $refund) {
+    public function CreateRefund($transferId, $refund) {
         return $this->CreateObject('transfers_createrefunds', $transferId, '\MangoPay\Refund', $refund);
     }
     
@@ -39,7 +39,7 @@ class ApiTransfers extends ApiBase {
      * @param type $transferId Transfer identifier
      * @return \MangoPay\Refund Object returned by REST API
      */
-    public function Refunds($transferId) {
+    public function Refund($transferId) {
         return $this->GetObject('transfers_getrefunds', $transferId, '\MangoPay\Refund');
     }
 }
