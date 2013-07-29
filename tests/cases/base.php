@@ -39,27 +39,23 @@ abstract class Base extends \UnitTestCase {
      * Test pay-ins object
      * @var \MangoPay\PayIn
      */
-    public static $PayInCardWeb;
-    /**
-     * @var \MangoPay\Card
-     */
-    public static $PayInCard;
-    /**
-     * @var \MangoPay\Web
-     */
-    public static $PayInWeb;
-    
+    public static $JohnsPayInCardWeb;
+    /** @var \MangoPay\PayInPaymentDetailsCard */
+    public static $PayInPaymentDetailsCard;
+    /** @var \MangoPay\PayInExecutionDetailsWeb */
+    public static $PayInExecutionDetailsWeb;
+
     /**
      * Test pay-ins object
      * @var \MangoPay\PayOut
      */
-    public static $PayOutBankWire;
+    public static $JohnsPayOutBankWire;
     
     /**
      * Test transfer object
      * @var \MangoPay\Transfer
      */
-    public static $Transfer;
+    public static $JohnsTransfer;
     
     function __construct() {
         $this->_api = new \MangoPay\MangoPayApi();
@@ -138,7 +134,7 @@ abstract class Base extends \UnitTestCase {
             
             $wallet = new \MangoPay\Wallet();
             $wallet->Owners = array($john->Id);
-            $wallet->Currency = 'EUR';
+            $wallet->CurrencyDto = 'EUR';
             $wallet->Description = 'WALLET IN EUR';
             
             self::$JohnsWallet = $this->_api->Wallets->Create($wallet);
@@ -148,42 +144,40 @@ abstract class Base extends \UnitTestCase {
     }
     
     /**
-     * Get Card object
-     * @return \MangoPay\Card
+     * @return \MangoPay\PayInPaymentDetailsCard
      */
-    private function getPayInCard() {
-        if (self::$PayInCard === null) {
-            self::$PayInCard = new \MangoPay\Card();
-            self::$PayInCard->CardType = 'AMEX';
-            self::$PayInCard->ReturnURL = 'https://test.com';
+    private function getPayInPaymentDetailsCard() {
+        if (self::$PayInPaymentDetailsCard === null) {
+            self::$PayInPaymentDetailsCard = new \MangoPay\PayInPaymentDetailsCard();
+            self::$PayInPaymentDetailsCard->CardType = 'AMEX';
+            self::$PayInPaymentDetailsCard->ReturnURL = 'https://test.com';
         }
         
-        return self::$PayInCard;
+        return self::$PayInPaymentDetailsCard;
     }
     
     /**
-     * Get Web object
-     * @return \MangoPay\Web
+     * @return \MangoPay\PayInExecutionDetailsWeb
      */
-    private function getPayInWeb() {
-        if (self::$PayInWeb === null) {
-            self::$PayInWeb = new \MangoPay\Web();
-            self::$PayInWeb->TemplateURL = 'https://TemplateURL.com';
-            self::$PayInWeb->ShowRegisteredCard = false;
-            self::$PayInWeb->RegisterCard = false;
-            self::$PayInWeb->Mode3DS = 'DEFAULT';
-            self::$PayInWeb->Culture = 'fr';
+    private function getPayInExecutionDetailsWeb() {
+        if (self::$PayInExecutionDetailsWeb === null) {
+            self::$PayInExecutionDetailsWeb = new \MangoPay\PayInExecutionDetailsWeb();
+            self::$PayInExecutionDetailsWeb->TemplateURL = 'https://TemplateURL.com';
+            self::$PayInExecutionDetailsWeb->ShowRegisteredCard = false;
+            self::$PayInExecutionDetailsWeb->RegisterCard = false;
+            self::$PayInExecutionDetailsWeb->Mode3DS = 'DEFAULT';
+            self::$PayInExecutionDetailsWeb->Culture = 'fr';
         }
         
-        return self::$PayInWeb;
+        return self::$PayInExecutionDetailsWeb;
     }
     
     /**
      * Creates Pay-In Card Web object
      * @return \MangoPay\PayIn
      */
-    protected function getPayInCardWeb() {
-        if (self::$PayInCardWeb === null) {
+    protected function getJohnsPayInCardWeb() {
+        if (self::$JohnsPayInCardWeb === null) {
             $wallet = $this->getJohnsWallet();
             $user = $this->getJohn();
             
@@ -195,23 +189,23 @@ abstract class Base extends \UnitTestCase {
             $payIn->DebitedFunds->Amount = 1000;
             $payIn->Fees = new \MangoPay\Money();
             $payIn->Fees->Currency = 'EUR';
-            $payIn->Fees->Amount = 100;
-            $payIn->CreditedWalletId = $wallet->Id;
-            $payIn->Payment = $this->getPayInCard();
-            $payIn->Execution = $this->getPayInWeb();
+            $payIn->Fees->Amount = 5;
+            $payIn->CreditedWalletID = $wallet->Id;
+            $payIn->PaymentDetails = $this->getPayInPaymentDetailsCard();
+            $payIn->ExecutionDetails = $this->getPayInExecutionDetailsWeb();
             
-            self::$PayInCardWeb = $this->_api->PayIns->Create($payIn);
+            self::$JohnsPayInCardWeb = $this->_api->PayIns->Create($payIn);
         }
         
-        return self::$PayInCardWeb;
+        return self::$JohnsPayInCardWeb;
     }
     
     /**
      * Creates Pay-Out  Bank Wire object
      * @return \MangoPay\PayOut
      */
-    protected function getPayOutBankWire() {
-        if (self::$PayOutBankWire === null) {
+    protected function getJohnsPayOutBankWire() {
+        if (self::$JohnsPayOutBankWire === null) {
             $wallet = $this->getJohnsWallet();
             $user = $this->getJohn();
             $account = $this->getJohnsAccount();
@@ -222,28 +216,28 @@ abstract class Base extends \UnitTestCase {
             $payOut->CreditedUserId = $user->Id;
             $payOut->DebitedFunds = new \MangoPay\Money();
             $payOut->DebitedFunds->Currency = 'EUR';
-            $payOut->DebitedFunds->Amount = 100;
+            $payOut->DebitedFunds->Amount = 10;
             $payOut->Fees = new \MangoPay\Money();
             $payOut->Fees->Currency = 'EUR';
-            $payOut->Fees->Amount = 10;
+            $payOut->Fees->Amount = 5;
             
             $payOut->DebitedWalletId = $wallet->Id;
-            $payOut->MeanOfPayment = new \MangoPay\BankWirePayOut();
-            $payOut->MeanOfPayment->BankDetailsId = $account->Id;
-            $payOut->MeanOfPayment->Communication = 'Communication text';
-                        
-            self::$PayOutBankWire = $this->_api->PayOuts->Create($payOut);
+            $payOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
+            $payOut->MeanOfPaymentDetails->BankDetailsId = $account->Id;
+            $payOut->MeanOfPaymentDetails->Communication = 'Communication text';
+
+            self::$JohnsPayOutBankWire = $this->_api->PayOuts->Create($payOut);
         }
         
-        return self::$PayOutBankWire;
+        return self::$JohnsPayOutBankWire;
     }
     
     /**
      * Creates Pay-Out  Bank Wire object
      * @return \MangoPay\PayOut
      */
-    protected function getTransfer() {
-        if (self::$Transfer === null) {
+    protected function getJohnsTransfer() {
+        if (self::$JohnsTransfer === null) {
             $wallet = $this->getJohnsWallet();
             $user = $this->getJohn();
             
@@ -261,10 +255,10 @@ abstract class Base extends \UnitTestCase {
             $transfer->DebitedWalletID = $wallet->Id;
             $transfer->CreditedWalletID = $wallet->Id;
 
-            self::$Transfer = $this->_api->Transfers->Create($transfer);
+            self::$JohnsTransfer = $this->_api->Transfers->Create($transfer);
         }
         
-        return self::$Transfer;
+        return self::$JohnsTransfer;
     }
     
     /**

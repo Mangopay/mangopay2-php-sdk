@@ -39,35 +39,35 @@ abstract class ApiBase {
         'paymentcardregistration_get' => array( '/payment-card-registration/%s', RequestType::GET ),
         
         // pay ins URLs
-        'payins_card-web_create' => array( '/pay-ins/card/web/', RequestType::POST ),
-        'payins_card-direct_create' => array( '/pay-ins/card/direct/', RequestType::POST ),
-        'payins_card-preauthorized_create' => array( '/pay-ins/card/preauthorized/', RequestType::POST ),
-        'payins_card-recurrentexecution_create' => array( '/pay-ins/card/recurrent-pay-in-execution/', RequestType::POST ),
+        'payins_card-web_create' => array( '/payins/card/web/', RequestType::POST ),
+        'payins_card-direct_create' => array( '/payins/card/direct/', RequestType::POST ),
+        'payins_card-preauthorized_create' => array( '/payins/card/preauthorized/', RequestType::POST ),
+        'payins_card-recurrentexecution_create' => array( '/payins/card/recurrent-pay-in-execution/', RequestType::POST ),
         
-        'payins_registeredcard-web_create' => array( '/pay-ins/registered-card/web/', RequestType::POST ),
-        'payins_registeredcard-direct_create' => array( '/pay-ins/registered-card/direct/', RequestType::POST ),
-        'payins_registeredcard-preauthorized_create' => array( '/pay-ins/registered-card/preauthorized/', RequestType::POST ),
-        'payins_registeredcard-recurrentexecution_create' => array( '/pay-ins/registered-card/recurrent-pay-in-execution/', RequestType::POST ),
+        'payins_registeredcard-web_create' => array( '/payins/registered-card/web/', RequestType::POST ),
+        'payins_registeredcard-direct_create' => array( '/payins/registered-card/direct/', RequestType::POST ),
+        'payins_registeredcard-preauthorized_create' => array( '/payins/registered-card/preauthorized/', RequestType::POST ),
+        'payins_registeredcard-recurrentexecution_create' => array( '/payins/registered-card/recurrent-pay-in-execution/', RequestType::POST ),
         
-        'payins_bankwirepayin-web_create' => array( '/pay-ins/bank-wire/web/', RequestType::POST ),
-        'payins_bankwirepayin-direct_create' => array( '/pay-ins/bank-wire/direct/', RequestType::POST ),
-        'payins_bankwirepayin-preauthorized_create' => array( '/pay-ins/bank-wire/preauthorized/', RequestType::POST ),
-        'payins_bankwirepayin-recurrentexecution_create' => array( '/pay-ins/bank-wire/recurrent-pay-in-execution/', RequestType::POST ),
+        'payins_bankwirepayin-web_create' => array( '/payins/bank-wire/web/', RequestType::POST ),
+        'payins_bankwirepayin-direct_create' => array( '/payins/bank-wire/direct/', RequestType::POST ),
+        'payins_bankwirepayin-preauthorized_create' => array( '/payins/bank-wire/preauthorized/', RequestType::POST ),
+        'payins_bankwirepayin-recurrentexecution_create' => array( '/payins/bank-wire/recurrent-pay-in-execution/', RequestType::POST ),
         
-        'payins_directcredit-web_create' => array( '/pay-ins/direct-credit/web/', RequestType::POST ),
-        'payins_directcredit-direct_create' => array( '/pay-ins/direct-credit/direct/', RequestType::POST ),
-        'payins_directcredit-preauthorized_create' => array( '/pay-ins/direct-credit/preauthorized/', RequestType::POST ),
-        'payins_directcredit-recurrentexecution_create' => array( '/pay-ins/direct-credit/recurrent-pay-in-execution/', RequestType::POST ),
-        'payins_get' => array( '/pay-ins/%s', RequestType::GET ),
-        'payins_getrefunds' => array( '/pay-ins/%s/refunds', RequestType::GET ),
-        'payins_createrefunds' => array( '/pay-ins/%s/refunds', RequestType::POST ),
+        'payins_directcredit-web_create' => array( '/payins/direct-credit/web/', RequestType::POST ),
+        'payins_directcredit-direct_create' => array( '/payins/direct-credit/direct/', RequestType::POST ),
+        'payins_directcredit-preauthorized_create' => array( '/payins/direct-credit/preauthorized/', RequestType::POST ),
+        'payins_directcredit-recurrentexecution_create' => array( '/payins/direct-credit/recurrent-pay-in-execution/', RequestType::POST ),
+        'payins_get' => array( '/payins/%s', RequestType::GET ),
+        'payins_getrefunds' => array( '/payins/%s/refunds', RequestType::GET ),
+        'payins_createrefunds' => array( '/payins/%s/refunds', RequestType::POST ),
         
-        'payouts_bankwirepayout_create' => array( '/pay-outs/bank-wire/', RequestType::POST ),
-        'payouts_merchantexpense_create' => array( '/pay-outs/merchant-expense/', RequestType::POST ),
-        'payouts_amazongiftcard_create' => array( '/pay-outs/amazon-giftcard/', RequestType::POST ),
-        'payouts_get' => array( '/pay-outs/%s', RequestType::GET ),
-        'payouts_createrefunds' => array( '/pay-outs/%s/refunds', RequestType::POST ),
-        'payouts_getrefunds' => array( '/pay-outs/%s/refunds', RequestType::GET ),
+        'payouts_bankwire_create' => array( '/payouts/bank-wire/', RequestType::POST ),
+        'payouts_merchantexpense_create' => array( '/payouts/merchant-expense/', RequestType::POST ),
+        'payouts_amazongiftcard_create' => array( '/payouts/amazon-giftcard/', RequestType::POST ),
+        'payouts_get' => array( '/payouts/%s', RequestType::GET ),
+        'payouts_createrefunds' => array( '/payouts/%s/refunds', RequestType::POST ),
+        'payouts_getrefunds' => array( '/payouts/%s/refunds', RequestType::GET ),
         
         'reccurringpayinorders_create' => array( '/reccurring-pay-in-orders', RequestType::POST ),
         'reccurringpayinorders_get' => array( '/reccurring-pay-in-orders/%s', RequestType::GET ),
@@ -205,7 +205,7 @@ abstract class ApiBase {
         }
         
         $rest = $this->GetRestToolObject();
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $filter, $pagination);
+        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), null, $pagination, $filter);
         
         if (!is_null($responseClassName))
             return $this->CastResponseToEntity($response, $responseClassName);
@@ -249,7 +249,7 @@ abstract class ApiBase {
      * @param string $entityClassName Name of entity class to cast
      * @return \MangoPay\$entityClassName Return entity object
      */
-    protected function CastResponseToEntity($response, $entityClassName)
+    protected function CastResponseToEntity($response, $entityClassName, $asDependentObject = false)
     {
         if (is_array($response)) {
             
@@ -271,6 +271,9 @@ abstract class ApiBase {
         $entityReflection = new \ReflectionObject($entity);
         $responseProperties = $responseReflection->getProperties();
         
+        $subObjects = $entity->GetSubObjects();
+        $dependsObjects = $entity->GetDependsObjects();
+
         foreach ($responseProperties as $responseProperty) {
             
             $responseProperty->setAccessible(true);
@@ -283,41 +286,26 @@ abstract class ApiBase {
                 $entityProperty = $entityReflection->getProperty($name);
                 $entityProperty->setAccessible(true);
                 
-                // get sub objects
-                $subObjects = null;
-                if ($entityReflection->hasMethod('GetSubObjects')) {
-                    $entityGetSubObjects = $entityReflection->getMethod('GetSubObjects');
-                    $entityGetSubObjects->setAccessible(true);
-                    $subObjects = $entityGetSubObjects->invoke($entity);
-                }
-               
-                if (is_array($subObjects) && isset($subObjects[$name])) {
-                    if ($subObjects[$name] == '\MangoPay\TransactionResultCode') {
-                        $entityProperty->setValue($entity, new \MangoPay\TransactionResultCode($value));
-                    } else {
-                        $object = $this->CastResponseToEntity($value, $subObjects[$name]);
-                        $entityProperty->setValue($entity, $object);
-                    }
+                // is sub object?
+                if (isset($subObjects[$name])) {
+                    $object = $this->CastResponseToEntity($value, $subObjects[$name]);
+                    $entityProperty->setValue($entity, $object);
                 } else {
                     $entityProperty->setValue($entity, $value);
                 }
-                
-                // get depends objects
-                $dependsObjects = null;
-                if ($entityReflection->hasMethod('GetDependsObjects')) {
-                    $entityGetDependsObjects = $entityReflection->getMethod('GetDependsObjects');
-                    $entityGetDependsObjects->setAccessible(true);
-                    $dependsObjects = $entityGetDependsObjects->invoke($entity);
-                }
-                
-                if (is_array($dependsObjects) && isset($dependsObjects[$name])) {
+
+                // has dependent object?
+                if (isset($dependsObjects[$name])) {
                     $dependsObject = $dependsObjects[$name];
                     $entityDependProperty = $entityReflection->getProperty($dependsObject['_property_name']);
                     $entityDependProperty->setAccessible(true);
-                    $entityDependProperty->setValue($entity, $this->CastResponseToEntity($response, $dependsObject[$value]));    
+                    $entityDependProperty->setValue($entity, $this->CastResponseToEntity($response, $dependsObject[$value], true));
                 }
             } else {
-                throw new Exception('Cannot cast response to entity object. Missing property ' . $name .' in entity ' . $entityClassName);
+                if ($asDependentObject || !empty($dependsObjects)) {
+                    continue;
+                }
+                else throw new Exception('Cannot cast response to entity object. Missing property ' . $name .' in entity ' . $entityClassName);
             }
         }
         
@@ -351,11 +339,11 @@ abstract class ApiBase {
     
     private function CanReadSubRequestData($entity, $propertyName) {
         if (get_class($entity) == 'MangoPay\PayIn' && 
-                    ($propertyName == 'Payment' || $propertyName == 'Execution')) {
+                    ($propertyName == 'PaymentDetails' || $propertyName == 'ExecutionDetails')) {
             return true;
         }
         
-        if (get_class($entity) == 'MangoPay\PayOut' && $propertyName == 'MeanOfPayment') {
+        if (get_class($entity) == 'MangoPay\PayOut' && $propertyName == 'MeanOfPaymentDetails') {
             return true;
         }
         

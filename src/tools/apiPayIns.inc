@@ -47,19 +47,19 @@ class ApiPayIns extends ApiBase {
     
     private function GetPaymentKey($payIn) {
         
-        if (!isset($payIn->Payment) || !is_object($payIn->Payment))
+        if (!isset($payIn->PaymentDetails) || !is_object($payIn->PaymentDetails))
             throw new Exception ('Payment is not defined or it is not object type');
         
-        $className = str_replace('MangoPay\\', '', get_class($payIn->Payment));
+        $className = str_replace('MangoPay\\PayInPaymentDetails', '', get_class($payIn->PaymentDetails));
         return strtolower($className);
     }
     
     private function GetExecutionKey($payIn) {
         
-        if (!isset($payIn->Execution) || !is_object($payIn->Execution))
+        if (!isset($payIn->ExecutionDetails) || !is_object($payIn->ExecutionDetails))
             throw new Exception ('Execution is not defined or it is not object type');
         
-        $className = str_replace('MangoPay\\', '', get_class($payIn->Execution));
+        $className = str_replace('MangoPay\\PayInExecutionDetails', '', get_class($payIn->ExecutionDetails));
         return strtolower($className);
     }
 }

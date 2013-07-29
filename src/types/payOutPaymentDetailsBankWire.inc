@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * Class represents BankWire type for mean of payment in PayOut entity
  */
-class BankWirePayOut {
+class PayOutPaymentDetailsBankWire extends Dto implements PayOutPaymentDetails {
     
     /**
      * Bank account Id

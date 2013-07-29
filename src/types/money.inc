@@ -5,7 +5,7 @@ namespace MangoPay;
 /**
  * Class represents money value with currency 
  */
-class Money {
+class Money extends Dto {
     
     /**
      * Text with currency code with ISO 4217 standard

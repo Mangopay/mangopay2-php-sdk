@@ -87,12 +87,12 @@ class RestTool {
      * @param \MangoPay\Pagination $pagination Pagination object
      * @return object Respons data
      */
-    public function Request($urlMethod, $requestType, $requestData = null, & $pagination = null) {
+    public function Request($urlMethod, $requestType, $requestData = null, & $pagination = null, $additionalUrlParams = null) {
         
         $this->_requestType = $requestType;
         $this->_requestData = $requestData;
         
-        $this->BuildRequest($urlMethod, $pagination);
+        $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams);
         $responseResult = $this->RunRequest();
         
         if(!is_null($pagination)){
@@ -135,10 +135,10 @@ class RestTool {
      * @param String $urlMethod Type of method in REST API
      * @throws Exception If some parameters are not set
      */
-    private function BuildRequest($urlMethod, $pagination) {
+    private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null) {
         
         $urlTool = new UrlTool();
-        $restUrl = $urlTool->GetRestUrl($urlMethod, $this->_authRequired, $pagination);
+        $restUrl = $urlTool->GetRestUrl($urlMethod, $this->_authRequired, $pagination, $additionalUrlParams);
 
         $this->_curlHandle = curl_init($urlTool->GetFullUrl($restUrl));
         

@@ -38,11 +38,11 @@ class Wallets extends Base {
     function test_Wallets_Transactions() {
         $john = $this->getJohn();
         $wallet = $this->getJohnsWallet();
-        $payIn = $this->getPayInCardWeb();
+        $payIn = $this->getJohnsPayInCardWeb();
 
         $pagination = new \MangoPay\Pagination(1, 1);
         $filter = new \MangoPay\FilterTransactions();
-        $filter->Type = 'PAY-IN';
+        $filter->Type = 'PAY_IN';
         $transactions = $this->_api->Wallets->Transactions($wallet->Id, $pagination, $filter);
 
         $this->assertEqual(count($transactions), 1);

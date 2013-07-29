@@ -37,6 +37,8 @@ class ResponseException extends Exception {
      */
     function __construct($code, $errorInfo = null) {
         
+        $this->_code = $code;
+        
         if (isset($this->_responseCodes[$code])) {
             $errorMsg = $this->_responseCodes[$code];
         } else {

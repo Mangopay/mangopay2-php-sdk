@@ -46,10 +46,10 @@ class ApiPayOuts extends ApiBase {
     
     private function GetPaymentKey($payOut) {
         
-        if (!isset($payOut->MeanOfPayment) || !is_object($payOut->MeanOfPayment))
+        if (!isset($payOut->MeanOfPaymentDetails) || !is_object($payOut->MeanOfPaymentDetails))
             throw new Exception('Mean of payment is not defined or it is not object type');
         
-        $className = str_replace('MangoPay\\', '', get_class($payOut->MeanOfPayment));
+        $className = str_replace('MangoPay\\PayOutPaymentDetails', '', get_class($payOut->MeanOfPaymentDetails));
         return strtolower($className);
     }
 }

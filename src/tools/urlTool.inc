@@ -21,23 +21,27 @@ class UrlTool {
         return $baseUrl;
     }
     
-    public function GetRestUrl($urlKey, $addClientId = true, $pagination = null) {
-        
+    public function GetRestUrl($urlKey, $addClientId = true, $pagination = null, $additionalUrlParams = null) {
+
         if (!$addClientId) {
-            
             $url = '/v2' . $urlKey;
-            return $url;
-            
         } else {
-            
             $url = '/v2/' . MangoPay_ClientID . $urlKey;
-            
-            if (!is_null($pagination)) {
-                $url .= '?page=' . $pagination->Page . '&per_page=' . $pagination->ItemsPerPage;
-            }
-            
-            return $url;
         }
+
+        $paramsAdded = false;
+        if (!is_null($pagination)) {
+            $url .= '?page=' . $pagination->Page . '&per_page=' . $pagination->ItemsPerPage;
+            $paramsAdded = true;
+        }
+
+        if (!is_null($additionalUrlParams)) {
+            $url .= $paramsAdded ? '&' : '?';
+            $url .= http_build_query($additionalUrlParams);
+            $paramsAdded = true;
+        }
+
+        return $url;
     }
     
     public function GetFullUrl($restUrl) {

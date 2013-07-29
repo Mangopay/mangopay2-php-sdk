@@ -4,34 +4,32 @@ namespace MangoPay;
 /**
  * Class represents Web type for execution option in PayIn entity
  */
-class Web {
+class PayInExecutionDetailsWeb extends Dto implements PayInExecutionDetails {
+
     /**
-     * Template URL
-     * @var string 
+     * URL format expected.
+     * @var string
      */
     public $TemplateURL;
     
     /**
-     * Show registered card
-     * @var bool 
+     * @var bool
      */
     public $ShowRegisteredCard;
     
     /**
-     * Register card
-     * @var bool 
+     * @var bool
      */
     public $RegisterCard;
     
     /**
-     * Culture
-     * @var string 
+     * @var string
      */
     public $Culture;
     
     /**
-     * Mode 3DS
-     * @var string 
+     * Mode3DSType { DEFAULT, FORCE }
+     * @var string
      */
     public $Mode3DS;
 }

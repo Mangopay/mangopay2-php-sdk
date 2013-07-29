@@ -9,7 +9,7 @@ class Transfers extends Base {
      
     function test_Transfers_Create() {
         $john = $this->getJohn();
-        $transfer = $this->getTransfer();
+        $transfer = $this->getJohnsTransfer();
         
         $this->assertTrue($transfer->Id > 0);
         $this->assertEqual($transfer->AuthorId, $john->Id);
@@ -18,7 +18,7 @@ class Transfers extends Base {
     
     function test_Transfers_Get() {
         $john = $this->getJohn();
-        $transfer = $this->getTransfer();
+        $transfer = $this->getJohnsTransfer();
         
         $getTransfer = $this->_api->Transfers->Get($transfer->Id);
         

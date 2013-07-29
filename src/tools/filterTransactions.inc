@@ -4,41 +4,43 @@ namespace MangoPay;
 /**
  * Filter for transaction list
  */
-class FilterTransactions {
+class FilterTransactions extends Dto {
     
     /**
-     * Status. Possible values: CREATED, SUCCEEDED, FAILED
+     * TransactionStatus {CREATED, SUCCEEDED, FAILED}
      * @var string  
      */
     public $Status;
     
     /**
-     * Direction. Possible values: DEBIT, CREDIT
-     * @var string 
-     */
-    public $Direction;
-    
-    /**
-     * Direction. Possible values: PAYIN, TRANSFER, PAYOUT
+     * TransactionType {PAY_IN, PAY_OUT, TRANSFER}
      * @var string 
      */
     public $Type;
     
     /**
-     * Direction. Possible values: NORMAL, REFUND, REPUDIATION
+     * TransactionNature { NORMAL, REFUND, REPUDIATION }
+     * @var string
+     */
+    public $Nature;
+    
+    /**
+     * TransactionDirection {DEBIT, CREDIT}
      * @var string 
      */
-    public $Type2;
+    public $Direction;
     
     /**
-     * Start date in unix format 
+     * Start date in unix format:
+     * return only transactions that have CreationDate BEFORE this date
      * @var time 
      */
-    public $Before;
+    public $BeforeDate;
     
     /**
-     * End date in unix format 
+     * End date in unix format:
+     * return only transactions that have CreationDate AFTER this date
      * @var time 
      */
-    public $After;
+    public $AfterDate;
 }

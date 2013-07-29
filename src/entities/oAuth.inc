@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * OAuth entity
  */
-class OAuth {
+class OAuth extends Dto {
     
     /**
      * Created time

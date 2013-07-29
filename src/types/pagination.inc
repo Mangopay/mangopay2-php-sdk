@@ -5,7 +5,7 @@ namespace MangoPay;
 /**
  * Class represents pagination information
  */
-class Pagination {
+class Pagination extends Dto {
     
     /**
      * Page number

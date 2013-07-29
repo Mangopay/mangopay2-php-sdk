@@ -4,58 +4,53 @@ namespace MangoPay;
 /**
  * Pay-in entity
  */
-class PayIn extends PayObject {
+class PayIn extends Transaction {
 
     /**
      * Credited wallet Id
      * @var int 
      */
-    public $CreditedWalletId;
+    public $CreditedWalletID;
     
     /**
-     * Type of payment
+     * PaymentType {CARD, BANK_WIRE, AUTOMATIC_DEBIT, DIRECT_DEBIT }
      * @var string  
      */
     protected $PaymentType;
     
     /**
-     * Payment object
+     * One of PayInPaymentDetails implementations, depending on $PaymentType
      * @var object 
      */
-    public $Payment;
+    public $PaymentDetails;
     
     /**
-     * Type of execution
+     * ExecutionType { WEB, TOKEN, DIRECT, PREAUTHORIZED, RECURRING_ORDER_EXECUTION }
      * @var string  
      */
     protected $ExecutionType;
     
     /**
-     * Execution object
+     * One of PayInExecutionDetails implementations, depending on $ExecutionType
      * @var object 
      */
-    public $Execution;
+    public $ExecutionDetails;
     
     /**
      * Get array with mapping which property depends on other property  
      * @return array
      */
-    protected function GetDependsObjects() {
+    public function GetDependsObjects() {
         return array(
             'PaymentType' => array(
-                '_property_name' => 'Payment',
-                'CARD' => '\MangoPay\Card',
-                'REGISTERED_CARD' => '\MangoPay\RegisteredCard',
-                'BANK_WIRE' => '\MangoPay\BankWirePayIn',
-                // 'DIRECT_DEBIT' => '\MangoPay\',
-                'DIRECT_CREDIT' => '\MangoPay\DirectCredit'
+                '_property_name' => 'PaymentDetails',
+                'CARD' => '\MangoPay\PayInPaymentDetailsCard',
+                // ...and more in future...
             ),
             'ExecutionType' => array(
-                '_property_name' => 'Execution',
-                'WEB' => '\MangoPay\Web',
-                'DIRECT' => '\MangoPay\Direct',
-                'PREAUTHORIZED' => '\MangoPay\Preauthorized',
-                'RECURRING_ORDER_EXECUTION' => '\MangoPay\RecurrentExecution'
+                '_property_name' => 'ExecutionDetails',
+                'WEB' => '\MangoPay\PayInExecutionDetailsWeb',
+                // ...and more in future...
             )
         );
     }

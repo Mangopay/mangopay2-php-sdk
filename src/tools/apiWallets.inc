@@ -32,17 +32,7 @@ class ApiWallets extends ApiBase {
     public function Save($wallet) {
         return $this->SaveObject('wallets_save', $wallet, '\MangoPay\Wallet');
     }
-    
-    /**
-     * Get recurring pay-in orders for the wallet
-     * @param type $walletId Wallet identifier
-     * @param \MangoPay\Pagination $pagination Pagination object
-     * @return array Array with \MangoPay\RecurringPayInOrder objects returned from API
-     */
-    public function RecurringPayInOrders($walletId, & $pagination = null) {
-        return $this->GetList('wallets_allrecurringpayinorders', $pagination, '\MangoPay\RecurringPayInOrder', $walletId);
-    }
-    
+
     /**
      * Get transactions for the wallet
      * @param type $walletId Wallet identifier

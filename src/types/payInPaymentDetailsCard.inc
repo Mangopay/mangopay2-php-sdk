@@ -4,22 +4,23 @@ namespace MangoPay;
 /**
  * Class represents Card type for mean of payment in PayIn entity
  */
-class Card {
+class PayInPaymentDetailsCard extends Dto implements PayInPaymentDetails {
+
     /**
-     * Type of card
+     * CardType { CB_VISA_MASTERCARD, AMEX }
      * @var string 
      */
     public $CardType;
     
     /**
-     * Redirect URL
+     * URL format expected
      * @var string
      */
     protected $RedirectURL;
     
     /**
-     * Return URL
-     * @var string 
+     * URL format expected
+     * @var string
      */
     public $ReturnURL;
 }

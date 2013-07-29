@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * PayOut entity
  */
-class PayOut extends PayObject {
+class PayOut extends Transaction {
     
     /**
      * Debited wallet Id
@@ -13,29 +13,28 @@ class PayOut extends PayObject {
     public $DebitedWalletId;
     
     /**
-     * Type of payment
+     * MeanOfPaymentType (BANK_WIRE, MERCHANT_EXPENSE, AMAZON_GIFTCARD)
      * @var string  
      */
     protected $MeanOfPaymentType;
     
     /**
-     * Payment object
+     * One of PayOutPaymentDetails implementations, depending on $MeanOfPaymentType
      * @var object 
      */
-    public $MeanOfPayment;
+    public $MeanOfPaymentDetails;
     
     
     /**
      * Get array with mapping which property depends on other property  
      * @return array
      */
-    protected function GetDependsObjects() {
+    public function GetDependsObjects() {
         return array(
             'MeanOfPaymentType' => array(
-                '_property_name' => 'MeanOfPayment',
-                'BANK_WIRE' => '\MangoPay\BankWirePayOut',
-                'MERCHANT_EXPENSE' => '\MangoPay\MerchantExpense',
-                'AMAZON_GIFTCARD' => '\MangoPay\AmazonGiftCard'
+                '_property_name' => 'MeanOfPaymentDetails',
+                'BANK_WIRE' => '\MangoPay\PayOutPaymentDetailsBankWire',
+                // ...and more in future...
             )
         );
     }

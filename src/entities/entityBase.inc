@@ -5,7 +5,7 @@ namespace MangoPay;
 /**
  * Abstract class with common properties
  */
-abstract class EntityBase {
+abstract class EntityBase extends Dto {
     
     /**
      * @var Int Unique identifier
@@ -29,27 +29,5 @@ abstract class EntityBase {
      */
     function __construct($id = null) {
         $this->Id = $id;
-    }
-    
-    /**
-     * Magic function to set all properties as public for getting value
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name) {
-        if (property_exists($this, $name))
-            return $this->$name;
-        
-        throw new Exception('Property ' . $name . ' in class ' . get_class($this) . ' not exist');
-    }
-    
-    /**
-     * Magic function to throw exception if try set not public property
-     * @param string $name
-     * @param string $value
-     * @throws MagicPay\Exception If try set not public property
-     */
-    public function __set($name, $value) {
-        throw new Exception('Property ' . $name . ' not exist or it is read-only');
     }
 }

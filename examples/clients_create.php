@@ -7,7 +7,9 @@ try {
     $api = new MangoPay\MangoPayApi();
     
     // CREATE CLIENT: POST /api/clients/
-    $client = $api->Clients->Create('testclientid', 'Test Client Name');
+    // your Client ID; simulated here to be unique; must be lowercase alphanum 4-20 chars
+    $testUniqueClientId = substr(md5(microtime()), 0, 20);
+    $client = $api->Clients->Create($testUniqueClientId, 'Test Client Name');
     
     // display result on screen
     MangoPay\Logs::Debug('CREATED CLIENT', $client);

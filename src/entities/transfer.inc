@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * Transfer entity
  */
-class Transfer extends PayObject {
+class Transfer extends Transaction {
     
     /**
      * Debited wallet Id
@@ -17,16 +17,4 @@ class Transfer extends PayObject {
      * @var int  
      */
     public $CreditedWalletID;
-    
-    /**
-     * @todo UNDOCUMENTED
-     * @var string
-     */
-    public $Type;
-
-    /**
-     * @todo UNDOCUMENTED
-     * @var string
-     */
-    public $Nature;
 }
