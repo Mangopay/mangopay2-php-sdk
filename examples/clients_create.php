@@ -1,6 +1,6 @@
 <?php
 // require include only one file
-require_once '../src/mangoPayApi.inc';
+require_once '../MangoPaySDK/mangoPayApi.inc';
 
 try {
     // create object to manage MangoPay API

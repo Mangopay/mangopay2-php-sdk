@@ -31,12 +31,6 @@ class UserNatural extends User {
     public $Birthday;
     
      /**
-     * Place of birth
-     * @var String 
-     */
-    public $Birthplace;
-    
-     /**
      * User's country
      * @var String 
      */

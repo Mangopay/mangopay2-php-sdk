@@ -28,7 +28,7 @@ class Wallet extends EntityBase {
      * Currency code in ISO
      * @var string
      */
-    public $CurrencyDto;
+    public $Currency;
     
     /**
      * Get array with mapping which property is object and what type of object 

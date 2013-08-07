@@ -15,7 +15,7 @@ class PayOuts extends Base {
             $this->fail('Should throw ResponseException');
 
             $this->assertTrue($payOut->Id > 0);
-            $this->assertIdentical($payOut->MeanOfPaymentType, 'BANK_WIRE');
+            $this->assertIdentical($payOut->PaymentType, 'BANK_WIRE');
             $this->assertIsA($payOut->MeanOfPaymentDetails, '\MangoPay\PayOutPaymentDetailsBankWire');
         }
         catch (\MangoPay\ResponseException $ex) {
@@ -34,7 +34,7 @@ class PayOuts extends Base {
 //        $getPayOut = $this->_api->PayOuts->Get($payOut->Id);
 //        
 //        $this->assertIdentical($payOut->Id, $getPayOut->Id);
-//        $this->assertIdentical($payOut->MeanOfPaymentType, 'BANK_WIRE');
+//        $this->assertIdentical($payOut->PaymentType, 'BANK_WIRE');
 //        $this->assertIsA($payOut->MeanOfPaymentDetails, '\MangoPay\PayOutPaymentDetailsBankWire');
 //        $this->assertIdenticalInputProps($payOut, $getPayOut);
 //    }

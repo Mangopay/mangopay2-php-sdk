@@ -2,8 +2,8 @@
 /**
  * Setting for client: client ID and client password
  */
-define('MangoPay_ClientID', '');
-define('MangoPay_ClientPassword', '');
+define('MangoPay_ClientID', 'mosaiclab');
+define('MangoPay_ClientPassword', 'FPpPoofN837Y0MxRXnKVH31kJ2dLc54oT481R55KEkjeQ6Bph4');
 
 /**
  * Base URL to MangoPay API

@@ -13,13 +13,13 @@ class FilterTransactions extends Dto {
     public $Status;
     
     /**
-     * TransactionType {PAY_IN, PAY_OUT, TRANSFER}
+     * TransactionType {PAYIN, PAYOUT, TRANSFER}
      * @var string 
      */
     public $Type;
     
     /**
-     * TransactionNature { NORMAL, REFUND, REPUDIATION }
+     * TransactionNature { REGULAR, REFUND, REPUDIATION }
      * @var string
      */
     public $Nature;

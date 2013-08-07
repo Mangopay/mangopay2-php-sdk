@@ -10,7 +10,7 @@ class PayIn extends Transaction {
      * Credited wallet Id
      * @var int 
      */
-    public $CreditedWalletID;
+    public $CreditedWalletId;
     
     /**
      * PaymentType {CARD, BANK_WIRE, AUTOMATIC_DEBIT, DIRECT_DEBIT }

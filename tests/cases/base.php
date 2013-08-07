@@ -1,7 +1,7 @@
 <?php
 namespace MangoPay\Tests;
 require_once '../simpletest/autorun.php';
-require_once '../../src/mangoPayApi.inc';
+require_once '../../MangoPaySDK/mangoPayApi.inc';
 
 /**
  * Base class for test case classes
@@ -73,7 +73,6 @@ abstract class Base extends \UnitTestCase {
             $user->Email = "john.doe@sample.org";
             $user->Address = "Some Address";
             $user->Birthday = mktime(0,0,0, 12, 21, 1975);
-            $user->Birthplace = "Paris";
             $user->Nationality = "FR";
             $user->CountryOfResidence = "FR";
             $user->Occupation = "programmer";
@@ -96,7 +95,7 @@ abstract class Base extends \UnitTestCase {
             $user->HeadquartersAddress = "Some Address";
             $user->LegalRepresentativeFirstName = $john->FirstName;
             $user->LegalRepresentativeLastName = $john->LastName;
-            $user->LegalRepresentativeAdress = $john->Address;
+            $user->LegalRepresentativeAddress = $john->Address;
             $user->LegalRepresentativeEmail = $john->Email;
             $user->LegalRepresentativeBirthday = $john->Birthday;
             $user->LegalRepresentativeNationality = $john->Nationality;
@@ -134,7 +133,7 @@ abstract class Base extends \UnitTestCase {
             
             $wallet = new \MangoPay\Wallet();
             $wallet->Owners = array($john->Id);
-            $wallet->CurrencyDto = 'EUR';
+            $wallet->Currency = 'EUR';
             $wallet->Description = 'WALLET IN EUR';
             
             self::$JohnsWallet = $this->_api->Wallets->Create($wallet);
@@ -163,9 +162,7 @@ abstract class Base extends \UnitTestCase {
         if (self::$PayInExecutionDetailsWeb === null) {
             self::$PayInExecutionDetailsWeb = new \MangoPay\PayInExecutionDetailsWeb();
             self::$PayInExecutionDetailsWeb->TemplateURL = 'https://TemplateURL.com';
-            self::$PayInExecutionDetailsWeb->ShowRegisteredCard = false;
-            self::$PayInExecutionDetailsWeb->RegisterCard = false;
-            self::$PayInExecutionDetailsWeb->Mode3DS = 'DEFAULT';
+            self::$PayInExecutionDetailsWeb->SecureMode = 'DEFAULT';
             self::$PayInExecutionDetailsWeb->Culture = 'fr';
         }
         
@@ -190,7 +187,7 @@ abstract class Base extends \UnitTestCase {
             $payIn->Fees = new \MangoPay\Money();
             $payIn->Fees->Currency = 'EUR';
             $payIn->Fees->Amount = 5;
-            $payIn->CreditedWalletID = $wallet->Id;
+            $payIn->CreditedWalletId = $wallet->Id;
             $payIn->PaymentDetails = $this->getPayInPaymentDetailsCard();
             $payIn->ExecutionDetails = $this->getPayInExecutionDetailsWeb();
             
@@ -223,7 +220,7 @@ abstract class Base extends \UnitTestCase {
             
             $payOut->DebitedWalletId = $wallet->Id;
             $payOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
-            $payOut->MeanOfPaymentDetails->BankDetailsId = $account->Id;
+            $payOut->MeanOfPaymentDetails->BankAccountId = $account->Id;
             $payOut->MeanOfPaymentDetails->Communication = 'Communication text';
 
             self::$JohnsPayOutBankWire = $this->_api->PayOuts->Create($payOut);
@@ -252,8 +249,8 @@ abstract class Base extends \UnitTestCase {
             $transfer->Fees->Currency = 'EUR';
             $transfer->Fees->Amount = 10;
 
-            $transfer->DebitedWalletID = $wallet->Id;
-            $transfer->CreditedWalletID = $wallet->Id;
+            $transfer->DebitedWalletId = $wallet->Id;
+            $transfer->CreditedWalletId = $wallet->Id;
 
             self::$JohnsTransfer = $this->_api->Transfers->Create($transfer);
         }
@@ -279,7 +276,6 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->Email, $entity2->Email);
             $this->assertIdentical($entity1->Address, $entity2->Address);
             $this->assertIdentical($entity1->Birthday, $entity2->Birthday);
-            $this->assertIdentical($entity1->Birthplace, $entity2->Birthplace);
             $this->assertIdentical($entity1->Nationality, $entity2->Nationality);
             $this->assertIdentical($entity1->CountryOfResidence, $entity2->CountryOfResidence);
             $this->assertIdentical($entity1->Occupation, $entity2->Occupation);
@@ -292,7 +288,7 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->HeadquartersAddress, $entity2->HeadquartersAddress);
             $this->assertIdentical($entity1->LegalRepresentativeFirstName, $entity2->LegalRepresentativeFirstName);
             $this->assertIdentical($entity1->LegalRepresentativeLastName, $entity2->LegalRepresentativeLastName);
-            $this->assertIdentical($entity1->LegalRepresentativeAdress, $entity2->LegalRepresentativeAdress, "***** TEMPORARY API ISSUE: RETURNED OBJECT MISSES THIS PROP AFTER CREATION *****");
+            $this->assertIdentical($entity1->LegalRepresentativeAddress, $entity2->LegalRepresentativeAddress, "***** TEMPORARY API ISSUE: RETURNED OBJECT MISSES THIS PROP AFTER CREATION *****");
             $this->assertIdentical($entity1->LegalRepresentativeEmail, $entity2->LegalRepresentativeEmail);
             $this->assertIdentical($entity1->LegalRepresentativeBirthday, $entity2->LegalRepresentativeBirthday, "***** TEMPORARY API ISSUE: RETURNED OBJECT HAS THIS PROP CHANGED FROM TIMESTAMP INTO ISO STRING AFTER CREATION *****");
             $this->assertIdentical($entity1->LegalRepresentativeNationality, $entity2->LegalRepresentativeNationality);
@@ -322,10 +318,8 @@ abstract class Base extends \UnitTestCase {
             
         } elseif (is_a($entity1, '\MangoPay\Web')) {
             $this->assertIdentical($entity1->TemplateURL, $entity2->TemplateURL);
-            $this->assertIdentical($entity1->ShowRegisteredCard, $entity2->$howRegisteredCard);
-            $this->assertIdentical($entity1->RegisterCard, $entity2->RegisterCard);
             $this->assertIdentical($entity1->Culture, $entity2->Culture);
-            $this->assertIdentical($entity1->Mode3DS, $entity2->Mode3DS);
+            $this->assertIdentical($entity1->SecureMode, $entity2->SecureMode);
             
         } elseif (is_a($entity1, '\MangoPay\PayOut')) {
             $this->assertIdentical($entity1->Tag, $entity2->Tag);
@@ -345,7 +339,7 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdenticalInputProps($entity1->Fees, $entity2->Fees);
             
         } elseif (is_a($entity1, '\MangoPay\BankWirePayOut')) {
-            $this->assertIdentical($entity1->BankDetailsId, $entity2->BankDetailsId);
+            $this->assertIdentical($entity1->BankAccountId, $entity2->BankAccountId);
             $this->assertIdentical($entity1->Communication, $entity2->Communication);
             
         } elseif (is_a($entity1, '\MangoPay\Transaction')) {

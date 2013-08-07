@@ -13,7 +13,7 @@ class UserLegal extends User {
     public $Name;
     
     /**
-     * Type for legal user. Possible: ‘BUSINESS’, ’ASSOCIATION’
+     * Type for legal user. Possible: ‘BUSINESS’, ’ORGANIZATION’
      * @var String 
      */
     public $LegalPersonType;
@@ -40,7 +40,7 @@ class UserLegal extends User {
      * 
      * @var String 
      */
-    public $LegalRepresentativeAdress;
+    public $LegalRepresentativeAddress;
     
     /**
      * 

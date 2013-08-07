@@ -13,16 +13,6 @@ class PayInExecutionDetailsWeb extends Dto implements PayInExecutionDetails {
     public $TemplateURL;
     
     /**
-     * @var bool
-     */
-    public $ShowRegisteredCard;
-    
-    /**
-     * @var bool
-     */
-    public $RegisterCard;
-    
-    /**
      * @var string
      */
     public $Culture;
@@ -31,5 +21,5 @@ class PayInExecutionDetailsWeb extends Dto implements PayInExecutionDetails {
      * Mode3DSType { DEFAULT, FORCE }
      * @var string
      */
-    public $Mode3DS;
+    public $SecureMode;
 }

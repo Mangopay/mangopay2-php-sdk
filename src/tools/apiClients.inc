@@ -17,7 +17,7 @@ class ApiClients extends ApiBase {
         $urlMethod = $this->GetRequestUrl('authentication_base');
         $requestType = $this->GetRequestType('authentication_base');
         $requestData = array(
-            'ClientID' => $clientId,
+            'ClientId' => $clientId,
             'Name' => $clientName
         );
         

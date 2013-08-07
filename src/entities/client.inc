@@ -10,7 +10,7 @@ class Client extends EntityBase {
      * Client identifier
      * @var String 
      */
-    public $ClientID;
+    public $ClientId;
     
     /**
      * Name of client

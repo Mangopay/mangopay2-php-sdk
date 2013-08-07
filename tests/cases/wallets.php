@@ -42,7 +42,7 @@ class Wallets extends Base {
 
         $pagination = new \MangoPay\Pagination(1, 1);
         $filter = new \MangoPay\FilterTransactions();
-        $filter->Type = 'PAY_IN';
+        $filter->Type = 'PAYIN';
         $transactions = $this->_api->Wallets->Transactions($wallet->Id, $pagination, $filter);
 
         $this->assertEqual(count($transactions), 1);

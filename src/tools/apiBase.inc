@@ -49,10 +49,10 @@ abstract class ApiBase {
         'payins_registeredcard-preauthorized_create' => array( '/payins/registered-card/preauthorized/', RequestType::POST ),
         'payins_registeredcard-recurrentexecution_create' => array( '/payins/registered-card/recurrent-pay-in-execution/', RequestType::POST ),
         
-        'payins_bankwirepayin-web_create' => array( '/payins/bank-wire/web/', RequestType::POST ),
-        'payins_bankwirepayin-direct_create' => array( '/payins/bank-wire/direct/', RequestType::POST ),
-        'payins_bankwirepayin-preauthorized_create' => array( '/payins/bank-wire/preauthorized/', RequestType::POST ),
-        'payins_bankwirepayin-recurrentexecution_create' => array( '/payins/bank-wire/recurrent-pay-in-execution/', RequestType::POST ),
+        'payins_bankwirepayin-web_create' => array( '/payins/bankwire/web/', RequestType::POST ),
+        'payins_bankwirepayin-direct_create' => array( '/payins/bankwire/direct/', RequestType::POST ),
+        'payins_bankwirepayin-preauthorized_create' => array( '/payins/bankwire/preauthorized/', RequestType::POST ),
+        'payins_bankwirepayin-recurrentexecution_create' => array( '/payins/bankwire/recurrent-pay-in-execution/', RequestType::POST ),
         
         'payins_directcredit-web_create' => array( '/payins/direct-credit/web/', RequestType::POST ),
         'payins_directcredit-direct_create' => array( '/payins/direct-credit/direct/', RequestType::POST ),
@@ -62,7 +62,7 @@ abstract class ApiBase {
         'payins_getrefunds' => array( '/payins/%s/refunds', RequestType::GET ),
         'payins_createrefunds' => array( '/payins/%s/refunds', RequestType::POST ),
         
-        'payouts_bankwire_create' => array( '/payouts/bank-wire/', RequestType::POST ),
+        'payouts_bankwire_create' => array( '/payouts/bankwire/', RequestType::POST ),
         'payouts_merchantexpense_create' => array( '/payouts/merchant-expense/', RequestType::POST ),
         'payouts_amazongiftcard_create' => array( '/payouts/amazon-giftcard/', RequestType::POST ),
         'payouts_get' => array( '/payouts/%s', RequestType::GET ),
@@ -82,28 +82,28 @@ abstract class ApiBase {
         'transfers_getrefunds' => array( '/transfers/%s/refunds', RequestType::GET ),
         'transfers_createrefunds' => array( '/transfers/%s/refunds', RequestType::POST ),
         
-        'users_createnaturals' => array( '/users/naturals', RequestType::POST ),
-        'users_createlegals' => array( '/users/legals', RequestType::POST ),
+        'users_createnaturals' => array( '/users/natural', RequestType::POST ),
+        'users_createlegals' => array( '/users/legal', RequestType::POST ),
         'users_createkycrequest' => array( '/users/%s/KYC/requests', RequestType::POST ),
-        'users_createbankaccounts' => array( '/users/%s/bank-details', RequestType::POST ),
+        'users_createbankaccounts' => array( '/users/%s/bankaccounts', RequestType::POST ),
         'users_all' => array( '/users', RequestType::GET ),
         'users_allkyc' => array( '/users/%s/KYC', RequestType::GET ),
         'users_allkycrequests' => array( '/users/%s/KYC/requests', RequestType::GET ),
         'users_allwallets' => array( '/users/%s/wallets', RequestType::GET ),
-        'users_allbankaccount' => array( '/users/%s/bank-details', RequestType::GET ),
+        'users_allbankaccount' => array( '/users/%s/bankaccounts', RequestType::GET ),
         'users_allpaymentcards' => array( '/users/%s/payment-cards', RequestType::GET ),
         'users_get' => array( '/users/%s', RequestType::GET ),
-        'users_getnaturals' => array( '/users/naturals/%s', RequestType::GET ),
-        'users_getlegals' => array( '/users/legals/%s', RequestType::GET ),
+        'users_getnaturals' => array( '/users/natural/%s', RequestType::GET ),
+        'users_getlegals' => array( '/users/legal/%s', RequestType::GET ),
         'users_getkycrequest' => array( '/users/%s/KYC/requests/%s', RequestType::GET ),
         'users_getproofofidentity' => array( '/users/%s/ProofOfIdentity', RequestType::GET ),
         'users_getproofofaddress' => array( '/users/%s/ProofOfAddress', RequestType::GET ),
         'users_getproofofregistration' => array( '/users/%s/ProofOfRegistration', RequestType::GET ),
         'users_getshareholderdeclaration' => array( '/users/%s/ShareholderDeclaration', RequestType::GET ),
-        'users_getbankaccount' => array( '/users/%s/bank-details/%s', RequestType::GET ),
+        'users_getbankaccount' => array( '/users/%s/bankaccounts/%s', RequestType::GET ),
         'users_getpaymentcard' => array( '/users/%s/payment-cards/%s', RequestType::GET ),
-        'users_savenaturals' => array( '/users/naturals/%s', RequestType::PUT ),
-        'users_savelegals' => array( '/users/legals/%s', RequestType::PUT ),
+        'users_savenaturals' => array( '/users/natural/%s', RequestType::PUT ),
+        'users_savelegals' => array( '/users/legal/%s', RequestType::PUT ),
         
         'wallets_create' => array( '/wallets', RequestType::POST ),
         'wallets_allrecurringpayinorders' => array( '/wallets/%s/recurring-pay-in-orders', RequestType::GET ),
@@ -305,7 +305,12 @@ abstract class ApiBase {
                 if ($asDependentObject || !empty($dependsObjects)) {
                     continue;
                 }
-                else throw new Exception('Cannot cast response to entity object. Missing property ' . $name .' in entity ' . $entityClassName);
+                else {
+					/* UNCOMMENT THE LINE BELOW TO ENABLE RESTRICTIVE REFLECTION MODE */
+					//throw new Exception('Cannot cast response to entity object. Missing property ' . $name .' in entity ' . $entityClassName);
+					
+					continue;
+				}
             }
         }
         

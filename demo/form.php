@@ -1,6 +1,6 @@
 <?php
 namespace MangoPay\Demo;
-require_once '../src/mangoPayApi.inc';
+require_once '../MangoPaySDK/mangoPayApi.inc';
 require_once 'htmlHelper.php';
 
 $module = @$_GET['module'];

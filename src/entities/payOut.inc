@@ -13,13 +13,13 @@ class PayOut extends Transaction {
     public $DebitedWalletId;
     
     /**
-     * MeanOfPaymentType (BANK_WIRE, MERCHANT_EXPENSE, AMAZON_GIFTCARD)
+     * PaymentType (BANK_WIRE, MERCHANT_EXPENSE, AMAZON_GIFTCARD)
      * @var string  
      */
-    protected $MeanOfPaymentType;
+    protected $PaymentType;
     
     /**
-     * One of PayOutPaymentDetails implementations, depending on $MeanOfPaymentType
+     * One of PayOutPaymentDetails implementations, depending on $PaymentType
      * @var object 
      */
     public $MeanOfPaymentDetails;
@@ -31,7 +31,7 @@ class PayOut extends Transaction {
      */
     public function GetDependsObjects() {
         return array(
-            'MeanOfPaymentType' => array(
+            'PaymentType' => array(
                 '_property_name' => 'MeanOfPaymentDetails',
                 'BANK_WIRE' => '\MangoPay\PayOutPaymentDetailsBankWire',
                 // ...and more in future...
