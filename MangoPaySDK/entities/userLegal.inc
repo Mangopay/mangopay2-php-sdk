@@ -50,7 +50,7 @@ class UserLegal extends User {
     
     /**
      * 
-     * @var Date 
+     * @var Unix timestamp 
      */
     public $LegalRepresentativeBirthday;
     

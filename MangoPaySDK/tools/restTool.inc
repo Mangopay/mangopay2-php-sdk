@@ -66,9 +66,19 @@ class RestTool {
      * @param string $token Token value for OAuth authentication
      * @param string $tokenType Token type for OAuth authentication
      */
-    function __construct($authRequired = true, $oauth = null) {
+    function __construct($authRequired = true, &$oauth = null) {
         $this->_authRequired = $authRequired;
-        $this->_oauth = $oauth;
+		if (!is_null($oauth)) {
+			$this->_oauth = &$oauth;
+		}
+		
+		//var_dump($this->_oauth);
+		
+		if ($authRequired === true && (is_null($this->_oauth) || $this->_oauth->IsExpire())) {
+            $this->_oauth = (new ApiOAuth())->Token();
+		}
+		
+		//var_dump($this->_oauth);
     }
     
     public function AddRequestHttpHeader($httpHeader) {
@@ -230,9 +240,14 @@ class RestTool {
      * @return array Array with HTTP headers 
      */
     private function GetHttpHeaders($restUrl){
-        
-        if (!is_null($this->_requestHttpHeaders))
-            return $this->_requestHttpHeaders;
+		
+		if (!is_null($this->_oauth) && $this->_oauth->IsExpire()) {
+			$this->_oauth = (new ApiOAuth())->Token();
+			$this->_requestHttpHeaders = null;
+		}
+		
+		if (!is_null($this->_requestHttpHeaders))
+			return $this->_requestHttpHeaders;
         
         $httpHeaders = array();
         

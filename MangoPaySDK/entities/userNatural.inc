@@ -26,7 +26,7 @@ class UserNatural extends User {
     
      /**
      * Date of birth
-     * @var Date 
+     * @var Unix timestamp 
      */
     public $Birthday;
     

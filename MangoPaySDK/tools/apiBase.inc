@@ -10,7 +10,9 @@ abstract class ApiBase {
      * OAuth object
      * @var MangoPay\OAuth 
      */
-    protected $_oauth;
+    public static $_oAuth;
+	
+	public static $Config;
     
     /**
      * Array with REST url and request type
@@ -111,14 +113,6 @@ abstract class ApiBase {
         'wallets_get' => array( '/wallets/%s', RequestType::GET ),
         'wallets_save' => array( '/wallets/%s', RequestType::PUT ),
     );
-    
-    /**
-     * Constructor
-     * @param OAuth $oauth OAuth object with data to authentication
-     */
-    function __construct($oauth = null) {
-        $this->_oauth = $oauth;
-    }
     
     /**
      * Get URL for REST Mango Pay API
@@ -240,7 +234,7 @@ abstract class ApiBase {
      * @return \MangoPay\RestTool RestTool object
      */
     protected function GetRestToolObject($authRequired = true) {
-        return new RestTool($authRequired, $this->_oauth);
+        return new RestTool($authRequired, self::$_oAuth);
     }
     
     /**

@@ -17,7 +17,7 @@ class MangoPayApi extends ApiBase {
      * OAuth methods
      * @var ApiAuth
      */
-    public $OAuth;
+    public $OAuthManager;
     
     /**
      * Users methods
@@ -48,49 +48,31 @@ class MangoPayApi extends ApiBase {
      * @var ApiPayOuts 
      */
     public $PayOuts;
-
-    /**
-     * oAuth object with data to authentication with strong type
-     * @var oAuth 
-     */
-    private static $_oAuth;
     
     /**
      * Constructor
-     * @param OAuth $oauth OAuth object with data to authentication
      */
     function __construct($oauth = null) {
+	
+		self::$Config = new Configuration();
+		
+		if (defined('MangoPay_ClientId')) {
+			self::$Config->ClientId = MangoPay_ClientId;
+		}
+		if (defined('MangoPay_ClientPassword')) {
+			self::$Config->ClientPassword = MangoPay_ClientPassword;
+		}
+		if (defined('MangoPay_BaseUrl')) {
+			self::$Config->BaseUrl = MangoPay_BaseUrl;
+		}
         
-        $this->OAuth = new ApiOAuth();
-        $oauth = $this->GetAuthenticationData($oauth);
-        parent::__construct($oauth);
+        $this->OAuthManager = new ApiOAuth();
         
         $this->Clients = new ApiClients();
-        $this->Users = new ApiUsers($oauth);
-        $this->Wallets = new ApiWallets($oauth);
-        $this->Transfers = new ApiTransfers($oauth);
-        $this->PayIns = new ApiPayIns($oauth);
-        $this->PayOuts = new ApiPayOuts($oauth);
-    }
-
-    /**
-     * Get authentication data
-     * @param MangoPay\oAuth $oauth
-     * @return MangoPay\oAuth oAuth object or null if not strong authentication
-     */
-    private function GetAuthenticationData($oauth) {
-
-        if (!is_null($oauth)) {
-            return $oauth;  
-        } elseif (MangoPay_AuthenticationType == AuthenticationType::Strong) {
-            
-            if (is_null(self::$_oAuth) || self::$_oAuth->IsExpire()) {
-                self::$_oAuth = $this->OAuth->Token();
-            }
-            
-            return self::$_oAuth;
-        }
-        
-        return null;
+        $this->Users = new ApiUsers();
+        $this->Wallets = new ApiWallets();
+        $this->Transfers = new ApiTransfers();
+        $this->PayIns = new ApiPayIns();
+        $this->PayOuts = new ApiPayOuts();
     }
 }

@@ -11,10 +11,10 @@ class UrlTool {
     
     private function GetHost(){
         
-        if (!defined('MangoPay_BaseUrl'))
-            throw new Exception ('Constant MangoPay_BaseUrl is not defined');
+        if (is_null(ApiBase::$Config->BaseUrl) || strlen(ApiBase::$Config->BaseUrl) == 0)
+            throw new Exception ('Neither MangoPay_BaseUrl constant nor BaseUrl setting is defined.');
         
-        $baseUrl = MangoPay_BaseUrl;
+        $baseUrl = ApiBase::$Config->BaseUrl;
         if (strpos($baseUrl, '/', strlen($baseUrl) - 1 ))
              $baseUrl = substr ($baseUrl, 0, strlen($baseUrl) - 1);  
         
@@ -26,7 +26,7 @@ class UrlTool {
         if (!$addClientId) {
             $url = '/v2' . $urlKey;
         } else {
-            $url = '/v2/' . MangoPay_ClientID . $urlKey;
+            $url = '/v2/' . ApiBase::$Config->ClientId . $urlKey;
         }
 
         $paramsAdded = false;

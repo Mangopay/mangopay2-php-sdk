@@ -20,8 +20,8 @@ class ApiOAuth extends ApiBase {
         
         $rest = $this->GetRestToolObject(false);
         
-        $urlDetails = parse_url(MangoPay_BaseUrl);
-        $rest->AddRequestHttpHeader('Host: ' . $urlDetails['host']);
+        $urlDetails = parse_url(self::$Config->BaseUrl);
+        $rest->AddRequestHttpHeader('Host: ' . @$urlDetails['host']);
         $rest->AddRequestHttpHeader('Authorization: Basic ' . Authentication::GetHttpHeaderBasicKey());
         $rest->AddRequestHttpHeader('Content-Type: application/x-www-form-urlencoded');
         $response = $rest->Request($urlMethod, $requestType, $requestData);

@@ -15,10 +15,7 @@ class Authentication {
      */
     function __construct() {
         
-        if (!defined('MangoPay_AuthenticationType'))
-            throw new Exception ('Constant MangoPay_AuthenticationType is not defined');
-        
-        switch (MangoPay_AuthenticationType) {
+        switch (ApiBase::$Config->AuthenticationType) {
             case "Basic":
                 $this->_authenticationType = AuthenticationType::Basic;
                 break;
@@ -27,7 +24,7 @@ class Authentication {
                 break;
             default:
                 // Error - wrong value for MangoPay_AuthenticationType constant
-                $errorMsg = 'Wrong value for constant MangoPay_AuthenticationType. ';
+                $errorMsg = 'Wrong value for AuthenticationType. ';
                 $errorMsg .= 'Possible values: Basic or Strong';
                 throw new Exception ($errorMsg);
         }
@@ -52,16 +49,16 @@ class Authentication {
     /**
      * Get basic key for HTTP header
      * @return string
-     * @throws Exception If MangoPay_ClientID or MangoPay_ClientPassword is not defined
+     * @throws Exception If MangoPay_ClientId or MangoPay_ClientPassword is not defined
      */
     public static function GetHttpHeaderBasicKey() {
-        if (!defined('MangoPay_ClientID') || strlen(MangoPay_ClientID) == 0)
-            throw new Exception ('Constant MangoPay_ClientID is not defined. Set this constant in common/config.inc file');
+        if (is_null(ApiBase::$Config->ClientId) || strlen(ApiBase::$Config->ClientId) == 0)
+            throw new Exception ('Neither MangoPay_ClientId constant nor ClientId setting is defined.');
         
-        if (!defined('MangoPay_ClientPassword') || strlen(MangoPay_ClientPassword) == 0)
-            throw new Exception ('Constant MangoPay_ClientPassword is not defined. Set this constant in common/config.inc file');
+        if (is_null(ApiBase::$Config->ClientPassword) || strlen(ApiBase::$Config->ClientPassword) == 0)
+            throw new Exception ('Neither MangoPay_ClientPassword constant nor ClientPassword setting is defined.');
         
-        $signature = MangoPay_ClientID . ':' . MangoPay_ClientPassword;
+        $signature = ApiBase::$Config->ClientId . ':' . ApiBase::$Config->ClientPassword;
         return base64_encode($signature);
     }
     
