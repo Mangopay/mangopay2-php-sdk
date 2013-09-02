@@ -2,7 +2,7 @@
 namespace MangoPay;
 
 /**
- * Class to manage logs in MangoPay SDK
+ * Class to manage debug logs in MangoPay SDK
  */
 class Logs {
     

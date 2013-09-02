@@ -58,19 +58,31 @@ class UserNatural extends User {
      * 
      * @var String 
      */
-    protected $ProofOfIdentity;
+    public $ProofOfIdentity;
     
     /**
      * 
      * @var String 
      */
-    protected $ProofOfAddress;
+    public $ProofOfAddress;
     
     /**
      * Construct
      */
     function __construct($id = null) {
         parent::__construct($id);
-        $this->setPersonType(PersonType::Natural);
+        $this->SetPersonType(PersonType::Natural);
+    }
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        $properties = parent::GetReadOnlyProperties();
+        array_push( $properties, 'ProofOfIdentity' );
+        array_push( $properties, 'ProofOfAddress' );
+        
+        return $properties;
     }
 }

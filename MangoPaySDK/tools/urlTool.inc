@@ -2,19 +2,27 @@
 namespace MangoPay;
 
 class UrlTool {
-    
-    public $timestamp;
-    
-    function __construct() {
-        $this->timestamp = time();
-    }    
+
+    /**
+     * Root/parent instance that holds the OAuthToken and Configuration instance
+     * @var \MangoPay\MangoPayApi
+     */
+    private $_root;
+
+    /**
+     * Constructor
+     * @param \MangoPay\MangoPayApi Root/parent instance that holds the OAuthToken and Configuration instance
+     */
+    function __construct($root) {
+        $this->_root = $root;
+    }
     
     private function GetHost(){
         
-        if (is_null(ApiBase::$Config->BaseUrl) || strlen(ApiBase::$Config->BaseUrl) == 0)
-            throw new Exception ('Neither MangoPay_BaseUrl constant nor BaseUrl setting is defined.');
+        if (is_null($this->_root->Config->BaseUrl) || strlen($this->_root->Config->BaseUrl) == 0)
+            throw new Exception ('Neither MangoPay_BaseUrl constant nor BaseUrl config setting is defined.');
         
-        $baseUrl = ApiBase::$Config->BaseUrl;
+        $baseUrl = $this->_root->Config->BaseUrl;
         if (strpos($baseUrl, '/', strlen($baseUrl) - 1 ))
              $baseUrl = substr ($baseUrl, 0, strlen($baseUrl) - 1);  
         
@@ -26,7 +34,7 @@ class UrlTool {
         if (!$addClientId) {
             $url = '/v2' . $urlKey;
         } else {
-            $url = '/v2/' . ApiBase::$Config->ClientId . $urlKey;
+            $url = '/v2/' . $this->_root->Config->ClientId . $urlKey;
         }
 
         $paramsAdded = false;

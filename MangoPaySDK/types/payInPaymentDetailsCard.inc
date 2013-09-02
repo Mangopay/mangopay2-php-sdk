@@ -16,11 +16,22 @@ class PayInPaymentDetailsCard extends Dto implements PayInPaymentDetails {
      * URL format expected
      * @var string
      */
-    protected $RedirectURL;
+    public $RedirectURL;
     
     /**
      * URL format expected
      * @var string
      */
     public $ReturnURL;
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        $properties = parent::GetReadOnlyProperties();
+        array_push( $properties, 'RedirectURL' );
+        
+        return $properties;
+    }
 }

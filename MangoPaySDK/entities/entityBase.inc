@@ -11,7 +11,7 @@ abstract class EntityBase extends Dto {
      * @var Int Unique identifier
      * (At this moment type is Integer - in the feature will be GUID)
      */
-    protected $Id;
+    public $Id;
     
     /**
      * @var String Custom data
@@ -21,7 +21,7 @@ abstract class EntityBase extends Dto {
     /**
      * @var Time Date of creation
      */
-    protected $CreationDate;
+    public $CreationDate;
     
     /**
      * Construct
@@ -29,5 +29,13 @@ abstract class EntityBase extends Dto {
      */
     function __construct($id = null) {
         $this->Id = $id;
+    }
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        return array( 'Id', 'CreationDate' );
     }
 }

@@ -10,7 +10,7 @@ class BankAccount extends EntityBase {
      * User identifier
      * @var LeetchiId 
      */
-    protected $UserId;
+    public $UserId;
     
     /**
      * Type of bank account
@@ -41,4 +41,15 @@ class BankAccount extends EntityBase {
      * @var string 
      */
     public $BIC;
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        $properties = parent::GetReadOnlyProperties();
+        array_push( $properties, 'UserId' );
+        
+        return $properties;
+    }
 }

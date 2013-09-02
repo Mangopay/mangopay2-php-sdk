@@ -16,7 +16,7 @@ class PayOut extends Transaction {
      * PaymentType (BANK_WIRE, MERCHANT_EXPENSE, AMAZON_GIFTCARD)
      * @var string  
      */
-    protected $PaymentType;
+    public $PaymentType;
     
     /**
      * One of PayOutPaymentDetails implementations, depending on $PaymentType
@@ -37,5 +37,16 @@ class PayOut extends Transaction {
                 // ...and more in future...
             )
         );
+    }
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        $properties = parent::GetReadOnlyProperties();
+        array_push( $properties, 'PaymentType' );
+        
+        return $properties;
     }
 }

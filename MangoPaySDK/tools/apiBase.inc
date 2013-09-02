@@ -2,17 +2,15 @@
 namespace MangoPay;
 
 /**
- * Base class to management MangoPay API
+ * Base class for MangoPay API managers
  */
 abstract class ApiBase {
     
     /**
-     * OAuth object
-     * @var MangoPay\OAuth 
+     * Root/parent instance that holds the OAuthToken and Configuration instance
+     * @var \MangoPay\MangoPayApi
      */
-    public static $_oAuth;
-	
-	public static $Config;
+    protected $_root;
     
     /**
      * Array with REST url and request type
@@ -113,6 +111,14 @@ abstract class ApiBase {
         'wallets_get' => array( '/wallets/%s', RequestType::GET ),
         'wallets_save' => array( '/wallets/%s', RequestType::PUT ),
     );
+
+    /**
+     * Constructor
+     * @param \MangoPay\MangoPayApi Root/parent instance that holds the OAuthToken and Configuration instance
+     */
+    function __construct($root) {
+        $this->_root = $root;
+    }
     
     /**
      * Get URL for REST Mango Pay API
@@ -234,7 +240,12 @@ abstract class ApiBase {
      * @return \MangoPay\RestTool RestTool object
      */
     protected function GetRestToolObject($authRequired = true) {
-        return new RestTool($authRequired, self::$_oAuth);
+        // check/create auth token first...
+        if ($authRequired && (is_null($this->_root->OAuthToken) || $this->_root->OAuthToken->IsExpire())) {
+            $this->_root->OAuthToken = $this->_root->AuthenticationManager->CreateToken();
+        }
+
+        return new RestTool($authRequired, $this->_root);
     }
     
     /**
@@ -319,9 +330,13 @@ abstract class ApiBase {
     protected function BuildRequestData($entity) {
         
         $entityProperies = get_object_vars($entity);
+        $blackList = $entity->GetReadOnlyProperties();
         $requestData = array();
         foreach ($entityProperies as $propertyName => $propertyValue) {
             
+            if (in_array($propertyName, $blackList))
+                continue;
+        
             if ($this->CanReadSubRequestData($entity, $propertyName)) {
                 $subRequestData = $this->BuildRequestData($propertyValue);
                 foreach ($subRequestData as $key => $value) {

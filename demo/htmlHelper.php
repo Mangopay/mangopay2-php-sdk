@@ -7,7 +7,7 @@ class HtmlHelper {
         foreach ($GLOBALS['MangoPay_Demo_Menu'] as $moduleText => $subMenu) {
             $key = array_search($module, $subMenu);
             if ($key) {
-                echo '<h1>' . $key . '</h1>';
+                echo '<h2 style="margin: 0 0 20px 0;">' . $key . '</h2>';
                 return;
             }
         }
@@ -48,7 +48,7 @@ class HtmlHelper {
         
         // special cases
         switch ($module) {
-            case 'Wallet_Wallets_ListSubEntity_Transaction':
+            case 'Wallet_Wallets_ListSubEntity_GetTransaction':
                 self::renderFormRow('<i>Optional filters:</i>');
                 self::renderEntity('FilterTransactions');
                 self::renderFormRow('<i>Pagination:</i>');
@@ -66,6 +66,7 @@ class HtmlHelper {
 
         $className = '\\MangoPay\\' . $entityName;
         $entity = new $className();
+        $blackList = $entity->GetReadOnlyProperties();
         $entityObject = new \ReflectionObject($entity);
         
         $module = @$_GET['module'];
@@ -76,10 +77,10 @@ class HtmlHelper {
         $properties = $entityObject->getProperties();
         foreach ($properties as $property) {
 
-            if (!$property->isPublic())
-                continue;
-            
             $name = $property->getName();
+            
+            if (in_array($name, $blackList))
+                continue;
             
             // is sub object?
             $cls = @$subObjects[$name];

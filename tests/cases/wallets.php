@@ -29,7 +29,7 @@ class Wallets extends Base {
         $wallet = $this->getJohnsWallet();
         $wallet->Description = 'New description to test';
         
-        $saveWallet = $this->_api->Wallets->Save($wallet);
+        $saveWallet = $this->_api->Wallets->Update($wallet);
         
         $this->assertIdentical($wallet->Id, $saveWallet->Id);
         $this->assertIdentical('New description to test', $saveWallet->Description);
@@ -43,7 +43,7 @@ class Wallets extends Base {
         $pagination = new \MangoPay\Pagination(1, 1);
         $filter = new \MangoPay\FilterTransactions();
         $filter->Type = 'PAYIN';
-        $transactions = $this->_api->Wallets->Transactions($wallet->Id, $pagination, $filter);
+        $transactions = $this->_api->Wallets->GetTransactions($wallet->Id, $pagination, $filter);
 
         $this->assertEqual(count($transactions), 1);
         $this->assertIsA($transactions[0], '\MangoPay\Transaction');

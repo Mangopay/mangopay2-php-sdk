@@ -70,25 +70,38 @@ class UserLegal extends User {
      * 
      * @var String 
      */
-    protected $Statute;
+    public $Statute;
     
     /**
      * 
      * @var String 
      */
-    protected $ProofOfRegistration;
+    public $ProofOfRegistration;
     
     /**
      * 
      * @var String 
      */
-    protected $ShareholderDeclaration;
+    public $ShareholderDeclaration;
     
     /**
      * Construct
      */
     function __construct($id = null) {
         parent::__construct($id);
-        $this->setPersonType(PersonType::Legal);
+        $this->SetPersonType(PersonType::Legal);
+    }
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        $properties = parent::GetReadOnlyProperties();
+        array_push( $properties, 'Statute' );
+        array_push( $properties, 'ProofOfRegistration' );
+        array_push( $properties, 'ShareholderDeclaration' );
+        
+        return $properties;
     }
 }

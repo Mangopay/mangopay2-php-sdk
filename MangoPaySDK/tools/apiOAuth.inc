@@ -2,16 +2,15 @@
 namespace MangoPay;
 
 /**
- * Class to management MangoPay API for users
+ * Authentication manager
  */
 class ApiOAuth extends ApiBase {
     
     /**
      * Get token information to OAuth Authentication
-     * @return \MangoPay\OAuth OAuth object with token information
+     * @return \MangoPay\OAuthToken OAuthToken object with token information
      */
-    public function Token() {
-        
+    public function CreateToken() {
         $urlMethod = $this->GetRequestUrl('authentication_oauth');
         $requestType = $this->GetRequestType('authentication_oauth');
         $requestData = array(
@@ -19,12 +18,13 @@ class ApiOAuth extends ApiBase {
         );
         
         $rest = $this->GetRestToolObject(false);
+        $authHlp = new AuthenticationHelper($this->_root);
         
-        $urlDetails = parse_url(self::$Config->BaseUrl);
+        $urlDetails = parse_url($this->_root->Config->BaseUrl);
         $rest->AddRequestHttpHeader('Host: ' . @$urlDetails['host']);
-        $rest->AddRequestHttpHeader('Authorization: Basic ' . Authentication::GetHttpHeaderBasicKey());
+        $rest->AddRequestHttpHeader('Authorization: Basic ' . $authHlp->GetHttpHeaderBasicKey());
         $rest->AddRequestHttpHeader('Content-Type: application/x-www-form-urlencoded');
         $response = $rest->Request($urlMethod, $requestType, $requestData);
-        return $this->CastResponseToEntity($response, '\MangoPay\OAuth');
+        return $this->CastResponseToEntity($response, '\MangoPay\OAuthToken');
     }
 }

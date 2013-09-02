@@ -22,7 +22,9 @@ class Users extends Base {
     function test_Users_CreateLegal_FailsIfRequiredPropsNotProvided() {
         $user = new \MangoPay\UserLegal();
         $this->expectException();
+        
         $ret = $this->_api->Users->Create($user);
+        
         $this->fail("Creation should fail because required props are not set");
     }
 
@@ -30,12 +32,14 @@ class Users extends Base {
         $user = new \MangoPay\UserLegal();
         $user->Name = "SomeOtherSampleOrg";
         $user->LegalPersonType = "BUSINESS";
+        
         $ret = $this->_api->Users->Create($user);
+        
         $this->assertTrue($ret->Id > 0, "Created successfully after required props set");
         $this->assertIdenticalInputProps($user, $ret);
     }
 
-    function tes_tUsers_GetNatural() {
+    function tes_Users_GetNatural() {
         $john = $this->getJohn();
 
         $user1 = $this->_api->Users->Get($john->Id);
@@ -49,14 +53,18 @@ class Users extends Base {
     function test_Users_GetNatural_FailsForLegalUser() {
         $matrix = $this->getMatrix();
         $this->expectException();
+        
         $user = $this->_api->Users->GetNatural($matrix->Id);
+        
         $this->fail("GetNatural should fail when called with legal user id");
     }
 
     function test_Users_GetLegal_FailsForNaturalUser() {
         $john = $this->getJohn();
         $this->expectException();
+        
         $user = $this->_api->Users->GetLegal($john->Id);
+        
         $this->fail("GetLegal should fail when called with natural user id");
     }
 
@@ -74,8 +82,10 @@ class Users extends Base {
     function test_Users_Save_Natural() {
         $john = $this->getJohn();
         $john->LastName .= " - CHANGED";
-        $userSaved = $this->_api->Users->Save($john);
+        
+        $userSaved = $this->_api->Users->Update($john);
         $userFetched = $this->_api->Users->Get($john->Id);
+        
         $this->assertIdenticalInputProps($userSaved, $john);
         $this->assertIdenticalInputProps($userFetched, $john);
     }
@@ -83,8 +93,10 @@ class Users extends Base {
     function test_Users_Save_Legal() {
         $matrix = $this->getMatrix();
         $matrix->LegalRepresentativeLastName .= " - CHANGED";
-        $userSaved = $this->_api->Users->Save($matrix);
+        
+        $userSaved = $this->_api->Users->Update($matrix);
         $userFetched = $this->_api->Users->Get($matrix->Id);
+        
         $this->assertIdenticalInputProps($userSaved, $matrix);
         $this->assertIdenticalInputProps($userFetched, $matrix);
     }
@@ -92,6 +104,7 @@ class Users extends Base {
     function test_Users_CreateBankAccount() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
+        
         $this->assertTrue($account->Id > 0);
         $this->assertIdentical($account->UserId, $john->Id);
     }
@@ -99,23 +112,24 @@ class Users extends Base {
     function test_Users_BankAccount() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
-        $accountFetched = $this->_api->Users->BankAccount($john->Id, $account->Id);
+        
+        $accountFetched = $this->_api->Users->GetBankAccount($john->Id, $account->Id);
         $this->assertIdenticalInputProps($account, $accountFetched);
     }
     
     function test_Users_BankAccounts() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
-        $pagiantion = new \MangoPay\Pagination(1, 12);
+        $pagination = new \MangoPay\Pagination(1, 12);
         
-        $list = $this->_api->Users->BankAccounts($john->Id, $pagiantion);
+        $list = $this->_api->Users->GetBankAccounts($john->Id, $pagination);
         
         $this->assertIsA($list[0], '\MangoPay\BankAccount');
         $this->assertIdentical($account->Id, $list[0]->Id);
         $this->assertIdenticalInputProps($account, $list[0]);
-        $this->assertIdentical($pagiantion->Page, 1);
-        $this->assertIdentical($pagiantion->ItemsPerPage, 12);
-        $this->assertTrue(isset($pagiantion->TotalPages));
-        $this->assertTrue(isset($pagiantion->TotalItems));
+        $this->assertIdentical($pagination->Page, 1);
+        $this->assertIdentical($pagination->ItemsPerPage, 12);
+        $this->assertTrue(isset($pagination->TotalPages));
+        $this->assertTrue(isset($pagination->TotalItems));
     }
 }

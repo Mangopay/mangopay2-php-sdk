@@ -11,7 +11,7 @@ abstract class User extends EntityBase {
      * Type of user
      * @var String
      */
-    protected $PersonType;
+    public $PersonType;
     
     /**
      * Email address
@@ -23,7 +23,18 @@ abstract class User extends EntityBase {
      * Construct
      * @param string $personType String with type of person
      */
-    protected function setPersonType($personType) {
+    protected function SetPersonType($personType) {
         $this->PersonType = $personType;
+    }
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        $properties = parent::GetReadOnlyProperties();
+        array_push( $properties, 'PersonType' );
+        
+        return $properties;
     }
 }

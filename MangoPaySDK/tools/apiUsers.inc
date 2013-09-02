@@ -30,7 +30,7 @@ class ApiUsers extends ApiBase {
      * @param \MangoPay\Pagination $pagination Pagination object
      * @return array Array with users
      */
-    public function All(& $pagination = null) {
+    public function GetAll(& $pagination = null) {
         $usersList = $this->GetList('users_all', $pagination);
         
         $users = array();
@@ -80,7 +80,7 @@ class ApiUsers extends ApiBase {
      * @param UserLegal/UserNatural $user
      * @return UserLegal/UserNatural User object returned from API
      */
-    public function Save($user) {
+    public function Update($user) {
         
         $className = get_class($user);
         if ($className == 'MangoPay\UserNatural')
@@ -110,7 +110,7 @@ class ApiUsers extends ApiBase {
      * @param \MangoPay\Pagination $pagination Pagination object
      * @return array Array with bank account entities
      */    
-    public function BankAccounts($userId, & $pagination = null) {
+    public function GetBankAccounts($userId, & $pagination = null) {
         return $this->GetList('users_allbankaccount', $pagination, 'MangoPay\BankAccount', $userId);
     }
     
@@ -120,7 +120,7 @@ class ApiUsers extends ApiBase {
      * @param int $bankAccountId Bank account Id
      * @return \MangoPay\BankAccount Entity of bank account object
      */
-    public function BankAccount($userId, $bankAccountId) {
+    public function GetBankAccount($userId, $bankAccountId) {
         return $this->GetObject('users_getbankaccount', $userId, 'MangoPay\BankAccount', $bankAccountId);
     }
     

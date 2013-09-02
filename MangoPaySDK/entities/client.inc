@@ -19,6 +19,12 @@ class Client extends EntityBase {
     public $Name;
     
     /**
+     * Email of client
+     * @var String 
+     */
+    public $Email;
+    
+    /**
      * Password for client
      * @var String 
      */

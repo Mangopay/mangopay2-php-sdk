@@ -3,21 +3,43 @@ namespace MangoPay;
 require_once __DIR__ . '/common/common.inc';
 
 /**
- * Manager to connect, send and read data from MangoPay API
+ * MangoPay API main entry point.
+ * Provides managers to connect, send and read data from MangoPay API
+ * as well as holds configuration/authorization data.
  */
-class MangoPayApi extends ApiBase {
+class MangoPayApi {
     
+    /////////////////////////////////////////////////
+    // Config/authorization related props
+    /////////////////////////////////////////////////
+
+    /**
+     * OAuthToken
+     * @var \MangoPay\OAuthToken
+     */
+    public $OAuthToken;
+
+    /**
+     * Configuration instance
+     * @var \MangoPay\Configuration
+     */
+    public $Config;
+    
+    /////////////////////////////////////////////////
+    // API managers props
+    /////////////////////////////////////////////////
+
+    /**
+     * OAuth methods
+     * @var ApiOAuth
+     */
+    public $AuthenticationManager;
+
     /**
      * Clients methods
      * @var Client 
      */
     public $Clients;
-    
-    /**
-     * OAuth methods
-     * @var ApiAuth
-     */
-    public $OAuthManager;
     
     /**
      * Users methods
@@ -52,27 +74,27 @@ class MangoPayApi extends ApiBase {
     /**
      * Constructor
      */
-    function __construct($oauth = null) {
-	
-		self::$Config = new Configuration();
-		
-		if (defined('MangoPay_ClientId')) {
-			self::$Config->ClientId = MangoPay_ClientId;
-		}
-		if (defined('MangoPay_ClientPassword')) {
-			self::$Config->ClientPassword = MangoPay_ClientPassword;
-		}
-		if (defined('MangoPay_BaseUrl')) {
-			self::$Config->BaseUrl = MangoPay_BaseUrl;
-		}
-        
-        $this->OAuthManager = new ApiOAuth();
-        
-        $this->Clients = new ApiClients();
-        $this->Users = new ApiUsers();
-        $this->Wallets = new ApiWallets();
-        $this->Transfers = new ApiTransfers();
-        $this->PayIns = new ApiPayIns();
-        $this->PayOuts = new ApiPayOuts();
+    function __construct() {
+
+        // default config setup
+        $this->Config = new Configuration();
+        if (defined('MangoPay_ClientId')) {
+            $this->Config->ClientId = MangoPay_ClientId;
+        }
+        if (defined('MangoPay_ClientPassword')) {
+            $this->Config->ClientPassword = MangoPay_ClientPassword;
+        }
+        if (defined('MangoPay_BaseUrl')) {
+            $this->Config->BaseUrl = MangoPay_BaseUrl;
+        }
+
+        // API managers
+        $this->AuthenticationManager = new ApiOAuth($this);
+        $this->Clients = new ApiClients($this);
+        $this->Users = new ApiUsers($this);
+        $this->Wallets = new ApiWallets($this);
+        $this->Transfers = new ApiTransfers($this);
+        $this->PayIns = new ApiPayIns($this);
+        $this->PayOuts = new ApiPayOuts($this);
     }
 }

@@ -22,7 +22,7 @@ class Wallet extends EntityBase {
      * Money in wallet
      * @var Money 
      */
-    protected $Balance;
+    public $Balance;
     
     /**
      * Currency code in ISO
@@ -36,5 +36,16 @@ class Wallet extends EntityBase {
      */
     public function GetSubObjects() {
         return array( 'Balance' => '\MangoPay\Money' );
+    }
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        $properties = parent::GetReadOnlyProperties();
+        array_push( $properties, 'Balance' );
+        
+        return $properties;
     }
 }

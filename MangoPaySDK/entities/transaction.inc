@@ -41,19 +41,19 @@ class Transaction extends EntityBase {
      * TransactionStatus {CREATED, SUCCEEDED, FAILED}
      * @var string 
      */
-    protected $Status;
+    public $Status;
     
     /**
      * Result code
      * @var string
      */
-    protected $ResultCode;
+    public $ResultCode;
     
     /**
      * Execution date;
      * @var date
      */
-    protected $ExecutionDate;
+    public $ExecutionDate;
     
     /**
      * TransactionType {PAYIN, PAYOUT, TRANSFER}
@@ -77,5 +77,18 @@ class Transaction extends EntityBase {
             'CreditedFunds' => '\MangoPay\Money' ,
             'Fees' => '\MangoPay\Money'
         );
+    }
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        $properties = parent::GetReadOnlyProperties();
+        array_push( $properties, 'Status' );
+        array_push( $properties, 'ResultCode' );
+        array_push( $properties, 'ExecutionDate' );
+        
+        return $properties;
     }
 }

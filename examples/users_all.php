@@ -8,7 +8,7 @@ try {
     
     // GET USERS LIST: GET /users
     $pagination = new MangoPay\Pagination(1, 8);
-    $users = $api->Users->All($pagination);
+    $users = $api->Users->GetAll($pagination);
     
     // display result on screen
     MangoPay\Logs::Debug('PAGINATION OBJECT', $pagination);

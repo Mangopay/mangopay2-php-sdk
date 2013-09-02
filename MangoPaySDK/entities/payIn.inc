@@ -16,7 +16,7 @@ class PayIn extends Transaction {
      * PaymentType {CARD, BANK_WIRE, AUTOMATIC_DEBIT, DIRECT_DEBIT }
      * @var string  
      */
-    protected $PaymentType;
+    public $PaymentType;
     
     /**
      * One of PayInPaymentDetails implementations, depending on $PaymentType
@@ -28,7 +28,7 @@ class PayIn extends Transaction {
      * ExecutionType { WEB, TOKEN, DIRECT, PREAUTHORIZED, RECURRING_ORDER_EXECUTION }
      * @var string  
      */
-    protected $ExecutionType;
+    public $ExecutionType;
     
     /**
      * One of PayInExecutionDetails implementations, depending on $ExecutionType
@@ -53,5 +53,17 @@ class PayIn extends Transaction {
                 // ...and more in future...
             )
         );
+    }
+
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties() {
+        $properties = parent::GetReadOnlyProperties();
+        array_push( $properties, 'PaymentType' );
+        array_push( $properties, 'ExecutionType' );
+        
+        return $properties;
     }
 }

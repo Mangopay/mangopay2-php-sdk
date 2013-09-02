@@ -2,14 +2,6 @@
 namespace MangoPay;
 
 /**
- * Class (enum) with authentication type
- */
-class AuthenticationType {
-    const Basic = 'Basic';
-    const Strong = 'Strong';
-}
-
-/**
  * Request type enum
  */
 class RequestType {
@@ -26,3 +18,11 @@ class PersonType {
     const Natural = 'NATURAL';
     const Legal = 'LEGAL';
 }
+
+///**
+// * Class (enum) with authentication type
+// */
+//class AuthenticationType {
+//    const Basic = 'Basic';
+//    const Strong = 'Strong';
+//}

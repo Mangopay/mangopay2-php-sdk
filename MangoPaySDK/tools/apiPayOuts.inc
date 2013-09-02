@@ -40,7 +40,7 @@ class ApiPayOuts extends ApiBase {
      * @param type $payOutId Pay-out identifier
      * @return \MangoPay\Refund Object returned by REST API
      */
-    public function Refund($payOutId) {
+    public function GetRefund($payOutId) {
         return $this->GetObject('payouts_getrefunds', $payOutId, '\MangoPay\Refund');
     }
     

@@ -29,7 +29,7 @@ class ApiWallets extends ApiBase {
      * @param type $wallet Wallet object to save
      * @return \MangoPay\Wallet Wallet object returned from API
      */
-    public function Save($wallet) {
+    public function Update($wallet) {
         return $this->SaveObject('wallets_save', $wallet, '\MangoPay\Wallet');
     }
 
@@ -40,7 +40,7 @@ class ApiWallets extends ApiBase {
      * @param \MangoPay\FilterTransactions $filter Object to filter data
      * @return \MangoPay\Transaction[] Transactions for wallet returned from API
      */
-    public function Transactions($walletId, & $pagination = null, $filter = null) {
+    public function GetTransactions($walletId, & $pagination = null, $filter = null) {
         return $this->GetList('wallets_alltransactions', $pagination, '\MangoPay\Transaction', $walletId, $filter);
     }
 }

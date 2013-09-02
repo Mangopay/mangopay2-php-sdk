@@ -31,12 +31,19 @@ class ResponseException extends Exception {
     private $_errorInfo;
     
     /**
+     * Request URL
+     * @var string
+     */
+    public $RequestUrl;
+    
+    /**
      * Construct
      * @param int $code Response code
      * @param Error $errorInfo Details with the error
      */
-    function __construct($code, $errorInfo = null) {
+    function __construct($requestUrl, $code, $errorInfo = null) {
         
+        $this->RequestUrl = $requestUrl;
         $this->_code = $code;
         
         if (isset($this->_responseCodes[$code])) {

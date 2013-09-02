@@ -22,53 +22,52 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
     try {
         $api = new \MangoPay\MangoPayApi();
 
-//print '<pre>';print_r($_REQUEST);print '</pre>';
-//$entity = HtmlHelper::getEntity($entityName);
-//$apiResult = $entity;
-
         // special cases
         switch ($module) {
-            case 'Wallet_Wallets_ListSubEntity_Transaction':
+            case 'Wallet_Wallets_ListSubEntity_GetTransaction':
                 $pagination = HtmlHelper::getEntity('Pagination', 0, true);
                 $filter = HtmlHelper::getEntity('FilterTransactions', 0, true);
-                $apiResult = $api->Wallets->Transactions($entityId, $pagination, $filter);
+                $apiResult = $api->Wallets->GetTransactions($entityId, $pagination, $filter);
                 break;
         }
 
         // normal cases
-        if (!isset($apiResult)) switch ($operation) {
-            case 'Create':
-                $entity = HtmlHelper::getEntity($entityName);
-                $apiResult = $api->$subApiName->Create($entity);
-                break;
-            case 'Get':
-                $apiResult = $api->$subApiName->Get($entityId);
-                break;
-            case 'Save':
-                $entity = HtmlHelper::getEntity($entityName, $entityId);
-                $apiResult = $api->$subApiName->Save($entity);
-                break;
-            case 'All':
-                $pagination = HtmlHelper::getEntity('Pagination');
-                $apiResult = $api->$subApiName->All($pagination);
-                print '<pre>';print_r($pagination);print '</pre>';
-                break;
+        if (!isset($apiResult))
+        {
+            switch ($operation) {
+                case 'Create':
+                    $entity = HtmlHelper::getEntity($entityName);
+                    $apiResult = $api->$subApiName->Create($entity);
+                    break;
+                case 'Get':
+                    $apiResult = $api->$subApiName->Get($entityId);
+                    break;
+                case 'Save':
+                    $entity = HtmlHelper::getEntity($entityName, $entityId);
+                    $apiResult = $api->$subApiName->Update($entity);
+                    break;
+                case 'All':
+                    $pagination = HtmlHelper::getEntity('Pagination');
+                    $apiResult = $api->$subApiName->GetAll($pagination);
+                    print '<pre>';print_r($pagination);print '</pre>';
+                    break;
 
-            case 'CreateSubEntity':
-                $entity = HtmlHelper::getEntity($subEntityName);
-                $methodName = 'Create'. $subEntityName;
-                $apiResult = $api->$subApiName->$methodName($entityId, $entity);
-                break;
-            case 'GetSubEntity':
-                $methodName = $subEntityName;
-                $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId);
-                break;
-            case 'ListSubEntity':
-                $pagination = HtmlHelper::getEntity('Pagination');
-                $methodName = $subEntityName . 's';
-                $apiResult = $api->$subApiName->$methodName($entityId, $pagination);
-                print '<pre>';print_r($pagination);print '</pre>';
-                break;
+                case 'CreateSubEntity':
+                    $entity = HtmlHelper::getEntity($subEntityName);
+                    $methodName = 'Create'. $subEntityName;
+                    $apiResult = $api->$subApiName->$methodName($entityId, $entity);
+                    break;
+                case 'GetSubEntity':
+                    $methodName = $subEntityName;
+                    $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId);
+                    break;
+                case 'ListSubEntity':
+                    $pagination = HtmlHelper::getEntity('Pagination');
+                    $methodName = $subEntityName;
+                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination);
+                    print '<pre>';print_r($pagination);print '</pre>';
+                    break;
+            }
         }
         
         print '<pre>';print_r($apiResult);print '</pre>';

@@ -13,8 +13,8 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
     ),
     'Bank accounts' => array(
         'Create bank account for user' => 'User_Users_CreateSubEntity_BankAccount',
-        'Get bank account for user' => 'User_Users_GetSubEntity_BankAccount',
-        'List bank accounts for user' => 'User_Users_ListSubEntity_BankAccount',
+        'Get bank account for user' => 'User_Users_GetSubEntity_GetBankAccount',
+        'List bank accounts for user' => 'User_Users_ListSubEntity_GetBankAccounts',
     ),
     'Wallets' => array(
         'Create wallet' => 'Wallet_Wallets_Create',
@@ -22,7 +22,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Save wallet' => 'Wallet_Wallets_Save',
     ),
     'Transactions' => array(
-        'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_Transaction',
+        'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_GetTransaction',
     ),
     'Transfers' => array(
         'Create transfer' => 'Transfer_Transfers_Create',
@@ -40,15 +40,24 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
 
 ?>
 
-<ul>
+<div id="menu">
 <?php
+
+$moduleIndex = 0;
+$selectedModuleIndex = -1;
+
 foreach ($GLOBALS['MangoPay_Demo_Menu'] as $moduleText => $subMenu) {
     
-    echo '<li>' . $moduleText . '</li><ul>';
+    echo '<h3>' . $moduleText . '</h3><ul>';
     foreach ($subMenu as $menuText => $file) {
         echo '<li><a href="index.php?module=' . $file . '" >' . $menuText . '</a></li>';
+        if( @$_GET['module'] == $file ) $selectedModuleIndex = $moduleIndex;
     }
     echo '</ul>';
+    
+    $moduleIndex ++;
 }
+
 ?>
-</ul>
+</div>
+<script type="text/javascript">var selectedModuleIndex = <?php echo $selectedModuleIndex ?>; </script>
