@@ -5,6 +5,9 @@ require_once '../MangoPaySDK/mangoPayApi.inc';
 try {
     // create object to manage MangoPay API
     $api = new MangoPay\MangoPayApi();
+    // use test client credentails (REPLACE IT BY YOUR CLIENT ONES!)
+    $api->Config->ClientID = 'example';
+    $api->Config->ClientPassword = 'uyWsmnwMQyTnqKgi8Y35A3eVB7bGhqrebYqA1tL6x2vYNpGPiY';
     
     // CREATE NATURAL USER
     $naturalUser = new MangoPay\UserNatural();

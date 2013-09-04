@@ -164,14 +164,16 @@ class HtmlHelper {
             $frmName = $prefix . $name;
             if (isset($_POST[$frmName]) && strlen($_POST[$frmName]) > 0) {
 
-                // special fields
+                // special fields for Owners property
                 if ($entityName == 'Wallet' && $name == 'Owners')
                     $entity->$name = explode(';', $_POST[$frmName]);
-
-                // normal fiels
+                // special cast to int for Birthday property in UserNatural class
+                elseif ($entityName == 'UserNatural' && $name == 'Birthday')
+                    $entity->$name = (int)$_POST[$frmName];
+                // normal fields
                 else
                     $entity->$name = $_POST[$frmName];
-                
+
                 $touchedAnyProp = true;
             }
         }

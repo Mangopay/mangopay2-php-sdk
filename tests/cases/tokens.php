@@ -25,7 +25,7 @@ class Tokens extends Base {
     
     function test_isTokenLeaking() {
         // create separate api
-        $api = new \MangoPay\MangoPayApi();
+        $api = $this->buildNewMangoPayApi();
         $this->_api->Users->GetAll();
         $api->Users->GetAll();
         $this->assertTrue($api->OAuthToken->access_token != $this->_api->OAuthToken->access_token);

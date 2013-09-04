@@ -38,10 +38,10 @@ class AuthenticationHelper {
      */
     public function GetHttpHeaderBasicKey() {
         if (is_null($this->_root->Config->ClientId) || strlen($this->_root->Config->ClientId) == 0)
-            throw new Exception ('Neither MangoPay_ClientId constant nor ClientId config setting is defined.');
+            throw new Exception ('MangoPay.Config.ClientId is not set.');
         
         if (is_null($this->_root->Config->ClientPassword) || strlen($this->_root->Config->ClientPassword) == 0)
-            throw new Exception ('Neither MangoPay_ClientPassword constant nor ClientPassword config setting is defined.');
+            throw new Exception ('MangoPay.Config.ClientPassword is not set.');
         
         $signature = $this->_root->Config->ClientId . ':' . $this->_root->Config->ClientPassword;
         return base64_encode($signature);
@@ -62,7 +62,7 @@ class AuthenticationHelper {
      * Get HTTP header value with authorization string for strong authentication
      * 
      * @return string Value for HTTP header with authentication string
-     * @throws \MangoPay\Exception If required constants are not defined.
+     * @throws \MangoPay\Exception If OAuth token is not created (or is invalid) for strong authentication.
      */
     private function GetHttpHeaderStrong(){
         $oauth = $this->_root->OAuthToken;
