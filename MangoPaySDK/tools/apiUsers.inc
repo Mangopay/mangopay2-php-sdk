@@ -125,6 +125,15 @@ class ApiUsers extends ApiBase {
     }
     
     /**
+     * Get all wallets for user
+     * @param int $userId User Id
+     * @return \MangoPay\Wallet[] Array with obects returned from API
+     */
+    public function GetWallets($userId, & $pagination = null) {
+        return $this->GetList('users_allwallets', $pagination, 'MangoPay\Wallet', $userId);
+    }
+    
+    /**
      * Get correct user object
      * @param object $response Response from API
      * @return UserLegal/UserNatural User object returned from API

@@ -33,7 +33,7 @@ class ApiPayIns extends ApiBase {
      * @return \MangoPay\Refund Object returned by REST API
      */
     public function CreateRefund($payInId, $refund) {
-        return $this->CreateObject('payins_createrefunds', $payInId, '\MangoPay\Refund', $refund);
+        return $this->CreateObject('payins_createrefunds', $refund, '\MangoPay\Refund', $payInId);
     }
 
     /**

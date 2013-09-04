@@ -31,7 +31,7 @@ class ApiTransfers extends ApiBase {
      * @return \MangoPay\Refund Object returned by REST API
      */
     public function CreateRefund($transferId, $refund) {
-        return $this->CreateObject('transfers_createrefunds', $transferId, '\MangoPay\Refund', $refund);
+        return $this->CreateObject('transfers_createrefunds', $refund, '\MangoPay\Refund', $transferId);
     }
     
     /**
