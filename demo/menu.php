@@ -20,6 +20,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Create wallet' => 'Wallet_Wallets_Create',
         'Get wallet' => 'Wallet_Wallets_Get',
         'Save wallet' => 'Wallet_Wallets_Save',
+        'List wallets for user' => 'User_Users_ListSubEntity_GetWallets',
     ),
     'Transactions' => array(
         'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_GetTransaction',
@@ -28,13 +29,17 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Create transfer' => 'Transfer_Transfers_Create',
         'Get transfer' => 'Transfer_Transfers_Get',
     ),
-    'Pay-ins web card' => array(
+    'Pay-ins' => array(
         'Create pay-in web card' => 'PayIn_PayIns_Create_:CARD:WEB',
         'Get pay-in web card' => 'PayIn_PayIns_Get_:CARD:WEB',
     ),
-    'Pay-outs bank wire' => array(
+    'Pay-outs' => array(
         'Create pay-out bank wire' => 'PayOut_PayOuts_Create_:BANK_WIRE',
         'Get pay-out bank wire' => 'PayOut_PayOuts_Get_:BANK_WIRE',
+    ),
+    'Refunds' => array(
+        'Create refund for transfer' => 'Transfer_Transfers_CreateSubEntity_Refund',
+        'Create refund for pay-in' => 'PayIn_PayIns_CreateSubEntity_Refund',
     ),
 );
 

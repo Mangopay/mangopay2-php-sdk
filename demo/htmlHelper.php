@@ -180,7 +180,7 @@ class HtmlHelper {
 
         // sub objects
         foreach ($subObjects as $name => $cls) {
-            $entity->$name = self::getEntity(str_replace('\\MangoPay\\', '', $cls), 0, false, "$name:");
+            $entity->$name = self::getEntity(str_replace('\\MangoPay\\', '', $cls), 0, true, "$name:");
         }
 
         // dependent objects
