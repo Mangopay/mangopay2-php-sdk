@@ -1,7 +1,7 @@
 MangoPay SDK
 =================================================
-MangoPaySDK is a client library to work with MangoPay REST API
-(http://www.mangopay.com/).
+MangoPaySDK is a PHP client library to work with
+[MangoPay REST API](http://docs.mangopay.com/api-references/).
 
 
 Installation
@@ -32,8 +32,8 @@ You can also use any of /tests/cases/*.php to run a single test case.
 
 Contacts
 -------------------------------------------------
-Report bugs or suggest features using issue tracker at GitHub
-(https://github.com/MangoPay/mangopay2-php-sdk).
+Report bugs or suggest features using
+[issue tracker at GitHub](https://github.com/MangoPay/mangopay2-php-sdk).
 
 
 Sample usage
