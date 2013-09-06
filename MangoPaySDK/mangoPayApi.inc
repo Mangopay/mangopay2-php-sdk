@@ -70,7 +70,13 @@ class MangoPayApi {
      * @var ApiPayOuts 
      */
     public $PayOuts;
-    
+        
+    /**
+     * Refund methods
+     * @var ApiRefunds 
+     */
+    public $Refunds;
+
     /**
      * Constructor
      */
@@ -96,5 +102,6 @@ class MangoPayApi {
         $this->Transfers = new ApiTransfers($this);
         $this->PayIns = new ApiPayIns($this);
         $this->PayOuts = new ApiPayOuts($this);
+        $this->Refunds = new ApiRefunds($this);
     }
 }

@@ -40,6 +40,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
     'Refunds' => array(
         'Create refund for transfer' => 'Transfer_Transfers_CreateSubEntity_Refund',
         'Create refund for pay-in' => 'PayIn_PayIns_CreateSubEntity_Refund',
+        'Get refund' => 'Refund_Refunds_Get',
     ),
 );
 
