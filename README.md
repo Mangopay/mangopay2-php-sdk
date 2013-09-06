@@ -74,7 +74,7 @@ Configuration example
     require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
     $api = new MangoPay\MangoPayApi();
 
-    $api->Config->ClientID = 'your-client-id';
+    $api->Config->ClientId = 'your-client-id';
     $api->Config->ClientPassword = 'your-client-password';
     print($api->Config->BaseUrl); // you probably dont have to change it
 
