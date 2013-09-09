@@ -35,8 +35,11 @@ abstract class ApiBase {
         'info_getfeewallets' => array( '/info/fee-wallets', RequestType::GET ),
         'info_getmeansofpayment' => array( '/info/means-of-payment', RequestType::GET ),
      
-        'paymentcardregistration_create' => array( '/payment-card-registration', RequestType::POST ),
-        'paymentcardregistration_get' => array( '/payment-card-registration/%s', RequestType::GET ),
+        'cardregistration_create' => array( '/cardregistrations', RequestType::POST ),
+        'cardregistration_get' => array( '/cardregistrations/%s', RequestType::GET ),
+        'cardregistration_save' => array( '/cardregistrations/%s', RequestType::PUT ),
+        
+        'card_get' => array( '/cards/%s', RequestType::GET ),
         
         // pay ins URLs
         'payins_card-web_create' => array( '/payins/card/web/', RequestType::POST ),
@@ -44,8 +47,8 @@ abstract class ApiBase {
         'payins_card-preauthorized_create' => array( '/payins/card/preauthorized/', RequestType::POST ),
         'payins_card-recurrentexecution_create' => array( '/payins/card/recurrent-pay-in-execution/', RequestType::POST ),
         
-        'payins_registeredcard-web_create' => array( '/payins/registered-card/web/', RequestType::POST ),
-        'payins_registeredcard-direct_create' => array( '/payins/registered-card/direct/', RequestType::POST ),
+        'payins_registeredcard-web_create' => array( '/payins/card/web/', RequestType::POST ),
+        'payins_registeredcard-direct_create' => array( '/payins/card/direct/', RequestType::POST ),
         'payins_registeredcard-preauthorized_create' => array( '/payins/registered-card/preauthorized/', RequestType::POST ),
         'payins_registeredcard-recurrentexecution_create' => array( '/payins/registered-card/recurrent-pay-in-execution/', RequestType::POST ),
         

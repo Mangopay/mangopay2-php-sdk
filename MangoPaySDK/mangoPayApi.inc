@@ -76,6 +76,18 @@ class MangoPayApi {
      * @var ApiRefunds 
      */
     public $Refunds;
+        
+    /**
+     * Card registration methods
+     * @var ApiCardRegistrations 
+     */
+    public $CardRegistrations;
+        
+    /**
+     * Card methods
+     * @var ApiCards 
+     */
+    public $Cards;
 
     /**
      * Constructor
@@ -103,5 +115,7 @@ class MangoPayApi {
         $this->PayIns = new ApiPayIns($this);
         $this->PayOuts = new ApiPayOuts($this);
         $this->Refunds = new ApiRefunds($this);
+        $this->CardRegistrations = new ApiCardRegistrations($this);
+        $this->Cards = new ApiCards($this);
     }
 }

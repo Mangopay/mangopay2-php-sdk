@@ -8,19 +8,19 @@ class Refund extends Transaction {
     
     /**
      * Initial transaction Id
-     * @var int
+     * @var string
      */
     public $InitialTransactionId;
     
     /**
      * Debited wallet Id
-     * @var int  
+     * @var string
      */
     public $DebitedWalletId;
     
     /**
      * Credited wallet Id
-     * @var int  
+     * @var string
      */
     public $CreditedWalletId;
 }

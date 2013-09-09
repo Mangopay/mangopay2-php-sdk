@@ -31,7 +31,8 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
     ),
     'Pay-ins' => array(
         'Create pay-in web card' => 'PayIn_PayIns_Create_:CARD:WEB',
-        'Get pay-in web card' => 'PayIn_PayIns_Get_:CARD:WEB',
+        'Create pay-in direct card' => 'PayIn_PayIns_Create_:CARD:DIRECT',
+        'Get pay-in' => 'PayIn_PayIns_Get',
     ),
     'Pay-outs' => array(
         'Create pay-out bank wire' => 'PayOut_PayOuts_Create_:BANK_WIRE',
@@ -41,6 +42,14 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Create refund for transfer' => 'Transfer_Transfers_CreateSubEntity_Refund',
         'Create refund for pay-in' => 'PayIn_PayIns_CreateSubEntity_Refund',
         'Get refund' => 'Refund_Refunds_Get',
+    ),
+    'Card registration' => array(
+        'Create card registration' => 'CardRegistration_CardRegistrations_Create',
+        'Get card registration' => 'CardRegistration_CardRegistrations_Get',
+        'Update card registration' => 'CardRegistration_CardRegistrations_Save',
+    ),
+    'Card' => array(
+        'Get card' => 'Card_Cards_Get',
     ),
 );
 

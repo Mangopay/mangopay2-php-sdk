@@ -50,6 +50,7 @@ class PayIn extends Transaction {
             'ExecutionType' => array(
                 '_property_name' => 'ExecutionDetails',
                 'WEB' => '\MangoPay\PayInExecutionDetailsWeb',
+                'DIRECT' => '\MangoPay\PayInExecutionDetailsDirect',
                 // ...and more in future...
             )
         );

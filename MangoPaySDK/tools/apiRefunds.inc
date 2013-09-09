@@ -8,7 +8,7 @@ class ApiRefunds extends ApiBase {
    
     /**
      * Get refund object
-     * @param int $refundId Refund Id
+     * @param string $refundId Refund Id
      * @return \MangoPay\Refund Refund object returned from API
      */
     public function Get($refundId) {
