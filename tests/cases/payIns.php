@@ -30,7 +30,7 @@ class PayIns extends Base {
         $this->assertIdenticalInputProps($payIn, $getPayIn);
         $this->assertIdentical($getPayIn->Status, 'CREATED');
         $this->assertNull($getPayIn->ExecutionDate);
-        $this->assertNotNull($getPayIn->PaymentDetails->RedirectURL);
-        $this->assertNotNull($getPayIn->PaymentDetails->ReturnURL);
+        $this->assertNotNull($getPayIn->ExecutionDetails->RedirectURL);
+        $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
     }
 }

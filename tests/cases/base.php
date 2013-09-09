@@ -157,7 +157,6 @@ abstract class Base extends \UnitTestCase {
         if (self::$PayInPaymentDetailsCard === null) {
             self::$PayInPaymentDetailsCard = new \MangoPay\PayInPaymentDetailsCard();
             self::$PayInPaymentDetailsCard->CardType = 'AMEX';
-            self::$PayInPaymentDetailsCard->ReturnURL = 'https://test.com';
         }
         
         return self::$PayInPaymentDetailsCard;
@@ -169,6 +168,7 @@ abstract class Base extends \UnitTestCase {
     private function getPayInExecutionDetailsWeb() {
         if (self::$PayInExecutionDetailsWeb === null) {
             self::$PayInExecutionDetailsWeb = new \MangoPay\PayInExecutionDetailsWeb();
+            self::$PayInExecutionDetailsWeb->ReturnURL = 'https://test.com';
             self::$PayInExecutionDetailsWeb->TemplateURL = 'https://TemplateURL.com';
             self::$PayInExecutionDetailsWeb->SecureMode = 'DEFAULT';
             self::$PayInExecutionDetailsWeb->Culture = 'fr';
