@@ -57,6 +57,12 @@ abstract class Base extends \UnitTestCase {
      */
     public static $JohnsTransfer;
     
+    /**
+     * Test card registration object
+     * @var \MangoPay\CardRegistration
+     */
+    public static $JohnsCardRegistration;
+    
     function __construct() {
         $this->_api = $this->buildNewMangoPayApi();
     }
@@ -264,6 +270,24 @@ abstract class Base extends \UnitTestCase {
         }
         
         return self::$JohnsTransfer;
+    }
+    
+    /**
+     * Creates card registration object
+     * @return \MangoPay\CardRegistration
+     */
+    protected function getJohnsCardRegistration() {
+        if (self::$JohnsCardRegistration === null) {
+            $user = $this->getJohn();
+            
+            $cardRegistration = new \MangoPay\CardRegistration();
+            $cardRegistration->UserId = $user->Id;
+            $cardRegistration->Currency = 'EUR';
+
+            self::$JohnsCardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
+        }
+        
+        return self::$JohnsCardRegistration;
     }
     
     /**
