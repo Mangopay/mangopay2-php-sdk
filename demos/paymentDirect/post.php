@@ -1,16 +1,16 @@
 <?php
+
 // include MangoPay SDK
 require_once '../../MangoPaySDK/mangoPayApi.inc';
 
-// sample data to demo
+// sample payment data
 $_SESSION['amount'] = 3300;
 $_SESSION['currency'] = 'EUR';
-$_SESSION['fees'] = 10;
 
 // create instance of MangoPayApi SDK
 $mangoPayApi = new \MangoPay\MangoPayApi();
 
-// create temporary user
+// create user for payment
 $user = new MangoPay\UserNatural();
 $user->FirstName = 'John';
 $user->LastName = 'Smith';
@@ -23,22 +23,18 @@ $cardRegister->Currency = $_SESSION['currency'];
 $createdCardRegister = $mangoPayApi->CardRegistrations->Create($cardRegister);
 $_SESSION['cardRegisterId'] = $createdCardRegister->Id;
 
-// build the return URL
+// build the return URL to capture token response
 $returnUrl = 'http://' . $_SERVER['HTTP_HOST'];
 $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], '/') + 1);
 $returnUrl .= 'payment.php';
 
 ?>
-<label>User</label>
+<label>Full Name</label>
 <label><?php print $createdUser->FirstName . ' ' . $createdUser->LastName; ?></label>
 <div class="clear"></div>
 
 <label>Amount</label>
 <label><?php print $_SESSION['amount'] . ' ' . $_SESSION['currency']; ?></label>
-<div class="clear"></div>
-
-<label>Fees amount</label>
-<label><?php print $_SESSION['fees'] . ' ' . $_SESSION['currency']; ?></label>
 <div class="clear"></div>
 
 <form action="<?php print $createdCardRegister->CardRegistrationURL; ?>" method="post">
@@ -58,5 +54,5 @@ $returnUrl .= 'payment.php';
     <input type="text" name="cardCvx" value="" />
     <div class="clear"></div>
 
-    <input type="submit" id="postCall" value="Pay" />
+    <input type="submit" value="Pay" />
 </form>

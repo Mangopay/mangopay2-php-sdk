@@ -1,4 +1,4 @@
-// function to check that current browser supports cross-domain requests
+// Checks if the current browser supports cross-domain requests (CORS)
 function browserSupportsCors() {
     if ($.support.cors)
         return true;
@@ -9,15 +9,20 @@ function browserSupportsCors() {
 }
 
 $(document).ready(function(){
-// set onclick event for Pay button
-$("#button").click(function(){
-    // if browser not supports cross-domain ajax requests call POST request
+
+// Handle 
+$("#PayButton").click(function(){
+
+    // if browser does not support cross-domain Ajax requests submit the form with POST
     if (!browserSupportsCors()) {
         $("#paymentForm").submit();
         return;
     }
-    // set button as disabled
-    $("#button").attr("disabled", true);
+
+    // disable button to prevent double clicks
+    $("#PayButton").attr("disabled", true);
+
+    // send token request using Ajax
     $.ajax({
         type: "POST",
         url: $("#paymentForm").attr("action"),
@@ -35,7 +40,7 @@ $("#button").click(function(){
             else
                 dataToSend = { data: data.replace("data=", "") };
 
-            // AJAX call to create payment
+            // Forward token response to create payment
             $.ajax({
                 type: "GET",
                 url: "payment.php",

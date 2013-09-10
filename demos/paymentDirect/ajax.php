@@ -1,16 +1,16 @@
 <?php
+
 // include MangoPay SDK
 require_once '../../MangoPaySDK/mangoPayApi.inc';
 
 // sample data to demo
 $_SESSION['amount'] = 3300;
 $_SESSION['currency'] = 'EUR';
-$_SESSION['fees'] = 10;
 
 // create instance of MangoPayApi SDK
 $mangoPayApi = new \MangoPay\MangoPayApi();
 
-// create temporary user
+// create user for payment
 $user = new MangoPay\UserNatural();
 $user->FirstName = 'John';
 $user->LastName = 'Smith';
@@ -23,8 +23,7 @@ $cardRegister->Currency = $_SESSION['currency'];
 $createdCardRegister = $mangoPayApi->CardRegistrations->Create($cardRegister);
 $_SESSION['cardRegisterId'] = $createdCardRegister->Id;
 
-// build the return URL for POST request if browser not supports 
-// cross-domain ajax requests
+// build the return URL to capture token response if browser does not support cross-domain Ajax requests
 $returnUrl = 'http://' . $_SERVER['HTTP_HOST'];
 $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], '/') + 1);
 $returnUrl .= 'payment.php';
@@ -36,16 +35,12 @@ $returnUrl .= 'payment.php';
 <script src="js/script.js"></script>
 
 <div id ="divForm">
-    <label>User</label>
+    <label>Full Name</label>
     <label><?php print $createdUser->FirstName . ' ' . $createdUser->LastName; ?></label>
     <div class="clear"></div>
 
     <label>Amount</label>
     <label><?php print $_SESSION['amount'] . ' ' . $_SESSION['currency']; ?></label>
-    <div class="clear"></div>
-
-    <label>Fees amount</label>
-    <label><?php print $_SESSION['fees'] . ' ' . $_SESSION['currency']; ?></label>
     <div class="clear"></div>
 
     <form action="<?php print $createdCardRegister->CardRegistrationURL; ?>" method="post" id="paymentForm">
@@ -67,6 +62,6 @@ $returnUrl .= 'payment.php';
         <input type="text" name="cardCvx" id="cardCvx" value="" />
         <div class="clear"></div>
 
-        <input type="button" id="button" value="Pay" />
+        <input type="button" id="PayButton" value="Pay" />
     </form>
 </div>

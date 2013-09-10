@@ -1,27 +1,30 @@
 <?php
+
 session_start();
+
+// include MangoPay SDK
 require_once '../../MangoPaySDK/mangoPayApi.inc';
 
-// check error message from payline page. If exist display error message and terminate the script
-if (isset($_GET['errorCode'])) {
-    die('<div style="color:red;">Error code from payline: ' . $_GET['errorCode'] .'<div>');
-}
-
-// protection to double call page. If session is not set display error message and terminate the script
+// check if payment has been initialized
 if (!isset($_SESSION['amount'])) {
-    die('<div style="color:red;">Wrong data - session is not set<div>');
+    die('<div style="color:red;">No payment has been started<div>');
 }
 
 // create instance of MangoPayApi
 $mangoPayApi = new \MangoPay\MangoPayApi();
 
 try {
-    
     // update register card with registration data from Payline service
     $cardRegister = $mangoPayApi->CardRegistrations->Get($_SESSION['cardRegisterId']);
-    $cardRegister->RegistrationData = 'data=' . $_GET['data'];
+    if (isset($_GET['errorCode']))
+        $cardRegister->RegistrationData = 'errorCode=' . $_GET['errorCode'];
+    else
+        $cardRegister->RegistrationData = 'data=' . $_GET['data'];
     $updatedCardRegister = $mangoPayApi->CardRegistrations->Update($cardRegister);
 
+    if ($updatedCardRegister->Status != 'VALIDATED' || !isset($updatedCardRegister->CardId))
+        die('<div style="color:red;">Cannot create virtual card. Payment has not been created.<div>');
+    
     // get created virtual card object
     $card = $mangoPayApi->Cards->Get($updatedCardRegister->CardId);
     
@@ -40,7 +43,7 @@ try {
     $payIn->DebitedFunds->Amount = $_SESSION['amount'];
     $payIn->DebitedFunds->Currency = $_SESSION['currency'];
     $payIn->Fees = new \MangoPay\Money();
-    $payIn->Fees->Amount = $_SESSION['fees'];
+    $payIn->Fees->Amount = 0;
     $payIn->Fees->Currency = $_SESSION['currency'];
     
     // payment type as CARD
@@ -54,6 +57,7 @@ try {
     $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
     $payIn->ExecutionDetails->CardId = $card->Id;
     $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+    
     // create Pay-In
     $createdPayIn = $mangoPayApi->PayIns->Create($payIn);
     
@@ -84,5 +88,5 @@ try {
         .'</div>';
 }
 
-// clear data in session to protect before double call
+// clear data in session to protect against double processing
 $_SESSION = array();
