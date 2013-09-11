@@ -23,7 +23,7 @@ class ApiClients extends ApiBase {
             'Email' => $clientEmail,
         );
         
-        $rest = $this->GetRestToolObject(false);
+        $rest = new RestTool(false, $this->_root);
         $response = $rest->Request($urlMethod, $requestType, $requestData);
         return $this->CastResponseToEntity($response, '\MangoPay\Client');
     }

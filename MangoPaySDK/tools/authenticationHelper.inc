@@ -23,12 +23,6 @@ class AuthenticationHelper {
      */
     public function GetHttpHeaderKey(){
         return $this->GetHttpHeaderStrong();
-//        switch ($this->_root->Config->AuthenticationType) {
-//            case AuthenticationType::Basic:
-//                return $this->GetHttpHeaderBasic();
-//            case AuthenticationType::Strong:
-//                return $this->GetHttpHeaderStrong();
-//        }
     }
     
     /**
@@ -64,12 +58,12 @@ class AuthenticationHelper {
      * @return string Value for HTTP header with authentication string
      * @throws \MangoPay\Exception If OAuth token is not created (or is invalid) for strong authentication.
      */
-    private function GetHttpHeaderStrong(){
-        $oauth = $this->_root->OAuthToken;
+    private function GetHttpHeaderStrong() {
+        $token = $this->_root->OAuthTokenManager->GetToken();
 
-        if (is_null($oauth) || !isset($oauth->access_token) || !isset($oauth->token_type))
+        if (is_null($token) || !isset($token->access_token) || !isset($token->token_type))
             throw new Exception ('OAuth token is not created (or is invalid) for strong authentication');
 
-        return 'Authorization: ' . $oauth->token_type . ' ' . $oauth->access_token;
+        return 'Authorization: ' . $token->token_type . ' ' . $token->access_token;
     }
 }

@@ -23,11 +23,4 @@ class Configuration {
      * @var string 
      */
     public $BaseUrl;
-    
-//    /**
-//     * Authentication type
-//     * @var string
-//     */
-//    public $AuthenticationType = "Strong";
-
 }

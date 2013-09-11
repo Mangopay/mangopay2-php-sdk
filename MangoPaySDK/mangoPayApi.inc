@@ -14,10 +14,10 @@ class MangoPayApi {
     /////////////////////////////////////////////////
 
     /**
-     * OAuthToken
-     * @var \MangoPay\OAuthToken
+     * Authorization token methods
+     * @var \MangoPay\AuthorizationTokenManager
      */
-    public $OAuthToken;
+    public $OAuthTokenManager;
 
     /**
      * Configuration instance
@@ -105,7 +105,9 @@ class MangoPayApi {
         if (defined('MangoPay_BaseUrl')) {
             $this->Config->BaseUrl = MangoPay_BaseUrl;
         }
-
+        
+        $this->OAuthTokenManager = new AuthorizationTokenManager($this);
+        
         // API managers
         $this->AuthenticationManager = new ApiOAuth($this);
         $this->Clients = new ApiClients($this);

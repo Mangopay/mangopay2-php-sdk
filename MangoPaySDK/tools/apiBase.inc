@@ -160,7 +160,7 @@ abstract class ApiBase {
         if (!is_null($entity))
             $requestData = $this->BuildRequestData($entity);
 
-        $rest = $this->GetRestToolObject();
+        $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
         
         if (!is_null($responseClassName))
@@ -181,7 +181,7 @@ abstract class ApiBase {
         
         $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId);
         
-        $rest = $this->GetRestToolObject();
+        $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
         
         if (!is_null($responseClassName))
@@ -207,7 +207,7 @@ abstract class ApiBase {
             $pagination = new Pagination();
         }
         
-        $rest = $this->GetRestToolObject();
+        $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), null, $pagination, $filter);
         
         if (!is_null($responseClassName))
@@ -228,27 +228,13 @@ abstract class ApiBase {
         $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entity->Id);
         $requestData = $this->BuildRequestData($entity);
         
-        $rest = $this->GetRestToolObject();
+        $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
         
         if (!is_null($responseClassName))
             return $this->CastResponseToEntity($response, $responseClassName);
         
         return $response;
-    }
-    
-    /**
-     * Get RestTool object 
-     * @param bool $authRequired Variable to flag that in request the authentication data are required
-     * @return \MangoPay\RestTool RestTool object
-     */
-    protected function GetRestToolObject($authRequired = true) {
-        // check/create auth token first...
-        if ($authRequired && (is_null($this->_root->OAuthToken) || $this->_root->OAuthToken->IsExpire())) {
-            $this->_root->OAuthToken = $this->_root->AuthenticationManager->CreateToken();
-        }
-
-        return new RestTool($authRequired, $this->_root);
     }
     
     /**

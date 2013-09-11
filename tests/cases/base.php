@@ -2,6 +2,7 @@
 namespace MangoPay\Tests;
 require_once '../simpletest/autorun.php';
 require_once '../../MangoPaySDK/mangoPayApi.inc';
+require_once '../mocks/mockStorageStrategy.php';
 
 /**
  * Base class for test case classes
@@ -67,11 +68,15 @@ abstract class Base extends \UnitTestCase {
         $this->_api = $this->buildNewMangoPayApi();
     }
     
-    protected function buildNewMangoPayApi(){
+    protected function buildNewMangoPayApi() {
+        
         $api = new \MangoPay\MangoPayApi();
         // use test client credentails
         $api->Config->ClientId = 'example';
         $api->Config->ClientPassword = 'uyWsmnwMQyTnqKgi8Y35A3eVB7bGhqrebYqA1tL6x2vYNpGPiY';
+        
+        $api->OAuthTokenManager->RegisterCustomStorageStrategy(new \MangoPay\Tests\MockStorageStrategy());
+        
         return $api;
     }
 

@@ -41,7 +41,7 @@ class OAuthToken extends Dto {
      * Check that current tokens are expire and return true if yes
      * @return bool
      */
-    public function IsExpire() {
+    public function IsExpired() {
         return (time() >= ($this->create_time + $this->expires_in));
     }
 }
