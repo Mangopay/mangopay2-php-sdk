@@ -24,7 +24,7 @@ $createdCardRegister = $mangoPayApi->CardRegistrations->Create($cardRegister);
 $_SESSION['cardRegisterId'] = $createdCardRegister->Id;
 
 // build the return URL to capture token response
-$returnUrl = 'http://' . $_SERVER['HTTP_HOST'];
+$returnUrl = 'http' . ( $_SERVER['HTTPS'] ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
 $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], '/') + 1);
 $returnUrl .= 'payment.php';
 

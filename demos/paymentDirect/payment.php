@@ -16,18 +16,15 @@ $mangoPayApi = new \MangoPay\MangoPayApi();
 try {
     // update register card with registration data from Payline service
     $cardRegister = $mangoPayApi->CardRegistrations->Get($_SESSION['cardRegisterId']);
-    if (isset($_GET['errorCode']))
-        $cardRegister->RegistrationData = 'errorCode=' . $_GET['errorCode'];
-    else
-        $cardRegister->RegistrationData = 'data=' . $_GET['data'];
+    $cardRegister->RegistrationData = isset($_GET['data']) ? 'data=' . $_GET['data'] : 'errorCode=' . $_GET['errorCode'];
     $updatedCardRegister = $mangoPayApi->CardRegistrations->Update($cardRegister);
 
     if ($updatedCardRegister->Status != 'VALIDATED' || !isset($updatedCardRegister->CardId))
         die('<div style="color:red;">Cannot create virtual card. Payment has not been created.<div>');
-    
+
     // get created virtual card object
     $card = $mangoPayApi->Cards->Get($updatedCardRegister->CardId);
-    
+
     // create temporary wallet for user
     $wallet = new \MangoPay\Wallet();
     $wallet->Owners = array( $updatedCardRegister->UserId );
@@ -45,28 +42,29 @@ try {
     $payIn->Fees = new \MangoPay\Money();
     $payIn->Fees->Amount = 0;
     $payIn->Fees->Currency = $_SESSION['currency'];
-    
+
     // payment type as CARD
     $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
     if ($card->CardType == 'CB' || $card->CardType == 'VISA' || $card->CardType == 'MASTERCARD')
         $payIn->PaymentDetails->CardType = 'CB_VISA_MASTERCARD';
     elseif ($card->CardType == 'AMEX')
         $payIn->PaymentDetails->CardType = 'AMEX';
-    
+
     // execution type as DIRECT
     $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
     $payIn->ExecutionDetails->CardId = $card->Id;
     $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
-    
+
     // create Pay-In
     $createdPayIn = $mangoPayApi->PayIns->Create($payIn);
-    
+
     // if created Pay-in object has status SUCCEEDED it's mean that all is fine
     if ($createdPayIn->Status == 'SUCCEEDED') {
         print '<div style="color:green;">'.
                     'Pay-In has been created successfully. '
                     .'Pay-In Id = ' . $createdPayIn->Id 
                     . ', Wallet Id = ' . $createdWallet->Id 
+                    . ', received by ' . $_GET['mode']
                 . '</div>';
     }
     else {
