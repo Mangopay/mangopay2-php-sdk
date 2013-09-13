@@ -33,4 +33,56 @@ class PayIns extends Base {
         $this->assertNotNull($getPayIn->ExecutionDetails->RedirectURL);
         $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
     }
+    
+    function test_PayIns_Create_CardDirect() {
+        $johnWallet = $this->getJohnsWallet();
+        $beforeWallet = $this->_api->Wallets->Get($johnWallet->Id);
+        
+        $payIn = $this->getJohnsPayInCardDirect();
+        $wallet = $this->_api->Wallets->Get($johnWallet->Id);
+        $user = $this->getJohn();
+        
+        $this->assertTrue($payIn->Id > 0);
+        $this->assertEqual($wallet->Id, $payIn->CreditedWalletId);
+        $this->assertEqual('CARD', $payIn->PaymentType);
+        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsCard');
+        $this->assertEqual('DIRECT', $payIn->ExecutionType);
+        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsDirect');
+        $this->assertIsA($payIn->DebitedFunds, '\MangoPay\Money');
+        $this->assertIsA($payIn->CreditedFunds, '\MangoPay\Money');
+        $this->assertIsA($payIn->Fees, '\MangoPay\Money');
+        $this->assertEqual($user->Id, $payIn->AuthorId);
+        $this->assertEqual($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
+        $this->assertEqual('SUCCEEDED', $payIn->Status);
+        $this->assertEqual('PAYIN', $payIn->Type);
+    }
+    
+    function test_PayIns_Get_CardDirect() {
+        $payIn = $this->getJohnsPayInCardDirect();
+        
+        $getPayIn = $this->_api->PayIns->Get($payIn->Id);
+        
+        $this->assertIdentical($payIn->Id, $getPayIn->Id);
+        $this->assertIdentical($payIn->PaymentType, 'CARD');
+        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsCard');
+        $this->assertIdentical($payIn->ExecutionType, 'DIRECT');
+        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsDirect');
+        $this->assertIdenticalInputProps($payIn, $getPayIn);
+        $this->assertNotNull($getPayIn->ExecutionDetails->CardId);
+    }
+    
+    function test_PayIns_CreateRefund_CardDirect() {
+        $wallet = $this->getJohnsWallet();
+        $walletBefore = $this->_api->Wallets->Get($wallet->Id);
+        $payIn = $this->getJohnsPayInCardDirect();
+                
+        $refund = $this->getJohnsRefundForPayIn();
+        $walletAfter = $this->_api->Wallets->Get($wallet->Id);
+
+        $this->assertTrue($refund->Id > 0);
+        $this->assertTrue($refund->DebitedFunds->Amount, $payIn->DebitedFunds->Amount);
+        $this->assertEqual($walletBefore->Balance->Amount, $walletAfter->Balance->Amount + $payIn->DebitedFunds->Amount);
+        $this->assertEqual('PAYOUT', $refund->Type);
+        $this->assertEqual('REFUND', $refund->Nature);
+    }
 }

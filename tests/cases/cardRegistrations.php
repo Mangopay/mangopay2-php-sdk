@@ -31,10 +31,23 @@ class CardRegistrations extends Base {
     
     function test_CardRegistrations_Update() {
         $cardRegistration = $this->getJohnsCardRegistration();
-        $cardRegistration->RegistrationData = 'test RegistrationData';
-
+        $registrationData = $this->getPaylineCorrectRegistartionData($cardRegistration);
+        $cardRegistration->RegistrationData = $registrationData;
+        
         $getCardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
         
-        $this->assertEqual('test RegistrationData', $getCardRegistration->RegistrationData);
+        $this->assertEqual($registrationData, $getCardRegistration->RegistrationData);
+        $this->assertNotNull($getCardRegistration->CardId);
+        $this->assertEqual('VALIDATED', $getCardRegistration->Status);
+        $this->assertEqual('00000', $getCardRegistration->ResultCode);
+    }
+    
+    function test_Cards_CheckCardExisting() {
+        $cardRegistration = $this->getJohnsCardRegistration();
+        $cardRegistration = $this->_api->CardRegistrations->Get($cardRegistration->Id);
+        
+        $card = $this->_api->Cards->Get($cardRegistration->CardId);
+        
+        $this->assertTrue($card->Id > 0);
     }
 }

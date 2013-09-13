@@ -116,9 +116,13 @@ class RestTool {
         
         curl_close($this->_curlHandle);
         
-        if ($this->_debugMode) Logs::Debug('Response JSON', $result);
+        if ($this->_debugMode) 
+            Logs::Debug('Response JSON', $result);
+        
         $response = json_decode($result); 
-        if ($this->_debugMode) Logs::Debug('Response object', $response);
+        
+        if ($this->_debugMode) 
+            Logs::Debug('Response object', $response);
         
         $this->CheckResponseCode($response);
         
@@ -136,7 +140,8 @@ class RestTool {
         $restUrl = $urlTool->GetRestUrl($urlMethod, $this->_authRequired, $pagination, $additionalUrlParams);
 
         $this->_requestUrl = $urlTool->GetFullUrl($restUrl);
-        if ($this->_debugMode) Logs::Debug('FullUrl', $this->_requestUrl);
+        if ($this->_debugMode) 
+            Logs::Debug('FullUrl', $this->_requestUrl);
         
         $this->_curlHandle = curl_init($this->_requestUrl);
         if ($this->_curlHandle === false)
@@ -161,20 +166,24 @@ class RestTool {
                 break;
         }
         
-        if ($this->_debugMode) Logs::Debug('RequestType', $this->_requestType);
+        if ($this->_debugMode) 
+            Logs::Debug('RequestType', $this->_requestType);
 
         $httpHeaders = $this->GetHttpHeaders();
         curl_setopt($this->_curlHandle, CURLOPT_HTTPHEADER, $httpHeaders);
-        if ($this->_debugMode) Logs::Debug('HTTP Headers', $httpHeaders);
+        if ($this->_debugMode) 
+            Logs::Debug('HTTP Headers', $httpHeaders);
 
         if (!is_null($this->_requestData)) {
 
-            if ($this->_debugMode) Logs::Debug('RequestData object', $this->_requestData);
+            if ($this->_debugMode) 
+                Logs::Debug('RequestData object', $this->_requestData);
 
             // encode to json if needed
             if (in_array(self::$_JSON_HEADER, $httpHeaders)) {
                 $this->_requestData = json_encode($this->_requestData);
-                if ($this->_debugMode) Logs::Debug('RequestData JSON', $this->_requestData);
+                if ($this->_debugMode) 
+                    Logs::Debug('RequestData JSON', $this->_requestData);
             }
 
             curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $this->_requestData);

@@ -37,7 +37,7 @@ abstract class Base extends \UnitTestCase {
     public static $JohnsWallet;
     
     /**
-     * Test pay-ins object
+     * Test pay-ins Card Web object
      * @var \MangoPay\PayIn
      */
     public static $JohnsPayInCardWeb;
@@ -46,6 +46,12 @@ abstract class Base extends \UnitTestCase {
     /** @var \MangoPay\PayInExecutionDetailsWeb */
     public static $PayInExecutionDetailsWeb;
 
+    /**
+     * Test pay-ins Card Direct object
+     * @var \MangoPay\PayIn
+     */
+    public static $JohnsPayInCardDirect;
+    
     /**
      * Test pay-ins object
      * @var \MangoPay\PayOut
@@ -57,6 +63,18 @@ abstract class Base extends \UnitTestCase {
      * @var \MangoPay\Transfer
      */
     public static $JohnsTransfer;
+    
+    /**
+     * Test refund for transfer object
+     * @var \MangoPay\Refund
+     */
+    public static $JohnsRefundForTransfer;
+    
+    /**
+     * Test refund for pay-in object
+     * @var \MangoPay\Refund
+     */
+    public static $JohnsRefundForPayIn;
     
     /**
      * Test card registration object
@@ -160,6 +178,55 @@ abstract class Base extends \UnitTestCase {
         
         return self::$JohnsWallet;
     }
+        
+    /**
+     * Creates self::$JohnsWallet (wallets belonging to John) if not created yet
+     * @return \MangoPay\Wallet
+     */
+    protected function getJohnsWalletWithMoney($amount = 10000) {
+        
+        $wallet = $this->getJohnsWallet();
+        
+        if ($wallet->Balance->Amount <= 0) {
+            
+            $cardRegistration = new \MangoPay\CardRegistration();
+            $cardRegistration->UserId = $wallet->Owners[0];
+            $cardRegistration->Currency = 'EUR';
+            $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
+            
+            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistartionData($cardRegistration);
+            $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
+            
+            $card = $this->_api->Cards->Get($cardRegistration->CardId);
+            
+            // create pay-in CARD DIRECT
+            $payIn = new \MangoPay\PayIn();
+            $payIn->CreditedWalletId = $wallet->Id;
+            $payIn->AuthorId = $cardRegistration->UserId;
+            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds->Amount = $amount;
+            $payIn->DebitedFunds->Currency = 'EUR';
+            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees->Amount = 0;
+            $payIn->Fees->Currency = 'EUR';
+
+            // payment type as CARD
+            $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+            if ($card->CardType == 'CB' || $card->CardType == 'VISA' || $card->CardType == 'MASTERCARD')
+                $payIn->PaymentDetails->CardType = 'CB_VISA_MASTERCARD';
+            elseif ($card->CardType == 'AMEX')
+                $payIn->PaymentDetails->CardType = 'AMEX';
+
+            // execution type as DIRECT
+            $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+            $payIn->ExecutionDetails->CardId = $card->Id;
+            $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+            // create Pay-In
+            $this->_api->PayIns->Create($payIn);
+        }
+        
+        return $this->_api->Wallets->Get($wallet->Id);
+    }
     
     /**
      * @return \MangoPay\PayInPaymentDetailsCard
@@ -217,6 +284,51 @@ abstract class Base extends \UnitTestCase {
     }
     
     /**
+     * Creates Pay-In Card Direct object
+     * @return \MangoPay\PayIn
+     */
+    protected function getJohnsPayInCardDirect() {
+        if (self::$JohnsPayInCardDirect === null) {
+            $wallet = $this->getJohnsWallet();
+            $user = $this->getJohn();
+
+            $cardRegistration = new \MangoPay\CardRegistration();
+            $cardRegistration->UserId = $user->Id;
+            $cardRegistration->Currency = 'EUR';
+            $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
+            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistartionData($cardRegistration);
+            $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
+            
+            $card = $this->_api->Cards->Get($cardRegistration->CardId);
+            
+            // create pay-in CARD DIRECT
+            $payIn = new \MangoPay\PayIn();
+            $payIn->CreditedWalletId = $wallet->Id;
+            $payIn->AuthorId = $user->Id;
+            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds->Amount = 10000;
+            $payIn->DebitedFunds->Currency = 'EUR';
+            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees->Amount = 0;
+            $payIn->Fees->Currency = 'EUR';
+            // payment type as CARD
+            $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+            if ($card->CardType == 'CB' || $card->CardType == 'VISA' || $card->CardType == 'MASTERCARD')
+                $payIn->PaymentDetails->CardType = 'CB_VISA_MASTERCARD';
+            elseif ($card->CardType == 'AMEX')
+                $payIn->PaymentDetails->CardType = 'AMEX';
+            // execution type as DIRECT
+            $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+            $payIn->ExecutionDetails->CardId = $card->Id;
+            $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+            
+            self::$JohnsPayInCardDirect = $this->_api->PayIns->Create($payIn);
+        }
+        
+        return self::$JohnsPayInCardDirect;
+    }
+    
+    /**
      * Creates Pay-Out  Bank Wire object
      * @return \MangoPay\PayOut
      */
@@ -250,13 +362,18 @@ abstract class Base extends \UnitTestCase {
     
     /**
      * Creates Pay-Out  Bank Wire object
-     * @return \MangoPay\PayOut
+     * @return \MangoPay\Transfer
      */
     protected function getJohnsTransfer() {
         if (self::$JohnsTransfer === null) {
-            $wallet = $this->getJohnsWallet();
             $user = $this->getJohn();
-            
+            $walletWithMoney = $this->getJohnsWalletWithMoney();
+            $wallet = new \MangoPay\Wallet();
+            $wallet->Owners = array($user->Id);
+            $wallet->Currency = 'EUR';
+            $wallet->Description = 'WALLET IN EUR';
+            $wallet = $this->_api->Wallets->Create($wallet);
+
             $transfer = new \MangoPay\Transfer();
             $transfer->Tag = 'DefaultTag';
             $transfer->AuthorId = $user->Id;
@@ -266,9 +383,9 @@ abstract class Base extends \UnitTestCase {
             $transfer->DebitedFunds->Amount = 100;
             $transfer->Fees = new \MangoPay\Money();
             $transfer->Fees->Currency = 'EUR';
-            $transfer->Fees->Amount = 10;
+            $transfer->Fees->Amount = 0;
 
-            $transfer->DebitedWalletId = $wallet->Id;
+            $transfer->DebitedWalletId = $walletWithMoney->Id;
             $transfer->CreditedWalletId = $wallet->Id;
 
             self::$JohnsTransfer = $this->_api->Transfers->Create($transfer);
@@ -277,6 +394,56 @@ abstract class Base extends \UnitTestCase {
         return self::$JohnsTransfer;
     }
     
+    /**
+     * Creates refund object for transfer
+     * @return \MangoPay\Refund
+     */
+    protected function getJohnsRefundForTransfer() {
+        if (self::$JohnsRefundForTransfer === null) {
+            $user = $this->getJohn();
+            $transfer = $this->getJohnsTransfer();
+            $refund = new \MangoPay\Refund();
+            $refund->DebitedWalletId = $transfer->DebitedWalletId;
+            $refund->CreditedWalletId = $transfer->CreditedWalletId;
+            $refund->AuthorId = $user->Id;
+            $refund->DebitedFunds = new \MangoPay\Money();
+            $refund->DebitedFunds->Amount = $transfer->DebitedFunds->Amount;
+            $refund->DebitedFunds->Currency = $transfer->DebitedFunds->Currency;
+            $refund->Fees = new \MangoPay\Money();
+            $refund->Fees->Amount = $transfer->Fees->Amount;
+            $refund->Fees->Currency = $transfer->Fees->Currency;
+
+            self::$JohnsRefundForTransfer = $this->_api->Transfers->CreateRefund($transfer->Id, $refund);
+        }
+        
+        return self::$JohnsRefundForTransfer;
+    }
+
+    /**
+     * Creates refund object for PayIn
+     * @return \MangoPay\Refund
+     */
+    protected function getJohnsRefundForPayIn() {
+        if (self::$JohnsRefundForPayIn === null) {
+            $user = $this->getJohn();
+            $payIn = $this->getJohnsPayInCardDirect();
+
+            $refund = new \MangoPay\Refund();
+            $refund->CreditedWalletId = $payIn->CreditedWalletId;
+            $refund->AuthorId = $user->Id;
+            $refund->DebitedFunds = new \MangoPay\Money();
+            $refund->DebitedFunds->Amount = $payIn->DebitedFunds->Amount;
+            $refund->DebitedFunds->Currency = $payIn->DebitedFunds->Currency;
+            $refund->Fees = new \MangoPay\Money();
+            $refund->Fees->Amount = $payIn->Fees->Amount;
+            $refund->Fees->Currency = $payIn->Fees->Currency;
+
+            self::$JohnsRefundForPayIn = $this->_api->PayIns->CreateRefund($payIn->Id, $refund);
+        }
+        
+        return self::$JohnsRefundForPayIn;
+    }
+
     /**
      * Creates card registration object
      * @return \MangoPay\CardRegistration
@@ -293,6 +460,33 @@ abstract class Base extends \UnitTestCase {
         }
         
         return self::$JohnsCardRegistration;
+    }
+    
+    /**
+     * Get registration data from Payline service
+     * @param \MangoPay\CardRegistration $cardRegistration
+     * @return string
+     */
+    protected function getPaylineCorrectRegistartionData($cardRegistration) {
+        
+        $data = 'data=' . $cardRegistration->PreregistrationData .
+                '&accessKeyRef=' . $cardRegistration->AccessKey .
+                '&cardNumber=4970101122334406' .
+                '&cardExpirationDate=1214' .
+                '&cardCvx=123';
+
+        $curlHandle = curl_init($cardRegistration->CardRegistrationURL);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curlHandle, CURLOPT_POST, true);
+        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $data);
+        $response = curl_exec($curlHandle);
+        if ($response === false && curl_errno($curlHandle) != 0)
+            throw new \Exception('cURL error: ' . curl_error($curlHandle));
+
+        curl_close($curlHandle);
+
+        return $response;
     }
     
     /**

@@ -9,17 +9,16 @@ class All extends \TestSuite {
 
     function __construct() {
         parent::__construct();
-        $this->collect('../cases', new TestCasesCollector());
-    }
-}
-
-class TestCasesCollector extends \SimpleCollector {
-
-    protected function isHidden($filename) {
-
-        // ignore base.php: with abstract test case class (throws Bad TestSuite [No runnable test cases] otherwise)
-        if ($filename == "base.php") return true;
-
-        return parent::isHidden($filename);
+        
+        $this->addFile('../cases/tokens.php');
+        $this->addFile('../cases/clients.php');
+        $this->addFile('../cases/configurations.php');
+        $this->addFile('../cases/users.php');
+        $this->addFile('../cases/wallets.php');
+        $this->addFile('../cases/transfers.php');
+        $this->addFile('../cases/cardRegistrations.php');
+        $this->addFile('../cases/payIns.php');
+        $this->addFile('../cases/refunds.php');
+        $this->addFile('../cases/payOuts.php');
     }
 }
