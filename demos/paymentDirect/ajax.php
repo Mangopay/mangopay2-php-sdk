@@ -2,6 +2,7 @@
 
 // include MangoPay SDK
 require_once '../../MangoPaySDK/mangoPayApi.inc';
+require_once 'config.php';
 
 // sample data to demo
 $_SESSION['amount'] = 3300;
@@ -9,6 +10,9 @@ $_SESSION['currency'] = 'EUR';
 
 // create instance of MangoPayApi SDK
 $mangoPayApi = new \MangoPay\MangoPayApi();
+$mangoPayApi->Config->ClientId = MangoPayDemo_ClientId;
+$mangoPayApi->Config->ClientPassword = MangoPayDemo_ClientPassword;
+$mangoPayApi->Config->TemporaryFolder = MangoPayDemo_TemporaryFolder;
 
 // create user for payment
 $user = new MangoPay\UserNatural();
@@ -24,7 +28,7 @@ $createdCardRegister = $mangoPayApi->CardRegistrations->Create($cardRegister);
 $_SESSION['cardRegisterId'] = $createdCardRegister->Id;
 
 // build the return URL to capture token response if browser does not support cross-domain Ajax requests
-$returnUrl = 'http' . ( $_SERVER['HTTPS'] ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
+$returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
 $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], '/') + 1);
 $returnUrl .= 'payment.php';
 

@@ -22,5 +22,16 @@ class Configuration {
      * Base URL to MangoPay API
      * @var string 
      */
-    public $BaseUrl;
+    public $BaseUrl = 'https://mangopay-api-inte.leetchi.com';
+    
+    /**
+    * Path to folder with temporary files (with permissions to write)
+    */
+    public $TemporaryFolder = null;
+    
+    /**
+     * [INTERNAL USAGE ONLY] 
+     * Switch debug mode: log all request and response data
+     */
+    public $DebugMode = false;
 }

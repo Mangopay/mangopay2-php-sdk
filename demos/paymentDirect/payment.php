@@ -4,6 +4,7 @@ session_start();
 
 // include MangoPay SDK
 require_once '../../MangoPaySDK/mangoPayApi.inc';
+require_once 'config.php';
 
 // check if payment has been initialized
 if (!isset($_SESSION['amount'])) {
@@ -12,6 +13,9 @@ if (!isset($_SESSION['amount'])) {
 
 // create instance of MangoPayApi
 $mangoPayApi = new \MangoPay\MangoPayApi();
+$mangoPayApi->Config->ClientId = MangoPayDemo_ClientId;
+$mangoPayApi->Config->ClientPassword = MangoPayDemo_ClientPassword;
+$mangoPayApi->Config->TemporaryFolder = MangoPayDemo_TemporaryFolder;
 
 try {
     // update register card with registration data from Payline service
@@ -60,11 +64,12 @@ try {
 
     // if created Pay-in object has status SUCCEEDED it's mean that all is fine
     if ($createdPayIn->Status == 'SUCCEEDED') {
+        $mode = isset($_GET['mode']) ? $_GET['mode'] : 'POST';
         print '<div style="color:green;">'.
                     'Pay-In has been created successfully. '
                     .'Pay-In Id = ' . $createdPayIn->Id 
                     . ', Wallet Id = ' . $createdWallet->Id 
-                    . ', received by ' . $_GET['mode']
+                    . ', received by ' . $mode
                 . '</div>';
     }
     else {

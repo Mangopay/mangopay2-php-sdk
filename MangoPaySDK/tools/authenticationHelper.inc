@@ -32,10 +32,10 @@ class AuthenticationHelper {
      */
     public function GetHttpHeaderBasicKey() {
         if (is_null($this->_root->Config->ClientId) || strlen($this->_root->Config->ClientId) == 0)
-            throw new Exception ('MangoPay.Config.ClientId is not set.');
+            throw new Exception ('MangoPayApi.Config.ClientId is not set.');
         
         if (is_null($this->_root->Config->ClientPassword) || strlen($this->_root->Config->ClientPassword) == 0)
-            throw new Exception ('MangoPay.Config.ClientPassword is not set.');
+            throw new Exception ('MangoPayApi.Config.ClientPassword is not set.');
         
         $signature = $this->_root->Config->ClientId . ':' . $this->_root->Config->ClientPassword;
         return base64_encode($signature);

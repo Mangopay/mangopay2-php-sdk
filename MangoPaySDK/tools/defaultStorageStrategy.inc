@@ -8,6 +8,11 @@ class DefaultStorageStrategy implements IStorageStrategy {
     
     private $_prefixContent = '<?php exit(); ?>';
     private $_fileName = 'MangoPaySdkStorage.tmp.php';
+    private $_config;
+    
+    function __construct($config) {
+        $this->_config = $config;
+    }
     
     /**
      * Gets the current authorization token.
@@ -56,9 +61,9 @@ class DefaultStorageStrategy implements IStorageStrategy {
      */
     private function GetPathToTemporaryFolder() {
         
-        if (!defined('MangoPay_TemporaryFolder') || strlen(MangoPay_TemporaryFolder) == 0)
+        if (is_null($this->_config->TemporaryFolder))
             throw new \MangoPay\Exception('Path to temporary folder is not defined');
         
-        return MangoPay_TemporaryFolder;
+        return $this->_config->TemporaryFolder;
     }
 }

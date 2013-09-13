@@ -1,10 +1,5 @@
 <?php
 /**
- * Constant to switch debug mode - display all request and response data
- */
-define('MangoPay_DebugMode', 0);
-
-/**
  * Function to auto include files with entites and types
  * @param String $className
  */
@@ -42,6 +37,5 @@ function mangoPay_AutoloadCheckAndInclude($fileName, $module) {
 // register auto load function
 spl_autoload_register('mangoPay_Autoload');
 
-// include configuration file
-require_once 'config.inc';
+// include file with enums
 require_once __DIR__ . '/../tools/enums.inc';

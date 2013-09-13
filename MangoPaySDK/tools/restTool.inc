@@ -56,8 +56,6 @@ class RestTool {
     
     private $_requestUrl;
     
-    private $_debugMode = MangoPay_DebugMode;
-    
     private static $_JSON_HEADER = 'Content-Type: application/json';
         
     /**
@@ -116,12 +114,12 @@ class RestTool {
         
         curl_close($this->_curlHandle);
         
-        if ($this->_debugMode) 
+        if ($this->_root->Config->DebugMode) 
             Logs::Debug('Response JSON', $result);
         
         $response = json_decode($result); 
         
-        if ($this->_debugMode) 
+        if ($this->_root->Config->DebugMode) 
             Logs::Debug('Response object', $response);
         
         $this->CheckResponseCode($response);
@@ -140,7 +138,7 @@ class RestTool {
         $restUrl = $urlTool->GetRestUrl($urlMethod, $this->_authRequired, $pagination, $additionalUrlParams);
 
         $this->_requestUrl = $urlTool->GetFullUrl($restUrl);
-        if ($this->_debugMode) 
+        if ($this->_root->Config->DebugMode) 
             Logs::Debug('FullUrl', $this->_requestUrl);
         
         $this->_curlHandle = curl_init($this->_requestUrl);
@@ -166,23 +164,23 @@ class RestTool {
                 break;
         }
         
-        if ($this->_debugMode) 
+        if ($this->_root->Config->DebugMode) 
             Logs::Debug('RequestType', $this->_requestType);
 
         $httpHeaders = $this->GetHttpHeaders();
         curl_setopt($this->_curlHandle, CURLOPT_HTTPHEADER, $httpHeaders);
-        if ($this->_debugMode) 
+        if ($this->_root->Config->DebugMode) 
             Logs::Debug('HTTP Headers', $httpHeaders);
 
         if (!is_null($this->_requestData)) {
 
-            if ($this->_debugMode) 
+            if ($this->_root->Config->DebugMode) 
                 Logs::Debug('RequestData object', $this->_requestData);
 
             // encode to json if needed
             if (in_array(self::$_JSON_HEADER, $httpHeaders)) {
                 $this->_requestData = json_encode($this->_requestData);
-                if ($this->_debugMode) 
+                if ($this->_root->Config->DebugMode) 
                     Logs::Debug('RequestData JSON', $this->_requestData);
             }
 

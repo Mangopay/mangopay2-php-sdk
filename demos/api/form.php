@@ -2,6 +2,7 @@
 namespace MangoPay\Demo;
 require_once '../../MangoPaySDK/mangoPayApi.inc';
 require_once 'htmlHelper.php';
+require_once 'config.php';
 
 $module = @$_GET['module'];
 if (!isset($module))
@@ -21,6 +22,9 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
 
     try {
         $api = new \MangoPay\MangoPayApi();
+        $api->Config->ClientId = MangoPayDemo_ClientId;
+        $api->Config->ClientPassword = MangoPayDemo_ClientPassword;
+        $api->Config->TemporaryFolder = MangoPayDemo_TemporaryFolder;
 
         // special cases
         switch ($module) {

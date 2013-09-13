@@ -96,16 +96,6 @@ class MangoPayApi {
 
         // default config setup
         $this->Config = new Configuration();
-        if (defined('MangoPay_ClientId')) {
-            $this->Config->ClientId = MangoPay_ClientId;
-        }
-        if (defined('MangoPay_ClientPassword')) {
-            $this->Config->ClientPassword = MangoPay_ClientPassword;
-        }
-        if (defined('MangoPay_BaseUrl')) {
-            $this->Config->BaseUrl = MangoPay_BaseUrl;
-        }
-        
         $this->OAuthTokenManager = new AuthorizationTokenManager($this);
         
         // API managers

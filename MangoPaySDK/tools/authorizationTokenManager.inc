@@ -15,7 +15,7 @@ class AuthorizationTokenManager extends ApiBase {
     function __construct($root) {
         $this->_root = $root;
 
-        $this->RegisterCustomStorageStrategy(new DefaultStorageStrategy());
+        $this->RegisterCustomStorageStrategy(new DefaultStorageStrategy($this->_root->Config));
     }
     
     /**
