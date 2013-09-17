@@ -52,7 +52,7 @@ class DefaultStorageStrategy implements IStorageStrategy {
      * @return string
      */
     private function GetPathToFile() {
-        return $this->GetPathToTemporaryFolder() . $this->_fileName;
+        return $this->GetPathToTemporaryFolder() . DIRECTORY_SEPARATOR . $this->_fileName;
     }
     
     /**
