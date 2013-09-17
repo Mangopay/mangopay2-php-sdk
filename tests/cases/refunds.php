@@ -8,8 +8,8 @@ require_once 'base.php';
 class Refunds extends Base {
     
     public function test_Refund_GetForTransfer() {
-        $refund = $this->getJohnsRefundForTransfer();
-        $transfer = $this->getJohnsTransfer();
+        $transfer = $this->getNewTransfer();
+        $refund = $this->getNewRefundForTransfer($transfer);
         $user = $this->getJohn();
         
         $getRefund = $this->_api->Refunds->Get($refund->Id);
@@ -21,8 +21,8 @@ class Refunds extends Base {
     }
     
     public function test_Refund_GetForPayIn() {
-        /*$refund = $this->getJohnsRefundForPayIn();
-        $payIn = $this->getJohnsPayInCardDirect();
+        $payIn = $this->getNewPayInCardDirect();
+        $refund = $this->getNewRefundForPayIn($payIn);
         $user = $this->getJohn();
 
         $getRefund = $this->_api->Refunds->Get($refund->Id);
@@ -30,6 +30,6 @@ class Refunds extends Base {
         $this->assertEqual($getRefund->Id, $refund->Id);
         $this->assertEqual($getRefund->InitialTransactionId, $payIn->Id);
         $this->assertEqual($getRefund->AuthorId, $user->Id);
-        $this->assertEqual($getRefund->Type, 'PAYOUT');*/
+        $this->assertEqual($getRefund->Type, 'PAYOUT');
     }
 }

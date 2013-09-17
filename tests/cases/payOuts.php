@@ -1,5 +1,7 @@
 <?php
+
 namespace MangoPay\Tests;
+
 require_once 'base.php';
 
 /**
@@ -12,13 +14,15 @@ class PayOuts extends Base {
         try {
             $payIn = $this->getJohnsPayInCardWeb();
             $payOut = $this->getJohnsPayOutBankWire();
-        }
-        catch (\MangoPay\ResponseException $ex) {
+
+            $this->fail('Should throw ResponseException');
+        } catch (\MangoPay\ResponseException $ex) {
             $this->assertIdentical($ex->getCode(), 400);
             $this->assertTrue(strpos($ex->getMessage(), 'The amount you wish to spend must be smaller than the amount left in your collection') !== false);
-        }
-        catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             $this->fail('Should throw ResponseException');
         }
     }
+
 }
+
