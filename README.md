@@ -36,11 +36,58 @@ Report bugs or suggest features using
 [issue tracker at GitHub](https://github.com/MangoPay/mangopay2-php-sdk).
 
 
+Client creation example (you need to call it only once)
+-------------------------------------------------
+
+    require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
+    $api = new MangoPay\MangoPayApi();
+
+    $client = $api->Clients->Create(
+        'your-client-id', 
+        'your-client-name', 
+        'your-client-email@sample.org'
+    );
+
+    // you receive your password here, note it down and keep in secret
+    print($client->Passphrase);
+
+
+Configuration
+-------------------------------------------------
+See the example above and call `$api->Clients->Create` once to get your passphrase.
+Then set `$api->Config->ClientId` to your MangoPay Client ID and 
+`$api->Config->ClientPassword` to your passphrase.
+
+You also need to set a folder path in `$api->Config->TemporaryFolder` that SDK needs 
+to store temporary files. This folder should not be accessible through your web server.
+It could be `/tmp/` or `/var/tmp/` or any other location that PHP can write to.
+
+`$api->Config->BaseUrl` is set to sandbox environment by default. To enable production
+environment, set it to `https://mangopay-api.leetchi.com`.
+
+    require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
+    $api = new MangoPay\MangoPayApi();
+
+    // configuration
+    $api->Config->ClientId = 'your-client-id';
+    $api->Config->ClientPassword = 'your-client-password';
+    $api->Config->TemporaryFolder = '/some/path/';
+    //$api->Config->BaseUrl = 'https://mangopay-api.leetchi.com';
+
+    // call some API methods...
+    $users = $api->Users->GetAll();
+
+
 Sample usage
 -------------------------------------------------
 
     require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
     $api = new MangoPay\MangoPayApi();
+
+    // configuration
+    $api->Config->ClientId = 'your-client-id';
+    $api->Config->ClientPassword = 'your-client-password';
+    $api->Config->TemporaryFolder = '/some/path/';
 
     // get some user by id
     $john = $api->Users->Get($someId);
@@ -58,41 +105,3 @@ Sample usage
     $accounts = $api->Users->GetBankAccounts($john->Id, $pagination);
 
 
-Client creation example (you need to call it only once)
--------------------------------------------------
-
-    require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
-    $api = new MangoPay\MangoPayApi();
-
-    $client = $api->Clients->Create('your-client-id', 'your-client-name', 'your-client-email@sample.org');
-    print($client->Passphrase); // you receive your password here
-
-
-Configuration example
--------------------------------------------------
-
-    require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
-    $api = new MangoPay\MangoPayApi();
-
-    $api->Config->ClientId = 'your-client-id';
-    $api->Config->ClientPassword = 'your-client-password';
-    print($api->Config->BaseUrl); // you probably dont have to change it
-
-    // call some API methods...
-    $users = $api->Users->GetAll();
-
-
-Example with auth token reusage
--------------------------------------------------
-
-    require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
-    $api = new MangoPay\MangoPayApi();
-
-    // optionally you can reuse token from previous requests (unless expired)
-    $api->OAuthToken = $myTokensPersistenceService->loadIfStored();
-
-    // call some API methods...
-    $users = $api->Users->GetAll();
-
-    // optionally store the token for future requests (until expires)
-    $myTokensPersistenceService->store($api->OAuthToken);
