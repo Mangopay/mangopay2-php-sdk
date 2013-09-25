@@ -63,7 +63,7 @@ to store temporary files. This path should be outside your www folder.
 It could be `/tmp/` or `/var/tmp/` or any other location that PHP can write to.
 
 `$api->Config->BaseUrl` is set to sandbox environment by default. To enable production
-environment, set it to `https://mangopay-api.leetchi.com`.
+environment, set it to `https://api.mangopay.com`.
 
     require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
     $api = new MangoPay\MangoPayApi();
