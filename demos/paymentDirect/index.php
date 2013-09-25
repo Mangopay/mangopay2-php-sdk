@@ -19,26 +19,26 @@ session_start();
                     height: 10px;
             }
             input[type=submit], input[type=button] {
-                    width: 100px;
-                    margin-left: 185px;
+                    width: 200px;
+                    margin-left: 85px;
             }
         </style>
         
     </head>
     <body style="margin: 10px;">
-        <a href="index.php?mode=AJAX">AJAX method</a> &nbsp;&nbsp;&nbsp;
-        <a href="index.php?mode=POST">POST method</a>
+        <a href="index.php?mode=JS">Using JavaSctipt Kit</a> &nbsp;&nbsp;&nbsp;
+        <a href="index.php?mode=nonJS">Without JavaSctipt</a>
         <br />
         
         <?php
-        
         if (isset($_GET['mode'])){
-            print '<h1>' . $_GET['mode'] . ' method</h1>';
-            
-            if ($_GET['mode'] == 'POST')
-                include "post.php";
-            elseif($_GET['mode'] == 'AJAX')
-                include "ajax.php";
+            if ($_GET['mode'] == 'nonJS') {
+                print '<h1>Without JavaSctipt</h1>';
+                include "non_js.php";
+            } elseif($_GET['mode'] == 'JS') {
+                print '<h1>Using JavaSctipt Kit</h1>';
+                include "with_js.php";
+            }
         }
         ?>
     </body>

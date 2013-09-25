@@ -64,12 +64,10 @@ try {
 
     // if created Pay-in object has status SUCCEEDED it's mean that all is fine
     if ($createdPayIn->Status == 'SUCCEEDED') {
-        $mode = isset($_GET['mode']) ? $_GET['mode'] : 'POST';
         print '<div style="color:green;">'.
                     'Pay-In has been created successfully. '
                     .'Pay-In Id = ' . $createdPayIn->Id 
                     . ', Wallet Id = ' . $createdWallet->Id 
-                    . ', received by ' . $mode
                 . '</div>';
     }
     else {
