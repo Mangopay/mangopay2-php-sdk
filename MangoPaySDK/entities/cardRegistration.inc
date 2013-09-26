@@ -61,12 +61,6 @@ class CardRegistration extends EntityBase {
     public $Status;
         
     /**
-     * Reusable
-     * @var bool 
-     */
-    public $Reusable;
-    
-    /**
      * Get array with read-only properties
      * @return array
      */

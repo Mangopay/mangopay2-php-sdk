@@ -53,10 +53,4 @@ class Card extends EntityBase {
      * @var string 
      */
     public $Validity;
-    
-    /**
-     * Reusable
-     * @var bool 
-     */
-    public $Reusable;
 }
