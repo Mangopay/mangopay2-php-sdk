@@ -1,3 +1,12 @@
+###***
+
+THE MANGOPAY V2 IS NOT RELEASED YET.
+
+PLEASE USE THE V1 API FOR NOW: https://github.com/MangoPay/mangopay-php-sdk
+
+###***
+
+
 MangoPay SDK
 =================================================
 MangoPaySDK is a PHP client library to work with
