@@ -35,11 +35,11 @@ class CardRegistrations extends Base {
         $cardRegistration->RegistrationData = $registrationData;
         
         $getCardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
-        
+
         $this->assertEqual($registrationData, $getCardRegistration->RegistrationData);
         $this->assertNotNull($getCardRegistration->CardId);
-        $this->assertEqual('VALIDATED', $getCardRegistration->Status);
-        $this->assertEqual('00000', $getCardRegistration->ResultCode);
+        $this->assertIdentical('VALIDATED', $getCardRegistration->Status);
+        $this->assertIdentical('000000', $getCardRegistration->ResultCode);
     }
     
     function test_Cards_CheckCardExisting() {

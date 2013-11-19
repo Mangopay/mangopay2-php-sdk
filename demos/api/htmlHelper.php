@@ -13,7 +13,7 @@ class HtmlHelper {
         }
     }
     
-    public static function renderForm($entityName, $operation, $subEntityName, $module) {
+    public static function renderForm($entityName, $operation, $subEntityName, $filterName) {
         
         echo '<form name="input" action="" method="post">';
         echo '<table>';
@@ -30,9 +30,14 @@ class HtmlHelper {
                 self::renderEntity($entityName);
                 break;
             case 'All':
+                if (isset($filterName) && $filterName != "") {
+                    self::renderFormRow('<i>Optional filters:</i>');
+                    self::renderEntity($filterName);
+                }
+                
+                self::renderFormRow('<i>Pagination:</i>');
                 self::renderEntity('Pagination');
                 break;
-
             case 'CreateSubEntity':
                 self::renderId($entityName);
                 self::renderEntity($subEntityName);
@@ -43,18 +48,31 @@ class HtmlHelper {
                 break;
             case 'ListSubEntity':
                 self::renderId($entityName);
+                if (isset($filterName) && $filterName != "") {
+                    self::renderFormRow('<i>Optional filters:</i>');
+                    self::renderEntity($filterName);
+                }
+                
+                self::renderFormRow('<i>Pagination:</i>');
+                self::renderEntity('Pagination');
                 break;
         }
         
         // special cases
-        switch ($module) {
+        /*switch ($module) {
             case 'Wallet_Wallets_ListSubEntity_GetTransaction':
                 self::renderFormRow('<i>Optional filters:</i>');
                 self::renderEntity('FilterTransactions');
                 self::renderFormRow('<i>Pagination:</i>');
                 self::renderEntity('Pagination');
                 break;
-        }
+            case 'Event_Events_ListEntity_GetAll':
+                self::renderFormRow('<i>Optional filters:</i>');
+                self::renderEntity('FilterEvents');
+                self::renderFormRow('<i>Pagination:</i>');
+                self::renderEntity('Pagination');
+                break;
+        }*/
         
         echo '<tr><td></td><td><input type="submit" value="' . $operation . '" /></td></tr>';
         echo '</table>';
@@ -117,8 +135,26 @@ class HtmlHelper {
             
             echo '<tr><td>';
             echo $prefix . $name . ':</td><td>';
-            echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/></td></tr>';
+            if ($className == "\\MangoPay\\FilterEvents" && $name == "EventType"){
+                self::renderEnum("\\MangoPay\\EventType", $name, $prefix);
+            }
+            else
+                echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/>';
+            echo '</td></tr>';
         }
+    }
+    
+    public static function renderEnum($enumClassName, $name, $prefix) {
+        
+        $enum = new $enumClassName();
+        $enumObject = new \ReflectionObject($enum);
+        $constants = $enumObject->getConstants();
+        
+        echo '<select name="' . $prefix . $name . '">';
+        foreach ($constants as $constant) {
+            echo '<option value="' . $constant . '">' . $constant . '</option>';
+        }
+        echo '</select>';
     }
     
     public static function renderFormRow($label = null, $field = null) {

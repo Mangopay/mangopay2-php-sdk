@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * Filter for transaction list
  */
-class FilterTransactions extends Dto {
+class FilterTransactions extends FilterBase {
     
     /**
      * TransactionStatus {CREATED, SUCCEEDED, FAILED}
@@ -29,18 +29,4 @@ class FilterTransactions extends Dto {
      * @var string 
      */
     public $Direction;
-    
-    /**
-     * Start date in unix format:
-     * return only transactions that have CreationDate BEFORE this date
-     * @var time 
-     */
-    public $BeforeDate;
-    
-    /**
-     * End date in unix format:
-     * return only transactions that have CreationDate AFTER this date
-     * @var time 
-     */
-    public $AfterDate;
 }

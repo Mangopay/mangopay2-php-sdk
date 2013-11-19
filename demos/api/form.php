@@ -15,6 +15,7 @@ $entityName = @$details[0];
 $subApiName = @$details[1];
 $operation = @$details[2];
 $subEntityName = @$details[3];
+$filterName = @$details[4];
 $entityId = (int)@$_POST['Id'];
 $subEntityId = (int)@$_POST['IdSubEntity'];
 
@@ -52,10 +53,11 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                     break;
                 case 'All':
                     $pagination = HtmlHelper::getEntity('Pagination');
-                    $apiResult = $api->$subApiName->GetAll($pagination);
+                    if (isset($filterName) && $filterName != "")
+                        $filter = HtmlHelper::getEntity($filterName);
+                    $apiResult = $api->$subApiName->GetAll($pagination, $filter);
                     print '<pre>';print_r($pagination);print '</pre>';
                     break;
-
                 case 'CreateSubEntity':
                     $entity = HtmlHelper::getEntity($subEntityName);
                     $methodName = 'Create'. $subEntityName;
@@ -68,7 +70,10 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                 case 'ListSubEntity':
                     $pagination = HtmlHelper::getEntity('Pagination');
                     $methodName = $subEntityName;
-                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination);
+                    $filter = null;
+                    if (isset($filterName) && $filterName != "")
+                        $filter = HtmlHelper::getEntity($filterName);
+                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter);
                     print '<pre>';print_r($pagination);print '</pre>';
                     break;
             }
@@ -93,5 +98,5 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
     }
 
 } else {
-    HtmlHelper::renderForm($entityName, $operation, $subEntityName, $module);
+    HtmlHelper::renderForm($entityName, $operation, $subEntityName, $filterName);
 }

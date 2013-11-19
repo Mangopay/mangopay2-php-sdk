@@ -22,7 +22,7 @@ class Configuration {
      * Base URL to MangoPay API
      * @var string 
      */
-    public $BaseUrl = 'https://api-preprod.mangopay.com';
+    public $BaseUrl = 'https://api.sandbox.mangopay.com';
     
     /**
     * Path to folder with temporary files (with permissions to write)

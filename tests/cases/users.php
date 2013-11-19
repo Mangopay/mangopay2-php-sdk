@@ -31,10 +31,17 @@ class Users extends Base {
     function test_Users_CreateLegal_PassesIfRequiredPropsProvided() {
         $user = new \MangoPay\UserLegal();
         $user->Name = "SomeOtherSampleOrg";
+        $user->Email = "mail@test.com";
         $user->LegalPersonType = "BUSINESS";
-        
+        $user->LegalRepresentativeFirstName = "FirstName";
+        $user->LegalRepresentativeLastName = "LastName";
+        $user->LegalRepresentativeAddress = "Address";
+        $user->LegalRepresentativeBirthday = mktime(0, 0, 0, 12, 21, 1975);
+        $user->LegalRepresentativeNationality = "FR";
+        $user->LegalRepresentativeCountryOfResidence = "FR";
+
         $ret = $this->_api->Users->Create($user);
-        
+
         $this->assertTrue($ret->Id > 0, "Created successfully after required props set");
         $this->assertIdenticalInputProps($user, $ret);
     }
