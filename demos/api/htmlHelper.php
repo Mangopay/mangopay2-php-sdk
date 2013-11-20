@@ -69,7 +69,7 @@ class HtmlHelper {
             case 'CreateKycPageByFile':
                 self::renderId($entityName);
                 self::renderId($subEntityName[1], 'IdSubEntity');
-                self::renderFormRow('<input type="file" name="kyc_page" />');
+                self::renderFormRow('<tr><td></td><td><input type="file" name="kyc_page" /></td></tr>');
                 break;
         }
         
