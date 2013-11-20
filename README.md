@@ -72,7 +72,7 @@ environment, set it to `https://api.mangopay.com`.
     $api->Config->ClientId = 'your-client-id';
     $api->Config->ClientPassword = 'your-client-password';
     $api->Config->TemporaryFolder = '/some/path/';
-    //$api->Config->BaseUrl = 'https://mangopay-api.leetchi.com';
+    //$api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
 
     // call some API methods...
     $users = $api->Users->GetAll();
