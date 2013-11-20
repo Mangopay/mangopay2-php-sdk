@@ -16,6 +16,7 @@ $subApiName = @$details[1];
 $operation = @$details[2];
 $subEntityName = @$details[3];
 $filterName = @$details[4];
+$subSubEntityName = @$details[5];
 $entityId = (int)@$_POST['Id'];
 $subEntityId = (int)@$_POST['IdSubEntity'];
 
@@ -53,6 +54,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                     break;
                 case 'All':
                     $pagination = HtmlHelper::getEntity('Pagination');
+                    $filter = null;
                     if (isset($filterName) && $filterName != "")
                         $filter = HtmlHelper::getEntity($filterName);
                     $apiResult = $api->$subApiName->GetAll($pagination, $filter);
@@ -63,9 +65,19 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                     $methodName = 'Create'. $subEntityName;
                     $apiResult = $api->$subApiName->$methodName($entityId, $entity);
                     break;
+                case 'CreateSubSubEntity':
+                    $entity = HtmlHelper::getEntity($subEntityName);
+                    $methodName = 'Create' . $subEntityName;
+                    $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId, $entity);
+                    break;
                 case 'GetSubEntity':
-                    $methodName = $subEntityName;
+                    $methodName = 'Get' . $subEntityName;
                     $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId);
+                    break;
+                case 'SaveSubEntity':
+                    $entity = HtmlHelper::getEntity($subEntityName);
+                    $methodName = 'Update' . $subEntityName;
+                    $apiResult = $api->$subApiName->$methodName($subEntityId, $entity);
                     break;
                 case 'ListSubEntity':
                     $pagination = HtmlHelper::getEntity('Pagination');
@@ -75,6 +87,9 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                         $filter = HtmlHelper::getEntity($filterName);
                     $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter);
                     print '<pre>';print_r($pagination);print '</pre>';
+                    break;
+                case 'CreateKycPageByFile':
+                    $apiResult = $api->$subApiName->CreateKycPageFromFile($entityId, $subEntityId, $_FILES['kyc_page']);
                     break;
             }
         }
@@ -98,5 +113,5 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
     }
 
 } else {
-    HtmlHelper::renderForm($entityName, $operation, $subEntityName, $filterName);
+    HtmlHelper::renderForm($entityName, $operation, array($subEntityName, $subSubEntityName), $filterName);
 }

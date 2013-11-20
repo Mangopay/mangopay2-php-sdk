@@ -42,3 +42,21 @@ class EventType {
     const TransferRefundSucceeded = "TRANSFER_REFUND_SUCCEEDED";
     const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
 }
+
+/**
+ * KYC document types
+ */
+class KycDocumentType {
+    const identity_proof = 'IDENTITY_PROOF';
+    const registration_proof = 'REGISTRATION_PROOF';
+}
+
+/**
+ * KYC document statuses
+ */
+class KycDocumentStatus{
+    const created = 'CREATED';
+    const validation_asked = 'VALIDATION_ASKED';
+    const validated = 'VALIDATED';
+    const refused = 'REFUSED';
+}

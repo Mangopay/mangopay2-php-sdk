@@ -113,6 +113,11 @@ abstract class ApiBase {
         'wallets_alltransactions' => array( '/wallets/%s/transactions', RequestType::GET ),
         'wallets_get' => array( '/wallets/%s', RequestType::GET ),
         'wallets_save' => array( '/wallets/%s', RequestType::PUT ),
+        
+        'kyc_documents_create' => array( '/users/%s/KYC/documents/', RequestType::POST ),
+        'kyc_documents_get' => array( '/users/%s/KYC/documents/%s', RequestType::GET ),
+        'kyc_documents_save' => array( '/users/%s/KYC/documents/%s', RequestType::PUT ),
+        'kyc_page_create' => array( '/users/%s/KYC/documents/%s/pages', RequestType::POST ),
     );
 
     /**
@@ -149,12 +154,14 @@ abstract class ApiBase {
      * @param int $entityId Entity identifier
      * @return object Respons data
      */
-    protected function CreateObject($methodKey, $entity, $responseClassName = null, $entityId = null) {
-        
+    protected function CreateObject($methodKey, $entity, $responseClassName = null, $entityId = null, $subEntityId = null) {
+
         if (is_null($entityId))
             $urlMethod = $this->GetRequestUrl($methodKey);
-        else
+        elseif (is_null($subEntityId))
             $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
+        else
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $subEntityId);
         
         $requestData = null;
         if (!is_null($entity))
@@ -223,9 +230,13 @@ abstract class ApiBase {
      * @param object $responseClassName Name of entity class from response
      * @return object Respons data
      */
-    protected function SaveObject($methodKey, $entity, $responseClassName = null) {
+    protected function SaveObject($methodKey, $entity, $responseClassName = null, $secondEntityId = null) {
         
-        $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entity->Id);
+        if (is_null($secondEntityId))
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entity->Id);
+        else
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $secondEntityId, $entity->Id);
+
         $requestData = $this->BuildRequestData($entity);
         
         $rest = new RestTool(true, $this->_root);

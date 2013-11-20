@@ -15,7 +15,7 @@ class HtmlHelper {
     
     public static function renderForm($entityName, $operation, $subEntityName, $filterName) {
         
-        echo '<form name="input" action="" method="post">';
+        echo '<form name="input" action="" method="post" enctype="multipart/form-data">';
         echo '<table>';
         
         switch ($operation) {
@@ -40,11 +40,21 @@ class HtmlHelper {
                 break;
             case 'CreateSubEntity':
                 self::renderId($entityName);
-                self::renderEntity($subEntityName);
+                self::renderEntity($subEntityName[0]);
+                break;
+            case 'CreateSubSubEntity':
+                self::renderId($entityName);
+                self::renderId($subEntityName[1], 'IdSubEntity');
+                self::renderEntity($subEntityName[0]);
                 break;
             case 'GetSubEntity':
                 self::renderId($entityName);
-                self::renderId($subEntityName, 'IdSubEntity');
+                self::renderId($subEntityName[0], 'IdSubEntity');
+                break;
+            case 'SaveSubEntity':
+                self::renderId($entityName, 'IdSubEntity');
+                self::renderId($subEntityName[0]);
+                self::renderEntity($subEntityName[0]);
                 break;
             case 'ListSubEntity':
                 self::renderId($entityName);
@@ -55,6 +65,11 @@ class HtmlHelper {
                 
                 self::renderFormRow('<i>Pagination:</i>');
                 self::renderEntity('Pagination');
+                break;
+            case 'CreateKycPageByFile':
+                self::renderId($entityName);
+                self::renderId($subEntityName[1], 'IdSubEntity');
+                self::renderFormRow('<input type="file" name="kyc_page" />');
                 break;
         }
         
@@ -137,6 +152,10 @@ class HtmlHelper {
             echo $prefix . $name . ':</td><td>';
             if ($className == "\\MangoPay\\FilterEvents" && $name == "EventType"){
                 self::renderEnum("\\MangoPay\\EventType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\KycDocument" && $name == "Type") {
+                self::renderEnum("\\MangoPay\\KycDocumentType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\KycDocument" && $name == "Status") {
+                self::renderEnum("\\MangoPay\\KycDocumentStatus", $name, $prefix);
             }
             else
                 echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/>';

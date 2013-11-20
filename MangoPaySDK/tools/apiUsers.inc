@@ -134,6 +134,72 @@ class ApiUsers extends ApiBase {
     }
     
     /**
+     * Create new KYC document
+     * @param int $userId User Id
+     * @param \MangoPay\KycDocument $kycDocument
+     * @return \MangoPay\KycDocument Document returned from API
+     */
+    public function CreateKycDocument($userId, $kycDocument) {
+        return $this->CreateObject('kyc_documents_create', $kycDocument, '\MangoPay\KycDocument', $userId);
+    }
+    
+    /**
+     * Get KYC document
+     * @param int $userId User Id
+     * @param string $kycDocumentId Document identifier
+     * @return \MangoPay\KycDocument Document returned from API
+     */
+    public function GetKycDocument($userId, $kycDocumentId) {
+        return $this->GetObject('kyc_documents_get', $userId, '\MangoPay\KycDocument', $kycDocumentId);
+    }
+    
+    /**
+     * Save KYC document
+     * @param int $userId User Id
+     * @param \MangoPay\KycDocument $kycDocument Document to save
+     * @return \MangoPay\KycDocument Document returned from API
+     */
+    public function UpdateKycDocument($userId, $kycDocument) {
+        return $this->SaveObject('kyc_documents_save', $kycDocument, '\MangoPay\KycDocument', $userId);
+    }
+    
+    /**
+     * Create page for Kyc document
+     * @param int $userId User Id
+     * @param \MangoPay\KycPage $page Kyc
+     */
+    public function CreateKycPage($userId, $kycDocumentId, $kycPage) {
+        
+        try{
+            $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId);
+        } catch (\MangoPay\ResponseException $exc) {
+            if ($exc->getCode() != 204)
+                throw $exc;
+        }
+    }
+    
+    /**
+     * Create page for Kyc document from file
+     * @param int $userId User Id
+     * @param \MangoPay\KycPage $page Kyc
+     */
+    public function CreateKycPageFromFile($userId, $kycDocumentId, $file) {
+        
+        $filePath = $file;
+        if (is_array($file)) {
+            $filePath = $file['tmp_name'];
+        }
+        
+        $kycPage = new \MangoPay\KycPage();
+        $kycPage->File = base64_encode(file_get_contents($filePath));
+        
+        if (empty($kycPage->File))
+            throw new Exception('Content of the file cannot be empty');
+        
+        $this->CreateKycPage($userId, $kycDocumentId, $kycPage);
+    }
+    
+    /**
      * Get correct user object
      * @param object $response Response from API
      * @return UserLegal/UserNatural User object returned from API

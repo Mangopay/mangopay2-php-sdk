@@ -13,7 +13,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
     ),
     'Bank accounts' => array(
         'Create bank account for user' => 'User_Users_CreateSubEntity_BankAccount',
-        'Get bank account for user' => 'User_Users_GetSubEntity_GetBankAccount',
+        'Get bank account for user' => 'User_Users_GetSubEntity_BankAccount',
         'List bank accounts for user' => 'User_Users_ListSubEntity_GetBankAccounts',
     ),
     'Wallets' => array(
@@ -53,6 +53,13 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
     ),
     'Event' => array(
         'Get event' => 'Event_Events_All__FilterEvents',
+    ),
+    'KYC' => array(
+        'Create document' => 'User_Users_CreateSubEntity_KycDocument',
+        'Get document' => 'User_Users_GetSubEntity_KycDocument',
+        'Save document' => 'User_Users_SaveSubEntity_KycDocument',
+        'Create page from base64' => 'User_Users_CreateSubSubEntity_KycPage__KycDocument',
+        'Create page from file' => 'User_Users_CreateKycPageByFile_KycPage__KycDocument',
     ),
 );
 
