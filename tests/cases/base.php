@@ -506,8 +506,8 @@ abstract class Base extends \UnitTestCase {
 
         $data = 'data=' . $cardRegistration->PreregistrationData .
                 '&accessKeyRef=' . $cardRegistration->AccessKey .
-                '&cardNumber=4970101122334406' .
-                '&cardExpirationDate=1214' .
+                '&cardNumber=4970100000000154' .
+                '&cardExpirationDate=1224' .
                 '&cardCvx=123';
 
         $curlHandle = curl_init($cardRegistration->CardRegistrationURL);
