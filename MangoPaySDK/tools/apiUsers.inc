@@ -190,6 +190,12 @@ class ApiUsers extends ApiBase {
             $filePath = $file['tmp_name'];
         }
         
+        if (empty($file))
+            throw new Exception('Path of file cannot be empty');
+        
+        if (!file_exists($file))
+            throw new Exception('File not exist');
+        
         $kycPage = new \MangoPay\KycPage();
         $kycPage->File = base64_encode(file_get_contents($filePath));
         

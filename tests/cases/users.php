@@ -139,4 +139,116 @@ class Users extends Base {
         $this->assertTrue(isset($pagination->TotalPages));
         $this->assertTrue(isset($pagination->TotalItems));
     }
+    
+    function test_Users_CreateKycDocument(){
+        $kycDocument = $this->getJohnsKycDocument();
+        
+        $this->assertTrue($kycDocument->Id > 0);
+        $this->assertIdentical($kycDocument->Status, \MangoPay\KycDocumentStatus::Created);
+        $this->assertIdentical($kycDocument->Type, \MangoPay\KycDocumentType::IdentityProof);
+    }
+    
+    function test_Users_GetKycDocument(){
+        $kycDocument = $this->getJohnsKycDocument();
+        $user = $this->getJohn();
+        
+        $getKycDocument = $this->_api->Users->GetKycDocument($user->Id, $kycDocument->Id);
+        
+        $this->assertIdentical($kycDocument->Id, $getKycDocument->Id);
+        $this->assertIdentical($kycDocument->Status, $getKycDocument->Status);
+        $this->assertIdentical($kycDocument->Type, $getKycDocument->Type);
+    }
+    
+    function test_Users_UpdateKycDocument(){
+        $kycDocument = $this->getJohnsKycDocument();
+        $user = $this->getJohn();
+        $kycDocument->Status = \MangoPay\KycDocumentStatus::ValidationAsked;
+        
+        $updateKycDocument = $this->_api->Users->UpdateKycDocument($user->Id, $kycDocument);
+        
+        $this->assertIdentical($updateKycDocument->Status, \MangoPay\KycDocumentStatus::ValidationAsked);
+    }
+    
+    function test_Users_CreateKycPage_EmptyFileString(){
+        $kycDocument = $this->getJohnsKycDocument();
+        $user = $this->getJohn();
+        $kycPage = new \MangoPay\KycPage();
+        $kycPage->File = "";
+        try{
+            $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
+            
+            $this->fail('Expected ResponseException when empty file string');
+        } catch (\MangoPay\ResponseException $exc) {
+            
+            $this->assertIdentical($exc->getCode(), 400);            
+        }
+    }
+    
+    function test_Users_CreateKycPage_WrongFileString(){
+        $kycDocument = $this->getJohnsKycDocument();
+        $user = $this->getJohn();
+        $kycPage = new \MangoPay\KycPage();
+        $kycPage->File = "qqqq";
+        
+        try{
+            $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
+            
+            $this->fail('Expected ResponseException when wrong value for file string');
+        } catch (\MangoPay\ResponseException $exc) {
+            
+            $this->assertIdentical($exc->getCode(), 400);            
+        }
+    }
+    
+    function test_Users_CreateKycPage_CorrectFileString() {
+        $user = $this->getJohn();
+        $kycDocumentInit = new \MangoPay\KycDocument();
+        $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
+        $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
+        $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
+        $kycPage = new \MangoPay\KycPage();
+        $kycPage->File = "dGVzdCB0ZXN0IHRlc3QgdGVzdA==";
+        
+        $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
+    }
+    
+    function test_Users_CreateKycPage_EmptyFilePath() {
+        $user = $this->getJohn();
+        $kycDocumentInit = new \MangoPay\KycDocument();
+        $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
+        $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
+        $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
+        
+        try{
+            $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, '');
+        } catch (\MangoPay\Exception $exc) {
+            
+            $this->assertIdentical($exc->getMessage(), 'Path of file cannot be empty');
+        }
+    }
+        
+    function test_Users_CreateKycPage_WrongFilePath() {
+        $user = $this->getJohn();
+        $kycDocumentInit = new \MangoPay\KycDocument();
+        $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
+        $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
+        $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
+        
+        try{
+            $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, 'notExistFileName.tmp');
+        } catch (\MangoPay\Exception $exc) {
+            
+            $this->assertIdentical($exc->getMessage(), 'File not exist');
+        }
+    }
+    
+    function test_Users_CreateKycPage_CorrectFilePath() {
+        $user = $this->getJohn();
+        $kycDocumentInit = new \MangoPay\KycDocument();
+        $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
+        $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
+        $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
+        
+        $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, __FILE__);
+    }
 }

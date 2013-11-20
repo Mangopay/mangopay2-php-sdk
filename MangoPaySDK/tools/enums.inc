@@ -47,16 +47,16 @@ class EventType {
  * KYC document types
  */
 class KycDocumentType {
-    const identity_proof = 'IDENTITY_PROOF';
-    const registration_proof = 'REGISTRATION_PROOF';
+    const IdentityProof = 'IDENTITY_PROOF';
+    const RegistrationProof = 'REGISTRATION_PROOF';
 }
 
 /**
  * KYC document statuses
  */
 class KycDocumentStatus{
-    const created = 'CREATED';
-    const validation_asked = 'VALIDATION_ASKED';
-    const validated = 'VALIDATED';
-    const refused = 'REFUSED';
+    const Created = 'CREATED';
+    const ValidationAsked = 'VALIDATION_ASKED';
+    const Validated = 'VALIDATED';
+    const Refused = 'REFUSED';
 }

@@ -41,6 +41,12 @@ abstract class Base extends \UnitTestCase {
     public static $JohnsWallet;
     
     /**
+     * Test Kyc Document belonging to John
+     * @var \MangoPay\KycDocument
+     */
+    public static $JohnsKycDocument;
+    
+    /**
      * Test wallets belonging to John with money - access by getJohnsWalletWithMoney()
      * @var \MangoPay\Wallet
      */
@@ -225,6 +231,24 @@ abstract class Base extends \UnitTestCase {
         return $this->_api->Wallets->Get(self::$JohnsWalletWithMoney->Id);
     }
 
+    /**
+     * Creates self::$JohnsKycDocument (KycDocument belonging to John) if not created yet
+     * @return \MangoPay\KycDocument
+     */
+    protected function getJohnsKycDocument() {
+        if (self::$JohnsKycDocument === null) {
+            $john = $this->getJohn();
+
+            $kycDocument = new \MangoPay\KycDocument();
+            $kycDocument->Status = \MangoPay\KycDocumentStatus::Created;
+            $kycDocument->Type = \MangoPay\KycDocumentType::IdentityProof;
+            
+            self::$JohnsKycDocument = $this->_api->Users->CreateKycDocument($john->Id, $kycDocument);
+        }
+
+        return self::$JohnsKycDocument;
+    }
+    
     /**
      * @return \MangoPay\PayInPaymentDetailsCard
      */
