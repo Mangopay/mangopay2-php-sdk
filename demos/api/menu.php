@@ -23,7 +23,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'List wallets for user' => 'User_Users_ListSubEntity_GetWallets',
     ),
     'Transactions' => array(
-        'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_GetTransaction_FilterTransactions',
+        'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_GetTransactions_FilterTransactions',
     ),
     'Transfers' => array(
         'Create transfer' => 'Transfer_Transfers_Create',
