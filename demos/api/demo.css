@@ -6,3 +6,11 @@ body {
 	font-weight: bold;
 	font-size: 100%;
 }
+
+input[type=text] {
+	width: 250px;
+}
+
+select {
+	width: 256px;
+}
