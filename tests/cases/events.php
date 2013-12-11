@@ -66,7 +66,7 @@ class Events extends Base {
     private function ExistEventById($eventList, $eventId) {
         
         foreach ($eventList as $event) {
-            if ($event->RessourceId == $eventId) {
+            if ($event->ResourceId == $eventId) {
                 return true;
             }
         }

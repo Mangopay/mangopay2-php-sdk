@@ -255,7 +255,7 @@ abstract class Base extends \UnitTestCase {
     private function getPayInPaymentDetailsCard() {
         if (self::$PayInPaymentDetailsCard === null) {
             self::$PayInPaymentDetailsCard = new \MangoPay\PayInPaymentDetailsCard();
-            self::$PayInPaymentDetailsCard->CardType = 'AMEX';
+            self::$PayInPaymentDetailsCard->CardType = 'CB_VISA_MASTERCARD';
         }
 
         return self::$PayInPaymentDetailsCard;

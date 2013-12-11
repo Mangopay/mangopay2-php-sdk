@@ -10,7 +10,7 @@ class Event extends Dto {
      * Ressource ID
      * @var string 
      */
-    public $RessourceId;
+    public $ResourceId;
     
     /**
      * Event type
