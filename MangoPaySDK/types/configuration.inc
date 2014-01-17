@@ -34,4 +34,9 @@ class Configuration {
      * Switch debug mode: log all request and response data
      */
     public $DebugMode = false;
+    
+    /**
+     * Set the logging class if DebugMode is enabled
+     */
+    public $LogClass = 'MangoPay\Logs';
 }
