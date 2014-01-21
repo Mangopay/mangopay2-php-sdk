@@ -107,7 +107,8 @@ abstract class ApiBase {
         'users_getpaymentcard' => array( '/users/%s/payment-cards/%s', RequestType::GET ),
         'users_savenaturals' => array( '/users/natural/%s', RequestType::PUT ),
         'users_savelegals' => array( '/users/legal/%s', RequestType::PUT ),
-        
+        'users_getallcards' => array('/users/%s/cards', RequsetType::GET),
+
         'wallets_create' => array( '/wallets', RequestType::POST ),
         'wallets_allrecurringpayinorders' => array( '/wallets/%s/recurring-pay-in-orders', RequestType::GET ),
         'wallets_alltransactions' => array( '/wallets/%s/transactions', RequestType::GET ),
