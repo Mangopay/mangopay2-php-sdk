@@ -11,4 +11,10 @@ class PayInPaymentDetailsCard extends Dto implements PayInPaymentDetails {
      * @var string 
      */
     public $CardType;
+    
+    /**
+     * CardId
+     * @var string 
+     */
+    public $CardId;
 }

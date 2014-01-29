@@ -159,6 +159,49 @@ class Users extends Base {
         $this->assertIdentical($kycDocument->Type, $getKycDocument->Type);
     }
     
+    function test_Users_CreateKycDocument_TestAll(){
+        $john = $this->getJohn();
+        $legalJohn = $this->getMatrix();
+        
+        $aKycDocTypes = array(
+            array(\MangoPay\KycDocumentType::AddressProof, $john->Id),
+            array(\MangoPay\KycDocumentType::ArticlesOfAssociation, $legalJohn->Id),
+            array(\MangoPay\KycDocumentType::IdentityProof, $john->Id),
+            array(\MangoPay\KycDocumentType::RegistrationProof, $legalJohn->Id),
+            array(\MangoPay\KycDocumentType::ShareholderDeclaration, $legalJohn->Id)
+        );
+        
+        foreach ($aKycDocTypes as $kycDoc) {
+            try{
+                $this->CreateKycDocument_TestOne($kycDoc[0], $kycDoc[1]);
+            } catch (\MangoPay\Exception $exc){
+                
+                $message = 'Error (Code: ' . $exc->getCode() . ', '
+                    . $exc->getMessage() . ') '
+                    .'during create/get KYC Document with type: ' . $kycDoc[0];
+                $this->fail($message);
+                
+            }
+        }
+    }
+    
+    function CreateKycDocument_TestOne($kycDocType, $userId){
+        
+        $kycDocument = new \MangoPay\KycDocument();
+        $kycDocument->Status = \MangoPay\KycDocumentStatus::Created;
+        $kycDocument->Type = $kycDocType;
+        
+        $createdKycDocument = $this->_api->Users->CreateKycDocument($userId, $kycDocument);
+        $getKycDocument = $this->_api->Users->GetKycDocument($userId, $createdKycDocument->Id);
+        
+        $this->assertTrue($createdKycDocument->Id > 0);
+        $this->assertIdentical($createdKycDocument->Status, \MangoPay\KycDocumentStatus::Created);
+        $this->assertIdentical($createdKycDocument->Type, $kycDocType);
+        $this->assertIdentical($createdKycDocument->Id, $getKycDocument->Id);
+        $this->assertIdentical($createdKycDocument->Status, $getKycDocument->Status);
+        $this->assertIdentical($createdKycDocument->Type, $getKycDocument->Type);
+    }
+    
     function test_Users_UpdateKycDocument(){
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
@@ -179,7 +222,7 @@ class Users extends Base {
             
             $this->fail('Expected ResponseException when empty file string');
         } catch (\MangoPay\ResponseException $exc) {
-            
+
             $this->assertIdentical($exc->getCode(), 400);            
         }
     }
@@ -250,5 +293,35 @@ class Users extends Base {
         $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
         
         $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, __FILE__);
+    }
+    
+    function test_Users_AllTransactions() {
+        $john = $this->getJohn();
+        $payIn = $this->getNewPayInCardDirect();
+
+        $pagination = new \MangoPay\Pagination(1, 1);
+        $filter = new \MangoPay\FilterTransactions();
+        $filter->Type = 'PAYIN';
+        $filter->AfterDate = $payIn->CreationDate - 1;
+        $filter->BeforeDate = $payIn->CreationDate + 1;
+        $transactions = $this->_api->Users->GetTransactions($john->Id, $pagination, $filter);
+
+        $this->assertEqual(count($transactions), 1);
+        $this->assertIsA($transactions[0], '\MangoPay\Transaction');
+        $this->assertEqual($transactions[0]->AuthorId, $john->Id);
+        $this->assertIdenticalInputProps($transactions[0], $payIn);
+    }
+    
+    function test_Users_AllCards() {
+        $john = $this->getNewJohn();
+        $payIn = $this->getNewPayInCardDirect($john->Id);
+        $card =$this->_api->Cards->Get($payIn->PaymentDetails->CardId);
+        $pagination = new \MangoPay\Pagination(1, 1);
+        
+        $cards = $this->_api->Users->GetCards($john->Id, $pagination);
+
+        $this->assertEqual(count($cards), 1);
+        $this->assertIsA($cards[0], '\MangoPay\Card');
+        $this->assertIdenticalInputProps($cards[0], $card);
     }
 }

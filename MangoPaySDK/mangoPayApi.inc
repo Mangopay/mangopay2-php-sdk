@@ -81,7 +81,13 @@ class MangoPayApi {
      * Card registration methods
      * @var ApiCardRegistrations 
      */
-    public $CardRegistrations;
+    public $CardRegistrations; 
+        
+    /**
+     * Pre-authorization methods
+     * @var ApiCardPreAuthorization 
+     */
+    public $CardPreAuthorizations;
         
     /**
      * Card methods
@@ -116,5 +122,6 @@ class MangoPayApi {
         $this->CardRegistrations = new ApiCardRegistrations($this);
         $this->Cards = new ApiCards($this);
         $this->Events = new ApiEvents($this);
+        $this->CardPreAuthorizations = new ApiCardPreAuthorizations($this);
     }
 }

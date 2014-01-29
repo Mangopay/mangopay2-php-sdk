@@ -132,6 +132,26 @@ class ApiUsers extends ApiBase {
     public function GetWallets($userId, & $pagination = null) {
         return $this->GetList('users_allwallets', $pagination, 'MangoPay\Wallet', $userId);
     }
+        
+    /**
+     * Get all transactions for user
+     * @param int $userId User Id
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterTransactions $filter Object to filter data
+     * @return \MangoPay\Transaction[] Transactions for user returned from API
+     */
+    public function GetTransactions($userId, & $pagination = null, $filter = null) {
+        return $this->GetList('users_alltransactions', $pagination, '\MangoPay\Transaction', $userId, $filter);
+    }
+    
+    /**
+     * Get all cards for user
+     * @param int $userId User Id
+     * @return \MangoPay\Card[] Cards for user returned from API
+     */
+    public function GetCards($userId, & $pagination = null) {
+        return $this->GetList('users_allcards', $pagination, '\MangoPay\Card', $userId);
+    }
     
     /**
      * Create new KYC document
