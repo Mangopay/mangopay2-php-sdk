@@ -13,6 +13,18 @@ class PayInExecutionDetailsDirect extends Dto implements PayInExecutionDetails {
     public $SecureMode;
     
     /**
+     * CardId
+     * @var string 
+     */
+    public $CardId;
+    
+    /**
+     * SecureModeRedirectURL
+     * @var string
+     */
+    public $SecureModeRedirectURL;
+    
+    /**
      * SecureModeReturnURL
      * @var string 
      */
