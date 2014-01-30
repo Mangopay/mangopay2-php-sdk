@@ -50,6 +50,12 @@ class Transaction extends EntityBase {
     public $ResultCode;
     
     /**
+     * The PreAuthorization result Message explaining the result code
+     * @var string 
+     */
+    public $ResultMessage;
+    
+    /**
      * Execution date;
      * @var date
      */

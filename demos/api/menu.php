@@ -23,6 +23,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'List wallets for user' => 'User_Users_ListSubEntity_GetWallets',
     ),
     'Transactions' => array(
+        'List transactions for user' => 'User_Users_ListSubEntity_GetTransactions_FilterTransactions',
         'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_GetTransactions_FilterTransactions',
     ),
     'Transfers' => array(
@@ -32,6 +33,8 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
     'Pay-ins' => array(
         'Create pay-in web card' => 'PayIn_PayIns_Create_:CARD:WEB',
         'Create pay-in direct card' => 'PayIn_PayIns_Create_:CARD:DIRECT',
+        'Create pay-in direct pre-authorized' => 'PayIn_PayIns_Create_:PREAUTHORIZED:DIRECT',
+        'Create pay-in direct bank wire' => 'PayIn_PayIns_Create_:BANK_WIRE:DIRECT',
         'Get pay-in' => 'PayIn_PayIns_Get',
     ),
     'Pay-outs' => array(
@@ -48,8 +51,14 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Get card registration' => 'CardRegistration_CardRegistrations_Get',
         'Update card registration' => 'CardRegistration_CardRegistrations_Save',
     ),
+    'Card pre-authorization' => array(
+        'Create pre-authorization' => 'CardPreAuthorization_CardPreAuthorizations_Create',
+        'Get pre-authorization' => 'CardPreAuthorization_CardPreAuthorizations_Get',
+        'Update pre-authorization' => 'CardPreAuthorization_CardPreAuthorizations_Save',
+    ),
     'Card' => array(
         'Get card' => 'Card_Cards_Get',
+        'List cards for user' => 'User_Users_ListSubEntity_GetCards',
     ),
     'Event' => array(
         'Get event' => 'Event_Events_All__FilterEvents',

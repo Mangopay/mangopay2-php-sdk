@@ -115,6 +115,24 @@ abstract class Base extends \UnitTestCase {
     }
 
     /**
+     * Creates new user
+     * @return \MangoPay\UserNatural
+     */
+    protected function getNewJohn() {
+        $user = new \MangoPay\UserNatural();
+        $user->FirstName = "John";
+        $user->LastName = "Doe";
+        $user->Email = "john.doe@sample.org";
+        $user->Address = "Some Address";
+        $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+        $user->Nationality = "FR";
+        $user->CountryOfResidence = "FR";
+        $user->Occupation = "programmer";
+        $user->IncomeRange = 3;
+        return $this->_api->Users->Create($user);
+    }
+    
+    /**
      * Creates self::$Matrix (test legal user) if not created yet
      * @return \MangoPay\UserLegal
      */
@@ -308,12 +326,15 @@ abstract class Base extends \UnitTestCase {
      * Creates Pay-In Card Direct object
      * @return \MangoPay\PayIn
      */
-    protected function getNewPayInCardDirect() {
+    protected function getNewPayInCardDirect($userId = null) {
         $wallet = $this->getJohnsWalletWithMoney();
-        $user = $this->getJohn();
-
+        if (is_null($userId)){
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+        
         $cardRegistration = new \MangoPay\CardRegistration();
-        $cardRegistration->UserId = $user->Id;
+        $cardRegistration->UserId = $userId;
         $cardRegistration->Currency = 'EUR';
         $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
         $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistartionData($cardRegistration);
@@ -324,7 +345,7 @@ abstract class Base extends \UnitTestCase {
         // create pay-in CARD DIRECT
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
-        $payIn->AuthorId = $user->Id;
+        $payIn->AuthorId = $userId;
         $payIn->DebitedFunds = new \MangoPay\Money();
         $payIn->DebitedFunds->Amount = 10000;
         $payIn->DebitedFunds->Currency = 'EUR';
@@ -333,15 +354,14 @@ abstract class Base extends \UnitTestCase {
         $payIn->Fees->Currency = 'EUR';
         // payment type as CARD
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+        $payIn->PaymentDetails->CardId = $card->Id;
         if ($card->CardType == 'CB' || $card->CardType == 'VISA' || $card->CardType == 'MASTERCARD')
             $payIn->PaymentDetails->CardType = 'CB_VISA_MASTERCARD';
         elseif ($card->CardType == 'AMEX')
             $payIn->PaymentDetails->CardType = 'AMEX';
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-        $payIn->ExecutionDetails->CardId = $card->Id;
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
-
         return $this->_api->PayIns->Create($payIn);
     }
 
@@ -498,6 +518,32 @@ abstract class Base extends \UnitTestCase {
     }
 
     /**
+     * Creates card registration object
+     * @return \MangoPay\CardPreAuthorization
+     */
+    protected function getJohnsCardPreAuthorization() {
+            $user = $this->getJohn();
+            $cardRegistration = new \MangoPay\CardRegistration();
+            $cardRegistration->UserId = $user->Id;
+            $cardRegistration->Currency = 'EUR';
+            $newCardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
+            
+            $registrationData = $this->getPaylineCorrectRegistartionData($newCardRegistration);
+            $newCardRegistration->RegistrationData = $registrationData;
+            $getCardRegistration = $this->_api->CardRegistrations->Update($newCardRegistration);
+       
+            $cardPreAuthorization = new \MangoPay\CardPreAuthorization();
+            $cardPreAuthorization->AuthorId = $user->Id;
+            $cardPreAuthorization->DebitedFunds = new \MangoPay\Money();
+            $cardPreAuthorization->DebitedFunds->Currency = "EUR";
+            $cardPreAuthorization->DebitedFunds->Amount = 10000;
+            $cardPreAuthorization->CardId = $getCardRegistration->CardId;
+            $cardPreAuthorization->SecureModeReturnURL = 'http://test.com';
+            
+            return $this->_api->CardPreAuthorizations->Create($cardPreAuthorization);
+    }
+    
+    /**
      * Get registration data from Payline service
      * @param \MangoPay\CardRegistration $cardRegistration
      * @return string
@@ -574,9 +620,10 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdenticalInputProps($entity1->CreditedFunds, $entity2->CreditedFunds);
             $this->assertIdenticalInputProps($entity1->Fees, $entity2->Fees);
         } elseif (is_a($entity1, '\MangoPay\Card')) {
+            $this->assertIdentical($entity1->ExpirationDate, $entity2->ExpirationDate);
+            $this->assertIdentical($entity1->Alias, $entity2->Alias);
             $this->assertIdentical($entity1->CardType, $entity2->CardType);
-            $this->assertIdentical($entity1->RedirectURL, $entity2->RedirectURL);
-            $this->assertIdentical($entity1->ReturnURL, $entity2->ReturnURL);
+            $this->assertIdentical($entity1->Currency, $entity2->Currency);
         } elseif (is_a($entity1, '\MangoPay\Web')) {
             $this->assertIdentical($entity1->TemplateURL, $entity2->TemplateURL);
             $this->assertIdentical($entity1->Culture, $entity2->Culture);

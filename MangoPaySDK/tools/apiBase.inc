@@ -20,9 +20,6 @@ abstract class ApiBase {
         'authentication_base' => array( '/api/clients/', RequestType::POST ),
         'authentication_oauth' => array( '/api/oauth/token', RequestType::POST ),
         
-        'crosscurrencytransfers_create' => array( '/transfers/%s', RequestType::POST ),
-        'crosscurrencytransfers_get' => array( '/transfers/%s', RequestType::GET ),
-        
         'events_all' => array( '/events', RequestType::GET ),
         'events_gethookcallbacks' => array( '/events/%s/hook-callbacks', RequestType::GET ),
         
@@ -39,46 +36,27 @@ abstract class ApiBase {
         'cardregistration_get' => array( '/cardregistrations/%s', RequestType::GET ),
         'cardregistration_save' => array( '/cardregistrations/%s', RequestType::PUT ),
         
+        'preauthorization_create' => array( '/preauthorizations/card/direct', RequestType::POST ),
+        'preauthorization_get' => array( '/preauthorizations/%s', RequestType::GET ),
+        'preauthorization_save' => array( '/preauthorizations/%s', RequestType::PUT ),
+                
         'card_get' => array( '/cards/%s', RequestType::GET ),
         
         // pay ins URLs
         'payins_card-web_create' => array( '/payins/card/web/', RequestType::POST ),
         'payins_card-direct_create' => array( '/payins/card/direct/', RequestType::POST ),
-        'payins_card-preauthorized_create' => array( '/payins/card/preauthorized/', RequestType::POST ),
-        'payins_card-recurrentexecution_create' => array( '/payins/card/recurrent-pay-in-execution/', RequestType::POST ),
-        
-        'payins_registeredcard-web_create' => array( '/payins/card/web/', RequestType::POST ),
-        'payins_registeredcard-direct_create' => array( '/payins/card/direct/', RequestType::POST ),
-        'payins_registeredcard-preauthorized_create' => array( '/payins/registered-card/preauthorized/', RequestType::POST ),
-        'payins_registeredcard-recurrentexecution_create' => array( '/payins/registered-card/recurrent-pay-in-execution/', RequestType::POST ),
-        
-        'payins_bankwirepayin-web_create' => array( '/payins/bankwire/web/', RequestType::POST ),
-        'payins_bankwirepayin-direct_create' => array( '/payins/bankwire/direct/', RequestType::POST ),
-        'payins_bankwirepayin-preauthorized_create' => array( '/payins/bankwire/preauthorized/', RequestType::POST ),
-        'payins_bankwirepayin-recurrentexecution_create' => array( '/payins/bankwire/recurrent-pay-in-execution/', RequestType::POST ),
-        
-        'payins_directcredit-web_create' => array( '/payins/direct-credit/web/', RequestType::POST ),
-        'payins_directcredit-direct_create' => array( '/payins/direct-credit/direct/', RequestType::POST ),
-        'payins_directcredit-preauthorized_create' => array( '/payins/direct-credit/preauthorized/', RequestType::POST ),
-        'payins_directcredit-recurrentexecution_create' => array( '/payins/direct-credit/recurrent-pay-in-execution/', RequestType::POST ),
+        'payins_preauthorized-direct_create' => array( '/payins/preauthorized/direct/', RequestType::POST ),
+        'payins_bankwire-direct_create' => array( '/payins/bankwire/direct/', RequestType::POST ),
         'payins_get' => array( '/payins/%s', RequestType::GET ),
         'payins_getrefunds' => array( '/payins/%s/refunds', RequestType::GET ),
         'payins_createrefunds' => array( '/payins/%s/refunds', RequestType::POST ),
         
         'payouts_bankwire_create' => array( '/payouts/bankwire/', RequestType::POST ),
-        'payouts_merchantexpense_create' => array( '/payouts/merchant-expense/', RequestType::POST ),
-        'payouts_amazongiftcard_create' => array( '/payouts/amazon-giftcard/', RequestType::POST ),
         'payouts_get' => array( '/payouts/%s', RequestType::GET ),
         'payouts_createrefunds' => array( '/payouts/%s/refunds', RequestType::POST ),
         'payouts_getrefunds' => array( '/payouts/%s/refunds', RequestType::GET ),
         
-        'reccurringpayinorders_create' => array( '/reccurring-pay-in-orders', RequestType::POST ),
-        'reccurringpayinorders_get' => array( '/reccurring-pay-in-orders/%s', RequestType::GET ),
-        'reccurringpayinorders_gettransactions' => array( '/reccurring-pay-in-orders/%s/transactions', RequestType::GET ),
-        
         'refunds_get' => array( '/refunds/%s', RequestType::GET ),
-        
-        'repudiations_get' => array( '/repudiations/%s', RequestType::GET ),
         
         'transfers_create' => array( '/transfers', RequestType::POST ),
         'transfers_get' => array( '/transfers/%s', RequestType::GET ),
@@ -94,7 +72,8 @@ abstract class ApiBase {
         'users_allkycrequests' => array( '/users/%s/KYC/requests', RequestType::GET ),
         'users_allwallets' => array( '/users/%s/wallets', RequestType::GET ),
         'users_allbankaccount' => array( '/users/%s/bankaccounts', RequestType::GET ),
-        'users_allpaymentcards' => array( '/users/%s/payment-cards', RequestType::GET ),
+        'users_allcards' => array( '/users/%s/cards', RequestType::GET ),
+        'users_alltransactions' => array( '/users/%s/transactions', RequestType::GET ),
         'users_get' => array( '/users/%s', RequestType::GET ),
         'users_getnaturals' => array( '/users/natural/%s', RequestType::GET ),
         'users_getlegals' => array( '/users/legal/%s', RequestType::GET ),
@@ -293,7 +272,11 @@ abstract class ApiBase {
                 
                 // is sub object?
                 if (isset($subObjects[$name])) {
-                    $object = $this->CastResponseToEntity($value, $subObjects[$name]);
+                    if (is_null($value))
+                        $object = null;
+                    else
+                        $object = $this->CastResponseToEntity($value, $subObjects[$name]);
+                    
                     $entityProperty->setValue($entity, $object);
                 } else {
                     $entityProperty->setValue($entity, $value);
