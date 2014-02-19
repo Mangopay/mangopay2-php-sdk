@@ -6,19 +6,25 @@ namespace MangoPay;
  * User entity
  */
 abstract class User extends EntityBase {
-    
+
     /**
      * Type of user
      * @var String
      */
     public $PersonType;
-    
+
     /**
      * Email address
-     * @var String 
+     * @var String
      */
     public $Email;
-    
+
+    /**
+     * Custom data
+     * @var String
+     */
+    public $Tag;
+
     /**
      * Construct
      * @param string $personType String with type of person
@@ -26,7 +32,7 @@ abstract class User extends EntityBase {
     protected function SetPersonType($personType) {
         $this->PersonType = $personType;
     }
-    
+
     /**
      * Get array with read-only properties
      * @return array
@@ -34,7 +40,7 @@ abstract class User extends EntityBase {
     public function GetReadOnlyProperties() {
         $properties = parent::GetReadOnlyProperties();
         array_push( $properties, 'PersonType' );
-        
+
         return $properties;
     }
 }
