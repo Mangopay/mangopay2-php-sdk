@@ -100,6 +100,12 @@ class MangoPayApi {
      * @var ApiEvents 
      */
     public $Events;
+    
+    /**
+     * Hooks methods
+     * @var ApiHooks 
+     */
+    public $Hooks;
 
     /**
      * Constructor
@@ -122,6 +128,7 @@ class MangoPayApi {
         $this->CardRegistrations = new ApiCardRegistrations($this);
         $this->Cards = new ApiCards($this);
         $this->Events = new ApiEvents($this);
+        $this->Hooks = new ApiHooks($this);
         $this->CardPreAuthorizations = new ApiCardPreAuthorizations($this);
     }
 }

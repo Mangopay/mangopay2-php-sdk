@@ -63,6 +63,12 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
     'Event' => array(
         'Get event' => 'Event_Events_All__FilterEvents',
     ),
+    'Hooks' => array(
+        'Create hook' => 'Hook_Hooks_Create',
+        'Get hook' => 'Hook_Hooks_Get',
+        'Save hook' => 'Hook_Hooks_Save',
+        'List of hooks' => 'Hook_Hooks_All',
+    ),
     'KYC' => array(
         'Create document' => 'User_Users_CreateSubEntity_KycDocument',
         'Get document' => 'User_Users_GetSubEntity_KycDocument',

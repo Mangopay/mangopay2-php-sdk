@@ -150,7 +150,9 @@ class HtmlHelper {
             
             echo '<tr><td>';
             echo $prefix . $name . ':</td><td>';
-            if ($className == "\\MangoPay\\FilterEvents" && $name == "EventType"){
+            if ($className == "\\MangoPay\\Hook" && $name == "EventType"){
+                self::renderEnum("\\MangoPay\\EventType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\FilterEvents" && $name == "EventType"){
                 self::renderEnum("\\MangoPay\\EventType", $name, $prefix);
             } elseif ($className == "\\MangoPay\\KycDocument" && $name == "Type") {
                 self::renderEnum("\\MangoPay\\KycDocumentType", $name, $prefix);

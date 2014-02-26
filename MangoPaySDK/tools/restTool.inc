@@ -198,6 +198,10 @@ class RestTool {
      */
     private function ReadResponseHeader($handle, $header) {
         
+        $logClass = $this->_root->Config->LogClass;
+        if ($this->_root->Config->DebugMode) 
+            $logClass::Debug('Response headers', $header);
+        
         if (strpos($header, 'X-Number-Of-Pages:') !== false) {
             $this->_pagination->TotalPages = (int)trim(str_replace('X-Number-Of-Pages:', '', $header));
         }

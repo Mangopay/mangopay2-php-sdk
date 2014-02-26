@@ -77,6 +77,9 @@ abstract class Base extends \UnitTestCase {
      */
     public static $JohnsCardRegistration;
 
+    /** @var \MangoPay\Hook */
+    public static $JohnsHook;
+    
     function __construct() {
         $this->_api = $this->buildNewMangoPayApi();
     }
@@ -570,6 +573,29 @@ abstract class Base extends \UnitTestCase {
         return $response;
     }
 
+    /**
+     * Creates self::$JohnsHook
+     * @return \MangoPay\Hook
+     */
+    protected function getJohnHook() {
+        if (self::$JohnsHook === null) {
+            
+            $pagination = new \MangoPay\Pagination(1, 1);
+            $list = $this->_api->Hooks->GetAll($pagination);
+            
+            if (isset($list[0])){
+                self::$JohnsHook = $list[0];
+            } else {
+                $hook = new \MangoPay\Hook();
+                $hook->EventType = \MangoPay\EventType::PayinNormalCreated;
+                $hook->Url = "http://test.com";
+                self::$JohnsHook = $this->_api->Hooks->Create($hook);
+            }
+        }
+        
+        return self::$JohnsHook;
+    }
+    
     /**
      * Asserts the passed entities have identical values (by assertIdentical())
      * but ONLY FOR INPUT PROPERTIES, i.e. properties that are accepted by Create methods:
