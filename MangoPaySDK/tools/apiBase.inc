@@ -66,7 +66,13 @@ abstract class ApiBase {
         'users_createnaturals' => array( '/users/natural', RequestType::POST ),
         'users_createlegals' => array( '/users/legal', RequestType::POST ),
         'users_createkycrequest' => array( '/users/%s/KYC/requests', RequestType::POST ),
-        'users_createbankaccounts' => array( '/users/%s/bankaccounts', RequestType::POST ),
+        
+        'users_createbankaccounts_iban' => array( '/users/%s/bankaccounts/iban', RequestType::POST ),
+        'users_createbankaccounts_gb' => array( '/users/%s/bankaccounts/gb', RequestType::POST ),
+        'users_createbankaccounts_us' => array( '/users/%s/bankaccounts/us', RequestType::POST ),
+        'users_createbankaccounts_ca' => array( '/users/%s/bankaccounts/ca', RequestType::POST ),
+        'users_createbankaccounts_other' => array( '/users/%s/bankaccounts/other', RequestType::POST ),
+        
         'users_all' => array( '/users', RequestType::GET ),
         'users_allkyc' => array( '/users/%s/KYC', RequestType::GET ),
         'users_allkycrequests' => array( '/users/%s/KYC/requests', RequestType::GET ),
@@ -341,6 +347,10 @@ abstract class ApiBase {
         }
         
         if (get_class($entity) == 'MangoPay\PayOut' && $propertyName == 'MeanOfPaymentDetails') {
+            return true;
+        }
+        
+        if (get_class($entity) == 'MangoPay\BankAccount' && $propertyName == 'Details' ) {
             return true;
         }
         

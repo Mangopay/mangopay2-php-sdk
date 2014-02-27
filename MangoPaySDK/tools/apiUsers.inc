@@ -92,7 +92,7 @@ class ApiUsers extends ApiBase {
         
         $response = $this->SaveObject($methodKey, $user);
         return $this->GetUserResponse($response);        
-    }    
+    }
     
     /**
      * Create bank account for user
@@ -101,8 +101,9 @@ class ApiUsers extends ApiBase {
      * @return \MangoPay\BankAccount Create bank account object
      */
     public function CreateBankAccount($userId, $bankAccount) {
-        return $this->CreateObject('users_createbankaccounts', $bankAccount, '\MangoPay\BankAccount', $userId);
-    }    
+        $type = $this->GetBankAccountType($bankAccount);
+        return $this->CreateObject('users_createbankaccounts_' . $type, $bankAccount, '\MangoPay\BankAccount', $userId);
+    }
     
     /**
      * Get all bank accounts for user
@@ -246,5 +247,14 @@ class ApiUsers extends ApiBase {
         } else {
             throw new Exception('Unexpected response. Missing PersonType property');
         }
+    }
+    
+    private function GetBankAccountType($bankAccount) {
+        
+        if (!isset($bankAccount->Details) || !is_object($bankAccount->Details))
+            throw new Exception ('Details is not defined or it is not object type');
+        
+        $className = str_replace('MangoPay\\BankAccountDetails', '', get_class($bankAccount->Details));
+        return strtolower($className);
     }
 }

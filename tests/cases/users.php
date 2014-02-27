@@ -108,7 +108,7 @@ class Users extends Base {
         $this->assertIdenticalInputProps($userFetched, $matrix);
     }
     
-    function test_Users_CreateBankAccount() {
+    function test_Users_CreateBankAccount_IBAN() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
         
@@ -116,6 +116,86 @@ class Users extends Base {
         $this->assertIdentical($account->UserId, $john->Id);
     }
 
+    function test_Users_CreateBankAccount_GB() {
+        $john = $this->getJohn();
+        $account = new \MangoPay\BankAccount();
+        $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
+        $account->OwnerAddress = $john->Address;
+        $account->Details = new \MangoPay\BankAccountDetailsGB();
+        $account->Details->AccountNumber = '234234234234';
+        $account->Details->SortCode = '234334';
+        
+        $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
+        
+        $this->assertTrue($createAccount->Id > 0);
+        $this->assertIdentical($createAccount->UserId, $john->Id);
+        $this->assertIdentical($createAccount->Type, 'GB');
+        $this->assertIdentical($createAccount->Details->AccountNumber, '234234234234');
+        $this->assertIdentical($createAccount->Details->SortCode, '234334');
+    }
+    
+    function test_Users_CreateBankAccount_US() {
+        $john = $this->getJohn();
+        $account = new \MangoPay\BankAccount();
+        $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
+        $account->OwnerAddress = $john->Address;
+        $account->Details = new \MangoPay\BankAccountDetailsUS();
+        $account->Details->AccountNumber = '234234234234';
+        $account->Details->ABA = '234334789';
+        
+        $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
+        
+        $this->assertTrue($createAccount->Id > 0);
+        $this->assertIdentical($createAccount->UserId, $john->Id);
+        $this->assertIdentical($createAccount->Type, 'US');
+        $this->assertIdentical($createAccount->Details->AccountNumber, '234234234234');
+        $this->assertIdentical($createAccount->Details->ABA, '234334789');
+    }
+    
+    function test_Users_CreateBankAccount_CA() {
+        $john = $this->getJohn();
+        $account = new \MangoPay\BankAccount();
+        $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
+        $account->OwnerAddress = $john->Address;
+        $account->Details = new \MangoPay\BankAccountDetailsCA();
+        $account->Details->BankName = 'TestBankName';
+        $account->Details->BranchCode = '12345';
+        $account->Details->AccountNumber = '234234234234';
+        $account->Details->InstitutionNumber = '123';
+        
+        $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
+        
+        $this->assertTrue($createAccount->Id > 0);
+        $this->assertIdentical($createAccount->UserId, $john->Id);
+        $this->assertIdentical($createAccount->Type, 'CA');
+        $this->assertIdentical($createAccount->Details->AccountNumber, '234234234234');
+        $this->assertIdentical($createAccount->Details->BankName, 'TestBankName');
+        $this->assertIdentical($createAccount->Details->BranchCode, '12345');
+        $this->assertIdentical($createAccount->Details->InstitutionNumber, '123');
+    }
+    
+    function test_Users_CreateBankAccount_OTHER() {
+        $john = $this->getJohn();
+        $account = new \MangoPay\BankAccount();
+        $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
+        $account->OwnerAddress = $john->Address;
+        $account->Details = new \MangoPay\BankAccountDetailsOTHER();
+        $account->Details->Type = 'OTHER';
+        $account->Details->Country = 'FR';
+        $account->Details->AccountNumber = '234234234234';
+        $account->Details->BIC = 'BINAADADXXX';
+        
+        $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
+        
+        $this->assertTrue($createAccount->Id > 0);
+        $this->assertIdentical($createAccount->UserId, $john->Id);
+        $this->assertIdentical($createAccount->Type, 'OTHER');
+        $this->assertIdentical($createAccount->Details->Type, 'OTHER');
+        $this->assertIdentical($createAccount->Details->Country, 'FR');
+        $this->assertIdentical($createAccount->Details->AccountNumber, '234234234234');
+        $this->assertIdentical($createAccount->Details->BIC, 'BINAADADXXX');
+    }
+    
     function test_Users_BankAccount() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();

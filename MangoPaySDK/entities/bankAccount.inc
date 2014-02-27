@@ -30,17 +30,28 @@ class BankAccount extends EntityBase {
      */
     public $OwnerAddress;
     
-    /**
-     * IBAN number 
-     * @var string 
+     /**
+     * One of BankAccountDetails implementations, depending on $Type
+     * @var object 
      */
-    public $IBAN;
+    public $Details;
     
     /**
-     * BIC
-     * @var string 
+     * Get array with mapping which property depends on other property  
+     * @return array
      */
-    public $BIC;
+    public function GetDependsObjects() {
+        return array(
+            'Type' => array(
+                '_property_name' => 'Details',
+                'IBAN' => '\MangoPay\BankAccountDetailsIBAN',
+                'GB' => '\MangoPay\BankAccountDetailsGB',
+                'US' => '\MangoPay\BankAccountDetailsUS',
+                'CA' => '\MangoPay\BankAccountDetailsCA',
+                'OTHER' => '\MangoPay\BankAccountDetailsOTHER',
+            )
+        );
+    }
     
     /**
      * Get array with read-only properties
@@ -49,7 +60,7 @@ class BankAccount extends EntityBase {
     public function GetReadOnlyProperties() {
         $properties = parent::GetReadOnlyProperties();
         array_push( $properties, 'UserId' );
-        
+        array_push( $properties, 'Type' );
         return $properties;
     }
 }

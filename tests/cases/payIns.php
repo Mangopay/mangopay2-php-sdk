@@ -158,8 +158,8 @@ class PayIns extends Base {
         $this->assertNotNull($createPayIn->PaymentDetails->WireReference);
         $this->assertIsA($createPayIn->PaymentDetails->BankAccount, '\MangoPay\BankAccount');
         $this->assertEqual($createPayIn->PaymentDetails->BankAccount->Type, 'IBAN');
-        $this->assertNotNull($createPayIn->PaymentDetails->BankAccount->IBAN);
-        $this->assertNotNull($createPayIn->PaymentDetails->BankAccount->BIC);
+        $this->assertNotNull($createPayIn->PaymentDetails->BankAccount->Details->IBAN);
+        $this->assertNotNull($createPayIn->PaymentDetails->BankAccount->Details->BIC);
     }
     
     function test_PayIns_BankWireDirect_Get() {
@@ -194,8 +194,8 @@ class PayIns extends Base {
         $this->assertNotNull($getPayIn->PaymentDetails->WireReference);
         $this->assertIsA($getPayIn->PaymentDetails->BankAccount, '\MangoPay\BankAccount');
         $this->assertEqual($getPayIn->PaymentDetails->BankAccount->Type, 'IBAN');
-        $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->IBAN);
-        $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->BIC);
+        $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->Details->IBAN);
+        $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->Details->BIC);
         
         
         

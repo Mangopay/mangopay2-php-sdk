@@ -167,11 +167,11 @@ abstract class Base extends \UnitTestCase {
         if (self::$JohnsAccount === null) {
             $john = $this->getJohn();
             $account = new \MangoPay\BankAccount();
-            $account->Type = 'IBAN';
             $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
             $account->OwnerAddress = $john->Address;
-            $account->IBAN = 'FR76 1790 6000 3200 0833 5232 973';
-            $account->BIC = 'BINAADADXXX';
+            $account->Details = new \MangoPay\BankAccountDetailsIBAN();
+            $account->Details->IBAN = 'FR76 1790 6000 3200 0833 5232 973';
+            $account->Details->BIC = 'BINAADADXXX';
             self::$JohnsAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
         }
         return self::$JohnsAccount;
@@ -636,8 +636,26 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->Type, $entity2->Type);
             $this->assertIdentical($entity1->OwnerName, $entity2->OwnerName);
             $this->assertIdentical($entity1->OwnerAddress, $entity2->OwnerAddress);
-            $this->assertIdentical($entity1->IBAN, $entity2->IBAN);
-            $this->assertIdentical($entity1->BIC, $entity2->BIC);
+            if ($entity1->Type == 'IBAN') {
+                $this->assertIdentical($entity1->Details->IBAN, $entity2->Details->IBAN);
+                $this->assertIdentical($entity1->Details->BIC, $entity2->Details->BIC);
+            } elseif ($entity1->Type == 'GB') {
+                $this->assertIdentical($entity1->Details->AccountNumber, $entity2->Details->AccountNumber);
+                $this->assertIdentical($entity1->Details->SortCode, $entity2->Details->SortCode);
+            } elseif ($entity1->Type == 'US') {
+                $this->assertIdentical($entity1->Details->AccountNumber, $entity2->Details->AccountNumber);
+                $this->assertIdentical($entity1->Details->ABA, $entity2->Details->ABA);
+            } elseif ($entity1->Type == 'CA') {
+                $this->assertIdentical($entity1->Details->BankName, $entity2->Details->BankName);
+                $this->assertIdentical($entity1->Details->InstitutionNumber, $entity2->Details->InstitutionNumber);
+                $this->assertIdentical($entity1->Details->BranchCode, $entity2->Details->BranchCode);
+                $this->assertIdentical($entity1->Details->AccountNumber, $entity2->Details->AccountNumber);
+            } elseif ($entity1->Type == 'OTHER') {
+                $this->assertIdentical($entity1->Details->Type, $entity2->Details->Type);
+                $this->assertIdentical($entity1->Details->Country, $entity2->Details->Country);
+                $this->assertIdentical($entity1->Details->BIC, $entity2->Details->BIC);
+                $this->assertIdentical($entity1->Details->AccountNumber, $entity2->Details->AccountNumber);
+            }
         } elseif (is_a($entity1, '\MangoPay\PayIn')) {
             $this->assertIdentical($entity1->Tag, $entity2->Tag);
             $this->assertIdentical($entity1->AuthorId, $entity2->AuthorId);

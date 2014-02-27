@@ -12,7 +12,11 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Save legal user' => 'UserLegal_Users_Save',
     ),
     'Bank accounts' => array(
-        'Create bank account for user' => 'User_Users_CreateSubEntity_BankAccount',
+        'Create IBAN account' => 'User_Users_CreateSubEntity_BankAccount_:IBAN',
+        'Create GB account' => 'User_Users_CreateSubEntity_BankAccount_:GB',
+        'Create US account' => 'User_Users_CreateSubEntity_BankAccount_:US',
+        'Create CA account' => 'User_Users_CreateSubEntity_BankAccount_:CA',
+        'Create OTHER account' => 'User_Users_CreateSubEntity_BankAccount_:OTHER',
         'Get bank account for user' => 'User_Users_GetSubEntity_BankAccount',
         'List bank accounts for user' => 'User_Users_ListSubEntity_GetBankAccounts',
     ),
