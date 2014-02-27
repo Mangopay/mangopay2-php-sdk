@@ -2,7 +2,7 @@
 namespace MangoPay;
 
 /**
- * Class represents OTHER type for in BankAccount entity
+ * Class represents OTHER bank account type for in BankAccount entity
  */
 class BankAccountDetailsOTHER extends Dto implements BankAccountDetails {
     

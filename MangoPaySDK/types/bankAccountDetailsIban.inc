@@ -2,7 +2,7 @@
 namespace MangoPay;
 
 /**
- * Class represents IBAN type for in BankAccount entity
+ * Class represents IBAN bank account type for in BankAccount entity
  */
 class BankAccountDetailsIBAN extends Dto implements BankAccountDetails {
     
