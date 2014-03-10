@@ -9,7 +9,7 @@
         "php" : ">=5.0.0"
     },
     "autoload": {
-        "psr-4": { "MangoPay": "" }
+        "psr-0": { "MangoPay": "" }
     },
     "target-dir": "MangoPaySDK",
     "minimum-stability": "dev"
