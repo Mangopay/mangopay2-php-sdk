@@ -77,7 +77,7 @@ class CardPreAuthorization extends EntityBase {
      * to 3D secure validation
      * @var string 
      */
-    public $SecureModeRedirectUrl;
+    public $SecureModeRedirectURL;
     
     /**
      * This is the URL where users are automatically redirected 
