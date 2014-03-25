@@ -5,7 +5,7 @@ namespace MangoPay;
  * Authentication manager
  */
 class ApiOAuth extends ApiBase {
-    
+
     /**
      * Get token information to OAuth Authentication
      * @return \MangoPay\OAuthToken OAuthToken object with token information
@@ -16,10 +16,10 @@ class ApiOAuth extends ApiBase {
         $requestData = array(
             'grant_type' => 'client_credentials'
         );
-        
-        $rest = new RestTool(false, $this->_root);
+
+        $rest = new RestTool(false, $this->_root, $this->_debug);
         $authHlp = new AuthenticationHelper($this->_root);
-        
+
         $urlDetails = parse_url($this->_root->Config->BaseUrl);
         $rest->AddRequestHttpHeader('Host: ' . @$urlDetails['host']);
         $rest->AddRequestHttpHeader('Authorization: Basic ' . $authHlp->GetHttpHeaderBasicKey());
