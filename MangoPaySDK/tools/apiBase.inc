@@ -162,7 +162,7 @@ abstract class ApiBase {
         $rest = new RestTool(true, $this->_root, $this->_debug);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
 
-        if ($response->Code !== null && $response->Code !== 200) {
+        if (property_exists($response, "Code") && $response->Code !== 200) {
             return $response;
         }
 
