@@ -5,101 +5,101 @@ namespace MangoPay;
  * Pre-authorization entity
  */
 class CardPreAuthorization extends EntityBase {
-    
+
     /**
      * The user Id of the author of the pre-authorization
-     * @var string 
+     * @var string
      */
     public $AuthorId;
-    
+
     /**
-     * It represents the amount debited on the bank account 
-     * of the Author.DebitedFunds = Fees + CreditedFunds 
+     * It represents the amount debited on the bank account
+     * of the Author.DebitedFunds = Fees + CreditedFunds
      * (amount received on wallet)
      *  @var \MangoPay\Money
      */
     public $DebitedFunds;
-    
+
     /**
      * Status of the PreAuthorization: CREATED, SUCCEEDED, FAILED
-     * @var string 
+     * @var string
      */
     public $Status;
-    
+
     /**
      * The status of the payment after the PreAuthorization:
      * WAITING, CANCELED, EXPIRED, VALIDATED
-     * @var string 
+     * @var string
      */
     public $PaymentStatus;
-    
+
     /**
      * The PreAuthorization result code
-     * @var string 
+     * @var string
      */
     public $ResultCode;
-    
+
     /**
      * The PreAuthorization result Message explaining the result code
-     * @var string 
+     * @var string
      */
     public $ResultMessage;
-        
+
     /**
-     * How the PreAuthorization has been executed. 
+     * How the PreAuthorization has been executed.
      * Only on value for now: CARD
-     * @var string 
+     * @var string
      */
     public $ExecutionType;
-    
+
     /**
-     * The SecureMode correspond to '3D secure' for CB Visa and MasterCard 
-     * or 'Amex Safe Key' for American Express. 
+     * The SecureMode correspond to '3D secure' for CB Visa and MasterCard
+     * or 'Amex Safe Key' for American Express.
      * This field lets you activate it manualy.
-     * @var string 
+     * @var string
      */
     public $SecureMode;
-    
+
     /**
      * The ID of the registered card (Got through CardRegistration object)
-     * @var string 
+     * @var string
      */
     public $CardId;
-    
+
     /**
      * Boolean. The value is 'true' if the SecureMode was used
-     * @var string 
+     * @var string
      */
     public $SecureModeNeeded;
-    
+
     /**
-     * This is the URL where to redirect users to proceed 
+     * This is the URL where to redirect users to proceed
      * to 3D secure validation
-     * @var string 
+     * @var string
      */
-    public $SecureModeRedirectUrl;
-    
+    public $SecureModeRedirectURL;
+
     /**
-     * This is the URL where users are automatically redirected 
+     * This is the URL where users are automatically redirected
      * after 3D secure validation (if activated)
-     * @var string 
+     * @var string
      */
     public $SecureModeReturnURL;
-    
+
     /**
      * The date when the payment is processed
-     * @var Timestamp 
+     * @var Timestamp
      */
     public $ExpirationDate;
-    
+
     /**
      * The Id of the associated PayIn
-     * @var string 
+     * @var string
      */
     public $PayInId;
-    
+
     /**
-     * Get array with mapping which property is object and what type of object 
+     * Get array with mapping which property is object and what type of object
      * @return array
      */
     public function GetSubObjects() {
@@ -107,7 +107,7 @@ class CardPreAuthorization extends EntityBase {
             'DebitedFunds' => '\MangoPay\Money'
         );
     }
-    
+
     /**
      * Get array with read-only properties
      * @return array
@@ -117,7 +117,7 @@ class CardPreAuthorization extends EntityBase {
         array_push( $properties, 'Status' );
         array_push( $properties, 'ResultCode' );
         array_push( $properties, 'ResultMessage' );
-        
+
         return $properties;
     }
 }
