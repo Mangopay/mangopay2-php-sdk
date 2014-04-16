@@ -44,7 +44,7 @@ class BankAccount extends EntityBase {
         return array(
             'Type' => array(
                 '_property_name' => 'Details',
-                'IBAN' => '\MangoPay\BankAccountDetailsIBAN',
+                'IBAN' => '\MangoPay\BankAccountDetailsIban',
                 'GB' => '\MangoPay\BankAccountDetailsGB',
                 'US' => '\MangoPay\BankAccountDetailsUS',
                 'CA' => '\MangoPay\BankAccountDetailsCA',
