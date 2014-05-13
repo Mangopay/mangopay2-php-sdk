@@ -50,7 +50,7 @@ class Card extends EntityBase {
     
     /**
      * Validity
-     * @var string 
+     * @var \MangoPay\CardValidity 
      */
     public $Validity;
 }

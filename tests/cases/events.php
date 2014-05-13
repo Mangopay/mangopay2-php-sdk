@@ -49,19 +49,23 @@ class Events extends Base {
         $this->assertTrue($this->ExistEventById($result, $payOut->Id));        
     }
     
-    /*function test_GetEventList_TransferNormalCreated() {
-        $transfer = $this->getNewTransfer();
+    function test_GetKycDocumentsList_KycCreated(){
+        $user = $this->getJohn();
+        $kycDocumentInit = new \MangoPay\KycDocument();
+        $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
+        $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
+        $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
         $filter = new \MangoPay\FilterEvents();
-        $filter->BeforeDate = $transfer->CreationDate;
-        $filter->AfterDate = $transfer->CreationDate;
-        $filter->EventType = \MangoPay\EventType::TransferNormalCreated;
+        $filter->BeforeDate = $kycDocument->CreationDate;
+        $filter->AfterDate = $kycDocument->CreationDate;
+        $filter->EventType = \MangoPay\EventType::KycCreated;
         $pagination = new \MangoPay\Pagination();
 
         $result = $this->_api->Events->GetAll($pagination, $filter);
 
         $this->assertTrue(count($result) > 0);
-        $this->assertTrue($this->ExistEventById($result, $transfer->Id));        
-    }*/
+        $this->assertTrue($this->ExistEventById($result, $kycDocument->Id)); 
+    }
     
     private function ExistEventById($eventList, $eventId) {
         

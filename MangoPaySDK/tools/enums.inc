@@ -23,6 +23,9 @@ class PersonType {
  * Event types
  */
 class EventType {
+    const KycCreated = "KYC_CREATED";
+    const KycSucceeded = "KYC_SUCCEEDED";
+    const KycFailed = "KYC_FAILED";
     const PayinNormalCreated = "PAYIN_NORMAL_CREATED";
     const PayinNormalSucceeded = "PAYIN_NORMAL_SUCCEEDED";
     const PayinNormalFailed = "PAYIN_NORMAL_FAILED";
@@ -62,4 +65,10 @@ class KycDocumentStatus{
     const ValidationAsked = 'VALIDATION_ASKED';
     const Validated = 'VALIDATED';
     const Refused = 'REFUSED';
+}
+
+class CardValidity {
+    const Unknown = 'UNKNOWN';
+    const Valid = 'VALID';
+    const Invalid = 'INVALID';
 }

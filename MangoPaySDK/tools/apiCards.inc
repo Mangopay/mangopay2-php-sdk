@@ -14,4 +14,13 @@ class ApiCards extends ApiBase {
     public function Get($cardId) {
         return $this->GetObject('card_get', $cardId, '\MangoPay\Card');
     }
+    
+    /**
+     * Update card
+     * @param \MangoPay\Card $card Card object to save
+     * @return \MangoPay\Card Card object returned from API
+     */
+    public function Update($card) {
+        return $this->SaveObject('card_save', $card, '\MangoPay\Card');
+    }
 }

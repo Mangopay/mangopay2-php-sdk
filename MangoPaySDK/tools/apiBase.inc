@@ -41,6 +41,7 @@ abstract class ApiBase {
         'preauthorization_save' => array( '/preauthorizations/%s', RequestType::PUT ),
                 
         'card_get' => array( '/cards/%s', RequestType::GET ),
+        'card_save' => array( '/cards/%s', RequestType::PUT ),
         
         // pay ins URLs
         'payins_card-web_create' => array( '/payins/card/web/', RequestType::POST ),

@@ -62,10 +62,11 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
     ),
     'Card' => array(
         'Get card' => 'Card_Cards_Get',
+        'Save card' => 'Card_Cards_Save',
         'List cards for user' => 'User_Users_ListSubEntity_GetCards',
     ),
     'Event' => array(
-        'Get event' => 'Event_Events_All__FilterEvents',
+        'List events' => 'Event_Events_All__FilterEvents',
     ),
     'Hooks' => array(
         'Create hook' => 'Hook_Hooks_Create',

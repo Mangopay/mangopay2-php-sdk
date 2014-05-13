@@ -158,6 +158,8 @@ class HtmlHelper {
                 self::renderEnum("\\MangoPay\\KycDocumentType", $name, $prefix);
             } elseif ($className == "\\MangoPay\\KycDocument" && $name == "Status") {
                 self::renderEnum("\\MangoPay\\KycDocumentStatus", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\Card" && $name == "Validity") {
+                self::renderEnum("\\MangoPay\\CardValidity", $name, $prefix);
             }
             else
                 echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/>';
