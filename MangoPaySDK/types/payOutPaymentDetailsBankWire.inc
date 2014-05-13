@@ -8,13 +8,7 @@ class PayOutPaymentDetailsBankWire extends Dto implements PayOutPaymentDetails {
     
     /**
      * Bank account Id
-     * @var in  
+     * @var string  
      */
     public $BankAccountId;
-    
-    /**
-     * Communication
-     * @var string 
-     */
-    public $Communication;
 }
