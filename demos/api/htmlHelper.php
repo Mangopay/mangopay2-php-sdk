@@ -95,9 +95,25 @@ class HtmlHelper {
         echo '</form>';
     }
     
+    public static function bankHack($entityName) {//without this, the form does not find the class because its case sensitive as normal
+	 
+		if ($entityName=="BankAccountDetailsGB") {
+			$entityName = "BankAccountDetailsGb";
+		}elseif($entityName=="BankAccountDetailsUS") {
+			$entityName = "BankAccountDetailsUs";
+		}elseif($entityName=="BankAccountDetailsCA") {
+			$entityName = "BankAccountDetailsCa";
+		}elseif($entityName=="BankAccountDetailsIBAN") {
+			$entityName = "BankAccountDetailsIban";	
+		}elseif($entityName=="BankAccountDetailsOTHER") {
+			$entityName = "BankAccountDetailsOther";	
+		}		
+		return $entityName;
+	 }
+    
     public static function renderEntity($entityName, $prefix = '') {
 
-        $className = '\\MangoPay\\' . $entityName;
+        $className = '\\MangoPay\\' . self::bankHack($entityName);
         $entity = new $className();
         $blackList = $entity->GetReadOnlyProperties();
         $entityObject = new \ReflectionObject($entity);
@@ -203,7 +219,7 @@ class HtmlHelper {
     public static function getEntity($entityName, $entityId = 0, $returnNullIfNoPropertyTouched = false, $prefix = '') {
         $touchedAnyProp = false;
 
-        $className = '\\MangoPay\\' . $entityName;
+        $className = '\\MangoPay\\' . self::bankHack($entityName);
         $entity = new $className($entityId);
         
         $entityObject = new \ReflectionObject($entity);
