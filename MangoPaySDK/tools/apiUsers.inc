@@ -114,6 +114,16 @@ class ApiUsers extends ApiBase {
     public function GetBankAccounts($userId, & $pagination = null) {
         return $this->GetList('users_allbankaccount', $pagination, 'MangoPay\BankAccount', $userId);
     }
+
+    /**
+     * Get all credit cards for user
+     * @param int $userId User Id
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @return array Array with credit card entities
+     */
+    public function GetCards($userId, & $pagination = null) {
+        return $this->GetList('users_getallcards', $pagination, 'MangoPay\Card', $userId);
+    }
     
     /**
      * Get bank account for user
