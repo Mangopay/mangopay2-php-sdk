@@ -46,7 +46,7 @@ class Users extends Base {
         $this->assertIdenticalInputProps($user, $ret);
     }
 
-    function tes_Users_GetNatural() {
+    function test_Users_GetNatural() {
         $john = $this->getJohn();
 
         $user1 = $this->_api->Users->Get($john->Id);
