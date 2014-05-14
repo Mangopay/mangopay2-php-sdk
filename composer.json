@@ -1,0 +1,15 @@
+{
+    "name": "mangopay/v2-php-sdk",
+    "type": "library",
+    "description": "MangoPay PHP SDK",
+    "keywords": ["api", "php", "mangopay"],
+    "homepage": "http://http://www.mangopay.com/",
+    "license": "MIT",
+    "require-dev": {
+        "php" : ">=5.0.0"
+    },
+    "autoload": {
+        "psr-0": { "MangoPay": "MangoPaySDK/" }
+    },
+    "minimum-stability": "dev"
+}
