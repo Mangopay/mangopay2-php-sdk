@@ -122,16 +122,16 @@ class Users extends Base {
         $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
         $account->OwnerAddress = $john->Address;
         $account->Details = new \MangoPay\BankAccountDetailsGB();
-        $account->Details->AccountNumber = '234234234234';
-        $account->Details->SortCode = '234334';
+        $account->Details->AccountNumber = '18329068';
+        $account->Details->SortCode = '306541';
         
         $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
         
         $this->assertTrue($createAccount->Id > 0);
         $this->assertIdentical($createAccount->UserId, $john->Id);
         $this->assertIdentical($createAccount->Type, 'GB');
-        $this->assertIdentical($createAccount->Details->AccountNumber, '234234234234');
-        $this->assertIdentical($createAccount->Details->SortCode, '234334');
+        $this->assertIdentical($createAccount->Details->AccountNumber, '18329068');
+        $this->assertIdentical($createAccount->Details->SortCode, '306541');
     }
     
     function test_Users_CreateBankAccount_US() {

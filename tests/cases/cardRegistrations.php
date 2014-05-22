@@ -53,13 +53,16 @@ class CardRegistrations extends Base {
     }
     
     function test_Cards_Update(){
-        $cardRegistration = $this->getJohnsCardRegistration();
-        $cardRegistration = $this->_api->CardRegistrations->Get($cardRegistration->Id);
-        $card = $this->_api->Cards->Get($cardRegistration->CardId);
-        $card->Validity = \MangoPay\CardValidity::Valid;
+        $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
+        $card = $this->_api->Cards->Get($cardPreAuthorization->CardId);
+        $cardToUpdate = new \MangoPay\Card();
+        $cardToUpdate->Id = $card->Id;
+        $cardToUpdate->Validity = \MangoPay\CardValidity::Invalid;
+                       
+        $updatedCard = $this->_api->Cards->Update($cardToUpdate);
         
-        $updatedCard = $this->_api->Cards->Update($card);
-        
+        $this->assertEqual($card->Validity, \MangoPay\CardValidity::Valid);
         $this->assertEqual($updatedCard->Validity, \MangoPay\CardValidity::Valid);
+        $this->assertFalse($updatedCard->Active);
     }
 }
