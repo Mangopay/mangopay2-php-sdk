@@ -17,7 +17,7 @@ class ApiWallets extends ApiBase {
     
     /**
      * Get wallet
-     * @param type $walletId Wallet identifier
+     * @param int $walletId Wallet identifier
      * @return \MangoPay\Wallet Wallet object returned from API
      */
     public function Get($walletId) {
@@ -26,7 +26,7 @@ class ApiWallets extends ApiBase {
     
     /**
      * Save wallet
-     * @param type $wallet Wallet object to save
+     * @param Wallet $wallet Wallet object to save
      * @return \MangoPay\Wallet Wallet object returned from API
      */
     public function Update($wallet) {
