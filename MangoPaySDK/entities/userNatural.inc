@@ -8,7 +8,7 @@ class UserNatural extends User {
     
     /**
      * First name for user
-     * @var String 
+     * @var String
      */
     public $FirstName;
     

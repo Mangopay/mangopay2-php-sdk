@@ -2,7 +2,7 @@
 namespace MangoPay;
 
 /**
- * KYC page entity for Kyc document 
+ * KYC page entity for Kyc document
  */
 class KycPage extends Dto {
     

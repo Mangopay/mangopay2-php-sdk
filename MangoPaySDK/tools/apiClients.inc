@@ -7,7 +7,7 @@ namespace MangoPay;
 class ApiClients extends ApiBase {
    
     /**
-     * Get client data for Basic Access Authentication 
+     * Get client data for Basic Access Authentication
      * @param string $clientId Client identifier
      * @param string $clientName Beautiful name for presentation
      * @param string $clientEmail Client's email

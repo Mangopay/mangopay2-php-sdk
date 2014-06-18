@@ -7,8 +7,8 @@ namespace MangoPay;
 class Event extends Dto {
     
     /**
-     * Ressource ID
-     * @var string 
+     * Resource ID
+     * @var string
      */
     public $ResourceId;
     

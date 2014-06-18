@@ -5,10 +5,10 @@ namespace MangoPay;
  * Configuration settings
  */
 class Configuration {
-	
+
     /**
      * Client Id
-     * @var string 
+     * @var string
      */
     public $ClientId;
 	

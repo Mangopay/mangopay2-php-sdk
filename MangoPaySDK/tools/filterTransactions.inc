@@ -8,7 +8,7 @@ class FilterTransactions extends FilterBase {
     
     /**
      * TransactionStatus {CREATED, SUCCEEDED, FAILED}
-     * @var string  
+     * @var string
      */
     public $Status;
     

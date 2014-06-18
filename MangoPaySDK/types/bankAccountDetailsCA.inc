@@ -8,7 +8,7 @@ class BankAccountDetailsCA extends Dto implements BankAccountDetails {
     
     /**
      * Bank name
-     * @var string 
+     * @var string
      */
     public $BankName;
     

@@ -2,13 +2,13 @@
 namespace MangoPay;
 
 /**
- * Response exception class 
+ * Response exception class
  */
 class ResponseException extends Exception {
     
     /**
      * Array with response code and corresponding response message
-     * @var array 
+     * @var array
      */
     private $_responseCodes = array(
         200 => 'OK',

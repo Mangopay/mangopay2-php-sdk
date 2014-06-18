@@ -7,8 +7,8 @@ namespace MangoPay;
 class BankAccountDetailsUS extends Dto implements BankAccountDetails {
     
     /**
-     * Account number 
-     * @var string 
+     * Account number
+     * @var string
      */
     public $AccountNumber;
     

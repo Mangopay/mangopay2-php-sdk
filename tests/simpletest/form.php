@@ -94,7 +94,7 @@ class SimpleForm {
         if (($action === '') || ($action === false)) {
             return $page->expandUrl($page->getUrl());
         }
-        return $page->expandUrl(new SimpleUrl($action));;
+        return $page->expandUrl(new SimpleUrl($action));
     }
 
     /**

@@ -2,7 +2,7 @@
 namespace MangoPay;
 
 /**
- * Class to prepare HTTP request, call the request and decode the response 
+ * Class to prepare HTTP request, call the request and decode the response
  */
 class RestTool {
 
@@ -82,7 +82,7 @@ class RestTool {
      * @param \MangoPay\RequestType $requestType Type of request
      * @param array $requestData Data to send in request
      * @param \MangoPay\Pagination $pagination Pagination object
-     * @return object Respons data
+     * @return object Response data
      */
     public function Request($urlMethod, $requestType, $requestData = null, & $pagination = null, $additionalUrlParams = null) {
         
@@ -101,7 +101,7 @@ class RestTool {
     
     /**
      * Execute request and check response
-     * @return object Respons data
+     * @return object Response data
      * @throws Exception If cURL has error
      */
     private function RunRequest() {
@@ -129,7 +129,7 @@ class RestTool {
     }
     
     /**
-     * Prepare all paraemter to request
+     * Prepare all parameter to request
      * @param String $urlMethod Type of method in REST API
      * @throws Exception If some parameters are not set
      */
@@ -256,7 +256,7 @@ class RestTool {
     /**
      * Check response code
      * @param object $response Response from REST API
-     * @throws ResponseException If responso code not OK
+     * @throws ResponseException If response code not OK
      */
     private function CheckResponseCode($response){
 

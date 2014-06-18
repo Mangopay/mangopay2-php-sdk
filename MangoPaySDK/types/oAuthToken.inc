@@ -8,25 +8,25 @@ class OAuthToken extends Dto {
     
     /**
      * Created time
-     * @var int 
+     * @var int
      */
     private $create_time;
     
     /**
      * Value of token
-     * @var string 
+     * @var string
      */
     public $access_token;
     
     /**
      * Token type
-     * @var string 
+     * @var string
      */
     public $token_type;
     
     /**
      * Expires time for the token
-     * @var int 
+     * @var int
      */
     public $expires_in;
     

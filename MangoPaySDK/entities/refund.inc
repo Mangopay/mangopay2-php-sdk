@@ -24,4 +24,3 @@ class Refund extends Transaction {
      */
     public $CreditedWalletId;
 }
-

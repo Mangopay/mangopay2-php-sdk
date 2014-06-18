@@ -138,7 +138,7 @@ abstract class ApiBase {
      * @param object $entity Entity object
      * @param object $responseClassName Name of entity class from response
      * @param int $entityId Entity identifier
-     * @return object Respons data
+     * @return object Response data
      */
     protected function CreateObject($methodKey, $entity, $responseClassName = null, $entityId = null, $subEntityId = null) {
 
@@ -168,7 +168,7 @@ abstract class ApiBase {
      * @param int $entityId Entity identifier
      * @param object $responseClassName Name of entity class from response
      * @param int $secondEntityId Entity identifier for second entity
-     * @return object Respons data
+     * @return object Response data
      */
     protected function GetObject($methodKey, $entityId, $responseClassName = null, $secondEntityId = null) {
         
@@ -190,7 +190,7 @@ abstract class ApiBase {
      * @param object $responseClassName Name of entity class from response
      * @param int $entityId Entity identifier
      * @param object $filter Object to filter data
-     * @return object Respons data
+     * @return object Response data
      */
     protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null) {
         
@@ -214,7 +214,7 @@ abstract class ApiBase {
      * @param string $methodKey Key with request data
      * @param object $entity Entity object to save
      * @param object $responseClassName Name of entity class from response
-     * @return object Respons data
+     * @return object Response data
      */
     protected function SaveObject($methodKey, $entity, $responseClassName = null, $secondEntityId = null) {
         
@@ -245,8 +245,8 @@ abstract class ApiBase {
         if (is_array($response)) {
             
             $list = array();
-            foreach ($response as $reponseObject) {
-                array_push($list, $this->CastResponseToEntity($reponseObject, $entityClassName));
+            foreach ($response as $responseObject) {
+                array_push($list, $this->CastResponseToEntity($responseObject, $entityClassName));
             }
             
             return $list;
@@ -319,10 +319,10 @@ abstract class ApiBase {
      */
     protected function BuildRequestData($entity) {
         
-        $entityProperies = get_object_vars($entity);
+        $entityProperties = get_object_vars($entity);
         $blackList = $entity->GetReadOnlyProperties();
         $requestData = array();
-        foreach ($entityProperies as $propertyName => $propertyValue) {
+        foreach ($entityProperties as $propertyName => $propertyValue) {
             
             if (in_array($propertyName, $blackList))
                 continue;

@@ -8,7 +8,7 @@ class BankAccountDetailsOTHER extends Dto implements BankAccountDetails {
     
     /**
      * Type  
-     * @var string 
+     * @var string
      */
     public $Type;
     
@@ -21,7 +21,7 @@ class BankAccountDetailsOTHER extends Dto implements BankAccountDetails {
     
     /**
      * Valid BIC format
-     * @var string 
+     * @var string
      */
     public $BIC;
     

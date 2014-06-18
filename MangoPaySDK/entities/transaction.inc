@@ -9,7 +9,7 @@ class Transaction extends EntityBase {
     
     /**
      * Author Id
-     * @var int 
+     * @var int
      */
     public $AuthorId;
     
