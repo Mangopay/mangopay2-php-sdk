@@ -18,7 +18,7 @@ abstract class ApiBase {
      */
     private $_methods = array(
         'authentication_base' => array( '/api/clients/', RequestType::POST ),
-        'authentication_oauth' => array( '/api/oauth/token', RequestType::POST ),
+        'authentication_oauth' => array( '/oauth/token ', RequestType::POST ),
         
         'events_all' => array( '/events', RequestType::GET ),
         'events_gethookcallbacks' => array( '/events/%s/hook-callbacks', RequestType::GET ),
