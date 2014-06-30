@@ -56,7 +56,7 @@ class RestTool {
     
     private $_requestUrl;
     
-    private static $_JSON_HEADER = 'Content-Type: application/x-www-form-urlencoded';
+    private static $_JSON_HEADER = 'Content-Type: application/json';
         
     /**
      * Constructor
