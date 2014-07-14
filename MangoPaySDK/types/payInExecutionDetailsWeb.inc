@@ -23,6 +23,18 @@ class PayInExecutionDetailsWeb extends Dto implements PayInExecutionDetails {
      * @var string
      */
     public $TemplateURL;
+
+    /**
+     * The URL where you host the iFramed template.
+     * For CB, Visa, MasterCard you need to specify « PAYLINE: » before your URL with the iFramed template
+     * ex:
+     *    $options = new \stdClass();
+     *    $options->PAYLINE = "https://www.maysite.com/payline_template/";
+     *    $this->TemplateURLOptions = $options;
+     *
+     * @var object
+     */
+    public $TemplateURLOptions;
     
     /**
      * @var string
