@@ -226,9 +226,13 @@ class HtmlHelper {
                 // special fields for Owners property
                 if ($entityName == 'Wallet' && $name == 'Owners')
                     $entity->$name = explode(';', $_POST[$frmName]);
-                // special cast to int for Birthday property in UserNatural class
-                elseif ($entityName == 'UserNatural' && $name == 'Birthday')
-                    $entity->$name = (int)$_POST[$frmName];
+                // special cast to int for Birthday property in UserNatural 
+                // and UserLegal class
+                elseif (($entityName == 'UserNatural' && $name == 'Birthday')
+                    || ($entityName == 'UserLegal' && $name == 'LegalRepresentativeBirthday'))
+                {
+                    $entity->$name = (float)$_POST[$frmName];
+                }
                 // normal fields
                 else
                     $entity->$name = $_POST[$frmName];
