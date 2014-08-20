@@ -1,0 +1,10 @@
+{
+    "name": "mangopay/php-sdk-v2",
+    "description": "SDK PHP for Mangopay api V2",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "autoload": {
+        "classmap": ["MangoPaySDK/mangoPayApi.inc"],
+        "files": ["MangoPaySDK/common/common.inc"]
+    }
+}
