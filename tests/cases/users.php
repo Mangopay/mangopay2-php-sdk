@@ -303,7 +303,7 @@ class Users extends Base {
             $this->fail('Expected ResponseException when empty file string');
         } catch (\MangoPay\ResponseException $exc) {
 
-            $this->assertIdentical($exc->getCode(), 500);            
+            $this->assertIdentical($exc->getCode(), 400);            
         }
     }
     
@@ -319,7 +319,7 @@ class Users extends Base {
             $this->fail('Expected ResponseException when wrong value for file string');
         } catch (\MangoPay\ResponseException $exc) {
             
-            $this->assertIdentical($exc->getCode(), 500);            
+            $this->assertIdentical($exc->getCode(), 400);            
         }
     }
     
