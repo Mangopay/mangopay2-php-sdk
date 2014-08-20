@@ -8,7 +8,7 @@ class AuthorizationTokenManager extends ApiBase {
 
     /**
      * Storage object
-     * @var \MangoPay\IStorageStrategy 
+     * @var \MangoPay\IStorageStrategy
      */
     private $_storageStrategy;
     

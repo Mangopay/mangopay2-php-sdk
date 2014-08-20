@@ -8,7 +8,7 @@ class PayOut extends Transaction {
     
     /**
      * Debited wallet Id
-     * @var int 
+     * @var int
      */
     public $DebitedWalletId;
     

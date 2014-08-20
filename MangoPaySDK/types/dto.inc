@@ -23,7 +23,7 @@ abstract class Dto {
     
     /**
      * Get array with read only properties - not used in response
-     * To be overridden in child class if has any read-only properies.
+     * To be overridden in child class if has any read-only properties.
      * @return array
      */
     public function GetReadOnlyProperties() { return array(); }

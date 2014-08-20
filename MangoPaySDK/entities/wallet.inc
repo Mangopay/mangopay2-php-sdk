@@ -7,8 +7,8 @@ namespace MangoPay;
 class Wallet extends EntityBase {
     
     /**
-     * Array with owners identites
-     * @var array 
+     * Array with owners identities
+     * @var array
      */
     public $Owners;
     

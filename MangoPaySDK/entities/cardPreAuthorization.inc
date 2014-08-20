@@ -8,7 +8,7 @@ class CardPreAuthorization extends EntityBase {
     
     /**
      * The user Id of the author of the pre-authorization
-     * @var string 
+     * @var string
      */
     public $AuthorId;
     
@@ -22,7 +22,7 @@ class CardPreAuthorization extends EntityBase {
     
     /**
      * Status of the PreAuthorization: CREATED, SUCCEEDED, FAILED
-     * @var string 
+     * @var string
      */
     public $Status;
     
@@ -55,7 +55,7 @@ class CardPreAuthorization extends EntityBase {
     /**
      * The SecureMode correspond to '3D secure' for CB Visa and MasterCard 
      * or 'Amex Safe Key' for American Express. 
-     * This field lets you activate it manualy.
+     * This field lets you activate it manually.
      * @var string 
      */
     public $SecureMode;

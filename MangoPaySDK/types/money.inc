@@ -3,7 +3,7 @@
 namespace MangoPay;
 
 /**
- * Class represents money value with currency 
+ * Class represents money value with currency
  */
 class Money extends Dto {
     

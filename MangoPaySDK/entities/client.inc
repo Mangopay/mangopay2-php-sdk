@@ -8,7 +8,7 @@ class Client extends EntityBase {
     
     /**
      * Client identifier
-     * @var String 
+     * @var String
      */
     public $ClientId;
     

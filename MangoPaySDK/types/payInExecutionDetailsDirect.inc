@@ -8,7 +8,7 @@ class PayInExecutionDetailsDirect extends Dto implements PayInExecutionDetails {
     
     /**
      * SecureMode { DEFAULT, FORCE }
-     * @var string 
+     * @var string
      */
     public $SecureMode;
     

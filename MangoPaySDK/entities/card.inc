@@ -8,7 +8,7 @@ class Card extends EntityBase {
     
     /**
      * Expiration date
-     * @var string 
+     * @var string
      */
     public $ExpirationDate;
     

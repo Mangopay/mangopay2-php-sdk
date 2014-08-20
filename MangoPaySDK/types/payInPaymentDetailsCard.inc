@@ -8,7 +8,7 @@ class PayInPaymentDetailsCard extends Dto implements PayInPaymentDetails {
 
     /**
      * CardType { CB_VISA_MASTERCARD, AMEX }
-     * @var string 
+     * @var string
      */
     public $CardType;
     

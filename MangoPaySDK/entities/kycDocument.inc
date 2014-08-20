@@ -8,7 +8,7 @@ class KycDocument extends EntityBase {
 
     /**
      * Document type
-     * @var \MangoPay\KycDocumentType 
+     * @var \MangoPay\KycDocumentType
      */
     public $Type;
     

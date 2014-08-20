@@ -3,7 +3,7 @@
 namespace MangoPay;
 
 /**
- * Class represents error object 
+ * Class represents error object
  */
 class Error {
     

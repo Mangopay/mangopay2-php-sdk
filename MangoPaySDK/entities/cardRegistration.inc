@@ -8,7 +8,7 @@ class CardRegistration extends EntityBase {
     
     /**
      * User Id
-     * @var string 
+     * @var string
      */
     public $UserId;
     

@@ -1,6 +1,6 @@
 <?php
 /**
- * Function to auto include files with entites and types
+ * Function to auto include files with entities and types
  * @param String $className
  */
 function mangoPay_Autoload($className){
@@ -18,7 +18,7 @@ function mangoPay_Autoload($className){
     if (mangoPay_AutoloadCheckAndInclude($fileName, 'tools'))
         return;
     
-    // include exeptions files
+    // include exceptions files
     if (mangoPay_AutoloadCheckAndInclude($fileName, 'types/exceptions'))
         return;
 }

@@ -7,8 +7,8 @@ namespace MangoPay;
 class BankAccountDetailsIBAN extends Dto implements BankAccountDetails {
     
     /**
-     * IBAN number 
-     * @var string 
+     * IBAN number
+     * @var string
      */
     public $IBAN;
     

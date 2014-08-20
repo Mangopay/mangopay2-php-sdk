@@ -8,7 +8,7 @@ class PayInPaymentDetailsPreAuthorized extends Dto implements PayInPaymentDetail
     
     /**
      * The ID of the Preauthorization object
-     * @var string 
+     * @var string
      */
     public $PreauthorizationId;
 }

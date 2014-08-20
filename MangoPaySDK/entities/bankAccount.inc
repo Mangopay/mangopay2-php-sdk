@@ -8,7 +8,7 @@ class BankAccount extends EntityBase {
     
     /**
      * User identifier
-     * @var LeetchiId 
+     * @var LeetchiId
      */
     public $UserId;
     

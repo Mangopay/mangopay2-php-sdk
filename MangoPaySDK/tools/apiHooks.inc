@@ -35,7 +35,7 @@ class ApiHooks extends ApiBase {
     
     /**
      * Get all hooks
-     * @return \MangoPay\Hook[] Array with obects returned from API
+     * @return \MangoPay\Hook[] Array with objects returned from API
      */
     public function GetAll(& $pagination = null) {
         return $this->GetList('hooks_all', $pagination, '\MangoPay\Hook');

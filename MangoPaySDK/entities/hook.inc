@@ -8,7 +8,7 @@ class Hook extends EntityBase {
     
     /**
      * This is the URL where your receive notification for each EventType
-     * @var string 
+     * @var string
      */
     public $Url;
         
