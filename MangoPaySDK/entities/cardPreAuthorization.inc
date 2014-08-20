@@ -92,6 +92,18 @@ class CardPreAuthorization extends EntityBase {
      */
     public $ExpirationDate;
     
+     /**
+     * The date when the payment was authorized
+     * @var Timestamp 
+     */
+    public $AuthorizationDate;
+    
+    /**
+     * The type of pre-authorization ("CARD" is the only acceptable value at present
+     * @var string 
+     */
+    public $PaymentType;
+    
     /**
      * The Id of the associated PayIn
      * @var string 
