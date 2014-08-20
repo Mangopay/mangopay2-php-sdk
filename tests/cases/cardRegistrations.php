@@ -42,6 +42,21 @@ class CardRegistrations extends Base {
         $this->assertIdentical('000000', $getCardRegistration->ResultCode);
     }
     
+    function test_CardRegistrations_UpdateError() {
+        $user = $this->getJohn();
+        $cardRegistrationNew = new \MangoPay\CardRegistration();
+        $cardRegistrationNew->UserId = $user->Id;
+        $cardRegistrationNew->Currency = 'EUR';
+        $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistrationNew);
+        $cardRegistration->RegistrationData = "Wrong-data";
+        
+        $getCardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
+
+        $this->assertEqual("ERROR", $getCardRegistration->Status);
+        $this->assertNotNull($getCardRegistration->ResultCode);
+        $this->assertNotNull($getCardRegistration->ResultMessage);
+    }
+    
     function test_Cards_CheckCardExisting() {
         $cardRegistration = $this->getJohnsCardRegistration();
         $cardRegistration = $this->_api->CardRegistrations->Get($cardRegistration->Id);

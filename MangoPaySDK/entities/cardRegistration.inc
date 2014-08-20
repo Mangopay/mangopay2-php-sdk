@@ -43,10 +43,16 @@ class CardRegistration extends EntityBase {
     public $RegistrationData;
         
     /**
-     * Result code
+     * The result code of the object
      * @var string 
      */
     public $ResultCode;
+    
+    /**
+     * The message explaning the result code
+     * @var string 
+     */
+    public $ResultMessage;
         
     /**
      * Currency
@@ -71,6 +77,7 @@ class CardRegistration extends EntityBase {
         array_push( $properties, 'CardRegistrationURL' );
         array_push( $properties, 'CardId' );
         array_push( $properties, 'ResultCode' );
+        array_push( $properties, 'ResultMessage' );
         array_push( $properties, 'Status' );
         return $properties;
     }
