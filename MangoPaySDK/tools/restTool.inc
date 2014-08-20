@@ -148,7 +148,14 @@ class RestTool {
             throw new Exception('Cannot initialize cURL session');
         
         curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, false);
+
+        if ($this->_root->Config->CertificatesFilePath == '')
+            curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, false);
+        else {
+            curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($this->_curlHandle, CURLOPT_CAINFO, $this->_root->Config->CertificatesFilePath);
+        }
+        
         if (!is_null($pagination)) {
             curl_setopt($this->_curlHandle, CURLOPT_HEADERFUNCTION, array(&$this, 'ReadResponseHeader'));
             $this->_pagination = $pagination;

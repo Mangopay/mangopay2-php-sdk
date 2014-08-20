@@ -31,6 +31,13 @@ class Configuration {
     public $TemporaryFolder = null;
     
     /**
+     * Absolute path to file holding one or more certificates to verify the peer with.
+     * If empty - don't verifying the peer's certificate.
+     * @var string 
+     */
+    public $CertificatesFilePath = '';
+    
+    /**
      * [INTERNAL USAGE ONLY] 
      * Switch debug mode: log all request and response data
      */
