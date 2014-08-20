@@ -37,6 +37,12 @@ class PayIn extends Transaction {
     public $ExecutionDetails;
     
     /**
+     * The debited wallet Id
+     * @var int
+     */
+    public $DebitedWalletId;
+    
+    /**
      * Get array with mapping which property depends on other property  
      * @return array
      */
