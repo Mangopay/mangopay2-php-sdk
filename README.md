@@ -24,14 +24,14 @@ You can use Mango Pay SDK library as a dependency in your project with Composer.
 The installation with Composer is easy, reliable : 
 Step 1 - Add the Mango Pay SDK as a dependency in your composer.json file as follow :
 
-"require": {
+    "require": {
         ...
         "mangopay/php-sdk-v2": "dev-master"
     },
 
 Step 2 - Update your dependencies with Composer
 
-you@yourhost:/path/to/project$ php composer.phar update
+    you@yourhost:/path/to/project$ php composer.phar update
 
 The Library has been added into your dependencies and ready to be used.
 
