@@ -128,46 +128,46 @@ You can integrate Mango Pay features in a Service in your Symfony project.
 
 MangoPayService.php : 
 
-<?php
+    <?php
 
-namespace Path\To\Service;
-
-use MangoPay;
-
-
-class MangoPayService
-{
-
-    private $mangoPayApi;
-
-    public function __construct()
-    {
-        $this->mangoPayApi = new MangoPay\MangoPayApi();
-        $this->mangoPayApi->Config->ClientId = 'your-client-id';
-        $this->mangoPayApi->Config->ClientPassword = 'your-client-password';
-        $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';    
-        //$this->mangoPayApi->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
-    }
+    namespace Path\To\Service;
     
-    /**
-     * Create Mango Pay User
-     * @return MangoPayUser $mangoUser
-     */
-    public function getMangoUser()
+    use MangoPay;
+    
+    
+    class MangoPayService
     {
+    
+        private $mangoPayApi;
+    
+        public function __construct()
+        {
+            $this->mangoPayApi = new MangoPay\MangoPayApi();
+            $this->mangoPayApi->Config->ClientId = 'your-client-id';
+            $this->mangoPayApi->Config->ClientPassword = 'your-client-password';
+            $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';    
+            //$this->mangoPayApi->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
+        }
         
-        $mangoUser = new \MangoPay\UserNatural();
-        $mangoUser->PersonType = "NATURAL";
-        $mangoUser->FirstName = 'John';
-        $mangoUser->LastName = 'Doe';
-        $mangoUser->Birthday = 1409735187;
-        $mangoUser->Nationality = "FR";
-        $mangoUser->CountryOfResidence = "FR";
-        $mangoUser->Email = 'john.doe@mail.com';
-
-        //Send the request
-        $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
-
-        return $mangoUser;
+        /**
+         * Create Mango Pay User
+         * @return MangoPayUser $mangoUser
+         */
+        public function getMangoUser()
+        {
+            
+            $mangoUser = new \MangoPay\UserNatural();
+            $mangoUser->PersonType = "NATURAL";
+            $mangoUser->FirstName = 'John';
+            $mangoUser->LastName = 'Doe';
+            $mangoUser->Birthday = 1409735187;
+            $mangoUser->Nationality = "FR";
+            $mangoUser->CountryOfResidence = "FR";
+            $mangoUser->Email = 'john.doe@mail.com';
+    
+            //Send the request
+            $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
+    
+            return $mangoUser;
+        }
     }
-}
