@@ -19,19 +19,19 @@ in your project (see examples below).
 
 Installation with Composer
 -------------------------------------------------
-You can use Mango Pay SDK library as a dependency in your project with Composer. A composer.json file is available in the repository and it has been referenced on packagist. 
+You can use MangoPay SDK library as a dependency in your project with Composer. A composer.json file is available in the repository and it has been referenced on packagist. 
 
 The installation with Composer is easy, reliable : 
-Step 1 - Add the Mango Pay SDK as a dependency in your composer.json file as follow :
+Step 1 - Add the MangoPay SDK as a dependency in your composer.json file as follow :
 
     "require": {
         ...
-        "mangopay/php-sdk-v2": "dev-master"
+        "mangopay/php-sdk-v2": "1.4.*"
     },
 
 Step 2 - Update your dependencies with Composer
 
-    you@yourhost:/path/to/project$ php composer.phar update
+    you@yourhost:/path/to/project$ php composer.phar update mangopay/php-sdk-v2
 
 The Library has been added into your dependencies and ready to be used.
 
@@ -122,9 +122,9 @@ Sample usage
     $accounts = $api->Users->GetBankAccounts($john->Id, $pagination);
 
 
-Sample usage of Mango Pay SDK installed with Composer in a Symfony project
+Sample usage of MangoPay SDK installed with Composer in a Symfony project
 -------------------------------------------------
-You can integrate Mango Pay features in a Service in your Symfony project. 
+You can integrate MangoPay features in a Service in your Symfony project. 
 
 MangoPayService.php : 
 
@@ -150,7 +150,7 @@ MangoPayService.php :
         }
         
         /**
-         * Create Mango Pay User
+         * Create MangoPay User
          * @return MangoPayUser $mangoUser
          */
         public function getMangoUser()
