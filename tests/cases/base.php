@@ -392,7 +392,7 @@ abstract class Base extends \UnitTestCase {
             $payOut->DebitedWalletId = $wallet->Id;
             $payOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
             $payOut->MeanOfPaymentDetails->BankAccountId = $account->Id;
-            $payOut->MeanOfPaymentDetails->Communication = 'Communication text';
+            $payOut->MeanOfPaymentDetails->BankWireRef = 'Johns payment';
 
             self::$JohnsPayOutBankWire = $this->_api->PayOuts->Create($payOut);
         }
@@ -423,7 +423,7 @@ abstract class Base extends \UnitTestCase {
             $payOut->DebitedWalletId = $payIn->CreditedWalletId;
             $payOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
             $payOut->MeanOfPaymentDetails->BankAccountId = $account->Id;
-            $payOut->MeanOfPaymentDetails->Communication = 'Communication text';
+            $payOut->MeanOfPaymentDetails->BankWireRef = 'Johns payment';
 
             self::$JohnsPayOutForCardDirect = $this->_api->PayOuts->Create($payOut);
         }
@@ -689,7 +689,7 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdenticalInputProps($entity1->Fees, $entity2->Fees);
         } elseif (is_a($entity1, '\MangoPay\BankWirePayOut')) {
             $this->assertIdentical($entity1->BankAccountId, $entity2->BankAccountId);
-            $this->assertIdentical($entity1->Communication, $entity2->Communication);
+            $this->assertIdentical($entity1->BankWireRef, $entity2->BankWireRef);
         } elseif (is_a($entity1, '\MangoPay\Transaction')) {
             $this->assertIdentical($entity1->Tag, $entity2->Tag);
             $this->assertIdenticalInputProps($entity1->DebitedFunds, $entity2->DebitedFunds);
