@@ -25,25 +25,6 @@ class ApiPayOuts extends ApiBase {
         return $this->GetObject('payouts_get', $payOutId, '\MangoPay\PayOut');
     }
     
-    /**
-     * Create refund for pay-out object
-     * @param type $payOutId Pay-out identifier
-     * @param \MangoPay\Refund $refund Refund object to create
-     * @return \MangoPay\Refund Object returned by REST API
-     */
-    public function CreateRefund($payOutId, $refund) {
-        return $this->CreateObject('payouts_createrefunds', $payOutId, '\MangoPay\Refund', $refund);
-    }
-
-    /**
-     * Get refund for pay-out object
-     * @param type $payOutId Pay-out identifier
-     * @return \MangoPay\Refund Object returned by REST API
-     */
-    public function GetRefund($payOutId) {
-        return $this->GetObject('payouts_getrefunds', $payOutId, '\MangoPay\Refund');
-    }
-    
     private function GetPaymentKey($payOut) {
         
         if (!isset($payOut->MeanOfPaymentDetails) || !is_object($payOut->MeanOfPaymentDetails))

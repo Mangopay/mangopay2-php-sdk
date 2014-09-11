@@ -21,17 +21,12 @@ abstract class ApiBase {
         'authentication_oauth' => array( '/oauth/token ', RequestType::POST ),
         
         'events_all' => array( '/events', RequestType::GET ),
-        'events_gethookcallbacks' => array( '/events/%s/hook-callbacks', RequestType::GET ),
         
         'hooks_create' => array( '/hooks', RequestType::POST ),
         'hooks_all' => array( '/hooks', RequestType::GET ),
         'hooks_get' => array( '/hooks/%s', RequestType::GET ),
         'hooks_save' => array( '/hooks/%s', RequestType::PUT ),
         
-        'info_get' => array( '/info', RequestType::GET ),
-        'info_getfeewallets' => array( '/info/fee-wallets', RequestType::GET ),
-        'info_getmeansofpayment' => array( '/info/means-of-payment', RequestType::GET ),
-     
         'cardregistration_create' => array( '/cardregistrations', RequestType::POST ),
         'cardregistration_get' => array( '/cardregistrations/%s', RequestType::GET ),
         'cardregistration_save' => array( '/cardregistrations/%s', RequestType::PUT ),
@@ -54,8 +49,6 @@ abstract class ApiBase {
         
         'payouts_bankwire_create' => array( '/payouts/bankwire/', RequestType::POST ),
         'payouts_get' => array( '/payouts/%s', RequestType::GET ),
-        'payouts_createrefunds' => array( '/payouts/%s/refunds', RequestType::POST ),
-        'payouts_getrefunds' => array( '/payouts/%s/refunds', RequestType::GET ),
         
         'refunds_get' => array( '/refunds/%s', RequestType::GET ),
         
@@ -66,7 +59,6 @@ abstract class ApiBase {
         
         'users_createnaturals' => array( '/users/natural', RequestType::POST ),
         'users_createlegals' => array( '/users/legal', RequestType::POST ),
-        'users_createkycrequest' => array( '/users/%s/KYC/requests', RequestType::POST ),
         
         'users_createbankaccounts_iban' => array( '/users/%s/bankaccounts/iban', RequestType::POST ),
         'users_createbankaccounts_gb' => array( '/users/%s/bankaccounts/gb', RequestType::POST ),
@@ -75,8 +67,6 @@ abstract class ApiBase {
         'users_createbankaccounts_other' => array( '/users/%s/bankaccounts/other', RequestType::POST ),
         
         'users_all' => array( '/users', RequestType::GET ),
-        'users_allkyc' => array( '/users/%s/KYC', RequestType::GET ),
-        'users_allkycrequests' => array( '/users/%s/KYC/requests', RequestType::GET ),
         'users_allwallets' => array( '/users/%s/wallets', RequestType::GET ),
         'users_allbankaccount' => array( '/users/%s/bankaccounts', RequestType::GET ),
         'users_allcards' => array( '/users/%s/cards', RequestType::GET ),
@@ -84,18 +74,11 @@ abstract class ApiBase {
         'users_get' => array( '/users/%s', RequestType::GET ),
         'users_getnaturals' => array( '/users/natural/%s', RequestType::GET ),
         'users_getlegals' => array( '/users/legal/%s', RequestType::GET ),
-        'users_getkycrequest' => array( '/users/%s/KYC/requests/%s', RequestType::GET ),
-        'users_getproofofidentity' => array( '/users/%s/ProofOfIdentity', RequestType::GET ),
-        'users_getproofofaddress' => array( '/users/%s/ProofOfAddress', RequestType::GET ),
-        'users_getproofofregistration' => array( '/users/%s/ProofOfRegistration', RequestType::GET ),
-        'users_getshareholderdeclaration' => array( '/users/%s/ShareholderDeclaration', RequestType::GET ),
         'users_getbankaccount' => array( '/users/%s/bankaccounts/%s', RequestType::GET ),
-        'users_getpaymentcard' => array( '/users/%s/payment-cards/%s', RequestType::GET ),
         'users_savenaturals' => array( '/users/natural/%s', RequestType::PUT ),
         'users_savelegals' => array( '/users/legal/%s', RequestType::PUT ),
         
         'wallets_create' => array( '/wallets', RequestType::POST ),
-        'wallets_allrecurringpayinorders' => array( '/wallets/%s/recurring-pay-in-orders', RequestType::GET ),
         'wallets_alltransactions' => array( '/wallets/%s/transactions', RequestType::GET ),
         'wallets_get' => array( '/wallets/%s', RequestType::GET ),
         'wallets_save' => array( '/wallets/%s', RequestType::PUT ),
