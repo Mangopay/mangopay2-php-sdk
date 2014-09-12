@@ -656,6 +656,11 @@ abstract class Base extends \UnitTestCase {
                 $this->assertIdentical($entity1->Details->BIC, $entity2->Details->BIC);
                 $this->assertIdentical($entity1->Details->AccountNumber, $entity2->Details->AccountNumber);
             }
+        } elseif (is_a($entity1, '\MangoPay\Card')) {
+            $this->assertIdentical($entity1->ExpirationDate, $entity2->ExpirationDate);
+            $this->assertIdentical($entity1->Alias, $entity2->Alias);
+            $this->assertIdentical($entity1->CardType, $entity2->CardType);
+            $this->assertIdentical($entity1->Currency, $entity2->Currency);
         } elseif (is_a($entity1, '\MangoPay\PayIn')) {
             $this->assertIdentical($entity1->Tag, $entity2->Tag);
             $this->assertIdentical($entity1->AuthorId, $entity2->AuthorId);

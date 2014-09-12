@@ -29,4 +29,10 @@ class KycDocument extends EntityBase {
      * @var type string
      */
     public $RefusedReasonMessage;
+    
+    /**
+     * User identifier
+     * @var type string
+     */
+    public $UserId;
 }

@@ -222,10 +222,12 @@ class Users extends Base {
     
     function test_Users_CreateKycDocument(){
         $kycDocument = $this->getJohnsKycDocument();
-        
+
+        $user = $this->getJohn();
         $this->assertTrue($kycDocument->Id > 0);
         $this->assertIdentical($kycDocument->Status, \MangoPay\KycDocumentStatus::Created);
         $this->assertIdentical($kycDocument->Type, \MangoPay\KycDocumentType::IdentityProof);
+        $this->assertIdentical($kycDocument->UserId, $user->Id);
     }
     
     function test_Users_GetKycDocument(){
@@ -237,6 +239,7 @@ class Users extends Base {
         $this->assertIdentical($kycDocument->Id, $getKycDocument->Id);
         $this->assertIdentical($kycDocument->Status, $getKycDocument->Status);
         $this->assertIdentical($kycDocument->Type, $getKycDocument->Type);
+        $this->assertIdentical($kycDocument->UserId, $user->Id);
     }
     
     function test_Users_CreateKycDocument_TestAll(){
