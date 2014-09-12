@@ -710,9 +710,20 @@ abstract class Base extends \UnitTestCase {
         } elseif (is_a($entity1, '\MangoPay\Money')) {
             $this->assertIdentical($entity1->Currency, $entity2->Currency);
             $this->assertIdentical($entity1->Amount, $entity2->Amount);
+        } elseif (is_a($entity1, '\MangoPay\KycDocument')) {
+            $this->assertIdentical($entity1->Type, $entity2->Type);
+            $this->assertIdentical($entity1->Status, $entity2->Status);
+            $this->assertIdentical($entity1->UserId, $entity2->UserId);
         } else {
             throw new \Exception("Unsupported type");
         }
     }
 
+    protected function getEntityFromList($entityId, $list){
+        
+        foreach ($list as $entity) {
+            if($entityId == $entity->Id)
+                return $entity;
+        }
+    }
 }

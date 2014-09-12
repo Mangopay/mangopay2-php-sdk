@@ -165,6 +165,16 @@ class ApiUsers extends ApiBase {
     }
     
     /**
+     * Get all KYC documents for user
+     * @param int $userId User Id
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @return array Array with KYC documents entities
+     */    
+    public function GetKycDocuments($userId, & $pagination = null) {
+        return $this->GetList('users_allkycdocuments', $pagination, 'MangoPay\KycDocument', $userId);
+    }
+    
+    /**
      * Get KYC document
      * @param int $userId User Id
      * @param string $kycDocumentId Document identifier

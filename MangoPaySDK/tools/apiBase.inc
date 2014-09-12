@@ -72,6 +72,7 @@ abstract class ApiBase {
         'users_allbankaccount' => array( '/users/%s/bankaccounts', RequestType::GET ),
         'users_allcards' => array( '/users/%s/cards', RequestType::GET ),
         'users_alltransactions' => array( '/users/%s/transactions', RequestType::GET ),
+        'users_allkycdocuments' => array( '/users/%s/KYC/documents', RequestType::GET ),
         'users_get' => array( '/users/%s', RequestType::GET ),
         'users_getnaturals' => array( '/users/natural/%s', RequestType::GET ),
         'users_getlegals' => array( '/users/legal/%s', RequestType::GET ),
@@ -88,6 +89,7 @@ abstract class ApiBase {
         'kyc_documents_get' => array( '/users/%s/KYC/documents/%s', RequestType::GET ),
         'kyc_documents_save' => array( '/users/%s/KYC/documents/%s', RequestType::PUT ),
         'kyc_page_create' => array( '/users/%s/KYC/documents/%s/pages', RequestType::POST ),
+        'kyc_documents_all' => array( '/KYC/documents', RequestType::GET ),
     );
 
     /**

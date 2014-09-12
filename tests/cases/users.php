@@ -242,6 +242,23 @@ class Users extends Base {
         $this->assertIdentical($kycDocument->UserId, $user->Id);
     }
     
+    function test_Users_GetKycDocuments(){
+        $kycDocument = $this->getJohnsKycDocument();
+        $user = $this->getJohn();
+        $pagination = new \MangoPay\Pagination(1, 20);
+        
+        $getKycDocuments = $this->_api->Users->GetKycDocuments($user->Id, $pagination);
+        
+        $this->assertIsA($getKycDocuments[0], '\MangoPay\KycDocument');
+        $kycFromList = $this->getEntityFromList($kycDocument->Id, $getKycDocuments);
+        $this->assertIdentical($kycDocument->Id, $kycFromList->Id);
+        $this->assertIdenticalInputProps($kycDocument, $kycFromList);
+        $this->assertIdentical($pagination->Page, 1);
+        $this->assertIdentical($pagination->ItemsPerPage, 20);
+        $this->assertTrue(isset($pagination->TotalPages));
+        $this->assertTrue(isset($pagination->TotalItems));
+    }
+    
     function test_Users_CreateKycDocument_TestAll(){
         $john = $this->getJohn();
         $legalJohn = $this->getMatrix();

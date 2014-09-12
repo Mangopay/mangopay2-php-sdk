@@ -81,6 +81,8 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Save document' => 'User_Users_SaveSubEntity_KycDocument',
         'Create page from base64' => 'User_Users_CreateSubSubEntity_KycPage__KycDocument',
         'Create page from file' => 'User_Users_CreateKycPageByFile_KycPage__KycDocument',
+        'List KYC documents for user' => 'User_Users_ListSubEntity_GetKycDocuments',
+        'List all KYC documents' => 'KycDocument_KycDocuments_All',
     ),
 );
 

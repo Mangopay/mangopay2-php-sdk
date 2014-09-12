@@ -106,6 +106,12 @@ class MangoPayApi {
      * @var ApiHooks 
      */
     public $Hooks;
+    
+    /**
+     * Kyc documents list
+     * @var ApiKycDocuments 
+     */
+    public $KycDocuments;
 
     /**
      * Constructor
@@ -130,5 +136,6 @@ class MangoPayApi {
         $this->Events = new ApiEvents($this);
         $this->Hooks = new ApiHooks($this);
         $this->CardPreAuthorizations = new ApiCardPreAuthorizations($this);
+        $this->KycDocuments = new ApiKycDocuments($this);
     }
 }
