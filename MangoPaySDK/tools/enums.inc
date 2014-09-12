@@ -73,3 +73,8 @@ class CardValidity {
     const Valid = 'VALID';
     const Invalid = 'INVALID';
 }
+
+class SortDirection {
+    const DESC = 'desc';
+    const ASC = 'asc';
+}

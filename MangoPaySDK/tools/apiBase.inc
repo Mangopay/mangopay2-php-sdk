@@ -178,7 +178,7 @@ abstract class ApiBase {
      * @param object $filter Object to filter data
      * @return object Response data
      */
-    protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null) {
+    protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null) {
         
         $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
         
@@ -187,7 +187,17 @@ abstract class ApiBase {
         }
         
         $rest = new RestTool(true, $this->_root);
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), null, $pagination, $filter);
+        $additionalUrlParams = array();
+        if (!is_null($filter))
+            $additionalUrlParams["filter"] = $filter;
+        if (!is_null($sorting)){
+            if (!is_a($sorting, "\MangoPay\Sorting"))
+                throw new Exception('Wrong type of sorting object');
+            
+            $additionalUrlParams["sort"] = $sorting->GetSortParameter();
+        }
+        
+        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), null, $pagination, $additionalUrlParams);
         
         if (!is_null($responseClassName))
             return $this->CastResponseToEntity($response, $responseClassName);

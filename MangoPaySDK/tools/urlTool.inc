@@ -44,9 +44,18 @@ class UrlTool {
         }
 
         if (!is_null($additionalUrlParams)) {
-            $url .= $paramsAdded ? '&' : '?';
-            $url .= http_build_query($additionalUrlParams);
-            $paramsAdded = true;
+            
+            if (array_key_exists("sort", $additionalUrlParams)) {
+                $url .= $paramsAdded ? '&' : '?';
+                $url .= http_build_query($additionalUrlParams["sort"]);
+                $paramsAdded = true;
+            }
+            
+            if (array_key_exists("filter", $additionalUrlParams)) {
+                $url .= $paramsAdded ? '&' : '?';
+                $url .= http_build_query($additionalUrlParams["filter"]);
+                $paramsAdded = true;
+            }
         }
 
         return $url;

@@ -82,6 +82,7 @@ class RestTool {
      * @param \MangoPay\RequestType $requestType Type of request
      * @param array $requestData Data to send in request
      * @param \MangoPay\Pagination $pagination Pagination object
+     * @param array Array with additional parameters to URL. Expected keys: "sort" and "filter"
      * @return object Response data
      */
     public function Request($urlMethod, $requestType, $requestData = null, & $pagination = null, $additionalUrlParams = null) {

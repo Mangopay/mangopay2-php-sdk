@@ -50,4 +50,21 @@ class Wallets extends Base {
         $this->assertEqual($transactions[0]->AuthorId, $john->Id);
         $this->assertIdenticalInputProps($transactions[0], $payIn);
     }
+    
+    function test_Wallets_TransactionsWithSorting() {
+        $wallet = $this->getJohnsWallet();
+        // create 2 pay-in objects
+        $this->getJohnsPayInCardWeb();
+        self::$JohnsPayInCardWeb = null;
+        $this->getJohnsPayInCardWeb();
+        $sorting = new \MangoPay\Sorting();
+        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        $pagination = new \MangoPay\Pagination(1, 20);
+        $filter = new \MangoPay\FilterTransactions();
+        $filter->Type = 'PAYIN';
+        
+        $transactions = $this->_api->Wallets->GetTransactions($wallet->Id, $pagination, $filter, $sorting);
+
+        $this->assertTrue($transactions[0]->CreationDate > $transactions[1]->CreationDate);
+    }
 }
