@@ -53,6 +53,7 @@ class PayIn extends Transaction {
                 'CARD' => '\MangoPay\PayInPaymentDetailsCard',
                 'PREAUTHORIZED' => '\MangoPay\PayInPaymentDetailsPreAuthorized',
                 'BANK_WIRE' => '\MangoPay\PayInPaymentDetailsBankWire',
+                'DIRECT_DEBIT' => '\MangoPay\PayInPaymentDetailsDirectDebit',
                 // ...and more in future...
             ),
             'ExecutionType' => array(

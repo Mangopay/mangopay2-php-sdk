@@ -196,10 +196,55 @@ class PayIns extends Base {
         $this->assertEqual($getPayIn->PaymentDetails->BankAccount->Type, 'IBAN');
         $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->Details->IBAN);
         $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->Details->BIC);
-        
-        
-        
-        
+    }
+    
+    function test_PayIns_DirectDebitWeb_Create() {
+        $wallet = $this->getJohnsWallet();
+        $user = $this->getJohn();
+        // create pay-in PRE-AUTHORIZED DIRECT
+        $payIn = new \MangoPay\PayIn();
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->AuthorId = $user->Id;
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 10000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 100;
+        $payIn->Fees->Currency = 'EUR';
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsDirectDebit();
+        $payIn->PaymentDetails->DirectDebitType = "GIROPAY";
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.mysite.com/returnURL/";
+        $payIn->ExecutionDetails->Culture = "FR";
+        $payIn->ExecutionDetails->TemplateURLOptions = new \MangoPay\PayInTemplateURLOptions();
+        $payIn->ExecutionDetails->TemplateURLOptions->PAYLINE = "https://www.maysite.com/payline_template/";                
+
+        $createPayIn = $this->_api->PayIns->Create($payIn);
+
+        $this->assertTrue($createPayIn->Id > 0);
+        $this->assertEqual($wallet->Id, $createPayIn->CreditedWalletId);
+        $this->assertEqual('DIRECT_DEBIT', $createPayIn->PaymentType);
+        $this->assertIsA($createPayIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsDirectDebit');
+        $this->assertEqual($createPayIn->PaymentDetails->DirectDebitType, 'GIROPAY');
+        $this->assertEqual('WEB', $createPayIn->ExecutionType);
+        $this->assertIsA($createPayIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsWeb');
+        $this->assertEqual("FR", $createPayIn->ExecutionDetails->Culture);
+        $this->assertEqual($user->Id, $createPayIn->AuthorId);
+        $this->assertEqual('CREATED', $createPayIn->Status);
+        $this->assertEqual('PAYIN', $createPayIn->Type);
+        $this->assertIsA($createPayIn->DebitedFunds, '\MangoPay\Money');
+        $this->assertEqual(10000, $createPayIn->DebitedFunds->Amount);
+        $this->assertEqual("EUR", $createPayIn->DebitedFunds->Currency);
+        $this->assertIsA($createPayIn->CreditedFunds, '\MangoPay\Money');
+        $this->assertEqual(9900, $createPayIn->CreditedFunds->Amount);
+        $this->assertEqual("EUR", $createPayIn->CreditedFunds->Currency);
+        $this->assertIsA($createPayIn->Fees, '\MangoPay\Money');
+        $this->assertEqual(100, $createPayIn->Fees->Amount);
+        $this->assertEqual("EUR", $createPayIn->Fees->Currency);
+        $this->assertNotNull($createPayIn->ExecutionDetails->ReturnURL);
+        $this->assertNotNull($createPayIn->ExecutionDetails->RedirectURL);
+        $this->assertNotNull($createPayIn->ExecutionDetails->TemplateURL);
     }
 }
 

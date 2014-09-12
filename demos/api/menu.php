@@ -39,6 +39,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Create pay-in direct card' => 'PayIn_PayIns_Create_:CARD:DIRECT',
         'Create pay-in direct pre-authorized' => 'PayIn_PayIns_Create_:PREAUTHORIZED:DIRECT',
         'Create pay-in direct bank wire' => 'PayIn_PayIns_Create_:BANK_WIRE:DIRECT',
+        'Create pay-in direct debit web' => 'PayIn_PayIns_Create_:DIRECT_DEBIT:WEB',
         'Get pay-in' => 'PayIn_PayIns_Get',
     ),
     'Pay-outs' => array(
