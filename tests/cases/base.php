@@ -663,15 +663,21 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdenticalInputProps($entity1->DebitedFunds, $entity2->DebitedFunds);
             $this->assertIdenticalInputProps($entity1->CreditedFunds, $entity2->CreditedFunds);
             $this->assertIdenticalInputProps($entity1->Fees, $entity2->Fees);
-        } elseif (is_a($entity1, '\MangoPay\Card')) {
-            $this->assertIdentical($entity1->ExpirationDate, $entity2->ExpirationDate);
-            $this->assertIdentical($entity1->Alias, $entity2->Alias);
+            $this->assertIdenticalInputProps($entity1->PaymentDetails, $entity2->PaymentDetails);
+            $this->assertIdenticalInputProps($entity1->ExecutionDetails, $entity2->ExecutionDetails);
+        } elseif (is_a($entity1, '\MangoPay\PayInPaymentDetailsCard')) {
             $this->assertIdentical($entity1->CardType, $entity2->CardType);
-            $this->assertIdentical($entity1->Currency, $entity2->Currency);
-        } elseif (is_a($entity1, '\MangoPay\Web')) {
+            $this->assertIdentical($entity1->CardId, $entity2->CardId);
+        } elseif (is_a($entity1, 'MangoPay\PayInExecutionDetailsDirect')) {
+            $this->assertIdentical($entity1->SecureMode, $entity2->SecureMode);
+            $this->assertIdentical($entity1->SecureModeReturnURL, $entity2->SecureModeReturnURL);
+            $this->assertIdentical($entity1->SecureModeRedirectURL, $entity2->SecureModeRedirectURL);
+        } elseif (is_a($entity1, '\MangoPay\PayInExecutionDetailsWeb')) {
             $this->assertIdentical($entity1->TemplateURL, $entity2->TemplateURL);
             $this->assertIdentical($entity1->Culture, $entity2->Culture);
             $this->assertIdentical($entity1->SecureMode, $entity2->SecureMode);
+            $this->assertIdentical($entity1->RedirectURL, $entity2->RedirectURL);
+            $this->assertIdentical($entity1->ReturnURL, $entity2->ReturnURL);
         } elseif (is_a($entity1, '\MangoPay\PayOut')) {
             $this->assertIdentical($entity1->Tag, $entity2->Tag);
             $this->assertIdentical($entity1->AuthorId, $entity2->AuthorId);
@@ -679,7 +685,7 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdenticalInputProps($entity1->DebitedFunds, $entity2->DebitedFunds);
             $this->assertIdenticalInputProps($entity1->CreditedFunds, $entity2->CreditedFunds);
             $this->assertIdenticalInputProps($entity1->Fees, $entity2->Fees);
-            $this->assertIdenticalInputProps($entity1->MeanOfPayment, $entity2->MeanOfPayment);
+            $this->assertIdenticalInputProps($entity1->MeanOfPaymentDetails, $entity2->MeanOfPaymentDetails);
         } elseif (is_a($entity1, '\MangoPay\Transfer')) {
             $this->assertIdentical($entity1->Tag, $entity2->Tag);
             $this->assertIdentical($entity1->AuthorId, $entity2->AuthorId);
@@ -687,7 +693,7 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdenticalInputProps($entity1->DebitedFunds, $entity2->DebitedFunds);
             $this->assertIdenticalInputProps($entity1->CreditedFunds, $entity2->CreditedFunds);
             $this->assertIdenticalInputProps($entity1->Fees, $entity2->Fees);
-        } elseif (is_a($entity1, '\MangoPay\BankWirePayOut')) {
+        } elseif (is_a($entity1, '\MangoPay\PayOutPaymentDetailsBankWire')) {
             $this->assertIdentical($entity1->BankAccountId, $entity2->BankAccountId);
             $this->assertIdentical($entity1->BankWireRef, $entity2->BankWireRef);
         } elseif (is_a($entity1, '\MangoPay\Transaction')) {

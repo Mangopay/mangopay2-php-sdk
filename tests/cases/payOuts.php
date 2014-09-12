@@ -24,6 +24,7 @@ class PayOuts extends Base {
         $this->assertIdentical($payOut->Id, $payOutGet->Id);
         $this->assertIdentical($payOut->PaymentType, $payOutGet->PaymentType);
         $this->assertIdentical($payOutGet->Status, 'CREATED');
+        $this->assertIdenticalInputProps($payOut, $payOutGet);
         $this->assertNull($payOutGet->ExecutionDate);
     }
     
