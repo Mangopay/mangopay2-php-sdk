@@ -51,7 +51,7 @@ class Wallets extends Base {
         $this->assertIdenticalInputProps($transactions[0], $payIn);
     }
     
-    function test_Wallets_TransactionsWithSorting() {
+    function test_Wallets_Transactions_SortByCreationDate() {
         $wallet = $this->getJohnsWallet();
         // create 2 pay-in objects
         $this->getJohnsPayInCardWeb();

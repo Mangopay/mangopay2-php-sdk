@@ -7,7 +7,7 @@ require_once 'base.php';
  */
 class Users extends Base {
 
-    function test_Users_CreateNatural() {
+   function test_Users_CreateNatural() {
         $john = $this->getJohn();
         $this->assertTrue($john->Id > 0);
         $this->assertIdentical($john->PersonType, \MangoPay\PersonType::Natural);
@@ -220,6 +220,20 @@ class Users extends Base {
         $this->assertTrue(isset($pagination->TotalItems));
     }
     
+    function test_Users_BankAccounts_SortByCreationDate() {
+        $john = $this->getJohn();
+        $this->getJohnsAccount();
+        self::$JohnsAccount = null;
+        $this->getJohnsAccount();
+        $pagination = new \MangoPay\Pagination(1, 12);
+        $sorting = new \MangoPay\Sorting();
+        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        
+        $list = $this->_api->Users->GetBankAccounts($john->Id, $pagination, $sorting);
+        
+        $this->assertTrue($list[0]->CreationDate > $list[1]->CreationDate);
+    }
+    
     function test_Users_CreateKycDocument(){
         $kycDocument = $this->getJohnsKycDocument();
 
@@ -257,6 +271,20 @@ class Users extends Base {
         $this->assertIdentical($pagination->ItemsPerPage, 20);
         $this->assertTrue(isset($pagination->TotalPages));
         $this->assertTrue(isset($pagination->TotalItems));
+    }
+    
+    function test_Users_GetKycDocuments_SortByCreationDate(){
+        $this->getJohnsKycDocument();
+        self::$JohnsKycDocument = null;
+        $this->getJohnsKycDocument();
+        $user = $this->getJohn();
+        $pagination = new \MangoPay\Pagination(1, 20);
+        $sorting = new \MangoPay\Sorting();
+        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        
+        $getKycDocuments = $this->_api->Users->GetKycDocuments($user->Id, $pagination, $sorting);
+        
+        $this->assertTrue($getKycDocuments[0]->CreationDate > $getKycDocuments[1]->CreationDate);
     }
     
     function test_Users_CreateKycDocument_TestAll(){
@@ -412,6 +440,21 @@ class Users extends Base {
         $this->assertIdenticalInputProps($transactions[0], $payIn);
     }
     
+    function test_Users_AllTransactions_SortByCreationDate() {
+        $john = $this->getJohn();
+        $this->getNewPayInCardDirect();
+        $this->getNewPayInCardDirect();
+        $sorting = new \MangoPay\Sorting();
+        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        $pagination = new \MangoPay\Pagination(1, 20);
+        $filter = new \MangoPay\FilterTransactions();
+        $filter->Type = 'PAYIN';
+       
+        $transactions = $this->_api->Users->GetTransactions($john->Id, $pagination, $filter, $sorting);
+
+        $this->assertTrue($transactions[0]->CreationDate > $transactions[1]->CreationDate);
+    }
+    
     function test_Users_AllCards() {
         $john = $this->getNewJohn();
         $payIn = $this->getNewPayInCardDirect($john->Id);
@@ -423,5 +466,43 @@ class Users extends Base {
         $this->assertEqual(count($cards), 1);
         $this->assertIsA($cards[0], '\MangoPay\Card');
         $this->assertIdenticalInputProps($cards[0], $card);
+    }
+    
+    function test_Users_AllCards_SortByCreationDate() {
+        $john = $this->getNewJohn();
+        $this->getNewPayInCardDirect($john->Id);
+        $this->getNewPayInCardDirect($john->Id);
+        $pagination = new \MangoPay\Pagination(1, 20);
+        $sorting = new \MangoPay\Sorting();
+        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        
+        $cards = $this->_api->Users->GetCards($john->Id, $pagination, $sorting);
+
+        $this->assertTrue($cards[0]->CreationDate > $cards[1]->CreationDate);
+    }
+    
+    function test_Users_AllWallets() {
+        $john = $this->getJohn();
+        $this->getJohnsWallet();
+        $pagination = new \MangoPay\Pagination(1, 1);
+        
+        $wallets = $this->_api->Users->GetWallets($john->Id, $pagination);
+
+        $this->assertEqual(count($wallets), 1);
+        $this->assertIsA($wallets[0], '\MangoPay\Wallet');
+    }
+    
+    function test_Users_AllWallets_SortByCreationDate() {
+        $john = $this->getJohn();
+        $this->getJohnsWallet();
+        self::$JohnsWallet = null;
+        $this->getJohnsWallet();
+        $pagination = new \MangoPay\Pagination(1, 20);
+        $sorting = new \MangoPay\Sorting();
+        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        
+        $wallets = $this->_api->Users->GetWallets($john->Id, $pagination, $sorting);
+
+        $this->assertTrue($wallets[0]->CreationDate > $wallets[1]->CreationDate);
     }
 }

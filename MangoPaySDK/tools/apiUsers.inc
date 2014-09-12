@@ -109,10 +109,11 @@ class ApiUsers extends ApiBase {
      * Get all bank accounts for user
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return array Array with bank account entities
      */    
-    public function GetBankAccounts($userId, & $pagination = null) {
-        return $this->GetList('users_allbankaccount', $pagination, 'MangoPay\BankAccount', $userId);
+    public function GetBankAccounts($userId, & $pagination = null, $sorting = null) {
+        return $this->GetList('users_allbankaccount', $pagination, 'MangoPay\BankAccount', $userId, null, $sorting);
     }
     
     /**
@@ -128,10 +129,12 @@ class ApiUsers extends ApiBase {
     /**
      * Get all wallets for user
      * @param int $userId User Id
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return \MangoPay\Wallet[] Array with objects returned from API
      */
-    public function GetWallets($userId, & $pagination = null) {
-        return $this->GetList('users_allwallets', $pagination, 'MangoPay\Wallet', $userId);
+    public function GetWallets($userId, & $pagination = null, $sorting = null) {
+        return $this->GetList('users_allwallets', $pagination, 'MangoPay\Wallet', $userId, null, $sorting);
     }
         
     /**
@@ -139,19 +142,22 @@ class ApiUsers extends ApiBase {
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Object to filter data
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return \MangoPay\Transaction[] Transactions for user returned from API
      */
-    public function GetTransactions($userId, & $pagination = null, $filter = null) {
-        return $this->GetList('users_alltransactions', $pagination, '\MangoPay\Transaction', $userId, $filter);
+    public function GetTransactions($userId, & $pagination = null, $filter = null, $sorting = null) {
+        return $this->GetList('users_alltransactions', $pagination, '\MangoPay\Transaction', $userId, $filter, $sorting);
     }
     
     /**
      * Get all cards for user
      * @param int $userId User Id
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return \MangoPay\Card[] Cards for user returned from API
      */
-    public function GetCards($userId, & $pagination = null) {
-        return $this->GetList('users_allcards', $pagination, '\MangoPay\Card', $userId);
+    public function GetCards($userId, & $pagination = null, $sorting = null) {
+        return $this->GetList('users_allcards', $pagination, '\MangoPay\Card', $userId, null, $sorting);
     }
     
     /**
@@ -168,10 +174,11 @@ class ApiUsers extends ApiBase {
      * Get all KYC documents for user
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return array Array with KYC documents entities
      */    
-    public function GetKycDocuments($userId, & $pagination = null) {
-        return $this->GetList('users_allkycdocuments', $pagination, 'MangoPay\KycDocument', $userId);
+    public function GetKycDocuments($userId, & $pagination = null, $sorting = null) {
+        return $this->GetList('users_allkycdocuments', $pagination, 'MangoPay\KycDocument', $userId, null, $sorting);
     }
     
     /**
