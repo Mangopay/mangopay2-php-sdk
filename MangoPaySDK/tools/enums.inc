@@ -26,6 +26,7 @@ class EventType {
     const KycCreated = "KYC_CREATED";
     const KycSucceeded = "KYC_SUCCEEDED";
     const KycFailed = "KYC_FAILED";
+    const KycValidationAsked  = "KYC_VALIDATION_ASKED ";
     const PayinNormalCreated = "PAYIN_NORMAL_CREATED";
     const PayinNormalSucceeded = "PAYIN_NORMAL_SUCCEEDED";
     const PayinNormalFailed = "PAYIN_NORMAL_FAILED";
