@@ -30,7 +30,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
 
         $module = @$_GET['module'];
         if (isset($module) && strpos($module, '$Sort') !== false) {
-            if (isset($_POST["_sort_"])){
+            if (isset($_POST["_sort_"]) && !empty($_POST["_sort_"])){
                 $sortFields = explode(":", $_POST["_sort_"]);
                 $sortFieldName = @$sortFields[0];
                 $sortDirection = @$sortFields[1];
