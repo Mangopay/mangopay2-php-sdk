@@ -73,21 +73,10 @@ class HtmlHelper {
                 break;
         }
         
-        // special cases
-        /*switch ($module) {
-            case 'Wallet_Wallets_ListSubEntity_GetTransaction':
-                self::renderFormRow('<i>Optional filters:</i>');
-                self::renderEntity('FilterTransactions');
-                self::renderFormRow('<i>Pagination:</i>');
-                self::renderEntity('Pagination');
-                break;
-            case 'Event_Events_ListEntity_GetAll':
-                self::renderFormRow('<i>Optional filters:</i>');
-                self::renderEntity('FilterEvents');
-                self::renderFormRow('<i>Pagination:</i>');
-                self::renderEntity('Pagination');
-                break;
-        }*/
+        $module = @$_GET['module'];
+        if (isset($module) && strpos($module, '$Sort')) {
+            self::renderSort();
+        }
         
         echo '<tr><td></td><td><input type="submit" value="' . $operation . '" /></td></tr>';
         echo '</table>';
@@ -198,6 +187,17 @@ class HtmlHelper {
         echo '<tr><td>';
         echo $entityName . ' Id:</td><td>';
         echo '<input type="text" name="' . $fieldName . '" value="' . $value . '"/></td></tr>';
+    }
+    
+    public static function renderSort(){
+        
+        $value = '';
+        if (isset($_POST["_sort_"]))
+            $value = $_POST["_sort_"];
+        
+        echo '<tr><td>';
+        echo 'Sort:</td><td>';
+        echo '<input type="text" name="_sort_" value="' . $value . '"/></td></tr>';
     }
     
     public static function getEntity($entityName, $entityId = 0, $returnNullIfNoPropertyTouched = false, $prefix = '') {

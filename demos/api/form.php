@@ -28,70 +28,93 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
         $api->Config->ClientPassword = MangoPayDemo_ClientPassword;
         $api->Config->TemporaryFolder = MangoPayDemo_TemporaryFolder;
 
-        // special cases
-        switch ($module) {
-            case 'Wallet_Wallets_ListSubEntity_GetTransaction':
-                $pagination = HtmlHelper::getEntity('Pagination', 0, true);
-                $filter = HtmlHelper::getEntity('FilterTransactions', 0, true);
-                $apiResult = $api->Wallets->GetTransactions($entityId, $pagination, $filter);
-                break;
-        }
-
-        // normal cases
-        if (!isset($apiResult))
-        {
-            switch ($operation) {
-                case 'Create':
-                    $entity = HtmlHelper::getEntity($entityName);
-                    $apiResult = $api->$subApiName->Create($entity);
-                    break;
-                case 'Get':
-                    $apiResult = $api->$subApiName->Get($entityId);
-                    break;
-                case 'Save':
-                    $entity = HtmlHelper::getEntity($entityName, $entityId);
-                    $apiResult = $api->$subApiName->Update($entity);
-                    break;
-                case 'All':
-                    $pagination = HtmlHelper::getEntity('Pagination');
-                    $filter = null;
-                    if (isset($filterName) && $filterName != "")
-                        $filter = HtmlHelper::getEntity($filterName);
-                    $apiResult = $api->$subApiName->GetAll($pagination, $filter);
-                    print '<pre>';print_r($pagination);print '</pre>';
-                    break;
-                case 'CreateSubEntity':
-                    $entity = HtmlHelper::getEntity($subEntityName);
-                    $methodName = 'Create'. $subEntityName;
-                    $apiResult = $api->$subApiName->$methodName($entityId, $entity);
-                    break;
-                case 'CreateSubSubEntity':
-                    $entity = HtmlHelper::getEntity($subEntityName);
-                    $methodName = 'Create' . $subEntityName;
-                    $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId, $entity);
-                    break;
-                case 'GetSubEntity':
-                    $methodName = 'Get' . $subEntityName;
-                    $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId);
-                    break;
-                case 'SaveSubEntity':
-                    $entity = HtmlHelper::getEntity($subEntityName);
-                    $methodName = 'Update' . $subEntityName;
-                    $apiResult = $api->$subApiName->$methodName($subEntityId, $entity);
-                    break;
-                case 'ListSubEntity':
-                    $pagination = HtmlHelper::getEntity('Pagination');
-                    $methodName = $subEntityName;
-                    $filter = null;
-                    if (isset($filterName) && $filterName != "")
-                        $filter = HtmlHelper::getEntity($filterName);
-                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter);
-                    print '<pre>';print_r($pagination);print '</pre>';
-                    break;
-                case 'CreateKycPageByFile':
-                    $apiResult = $api->$subApiName->CreateKycPageFromFile($entityId, $subEntityId, $_FILES['kyc_page']);
-                    break;
+        $module = @$_GET['module'];
+        if (isset($module) && strpos($module, '$Sort') !== false) {
+            if (isset($_POST["_sort_"])){
+                $sortFields = explode(":", $_POST["_sort_"]);
+                $sortFieldName = @$sortFields[0];
+                $sortDirection = @$sortFields[1];
+                $sorting = new \MangoPay\Sorting();
+                $sorting->AddFiled($sortFieldName, $sortDirection);
             }
+        }
+        
+        // normal cases
+        switch ($operation) {
+            case 'Create':
+                $entity = HtmlHelper::getEntity($entityName);
+                $apiResult = $api->$subApiName->Create($entity);
+                break;
+            case 'Get':
+                $apiResult = $api->$subApiName->Get($entityId);
+                break;
+            case 'Save':
+                $entity = HtmlHelper::getEntity($entityName, $entityId);
+                $apiResult = $api->$subApiName->Update($entity);
+                break;
+            case 'All':
+                $pagination = HtmlHelper::getEntity('Pagination');
+                $filter = null;
+                if (isset($filterName) && $filterName != "")
+                    $filter = HtmlHelper::getEntity($filterName);
+
+                if (isset($filter) && !isset($sorting))
+                    $apiResult = $api->$subApiName->GetAll($pagination, $filter);
+                else if (!isset($filter) && isset($sorting))
+                    $apiResult = $api->$subApiName->GetAll($pagination, $sorting);
+                else if (isset($filter) && isset($sorting))
+                    $apiResult = $api->$subApiName->GetAll($pagination, $filter, $sorting);
+                else
+                    $apiResult = $api->$subApiName->GetAll($pagination);
+
+                print '<pre>';print_r($pagination);print '</pre>';
+                if (isset($sorting))
+                    print '<pre>Sort: ';print_r($_POST["_sort_"]);print '</pre>';
+                    
+                break;
+            case 'CreateSubEntity':
+                $entity = HtmlHelper::getEntity($subEntityName);
+                $methodName = 'Create'. $subEntityName;
+                $apiResult = $api->$subApiName->$methodName($entityId, $entity);
+                break;
+            case 'CreateSubSubEntity':
+                $entity = HtmlHelper::getEntity($subEntityName);
+                $methodName = 'Create' . $subEntityName;
+                $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId, $entity);
+                break;
+            case 'GetSubEntity':
+                $methodName = 'Get' . $subEntityName;
+                $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId);
+                break;
+            case 'SaveSubEntity':
+                $entity = HtmlHelper::getEntity($subEntityName);
+                $methodName = 'Update' . $subEntityName;
+                $apiResult = $api->$subApiName->$methodName($subEntityId, $entity);
+                break;
+            case 'ListSubEntity':
+                $pagination = HtmlHelper::getEntity('Pagination');
+                $methodName = $subEntityName;
+                $filter = null;
+                if (isset($filterName) && $filterName != "")
+                    $filter = HtmlHelper::getEntity($filterName);
+
+                if (isset($filter) && !isset($sorting))
+                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter);
+                else if (!isset($filter) && isset($sorting))
+                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $sorting);
+                else if (isset($filter) && isset($sorting))
+                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter, $sorting);
+                else
+                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination);
+                
+                print '<pre>';print_r($pagination);print '</pre>';
+                if (isset($sorting))
+                    print '<pre>Sort: ';print_r($_POST["_sort_"]);print '</pre>';
+                    
+                break;
+            case 'CreateKycPageByFile':
+                $apiResult = $api->$subApiName->CreateKycPageFromFile($entityId, $subEntityId, $_FILES['kyc_page']);
+                break;
         }
         
         print '<pre>';print_r($apiResult);print '</pre>';

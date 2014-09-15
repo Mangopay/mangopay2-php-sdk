@@ -18,17 +18,17 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Create CA account' => 'User_Users_CreateSubEntity_BankAccount_:CA',
         'Create OTHER account' => 'User_Users_CreateSubEntity_BankAccount_:OTHER',
         'Get bank account for user' => 'User_Users_GetSubEntity_BankAccount',
-        'List bank accounts for user' => 'User_Users_ListSubEntity_GetBankAccounts',
+        'List bank accounts for user' => 'User_Users_ListSubEntity_GetBankAccounts__$Sort',
     ),
     'Wallets' => array(
         'Create wallet' => 'Wallet_Wallets_Create',
         'Get wallet' => 'Wallet_Wallets_Get',
         'Save wallet' => 'Wallet_Wallets_Save',
-        'List wallets for user' => 'User_Users_ListSubEntity_GetWallets',
+        'List wallets for user' => 'User_Users_ListSubEntity_GetWallets__$Sort',
     ),
     'Transactions' => array(
-        'List transactions for user' => 'User_Users_ListSubEntity_GetTransactions_FilterTransactions',
-        'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_GetTransactions_FilterTransactions',
+        'List transactions for user' => 'User_Users_ListSubEntity_GetTransactions_FilterTransactions__$Sort',
+        'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_GetTransactions_FilterTransactions__$Sort',
     ),
     'Transfers' => array(
         'Create transfer' => 'Transfer_Transfers_Create',
@@ -64,7 +64,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
     'Card' => array(
         'Get card' => 'Card_Cards_Get',
         'Save card' => 'Card_Cards_Save',
-        'List cards for user' => 'User_Users_ListSubEntity_GetCards',
+        'List cards for user' => 'User_Users_ListSubEntity_GetCards__$Sort',
     ),
     'Event' => array(
         'List events' => 'Event_Events_All__FilterEvents',
@@ -81,8 +81,8 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Save document' => 'User_Users_SaveSubEntity_KycDocument',
         'Create page from base64' => 'User_Users_CreateSubSubEntity_KycPage__KycDocument',
         'Create page from file' => 'User_Users_CreateKycPageByFile_KycPage__KycDocument',
-        'List KYC documents for user' => 'User_Users_ListSubEntity_GetKycDocuments',
-        'List all KYC documents' => 'KycDocument_KycDocuments_All',
+        'List KYC documents for user' => 'User_Users_ListSubEntity_GetKycDocuments__$Sort',
+        'List all KYC documents' => 'KycDocument_KycDocuments_All___$Sort',
     ),
 );
 

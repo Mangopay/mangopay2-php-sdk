@@ -474,11 +474,11 @@ class Users extends Base {
         $this->getNewPayInCardDirect($john->Id);
         $pagination = new \MangoPay\Pagination(1, 20);
         $sorting = new \MangoPay\Sorting();
-        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::ASC);
         
         $cards = $this->_api->Users->GetCards($john->Id, $pagination, $sorting);
 
-        $this->assertTrue($cards[0]->CreationDate > $cards[1]->CreationDate);
+        $this->assertTrue($cards[0]->CreationDate < $cards[1]->CreationDate);
     }
     
     function test_Users_AllWallets() {
