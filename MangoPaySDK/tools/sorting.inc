@@ -43,7 +43,7 @@ class Sorting {
         $sortValues = "";
         foreach ($this->_sortFields as $key => $value) {
             if (!empty($sortValues))
-                $sortValues = self::SortFieldSeparator;
+                $sortValues .= self::SortFieldSeparator;
      
             $sortValues .= $key . ":" . $value;
         }
