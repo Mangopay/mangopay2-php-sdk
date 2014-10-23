@@ -18,4 +18,12 @@ class FilterBase extends Dto {
      * @var time 
      */
     public $AfterDate;
+    
+    /**
+     * Sort option:
+     * return records ordered by CreationDate
+     * reference http://docs.mangopay.com/api-references/pagination/
+     * @var direction
+     */
+    public $Sort;
 }
