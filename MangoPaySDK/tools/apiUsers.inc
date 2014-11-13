@@ -30,8 +30,8 @@ class ApiUsers extends ApiBase {
      * @param \MangoPay\Pagination $pagination Pagination object
      * @return array Array with users
      */
-    public function GetAll(& $pagination = null) {
-        $usersList = $this->GetList('users_all', $pagination);
+    public function GetAll(& $pagination = null, $sorting = null) {
+        $usersList = $this->GetList('users_all', $pagination, null, null, null, $sorting);
         
         $users = array();
         if (is_array($usersList)) {
