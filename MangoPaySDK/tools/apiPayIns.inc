@@ -45,6 +45,19 @@ class ApiPayIns extends ApiBase {
         return $this->GetObject('payins_getrefunds', $payInId, '\MangoPay\Refund');
     }
     
+    /**
+     * WARNING!!
+     * It's temporary entity and it will be removed in the future.
+     * Please, contact with support before using these features or if you have any questions.
+     * 
+     * Create new temporary immediate pay-in
+     * @param \MangoPay\TemporaryImmediatePayIn $immediatePayIn Immediate pay-in object to create
+     * @return \MangoPay\TemporaryImmediatePayIn Immediate pay-in object returned from API
+     */
+    public function CreateTemporaryImmediatePayIn($immediatePayIn) {
+        return $this->CreateObject('temp_immediatepayins_create', $immediatePayIn, '\MangoPay\TemporaryImmediatePayIn');
+    }
+    
     private function GetPaymentKey($payIn) {
         
         if (!isset($payIn->PaymentDetails) || !is_object($payIn->PaymentDetails))

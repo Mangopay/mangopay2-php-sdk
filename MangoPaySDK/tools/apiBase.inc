@@ -90,6 +90,12 @@ abstract class ApiBase {
         'kyc_documents_save' => array( '/users/%s/KYC/documents/%s', RequestType::PUT ),
         'kyc_page_create' => array( '/users/%s/KYC/documents/%s/pages', RequestType::POST ),
         'kyc_documents_all' => array( '/KYC/documents', RequestType::GET ),
+        
+        // These are temporary functions and WILL be removed in the future. 
+        // Please, contact with support before using these features or if you have any questions.
+        'temp_paymentcards_create' => array( '/temp/paymentcards', RequestType::POST ),
+        'temp_paymentcards_get' => array( '/temp/paymentcards/%s', RequestType::GET ),
+        'temp_immediatepayins_create' => array( '/temp/immediate-payins', RequestType::POST )
     );
 
     /**
