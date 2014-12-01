@@ -45,7 +45,6 @@ abstract class ApiBase {
         'payins_bankwire-direct_create' => array( '/payins/bankwire/direct/', RequestType::POST ),
         'payins_directdebit-web_create' => array( '/payins/directdebit/web', RequestType::POST ),
         'payins_get' => array( '/payins/%s', RequestType::GET ),
-        'payins_getrefunds' => array( '/payins/%s/refunds', RequestType::GET ),
         'payins_createrefunds' => array( '/payins/%s/refunds', RequestType::POST ),
         
         'payouts_bankwire_create' => array( '/payouts/bankwire/', RequestType::POST ),
@@ -55,7 +54,6 @@ abstract class ApiBase {
         
         'transfers_create' => array( '/transfers', RequestType::POST ),
         'transfers_get' => array( '/transfers/%s', RequestType::GET ),
-        'transfers_getrefunds' => array( '/transfers/%s/refunds', RequestType::GET ),
         'transfers_createrefunds' => array( '/transfers/%s/refunds', RequestType::POST ),
         
         'users_createnaturals' => array( '/users/natural', RequestType::POST ),
