@@ -77,7 +77,8 @@ Then set `$api->Config->ClientId` to your MangoPay Client ID and
 
 You also need to set a folder path in `$api->Config->TemporaryFolder` that SDK needs 
 to store temporary files. This path should be outside your www folder.
-It could be `/tmp/` or `/var/tmp/` or any other location that PHP can write to.
+It could be `/tmp/` or `/var/tmp/` or any other location that PHP can write to. 
+**You must use different folders for your sandbox and production environments.**
 
 `$api->Config->BaseUrl` is set to sandbox environment by default. To enable production
 environment, set it to `https://api.mangopay.com`.
