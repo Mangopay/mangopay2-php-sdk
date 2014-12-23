@@ -227,7 +227,7 @@ class Users extends Base {
         $this->getJohnsAccount();
         $pagination = new \MangoPay\Pagination(1, 12);
         $sorting = new \MangoPay\Sorting();
-        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
         
         $list = $this->_api->Users->GetBankAccounts($john->Id, $pagination, $sorting);
         
@@ -280,7 +280,7 @@ class Users extends Base {
         $user = $this->getJohn();
         $pagination = new \MangoPay\Pagination(1, 20);
         $sorting = new \MangoPay\Sorting();
-        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
         
         $getKycDocuments = $this->_api->Users->GetKycDocuments($user->Id, $pagination, $sorting);
         
@@ -445,7 +445,7 @@ class Users extends Base {
         $this->getNewPayInCardDirect();
         $this->getNewPayInCardDirect();
         $sorting = new \MangoPay\Sorting();
-        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
         $pagination = new \MangoPay\Pagination(1, 20);
         $filter = new \MangoPay\FilterTransactions();
         $filter->Type = 'PAYIN';
@@ -474,7 +474,7 @@ class Users extends Base {
         $this->getNewPayInCardDirect($john->Id);
         $pagination = new \MangoPay\Pagination(1, 20);
         $sorting = new \MangoPay\Sorting();
-        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::ASC);
+        $sorting->AddField("CreationDate", \MangoPay\SortDirection::ASC);
         
         $cards = $this->_api->Users->GetCards($john->Id, $pagination, $sorting);
 
@@ -499,7 +499,7 @@ class Users extends Base {
         $this->getJohnsWallet();
         $pagination = new \MangoPay\Pagination(1, 20);
         $sorting = new \MangoPay\Sorting();
-        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
         
         $wallets = $this->_api->Users->GetWallets($john->Id, $pagination, $sorting);
 

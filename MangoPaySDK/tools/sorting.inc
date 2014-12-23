@@ -27,7 +27,7 @@ class Sorting {
      * @param string $filedName Property name to sort
      * @param \MangoPay\SortDirection $sortDirection Sort direction
      */
-    public function AddFiled($filedName, $sortDirection) {
+    public function AddField($filedName, $sortDirection) {
         $this->_sortFields[$filedName] = $sortDirection;
     }
     

@@ -35,7 +35,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                 $sortFieldName = @$sortFields[0];
                 $sortDirection = @$sortFields[1];
                 $sorting = new \MangoPay\Sorting();
-                $sorting->AddFiled($sortFieldName, $sortDirection);
+                $sorting->AddField($sortFieldName, $sortDirection);
             }
         }
         

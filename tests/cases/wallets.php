@@ -58,7 +58,7 @@ class Wallets extends Base {
         self::$JohnsPayInCardWeb = null;
         $this->getJohnsPayInCardWeb();
         $sorting = new \MangoPay\Sorting();
-        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
         $pagination = new \MangoPay\Pagination(1, 20);
         $filter = new \MangoPay\FilterTransactions();
         $filter->Type = 'PAYIN';

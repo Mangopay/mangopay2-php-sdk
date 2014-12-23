@@ -28,7 +28,7 @@ class KycDocuments extends Base {
         $this->getJohnsKycDocument();
         $pagination = new \MangoPay\Pagination(1, 20);
         $sorting = new \MangoPay\Sorting();
-        $sorting->AddFiled("CreationDate", \MangoPay\SortDirection::DESC);
+        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
         
         $list = $this->_api->KycDocuments->GetAll($pagination, $sorting);
         
