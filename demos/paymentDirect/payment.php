@@ -49,10 +49,7 @@ try {
 
     // payment type as CARD
     $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
-    if ($card->CardType == 'CB' || $card->CardType == 'VISA' || $card->CardType == 'MASTERCARD')
-        $payIn->PaymentDetails->CardType = 'CB_VISA_MASTERCARD';
-    elseif ($card->CardType == 'AMEX')
-        $payIn->PaymentDetails->CardType = 'AMEX';
+    $payIn->PaymentDetails->CardType = $card->CardType;
 
     // execution type as DIRECT
     $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
