@@ -30,7 +30,9 @@ class Sorting {
     public function AddField($filedName, $sortDirection) {
         $this->_sortFields[$filedName] = $sortDirection;
     }
-    
+    public function AddFiled($filedName, $sortDirection) {//for backward comptability from before typo fix
+        $this->AddField($filedName, $sortDirection);
+    }
     /**
      * Get sort parametrs to URL
      * @return array 
