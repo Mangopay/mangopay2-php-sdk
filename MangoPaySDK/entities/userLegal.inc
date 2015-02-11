@@ -65,7 +65,13 @@ class UserLegal extends User {
      * @var String 
      */
     public $LegalRepresentativeCountryOfResidence;
-    
+	    
+    /**
+     * 
+     * @var String 
+     */
+    public $ProofOfIdentity;
+	
     /**
      * 
      * @var String 
