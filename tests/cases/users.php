@@ -239,8 +239,8 @@ class Users extends Base {
 
         $user = $this->getJohn();
         $this->assertTrue($kycDocument->Id > 0);
-        $this->assertIdentical($kycDocument->Status, \MangoPay\KycDocumentStatus::Created);
-        $this->assertIdentical($kycDocument->Type, \MangoPay\KycDocumentType::IdentityProof);
+        $this->assertIdentical($kycDocument->Status, \MangoPay\Enums\KycDocumentStatus::Created);
+        $this->assertIdentical($kycDocument->Type, \MangoPay\Enums\KycDocumentType::IdentityProof);
         $this->assertIdentical($kycDocument->UserId, $user->Id);
     }
 
@@ -292,11 +292,11 @@ class Users extends Base {
         $legalJohn = $this->getMatrix();
 
         $aKycDocTypes = array(
-            array(\MangoPay\KycDocumentType::AddressProof, $john->Id),
-            array(\MangoPay\KycDocumentType::ArticlesOfAssociation, $legalJohn->Id),
-            array(\MangoPay\KycDocumentType::IdentityProof, $john->Id),
-            array(\MangoPay\KycDocumentType::RegistrationProof, $legalJohn->Id),
-            array(\MangoPay\KycDocumentType::ShareholderDeclaration, $legalJohn->Id)
+            array(\MangoPay\Enums\KycDocumentType::AddressProof, $john->Id),
+            array(\MangoPay\Enums\KycDocumentType::ArticlesOfAssociation, $legalJohn->Id),
+            array(\MangoPay\Enums\KycDocumentType::IdentityProof, $john->Id),
+            array(\MangoPay\Enums\KycDocumentType::RegistrationProof, $legalJohn->Id),
+            array(\MangoPay\Enums\KycDocumentType::ShareholderDeclaration, $legalJohn->Id)
         );
 
         foreach ($aKycDocTypes as $kycDoc) {

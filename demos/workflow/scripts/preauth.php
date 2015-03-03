@@ -1,7 +1,7 @@
 <?php
-$CardPreAuthorization = new \MangoPay\CardPreAuthorization();
+$CardPreAuthorization = new \MangoPay\Entities\CardPreAuthorization();
 $CardPreAuthorization->AuthorId = $_SESSION["MangoPayDemo"]["UserNatural"];
-$CardPreAuthorization->DebitedFunds = new \MangoPay\Money();
+$CardPreAuthorization->DebitedFunds = new \MangoPay\Types\Money();
 $CardPreAuthorization->DebitedFunds->Currency = "EUR";
 $CardPreAuthorization->DebitedFunds->Amount = 1500;
 $CardPreAuthorization->SecureMode = "DEFAULT";

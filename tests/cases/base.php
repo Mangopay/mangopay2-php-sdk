@@ -4,7 +4,6 @@ namespace MangoPay\Tests;
 
 require_once '../../vendor/autoload.php';
 require_once '../simpletest/autorun.php';
-require_once '../../MangoPaySDK/MangoPayApi.php';
 require_once '../mocks/mockStorageStrategy.php';
 
 set_time_limit(0);
@@ -19,7 +18,7 @@ abstract class Base extends \UnitTestCase {
 
     /**
      * Test user (natural) - access by getJohn()
-     * @var \MangoPay\UserNatural
+     * @var \MangoPay\Entities\UserNatural
      */
     public static $John;
 
@@ -99,7 +98,7 @@ abstract class Base extends \UnitTestCase {
 
     /**
      * Creates self::$John (test natural user) if not created yet
-     * @return \MangoPay\UserNatural
+     * @return \MangoPay\Entities\UserNatural
      */
     protected function getJohn() {
         if (self::$John === null) {
@@ -120,10 +119,10 @@ abstract class Base extends \UnitTestCase {
 
     /**
      * Creates new user
-     * @return \MangoPay\UserNatural
+     * @return \MangoPay\Entities\UserNatural
      */
     protected function getNewJohn() {
-        $user = new \MangoPay\UserNatural();
+        $user = new \MangoPay\Entities\UserNatural();
         $user->FirstName = "John";
         $user->LastName = "Doe";
         $user->Email = "john.doe@sample.org";
@@ -607,7 +606,7 @@ abstract class Base extends \UnitTestCase {
      */
     protected function assertIdenticalInputProps($entity1, $entity2) {
 
-        if (is_a($entity1, '\MangoPay\UserNatural')) {
+        if (is_a($entity1, '\MangoPay\Entities\UserNatural')) {
             $this->assertIdentical($entity1->Tag, $entity2->Tag);
             $this->assertIdentical($entity1->PersonType, $entity2->PersonType);
             $this->assertIdentical($entity1->FirstName, $entity2->FirstName);
@@ -657,7 +656,7 @@ abstract class Base extends \UnitTestCase {
                 $this->assertIdentical($entity1->Details->BIC, $entity2->Details->BIC);
                 $this->assertIdentical($entity1->Details->AccountNumber, $entity2->Details->AccountNumber);
             }
-        } elseif (is_a($entity1, '\MangoPay\Card')) {
+        } elseif (is_a($entity1, '\MangoPay\Entities\Card')) {
             $this->assertIdentical($entity1->ExpirationDate, $entity2->ExpirationDate);
             $this->assertIdentical($entity1->Alias, $entity2->Alias);
             $this->assertIdentical($entity1->CardType, $entity2->CardType);

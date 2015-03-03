@@ -1,5 +1,5 @@
 <?php
-$User = new MangoPay\UserNatural();
+$User = new MangoPay\Entities\UserNatural();
 $User->Email = 'test_natural@testmangopay.com';
 $User->FirstName = "Bob";
 $User->LastName = "Briant";

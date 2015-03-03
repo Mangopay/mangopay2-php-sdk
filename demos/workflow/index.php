@@ -32,7 +32,7 @@ $totalStepsIndex = count($steps)-1;
 if (isset($_POST["SetUpClientCreds"])) {
 	$_SESSION["MangoPayDemoConfig"]["ClientId"] = $_POST["ClientId"];
 	$_SESSION["MangoPayDemoConfig"]["Password"] = $_POST["Password"];
-	header("Location: index.php?stepId=".($stepId+1));	
+	header("Location: index.php?stepId=".($stepId+1));
 	die();
 }
 
@@ -53,8 +53,8 @@ function getDemoScript($stepId) {
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <title>MANGOPAY Demo workflow</title>
-        <link href="//fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css"> 
-         <link href="style.css" rel="stylesheet" type="text/css"> 
+        <link href="//fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css">
+         <link href="style.css" rel="stylesheet" type="text/css">
         <style>
             .flyer span {
             	width:<?php echo ceil(100*$stepId/$totalStepsIndex); $startFrom = ceil(100*$stepId/($totalStepsIndex+1)); ?>%;
@@ -69,27 +69,27 @@ function getDemoScript($stepId) {
 			    from { width: <?php echo $startFrom; ?>%; }
 			}
         </style>
-        
+
     </head>
     <body>
     	<div id="loading"><div></div></div>
     	<div id="main">
     		<div class="header"></div>
-    		<div class="container">    			
+    		<div class="container">
 <?php
 if (empty($_SESSION["MangoPayDemo"]) && $stepId>2) {
 	echo "<br><div class='notice'>The demo has either been finished or has timed out - please <a href='index.php'>start again</a></div><br>";
-	
+
 }elseif (in_array($stepId, array_keys($steps))) {
 	?>
 	<div class="flyer"><span></span></div>
-	
+
 	<a href="https://docs.mangopay.com/api-references/<?php echo $steps[$stepId]["docsLink"]; ?>" class="next docs" target="_blank"><?php echo $steps[$stepId]["docsLink"] ? "View docs for this method" : "View full docs"; ?></a>
-	
+
 	<h1><?php echo $steps[$stepId]["step"]; ?></h1>
-	
+
 	<div class="containerInner">
-	<?php 
+	<?php
 	$apiError = false;
 	try {
 		if ($stepId>1 && $stepId<$totalStepsIndex) {
@@ -98,21 +98,21 @@ if (empty($_SESSION["MangoPayDemo"]) && $stepId>2) {
 			echo "<br>";
 			echo "<h2>Returned object</h2>";
 		}
-		include("scripts/".$steps[$stepId]["file"]); 
-	
-	} catch (MangoPay\ResponseException $e) {
+		include("scripts/".$steps[$stepId]["file"]);
+
+	} catch (MangoPay\Types\Exceptions\ResponseException $e) {
     	$apiError = true;
-	    MangoPay\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
+	    MangoPay\Logs::Debug('MangoPay\Types\Exceptions\ResponseException Code', $e->GetCode());
 	    MangoPay\Logs::Debug('Message', $e->GetMessage());
 	    MangoPay\Logs::Debug('Details', $e->GetErrorDetails());
-	    
-	} catch (MangoPay\Exception $e) {
+
+	} catch (MangoPay\Types\Exceptions\Excepption $e) {
 	    $apiError = true;
-	    MangoPay\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
+	    MangoPay\Logs::Debug('MangoPay\Types\Exceptions\Excepption Message', $e->GetMessage());
 	}
 	?>
-	
-	<?php 
+
+	<?php
 	if ($apiError) {
 		echo "<div class='notice'>The API call failed :-(</div>";
 	}else{
@@ -123,10 +123,10 @@ if (empty($_SESSION["MangoPayDemo"]) && $stepId>2) {
 			if (isset($nextButton["url"])) echo "<a href='".$nextButton["url"]."' class='next customButton' onclick='addActive(this)'>".$nextButton["text"]."</a>";
 		}elseif (isset($steps[$stepId]["checkResult"]) && !in_array($result->Status, array("VALIDATED", "SUCCEEDED"))) {
 			echo "<div class='notice'>The previous call is <i>".$result->Status."</i> beacuse of <i>".$result->ResultMessage."</i> so you can not carry on with the demo</div>";
-		}elseif ($stepId<$totalStepsIndex) { 
+		}elseif ($stepId<$totalStepsIndex) {
 			echo "<a href='index.php?stepId=".($stepId+1)."' class='next' onclick='addActive(this)'>Next: ".$steps[$stepId+1]["step"]."</a>";
 		}
-	}		
+	}
 	?>
 	<div class="clear"></div>
 	</div>

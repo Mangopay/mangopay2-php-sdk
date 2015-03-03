@@ -1,10 +1,12 @@
 <?php
 namespace MangoPay\Entities;
 
+use MangoPay\Types;
+
 /**
  * KYC page entity for Kyc document
  */
-class KycPage extends Dto {
+class KycPage extends Types\Dto {
 
     /**
      * Image base64

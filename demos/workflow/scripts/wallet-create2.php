@@ -1,6 +1,6 @@
 <?php
 //Note that there is no difference between a Wallet for a Natural User and a Legal User
-$Wallet = new \MangoPay\Wallet();
+$Wallet = new \MangoPay\Entities\Wallet();
 $Wallet->Owners = array($_SESSION["MangoPayDemo"]["UserLegal"]);
 $Wallet->Description = "Demo wallet for User 2";
 $Wallet->Currency = "EUR";

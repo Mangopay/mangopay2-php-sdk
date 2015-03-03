@@ -1,16 +1,17 @@
 <?php
 // require include only one file
-require_once '../MangoPaySDK/mangoPayApi.inc';
+require_once '../vendor/autoload.php';
 
 try {
     // create object to manage MangoPay API
     $api = new MangoPay\MangoPayApi();
     // use test client credentails (REPLACE IT BY YOUR CLIENT ONES!)
-    $api->Config->ClientID = 'sdk_example';
+    $api->Config->TemporaryFolder = __dir__;
+    $api->Config->ClientId = 'sdk_example';
     $api->Config->ClientPassword = 'Vfp9eMKSzGkxivCwt15wE082pTTKsx90vBenc9hjLsf5K46ciF';
-    
+
     // CREATE NATURAL USER
-    $naturalUser = new MangoPay\UserNatural();
+    $naturalUser = new MangoPay\Entities\UserNatural();
     $naturalUser->Email = 'test_natural@testmangopay.com';
 	$naturalUser->FirstName = "Bob";
 	$naturalUser->LastName = "Briant";
@@ -19,8 +20,8 @@ try {
 	$naturalUser->CountryOfResidence = "ZA";
     $naturalUserResult = $api->Users->Create($naturalUser);
     // display result
-    MangoPay\Logs::Debug('CREATED NATURAL USER', $naturalUserResult);
-    
+    MangoPay\Tools\Logs::Debug('CREATED NATURAL USER', $naturalUserResult);
+
     // CREATE LEGAL USER
     $legalUser = new MangoPay\UserLegal();
     $legalUser->Name = 'Name Legal Test';
@@ -33,17 +34,15 @@ try {
 	$legalUser->LegalRepresentativeCountryOfResidence = "ZA";
     $legalUserResult = $api->Users->Create($legalUser);
     // display result
-    MangoPay\Logs::Debug('CREATED LEGAL USER', $legalUserResult);
-    
-} catch (MangoPay\ResponseException $e) {
-    
-    MangoPay\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
-    MangoPay\Logs::Debug('Message', $e->GetMessage());
-    MangoPay\Logs::Debug('Details', $e->GetErrorDetails());
-    
-} catch (MangoPay\Exception $e) {
-    
-    MangoPay\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
+    MangoPay\Tools\Logs::Debug('CREATED LEGAL USER', $legalUserResult);
+
+} catch (MangoPay\Types\Exceptions\ResponseException $e) {
+
+    MangoPay\Tools\Logs::Debug('MangoPay\Types\Exceptions\ResponseException Code', $e->GetCode());
+    MangoPay\Tools\Logs::Debug('Message', $e->GetMessage());
+    MangoPay\Tools\Logs::Debug('Details', $e->GetErrorDetails());
+
+} catch (MangoPay\Types\Exceptions\Exception $e) {
+
+    MangoPay\Tools\Logs::Debug('MangoPay\Types\Exceptions\Exception Message', $e->GetMessage());
 }
-
-

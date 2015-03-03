@@ -37,7 +37,7 @@ class Hooks extends Base {
 
         $list = $this->_api->Hooks->GetAll($pagination);
 
-        $this->assertIsA($list[0], '\MangoPay\Hook');
+        $this->assertIsA($list[0], '\MangoPay\Entities\Hook');
         $this->assertIdentical($hook->Id, $list[0]->Id);
         $this->assertIdentical($pagination->Page, 1);
         $this->assertIdentical($pagination->ItemsPerPage, 1);

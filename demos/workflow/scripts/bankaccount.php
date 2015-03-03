@@ -1,8 +1,8 @@
 <?php
 $UserId = $_SESSION["MangoPayDemo"]["UserLegal"];
-$BankAccount = new \MangoPay\BankAccount();
+$BankAccount = new \MangoPay\Entities\BankAccount();
 $BankAccount->Type = "IBAN";
-$BankAccount->Details = new MangoPay\BankAccountDetailsIBAN();
+$BankAccount->Details = new MangoPay\Types\BankAccountDetailsIBAN();
 $BankAccount->Details->IBAN = "FR3020041010124530725S03383";
 $BankAccount->Details->BIC = "CRLYFRPP";
 $BankAccount->OwnerName = "Joe Bloggs";

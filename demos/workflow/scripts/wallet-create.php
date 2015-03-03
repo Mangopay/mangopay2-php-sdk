@@ -1,5 +1,5 @@
 <?php
-$Wallet = new \MangoPay\Wallet();
+$Wallet = new \MangoPay\Entities\Wallet();
 $Wallet->Owners = array($_SESSION["MangoPayDemo"]["UserNatural"]);
 $Wallet->Description = "Demo wallet for User 1";
 $Wallet->Currency = "EUR";

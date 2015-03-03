@@ -10,29 +10,28 @@ class PayOuts extends Base {
 
     function test_PayOut_Create(){
         $payOut = $this->getJohnsPayOutForCardDirect();
-        
+
         $this->assertTrue($payOut->Id > 0);
         $this->assertIdentical($payOut->PaymentType, 'BANK_WIRE');
-        $this->assertIsA($payOut->MeanOfPaymentDetails, '\MangoPay\PayOutPaymentDetailsBankWire');
+        $this->assertIsA($payOut->MeanOfPaymentDetails, '\MangoPay\Types\PayOutPaymentDetailsBankWire');
     }
-    
+
     function test_PayOut_Get(){
         $payOut = $this->getJohnsPayOutForCardDirect();
-        
+
         $payOutGet = $this->_api->PayOuts->Get($payOut->Id);
-        
+
         $this->assertIdentical($payOut->Id, $payOutGet->Id);
         $this->assertIdentical($payOut->PaymentType, $payOutGet->PaymentType);
         $this->assertIdentical($payOutGet->Status, 'CREATED');
         $this->assertIdenticalInputProps($payOut, $payOutGet);
         $this->assertNull($payOutGet->ExecutionDate);
     }
-    
+
     // Cannot test anything else here: have no pay-ins with sufficient status?
     function test_PayOuts_Create_BankWire_FailsCauseNotEnoughMoney() {
         $payOut = $this->getJohnsPayOutBankWire();
-        
+
         $this->assertIdentical('FAILED', $payOut->Status);
     }
 }
-
