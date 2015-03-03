@@ -9,9 +9,9 @@ class Configurations extends Base {
 
     function test_confInConstruct() {
         $this->_api->Config->ClientId = "test_asd";
-        $this->_api->Config->ClientPassword = "00000";        
-        
-        $this->expectException('MangoPay\ResponseException');
+        $this->_api->Config->ClientPassword = "00000";
+
+        $this->expectException('MangoPay\Types\Exceptions\ResponseException');
         $this->_api->Users->GetAll();
      }
 }

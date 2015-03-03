@@ -1,11 +1,11 @@
 <?php
 $PayInId = $_SESSION["MangoPayDemo"]["PayInCardWeb"];
-$Refund = new \MangoPay\Refund();
+$Refund = new \MangoPay\Entities\Refund();
 $Refund->AuthorId = $_SESSION["MangoPayDemo"]["UserNatural"];
-$Refund->DebitedFunds = new \MangoPay\Money();
+$Refund->DebitedFunds = new \MangoPay\Types\Money();
 $Refund->DebitedFunds->Currency = "EUR";
 $Refund->DebitedFunds->Amount = 650;
-$Refund->Fees = new \MangoPay\Money();
+$Refund->Fees = new \MangoPay\Types\Money();
 $Refund->Fees->Currency = "EUR";
 $Refund->Fees->Amount = -50;
 $result = $mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);

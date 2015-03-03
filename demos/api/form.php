@@ -1,6 +1,6 @@
 <?php
 namespace MangoPay\Demo;
-require_once '../../MangoPaySDK/mangoPayApi.inc';
+require_once '../../vendor/autoload.php';
 require_once 'htmlHelper.php';
 require_once 'config.php';
 
@@ -34,11 +34,11 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                 $sortFields = explode(":", $_POST["_sort_"]);
                 $sortFieldName = @$sortFields[0];
                 $sortDirection = @$sortFields[1];
-                $sorting = new \MangoPay\Sorting();
+                $sorting = new \MangoPay\Tools\Sorting();
                 $sorting->AddField($sortFieldName, $sortDirection);
             }
         }
-        
+
         // normal cases
         switch ($operation) {
             case 'Create':
@@ -53,7 +53,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                 $apiResult = $api->$subApiName->Update($entity);
                 break;
             case 'All':
-                $pagination = HtmlHelper::getEntity('Pagination');
+                $pagination = HtmlHelper::getEntity('Types\\Pagination');
                 $filter = null;
                 if (isset($filterName) && $filterName != "")
                     $filter = HtmlHelper::getEntity($filterName);
@@ -70,7 +70,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                 print '<pre>';print_r($pagination);print '</pre>';
                 if (isset($sorting))
                     print '<pre>Sort: ';print_r($_POST["_sort_"]);print '</pre>';
-                    
+
                 break;
             case 'CreateSubEntity':
                 $entity = HtmlHelper::getEntity($subEntityName);
@@ -92,7 +92,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                 $apiResult = $api->$subApiName->$methodName($subEntityId, $entity);
                 break;
             case 'ListSubEntity':
-                $pagination = HtmlHelper::getEntity('Pagination');
+                $pagination = HtmlHelper::getEntity('Types\\Pagination');
                 $methodName = $subEntityName;
                 $filter = null;
                 if (isset($filterName) && $filterName != "")
@@ -106,33 +106,33 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                     $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter, $sorting);
                 else
                     $apiResult = $api->$subApiName->$methodName($entityId, $pagination);
-                
+
                 print '<pre>';print_r($pagination);print '</pre>';
                 if (isset($sorting))
                     print '<pre>Sort: ';print_r($_POST["_sort_"]);print '</pre>';
-                    
+
                 break;
             case 'CreateKycPageByFile':
                 $apiResult = $api->$subApiName->CreateKycPageFromFile($entityId, $subEntityId, $_FILES['kyc_page']);
                 break;
         }
-        
+
         print '<pre>';print_r($apiResult);print '</pre>';
 
-    } catch (\MangoPay\ResponseException $e) {
-        
-        echo '<div style="color: red;">\MangoPay\ResponseException: Code: ' . $e->getCode();
+    } catch (\MangoPay\Types\Exceptions\ResponseException $e) {
+
+        echo '<div style="color: red;">\MangoPay\Types\Exceptions\ResponseException: Code: ' . $e->getCode();
         echo '<br/>Message: ' . $e->getMessage();
-        
+
        $details = $e->GetErrorDetails();
         if (!is_null($details))
             echo '<br/><br/>Details: '; print_r($details);
         echo '</div>';
 
-    } catch (\MangoPay\Exception $e) {
-        
-        echo '<div style="color: red;">\MangoPay\Exception: ' . $e->getMessage() . '</div>';
-        
+    } catch (\MangoPay\Types\Exceptions\Exception $e) {
+
+        echo '<div style="color: red;">\MangoPay\Types\Exceptions\Exception: ' . $e->getMessage() . '</div>';
+
     }
 
 } else {

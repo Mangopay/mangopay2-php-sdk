@@ -2,7 +2,7 @@
 namespace MangoPay\Demo;
 
 class HtmlHelper {
-    
+
     public static function getHeader($module) {
         foreach ($GLOBALS['MangoPay_Demo_Menu'] as $moduleText => $subMenu) {
             $key = array_search($module, $subMenu);
@@ -12,12 +12,12 @@ class HtmlHelper {
             }
         }
     }
-    
+
     public static function renderForm($entityName, $operation, $subEntityName, $filterName) {
-        
+
         echo '<form name="input" action="" method="post" enctype="multipart/form-data">';
         echo '<table>';
-        
+
         switch ($operation) {
             case 'Create':
                 self::renderEntity($entityName);
@@ -34,9 +34,9 @@ class HtmlHelper {
                     self::renderFormRow('<i>Optional filters:</i>');
                     self::renderEntity($filterName);
                 }
-                
+
                 self::renderFormRow('<i>Pagination:</i>');
-                self::renderEntity('Pagination');
+                self::renderEntity('Types\\Pagination');
                 break;
             case 'CreateSubEntity':
                 self::renderId($entityName);
@@ -62,9 +62,9 @@ class HtmlHelper {
                     self::renderFormRow('<i>Optional filters:</i>');
                     self::renderEntity($filterName);
                 }
-                
+
                 self::renderFormRow('<i>Pagination:</i>');
-                self::renderEntity('Pagination');
+                self::renderEntity('Types\\Pagination');
                 break;
             case 'CreateKycPageByFile':
                 self::renderId($entityName);
@@ -72,25 +72,25 @@ class HtmlHelper {
                 self::renderFormRow('<tr><td></td><td><input type="file" name="kyc_page" /></td></tr>');
                 break;
         }
-        
+
         $module = @$_GET['module'];
         if (isset($module) && strpos($module, '$Sort')) {
             self::renderSort();
         }
-        
+
         echo '<tr><td></td><td><input type="submit" value="' . $operation . '" /></td></tr>';
         echo '</table>';
         echo '<input type="hidden" name="_postback" value="1"/>';
         echo '</form>';
     }
-    
+
     public static function renderEntity($entityName, $prefix = '') {
 
         $className = '\\MangoPay\\' . $entityName;
         $entity = new $className();
         $blackList = $entity->GetReadOnlyProperties();
         $entityObject = new \ReflectionObject($entity);
-        
+
         $module = @$_GET['module'];
         $subObjects = $entity->GetSubObjects();
         $dependsObjects = $entity->GetDependsObjects();
@@ -100,10 +100,10 @@ class HtmlHelper {
         foreach ($properties as $property) {
 
             $name = $property->getName();
-            
+
             if (in_array($name, $blackList))
                 continue;
-            
+
             // is sub object?
             $cls = @$subObjects[$name];
             if ($cls) {
@@ -129,48 +129,48 @@ class HtmlHelper {
             if ($handled) continue;
 
             // special fields
-            if ($entityName == 'Pagination' && in_array($name, array('Links', 'TotalPages', 'TotalItems')))
+            if ($entityName == 'Types\\Pagination' && in_array($name, array('Links', 'TotalPages', 'TotalItems')))
                     continue;
-            
+
             // normal fields
             $value = '';
             if (isset($entity->$name))
                 $value = $entity->$name;
-            
+
             echo '<tr><td>';
             echo $prefix . $name . ':</td><td>';
-            if ($className == "\\MangoPay\\Hook" && $name == "EventType"){
-                self::renderEnum("\\MangoPay\\EventType", $name, $prefix);
-            } elseif ($className == "\\MangoPay\\FilterEvents" && $name == "EventType"){
-                self::renderEnum("\\MangoPay\\EventType", $name, $prefix);
-            } elseif ($className == "\\MangoPay\\KycDocument" && $name == "Type") {
-                self::renderEnum("\\MangoPay\\KycDocumentType", $name, $prefix);
-            } elseif ($className == "\\MangoPay\\KycDocument" && $name == "Status") {
-                self::renderEnum("\\MangoPay\\KycDocumentStatus", $name, $prefix);
-            } elseif ($className == "\\MangoPay\\Card" && $name == "Validity") {
-                self::renderEnum("\\MangoPay\\CardValidity", $name, $prefix);
+            if ($className == "\\MangoPay\\Entities\\Hook" && $name == "EventType"){
+                self::renderEnum("\\MangoPay\\Enums\\EventType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\Tools\\FilterEvents" && $name == "EventType"){
+                self::renderEnum("\\MangoPay\\Enums\\EventType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\Entities\\KycDocument" && $name == "Type") {
+                self::renderEnum("\\MangoPay\\Enums\\KycDocumentType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\Entities\\KycDocument" && $name == "Status") {
+                self::renderEnum("\\MangoPay\\Enums\\KycDocumentStatus", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\Entities\\Card" && $name == "Validity") {
+                self::renderEnum("\\MangoPay\\Enums\\CardValidity", $name, $prefix);
             }
             else
                 echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/>';
             echo '</td></tr>';
         }
     }
-    
+
     public static function renderEnum($enumClassName, $name, $prefix) {
-        
+
         $enum = new $enumClassName();
         $enumObject = new \ReflectionObject($enum);
         $constants = $enumObject->getConstants();
-        
+
         echo '<select name="' . $prefix . $name . '">';
         foreach ($constants as $constant) {
             echo '<option value="' . $constant . '">' . $constant . '</option>';
         }
         echo '</select>';
     }
-    
+
     public static function renderFormRow($label = null, $field = null) {
-        
+
         echo '<tr><td>';
         echo $label ? $label : '&nbsp;';
         echo '</td><td>';
@@ -179,33 +179,33 @@ class HtmlHelper {
     }
 
     public static function renderId($entityName, $fieldName = 'Id') {
-        
+
         $value = '';
         if (isset($_POST[$fieldName]))
             $value = $_POST[$fieldName];
-        
+
         echo '<tr><td>';
         echo $entityName . ' Id:</td><td>';
         echo '<input type="text" name="' . $fieldName . '" value="' . $value . '"/></td></tr>';
     }
-    
+
     public static function renderSort(){
-        
+
         $value = '';
         if (isset($_POST["_sort_"]))
             $value = $_POST["_sort_"];
-        
+
         echo '<tr><td>';
         echo 'Sort:</td><td>';
         echo '<input type="text" name="_sort_" value="' . $value . '"/></td></tr>';
     }
-    
+
     public static function getEntity($entityName, $entityId = 0, $returnNullIfNoPropertyTouched = false, $prefix = '') {
         $touchedAnyProp = false;
 
         $className = '\\MangoPay\\' . $entityName;
         $entity = new $className($entityId);
-        
+
         $entityObject = new \ReflectionObject($entity);
         $properties = $entityObject->getProperties();
 
@@ -217,19 +217,19 @@ class HtmlHelper {
         foreach ($properties as $property) {
             if (!$property->isPublic())
                 continue;
-            
+
             $name = $property->getName();
 
             $frmName = $prefix . $name;
             if (isset($_POST[$frmName]) && strlen($_POST[$frmName]) > 0) {
 
                 // special fields for Owners property
-                if ($entityName == 'Wallet' && $name == 'Owners')
+                if ($entityName == 'Entities\\Wallet' && $name == 'Owners')
                     $entity->$name = explode(';', $_POST[$frmName]);
-                // special cast to int for Birthday property in UserNatural 
+                // special cast to int for Birthday property in UserNatural
                 // and UserLegal class
-                elseif (($entityName == 'UserNatural' && $name == 'Birthday')
-                    || ($entityName == 'UserLegal' && $name == 'LegalRepresentativeBirthday'))
+                elseif (($entityName == 'Entities\\UserNatural' && $name == 'Birthday')
+                    || ($entityName == 'Entities\\UserLegal' && $name == 'LegalRepresentativeBirthday'))
                 {
                     $entity->$name = (float)$_POST[$frmName];
                 }

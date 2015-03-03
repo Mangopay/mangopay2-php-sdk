@@ -1,6 +1,6 @@
 <?php
 //create the doc
-$KycDocument = new \MangoPay\KycDocument();
+$KycDocument = new \MangoPay\Entities\KycDocument();
 $KycDocument->Type = "IDENTITY_PROOF";
 $result = $mangoPayApi->Users->CreateKycDocument($_SESSION["MangoPayDemo"]["UserNatural"], $KycDocument);
 $KycDocumentId = $result->Id;
@@ -9,7 +9,7 @@ $KycDocumentId = $result->Id;
 $result2 = $mangoPayApi->Users->CreateKycPageFromFile($_SESSION["MangoPayDemo"]["UserNatural"], $KycDocumentId, "logo.png");
 
 //submit the doc for validation
-$KycDocument = new MangoPay\KycDocument();
+$KycDocument = new MangoPay\Entities\KycDocument();
 $KycDocument->Id = $KycDocumentId;
 $KycDocument->Status = "VALIDATION_ASKED";
 $result3 = $mangoPayApi->Users->UpdateKycDocument($_SESSION["MangoPayDemo"]["UserNatural"], $KycDocument);

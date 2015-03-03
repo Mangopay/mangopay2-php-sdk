@@ -14,9 +14,9 @@ class PayIns extends Base {
 
         $this->assertTrue($payIn->Id > 0);
         $this->assertIdentical($payIn->PaymentType, 'CARD');
-        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsCard');
+        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\Types\PayInPaymentDetailsCard');
         $this->assertIdentical($payIn->ExecutionType, 'WEB');
-        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsWeb');
+        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\Types\PayInExecutionDetailsWeb');
     }
 
     function test_PayIns_Get_CardWeb() {
@@ -26,9 +26,9 @@ class PayIns extends Base {
 
         $this->assertIdentical($payIn->Id, $getPayIn->Id);
         $this->assertIdentical($payIn->PaymentType, 'CARD');
-        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsCard');
+        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\Types\PayInPaymentDetailsCard');
         $this->assertIdentical($payIn->ExecutionType, 'WEB');
-        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsWeb');
+        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\Types\PayInExecutionDetailsWeb');
         $this->assertIdenticalInputProps($payIn, $getPayIn);
         $this->assertIdentical($getPayIn->Status, 'CREATED');
         $this->assertNull($getPayIn->ExecutionDate);
@@ -47,12 +47,12 @@ class PayIns extends Base {
         $this->assertTrue($payIn->Id > 0);
         $this->assertEqual($wallet->Id, $payIn->CreditedWalletId);
         $this->assertEqual('CARD', $payIn->PaymentType);
-        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsCard');
+        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\Types\PayInPaymentDetailsCard');
         $this->assertEqual('DIRECT', $payIn->ExecutionType);
-        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsDirect');
-        $this->assertIsA($payIn->DebitedFunds, '\MangoPay\Money');
-        $this->assertIsA($payIn->CreditedFunds, '\MangoPay\Money');
-        $this->assertIsA($payIn->Fees, '\MangoPay\Money');
+        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\Types\PayInExecutionDetailsDirect');
+        $this->assertIsA($payIn->DebitedFunds, '\MangoPay\Types\Money');
+        $this->assertIsA($payIn->CreditedFunds, '\MangoPay\Types\Money');
+        $this->assertIsA($payIn->Fees, '\MangoPay\Types\Money');
         $this->assertEqual($user->Id, $payIn->AuthorId);
         $this->assertEqual($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
         $this->assertEqual('SUCCEEDED', $payIn->Status);
@@ -66,9 +66,9 @@ class PayIns extends Base {
 
         $this->assertIdentical($payIn->Id, $getPayIn->Id);
         $this->assertIdentical($payIn->PaymentType, 'CARD');
-        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsCard');
+        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\Types\PayInPaymentDetailsCard');
         $this->assertIdentical($payIn->ExecutionType, 'DIRECT');
-        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsDirect');
+        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\Types\PayInExecutionDetailsDirect');
         $this->assertIdenticalInputProps($payIn, $getPayIn);
         $this->assertNotNull($getPayIn->PaymentDetails->CardId);
     }
@@ -87,159 +87,159 @@ class PayIns extends Base {
         $this->assertEqual('PAYOUT', $refund->Type);
         $this->assertEqual('REFUND', $refund->Nature);
     }
-    
+
     function test_PayIns_PreAuthorizedDirect() {
         $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
         $wallet = $this->getJohnsWalletWithMoney();
         $user = $this->getJohn();
         // create pay-in PRE-AUTHORIZED DIRECT
-        $payIn = new \MangoPay\PayIn();
+        $payIn = new \MangoPay\Entities\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $user->Id;
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new \MangoPay\Types\Money();
         $payIn->DebitedFunds->Amount = 10000;
         $payIn->DebitedFunds->Currency = 'EUR';
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new \MangoPay\Types\Money();
         $payIn->Fees->Amount = 0;
         $payIn->Fees->Currency = 'EUR';
         // payment type as CARD
-        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsPreAuthorized();
+        $payIn->PaymentDetails = new \MangoPay\Types\PayInPaymentDetailsPreAuthorized();
         $payIn->PaymentDetails->PreauthorizationId = $cardPreAuthorization->Id;
         // execution type as DIRECT
-        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        $payIn->ExecutionDetails = new \MangoPay\Types\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
-        
+
         $createPayIn = $this->_api->PayIns->Create($payIn);
-        
+
         $this->assertTrue($createPayIn->Id > 0);
         $this->assertEqual($wallet->Id, $createPayIn->CreditedWalletId);
         $this->assertEqual('PREAUTHORIZED', $createPayIn->PaymentType);
-        $this->assertIsA($createPayIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsPreAuthorized');
+        $this->assertIsA($createPayIn->PaymentDetails, '\MangoPay\Types\PayInPaymentDetailsPreAuthorized');
         $this->assertEqual('DIRECT', $createPayIn->ExecutionType);
-        $this->assertIsA($createPayIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsDirect');
-        $this->assertIsA($createPayIn->DebitedFunds, '\MangoPay\Money');
-        $this->assertIsA($createPayIn->CreditedFunds, '\MangoPay\Money');
-        $this->assertIsA($createPayIn->Fees, '\MangoPay\Money');
+        $this->assertIsA($createPayIn->ExecutionDetails, '\MangoPay\Types\PayInExecutionDetailsDirect');
+        $this->assertIsA($createPayIn->DebitedFunds, '\MangoPay\Types\Money');
+        $this->assertIsA($createPayIn->CreditedFunds, '\MangoPay\Types\Money');
+        $this->assertIsA($createPayIn->Fees, '\MangoPay\Types\Money');
         $this->assertEqual($user->Id, $createPayIn->AuthorId);
         $this->assertEqual('SUCCEEDED', $createPayIn->Status);
         $this->assertEqual('PAYIN', $createPayIn->Type);
     }
-    
+
     function test_PayIns_BankWireDirect_Create() {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
         // create pay-in PRE-AUTHORIZED DIRECT
-        $payIn = new \MangoPay\PayIn();
+        $payIn = new \MangoPay\Entities\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $user->Id;
         // payment type as CARD
-        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsBankWire();
-        $payIn->PaymentDetails->DeclaredDebitedFunds = new \MangoPay\Money();
+        $payIn->PaymentDetails = new \MangoPay\Types\PayInPaymentDetailsBankWire();
+        $payIn->PaymentDetails->DeclaredDebitedFunds = new \MangoPay\Types\Money();
         $payIn->PaymentDetails->DeclaredDebitedFunds->Amount = 10000;
         $payIn->PaymentDetails->DeclaredDebitedFunds->Currency = 'EUR';
-        $payIn->PaymentDetails->DeclaredFees = new \MangoPay\Money();
+        $payIn->PaymentDetails->DeclaredFees = new \MangoPay\Types\Money();
         $payIn->PaymentDetails->DeclaredFees->Amount = 0;
         $payIn->PaymentDetails->DeclaredFees->Currency = 'EUR';
-        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-        
+        $payIn->ExecutionDetails = new \MangoPay\Types\PayInExecutionDetailsDirect();
+
         $createPayIn = $this->_api->PayIns->Create($payIn);
-        
+
         $this->assertTrue($createPayIn->Id > 0);
         $this->assertEqual($wallet->Id, $createPayIn->CreditedWalletId);
         $this->assertEqual('BANK_WIRE', $createPayIn->PaymentType);
-        $this->assertIsA($createPayIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsBankWire');
-        $this->assertIsA($createPayIn->PaymentDetails->DeclaredDebitedFunds, '\MangoPay\Money');
-        $this->assertIsA($createPayIn->PaymentDetails->DeclaredFees, '\MangoPay\Money');
+        $this->assertIsA($createPayIn->PaymentDetails, '\MangoPay\Types\PayInPaymentDetailsBankWire');
+        $this->assertIsA($createPayIn->PaymentDetails->DeclaredDebitedFunds, '\MangoPay\Types\Money');
+        $this->assertIsA($createPayIn->PaymentDetails->DeclaredFees, '\MangoPay\Types\Money');
         $this->assertEqual('DIRECT', $createPayIn->ExecutionType);
-        $this->assertIsA($createPayIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsDirect');
+        $this->assertIsA($createPayIn->ExecutionDetails, '\MangoPay\Types\PayInExecutionDetailsDirect');
         $this->assertEqual($user->Id, $createPayIn->AuthorId);
         $this->assertEqual('CREATED', $createPayIn->Status);
         $this->assertEqual('PAYIN', $createPayIn->Type);
         $this->assertNotNull($createPayIn->PaymentDetails->WireReference);
-        $this->assertIsA($createPayIn->PaymentDetails->BankAccount, '\MangoPay\BankAccount');
+        $this->assertIsA($createPayIn->PaymentDetails->BankAccount, '\MangoPay\Entities\BankAccount');
         $this->assertEqual($createPayIn->PaymentDetails->BankAccount->Type, 'IBAN');
         $this->assertNotNull($createPayIn->PaymentDetails->BankAccount->Details->IBAN);
         $this->assertNotNull($createPayIn->PaymentDetails->BankAccount->Details->BIC);
     }
-    
+
     function test_PayIns_BankWireDirect_Get() {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
         // create pay-in PRE-AUTHORIZED DIRECT
-        $payIn = new \MangoPay\PayIn();
+        $payIn = new \MangoPay\Entities\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $user->Id;
         // payment type as CARD
-        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsBankWire();
-        $payIn->PaymentDetails->DeclaredDebitedFunds = new \MangoPay\Money();
+        $payIn->PaymentDetails = new \MangoPay\Types\PayInPaymentDetailsBankWire();
+        $payIn->PaymentDetails->DeclaredDebitedFunds = new \MangoPay\Types\Money();
         $payIn->PaymentDetails->DeclaredDebitedFunds->Amount = 10000;
         $payIn->PaymentDetails->DeclaredDebitedFunds->Currency = 'EUR';
-        $payIn->PaymentDetails->DeclaredFees = new \MangoPay\Money();
+        $payIn->PaymentDetails->DeclaredFees = new \MangoPay\Types\Money();
         $payIn->PaymentDetails->DeclaredFees->Amount = 0;
         $payIn->PaymentDetails->DeclaredFees->Currency = 'EUR';
-        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        $payIn->ExecutionDetails = new \MangoPay\Types\PayInExecutionDetailsDirect();
         $createdPayIn = $this->_api->PayIns->Create($payIn);
 
         $getPayIn = $this->_api->PayIns->Get($createdPayIn->Id);
-        
+
         $this->assertEqual($getPayIn->Id, $createdPayIn->Id);
         $this->assertEqual('BANK_WIRE', $getPayIn->PaymentType);
-        $this->assertIsA($getPayIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsBankWire');
-        $this->assertIsA($getPayIn->PaymentDetails->DeclaredDebitedFunds, '\MangoPay\Money');
-        $this->assertIsA($getPayIn->PaymentDetails->DeclaredFees, '\MangoPay\Money');
+        $this->assertIsA($getPayIn->PaymentDetails, '\MangoPay\Types\PayInPaymentDetailsBankWire');
+        $this->assertIsA($getPayIn->PaymentDetails->DeclaredDebitedFunds, '\MangoPay\Types\Money');
+        $this->assertIsA($getPayIn->PaymentDetails->DeclaredFees, '\MangoPay\Types\Money');
         $this->assertEqual('DIRECT', $getPayIn->ExecutionType);
-        $this->assertIsA($getPayIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsDirect');
+        $this->assertIsA($getPayIn->ExecutionDetails, '\MangoPay\Types\PayInExecutionDetailsDirect');
         $this->assertEqual($user->Id, $getPayIn->AuthorId);
         $this->assertEqual('PAYIN', $getPayIn->Type);
         $this->assertNotNull($getPayIn->PaymentDetails->WireReference);
-        $this->assertIsA($getPayIn->PaymentDetails->BankAccount, '\MangoPay\BankAccount');
+        $this->assertIsA($getPayIn->PaymentDetails->BankAccount, '\MangoPay\Entities\BankAccount');
         $this->assertEqual($getPayIn->PaymentDetails->BankAccount->Type, 'IBAN');
         $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->Details->IBAN);
         $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->Details->BIC);
     }
-    
+
     function test_PayIns_DirectDebitWeb_Create() {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
         // create pay-in PRE-AUTHORIZED DIRECT
-        $payIn = new \MangoPay\PayIn();
+        $payIn = new \MangoPay\Entities\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $user->Id;
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new \MangoPay\Types\Money();
         $payIn->DebitedFunds->Amount = 10000;
         $payIn->DebitedFunds->Currency = 'EUR';
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new \MangoPay\Types\Money();
         $payIn->Fees->Amount = 100;
         $payIn->Fees->Currency = 'EUR';
         // payment type as CARD
-        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsDirectDebit();
+        $payIn->PaymentDetails = new \MangoPay\Types\PayInPaymentDetailsDirectDebit();
         $payIn->PaymentDetails->DirectDebitType = "GIROPAY";
-        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails = new \MangoPay\Types\PayInExecutionDetailsWeb();
         $payIn->ExecutionDetails->ReturnURL = "http://www.mysite.com/returnURL/";
         $payIn->ExecutionDetails->Culture = "FR";
-        $payIn->ExecutionDetails->TemplateURLOptions = new \MangoPay\PayInTemplateURLOptions();
-        $payIn->ExecutionDetails->TemplateURLOptions->PAYLINE = "https://www.maysite.com/payline_template/";                
+        $payIn->ExecutionDetails->TemplateURLOptions = new \MangoPay\Types\PayInTemplateURLOptions();
+        $payIn->ExecutionDetails->TemplateURLOptions->PAYLINE = "https://www.maysite.com/payline_template/";
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
 
         $this->assertTrue($createPayIn->Id > 0);
         $this->assertEqual($wallet->Id, $createPayIn->CreditedWalletId);
         $this->assertEqual('DIRECT_DEBIT', $createPayIn->PaymentType);
-        $this->assertIsA($createPayIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsDirectDebit');
+        $this->assertIsA($createPayIn->PaymentDetails, '\MangoPay\Types\PayInPaymentDetailsDirectDebit');
         $this->assertEqual($createPayIn->PaymentDetails->DirectDebitType, 'GIROPAY');
         $this->assertEqual('WEB', $createPayIn->ExecutionType);
-        $this->assertIsA($createPayIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsWeb');
+        $this->assertIsA($createPayIn->ExecutionDetails, '\MangoPay\Types\PayInExecutionDetailsWeb');
         $this->assertEqual("FR", $createPayIn->ExecutionDetails->Culture);
         $this->assertEqual($user->Id, $createPayIn->AuthorId);
         $this->assertEqual('CREATED', $createPayIn->Status);
         $this->assertEqual('PAYIN', $createPayIn->Type);
-        $this->assertIsA($createPayIn->DebitedFunds, '\MangoPay\Money');
+        $this->assertIsA($createPayIn->DebitedFunds, '\MangoPay\Types\Money');
         $this->assertEqual(10000, $createPayIn->DebitedFunds->Amount);
         $this->assertEqual("EUR", $createPayIn->DebitedFunds->Currency);
-        $this->assertIsA($createPayIn->CreditedFunds, '\MangoPay\Money');
+        $this->assertIsA($createPayIn->CreditedFunds, '\MangoPay\Types\Money');
         $this->assertEqual(9900, $createPayIn->CreditedFunds->Amount);
         $this->assertEqual("EUR", $createPayIn->CreditedFunds->Currency);
-        $this->assertIsA($createPayIn->Fees, '\MangoPay\Money');
+        $this->assertIsA($createPayIn->Fees, '\MangoPay\Types\Money');
         $this->assertEqual(100, $createPayIn->Fees->Amount);
         $this->assertEqual("EUR", $createPayIn->Fees->Currency);
         $this->assertNotNull($createPayIn->ExecutionDetails->ReturnURL);
@@ -247,4 +247,3 @@ class PayIns extends Base {
         $this->assertNotNull($createPayIn->ExecutionDetails->TemplateURL);
     }
 }
-

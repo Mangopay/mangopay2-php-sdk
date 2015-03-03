@@ -1,5 +1,5 @@
 <?php
-$cardRegister = new \MangoPay\CardRegistration();
+$cardRegister = new \MangoPay\Entities\CardRegistration();
 $cardRegister->UserId = $_SESSION["MangoPayDemo"]["UserNatural"];
 $cardRegister->Currency = "EUR";
 $result = $mangoPayApi->CardRegistrations->Create($cardRegister);
@@ -8,7 +8,7 @@ $result = $mangoPayApi->CardRegistrations->Create($cardRegister);
 pre_dump($result);
 		?>
 		<br>
-		<form action="<?php echo $result->CardRegistrationURL; ?>" method="post">	
+		<form action="<?php echo $result->CardRegistrationURL; ?>" method="post">
 			<input type="hidden" name="data" value="<?php echo $result->PreregistrationData; ?>" />
    			<input type="hidden" name="accessKeyRef" value="<?php echo $result->AccessKey; ?>" />
     		<input type="hidden" name="returnURL" value="<?php echo "http".(isset($_SERVER['HTTPS']) ? "s" : null)."://".$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]."?stepId=".($stepId+1); ?>" />
@@ -28,7 +28,7 @@ pre_dump($result);
     		</table>
  	<input type="submit" value="Next: <?php echo $steps[$stepId+1]["step"]; ?>" class="next" onclick="addActive(this)">
 		</form>
-		
+
 <?php
 	$_SESSION["MangoPayDemo"]["CardReg"] = $result->Id;
 	$nextButton=array();

@@ -15,7 +15,7 @@ This demo will take you through a "typical" workflow of creating Users, doing Pa
 <br>
 For each example given in this demo, you'll also need to include the PHP SDK, and initiate the API call:
 <pre>
-require_once '../../MangoPaySDK/mangoPayApi.inc';
+require_once '../../vendor/autoload.php';
 $mangoPayApi = new \MangoPay\MangoPayApi();
 $mangoPayApi->Config->ClientId = YourMangoPayAPIClientId;
 $mangoPayApi->Config->ClientPassword = YourMangoPayAPIPassword;
