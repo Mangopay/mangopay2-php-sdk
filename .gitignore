@@ -1,3 +1,5 @@
 /nbproject/
 demos/api/MangoPaySdkStorage.tmp.php
 demos/paymentDirect/MangoPaySdkStorage.tmp.php
+.DS_Store
+vendor/

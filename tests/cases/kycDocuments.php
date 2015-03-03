@@ -9,12 +9,12 @@ class KycDocuments extends Base {
 
     function test_KycDocuments_GetAll() {
         $this->getJohnsKycDocument();
-        $pagination = new \MangoPay\Pagination(1, 20);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 20);
+
         $list = $this->_api->KycDocuments->GetAll($pagination);
-        
+
         $kycDocument = $this->_api->Users->GetKycDocument($list[0]->UserId, $list[0]->Id);
-        $this->assertIsA($list[0], '\MangoPay\KycDocument');
+        $this->assertIsA($list[0], '\MangoPay\Entities\KycDocument');
         $kycFromList = $this->getEntityFromList($kycDocument->Id, $list);
         $this->assertIdentical($kycDocument->Id, $kycFromList->Id);
         $this->assertIdenticalInputProps($kycDocument, $kycFromList);
@@ -23,15 +23,15 @@ class KycDocuments extends Base {
         $this->assertTrue(isset($pagination->TotalPages));
         $this->assertTrue(isset($pagination->TotalItems));
     }
-    
+
     function test_KycDocuments_GetAll_SortByCreationDate() {
         $this->getJohnsKycDocument();
-        $pagination = new \MangoPay\Pagination(1, 20);
-        $sorting = new \MangoPay\Sorting();
-        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 20);
+        $sorting = new \MangoPay\Tools\Sorting();
+        $sorting->AddField("CreationDate", \MangoPay\Enums\SortDirection::DESC);
+
         $list = $this->_api->KycDocuments->GetAll($pagination, $sorting);
-        
+
         $this->assertTrue($list[0]->CreationDate > $list[1]->CreationDate);
     }
 }

@@ -10,26 +10,26 @@ class Users extends Base {
    function test_Users_CreateNatural() {
         $john = $this->getJohn();
         $this->assertTrue($john->Id > 0);
-        $this->assertIdentical($john->PersonType, \MangoPay\PersonType::Natural);
+        $this->assertIdentical($john->PersonType, \MangoPay\Enums\PersonType::Natural);
     }
 
     function test_Users_CreateLegal() {
         $matrix = $this->getMatrix();
         $this->assertTrue($matrix->Id > 0);
-        $this->assertIdentical($matrix->PersonType, \MangoPay\PersonType::Legal);
+        $this->assertIdentical($matrix->PersonType, \MangoPay\Enums\PersonType::Legal);
     }
 
     function test_Users_CreateLegal_FailsIfRequiredPropsNotProvided() {
-        $user = new \MangoPay\UserLegal();
+        $user = new \MangoPay\Entities\UserLegal();
         $this->expectException();
-        
+
         $ret = $this->_api->Users->Create($user);
-        
+
         $this->fail("Creation should fail because required props are not set");
     }
 
     function test_Users_CreateLegal_PassesIfRequiredPropsProvided() {
-        $user = new \MangoPay\UserLegal();
+        $user = new \MangoPay\Entities\UserLegal();
         $user->Name = "SomeOtherSampleOrg";
         $user->Email = "mail@test.com";
         $user->LegalPersonType = "BUSINESS";
@@ -60,18 +60,18 @@ class Users extends Base {
     function test_Users_GetNatural_FailsForLegalUser() {
         $matrix = $this->getMatrix();
         $this->expectException();
-        
+
         $user = $this->_api->Users->GetNatural($matrix->Id);
-        
+
         $this->fail("GetNatural should fail when called with legal user id");
     }
 
     function test_Users_GetLegal_FailsForNaturalUser() {
         $john = $this->getJohn();
         $this->expectException();
-        
+
         $user = $this->_api->Users->GetLegal($john->Id);
-        
+
         $this->fail("GetLegal should fail when called with natural user id");
     }
 
@@ -89,10 +89,10 @@ class Users extends Base {
     function test_Users_Save_Natural() {
         $john = $this->getJohn();
         $john->LastName .= " - CHANGED";
-        
+
         $userSaved = $this->_api->Users->Update($john);
         $userFetched = $this->_api->Users->Get($john->Id);
-        
+
         $this->assertIdenticalInputProps($userSaved, $john);
         $this->assertIdenticalInputProps($userFetched, $john);
     }
@@ -100,71 +100,71 @@ class Users extends Base {
     function test_Users_Save_Legal() {
         $matrix = $this->getMatrix();
         $matrix->LegalRepresentativeLastName .= " - CHANGED";
-        
+
         $userSaved = $this->_api->Users->Update($matrix);
         $userFetched = $this->_api->Users->Get($matrix->Id);
-        
+
         $this->assertIdenticalInputProps($userSaved, $matrix);
         $this->assertIdenticalInputProps($userFetched, $matrix);
     }
-    
+
     function test_Users_CreateBankAccount_IBAN() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
-        
+
         $this->assertTrue($account->Id > 0);
         $this->assertIdentical($account->UserId, $john->Id);
     }
 
     function test_Users_CreateBankAccount_GB() {
         $john = $this->getJohn();
-        $account = new \MangoPay\BankAccount();
+        $account = new \MangoPay\Entities\BankAccount();
         $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
         $account->OwnerAddress = $john->Address;
-        $account->Details = new \MangoPay\BankAccountDetailsGB();
+        $account->Details = new \MangoPay\Types\BankAccountDetailsGB();
         $account->Details->AccountNumber = '18329068';
         $account->Details->SortCode = '306541';
-        
+
         $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
-        
+
         $this->assertTrue($createAccount->Id > 0);
         $this->assertIdentical($createAccount->UserId, $john->Id);
         $this->assertIdentical($createAccount->Type, 'GB');
         $this->assertIdentical($createAccount->Details->AccountNumber, '18329068');
         $this->assertIdentical($createAccount->Details->SortCode, '306541');
     }
-    
+
     function test_Users_CreateBankAccount_US() {
         $john = $this->getJohn();
-        $account = new \MangoPay\BankAccount();
+        $account = new \MangoPay\Entities\BankAccount();
         $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
         $account->OwnerAddress = $john->Address;
-        $account->Details = new \MangoPay\BankAccountDetailsUS();
+        $account->Details = new \MangoPay\Types\BankAccountDetailsUS();
         $account->Details->AccountNumber = '234234234234';
         $account->Details->ABA = '234334789';
-        
+
         $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
-        
+
         $this->assertTrue($createAccount->Id > 0);
         $this->assertIdentical($createAccount->UserId, $john->Id);
         $this->assertIdentical($createAccount->Type, 'US');
         $this->assertIdentical($createAccount->Details->AccountNumber, '234234234234');
         $this->assertIdentical($createAccount->Details->ABA, '234334789');
     }
-    
+
     function test_Users_CreateBankAccount_CA() {
         $john = $this->getJohn();
-        $account = new \MangoPay\BankAccount();
+        $account = new \MangoPay\Entities\BankAccount();
         $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
         $account->OwnerAddress = $john->Address;
-        $account->Details = new \MangoPay\BankAccountDetailsCA();
+        $account->Details = new \MangoPay\Types\BankAccountDetailsCA();
         $account->Details->BankName = 'TestBankName';
         $account->Details->BranchCode = '12345';
         $account->Details->AccountNumber = '234234234234';
         $account->Details->InstitutionNumber = '123';
-        
+
         $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
-        
+
         $this->assertTrue($createAccount->Id > 0);
         $this->assertIdentical($createAccount->UserId, $john->Id);
         $this->assertIdentical($createAccount->Type, 'CA');
@@ -173,20 +173,20 @@ class Users extends Base {
         $this->assertIdentical($createAccount->Details->BranchCode, '12345');
         $this->assertIdentical($createAccount->Details->InstitutionNumber, '123');
     }
-    
+
     function test_Users_CreateBankAccount_OTHER() {
         $john = $this->getJohn();
-        $account = new \MangoPay\BankAccount();
+        $account = new \MangoPay\Entities\BankAccount();
         $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
         $account->OwnerAddress = $john->Address;
-        $account->Details = new \MangoPay\BankAccountDetailsOTHER();
+        $account->Details = new \MangoPay\Types\BankAccountDetailsOTHER();
         $account->Details->Type = 'OTHER';
         $account->Details->Country = 'FR';
         $account->Details->AccountNumber = '234234234234';
         $account->Details->BIC = 'BINAADADXXX';
-        
+
         $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
-        
+
         $this->assertTrue($createAccount->Id > 0);
         $this->assertIdentical($createAccount->UserId, $john->Id);
         $this->assertIdentical($createAccount->Type, 'OTHER');
@@ -195,23 +195,23 @@ class Users extends Base {
         $this->assertIdentical($createAccount->Details->AccountNumber, '234234234234');
         $this->assertIdentical($createAccount->Details->BIC, 'BINAADADXXX');
     }
-    
+
     function test_Users_BankAccount() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
-        
+
         $accountFetched = $this->_api->Users->GetBankAccount($john->Id, $account->Id);
         $this->assertIdenticalInputProps($account, $accountFetched);
     }
-    
+
     function test_Users_BankAccounts() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
-        $pagination = new \MangoPay\Pagination(1, 12);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 12);
+
         $list = $this->_api->Users->GetBankAccounts($john->Id, $pagination);
-        
-        $this->assertIsA($list[0], '\MangoPay\BankAccount');
+
+        $this->assertIsA($list[0], '\MangoPay\Entities\BankAccount');
         $this->assertIdentical($account->Id, $list[0]->Id);
         $this->assertIdenticalInputProps($account, $list[0]);
         $this->assertIdentical($pagination->Page, 1);
@@ -219,21 +219,21 @@ class Users extends Base {
         $this->assertTrue(isset($pagination->TotalPages));
         $this->assertTrue(isset($pagination->TotalItems));
     }
-    
+
     function test_Users_BankAccounts_SortByCreationDate() {
         $john = $this->getJohn();
         $this->getJohnsAccount();
         self::$JohnsAccount = null;
         $this->getJohnsAccount();
-        $pagination = new \MangoPay\Pagination(1, 12);
-        $sorting = new \MangoPay\Sorting();
-        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 12);
+        $sorting = new \MangoPay\Tools\Sorting();
+        $sorting->AddField("CreationDate", \MangoPay\Enums\SortDirection::DESC);
+
         $list = $this->_api->Users->GetBankAccounts($john->Id, $pagination, $sorting);
-        
+
         $this->assertTrue($list[0]->CreationDate > $list[1]->CreationDate);
     }
-    
+
     function test_Users_CreateKycDocument(){
         $kycDocument = $this->getJohnsKycDocument();
 
@@ -243,27 +243,27 @@ class Users extends Base {
         $this->assertIdentical($kycDocument->Type, \MangoPay\KycDocumentType::IdentityProof);
         $this->assertIdentical($kycDocument->UserId, $user->Id);
     }
-    
+
     function test_Users_GetKycDocument(){
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
-        
+
         $getKycDocument = $this->_api->Users->GetKycDocument($user->Id, $kycDocument->Id);
-        
+
         $this->assertIdentical($kycDocument->Id, $getKycDocument->Id);
         $this->assertIdentical($kycDocument->Status, $getKycDocument->Status);
         $this->assertIdentical($kycDocument->Type, $getKycDocument->Type);
         $this->assertIdentical($kycDocument->UserId, $user->Id);
     }
-    
+
     function test_Users_GetKycDocuments(){
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
-        $pagination = new \MangoPay\Pagination(1, 20);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 20);
+
         $getKycDocuments = $this->_api->Users->GetKycDocuments($user->Id, $pagination);
-        
-        $this->assertIsA($getKycDocuments[0], '\MangoPay\KycDocument');
+
+        $this->assertIsA($getKycDocuments[0], '\MangoPay\Entities\KycDocument');
         $kycFromList = $this->getEntityFromList($kycDocument->Id, $getKycDocuments);
         $this->assertIdentical($kycDocument->Id, $kycFromList->Id);
         $this->assertIdenticalInputProps($kycDocument, $kycFromList);
@@ -272,25 +272,25 @@ class Users extends Base {
         $this->assertTrue(isset($pagination->TotalPages));
         $this->assertTrue(isset($pagination->TotalItems));
     }
-    
+
     function test_Users_GetKycDocuments_SortByCreationDate(){
         $this->getJohnsKycDocument();
         self::$JohnsKycDocument = null;
         $this->getJohnsKycDocument();
         $user = $this->getJohn();
-        $pagination = new \MangoPay\Pagination(1, 20);
-        $sorting = new \MangoPay\Sorting();
-        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 20);
+        $sorting = new \MangoPay\Tools\Sorting();
+        $sorting->AddField("CreationDate", \MangoPay\Enums\SortDirection::DESC);
+
         $getKycDocuments = $this->_api->Users->GetKycDocuments($user->Id, $pagination, $sorting);
-        
+
         $this->assertTrue($getKycDocuments[0]->CreationDate > $getKycDocuments[1]->CreationDate);
     }
-    
+
     function test_Users_CreateKycDocument_TestAll(){
         $john = $this->getJohn();
         $legalJohn = $this->getMatrix();
-        
+
         $aKycDocTypes = array(
             array(\MangoPay\KycDocumentType::AddressProof, $john->Id),
             array(\MangoPay\KycDocumentType::ArticlesOfAssociation, $legalJohn->Id),
@@ -298,86 +298,86 @@ class Users extends Base {
             array(\MangoPay\KycDocumentType::RegistrationProof, $legalJohn->Id),
             array(\MangoPay\KycDocumentType::ShareholderDeclaration, $legalJohn->Id)
         );
-        
+
         foreach ($aKycDocTypes as $kycDoc) {
             try{
                 $this->CreateKycDocument_TestOne($kycDoc[0], $kycDoc[1]);
-            } catch (\MangoPay\Exception $exc){
-                
+            } catch (\MangoPay\Types\Exceptions\Exception $exc){
+
                 $message = 'Error (Code: ' . $exc->getCode() . ', '
                     . $exc->getMessage() . ') '
                     .'during create/get KYC Document with type: ' . $kycDoc[0];
                 $this->fail($message);
-                
+
             }
         }
     }
-    
+
     function CreateKycDocument_TestOne($kycDocType, $userId){
-        
-        $kycDocument = new \MangoPay\KycDocument();
-        $kycDocument->Status = \MangoPay\KycDocumentStatus::Created;
+
+        $kycDocument = new \MangoPay\Entities\KycDocument();
+        $kycDocument->Status = \MangoPay\Enums\KycDocumentStatus::Created;
         $kycDocument->Type = $kycDocType;
-        
+
         $createdKycDocument = $this->_api->Users->CreateKycDocument($userId, $kycDocument);
         $getKycDocument = $this->_api->Users->GetKycDocument($userId, $createdKycDocument->Id);
-        
+
         $this->assertTrue($createdKycDocument->Id > 0);
-        $this->assertIdentical($createdKycDocument->Status, \MangoPay\KycDocumentStatus::Created);
+        $this->assertIdentical($createdKycDocument->Status, \MangoPay\Enums\KycDocumentStatus::Created);
         $this->assertIdentical($createdKycDocument->Type, $kycDocType);
         $this->assertIdentical($createdKycDocument->Id, $getKycDocument->Id);
         $this->assertIdentical($createdKycDocument->Status, $getKycDocument->Status);
         $this->assertIdentical($createdKycDocument->Type, $getKycDocument->Type);
     }
-    
+
     function test_Users_UpdateKycDocument(){
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
-        $kycDocument->Status = \MangoPay\KycDocumentStatus::ValidationAsked;
-        
+        $kycDocument->Status = \MangoPay\Enums\KycDocumentStatus::ValidationAsked;
+
         $updateKycDocument = $this->_api->Users->UpdateKycDocument($user->Id, $kycDocument);
-        
-        $this->assertIdentical($updateKycDocument->Status, \MangoPay\KycDocumentStatus::ValidationAsked);
+
+        $this->assertIdentical($updateKycDocument->Status, \MangoPay\Enums\KycDocumentStatus::ValidationAsked);
     }
-    
+
     function test_Users_CreateKycPage_EmptyFileString(){
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
-        $kycPage = new \MangoPay\KycPage();
+        $kycPage = new \MangoPay\Entities\KycPage();
         $kycPage->File = "";
         try{
             $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
-            
-            $this->fail('Expected ResponseException when empty file string');
-        } catch (\MangoPay\ResponseException $exc) {
 
-            $this->assertIdentical($exc->getCode(), 500);            
+            $this->fail('Expected ResponseException when empty file string');
+        } catch (\MangoPay\Types\Exceptions\ResponseException $exc) {
+
+            $this->assertIdentical($exc->getCode(), 500);
         }
     }
-    
+
     function test_Users_CreateKycPage_WrongFileString(){
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
-        $kycPage = new \MangoPay\KycPage();
+        $kycPage = new \MangoPay\Entities\KycPage();
         $kycPage->File = "qqqq";
-        
+
         try{
             $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
-            
+
             $this->fail('Expected ResponseException when wrong value for file string');
-        } catch (\MangoPay\ResponseException $exc) {
-            
-            $this->assertIdentical($exc->getCode(), 500);            
+        } catch (\MangoPay\Types\Exceptions\ResponseException $exc) {
+
+            $this->assertIdentical($exc->getCode(), 500);
         }
     }
-    
+
     function test_Users_CreateKycPage_CorrectFileString() {
         $user = $this->getJohn();
-        $kycDocumentInit = new \MangoPay\KycDocument();
-        $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
-        $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
+        $kycDocumentInit = new \MangoPay\Entities\KycDocument();
+        $kycDocumentInit->Status = \MangoPay\Enums\KycDocumentStatus::Created;
+        $kycDocumentInit->Type = \MangoPay\Enums\KycDocumentType::IdentityProof;
         $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
-        $kycPage = new \MangoPay\KycPage();
+        $kycPage = new \MangoPay\Entities\KycPage();
         		$fileString = "iVBORw0KGgoAAAANSUhEUgAAAYUAAABdCAYAAABKOXq+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAIuhJREFUeNrsXQmYHUW1PtV3mS1ksk4WWcOSBJBFCEQDWQEBBeVD4Img
 IALi+p64PPftKQrCUwlbRBREnwqB4MIqiwTCpsgSw44QMUESJtusd+l+de6tntzp6a6lu/rOneT831dfJvf27a7urqr//OecqmKe5wGBQCAQCAiHHgGBQCAQiBQIBAKBQKRAIBAIBCIFAoFAIGggG/bh
 qqfmGp8IA9Y5rwmm9E8DVuEazQA2P9Ttc6H7iS6AIv8/M7rszKaJGw9iufL1YBAvz+QZvHZHATa/WgYno/87xuvWX3Kh4LpG1fRcBq1jS9A83uV/U6MjEBAtvO/fs8GBP2zcAZoZJbwMJ266/W45KYwQ
@@ -459,128 +459,128 @@ vfT6CQQCoXFJAYExhrNTJAYMKqczD4FAIBCIFEYUMaBCoKAygUAgjDBS8InBpiuJCIFAIBBGMCkgrrGk
 MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFqAbOTGJDLiEAgELZrUvAVQwsvc3g5gwiBQCAQkiN0O04CgUAgbJ9w6BEQCAQCgUiBQCAQCEPw
 /wIMAPlarS0ONmynAAAAAElFTkSuQmCC";
         $kycPage->File = $fileString;
-        
+
         $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
     }
-    
+
     function test_Users_CreateKycPage_EmptyFilePath() {
         $user = $this->getJohn();
-        $kycDocumentInit = new \MangoPay\KycDocument();
-        $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
-        $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
+        $kycDocumentInit = new \MangoPay\Entities\KycDocument();
+        $kycDocumentInit->Status = \MangoPay\Enums\KycDocumentStatus::Created;
+        $kycDocumentInit->Type = \MangoPay\Enums\KycDocumentType::IdentityProof;
         $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
-        
+
         try{
             $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, '');
-        } catch (\MangoPay\Exception $exc) {
-            
+        } catch (\MangoPay\Types\Exceptions\Exception $exc) {
+
             $this->assertIdentical($exc->getMessage(), 'Path of file cannot be empty');
         }
     }
-        
+
     function test_Users_CreateKycPage_WrongFilePath() {
         $user = $this->getJohn();
-        $kycDocumentInit = new \MangoPay\KycDocument();
-        $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
-        $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
+        $kycDocumentInit = new \MangoPay\Entities\KycDocument();
+        $kycDocumentInit->Status = \MangoPay\Enums\KycDocumentStatus::Created;
+        $kycDocumentInit->Type = \MangoPay\Enums\KycDocumentType::IdentityProof;
         $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
-        
+
         try{
             $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, 'notExistFileName.tmp');
-        } catch (\MangoPay\Exception $exc) {
-            
+        } catch (\MangoPay\Types\Exceptions\Exception $exc) {
+
             $this->assertIdentical($exc->getMessage(), 'File not exist');
         }
     }
-    
+
     function test_Users_CreateKycPage_CorrectFilePath() {
         $user = $this->getJohn();
-        $kycDocumentInit = new \MangoPay\KycDocument();
-        $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
-        $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
+        $kycDocumentInit = new \MangoPay\Entities\KycDocument();
+        $kycDocumentInit->Status = \MangoPay\Enums\KycDocumentStatus::Created;
+        $kycDocumentInit->Type = \MangoPay\Enums\KycDocumentType::IdentityProof;
         $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
-        
+
         $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, __DIR__ ."/../TestKycPageFile.png");
     }
-    
+
     function test_Users_AllTransactions() {
         $john = $this->getJohn();
         $payIn = $this->getNewPayInCardDirect();
 
-        $pagination = new \MangoPay\Pagination(1, 1);
-        $filter = new \MangoPay\FilterTransactions();
+        $pagination = new \MangoPay\Types\Pagination(1, 1);
+        $filter = new \MangoPay\Tools\FilterTransactions();
         $filter->Type = 'PAYIN';
         $filter->AfterDate = $payIn->CreationDate - 1;
         $filter->BeforeDate = $payIn->CreationDate + 1;
         $transactions = $this->_api->Users->GetTransactions($john->Id, $pagination, $filter);
 
         $this->assertEqual(count($transactions), 1);
-        $this->assertIsA($transactions[0], '\MangoPay\Transaction');
+        $this->assertIsA($transactions[0], '\MangoPay\Entities\Transaction');
         $this->assertEqual($transactions[0]->AuthorId, $john->Id);
         $this->assertIdenticalInputProps($transactions[0], $payIn);
     }
-    
+
     function test_Users_AllTransactions_SortByCreationDate() {
         $john = $this->getJohn();
         $this->getNewPayInCardDirect();
         $this->getNewPayInCardDirect();
-        $sorting = new \MangoPay\Sorting();
-        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
-        $pagination = new \MangoPay\Pagination(1, 20);
-        $filter = new \MangoPay\FilterTransactions();
+        $sorting = new \MangoPay\Tools\Sorting();
+        $sorting->AddField("CreationDate", \MangoPay\Enums\SortDirection::DESC);
+        $pagination = new \MangoPay\Types\Pagination(1, 20);
+        $filter = new \MangoPay\Tools\FilterTransactions();
         $filter->Type = 'PAYIN';
-       
+
         $transactions = $this->_api->Users->GetTransactions($john->Id, $pagination, $filter, $sorting);
 
         $this->assertTrue($transactions[0]->CreationDate > $transactions[1]->CreationDate);
     }
-    
+
     function test_Users_AllCards() {
         $john = $this->getNewJohn();
         $payIn = $this->getNewPayInCardDirect($john->Id);
         $card =$this->_api->Cards->Get($payIn->PaymentDetails->CardId);
-        $pagination = new \MangoPay\Pagination(1, 1);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 1);
+
         $cards = $this->_api->Users->GetCards($john->Id, $pagination);
 
         $this->assertEqual(count($cards), 1);
-        $this->assertIsA($cards[0], '\MangoPay\Card');
+        $this->assertIsA($cards[0], '\MangoPay\Entities\Card');
         $this->assertIdenticalInputProps($cards[0], $card);
     }
-    
+
     function test_Users_AllCards_SortByCreationDate() {
         $john = $this->getNewJohn();
         $this->getNewPayInCardDirect($john->Id);
         $this->getNewPayInCardDirect($john->Id);
-        $pagination = new \MangoPay\Pagination(1, 20);
-        $sorting = new \MangoPay\Sorting();
-        $sorting->AddField("CreationDate", \MangoPay\SortDirection::ASC);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 20);
+        $sorting = new \MangoPay\Tools\Sorting();
+        $sorting->AddField("CreationDate", \MangoPay\Enums\SortDirection::ASC);
+
         $cards = $this->_api->Users->GetCards($john->Id, $pagination, $sorting);
 
         $this->assertTrue($cards[0]->CreationDate < $cards[1]->CreationDate);
     }
-    
+
     function test_Users_AllWallets() {
         $john = $this->getJohn();
         $this->getJohnsWallet();
-        $pagination = new \MangoPay\Pagination(1, 1);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 1);
+
         $wallets = $this->_api->Users->GetWallets($john->Id, $pagination);
 
         $this->assertEqual(count($wallets), 1);
-        $this->assertIsA($wallets[0], '\MangoPay\Wallet');
+        $this->assertIsA($wallets[0], '\MangoPay\Entities\Wallet');
     }
-    
+
     function test_Users_AllWallets_SortByCreationDate() {
         $john = $this->getJohn();
         $this->getJohnsWallet();
         self::$JohnsWallet = null;
         $this->getJohnsWallet();
-        $pagination = new \MangoPay\Pagination(1, 20);
-        $sorting = new \MangoPay\Sorting();
-        $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
-        
+        $pagination = new \MangoPay\Types\Pagination(1, 20);
+        $sorting = new \MangoPay\Tools\Sorting();
+        $sorting->AddField("CreationDate", \MangoPay\Enums\SortDirection::DESC);
+
         $wallets = $this->_api->Users->GetWallets($john->Id, $pagination, $sorting);
 
         $this->assertTrue($wallets[0]->CreationDate > $wallets[1]->CreationDate);
