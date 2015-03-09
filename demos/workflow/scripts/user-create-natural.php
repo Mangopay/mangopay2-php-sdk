@@ -1,6 +1,6 @@
 <?php
 $User = new MangoPay\UserNatural();
-$User->Email = 'test_natural@testmangopay.com';
+$User->Email = "test_natural@testmangopay.com";
 $User->FirstName = "Bob";
 $User->LastName = "Briant";
 $User->Birthday = 121271;

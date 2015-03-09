@@ -45,7 +45,8 @@ function pre_dump($r) {
 function getDemoScript($stepId) {
 	global $steps;
 	$script = explode("//Display",file_get_contents("scripts/".$steps[$stepId]["file"]));
-	return htmlentities(trim(str_replace("<?php","",$script[0])));
+	//return htmlentities(trim(str_replace("<?php","",$script[0])));
+	return trim(str_replace("<?php","",$script[0]));
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -54,7 +55,8 @@ function getDemoScript($stepId) {
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <title>MANGOPAY Demo workflow</title>
         <link href="//fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css"> 
-         <link href="style.css" rel="stylesheet" type="text/css"> 
+        <link href="style.css" rel="stylesheet" type="text/css"> 
+		<link href="syntaxhighlighter/shThemeDefault.css" rel="stylesheet" type="text/css" />
         <style>
             .flyer span {
             	width:<?php echo ceil(100*$stepId/$totalStepsIndex); $startFrom = ceil(100*$stepId/($totalStepsIndex+1)); ?>%;
@@ -69,7 +71,9 @@ function getDemoScript($stepId) {
 			    from { width: <?php echo $startFrom; ?>%; }
 			}
         </style>
-        
+        <script type="text/javascript" src="syntaxhighlighter/shCore.js"></script>
+		<script type="text/javascript" src="syntaxhighlighter/shBrushPhp.js"></script>
+		<script>SyntaxHighlighter.defaults['toolbar'] = false;SyntaxHighlighter.defaults['auto-links'] = false;SyntaxHighlighter.defaults['gutter'] = false;SyntaxHighlighter.all();</script>
     </head>
     <body>
     	<div id="loading"><div></div></div>
@@ -94,12 +98,13 @@ if (empty($_SESSION["MangoPayDemo"]) && $stepId>2) {
 	try {
 		if ($stepId>1 && $stepId<$totalStepsIndex) {
 			echo "<h2>Code example</h2>";
-			echo "<pre class='script'>".getDemoScript($stepId)."</pre>";
+			//echo "<pre class='script'>".getDemoScript($stepId)."</pre>";
+			echo "<script type='syntaxhighlighter' class='brush:php'><![CDATA[".getDemoScript($stepId)."]]></script>";
 			echo "<br>";
 			echo "<h2>Returned object</h2>";
 		}
 		include("scripts/".$steps[$stepId]["file"]); 
-	
+		
 	} catch (MangoPay\ResponseException $e) {
     	$apiError = true;
 	    MangoPay\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());

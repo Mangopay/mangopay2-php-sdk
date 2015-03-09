@@ -19,7 +19,7 @@ a:link, a:visited {
 #main {
 	padding: 25px 0;
 }
-.container {
+#main > .container {
 	background-color: #fff;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
 	margin: 0 auto;
@@ -29,7 +29,7 @@ a:link, a:visited {
 .containerInner {
 	padding:20px;
 }
-pre {
+pre, .syntaxhighlighter {
 	overflow-x: auto;
 	font-size: 12px;
 	line-height: 1.3;
@@ -37,6 +37,9 @@ pre {
 	background: rgb(245, 245, 245);
 	box-shadow: inset 0 1px 4px 0 rgba(0, 0, 0, 0.25);
 	margin:12px 0;
+}
+.syntaxhighlighter table .container > div {
+	white-space:nowrap;
 }
 ul li pre {
 	margin-top: 4px;

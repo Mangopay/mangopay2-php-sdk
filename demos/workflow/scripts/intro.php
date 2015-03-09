@@ -6,7 +6,7 @@ This demo will take you through a "typical" workflow of creating Users, doing Pa
 		if ($i>0) {
 			echo "<li>";
 				echo $showingScript ? "<a href=\"javascript:toggle('step_script_$i')\" title=\"View demo script\">".$s["step"]."</a>" : $s["step"];
-				if ($showingScript) echo "<pre class='script' id='step_script_$i' style='display:none'>".getDemoScript($i)."</pre>";
+				if ($showingScript) echo "<div id='step_script_$i' style='display:none'><script type='syntaxhighlighter' class='brush:php'><![CDATA[".getDemoScript($i)."]]></script></div>";
 			echo "</li>";
 		}
 	}
@@ -14,12 +14,13 @@ This demo will take you through a "typical" workflow of creating Users, doing Pa
 </ul>
 <br>
 For each example given in this demo, you'll also need to include the PHP SDK, and initiate the API call:
-<pre>
+<script type='syntaxhighlighter' class='brush:php'><![CDATA[
 require_once '../../MangoPaySDK/mangoPayApi.inc';
 $mangoPayApi = new \MangoPay\MangoPayApi();
 $mangoPayApi->Config->ClientId = YourMangoPayAPIClientId;
 $mangoPayApi->Config->ClientPassword = YourMangoPayAPIPassword;
 $mangoPayApi->Config->TemporaryFolder = /a/writable/folder/somewhere/ideally-out-of-reach-of-your-root/;
-</pre>
+]]>
+</script>
 <br>
 Do not use the "Back" button in your browser, or "Refresh" at any point, otherwise you risk breaking this very basic demo :-)
