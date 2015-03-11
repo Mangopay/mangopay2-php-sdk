@@ -11,6 +11,12 @@ class Refund extends Transaction {
      * @var string
      */
     public $InitialTransactionId;
+
+    /**
+     * Initial transaction Type {PAYIN, PAYOUT, TRANSFER}
+     * @var string
+     */
+    public $InitialTransactionType;
     
     /**
      * Debited wallet Id
