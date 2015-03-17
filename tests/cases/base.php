@@ -552,7 +552,10 @@ abstract class Base extends \UnitTestCase {
      * @return string
      */
     protected function getPaylineCorrectRegistartionData($cardRegistration) {
-
+		
+		/*
+		 ****** DO NOT use this code in a production environment - it is just for unit tests. In production you are not allowed to have the user's card details pass via your server (which is what is required to use this code here) *******
+		 */
         $data = 'data=' . $cardRegistration->PreregistrationData .
                 '&accessKeyRef=' . $cardRegistration->AccessKey .
                 '&cardNumber=4970100000000154' .
