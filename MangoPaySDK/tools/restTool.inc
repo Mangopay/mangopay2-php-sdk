@@ -90,6 +90,10 @@ class RestTool {
         $this->_requestType = $requestType;
         $this->_requestData = $requestData;
         
+        $logClass = $this->_root->Config->LogClass;
+        if ($this->_root->Config->DebugMode)
+            $logClass::Debug('++++++++++++++++++++++ New reguest ++++++++++++++++++++++', '');
+        
         $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams);
         $responseResult = $this->RunRequest();
         

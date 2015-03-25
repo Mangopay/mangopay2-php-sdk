@@ -38,6 +38,7 @@ class Wallets extends Base {
     function test_Wallets_Transactions() {
         $john = $this->getJohn();
         $wallet = $this->getJohnsWallet();
+        self::$JohnsPayInCardWeb = null;
         $payIn = $this->getJohnsPayInCardWeb();
 
         $pagination = new \MangoPay\Pagination(1, 1);
@@ -54,6 +55,7 @@ class Wallets extends Base {
     function test_Wallets_Transactions_SortByCreationDate() {
         $wallet = $this->getJohnsWallet();
         // create 2 pay-in objects
+        self::$JohnsPayInCardWeb = null;
         $this->getJohnsPayInCardWeb();
         self::$JohnsPayInCardWeb = null;
         $this->getJohnsPayInCardWeb();
