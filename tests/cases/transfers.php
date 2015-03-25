@@ -46,5 +46,6 @@ class Transfers extends Base {
         $this->assertEqual($walletBefore->Balance->Amount, $walletAfter->Balance->Amount - $transfer->DebitedFunds->Amount);
         $this->assertEqual('TRANSFER', $refund->Type);
         $this->assertEqual('REFUND', $refund->Nature);
+        $this->assertIsA($refund->RefundReason, '\MangoPay\RefundReasonDetails');
     }
 }

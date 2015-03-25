@@ -29,4 +29,23 @@ class Refund extends Transaction {
      * @var string
      */
     public $CreditedWalletId;
+
+    /**
+     * Contains info about the reason for refund
+     * @var \MangoPay\RefundReasonDetails
+     */
+    public $RefundReason;
+    
+    /**
+     * Get array with mapping which property is object and what type of object 
+     * 
+     * @return array
+     */
+    public function GetSubObjects() {
+        
+        $subObjects = parent::GetSubObjects();
+        $subObjects['RefundReason'] = '\MangoPay\RefundReasonDetails';
+        
+        return $subObjects;
+    }    
 }

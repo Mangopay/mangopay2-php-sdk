@@ -18,6 +18,7 @@ class Refunds extends Base {
         $this->assertEqual($getRefund->InitialTransactionId, $transfer->Id);
         $this->assertEqual($getRefund->AuthorId, $user->Id);
         $this->assertEqual($getRefund->Type, 'TRANSFER');
+        $this->assertIsA($getRefund->RefundReason, '\MangoPay\RefundReasonDetails');
     }
     
     public function test_Refund_GetForPayIn() {
@@ -31,5 +32,6 @@ class Refunds extends Base {
         $this->assertEqual($getRefund->InitialTransactionId, $payIn->Id);
         $this->assertEqual($getRefund->AuthorId, $user->Id);
         $this->assertEqual($getRefund->Type, 'PAYOUT');
+        $this->assertIsA($getRefund->RefundReason, '\MangoPay\RefundReasonDetails');
     }
 }

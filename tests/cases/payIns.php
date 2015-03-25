@@ -86,6 +86,7 @@ class PayIns extends Base {
         $this->assertEqual($walletBefore->Balance->Amount, $walletAfter->Balance->Amount + $payIn->DebitedFunds->Amount);
         $this->assertEqual('PAYOUT', $refund->Type);
         $this->assertEqual('REFUND', $refund->Nature);
+        $this->assertIsA($refund->RefundReason, '\MangoPay\RefundReasonDetails');
     }
     
     function test_PayIns_PreAuthorizedDirect() {
