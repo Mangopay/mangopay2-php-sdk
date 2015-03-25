@@ -67,6 +67,25 @@ class Events extends Base {
         $this->assertTrue($this->ExistEventById($result, $kycDocument->Id)); 
     }
     
+    function test_Events_GetAll_SortByCreationDate() {
+        self::$JohnsPayInCardWeb = null;
+        $payIn1 = $this->getJohnsPayInCardWeb();
+        self::$JohnsPayInCardWeb = null;
+        $payIn2 = $this->getJohnsPayInCardWeb();
+        
+        $filter = new \MangoPay\FilterEvents();
+        $filter->BeforeDate = $payIn2->CreationDate;
+        $filter->AfterDate = $payIn1->CreationDate;
+        $filter->EventType = \MangoPay\EventType::PayinNormalCreated;
+        $sorting = new \MangoPay\Sorting();
+        $sorting->AddField("Date", \MangoPay\SortDirection::DESC);
+        $pagination = new \MangoPay\Pagination();
+
+        $result = $this->_api->Events->GetAll($pagination, $filter, $sorting);
+ 
+        $this->assertTrue($result[0]->Date > $result[1]->Date);
+    }
+    
     private function ExistEventById($eventList, $eventId) {
         
         foreach ($eventList as $event) {

@@ -111,6 +111,7 @@ class ApiUsers extends ApiBase {
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
+     * 
      * @return array Array with bank account entities
      */    
     public function GetBankAccounts($userId, & $pagination = null, $sorting = null) {
@@ -121,6 +122,7 @@ class ApiUsers extends ApiBase {
      * Get bank account for user
      * @param int $userId User Id
      * @param int $bankAccountId Bank account Id
+     * 
      * @return \MangoPay\BankAccount Entity of bank account object
      */
     public function GetBankAccount($userId, $bankAccountId) {
@@ -132,6 +134,7 @@ class ApiUsers extends ApiBase {
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
+     * 
      * @return \MangoPay\Wallet[] Array with objects returned from API
      */
     public function GetWallets($userId, & $pagination = null, $sorting = null) {
@@ -144,6 +147,7 @@ class ApiUsers extends ApiBase {
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data
+     * 
      * @return \MangoPay\Transaction[] Transactions for user returned from API
      */
     public function GetTransactions($userId, & $pagination = null, $filter = null, $sorting = null) {
@@ -155,6 +159,7 @@ class ApiUsers extends ApiBase {
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
+     * 
      * @return \MangoPay\Card[] Cards for user returned from API
      */
     public function GetCards($userId, & $pagination = null, $sorting = null) {
@@ -176,6 +181,7 @@ class ApiUsers extends ApiBase {
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
+     * 
      * @return array Array with KYC documents entities
      */    
     public function GetKycDocuments($userId, & $pagination = null, $sorting = null) {

@@ -10,6 +10,8 @@ class ApiEvents extends ApiBase {
      * Get events
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterEvents $filter Object to filter data
+     * @param \MangoPay\Sorting $sorting Object to sorting data
+     * 
      * @return \MangoPay\Event[] Events list
      */
     public function GetAll(& $pagination = null, $filter = null, $sorting = null) {
