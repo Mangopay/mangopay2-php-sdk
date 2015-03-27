@@ -6,7 +6,7 @@ try {
     // create object to manage MangoPay API
     $api = new MangoPay\MangoPayApi();
     // use test client credentails (REPLACE IT BY YOUR CLIENT ONES!)
-    $api->Config->ClientID = 'sdk_example';
+    $api->Config->ClientId = 'sdk_example';
     $api->Config->ClientPassword = 'Vfp9eMKSzGkxivCwt15wE082pTTKsx90vBenc9hjLsf5K46ciF';
     
     // GET USERS LIST: GET /users
