@@ -24,8 +24,8 @@ class Events extends Base {
     function test_GetEventList_PayinNormalSucceeded() {
         $payIn = $this->getNewPayInCardDirect();
         $filter = new \MangoPay\FilterEvents();
-        $filter->BeforeDate = $payIn->ExecutionDate;
-        $filter->AfterDate = $payIn->ExecutionDate;
+        $filter->BeforeDate = $payIn->ExecutionDate + 10;
+        $filter->AfterDate = $payIn->CreationDate - 10;
         $filter->EventType = \MangoPay\EventType::PayinNormalSucceeded;
         $pagination = new \MangoPay\Pagination();
 
@@ -38,8 +38,8 @@ class Events extends Base {
     function test_GetEventList_PayoutNormalCreated() {
         $payOut = $this->getJohnsPayOutBankWire();
         $filter = new \MangoPay\FilterEvents();
-        $filter->BeforeDate = $payOut->CreationDate;
-        $filter->AfterDate = $payOut->CreationDate;
+        $filter->BeforeDate = $payOut->CreationDate + 10;
+        $filter->AfterDate = $payOut->CreationDate - 10;
         $filter->EventType = \MangoPay\EventType::PayoutNormalCreated;
         $pagination = new \MangoPay\Pagination();
 
@@ -56,8 +56,8 @@ class Events extends Base {
         $kycDocumentInit->Type = \MangoPay\KycDocumentType::IdentityProof;
         $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
         $filter = new \MangoPay\FilterEvents();
-        $filter->BeforeDate = $kycDocument->CreationDate;
-        $filter->AfterDate = $kycDocument->CreationDate;
+        $filter->BeforeDate = $kycDocument->CreationDate + 10;
+        $filter->AfterDate = $kycDocument->CreationDate - 10;
         $filter->EventType = \MangoPay\EventType::KycCreated;
         $pagination = new \MangoPay\Pagination();
 
@@ -74,8 +74,8 @@ class Events extends Base {
         $payIn2 = $this->getJohnsPayInCardWeb();
         
         $filter = new \MangoPay\FilterEvents();
-        $filter->BeforeDate = $payIn2->CreationDate;
-        $filter->AfterDate = $payIn1->CreationDate;
+        $filter->BeforeDate = $payIn2->CreationDate + 10;
+        $filter->AfterDate = $payIn1->CreationDate - 10;
         $filter->EventType = \MangoPay\EventType::PayinNormalCreated;
         $sorting = new \MangoPay\Sorting();
         $sorting->AddField("Date", \MangoPay\SortDirection::DESC);

@@ -31,7 +31,7 @@ class KycDocuments extends Base {
         $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
         
         $list = $this->_api->KycDocuments->GetAll($pagination, $sorting);
-        
-        $this->assertTrue($list[0]->CreationDate > $list[1]->CreationDate);
+
+        $this->assertTrue($list[0]->Id > $list[1]->Id);
     }
 }
