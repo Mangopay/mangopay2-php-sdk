@@ -18,6 +18,12 @@ abstract class User extends EntityBase {
      * @var String 
      */
     public $Email;
+
+    /**
+     * KYC Level (LIGHT or REGULAR)
+     * @var String 
+     */
+    public $KYCLevel;
     
     /**
      * Construct
