@@ -3,7 +3,7 @@
 namespace MangoPay\Tests;
 
 require_once '../simpletest/autorun.php';
-require_once '../../MangoPaySDK/mangoPayApi.inc';
+require_once '../../MangoPay/Autoloader.php';
 require_once '../mocks/mockStorageStrategy.php';
 
 set_time_limit(0);
@@ -601,8 +601,8 @@ abstract class Base extends \UnitTestCase {
      * but ONLY FOR INPUT PROPERTIES, i.e. properties that are accepted by Create methods:
      * IGNORES SYSTEM PROPERTIES set by the Mango API (Id, CreationDate etc).
      * 
-     * @param \MangoPay\EntityBase $entity1
-     * @param \MangoPay\EntityBase $entity2
+     * @param \MangoPay\Libraries\EntityBase $entity1
+     * @param \MangoPay\Libraries\EntityBase $entity2
      */
     protected function assertIdenticalInputProps($entity1, $entity2) {
 

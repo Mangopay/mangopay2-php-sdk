@@ -16,7 +16,7 @@ class Clients extends Base {
     
     function test_Clients_TryCreateInvalidClient() {
         // invalid id
-        $this->expectException('MangoPay\ResponseException');
+        $this->expectException('MangoPay\Libraries\ResponseException');
         $client = $this->_api->Clients->create("0", "test",  "test@o2.pl");
         $this->assertTrue($client == null);
     }

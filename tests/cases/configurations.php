@@ -11,7 +11,7 @@ class Configurations extends Base {
         $this->_api->Config->ClientId = "test_asd";
         $this->_api->Config->ClientPassword = "00000";        
         
-        $this->expectException('MangoPay\ResponseException');
+        $this->expectException('MangoPay\Libraries\ResponseException');
         $this->_api->Users->GetAll();
      }
 }

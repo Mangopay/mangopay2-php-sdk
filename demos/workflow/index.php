@@ -105,15 +105,15 @@ if (empty($_SESSION["MangoPayDemo"]) && $stepId>2) {
 		}
 		include("scripts/".$steps[$stepId]["file"]); 
 		
-	} catch (MangoPay\ResponseException $e) {
+	} catch (MangoPay\Libraries\ResponseException $e) {
     	$apiError = true;
-	    MangoPay\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
-	    MangoPay\Logs::Debug('Message', $e->GetMessage());
-	    MangoPay\Logs::Debug('Details', $e->GetErrorDetails());
+	    MangoPay\Libraries\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
+	    MangoPay\Libraries\Logs::Debug('Message', $e->GetMessage());
+	    MangoPay\Libraries\Logs::Debug('Details', $e->GetErrorDetails());
 	    
-	} catch (MangoPay\Exception $e) {
+	} catch (MangoPay\Libraries\Exception $e) {
 	    $apiError = true;
-	    MangoPay\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
+	    MangoPay\Libraries\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
 	}
 	?>
 	

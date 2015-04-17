@@ -302,7 +302,7 @@ class Users extends Base {
         foreach ($aKycDocTypes as $kycDoc) {
             try{
                 $this->CreateKycDocument_TestOne($kycDoc[0], $kycDoc[1]);
-            } catch (\MangoPay\Exception $exc){
+            } catch (\MangoPay\Libraries\Exception $exc){
                 
                 $message = 'Error (Code: ' . $exc->getCode() . ', '
                     . $exc->getMessage() . ') '
@@ -349,7 +349,7 @@ class Users extends Base {
             $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
             
             $this->fail('Expected ResponseException when empty file string');
-        } catch (\MangoPay\ResponseException $exc) {
+        } catch (\MangoPay\Libraries\ResponseException $exc) {
 
             $this->assertIdentical($exc->getCode(), 500);            
         }
@@ -365,7 +365,7 @@ class Users extends Base {
             $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
             
             $this->fail('Expected ResponseException when wrong value for file string');
-        } catch (\MangoPay\ResponseException $exc) {
+        } catch (\MangoPay\Libraries\ResponseException $exc) {
             
             $this->assertIdentical($exc->getCode(), 500);            
         }
@@ -472,7 +472,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         
         try{
             $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, '');
-        } catch (\MangoPay\Exception $exc) {
+        } catch (\MangoPay\Libraries\Exception $exc) {
             
             $this->assertIdentical($exc->getMessage(), 'Path of file cannot be empty');
         }
@@ -487,7 +487,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         
         try{
             $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, 'notExistFileName.tmp');
-        } catch (\MangoPay\Exception $exc) {
+        } catch (\MangoPay\Libraries\Exception $exc) {
             
             $this->assertIdentical($exc->getMessage(), 'File not exist');
         }

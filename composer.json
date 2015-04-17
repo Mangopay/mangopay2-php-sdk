@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "license": "MIT",
     "autoload": {
-        "classmap": ["MangoPaySDK/mangoPayApi.inc"],
-        "files": ["MangoPaySDK/common/common.inc"]
+        "psr-4": { "MangoPay\\": "" },
+        "files": ["MangoPay/Autoloader.php"]
     }
 }

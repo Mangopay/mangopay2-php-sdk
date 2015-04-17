@@ -6,7 +6,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Create natural user' => 'UserNatural_Users_Create',
         'Create legal user' => 'UserLegal_Users_Create',
         'Get user' => 'User_Users_Get',
-        'Get all users' => 'User_Users_All',
+        'Get all users' => 'User_Users_All___$Sort',
         'Save natural user' => 'UserNatural_Users_Save',
         'Save legal user' => 'UserLegal_Users_Save',
         'Save legal user' => 'UserLegal_Users_Save',
@@ -67,7 +67,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'List cards for user' => 'User_Users_ListSubEntity_GetCards__$Sort',
     ),
     'Event' => array(
-        'List events' => 'Event_Events_All__FilterEvents',
+        'List events' => 'Event_Events_All__FilterEvents__$Sort',
     ),
     'Hooks' => array(
         'Create hook' => 'Hook_Hooks_Create',

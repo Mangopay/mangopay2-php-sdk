@@ -15,7 +15,7 @@ class Tokens extends Base {
     }
     
     function test_storeToken() {
-        $token = new \MangoPay\OAuthToken();
+        $token = new \MangoPay\Libraries\OAuthToken();
         $token->access_token = 'access test';
         $token->token_type = 'type test';
         $token->expires_in = 500;

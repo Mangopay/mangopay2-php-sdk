@@ -1,6 +1,6 @@
 <?php
 // require include only one file
-require_once '../MangoPaySDK/mangoPayApi.inc';
+require_once '../MangoPay/Autoloader.php';
 
 try {
     // create object to manage MangoPay API
@@ -13,25 +13,25 @@ try {
     // GET NATURAL USER: GET /users/natural/4991600
     $naturalUserResult = $api->Users->GetNatural(4991600);
     // display result on screen
-    MangoPay\Logs::Debug('READ NATURAL USER', $naturalUserResult);
+    MangoPay\Libraries\Logs::Debug('READ NATURAL USER', $naturalUserResult);
     
     // GET LEGAL USER: GET /users/legal/4991601
     $legalUserResult = $api->Users->GetLegal(4991601);
     // display result on screen
-    MangoPay\Logs::Debug('READ LEGAL USER', $legalUserResult);
+    MangoPay\Libraries\Logs::Debug('READ LEGAL USER', $legalUserResult);
     
     // GET NATURAL USER GET /users/4991600
     $userResult = $api->Users->Get(4991600);
     // display result on screen
-    MangoPay\Logs::Debug('READ USER', $userResult);
+    MangoPay\Libraries\Logs::Debug('READ USER', $userResult);
     
-} catch (MangoPay\ResponseException $e) {
+} catch (MangoPay\Libraries\ResponseException $e) {
     
-    MangoPay\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
-    MangoPay\Logs::Debug('Message', $e->GetMessage());
-    MangoPay\Logs::Debug('Details', $e->GetErrorDetails());
+    MangoPay\Libraries\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
+    MangoPay\Libraries\Logs::Debug('Message', $e->GetMessage());
+    MangoPay\Libraries\Logs::Debug('Details', $e->GetErrorDetails());
     
-} catch (MangoPay\Exception $e) {
+} catch (MangoPay\Libraries\Exception $e) {
     
-    MangoPay\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
+    MangoPay\Libraries\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
 }

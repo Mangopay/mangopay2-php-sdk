@@ -197,7 +197,12 @@ class HtmlHelper {
         
         echo '<tr><td>';
         echo 'Sort:</td><td>';
-        echo '<input type="text" name="_sort_" value="' . $value . '"/></td></tr>';
+        echo '<input type="text" name="_sort_" value="' . $value . '" style="width:176px;"/>';
+        
+        echo '&nbsp;<select name="_sort_direction_" style="width:70px;">';
+        echo '<option value="' . \MangoPay\SortDirection::ASC . '">' .  strtoupper(\MangoPay\SortDirection::ASC) . '</option>';
+        echo '<option value="' . \MangoPay\SortDirection::DESC . '">' . strtoupper(\MangoPay\SortDirection::DESC) . '</option>';
+        echo '</select></td></tr>';
     }
     
     public static function getEntity($entityName, $entityId = 0, $returnNullIfNoPropertyTouched = false, $prefix = '') {

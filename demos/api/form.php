@@ -1,6 +1,7 @@
 <?php
 namespace MangoPay\Demo;
-require_once '../../MangoPaySDK/mangoPayApi.inc';
+//require_once '../../MangoPaySDK/mangoPayApi.inc';
+require_once '../../MangoPay/Autoloader.php';
 require_once 'htmlHelper.php';
 require_once 'config.php';
 
@@ -31,9 +32,12 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
         $module = @$_GET['module'];
         if (isset($module) && strpos($module, '$Sort') !== false) {
             if (isset($_POST["_sort_"]) && !empty($_POST["_sort_"])){
-                $sortFields = explode(":", $_POST["_sort_"]);
-                $sortFieldName = @$sortFields[0];
-                $sortDirection = @$sortFields[1];
+                $sortFieldName = $_POST["_sort_"];
+                $sortDirection = $_POST["_sort_direction_"];
+                if (!isset($sortDirection)) {
+                    $sortDirection = \MangoPay\SortDirection::ASC;
+                }
+                
                 $sorting = new \MangoPay\Sorting();
                 $sorting->AddField($sortFieldName, $sortDirection);
             }
@@ -68,9 +72,9 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                     $apiResult = $api->$subApiName->GetAll($pagination);
 
                 print '<pre>';print_r($pagination);print '</pre>';
-                if (isset($sorting))
-                    print '<pre>Sort: ';print_r($_POST["_sort_"]);print '</pre>';
-                    
+                if (isset($sorting)) {
+                    print '<pre>Sort: ';print_r($sorting);print '</pre>';
+                }
                 break;
             case 'CreateSubEntity':
                 $entity = HtmlHelper::getEntity($subEntityName);
@@ -119,7 +123,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
         
         print '<pre>';print_r($apiResult);print '</pre>';
 
-    } catch (\MangoPay\ResponseException $e) {
+    } catch (\MangoPay\Libraries\ResponseException $e) {
         
         echo '<div style="color: red;">\MangoPay\ResponseException: Code: ' . $e->getCode();
         echo '<br/>Message: ' . $e->getMessage();
@@ -129,7 +133,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
             echo '<br/><br/>Details: '; print_r($details);
         echo '</div>';
 
-    } catch (\MangoPay\Exception $e) {
+    } catch (\MangoPay\Libraries\Exception $e) {
         
         echo '<div style="color: red;">\MangoPay\Exception: ' . $e->getMessage() . '</div>';
         

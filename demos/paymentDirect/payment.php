@@ -3,7 +3,7 @@
 session_start();
 
 // include MangoPay SDK
-require_once '../../MangoPaySDK/mangoPayApi.inc';
+require_once '../../MangoPay/Autoloader.php';
 require_once 'config.php';
 
 // check if payment has been initialized
@@ -77,7 +77,7 @@ try {
                 .'</div>';
     }
 
-} catch (\MangoPay\ResponseException $e) {
+} catch (\MangoPay\Libraries\ResponseException $e) {
     
     print '<div style="color: red;">'
                 .'\MangoPay\ResponseException: Code: ' 

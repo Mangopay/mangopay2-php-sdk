@@ -10,10 +10,13 @@ SDK has been written in PHP 5.5 and has no dependencies on external packages.
 You only have to ensure that curl and openssl extensions (that are part of
 standard PHP distribution) are enabled in your PHP installation.
 
-The installation is as easy as downloading the package and storing it
+The project attempts to comply with PSR-4 specification for autoloading classes from file paths. 
+As a namespace prefix is 'MangoPay\' with base directory '{your-installation-dir}/'.
+
+But if not using PSR-4 the installation is as easy as downloading the package and storing it
 under any location that will be available for including by
 
-    require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
+    require_once '{your-installation-dir}/MangoPay/Autoloader.php';
 
 in your project (see examples below).
 
@@ -56,7 +59,7 @@ Report bugs or suggest features using
 Client creation example (you need to call it only once)
 -------------------------------------------------
 
-    require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
+    require_once '{your-installation-dir}/MangoPay/Autoloader.php';
     $api = new MangoPay\MangoPayApi();
 
     $client = $api->Clients->Create(
@@ -83,7 +86,7 @@ It could be `/tmp/` or `/var/tmp/` or any other location that PHP can write to.
 `$api->Config->BaseUrl` is set to sandbox environment by default. To enable production
 environment, set it to `https://api.mangopay.com`.
 
-    require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
+    require_once '{your-installation-dir}/MangoPay/Autoloader.php';
     $api = new MangoPay\MangoPayApi();
 
     // configuration
@@ -99,7 +102,7 @@ environment, set it to `https://api.mangopay.com`.
 Sample usage
 -------------------------------------------------
 
-    require_once '{your-installation-dir}/MangoPaySDK/mangoPayApi.inc';
+    require_once '{your-installation-dir}/MangoPay/Autoloader.php';
     $api = new MangoPay\MangoPayApi();
 
     // configuration
