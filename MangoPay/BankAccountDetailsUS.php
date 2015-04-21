@@ -17,4 +17,10 @@ class BankAccountDetailsUS extends Libraries\Dto implements BankAccountDetails {
      * @var string 
      */
     public $ABA;
+    
+    /**
+     * DepositAccountType { CHECKING, SAVINGS }
+     * @var string 
+     */
+    public $DepositAccountType;
 }
