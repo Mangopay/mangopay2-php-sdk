@@ -3,6 +3,11 @@
     "description": "SDK PHP for Mangopay api V2",
     "minimum-stability": "stable",
     "license": "MIT",
+    "require": {
+        "php": ">=5.5.0",
+        "ext-curl": "*",
+        "ext-openssl": "*"
+    },    
     "autoload": {
         "psr-4": { "MangoPay\\": "" },
         "files": ["MangoPay/Autoloader.php"]
