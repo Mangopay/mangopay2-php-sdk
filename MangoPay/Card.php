@@ -13,6 +13,12 @@ class Card extends Libraries\EntityBase {
     public $ExpirationDate;
     
     /**
+     * Alias
+     * @var string 
+     */
+    public $Alias;
+    
+    /**
      * CardProvider
      * @var string 
      */
