@@ -1,7 +1,7 @@
-MangoPay SDK
+Mangopay SDK
 =================================================
-MangoPaySDK is a PHP client library to work with
-[MangoPay REST API](http://docs.mangopay.com/api-references/).
+MangopaySDK is a PHP client library to work with
+[Mangopay REST API](http://docs.mangopay.com/api-references/).
 
 
 Installation
@@ -22,10 +22,10 @@ in your project (see examples below).
 
 Installation with Composer
 -------------------------------------------------
-You can use MangoPay SDK library as a dependency in your project with Composer. A composer.json file is available in the repository and it has been referenced on packagist. 
+You can use Mangopay SDK library as a dependency in your project with Composer. A composer.json file is available in the repository and it has been referenced on packagist. 
 
 The installation with Composer is easy, reliable : 
-Step 1 - Add the MangoPay SDK as a dependency in your composer.json file as follow :
+Step 1 - Add the Mangopay SDK as a dependency in your composer.json file as follow :
 
     "require": {
         ...
@@ -40,7 +40,7 @@ The Library has been added into your dependencies and ready to be used.
 
 License
 -------------------------------------------------
-MangoPaySDK is distributed under MIT license, see LICENSE file.
+MangopaySDK is distributed under MIT license, see LICENSE file.
 
 
 Unit Tests
@@ -53,7 +53,7 @@ You can also use any of /tests/cases/*.php to run a single test case.
 Contacts
 -------------------------------------------------
 Report bugs or suggest features using
-[issue tracker at GitHub](https://github.com/MangoPay/mangopay2-php-sdk).
+[issue tracker at GitHub](https://github.com/Mangopay/mangopay2-php-sdk).
 
 
 Client creation example (you need to call it only once)
@@ -75,7 +75,7 @@ Client creation example (you need to call it only once)
 Configuration
 -------------------------------------------------
 See the example above and call `$api->Clients->Create` once to get your passphrase.
-Then set `$api->Config->ClientId` to your MangoPay Client ID and 
+Then set `$api->Config->ClientId` to your Mangopay Client ID and 
 `$api->Config->ClientPassword` to your passphrase.
 
 You also need to set a folder path in `$api->Config->TemporaryFolder` that SDK needs 
@@ -126,9 +126,9 @@ Sample usage
     $accounts = $api->Users->GetBankAccounts($john->Id, $pagination);
 
 
-Sample usage of MangoPay SDK installed with Composer in a Symfony project
+Sample usage of Mangopay SDK installed with Composer in a Symfony project
 -------------------------------------------------
-You can integrate MangoPay features in a Service in your Symfony project. 
+You can integrate Mangopay features in a Service in your Symfony project. 
 
 MangoPayService.php : 
 
@@ -154,8 +154,8 @@ MangoPayService.php :
         }
         
         /**
-         * Create MangoPay User
-         * @return MangoPayUser $mangoUser
+         * Create Mangopay User
+         * @return MangopPayUser $mangoUser
          */
         public function getMangoUser()
         {
