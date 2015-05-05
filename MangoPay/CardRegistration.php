@@ -13,6 +13,12 @@ class CardRegistration extends Libraries\EntityBase {
     public $UserId;
     
     /**
+     * CardType
+     * @var string
+     */
+    public $CardType;
+    
+    /**
      * Access key
      * @var string 
      */
