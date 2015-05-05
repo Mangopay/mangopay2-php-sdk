@@ -236,11 +236,10 @@ abstract class Base extends \UnitTestCase {
 
             // payment type as CARD
             $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
-            $payIn->PaymentDetails->CardType = $card->CardType;
+            $payIn->PaymentDetails->CardId = $card->Id;
 
             // execution type as DIRECT
             $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-            $payIn->ExecutionDetails->CardId = $card->Id;
             $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
             // create Pay-In
             $this->_api->PayIns->Create($payIn);
@@ -355,10 +354,6 @@ abstract class Base extends \UnitTestCase {
         // payment type as CARD
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $payIn->PaymentDetails->CardId = $card->Id;
-        if ($card->CardType == 'CB' || $card->CardType == 'VISA' || $card->CardType == 'MASTERCARD')
-            $payIn->PaymentDetails->CardType = 'CB_VISA_MASTERCARD';
-        elseif ($card->CardType == 'AMEX')
-            $payIn->PaymentDetails->CardType = 'AMEX';
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
