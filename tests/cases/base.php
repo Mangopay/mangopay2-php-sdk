@@ -170,8 +170,8 @@ abstract class Base extends \UnitTestCase {
             $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
             $account->OwnerAddress = $john->Address;
             $account->Details = new \MangoPay\BankAccountDetailsIBAN();
-            $account->Details->IBAN = 'FR76 1790 6000 3200 0833 5232 973';
-            $account->Details->BIC = 'BINAADADXXX';
+            $account->Details->IBAN = 'FR7618829754160173622224154';
+            $account->Details->BIC = 'CMBRFR2BCME';
             self::$JohnsAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
         }
         return self::$JohnsAccount;
