@@ -4,12 +4,17 @@ namespace MangoPay;
 /**
  * Class to management MangoPay API for users
  */
+/**
+ * Class ApiUsers
+ * @package MangoPay
+ */
 class ApiUsers extends Libraries\ApiBase {
     
     /**
      * Create a new user
      * @param UserLegal/UserNatural $user
      * @return UserLegal/UserNatural User object returned from API
+     * @throws Libraries\Exception If occur Wrong entity class for user
      */
     public function Create($user) {
         
@@ -45,8 +50,8 @@ class ApiUsers extends Libraries\ApiBase {
     
     /**
      * Get natural or legal user by ID
-     * @param Int/GUID $userId User identifier
-     * @return UserLegal/UserNatural User object returned from API
+     * @param Int|GUID $userId User identifier
+     * @return UserLegal | UserNatural User object returned from API
      */
     public function Get($userId) {
         
@@ -56,8 +61,8 @@ class ApiUsers extends Libraries\ApiBase {
     
     /**
      * Get natural user by ID
-     * @param Int/GUID $userId User identifier
-     * @return UserLegal/UserNatural User object returned from API
+     * @param Int|GUID $userId User identifier
+     * @return UserLegal|UserNatural User object returned from API
      */
     public function GetNatural($userId) {
         
@@ -67,8 +72,8 @@ class ApiUsers extends Libraries\ApiBase {
     
     /**
      * Get legal user by ID
-     * @param Int/GUID $userId User identifier
-     * @return UserLegal/UserNatural User object returned from API
+     * @param Int|GUID $userId User identifier
+     * @return UserLegal|UserNatural User object returned from API
      */
     public function GetLegal($userId) {
         
@@ -78,8 +83,9 @@ class ApiUsers extends Libraries\ApiBase {
     
     /**
      * Save user
-     * @param UserLegal/UserNatural $user
-     * @return UserLegal/UserNatural User object returned from API
+     * @param UserLegal|UserNatural $user
+     * @return UserLegal|UserNatural User object returned from API
+     * @throws Libraries\Exception If occur Wrong entity class for user
      */
     public function Update($user) {
         
@@ -211,7 +217,9 @@ class ApiUsers extends Libraries\ApiBase {
     /**
      * Create page for Kyc document
      * @param int $userId User Id
-     * @param \MangoPay\KycPage $page Kyc
+     * @param int $kycDocumentId KYC Document Id
+     * @param \MangoPay\KycPage $kycPage KYC Page
+     * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPage($userId, $kycDocumentId, $kycPage) {
         
@@ -226,7 +234,9 @@ class ApiUsers extends Libraries\ApiBase {
     /**
      * Create page for Kyc document from file
      * @param int $userId User Id
-     * @param \MangoPay\KycPage $page Kyc
+     * @param int $kycDocumentId KYC Document Id
+     * @param string $file File path
+     * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPageFromFile($userId, $kycDocumentId, $file) {
         
@@ -253,7 +263,7 @@ class ApiUsers extends Libraries\ApiBase {
     /**
      * Get correct user object
      * @param object $response Response from API
-     * @return UserLegal/UserNatural User object returned from API
+     * @return UserLegal|UserNatural User object returned from API
      * @throws \MangoPay\Libraries\Exception If occur unexpected response from API 
      */
     private function GetUserResponse($response) {
