@@ -7,6 +7,7 @@ require_once 'config.php';
 // sample data to demo
 $_SESSION['amount'] = 3300;
 $_SESSION['currency'] = 'EUR';
+$_SESSION['cardType'] = 'CB_VISA_MASTERCARD';//or alternatively MAESTRO or DINERS
 
 // create instance of MangoPayApi SDK
 $mangoPayApi = new \MangoPay\MangoPayApi();
@@ -31,6 +32,7 @@ $createdUser = $mangoPayApi->Users->Create($user);
 $cardRegister = new \MangoPay\CardRegistration();
 $cardRegister->UserId = $createdUser->Id;
 $cardRegister->Currency = $_SESSION['currency'];
+$cardRegister->CardType = $_SESSION['cardType'];
 $createdCardRegister = $mangoPayApi->CardRegistrations->Create($cardRegister);
 $_SESSION['cardRegisterId'] = $createdCardRegister->Id;
 
