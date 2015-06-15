@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Event entity
  */
-class Event extends Libraries\Dto {
-    
+class Event extends Libraries\Dto
+{
     /**
      * Resource ID
      * @var string
@@ -14,13 +14,13 @@ class Event extends Libraries\Dto {
     
     /**
      * Event type
-     * @var \MangoPay\EventType 
+     * @var \MangoPay\EventType
      */
     public $EventType;
         
     /**
      * Date of event
-     * @var Date 
+     * @var Date
      */
     public $Date;
 }

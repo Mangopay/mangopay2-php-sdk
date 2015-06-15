@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Transfer entity
  */
-class Transfer extends Transaction {
-    
+class Transfer extends Transaction
+{
     /**
      * Debited wallet Id
      * @var int
@@ -14,7 +14,7 @@ class Transfer extends Transaction {
     
     /**
      * Credited wallet Id
-     * @var int  
+     * @var int
      */
     public $CreditedWalletId;
 }

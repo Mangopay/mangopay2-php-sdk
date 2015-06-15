@@ -5,8 +5,8 @@ namespace MangoPay;
 /**
  * Class represents pagination information
  */
-class Pagination extends Libraries\Dto {
-    
+class Pagination extends Libraries\Dto
+{
     /**
      * Page number
      * @var Int
@@ -32,7 +32,7 @@ class Pagination extends Libraries\Dto {
     public $TotalItems;
     
     /**
-     * Array with links to navigation. 
+     * Array with links to navigation.
      * All values optional. Format:
      * array(
      *      first => http url
@@ -40,7 +40,7 @@ class Pagination extends Libraries\Dto {
      *      next => http url
      *      last => http url
      * )
-     * @var array 
+     * @var array
      */
     public $Links = array();
     
@@ -49,7 +49,8 @@ class Pagination extends Libraries\Dto {
      * @param int $page Number of page
      * @param int $itemsPerPage Number of items on one page
      */
-    function __construct($page = 1, $itemsPerPage = 10) {
+    public function __construct($page = 1, $itemsPerPage = 10)
+    {
         $this->Page = $page;
         $this->ItemsPerPage = $itemsPerPage;
     }

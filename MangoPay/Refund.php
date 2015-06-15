@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Refund entity
  */
-class Refund extends Transaction {
-    
+class Refund extends Transaction
+{
     /**
      * Initial transaction Id
      * @var string
@@ -37,15 +37,15 @@ class Refund extends Transaction {
     public $RefundReason;
     
     /**
-     * Get array with mapping which property is object and what type of object 
-     * 
+     * Get array with mapping which property is object and what type of object
+     *
      * @return array
      */
-    public function GetSubObjects() {
-        
+    public function GetSubObjects()
+    {
         $subObjects = parent::GetSubObjects();
         $subObjects['RefundReason'] = '\MangoPay\RefundReasonDetails';
         
         return $subObjects;
-    }    
+    }
 }

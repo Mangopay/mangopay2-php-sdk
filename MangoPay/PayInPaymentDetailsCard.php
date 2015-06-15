@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Class represents Card type for mean of payment in PayIn entity
  */
-class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetails {
-
+class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetails
+{
     /**
      * CardType { CB_VISA_MASTERCARD, AMEX }
      * @var string
@@ -14,7 +14,7 @@ class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetai
     
     /**
      * CardId
-     * @var string 
+     * @var string
      */
     public $CardId;
 }

@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Card entity
  */
-class Card extends Libraries\EntityBase {
-    
+class Card extends Libraries\EntityBase
+{
     /**
      * Expiration date
      * @var string
@@ -14,55 +14,55 @@ class Card extends Libraries\EntityBase {
     
     /**
      * Alias
-     * @var string 
+     * @var string
      */
     public $Alias;
     
     /**
      * CardProvider
-     * @var string 
+     * @var string
      */
     public $CardProvider;
     
     /**
      * UserId
-     * @var string 
+     * @var string
      */
     public $UserId;
     
     /**
      * Card type
-     * @var string 
+     * @var string
      */
     public $CardType;
     
     /**
      * Product
-     * @var string 
+     * @var string
      */
     public $Product ;
     
     /**
      * Bank code
-     * @var string 
+     * @var string
      */
     public $BankCode;
     
     /**
      * Active
-     * @var bool 
+     * @var bool
      */
     public $Active;
     
     /**
      * Currency
-     * @var string 
+     * @var string
      */
     public $Currency;
     
     /**
      * Validity
-     * @var \MangoPay\CardValidity 
+     * @var \MangoPay\CardValidity
      */
     public $Validity;
 }

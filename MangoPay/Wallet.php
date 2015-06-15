@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Wallet entity
  */
-class Wallet extends Libraries\EntityBase {
-    
+class Wallet extends Libraries\EntityBase
+{
     /**
      * Array with owners identities
      * @var array
@@ -14,13 +14,13 @@ class Wallet extends Libraries\EntityBase {
     
     /**
      * Wallet description
-     * @var string 
+     * @var string
      */
     public $Description;
     
     /**
      * Money in wallet
-     * @var Money 
+     * @var Money
      */
     public $Balance;
     
@@ -31,10 +31,11 @@ class Wallet extends Libraries\EntityBase {
     public $Currency;
     
     /**
-     * Get array with mapping which property is object and what type of object 
+     * Get array with mapping which property is object and what type of object
      * @return array
      */
-    public function GetSubObjects() {
+    public function GetSubObjects()
+    {
         return array( 'Balance' => '\MangoPay\Money' );
     }
     
@@ -42,9 +43,10 @@ class Wallet extends Libraries\EntityBase {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         $properties = parent::GetReadOnlyProperties();
-        array_push( $properties, 'Balance' );
+        array_push($properties, 'Balance');
         
         return $properties;
     }

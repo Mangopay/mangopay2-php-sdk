@@ -4,8 +4,8 @@ namespace MangoPay\Libraries;
 /**
  * Class to management MangoPay API for users
  */
-class ApiClients extends ApiBase {
-   
+class ApiClients extends ApiBase
+{
     /**
      * Get client data for Basic Access Authentication
      * @param string $clientId Client identifier
@@ -13,8 +13,8 @@ class ApiClients extends ApiBase {
      * @param string $clientEmail Client's email
      * @return \MangoPay\Client Client object
      */
-    public function Create($clientId, $clientName, $clientEmail) {
-
+    public function Create($clientId, $clientName, $clientEmail)
+    {
         $urlMethod = $this->GetRequestUrl('authentication_base');
         $requestType = $this->GetRequestType('authentication_base');
         $requestData = array(

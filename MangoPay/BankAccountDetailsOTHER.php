@@ -4,18 +4,18 @@ namespace MangoPay;
 /**
  * Class represents OTHER bank account type for in BankAccount entity
  */
-class BankAccountDetailsOTHER extends Libraries\Dto implements BankAccountDetails {
-    
+class BankAccountDetailsOTHER extends Libraries\Dto implements BankAccountDetails
+{
     /**
-     * Type  
+     * Type
      * @var string
      */
     public $Type;
     
     /**
-     * The Country associate to the BankAccount, 
+     * The Country associate to the BankAccount,
      * ISO 3166-1 alpha-2 format is expected
-     * @var string 
+     * @var string
      */
     public $Country;
     
@@ -26,8 +26,8 @@ class BankAccountDetailsOTHER extends Libraries\Dto implements BankAccountDetail
     public $BIC;
     
     /**
-     * Account number 
-     * @var string 
+     * Account number
+     * @var string
      */
     public $AccountNumber;
 }

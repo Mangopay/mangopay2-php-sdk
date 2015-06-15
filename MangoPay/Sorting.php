@@ -1,11 +1,11 @@
 <?php
 namespace MangoPay;
 
- /**
+/**
  * Base sorting object
  */
-class Sorting {
-    
+class Sorting
+{
     /**
      * Fields separator in sort parameters in URL
      */
@@ -27,24 +27,29 @@ class Sorting {
      * @param string $filedName Property name to sort
      * @param \MangoPay\SortDirection $sortDirection Sort direction
      */
-    public function AddField($filedName, $sortDirection) {
+    public function AddField($filedName, $sortDirection)
+    {
         $this->_sortFields[$filedName] = $sortDirection;
     }
-    public function AddFiled($filedName, $sortDirection) {//for backward comptability from before typo fix
+    public function AddFiled($filedName, $sortDirection)
+    {
+        //for backward comptability from before typo fix
         $this->AddField($filedName, $sortDirection);
     }
     /**
      * Get sort parametrs to URL
-     * @return array 
+     * @return array
      */
-    public function GetSortParameter() {
+    public function GetSortParameter()
+    {
         return array(self::SortUrlParameterName => $this->_getFields());
     }
     
-    private function _getFields() {
+    private function _getFields()
+    {
         $sortValues = "";
         foreach ($this->_sortFields as $key => $value) {
-            if (!empty($sortValues)){
+            if (!empty($sortValues)) {
                 $sortValues .= self::SortFieldSeparator;
             }
             

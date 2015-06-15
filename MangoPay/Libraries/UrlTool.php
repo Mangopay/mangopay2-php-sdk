@@ -1,8 +1,8 @@
 <?php
 namespace MangoPay\Libraries;
 
-class UrlTool {
-
+class UrlTool
+{
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance
      * @var \MangoPay\MangoPayApi
@@ -13,24 +13,27 @@ class UrlTool {
      * Constructor
      * @param \MangoPay\MangoPayApi Root/parent instance that holds the OAuthToken and Configuration instance
      */
-    function __construct($root) {
+    public function __construct($root)
+    {
         $this->_root = $root;
     }
     
-    private function GetHost(){
-        
-        if (is_null($this->_root->Config->BaseUrl) || strlen($this->_root->Config->BaseUrl) == 0)
-            throw new Exception ('Neither MangoPay_BaseUrl constant nor BaseUrl config setting is defined.');
+    private function GetHost()
+    {
+        if (is_null($this->_root->Config->BaseUrl) || strlen($this->_root->Config->BaseUrl) == 0) {
+            throw new Exception('Neither MangoPay_BaseUrl constant nor BaseUrl config setting is defined.');
+        }
         
         $baseUrl = $this->_root->Config->BaseUrl;
-        if (strpos($baseUrl, '/', strlen($baseUrl) - 1 ))
-             $baseUrl = substr ($baseUrl, 0, strlen($baseUrl) - 1);  
+        if (strpos($baseUrl, '/', strlen($baseUrl) - 1)) {
+            $baseUrl = substr($baseUrl, 0, strlen($baseUrl) - 1);
+        }
         
         return $baseUrl;
     }
     
-    public function GetRestUrl($urlKey, $addClientId = true, $pagination = null, $additionalUrlParams = null) {
-
+    public function GetRestUrl($urlKey, $addClientId = true, $pagination = null, $additionalUrlParams = null)
+    {
         if (!$addClientId) {
             $url = '/v2' . $urlKey;
         } else {
@@ -44,7 +47,6 @@ class UrlTool {
         }
 
         if (!is_null($additionalUrlParams)) {
-            
             if (array_key_exists("sort", $additionalUrlParams)) {
                 $url .= $paramsAdded ? '&' : '?';
                 $url .= http_build_query($additionalUrlParams["sort"]);
@@ -61,7 +63,8 @@ class UrlTool {
         return $url;
     }
     
-    public function GetFullUrl($restUrl) {
+    public function GetFullUrl($restUrl)
+    {
         return $this->GetHost() . $restUrl;
-    } 
+    }
 }

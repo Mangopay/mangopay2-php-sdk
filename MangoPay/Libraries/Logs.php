@@ -4,10 +4,10 @@ namespace MangoPay\Libraries;
 /**
  * Class to manage debug logs in MangoPay SDK
  */
-class Logs {
-    
-    public static function Debug($message, $data){
-        
+class Logs
+{
+    public static function Debug($message, $data)
+    {
         print '<pre>';
         print $message . ': ';
         print_r($data);

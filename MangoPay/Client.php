@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Client entity
  */
-class Client extends Libraries\EntityBase {
-    
+class Client extends Libraries\EntityBase
+{
     /**
      * Client identifier
      * @var String
@@ -14,19 +14,19 @@ class Client extends Libraries\EntityBase {
     
     /**
      * Name of client
-     * @var String 
+     * @var String
      */
     public $Name;
     
     /**
      * Email of client
-     * @var String 
+     * @var String
      */
     public $Email;
     
     /**
      * Password for client
-     * @var String 
+     * @var String
      */
     public $Passphrase;
 }

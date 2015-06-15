@@ -4,8 +4,8 @@ namespace MangoPay\Libraries;
 /**
  * Response exception class
  */
-class ResponseException extends Exception {
-    
+class ResponseException extends Exception
+{
     /**
      * Array with response code and corresponding response message
      * @var array
@@ -26,7 +26,7 @@ class ResponseException extends Exception {
     
     /**
      * Error details
-     * @var Error 
+     * @var Error
      */
     private $_errorInfo;
     
@@ -41,8 +41,8 @@ class ResponseException extends Exception {
      * @param int $code Response code
      * @param Error $errorInfo Details with the error
      */
-    function __construct($requestUrl, $code, $errorInfo = null) {
-        
+    public function __construct($requestUrl, $code, $errorInfo = null)
+    {
         $this->RequestUrl = $requestUrl;
         $this->_code = $code;
         
@@ -64,7 +64,8 @@ class ResponseException extends Exception {
      * Get Error object returned by REST API
      * @return Error
      */
-    public function GetErrorDetails(){
+    public function GetErrorDetails()
+    {
         return $this->_errorInfo;
     }
 }

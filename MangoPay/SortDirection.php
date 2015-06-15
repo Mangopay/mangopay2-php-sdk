@@ -1,7 +1,8 @@
 <?php
 namespace MangoPay;
 
-class SortDirection {
+class SortDirection
+{
     const DESC = 'desc';
     const ASC = 'asc';
 }
