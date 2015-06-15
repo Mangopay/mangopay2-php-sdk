@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * CardRegistration entity
  */
-class CardRegistration extends Libraries\EntityBase {
-    
+class CardRegistration extends Libraries\EntityBase
+{
     /**
      * User Id
      * @var string
@@ -20,55 +20,55 @@ class CardRegistration extends Libraries\EntityBase {
     
     /**
      * Access key
-     * @var string 
+     * @var string
      */
     public $AccessKey;
         
     /**
      * Preregistration data
-     * @var string 
+     * @var string
      */
     public $PreregistrationData;
         
     /**
      * Card registration URL
-     * @var string 
+     * @var string
      */
     public $CardRegistrationURL;
         
     /**
      * Card Id
-     * @var string 
+     * @var string
      */
     public $CardId;
         
     /**
      * Card registration data
-     * @var string 
+     * @var string
      */
     public $RegistrationData;
         
     /**
      * The result code of the object
-     * @var string 
+     * @var string
      */
     public $ResultCode;
     
     /**
      * The message explaning the result code
-     * @var string 
+     * @var string
      */
     public $ResultMessage;
         
     /**
      * Currency
-     * @var string 
+     * @var string
      */
     public $Currency;
         
     /**
      * Status
-     * @var string 
+     * @var string
      */
     public $Status;
         
@@ -76,15 +76,16 @@ class CardRegistration extends Libraries\EntityBase {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         $properties = parent::GetReadOnlyProperties();
-        array_push( $properties, 'AccessKey' );
-        array_push( $properties, 'PreregistrationData' );
-        array_push( $properties, 'CardRegistrationURL' );
-        array_push( $properties, 'CardId' );
-        array_push( $properties, 'ResultCode' );
-        array_push( $properties, 'ResultMessage' );
-        array_push( $properties, 'Status' );
+        array_push($properties, 'AccessKey');
+        array_push($properties, 'PreregistrationData');
+        array_push($properties, 'CardRegistrationURL');
+        array_push($properties, 'CardId');
+        array_push($properties, 'ResultCode');
+        array_push($properties, 'ResultMessage');
+        array_push($properties, 'Status');
         return $properties;
     }
 }

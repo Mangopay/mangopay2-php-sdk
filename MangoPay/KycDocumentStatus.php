@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * KYC document statuses
  */
-class KycDocumentStatus{
+class KycDocumentStatus
+{
     const Created = 'CREATED';
     const ValidationAsked = 'VALIDATION_ASKED';
     const Validated = 'VALIDATED';

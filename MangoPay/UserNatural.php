@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * UserNatural entity
  */
-class UserNatural extends User {
-    
+class UserNatural extends User
+{
     /**
      * First name for user
      * @var String
@@ -14,62 +14,63 @@ class UserNatural extends User {
     
      /**
      * Last name for user
-     * @var String 
+     * @var String
      */
     public $LastName;
     
      /**
      * Address for user
-     * @var String 
+     * @var String
      */
     public $Address;
     
      /**
      * Date of birth
-     * @var Unix timestamp 
+     * @var Unix timestamp
      */
     public $Birthday;
     
      /**
      * User's country
-     * @var String 
+     * @var String
      */
     public $Nationality;
     
      /**
      * Country of residence
-     * @var String 
+     * @var String
      */
     public $CountryOfResidence;
     
     /**
      * User's occupation
-     * @var String 
+     * @var String
      */
     public $Occupation;
     
     /**
-     * 
-     * @var Int 
+     *
+     * @var Int
      */
     public $IncomeRange;
     
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $ProofOfIdentity;
     
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $ProofOfAddress;
     
     /**
      * Construct
      */
-    function __construct($id = null) {
+    public function __construct($id = null)
+    {
         parent::__construct($id);
         $this->SetPersonType(PersonType::Natural);
     }
@@ -78,10 +79,11 @@ class UserNatural extends User {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         $properties = parent::GetReadOnlyProperties();
-        array_push( $properties, 'ProofOfIdentity' );
-        array_push( $properties, 'ProofOfAddress' );
+        array_push($properties, 'ProofOfIdentity');
+        array_push($properties, 'ProofOfAddress');
         
         return $properties;
     }

@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Class represents Web type for execution option in PayIn entity
  */
-class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutionDetails {
-    
+class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutionDetails
+{
     /**
      * SecureMode { DEFAULT, FORCE }
      * @var string
@@ -14,19 +14,19 @@ class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutio
     
     /**
      * SecureModeReturnURL
-     * @var string 
+     * @var string
      */
     public $SecureModeReturnURL;
     
     /**
      * SecureModeRedirectURL
-     * @var string 
+     * @var string
      */
     public $SecureModeRedirectURL;
-	
-	 /**
+    
+     /**
      * SecureModeNeeded
-     * @var string 
+     * @var string
      */
     public $SecureModeNeeded;
 }

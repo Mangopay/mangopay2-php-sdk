@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Hooks and Notifications entity
  */
-class Hook extends Libraries\EntityBase {
-    
+class Hook extends Libraries\EntityBase
+{
     /**
      * This is the URL where your receive notification for each EventType
      * @var string
@@ -14,19 +14,19 @@ class Hook extends Libraries\EntityBase {
         
     /**
      * Status: ENABLED, DISABLED
-     * @var string 
+     * @var string
      */
     public $Status;
     
     /**
      * Validity: VALID, INVALID
-     * @var string 
+     * @var string
      */
     public $Validity;
     
     /**
      * EventType
-     * @var EventType 
+     * @var EventType
      */
     public $EventType;
 }

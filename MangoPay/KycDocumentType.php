@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * KYC document types
  */
-class KycDocumentType {
+class KycDocumentType
+{
     const IdentityProof = 'IDENTITY_PROOF';
     const RegistrationProof = 'REGISTRATION_PROOF';
     const ArticlesOfAssociation = 'ARTICLES_OF_ASSOCIATION';

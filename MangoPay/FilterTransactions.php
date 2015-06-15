@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Filter for transaction list
  */
-class FilterTransactions extends FilterBase {
-    
+class FilterTransactions extends FilterBase
+{
     /**
      * TransactionStatus {CREATED, SUCCEEDED, FAILED}
      * @var string
@@ -14,7 +14,7 @@ class FilterTransactions extends FilterBase {
     
     /**
      * TransactionType {PAYIN, PAYOUT, TRANSFER}
-     * @var string 
+     * @var string
      */
     public $Type;
     
@@ -26,7 +26,7 @@ class FilterTransactions extends FilterBase {
     
     /**
      * TransactionDirection {DEBIT, CREDIT}
-     * @var string 
+     * @var string
      */
     public $Direction;
 }

@@ -4,7 +4,8 @@ namespace MangoPay\Libraries;
 /**
  * Request type enum
  */
-class RequestType {
+class RequestType
+{
     const GET = 'GET';
     const POST = 'POST';
     const PUT = 'PUT';

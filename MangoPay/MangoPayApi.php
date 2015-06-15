@@ -6,8 +6,8 @@ namespace MangoPay;
  * Provides managers to connect, send and read data from MangoPay API
  * as well as holds configuration/authorization data.
  */
-class MangoPayApi {
-    
+class MangoPayApi
+{
     /////////////////////////////////////////////////
     // Config/authorization related props
     /////////////////////////////////////////////////
@@ -36,13 +36,13 @@ class MangoPayApi {
 
     /**
      * Clients methods
-     * @var Client 
+     * @var Client
      */
     public $Clients;
     
     /**
      * Users methods
-     * @var ApiUsers 
+     * @var ApiUsers
      */
     public $Users;
     
@@ -60,62 +60,63 @@ class MangoPayApi {
     
     /**
      * Pay-in methods
-     * @var ApiPayIns 
+     * @var ApiPayIns
      */
     public $PayIns;
     
     /**
      * Pay-out methods
-     * @var ApiPayOuts 
+     * @var ApiPayOuts
      */
     public $PayOuts;
         
     /**
      * Refund methods
-     * @var ApiRefunds 
+     * @var ApiRefunds
      */
     public $Refunds;
         
     /**
      * Card registration methods
-     * @var ApiCardRegistrations 
+     * @var ApiCardRegistrations
      */
-    public $CardRegistrations; 
+    public $CardRegistrations;
         
     /**
      * Pre-authorization methods
-     * @var ApiCardPreAuthorization 
+     * @var ApiCardPreAuthorization
      */
     public $CardPreAuthorizations;
         
     /**
      * Card methods
-     * @var ApiCards 
+     * @var ApiCards
      */
     public $Cards;
     
     /**
      * Events methods
-     * @var ApiEvents 
+     * @var ApiEvents
      */
     public $Events;
     
     /**
      * Hooks methods
-     * @var ApiHooks 
+     * @var ApiHooks
      */
     public $Hooks;
     
     /**
      * Kyc documents list
-     * @var ApiKycDocuments 
+     * @var ApiKycDocuments
      */
     public $KycDocuments;
 
     /**
      * Constructor
      */
-    function __construct() {
+    public function __construct()
+    {
 
         // default config setup
         $this->Config = new Libraries\Configuration();

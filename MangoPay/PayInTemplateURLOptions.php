@@ -4,12 +4,12 @@ namespace MangoPay;
 /**
  * Class represents template URL options
  */
-class PayInTemplateURLOptions extends Libraries\Dto  {
-    
+class PayInTemplateURLOptions extends Libraries\Dto
+{
     /**
      * PAYLINE options
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $PAYLINE;
 }

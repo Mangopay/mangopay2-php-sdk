@@ -4,13 +4,14 @@ namespace MangoPay\Libraries;
 /**
  * Authentication manager
  */
-class ApiOAuth extends ApiBase {
-    
+class ApiOAuth extends ApiBase
+{
     /**
      * Get token information to OAuth Authentication
      * @return \MangoPay\Libraries\OAuthToken OAuthToken object with token information
      */
-    public function CreateToken() {
+    public function CreateToken()
+    {
         $urlMethod = $this->GetRequestUrl('authentication_oauth');
         $requestType = $this->GetRequestType('authentication_oauth');
         $requestData = array(

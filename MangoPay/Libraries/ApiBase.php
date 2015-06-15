@@ -4,8 +4,8 @@ namespace MangoPay\Libraries;
 /**
  * Base class for MangoPay API managers
  */
-abstract class ApiBase {
-    
+abstract class ApiBase
+{
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance
      * @var \MangoPay\MangoPayApi
@@ -14,7 +14,7 @@ abstract class ApiBase {
     
     /**
      * Array with REST url and request type
-     * @var array 
+     * @var array
      */
     private $_methods = array(
         'authentication_base' => array( '/api/clients/', RequestType::POST ),
@@ -89,7 +89,7 @@ abstract class ApiBase {
         'kyc_page_create' => array( '/users/%s/KYC/documents/%s/pages', RequestType::POST ),
         'kyc_documents_all' => array( '/KYC/documents', RequestType::GET ),
         
-        // These are temporary functions and WILL be removed in the future. 
+        // These are temporary functions and WILL be removed in the future.
         // Please, contact with support before using these features or if you have any questions.
         'temp_paymentcards_create' => array( '/temp/paymentcards', RequestType::POST ),
         'temp_paymentcards_get' => array( '/temp/paymentcards/%s', RequestType::GET ),
@@ -100,25 +100,28 @@ abstract class ApiBase {
      * Constructor
      * @param \MangoPay\MangoPayApi Root/parent instance that holds the OAuthToken and Configuration instance
      */
-    function __construct($root) {
+    public function __construct($root)
+    {
         $this->_root = $root;
     }
     
     /**
      * Get URL for REST Mango Pay API
      * @param string $key Key with data
-     * @return string 
+     * @return string
      */
-    protected function GetRequestUrl($key){
+    protected function GetRequestUrl($key)
+    {
         return $this->_methods[$key][0];
     }
     
     /**
      * Get request type for REST Mango Pay API
      * @param string $key Key with data
-     * @return RequestType 
+     * @return RequestType
      */
-    protected function GetRequestType($key){
+    protected function GetRequestType($key)
+    {
         return $this->_methods[$key][1];
     }
     
@@ -130,24 +133,27 @@ abstract class ApiBase {
      * @param int $entityId Entity identifier
      * @return object Response data
      */
-    protected function CreateObject($methodKey, $entity, $responseClassName = null, $entityId = null, $subEntityId = null) {
-
-        if (is_null($entityId))
+    protected function CreateObject($methodKey, $entity, $responseClassName = null, $entityId = null, $subEntityId = null)
+    {
+        if (is_null($entityId)) {
             $urlMethod = $this->GetRequestUrl($methodKey);
-        elseif (is_null($subEntityId))
+        } elseif (is_null($subEntityId)) {
             $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
-        else
+        } else {
             $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $subEntityId);
+        }
         
         $requestData = null;
-        if (!is_null($entity))
+        if (!is_null($entity)) {
             $requestData = $this->BuildRequestData($entity);
+        }
 
         $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
         
-        if (!is_null($responseClassName))
+        if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
+        }
         
         return $response;
     }
@@ -160,15 +166,16 @@ abstract class ApiBase {
      * @param int $secondEntityId Entity identifier for second entity
      * @return object Response data
      */
-    protected function GetObject($methodKey, $entityId, $responseClassName = null, $secondEntityId = null) {
-        
+    protected function GetObject($methodKey, $entityId, $responseClassName = null, $secondEntityId = null)
+    {
         $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId);
         
         $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
         
-        if (!is_null($responseClassName))
+        if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
+        }
         
         return $response;
     }
@@ -182,8 +189,8 @@ abstract class ApiBase {
      * @param object $filter Object to filter data
      * @return object Response data
      */
-    protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null) {
-        
+    protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null)
+    {
         $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
         
         if (is_null($pagination) || !is_object($pagination) || get_class($pagination) != 'MangoPay\Pagination') {
@@ -192,19 +199,22 @@ abstract class ApiBase {
         
         $rest = new RestTool(true, $this->_root);
         $additionalUrlParams = array();
-        if (!is_null($filter))
+        if (!is_null($filter)) {
             $additionalUrlParams["filter"] = $filter;
-        if (!is_null($sorting)){
-            if (!is_a($sorting, "\MangoPay\Sorting"))
+        }
+        if (!is_null($sorting)) {
+            if (!is_a($sorting, "\MangoPay\Sorting")) {
                 throw new Exception('Wrong type of sorting object');
+            }
             
             $additionalUrlParams["sort"] = $sorting->GetSortParameter();
         }
         
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), null, $pagination, $additionalUrlParams);
         
-        if (!is_null($responseClassName))
+        if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
+        }
         
         return $response;
     }
@@ -216,20 +226,22 @@ abstract class ApiBase {
      * @param object $responseClassName Name of entity class from response
      * @return object Response data
      */
-    protected function SaveObject($methodKey, $entity, $responseClassName = null, $secondEntityId = null) {
-        
-        if (is_null($secondEntityId))
+    protected function SaveObject($methodKey, $entity, $responseClassName = null, $secondEntityId = null)
+    {
+        if (is_null($secondEntityId)) {
             $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entity->Id);
-        else
+        } else {
             $urlMethod = sprintf($this->GetRequestUrl($methodKey), $secondEntityId, $entity->Id);
+        }
 
         $requestData = $this->BuildRequestData($entity);
         
         $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
         
-        if (!is_null($responseClassName))
+        if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
+        }
         
         return $response;
     }
@@ -243,7 +255,6 @@ abstract class ApiBase {
     protected function CastResponseToEntity($response, $entityClassName, $asDependentObject = false)
     {
         if (is_array($response)) {
-            
             $list = array();
             foreach ($response as $responseObject) {
                 array_push($list, $this->CastResponseToEntity($responseObject, $entityClassName));
@@ -266,23 +277,22 @@ abstract class ApiBase {
         $dependsObjects = $entity->GetDependsObjects();
 
         foreach ($responseProperties as $responseProperty) {
-            
             $responseProperty->setAccessible(true);
             
             $name = $responseProperty->getName();
             $value = $responseProperty->getValue($response);
             
             if ($entityReflection->hasProperty($name)) {
-                
                 $entityProperty = $entityReflection->getProperty($name);
                 $entityProperty->setAccessible(true);
                 
                 // is sub object?
                 if (isset($subObjects[$name])) {
-                    if (is_null($value))
+                    if (is_null($value)) {
                         $object = null;
-                    else
+                    } else {
                         $object = $this->CastResponseToEntity($value, $subObjects[$name]);
+                    }
                     
                     $entityProperty->setValue($entity, $object);
                 } else {
@@ -299,13 +309,12 @@ abstract class ApiBase {
             } else {
                 if ($asDependentObject || !empty($dependsObjects)) {
                     continue;
+                } else {
+                    /* UNCOMMENT THE LINE BELOW TO ENABLE RESTRICTIVE REFLECTION MODE */
+                    //throw new Exception('Cannot cast response to entity object. Missing property ' . $name .' in entity ' . $entityClassName);
+                    
+                    continue;
                 }
-                else {
-					/* UNCOMMENT THE LINE BELOW TO ENABLE RESTRICTIVE REFLECTION MODE */
-					//throw new Exception('Cannot cast response to entity object. Missing property ' . $name .' in entity ' . $entityClassName);
-					
-					continue;
-				}
             }
         }
         
@@ -315,17 +324,17 @@ abstract class ApiBase {
     /**
      * Get array with request data
      * @param object $entity Entity object to send as request data
-     * @return array 
+     * @return array
      */
-    protected function BuildRequestData($entity) {
-        
+    protected function BuildRequestData($entity)
+    {
         $entityProperties = get_object_vars($entity);
         $blackList = $entity->GetReadOnlyProperties();
         $requestData = array();
         foreach ($entityProperties as $propertyName => $propertyValue) {
-            
-            if (in_array($propertyName, $blackList))
+            if (in_array($propertyName, $blackList)) {
                 continue;
+            }
         
             if ($this->CanReadSubRequestData($entity, $propertyName)) {
                 $subRequestData = $this->BuildRequestData($propertyValue);
@@ -333,16 +342,18 @@ abstract class ApiBase {
                     $requestData[$key] = $value;
                 }
             } else {
-                if (isset($propertyValue))
+                if (isset($propertyValue)) {
                     $requestData[$propertyName] = $propertyValue;
+                }
             }
         }
         
         return $requestData;
     }
     
-    private function CanReadSubRequestData($entity, $propertyName) {
-        if (get_class($entity) == 'MangoPay\PayIn' && 
+    private function CanReadSubRequestData($entity, $propertyName)
+    {
+        if (get_class($entity) == 'MangoPay\PayIn' &&
                     ($propertyName == 'PaymentDetails' || $propertyName == 'ExecutionDetails')) {
             return true;
         }
@@ -351,7 +362,7 @@ abstract class ApiBase {
             return true;
         }
         
-        if (get_class($entity) == 'MangoPay\BankAccount' && $propertyName == 'Details' ) {
+        if (get_class($entity) == 'MangoPay\BankAccount' && $propertyName == 'Details') {
             return true;
         }
         

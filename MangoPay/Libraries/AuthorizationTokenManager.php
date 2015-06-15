@@ -4,15 +4,16 @@ namespace MangoPay\Libraries;
 /**
 * Authorization token manager
 */
-class AuthorizationTokenManager extends ApiBase {
-
+class AuthorizationTokenManager extends ApiBase
+{
     /**
      * Storage object
      * @var \MangoPay\IStorageStrategy
      */
     private $_storageStrategy;
     
-    function __construct($root) {
+    public function __construct($root)
+    {
         $this->_root = $root;
 
         $this->RegisterCustomStorageStrategy(new DefaultStorageStrategy($this->_root->Config));
@@ -24,7 +25,8 @@ class AuthorizationTokenManager extends ApiBase {
      * If currently stored token is expired, this method creates a new one.
      * @return \MangoPay\Libraries\OAuthToken Valid OAuthToken instance.
      */
-    public function GetToken() {
+    public function GetToken()
+    {
         $token = $this->_storageStrategy->get();
         
         if (is_null($token) || $token->IsExpired()) {
@@ -39,18 +41,20 @@ class AuthorizationTokenManager extends ApiBase {
      * storage strategy implementation.
      * @param \MangoPay\Libraries\OAuthToken $token Token instance to be stored.
      */
-    public function StoreToken($token) {
+    public function StoreToken($token)
+    {
         $this->_storageStrategy->Store($token);
     }
     
     /**
      * Registers custom storage strategy implementation.
-     * By default, the DefaultStorageStrategy instance is used. 
-     * There is no need to explicitly call this method until some more complex 
+     * By default, the DefaultStorageStrategy instance is used.
+     * There is no need to explicitly call this method until some more complex
      * storage implementation is needed.
      * @param \MangoPay\IStorageStrategy $customStorageStrategy IStorageStrategy interface implementation.
      */
-    public function RegisterCustomStorageStrategy($customStorageStrategy) {
+    public function RegisterCustomStorageStrategy($customStorageStrategy)
+    {
         $this->_storageStrategy = $customStorageStrategy;
     }
 }

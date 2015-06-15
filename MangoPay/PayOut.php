@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * PayOut entity
  */
-class PayOut extends Transaction {
-    
+class PayOut extends Transaction
+{
     /**
      * Debited wallet Id
      * @var int
@@ -14,22 +14,23 @@ class PayOut extends Transaction {
     
     /**
      * PaymentType (BANK_WIRE, MERCHANT_EXPENSE, AMAZON_GIFTCARD)
-     * @var string  
+     * @var string
      */
     public $PaymentType;
     
     /**
      * One of PayOutPaymentDetails implementations, depending on $PaymentType
-     * @var object 
+     * @var object
      */
     public $MeanOfPaymentDetails;
     
     
     /**
-     * Get array with mapping which property depends on other property  
+     * Get array with mapping which property depends on other property
      * @return array
      */
-    public function GetDependsObjects() {
+    public function GetDependsObjects()
+    {
         return array(
             'PaymentType' => array(
                 '_property_name' => 'MeanOfPaymentDetails',
@@ -43,9 +44,10 @@ class PayOut extends Transaction {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         $properties = parent::GetReadOnlyProperties();
-        array_push( $properties, 'PaymentType' );
+        array_push($properties, 'PaymentType');
         
         return $properties;
     }
