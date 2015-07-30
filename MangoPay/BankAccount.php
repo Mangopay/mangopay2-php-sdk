@@ -26,7 +26,7 @@ class BankAccount extends Libraries\EntityBase {
     
     /**
      * Owner address
-     * @var string 
+     * @var Address 
      */
     public $OwnerAddress;
     
@@ -35,6 +35,18 @@ class BankAccount extends Libraries\EntityBase {
      * @var object 
      */
     public $Details;
+    
+    /**
+     * Get array with mapping which property is object and what type of object 
+     * @return array
+     */
+    public function GetSubObjects() {
+        $subObjects = parent::GetSubObjects();
+        
+        $subObjects['OwnerAddress'] = '\MangoPay\Address';
+        
+        return $subObjects;
+    }
     
     /**
      * Get array with mapping which property depends on other property  

@@ -20,7 +20,7 @@ class UserLegal extends User {
     
     /**
      * 
-     * @var String 
+     * @var Address 
      */
     public $HeadquartersAddress;
     
@@ -38,7 +38,7 @@ class UserLegal extends User {
     
     /**
      * 
-     * @var String 
+     * @var Address 
      */
     public $LegalRepresentativeAddress;
     
@@ -96,6 +96,19 @@ class UserLegal extends User {
     function __construct($id = null) {
         parent::__construct($id);
         $this->SetPersonType(PersonType::Legal);
+    }
+    
+    /**
+     * Get array with mapping which property is object and what type of object 
+     * @return array
+     */
+    public function GetSubObjects() {
+        $subObjects = parent::GetSubObjects();
+        
+        $subObjects['HeadquartersAddress'] = '\MangoPay\Address';
+        $subObjects['LegalRepresentativeAddress'] = '\MangoPay\Address';
+        
+        return $subObjects;
     }
     
     /**

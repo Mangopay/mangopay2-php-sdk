@@ -95,6 +95,23 @@ abstract class Base extends \UnitTestCase {
 
         return $api;
     }
+    
+    /**
+     * Creates new address
+     * @return \MangoPay\Address
+     */
+    protected function getNewAddress() {
+        $result = new \MangoPay\Address();
+        
+        $result->AddressLine1 = 'Address line 1';
+        $result->AddressLine2 = 'Address line 2';
+        $result->City = 'City';
+        $result->Country = 'FR';
+        $result->PostalCode = '11222';
+        $result->Region = 'Region';
+        
+        return $result;
+    }
 
     /**
      * Creates self::$John (test natural user) if not created yet
@@ -106,7 +123,7 @@ abstract class Base extends \UnitTestCase {
             $user->FirstName = "John";
             $user->LastName = "Doe";
             $user->Email = "john.doe@sample.org";
-            $user->Address = "Some Address";
+            $user->Address = $this->getNewAddress();
             $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
             $user->Nationality = "FR";
             $user->CountryOfResidence = "FR";
@@ -126,7 +143,7 @@ abstract class Base extends \UnitTestCase {
         $user->FirstName = "John";
         $user->LastName = "Doe";
         $user->Email = "john.doe@sample.org";
-        $user->Address = "Some Address";
+        $user->Address = $this->getNewAddress();
         $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
         $user->Nationality = "FR";
         $user->CountryOfResidence = "FR";
@@ -146,7 +163,7 @@ abstract class Base extends \UnitTestCase {
             $user->Name = "MartixSampleOrg";
             $user->Email = "mail@test.com";
             $user->LegalPersonType = "BUSINESS";
-            $user->HeadquartersAddress = "Some Address";
+            $user->HeadquartersAddress = $this->getNewAddress();
             $user->LegalRepresentativeFirstName = $john->FirstName;
             $user->LegalRepresentativeLastName = $john->LastName;
             $user->LegalRepresentativeAddress = $john->Address;
@@ -607,7 +624,14 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->FirstName, $entity2->FirstName);
             $this->assertIdentical($entity1->LastName, $entity2->LastName);
             $this->assertIdentical($entity1->Email, $entity2->Email);
-            $this->assertIdentical($entity1->Address, $entity2->Address);
+            $this->assertNotNull($entity1->Address);
+            $this->assertNotNull($entity2->Address);
+            $this->assertEqual($entity1->Address->AddressLine1, $entity1->Address->AddressLine1);
+            $this->assertEqual($entity1->Address->AddressLine2, $entity1->Address->AddressLine2);
+            $this->assertEqual($entity1->Address->City, $entity1->Address->City);
+            $this->assertEqual($entity1->Address->Country, $entity1->Address->Country);
+            $this->assertEqual($entity1->Address->PostalCode, $entity1->Address->PostalCode);
+            $this->assertEqual($entity1->Address->Region, $entity1->Address->Region);
             $this->assertIdentical($entity1->Birthday, $entity2->Birthday);
             $this->assertIdentical($entity1->Nationality, $entity2->Nationality);
             $this->assertIdentical($entity1->CountryOfResidence, $entity2->CountryOfResidence);
@@ -617,10 +641,29 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->Tag, $entity2->Tag);
             $this->assertIdentical($entity1->PersonType, $entity2->PersonType);
             $this->assertIdentical($entity1->Name, $entity2->Name);
-            $this->assertIdentical($entity1->HeadquartersAddress, $entity2->HeadquartersAddress);
+            $this->assertNotNull($entity1->HeadquartersAddress);
+            $this->assertNotNull($entity2->HeadquartersAddress);
+            $this->assertEqual($entity1->HeadquartersAddress->AddressLine1, $entity1->HeadquartersAddress->AddressLine1);
+            $this->assertEqual($entity1->HeadquartersAddress->AddressLine2, $entity1->HeadquartersAddress->AddressLine2);
+            $this->assertEqual($entity1->HeadquartersAddress->City, $entity1->HeadquartersAddress->City);
+            $this->assertEqual($entity1->HeadquartersAddress->Country, $entity1->HeadquartersAddress->Country);
+            $this->assertEqual($entity1->HeadquartersAddress->PostalCode, $entity1->HeadquartersAddress->PostalCode);
+            $this->assertEqual($entity1->HeadquartersAddress->Region, $entity1->HeadquartersAddress->Region);
             $this->assertIdentical($entity1->LegalRepresentativeFirstName, $entity2->LegalRepresentativeFirstName);
             $this->assertIdentical($entity1->LegalRepresentativeLastName, $entity2->LegalRepresentativeLastName);
+            
+
             //$this->assertIdentical($entity1->LegalRepresentativeAddress, $entity2->LegalRepresentativeAddress, "***** TEMPORARY API ISSUE: RETURNED OBJECT MISSES THIS PROP AFTER CREATION *****");
+            $this->assertNotNull($entity1->LegalRepresentativeAddress);
+            $this->assertNotNull($entity2->LegalRepresentativeAddress);
+            $this->assertEqual($entity1->LegalRepresentativeAddress->AddressLine1, $entity1->LegalRepresentativeAddress->AddressLine1);
+            $this->assertEqual($entity1->LegalRepresentativeAddress->AddressLine2, $entity1->LegalRepresentativeAddress->AddressLine2);
+            $this->assertEqual($entity1->LegalRepresentativeAddress->City, $entity1->LegalRepresentativeAddress->City);
+            $this->assertEqual($entity1->LegalRepresentativeAddress->Country, $entity1->LegalRepresentativeAddress->Country);
+            $this->assertEqual($entity1->LegalRepresentativeAddress->PostalCode, $entity1->LegalRepresentativeAddress->PostalCode);
+            $this->assertEqual($entity1->LegalRepresentativeAddress->Region, $entity1->LegalRepresentativeAddress->Region);
+            
+            
             $this->assertIdentical($entity1->LegalRepresentativeEmail, $entity2->LegalRepresentativeEmail);
             $this->assertIdentical($entity1->LegalRepresentativeBirthday, $entity2->LegalRepresentativeBirthday, "***** TEMPORARY API ISSUE: RETURNED OBJECT HAS THIS PROP CHANGED FROM TIMESTAMP INTO ISO STRING AFTER CREATION *****");
             $this->assertIdentical($entity1->LegalRepresentativeNationality, $entity2->LegalRepresentativeNationality);
@@ -630,7 +673,14 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->UserId, $entity2->UserId);
             $this->assertIdentical($entity1->Type, $entity2->Type);
             $this->assertIdentical($entity1->OwnerName, $entity2->OwnerName);
-            $this->assertIdentical($entity1->OwnerAddress, $entity2->OwnerAddress);
+            $this->assertNotNull($entity1->OwnerAddress);
+            $this->assertNotNull($entity2->OwnerAddress);
+            $this->assertEqual($entity1->OwnerAddress->AddressLine1, $entity1->OwnerAddress->AddressLine1);
+            $this->assertEqual($entity1->OwnerAddress->AddressLine2, $entity1->OwnerAddress->AddressLine2);
+            $this->assertEqual($entity1->OwnerAddress->City, $entity1->OwnerAddress->City);
+            $this->assertEqual($entity1->OwnerAddress->Country, $entity1->OwnerAddress->Country);
+            $this->assertEqual($entity1->OwnerAddress->PostalCode, $entity1->OwnerAddress->PostalCode);
+            $this->assertEqual($entity1->OwnerAddress->Region, $entity1->OwnerAddress->Region);
             if ($entity1->Type == 'IBAN') {
                 $this->assertIdentical($entity1->Details->IBAN, $entity2->Details->IBAN);
                 $this->assertIdentical($entity1->Details->BIC, $entity2->Details->BIC);

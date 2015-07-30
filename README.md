@@ -4,6 +4,11 @@ MangopaySDK is a PHP client library to work with
 [Mangopay REST API](http://docs.mangopay.com/api-references/).
 
 
+Compatibility Note
+-------------------------------------------------
+Since v2.1 of this SDK, you must be using at least v2.01 of the API ([more information about the changes required](https://docs.mangopay.com/api-v2-01-overview/))
+
+
 Installation
 -------------------------------------------------
 SDK has been written in PHP 5.5 and has no dependencies on external packages.

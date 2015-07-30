@@ -32,9 +32,9 @@ class UrlTool {
     public function GetRestUrl($urlKey, $addClientId = true, $pagination = null, $additionalUrlParams = null) {
 
         if (!$addClientId) {
-            $url = '/v2' . $urlKey;
+            $url = '/v2.01' . $urlKey;
         } else {
-            $url = '/v2/' . $this->_root->Config->ClientId . $urlKey;
+            $url = '/v2.01/' . $this->_root->Config->ClientId . $urlKey;
         }
 
         $paramsAdded = false;

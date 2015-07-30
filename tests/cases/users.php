@@ -30,12 +30,25 @@ class Users extends Base {
 
     function test_Users_CreateLegal_PassesIfRequiredPropsProvided() {
         $user = new \MangoPay\UserLegal();
+        $user->HeadquartersAddress = new \MangoPay\Address();
+        $user->HeadquartersAddress->AddressLine1 = 'AddressLine1';
+        $user->HeadquartersAddress->AddressLine2 = 'AddressLine2';
+        $user->HeadquartersAddress->City = 'City';
+        $user->HeadquartersAddress->Country = 'FR';
+        $user->HeadquartersAddress->PostalCode = '11222';
+        $user->HeadquartersAddress->Region = 'Region';
         $user->Name = "SomeOtherSampleOrg";
         $user->Email = "mail@test.com";
         $user->LegalPersonType = "BUSINESS";
         $user->LegalRepresentativeFirstName = "FirstName";
         $user->LegalRepresentativeLastName = "LastName";
-        $user->LegalRepresentativeAddress = "Address";
+        $user->LegalRepresentativeAddress = new \MangoPay\Address();
+        $user->LegalRepresentativeAddress->AddressLine1 = 'AddressLine1';
+        $user->LegalRepresentativeAddress->AddressLine2 = 'AddressLine2';
+        $user->LegalRepresentativeAddress->City = 'City';
+        $user->LegalRepresentativeAddress->Country = 'FR';
+        $user->LegalRepresentativeAddress->PostalCode = '11222';
+        $user->LegalRepresentativeAddress->Region = 'Region';
         $user->LegalRepresentativeBirthday = mktime(0, 0, 0, 12, 21, 1975);
         $user->LegalRepresentativeNationality = "FR";
         $user->LegalRepresentativeCountryOfResidence = "FR";
