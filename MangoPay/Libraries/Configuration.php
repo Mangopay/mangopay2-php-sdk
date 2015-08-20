@@ -46,5 +46,5 @@ class Configuration {
     /**
      * Set the logging class if DebugMode is enabled
      */
-    public $LogClass = 'MangoPay\Logs';
+    public $LogClass = 'MangoPay\Libraries\Logs';
 }
