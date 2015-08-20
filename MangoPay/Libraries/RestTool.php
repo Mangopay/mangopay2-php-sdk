@@ -92,7 +92,7 @@ class RestTool {
         
         $logClass = $this->_root->Config->LogClass;
         if ($this->_root->Config->DebugMode)
-            $logClass::Debug('++++++++++++++++++++++ New reguest ++++++++++++++++++++++', '');
+            $logClass::Debug('++++++++++++++++++++++ New request ++++++++++++++++++++++', '');
         
         $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams);
         $responseResult = $this->RunRequest();
