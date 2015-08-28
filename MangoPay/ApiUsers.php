@@ -187,11 +187,12 @@ class ApiUsers extends Libraries\ApiBase {
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
+	 * @param \MangoPay\FilterKycDocuments $filter Object to filter data
      * 
      * @return array Array with KYC documents entities
      */    
-    public function GetKycDocuments($userId, & $pagination = null, $sorting = null) {
-        return $this->GetList('users_allkycdocuments', $pagination, 'MangoPay\KycDocument', $userId, null, $sorting);
+    public function GetKycDocuments($userId, & $pagination = null, $sorting = null, $filter = null) {
+        return $this->GetList('users_allkycdocuments', $pagination, 'MangoPay\KycDocument', $userId, $filter, $sorting);
     }
     
     /**

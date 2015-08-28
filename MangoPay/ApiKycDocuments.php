@@ -10,9 +10,10 @@ class ApiKycDocuments extends Libraries\ApiBase {
      * Get all KYC documents
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
+	 * @param \MangoPay\FilterKycDocuments $filter Object to filter data
      * @return \MangoPay\KycDocument[] Array with objects returned from API
      */
-    public function GetAll(& $pagination = null, $sorting = null) {
-        return $this->GetList('kyc_documents_all', $pagination, '\MangoPay\KycDocument', null, null, $sorting);
+    public function GetAll(& $pagination = null, $sorting = null, $filter = null) {
+        return $this->GetList('kyc_documents_all', $pagination, '\MangoPay\KycDocument', null, $filter, $sorting);
     }
 }
