@@ -88,6 +88,7 @@ abstract class ApiBase {
         'kyc_documents_save' => array( '/users/%s/KYC/documents/%s', RequestType::PUT ),
         'kyc_page_create' => array( '/users/%s/KYC/documents/%s/pages', RequestType::POST ),
         'kyc_documents_all' => array( '/KYC/documents', RequestType::GET ),
+        'kyc_documents_get_alt' => array( '/KYC/documents/%s', RequestType::GET ),
         
         // These are temporary functions and WILL be removed in the future. 
         // Please, contact with support before using these features or if you have any questions.
