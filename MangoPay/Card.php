@@ -49,6 +49,12 @@ class Card extends Libraries\EntityBase {
     public $BankCode;
     
     /**
+     * Country
+     * @var string 
+     */
+    public $Country;
+    
+    /**
      * Active
      * @var bool 
      */
