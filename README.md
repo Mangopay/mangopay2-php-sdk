@@ -4,9 +4,10 @@ MangopaySDK is a PHP client library to work with
 [Mangopay REST API](http://docs.mangopay.com/api-references/).
 
 
-Compatibility Note
+Compatibility Notes
 -------------------------------------------------
-Since v2.1 of this SDK, you must be using at least v2.01 of the API ([more information about the changes required](https://docs.mangopay.com/api-v2-01-overview/))
+* Since v2.1 of this SDK, you must be using at least v2.01 of the API ([more information about the changes required](https://docs.mangopay.com/api-v2-01-overview/))
+* If you experience problems with authentification and/or the temporary token file following an SDK update (particuarly updating to v2.0 of the SDK), you may need to just delete your temporary file (that you specify with $api->Config->TemporaryFolder) - which allows it to be regenerated correctly the next time it's needed
 
 
 Installation
