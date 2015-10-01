@@ -62,27 +62,14 @@ Report bugs or suggest features using
 [issue tracker at GitHub](https://github.com/Mangopay/mangopay2-php-sdk).
 
 
-Client creation example (you need to call it only once)
+Account creation
 -------------------------------------------------
-
-    require_once '{your-installation-dir}/MangoPay/Autoloader.php';
-    $api = new MangoPay\MangoPayApi();
-
-    $client = $api->Clients->Create(
-        'your-client-id', 
-        'your-client-name', 
-        'your-client-email@sample.org'
-    );
-
-    // you receive your password here, note it down and keep in secret
-    print($client->Passphrase);
+You can get yourself a [free sandbox account](https://www.mangopay.com/get-started/create-sandbox/) or sign up for a [production account](https://www.mangopay.com/get-started/submit-your-app/create-credentials/) (note that validation of your production account can take a few days, so think about doing it in advance of when you actually want to go live).
 
 
 Configuration
 -------------------------------------------------
-See the example above and call `$api->Clients->Create` once to get your passphrase.
-Then set `$api->Config->ClientId` to your Mangopay Client ID and 
-`$api->Config->ClientPassword` to your passphrase.
+Using the credential info from the signup process above, you should then set `$api->Config->ClientId` to your Mangopay Client ID and `$api->Config->ClientPassword` to your passphrase.
 
 You also need to set a folder path in `$api->Config->TemporaryFolder` that SDK needs 
 to store temporary files. This path should be outside your www folder.
