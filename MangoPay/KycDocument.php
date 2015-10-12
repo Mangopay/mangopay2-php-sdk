@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * KYC document entity
  */
-class KycDocument extends Libraries\EntityBase {
+class KycDocument extends Libraries\Document {
 
     /**
      * Document type
@@ -17,18 +17,6 @@ class KycDocument extends Libraries\EntityBase {
      * @var \MangoPay\KycDocumentStatus 
      */
     public $Status;
-    
-    /**
-     * Refused reason type
-     * @var type string
-     */
-    public $RefusedReasonType;
-    
-    /**
-     * Refused reason message
-     * @var type string
-     */
-    public $RefusedReasonMessage;
     
     /**
      * User identifier

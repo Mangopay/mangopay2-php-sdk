@@ -68,7 +68,7 @@ class Transaction extends Libraries\EntityBase {
     public $Type;
     
     /**
-     * TransactionNature { REGULAR, REFUND, REPUDIATION }
+     * TransactionNature { REGULAR, REFUND, REPUDIATION, SETTLEMENT }
      * @var string
      */
     public $Nature;

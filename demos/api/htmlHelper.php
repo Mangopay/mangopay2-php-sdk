@@ -23,6 +23,7 @@ class HtmlHelper {
                 self::renderEntity($entityName);
                 break;
             case 'Get':
+            case 'CloseDispute':
                 self::renderId($entityName);
                 break;
             case 'Save':
@@ -66,10 +67,14 @@ class HtmlHelper {
                 self::renderFormRow('<i>Pagination:</i>');
                 self::renderEntity('Pagination');
                 break;
-            case 'CreateKycPageByFile':
+            case 'CreatePageByFile':
                 self::renderId($entityName);
                 self::renderId($subEntityName[1], 'IdSubEntity');
-                self::renderFormRow('<tr><td></td><td><input type="file" name="kyc_page" /></td></tr>');
+                self::renderFormRow('<tr><td></td><td><input type="file" name="page_file" /></td></tr>');
+                break;
+            case 'ContestDispute':
+                self::renderId($entityName, 'IdSubEntity');
+                self::renderEntity($subEntityName[0]);
                 break;
         }
         
@@ -149,6 +154,10 @@ class HtmlHelper {
                 self::renderEnum("\\MangoPay\\KycDocumentStatus", $name, $prefix);
             } elseif ($className == "\\MangoPay\\Card" && $name == "Validity") {
                 self::renderEnum("\\MangoPay\\CardValidity", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\DisputeDocument" && $name == "Type") {
+                self::renderEnum("\\MangoPay\\DisputeDocumentType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\DisputeDocument" && $name == "Status") {
+                self::renderEnum("\\MangoPay\\DisputeDocumentStatus", $name, $prefix);
             }
             else
                 echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/>';
