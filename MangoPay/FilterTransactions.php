@@ -23,10 +23,5 @@ class FilterTransactions extends FilterBase {
      * @var string
      */
     public $Nature;
-    
-    /**
-     * TransactionDirection {DEBIT, CREDIT}
-     * @var string 
-     */
-    public $Direction;
+
 }
