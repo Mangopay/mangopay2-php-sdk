@@ -116,8 +116,16 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                     print '<pre>Sort: ';print_r($_POST["_sort_"]);print '</pre>';
                     
                 break;
-            case 'CreateKycPageByFile':
-                $apiResult = $api->$subApiName->CreateKycPageFromFile($entityId, $subEntityId, $_FILES['kyc_page']);
+            case 'CreatePageByFile':
+                $methodName = 'Create' . $subEntityName . 'FromFile';
+                $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId, $_FILES['page_file']);
+                break;
+            case 'ContestDispute':
+                $entity = HtmlHelper::getEntity($subEntityName);
+                $apiResult = $api->$subApiName->$operation($entityId, $entity);
+                break;
+            case 'CloseDispute':
+                $apiResult = $api->$subApiName->$operation($entityId);
                 break;
         }
         

@@ -20,7 +20,7 @@ class MangoPayApi {
 
     /**
      * Configuration instance
-     * @var \MangoPay\Configuration
+     * @var \MangoPay\Libraries\Configuration
      */
     public $Config;
     
@@ -111,6 +111,18 @@ class MangoPayApi {
      * @var ApiKycDocuments 
      */
     public $KycDocuments;
+    
+    /**
+     * Provides disputes methods
+     * @var ApiDisputes 
+     */
+    public $Disputes;
+    
+    /**
+     * Provides dispute documents methods
+     * @var ApiDisputeDocuments 
+     */
+    public $DisputeDocuments;
 
     /**
      * Constructor
@@ -136,5 +148,7 @@ class MangoPayApi {
         $this->Hooks = new ApiHooks($this);
         $this->CardPreAuthorizations = new ApiCardPreAuthorizations($this);
         $this->KycDocuments = new ApiKycDocuments($this);
+        $this->Disputes = new ApiDisputes($this);
+        $this->DisputeDocuments = new ApiDisputeDocuments($this);
     }
 }

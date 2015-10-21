@@ -90,6 +90,28 @@ abstract class ApiBase {
         'kyc_documents_all' => array( '/KYC/documents', RequestType::GET ),
         'kyc_documents_get_alt' => array( '/KYC/documents/%s', RequestType::GET ),
         
+        'disputes_get' => array( '/disputes/%s', RequestType::GET),
+        'disputes_save_tag' => array( '/disputes/%s', RequestType::PUT),
+        'disputes_save_contest_funds' => array( '/disputes/%s/submit', RequestType::PUT),
+        'dispute_save_close' => array( '/disputes/%s/close', RequestType::PUT),
+        
+        'disputes_get_transactions' => array( '/disputes/%s/transactions', RequestType::GET),
+        
+        'disputes_all' => array( '/disputes', RequestType::GET),
+        'disputes_get_for_wallet' => array( '/wallets/%s/disputes', RequestType::GET),
+        'disputes_get_for_user' => array( '/users/%s/disputes', RequestType::GET),
+        
+        'disputes_document_create' => array( '/disputes/%s/documents', RequestType::POST),
+        'disputes_document_page_create' => array( '/disputes/%s/documents/%s/pages', RequestType::POST),
+        'disputes_document_save' => array( '/disputes/%s/documents/%s', RequestType::PUT),
+        'disputes_document_get' => array( '/dispute-documents/%s', RequestType::GET),
+        'disputes_document_get_for_dispute' => array( '/disputes/%s/documents', RequestType::GET),
+        'disputes_document_all' => array( '/dispute-documents', RequestType::GET),
+        
+        'disputes_repudiation_get' => array( '/repudiations/%s', RequestType::GET),
+        
+        'disputes_repudiation_create_settlement' => array( '/repudiations/%s/settlementtransfer', RequestType::POST),
+        
         // These are temporary functions and WILL be removed in the future. 
         // Please, contact with support before using these features or if you have any questions.
         'temp_paymentcards_create' => array( '/temp/paymentcards', RequestType::POST ),
@@ -181,6 +203,7 @@ abstract class ApiBase {
      * @param object $responseClassName Name of entity class from response
      * @param int $entityId Entity identifier
      * @param object $filter Object to filter data
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return object Response data
      */
     protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null) {
@@ -338,6 +361,9 @@ abstract class ApiBase {
                     $requestData[$propertyName] = $propertyValue;
             }
         }
+        
+        if (count($requestData) == 0)
+            return new \stdClass();
         
         return $requestData;
     }
