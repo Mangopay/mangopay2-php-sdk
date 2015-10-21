@@ -54,6 +54,18 @@ class ApiDisputes extends Libraries\ApiBase {
     }
     
     /**
+     * This method is used to resubmit a Dispute if it is reopened requiring more docs 
+     * @param Int|GUID $disputeId Dispute identifier
+     * @return \MangoPay\Dispute Dispute instance returned from API
+     */
+    public function ResubmitDispute($disputeId)
+    {
+        $dispute = new Dispute();
+        $dispute->Id = $disputeId;
+        return $this->SaveObject('disputes_save_contest_funds', $dispute, '\MangoPay\Dispute');
+    }
+    
+    /**
      * Close dispute
      * @param Int|GUID $disputeId Dispute identifier
      * @return \MangoPay\Dispute Dispute instance returned from API

@@ -162,6 +162,29 @@ class Disputes extends Base {
         $this->assertEqual($result->Status, \MangoPay\DisputeStatus::Submitted);
     }
     
+    function test_Disputes_ResubmitDispute() {
+        if (!$this->canTest()) return;
+        $toTestDispute = null;
+        foreach($this->_clientDisputes as $dispute){
+            if (($dispute->DisputeType == \MangoPay\DisputeType::Contestable
+                    || $dispute->DisputeType == \MangoPay\DisputeType::Retrieval)
+                 && ($dispute->Status == \MangoPay\DisputeStatus::ReopenedPendingClientAction)){
+                $toTestDispute = $dispute;
+                break;
+            }
+        }        
+        if (is_null($toTestDispute)){
+            $this->assertTrue(false, "Cannot test contesting dispute because there's no disputes that can be resubmited in the disputes list.");
+            return;
+        }      
+        
+        $result = $this->_api->Disputes->ResubmitDispute($toTestDispute->Id);
+
+        $this->assertNotNull($result);
+        $this->assertEqual($result->Id, $toTestDispute->Id);
+        $this->assertEqual($result->Status, \MangoPay\DisputeStatus::Submitted);
+    }
+    
     function test_Disputes_Update() {
         if (!$this->canTest()) return;
         $newTag = "New tag " . time();
