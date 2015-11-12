@@ -171,4 +171,12 @@ class MangoPayApi {
     {
         $this->logger = $logger;
     }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
 }

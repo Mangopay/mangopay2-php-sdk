@@ -11,6 +11,14 @@ abstract class ApiBase {
      * @var \MangoPay\MangoPayApi
      */
     protected $_root;
+
+    /**
+     * @return mixed
+     */
+    protected function getLogger()
+    {
+        return $this->_root->getLogger();
+    }
     
     /**
      * Array with REST url and request type
