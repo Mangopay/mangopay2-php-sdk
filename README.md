@@ -46,6 +46,7 @@ Step 2 - Update your dependencies with Composer
 
 The Library has been added into your dependencies and ready to be used.
 
+
 License
 -------------------------------------------------
 MangopaySDK is distributed under MIT license, see LICENSE file.
@@ -174,4 +175,23 @@ class MangoPayService
         return $mangoUser;
     }
 }
+```
+
+
+Logging
+-------
+MangoPay uses the PSR3 LoggerInterface. You can provide your own logger to the API.
+Here is a sample showing Monolog integration :
+
+```php
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
+...
+
+$logger = new Logger('sample-logger');
+$logger->pushHandler(new StreamHandler($logConfig['path'], Logger::DEBUG));
+
+$this->mangoPayApi = new MangoPay\MangoPayApi();
+$this->mangoPayApi->setLogger($logger);
 ```
