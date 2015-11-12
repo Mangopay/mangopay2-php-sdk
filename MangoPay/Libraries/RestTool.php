@@ -1,5 +1,6 @@
 <?php
 namespace MangoPay\Libraries;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class to prepare HTTP request, call the request and decode the response
@@ -47,7 +48,12 @@ class RestTool {
      * @var int 
      */
     private $_responseCode;
-    
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
     /**
      * Pagination object
      * @var MangoPay\Pagination 
@@ -66,6 +72,7 @@ class RestTool {
     function __construct($authRequired = true, $root) {
         $this->_authRequired = $authRequired;
         $this->_root = $root;
+        $this->logger = $root->getLogger();
     }
     
     public function AddRequestHttpHeader($httpHeader) {
@@ -91,13 +98,15 @@ class RestTool {
         $this->_requestData = $requestData;
         
         $logClass = $this->_root->Config->LogClass;
-        if ($this->_root->Config->DebugMode)
+        $this->logger->debug("New request");
+        if ($this->_root->Config->DebugMode) {
             $logClass::Debug('++++++++++++++++++++++ New request ++++++++++++++++++++++', '');
+        }
         
         $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams);
         $responseResult = $this->RunRequest();
         
-        if(!is_null($pagination)){
+        if(!is_null($pagination)) {
             $pagination = $this->_pagination;
         }
         
@@ -112,22 +121,31 @@ class RestTool {
     private function RunRequest() {
         
         $result = curl_exec($this->_curlHandle);
-        if ($result === false && curl_errno($this->_curlHandle) != 0)
+        if ($result === false && curl_errno($this->_curlHandle) != 0) {
+            $this->logger->error("cURL error: " . curl_error($this->_curlHandle));
+
             throw new Exception('cURL error: ' . curl_error($this->_curlHandle));
+        }
         
-        $this->_responseCode = (int)curl_getinfo($this->_curlHandle, CURLINFO_HTTP_CODE);
+        $this->_responseCode = (int) curl_getinfo($this->_curlHandle, CURLINFO_HTTP_CODE);
         
         curl_close($this->_curlHandle);
 
         $logClass = $this->_root->Config->LogClass;
-        if ($this->_root->Config->DebugMode) 
+
+        $this->logger->debug('Response JSON : ' . print_r($result, true));
+        if ($this->_root->Config->DebugMode) {
             $logClass::Debug('Response JSON', $result);
-        
-        $response = json_decode($result); 
-        
-        if ($this->_root->Config->DebugMode) 
+        }
+
+        // FIXME This can fail hard.
+        $response = json_decode($result);
+
+        $this->logger->debug('Decoded object : ' . print_r($response, true));
+        if ($this->_root->Config->DebugMode) {
             $logClass::Debug('Response object', $response);
-        
+        }
+
         $this->CheckResponseCode($response);
         
         return $response;
@@ -145,12 +163,16 @@ class RestTool {
 
         $this->_requestUrl = $urlTool->GetFullUrl($restUrl);
         $logClass = $this->_root->Config->LogClass;
+
+        $this->logger->debug('FullUrl : ' . $this->_requestUrl);
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('FullUrl', $this->_requestUrl);
         }
         
         $this->_curlHandle = curl_init($this->_requestUrl);
         if ($this->_curlHandle === false){
+            $this->logger->error('Cannot initialize cURL session');
+
             throw new Exception('Cannot initialize cURL session');
         }
         
@@ -179,25 +201,37 @@ class RestTool {
                 curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, "DELETE");
                 break;
         }
-        
-        if ($this->_root->Config->DebugMode) 
+
+        $this->logger->debug('RequestType : ' . $this->_requestType);
+        if ($this->_root->Config->DebugMode) {
             $logClass::Debug('RequestType', $this->_requestType);
+        }
 
         $httpHeaders = $this->GetHttpHeaders();
         curl_setopt($this->_curlHandle, CURLOPT_HTTPHEADER, $httpHeaders);
-        if ($this->_root->Config->DebugMode) 
+
+        $this->logger->debug('HTTP Headers : ' . print_r($httpHeaders, true));
+        if ($this->_root->Config->DebugMode) {
             $logClass::Debug('HTTP Headers', $httpHeaders);
+        }
 
         if (!is_null($this->_requestData)) {
 
-            if ($this->_root->Config->DebugMode) 
+            $this->logger->debug('RequestData object :' . print_r($this->_requestData, true));
+            if ($this->_root->Config->DebugMode) {
                 $logClass::Debug('RequestData object', $this->_requestData);
+            }
 
             // encode to json if needed
             if (in_array(self::$_JSON_HEADER, $httpHeaders)) {
+
+                // FIXME This can also fail hard and is not checked.
                 $this->_requestData = json_encode($this->_requestData);
-                if ($this->_root->Config->DebugMode) 
+
+                $this->logger->debug('RequestData JSON :' . print_r($this->_requestData, true));
+                if ($this->_root->Config->DebugMode) {
                     $logClass::Debug('RequestData JSON', $this->_requestData);
+                }
             }
 
             curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $this->_requestData);
@@ -213,6 +247,8 @@ class RestTool {
     private function ReadResponseHeader($handle, $header) {
         
         $logClass = $this->_root->Config->LogClass;
+
+        $this->logger->debug('Response headers :' . $header);
         if ($this->_root->Config->DebugMode) 
             $logClass::Debug('Response headers', $header);
         
