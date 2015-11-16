@@ -74,6 +74,18 @@ class Transaction extends Libraries\EntityBase {
     public $Nature;
     
     /**
+     * Debited wallet Id
+     * @var int
+     */
+    public $DebitedWalletId;
+    
+    /**
+     * Credited wallet Id
+     * @var int  
+     */
+    public $CreditedWalletId;
+    
+    /**
      * Get array with mapping which property is object and what type of object 
      * @return array
      */
