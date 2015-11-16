@@ -36,7 +36,7 @@ Step 1 - Add the Mangopay SDK as a dependency in your composer.json file as foll
 ```json
     "require": {
         ...
-        "mangopay/php-sdk-v2": "1.4.*"
+        "mangopay/php-sdk-v2": "^2.1"
     },
 ```
 
