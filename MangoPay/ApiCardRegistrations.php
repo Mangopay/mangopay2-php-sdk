@@ -11,8 +11,8 @@ class ApiCardRegistrations extends Libraries\ApiBase {
      * @param \MangoPay\CardRegistration $cardRegistration Card registration object to create
      * @return \MangoPay\CardRegistration Card registration object returned from API
      */
-    public function Create($cardRegistration) {
-        return $this->CreateObject('cardregistration_create', $cardRegistration, '\MangoPay\CardRegistration');
+    public function Create($cardRegistration, $idempotencyKey = null) {
+        return $this->CreateObject('cardregistration_create', $cardRegistration, '\MangoPay\CardRegistration', null, null, $idempotencyKey);
     }
     
     /**

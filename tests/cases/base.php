@@ -87,9 +87,17 @@ abstract class Base extends \UnitTestCase {
     protected function buildNewMangoPayApi() {
 
         $api = new \MangoPay\MangoPayApi();
+
         // use test client credentails
         $api->Config->ClientId = 'sdk-unit-tests';
-        $api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
+
+		// sandbox environment:
+		// $api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
+		// $api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
+
+		// test environment:
+		$api->Config->BaseUrl = 'https://api-test.mangopay.com';
+		$api->Config->ClientPassword = '9RMGpwVUwFLK0SurxObJ2yaadDcO0zeKFKxWmthjB93SQjFzy0';
 
         $api->OAuthTokenManager->RegisterCustomStorageStrategy(new \MangoPay\Tests\MockStorageStrategy());
 
@@ -114,21 +122,29 @@ abstract class Base extends \UnitTestCase {
     }
 
     /**
+     * @return \MangoPay\UserNatural
+     */
+    protected function buildJohn() {
+		$user = new \MangoPay\UserNatural();
+		$user->FirstName = "John";
+		$user->LastName = "Doe";
+		$user->Email = "john.doe@sample.org";
+		$user->Address = $this->getNewAddress();
+		$user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+		$user->Nationality = "FR";
+		$user->CountryOfResidence = "FR";
+		$user->Occupation = "programmer";
+		$user->IncomeRange = 3;
+        return $user;
+    }
+
+    /**
      * Creates self::$John (test natural user) if not created yet
      * @return \MangoPay\UserNatural
      */
     protected function getJohn() {
         if (self::$John === null) {
-            $user = new \MangoPay\UserNatural();
-            $user->FirstName = "John";
-            $user->LastName = "Doe";
-            $user->Email = "john.doe@sample.org";
-            $user->Address = $this->getNewAddress();
-            $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
-            $user->Nationality = "FR";
-            $user->CountryOfResidence = "FR";
-            $user->Occupation = "programmer";
-            $user->IncomeRange = 3;
+            $user = $this->buildJohn();
             self::$John = $this->_api->Users->Create($user);
         }
         return self::$John;
@@ -139,16 +155,7 @@ abstract class Base extends \UnitTestCase {
      * @return \MangoPay\UserNatural
      */
     protected function getNewJohn() {
-        $user = new \MangoPay\UserNatural();
-        $user->FirstName = "John";
-        $user->LastName = "Doe";
-        $user->Email = "john.doe@sample.org";
-        $user->Address = $this->getNewAddress();
-        $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
-        $user->Nationality = "FR";
-        $user->CountryOfResidence = "FR";
-        $user->Occupation = "programmer";
-        $user->IncomeRange = 3;
+        $user = $this->buildJohn();
         return $this->_api->Users->Create($user);
     }
     

@@ -16,7 +16,7 @@ class ApiUsers extends Libraries\ApiBase {
      * @return UserLegal/UserNatural User object returned from API
      * @throws Libraries\Exception If occur Wrong entity class for user
      */
-    public function Create($user) {
+    public function Create($user, $idempotencyKey = null) {
         
         $className = get_class($user);
         if ($className == 'MangoPay\UserNatural')
@@ -26,7 +26,7 @@ class ApiUsers extends Libraries\ApiBase {
         else
             throw new Libraries\Exception('Wrong entity class for user');
         
-        $response = $this->CreateObject($methodKey, $user);
+        $response = $this->CreateObject($methodKey, $user, null, null, null, $idempotencyKey);
         return $this->GetUserResponse($response);
     }
     
@@ -107,9 +107,9 @@ class ApiUsers extends Libraries\ApiBase {
      * @param \MangoPay\BankAccount $bankAccount Entity of bank account object
      * @return \MangoPay\BankAccount Create bank account object
      */
-    public function CreateBankAccount($userId, $bankAccount) {
+    public function CreateBankAccount($userId, $bankAccount, $idempotencyKey = null) {
         $type = $this->GetBankAccountType($bankAccount);
-        return $this->CreateObject('users_createbankaccounts_' . $type, $bankAccount, '\MangoPay\BankAccount', $userId);
+        return $this->CreateObject('users_createbankaccounts_' . $type, $bankAccount, '\MangoPay\BankAccount', $userId, null, $idempotencyKey);
     }
     
     /**
@@ -178,8 +178,8 @@ class ApiUsers extends Libraries\ApiBase {
      * @param \MangoPay\KycDocument $kycDocument
      * @return \MangoPay\KycDocument Document returned from API
      */
-    public function CreateKycDocument($userId, $kycDocument) {
-        return $this->CreateObject('kyc_documents_create', $kycDocument, '\MangoPay\KycDocument', $userId);
+    public function CreateKycDocument($userId, $kycDocument, $idempotencyKey = null) {
+        return $this->CreateObject('kyc_documents_create', $kycDocument, '\MangoPay\KycDocument', $userId, null, $idempotencyKey);
     }
     
     /**
@@ -222,10 +222,10 @@ class ApiUsers extends Libraries\ApiBase {
      * @param \MangoPay\KycPage $kycPage KYC Page
      * @throws \MangoPay\Libraries\Exception
      */
-    public function CreateKycPage($userId, $kycDocumentId, $kycPage) {
+    public function CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey = null) {
         
         try{
-            $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId);
+            $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId, $idempotencyKey);
         } catch (\MangoPay\Libraries\ResponseException $exc) {
             if ($exc->getCode() != 204)
                 throw $exc;
@@ -239,7 +239,7 @@ class ApiUsers extends Libraries\ApiBase {
      * @param string $file File path
      * @throws \MangoPay\Libraries\Exception
      */
-    public function CreateKycPageFromFile($userId, $kycDocumentId, $file) {
+    public function CreateKycPageFromFile($userId, $kycDocumentId, $file, $idempotencyKey = null) {
         
         $filePath = $file;
         if (is_array($file)) {
@@ -258,7 +258,7 @@ class ApiUsers extends Libraries\ApiBase {
         if (empty($kycPage->File))
             throw new \MangoPay\Libraries\Exception('Content of the file cannot be empty');
         
-        $this->CreateKycPage($userId, $kycDocumentId, $kycPage);
+        $this->CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey);
     }
     
     /**

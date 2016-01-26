@@ -85,7 +85,7 @@ class RestTool {
      * @param array Array with additional parameters to URL. Expected keys: "sort" and "filter"
      * @return object Response data
      */
-    public function Request($urlMethod, $requestType, $requestData = null, & $pagination = null, $additionalUrlParams = null) {
+    public function Request($urlMethod, $requestType, $requestData = null, $idempotencyKey = null, & $pagination = null, $additionalUrlParams = null) {
         
         $this->_requestType = $requestType;
         $this->_requestData = $requestData;
@@ -94,7 +94,7 @@ class RestTool {
         if ($this->_root->Config->DebugMode)
             $logClass::Debug('++++++++++++++++++++++ New request ++++++++++++++++++++++', '');
         
-        $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams);
+        $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams, $idempotencyKey);
         $responseResult = $this->RunRequest();
         
         if(!is_null($pagination)){
@@ -138,7 +138,7 @@ class RestTool {
      * @param String $urlMethod Type of method in REST API
      * @throws Exception If some parameters are not set
      */
-    private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null) {
+    private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null, $idempotencyKey = null) {
         
         $urlTool = new UrlTool($this->_root);
         $restUrl = $urlTool->GetRestUrl($urlMethod, $this->_authRequired, $pagination, $additionalUrlParams);
@@ -184,6 +184,7 @@ class RestTool {
             $logClass::Debug('RequestType', $this->_requestType);
 
         $httpHeaders = $this->GetHttpHeaders();
+		if ($idempotencyKey != null) array_push($httpHeaders, 'Idempotency-Key: ' . $idempotencyKey);
         curl_setopt($this->_curlHandle, CURLOPT_HTTPHEADER, $httpHeaders);
         if ($this->_root->Config->DebugMode) 
             $logClass::Debug('HTTP Headers', $httpHeaders);
@@ -249,8 +250,9 @@ class RestTool {
      */
     private function GetHttpHeaders(){
         // return if already created...
-        if (!is_null($this->_requestHttpHeaders))
+        if (!is_null($this->_requestHttpHeaders)) {
             return $this->_requestHttpHeaders;
+		}
         
         // ...or initialize with default headers
         $this->_requestHttpHeaders = array();

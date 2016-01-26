@@ -129,9 +129,9 @@ class ApiDisputes extends Libraries\ApiBase {
      * @param Int|GUID $repudiationId Repudiation identifier
      * @return \MangoPay\Transfer Transfer instance returned from API
      */
-    public function CreateSettlementTransfer($settlementTransfer, $repudiationId)
+    public function CreateSettlementTransfer($settlementTransfer, $repudiationId, $idempotencyKey = null)
     {
-        return $this->CreateObject('disputes_repudiation_create_settlement', $settlementTransfer, '\MangoPay\Transfer', $repudiationId);
+        return $this->CreateObject('disputes_repudiation_create_settlement', $settlementTransfer, '\MangoPay\Transfer', $repudiationId, null, $idempotencyKey);
     }
    
     /**
@@ -163,9 +163,9 @@ class ApiDisputes extends Libraries\ApiBase {
      * @param \MangoPay\DisputeDocument $disputeDocument Dispute document to be created
      * @return \MangoPay\DisputeDocument Dispute document returned from API
      */
-    public function CreateDisputeDocument($disputeId, $disputeDocument)
+    public function CreateDisputeDocument($disputeId, $disputeDocument, $idempotencyKey = null)
     {
-        return $this->CreateObject('disputes_document_create', $disputeDocument, '\MangoPay\DisputeDocument', $disputeId);
+        return $this->CreateObject('disputes_document_create', $disputeDocument, '\MangoPay\DisputeDocument', $disputeId, null, $idempotencyKey);
     }
     
     /**
@@ -174,10 +174,10 @@ class ApiDisputes extends Libraries\ApiBase {
      * @param Int|GUID $disputeDocumentId Dispute document identifier
      * @param \MangoPay\DisputeDocumentPage $disputeDocumentPage Dispute document page object
      */
-    public function CreateDisputeDocumentPage($disputeId, $disputeDocumentId, $disputeDocumentPage)
+    public function CreateDisputeDocumentPage($disputeId, $disputeDocumentId, $disputeDocumentPage, $idempotencyKey = null)
     {
         try{
-            $this->CreateObject('disputes_document_page_create', $disputeDocumentPage, null, $disputeId, $disputeDocumentId);
+            $this->CreateObject('disputes_document_page_create', $disputeDocumentPage, null, $disputeId, $disputeDocumentId, $idempotencyKey);
         } catch (\MangoPay\Libraries\ResponseException $exc) {
             if ($exc->getCode() != 204) {
                 throw $exc;
@@ -192,7 +192,7 @@ class ApiDisputes extends Libraries\ApiBase {
      * @param string $file File path
      * @throws \MangoPay\Libraries\Exception
      */
-    public function CreateDisputeDocumentPageFromFile($disputeId, $disputeDocumentId, $file) {
+    public function CreateDisputeDocumentPageFromFile($disputeId, $disputeDocumentId, $file, $idempotencyKey = null) {
         
         $filePath = $file;
         if (is_array($file)) {
@@ -214,6 +214,6 @@ class ApiDisputes extends Libraries\ApiBase {
             throw new \MangoPay\Libraries\Exception('Content of the file cannot be empty');
         }
         
-        $this->CreateDisputeDocumentPage($disputeId, $disputeDocumentId, $disputeDocumentPage);
+        $this->CreateDisputeDocumentPage($disputeId, $disputeDocumentId, $disputeDocumentPage, $idempotencyKey);
     }
 }

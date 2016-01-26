@@ -33,8 +33,8 @@ class ApiCards extends Libraries\ApiBase {
      * @param \MangoPay\TemporaryPaymentCard $paymentCard Payment card object to create
      * @return \MangoPay\TemporaryPaymentCard Card registration object returned from API
      */
-    public function CreateTemporaryPaymentCard($paymentCard) {
-        return $this->CreateObject('temp_paymentcards_create', $paymentCard, '\MangoPay\TemporaryPaymentCard');
+    public function CreateTemporaryPaymentCard($paymentCard, $idempotencyKey = null) {
+        return $this->CreateObject('temp_paymentcards_create', $paymentCard, '\MangoPay\TemporaryPaymentCard', null, null, $idempotencyKey);
     }
     
     /**

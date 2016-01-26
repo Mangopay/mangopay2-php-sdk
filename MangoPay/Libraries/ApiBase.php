@@ -20,6 +20,8 @@ abstract class ApiBase {
         'authentication_base' => array( '/api/clients/', RequestType::POST ),
         'authentication_oauth' => array( '/oauth/token ', RequestType::POST ),
         
+        'responses_get' => array( '/responses/%s', RequestType::GET),
+        
         'events_all' => array( '/events', RequestType::GET ),
         
         'hooks_create' => array( '/hooks', RequestType::POST ),
@@ -116,7 +118,7 @@ abstract class ApiBase {
         // Please, contact with support before using these features or if you have any questions.
         'temp_paymentcards_create' => array( '/temp/paymentcards', RequestType::POST ),
         'temp_paymentcards_get' => array( '/temp/paymentcards/%s', RequestType::GET ),
-        'temp_immediatepayins_create' => array( '/temp/immediate-payins', RequestType::POST )
+        'temp_immediatepayins_create' => array( '/temp/immediate-payins', RequestType::POST ),
     );
 
     /**
@@ -153,7 +155,7 @@ abstract class ApiBase {
      * @param int $entityId Entity identifier
      * @return object Response data
      */
-    protected function CreateObject($methodKey, $entity, $responseClassName = null, $entityId = null, $subEntityId = null) {
+    protected function CreateObject($methodKey, $entity, $responseClassName = null, $entityId = null, $subEntityId = null, $idempotencyKey = null) {
 
         if (is_null($entityId))
             $urlMethod = $this->GetRequestUrl($methodKey);
@@ -167,7 +169,7 @@ abstract class ApiBase {
             $requestData = $this->BuildRequestData($entity);
 
         $rest = new RestTool(true, $this->_root);
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
+        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData, $idempotencyKey);
         
         if (!is_null($responseClassName))
             return $this->CastResponseToEntity($response, $responseClassName);
@@ -225,7 +227,7 @@ abstract class ApiBase {
             $additionalUrlParams["sort"] = $sorting->GetSortParameter();
         }
         
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), null, $pagination, $additionalUrlParams);
+        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), null, null, $pagination, $additionalUrlParams);
         
         if (!is_null($responseClassName))
             return $this->CastResponseToEntity($response, $responseClassName);

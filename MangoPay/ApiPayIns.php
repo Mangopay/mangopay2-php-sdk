@@ -11,10 +11,10 @@ class ApiPayIns extends Libraries\ApiBase {
      * @param \MangoPay\PayIn $payIn \MangoPay\PayIn object
      * @return \MangoPay\PayIn Object returned from API
      */
-    public function Create($payIn) {
+    public function Create($payIn, $idempotencyKey = null) {
         $paymentKey = $this->GetPaymentKey($payIn);
         $executionKey = $this->GetExecutionKey($payIn);
-        return $this->CreateObject('payins_' . $paymentKey . '-' . $executionKey . '_create', $payIn, '\MangoPay\PayIn');
+        return $this->CreateObject('payins_' . $paymentKey . '-' . $executionKey . '_create', $payIn, '\MangoPay\PayIn', null, null, $idempotencyKey);
     }
     
     /**
@@ -32,8 +32,8 @@ class ApiPayIns extends Libraries\ApiBase {
      * @param \MangoPay\Refund $refund Refund object to create
      * @return \MangoPay\Refund Object returned by REST API
      */
-    public function CreateRefund($payInId, $refund) {
-        return $this->CreateObject('payins_createrefunds', $refund, '\MangoPay\Refund', $payInId);
+    public function CreateRefund($payInId, $refund, $idempotencyKey = null) {
+        return $this->CreateObject('payins_createrefunds', $refund, '\MangoPay\Refund', $payInId, null, $idempotencyKey);
     }
     
     /**
@@ -45,8 +45,8 @@ class ApiPayIns extends Libraries\ApiBase {
      * @param \MangoPay\TemporaryImmediatePayIn $immediatePayIn Immediate pay-in object to create
      * @return \MangoPay\TemporaryImmediatePayIn Immediate pay-in object returned from API
      */
-    public function CreateTemporaryImmediatePayIn($immediatePayIn) {
-        return $this->CreateObject('temp_immediatepayins_create', $immediatePayIn, '\MangoPay\TemporaryImmediatePayIn');
+    public function CreateTemporaryImmediatePayIn($immediatePayIn, $idempotencyKey = null) {
+        return $this->CreateObject('temp_immediatepayins_create', $immediatePayIn, '\MangoPay\TemporaryImmediatePayIn', null, null, $idempotencyKey);
     }
     
     private function GetPaymentKey($payIn) {

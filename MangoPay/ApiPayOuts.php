@@ -11,9 +11,9 @@ class ApiPayOuts extends Libraries\ApiBase {
      * @param PayOut $payOut
      * @return \MangoPay\PayOut Object returned from API
      */
-    public function Create($payOut) {
+    public function Create($payOut, $idempotencyKey = null) {
         $paymentKey = $this->GetPaymentKey($payOut);
-        return $this->CreateObject('payouts_' . $paymentKey . '_create', $payOut, '\MangoPay\PayOut');
+        return $this->CreateObject('payouts_' . $paymentKey . '_create', $payOut, '\MangoPay\PayOut', null, null, $idempotencyKey);
     }
     
     /**

@@ -11,8 +11,8 @@ class ApiWallets extends Libraries\ApiBase {
      * @param Wallet $wallet
      * @return \MangoPay\Wallet Wallet object returned from API
      */
-    public function Create($wallet) {
-        return $this->CreateObject('wallets_create', $wallet, '\MangoPay\Wallet');
+    public function Create($wallet, $idempotencyKey = null) {
+        return $this->CreateObject('wallets_create', $wallet, '\MangoPay\Wallet', null, null, $idempotencyKey);
     }
     
     /**

@@ -11,8 +11,8 @@ class ApiCardPreAuthorizations extends Libraries\ApiBase {
      * @param \MangoPay\CardPreAuthorization $cardPreAuthorization PreAuthorization object to create
      * @return \MangoPay\CardPreAuthorization PreAuthorization object returned from API
      */
-    public function Create($cardPreAuthorization) {
-        return $this->CreateObject('preauthorization_create', $cardPreAuthorization, '\MangoPay\CardPreAuthorization');
+    public function Create($cardPreAuthorization, $idempotencyKey = null) {
+        return $this->CreateObject('preauthorization_create', $cardPreAuthorization, '\MangoPay\CardPreAuthorization', null, null, $idempotencyKey);
     }
     
     /**
