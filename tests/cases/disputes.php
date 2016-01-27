@@ -46,9 +46,20 @@ class Disputes extends Base {
     
     function test_Disputes_GetTransactions() {
         if (!$this->canTest()) return;
+        $disputeToTest = null;
+        foreach($this->_clientDisputes as $dispute){
+            if ($dispute->DisputeType == \MangoPay\DisputeType::NotContestable){
+                $disputeToTest = $dispute;
+                break;
+            }
+        }
+        if (is_null($disputeToTest)){
+            $this->assertTrue(false, "Cannot test getting transactions for dispute because there's no not costestable disputes in the disputes list.");
+            return;
+        }
         $pagination = new \MangoPay\Pagination();
         
-        $result = $this->_api->Disputes->GetTransactions($this->_clientDisputes[0]->Id, $pagination);
+        $result = $this->_api->Disputes->GetTransactions($disputeToTest->Id, $pagination);
         
         $this->assertNotNull($result);
         $this->assertTrue(count($result) > 0);
@@ -78,9 +89,19 @@ class Disputes extends Base {
     
     function test_Disputes_GetDisputesForUser() {
         if (!$this->canTest()) return;
-         
+        $disputeToTest = null;
+        foreach($this->_clientDisputes as $dispute){
+            if ($dispute->DisputeType == \MangoPay\DisputeType::NotContestable){
+                $disputeToTest = $dispute;
+                break;
+            }
+        }
+        if (is_null($disputeToTest)){
+            $this->assertTrue(false, "Cannot test getting disputes for user because there's no not costestable disputes in the disputes list.");
+            return;
+        }
         $pagination = new \MangoPay\Pagination();
-        $transactions = $this->_api->Disputes->GetTransactions($this->_clientDisputes[0]->Id, $pagination);
+        $transactions = $this->_api->Disputes->GetTransactions($dispute->Id, $pagination);
         $userId = $transactions[0]->AuthorId;
         $result = $this->_api->Disputes->GetDisputesForUser($userId, $pagination);
         
@@ -160,6 +181,8 @@ class Disputes extends Base {
         $this->assertNotNull($result);
         $this->assertEqual($result->Id, $notContestedDispute->Id);
         $this->assertEqual($result->Status, \MangoPay\DisputeStatus::Submitted);
+
+		return $result; // used in test_Disputes_GetDocumentsForDispute()
     }
     
     function test_Disputes_ResubmitDispute() {
@@ -259,6 +282,9 @@ class Disputes extends Base {
             }
         }        
         if (is_null($disputeForTest)){
+            $disputeForTest = $this->test_Disputes_ContestDispute();
+        }
+        if (is_null($disputeForTest)){
             $this->assertTrue(false, "Cannot test getting dispute's documents because there's no available disputes with SUBMITTED status in the disputes list.");
             return;
         }
@@ -307,13 +333,13 @@ class Disputes extends Base {
         if (!$this->canTest()) return;
         $disputeForTest = null;
         foreach($this->_clientDisputes as $dispute){
-            if (!is_null($dispute->InitialTransactionId)){
+            if (!is_null($dispute->InitialTransactionId && $dispute->DisputeType == \MangoPay\DisputeType::NotContestable)){
                 $disputeForTest = $dispute;
                 break;
             }
         }        
         if (is_null($disputeForTest)){
-            $this->assertTrue(false, "Cannot test getting repudiation because there's no disputes with transaction ID in the disputes list.");
+            $this->assertTrue(false, "Cannot test getting repudiation because there's no not costestable disputes with transaction ID in the disputes list.");
             return;
         }
         $pagination = new \MangoPay\Pagination();
@@ -330,13 +356,13 @@ class Disputes extends Base {
         if (!$this->canTest()) return;
         $disputeForTest = null;
         foreach($this->_clientDisputes as $dispute){
-            if ($dispute->Status == \MangoPay\DisputeStatus::Closed){
+            if ($dispute->Status == \MangoPay\DisputeStatus::Closed && $dispute->DisputeType == \MangoPay\DisputeType::NotContestable){
                 $disputeForTest = $dispute;
                 break;
             }
         }        
         if (is_null($disputeForTest)){
-            $this->assertTrue(false, "Cannot test creating settlement transfer because there's no closed disputes in the disputes list.");
+            $this->assertTrue(false, "Cannot test creating settlement transfer because there's no closed, not costestable disputes in the disputes list.");
             return;
         }
         $pagination = new \MangoPay\Pagination();
@@ -352,8 +378,13 @@ class Disputes extends Base {
         $settlementTransfer->Fees->Amount = 0;
         $settlementTransfer->Fees->Currency = "EUR";
         
-        $result = $this->_api->Disputes->CreateSettlementTransfer($settlementTransfer, $repudiationId);
-
-        $this->assertNotNull($result);
+        $transfer = $this->_api->Disputes->CreateSettlementTransfer($settlementTransfer, $repudiationId);
+        $this->assertNotNull($transfer);
+        $this->assertTrue($transfer->Type == 'TRANSFER');
+        $this->assertTrue($transfer->Nature == 'SETTLEMENT');
+        
+        $fetchedTransfer = $this->_api->Disputes->GetSettlementTransfer($transfer->Id);
+        $this->assertTrue($transfer->Id == $fetchedTransfer->Id);
+        $this->assertTrue($transfer->CreationDate == $fetchedTransfer->CreationDate);
     }
 }

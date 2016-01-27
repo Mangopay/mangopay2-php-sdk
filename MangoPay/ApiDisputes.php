@@ -133,6 +133,16 @@ class ApiDisputes extends Libraries\ApiBase {
     {
         return $this->CreateObject('disputes_repudiation_create_settlement', $settlementTransfer, '\MangoPay\Transfer', $repudiationId, null, $idempotencyKey);
     }
+    
+    /**
+     * Gets settlement transfer
+     * @param Int|GUID $settlementTransferId Settlement transfer identifier
+     * @return \MangoPay\Transfer Transfer instance returned from API
+     */
+    public function GetSettlementTransfer($settlementTransferId)
+    {
+        return $this->GetObject('disputes_repudiation_get_settlement', $settlementTransferId, '\MangoPay\Transfer');
+    }
    
     /**
      * Gets documents for dispute

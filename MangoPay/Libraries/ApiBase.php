@@ -113,6 +113,7 @@ abstract class ApiBase {
         'disputes_repudiation_get' => array( '/repudiations/%s', RequestType::GET),
         
         'disputes_repudiation_create_settlement' => array( '/repudiations/%s/settlementtransfer', RequestType::POST),
+        'disputes_repudiation_get_settlement' => array( '/settlements/%s', RequestType::GET),
         
         // These are temporary functions and WILL be removed in the future. 
         // Please, contact with support before using these features or if you have any questions.
