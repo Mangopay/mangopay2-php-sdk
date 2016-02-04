@@ -26,8 +26,8 @@ session_start();
         
     </head>
     <body style="margin: 10px;">
-        <a href="index.php?mode=JS">Using JavaSctipt Kit</a> &nbsp;&nbsp;&nbsp;
-        <a href="index.php?mode=nonJS">Without JavaSctipt</a>
+        <a href="index.php?mode=JS">Using JavaScript Kit</a> &nbsp;&nbsp;&nbsp;
+        <a href="index.php?mode=nonJS">Without JavaScript</a>
         <br />
         
         <?php

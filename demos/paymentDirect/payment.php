@@ -24,7 +24,7 @@ try {
     $updatedCardRegister = $mangoPayApi->CardRegistrations->Update($cardRegister);
 
     if ($updatedCardRegister->Status != 'VALIDATED' || !isset($updatedCardRegister->CardId))
-        die('<div style="color:red;">Cannot create virtual card. Payment has not been created.<div>');
+        die('<div style="color:red;">Cannot create card. Payment has not been created.<div>');
 
     // get created virtual card object
     $card = $mangoPayApi->Cards->Get($updatedCardRegister->CardId);
