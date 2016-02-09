@@ -1,6 +1,9 @@
 <?php
 namespace MangoPay;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+
 /**
  * MangoPay API main entry point.
  * Provides managers to connect, send and read data from MangoPay API
@@ -131,6 +134,11 @@ class MangoPayApi {
     public $DisputeDocuments;
 
     /**
+     * @var LoggerInterface
+     */
+    public $logger;
+
+    /**
      * Constructor
      */
     function __construct() {
@@ -157,5 +165,25 @@ class MangoPayApi {
         $this->KycDocuments = new ApiKycDocuments($this);
         $this->Disputes = new ApiDisputes($this);
         $this->DisputeDocuments = new ApiDisputeDocuments($this);
+
+        // Setting default NullLogger
+        $this->logger = new NullLogger();
+
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
     }
 }
