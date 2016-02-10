@@ -4,8 +4,8 @@ namespace MangoPay\Libraries;
 /**
  * OAuthToken
  */
-class OAuthToken extends Dto {
-    
+class OAuthToken extends Dto
+{
     /**
      * Created time
      * @var int
@@ -33,7 +33,8 @@ class OAuthToken extends Dto {
     /**
      * Constructor
      */
-    function __construct() {
+    public function __construct()
+    {
         $this->create_time = time() - 5;
     }
     
@@ -41,7 +42,8 @@ class OAuthToken extends Dto {
      * Check that current tokens are expire and return true if yes
      * @return bool
      */
-    public function IsExpired() {
+    public function IsExpired()
+    {
         return (time() >= ($this->create_time + $this->expires_in));
     }
 }

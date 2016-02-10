@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * KYC document entity
  */
-class KycDocument extends Libraries\Document {
-
+class KycDocument extends Libraries\Document
+{
     /**
      * Document type
      * @var \MangoPay\KycDocumentType
@@ -14,7 +14,7 @@ class KycDocument extends Libraries\Document {
     
     /**
      * Document status
-     * @var \MangoPay\KycDocumentStatus 
+     * @var \MangoPay\KycDocumentStatus
      */
     public $Status;
     

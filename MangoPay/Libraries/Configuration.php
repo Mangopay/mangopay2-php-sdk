@@ -4,23 +4,23 @@ namespace MangoPay\Libraries;
 /**
  * Configuration settings
  */
-class Configuration {
-
+class Configuration
+{
     /**
      * Client Id
      * @var string
      */
     public $ClientId;
-	
+    
     /**
      * Client password
-     * @var string 
+     * @var string
      */
     public $ClientPassword;
-	
+    
     /**
      * Base URL to MangoPay API
-     * @var string 
+     * @var string
      */
     /**Producion URL changes to {public $BaseUrl = 'https://api.mangopay.com';}**/
     public $BaseUrl = 'https://api.sandbox.mangopay.com';
@@ -33,12 +33,12 @@ class Configuration {
     /**
      * Absolute path to file holding one or more certificates to verify the peer with.
      * If empty - don't verifying the peer's certificate.
-     * @var string 
+     * @var string
      */
     public $CertificatesFilePath = '';
     
     /**
-     * [INTERNAL USAGE ONLY] 
+     * [INTERNAL USAGE ONLY]
      * Switch debug mode: log all request and response data
      */
     public $DebugMode = false;

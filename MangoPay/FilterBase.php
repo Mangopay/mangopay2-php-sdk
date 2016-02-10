@@ -1,10 +1,11 @@
 <?php
 namespace MangoPay;
 
- /**
+/**
  * Base filter object
  */
-class FilterBase extends Libraries\Dto {
+class FilterBase extends Libraries\Dto
+{
     /**
      * Start date in unix format:
      * return only records that have CreationDate BEFORE this date
@@ -15,7 +16,7 @@ class FilterBase extends Libraries\Dto {
     /**
      * End date in unix format:
      * return only records that have CreationDate AFTER this date
-     * @var time 
+     * @var time
      */
     public $AfterDate;
 }

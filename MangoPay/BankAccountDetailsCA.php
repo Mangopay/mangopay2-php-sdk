@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Class represents CA bank account type for in BankAccount entity
  */
-class BankAccountDetailsCA extends Libraries\Dto implements BankAccountDetails {
-    
+class BankAccountDetailsCA extends Libraries\Dto implements BankAccountDetails
+{
     /**
      * Bank name
      * @var string
@@ -14,19 +14,19 @@ class BankAccountDetailsCA extends Libraries\Dto implements BankAccountDetails {
     
     /**
      * Institution number
-     * @var string 
+     * @var string
      */
     public $InstitutionNumber;
     
     /**
      * Branch code
-     * @var string 
+     * @var string
      */
     public $BranchCode;
     
     /**
      * Account number
-     * @var string 
+     * @var string
      */
     public $AccountNumber;
 }

@@ -5,8 +5,8 @@ namespace MangoPay;
  * Transaction entity.
  * Base class for: PayIn, PayOut, Transfer.
  */
-class Transaction extends Libraries\EntityBase {
-    
+class Transaction extends Libraries\EntityBase
+{
     /**
      * Author Id
      * @var int
@@ -15,7 +15,7 @@ class Transaction extends Libraries\EntityBase {
     
     /**
      * Credited user Id
-     * @var int 
+     * @var int
      */
     public $CreditedUserId;
     
@@ -39,7 +39,7 @@ class Transaction extends Libraries\EntityBase {
     
     /**
      * TransactionStatus {CREATED, SUCCEEDED, FAILED}
-     * @var string 
+     * @var string
      */
     public $Status;
     
@@ -51,7 +51,7 @@ class Transaction extends Libraries\EntityBase {
     
     /**
      * The PreAuthorization result Message explaining the result code
-     * @var string 
+     * @var string
      */
     public $ResultMessage;
     
@@ -89,7 +89,8 @@ class Transaction extends Libraries\EntityBase {
      * Get array with mapping which property is object and what type of object 
      * @return array
      */
-    public function GetSubObjects() {
+    public function GetSubObjects()
+    {
         return array(
             'DebitedFunds' => '\MangoPay\Money' ,
             'CreditedFunds' => '\MangoPay\Money' ,
@@ -101,11 +102,12 @@ class Transaction extends Libraries\EntityBase {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         $properties = parent::GetReadOnlyProperties();
-        array_push( $properties, 'Status' );
-        array_push( $properties, 'ResultCode' );
-        array_push( $properties, 'ExecutionDate' );
+        array_push($properties, 'Status');
+        array_push($properties, 'ResultCode');
+        array_push($properties, 'ExecutionDate');
         
         return $properties;
     }

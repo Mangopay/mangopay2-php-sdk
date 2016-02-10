@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * UserLegal entity
  */
-class UserLegal extends User {
-    
+class UserLegal extends User
+{
     /**
      * Name of user
      * @var String
@@ -14,7 +14,7 @@ class UserLegal extends User {
     
     /**
      * Type for legal user. Possible: ‘BUSINESS’, ’ORGANIZATION’
-     * @var String 
+     * @var String
      */
     public $LegalPersonType;
     
@@ -25,14 +25,14 @@ class UserLegal extends User {
     public $HeadquartersAddress;
     
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $LegalRepresentativeFirstName;
     
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $LegalRepresentativeLastName;
     
@@ -43,57 +43,58 @@ class UserLegal extends User {
     public $LegalRepresentativeAddress;
     
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $LegalRepresentativeEmail;
     
     /**
-     * 
-     * @var Unix timestamp 
+     *
+     * @var Unix timestamp
      */
     public $LegalRepresentativeBirthday;
     
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $LegalRepresentativeNationality;
     
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $LegalRepresentativeCountryOfResidence;
-	    
+        
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $ProofOfIdentity;
-	
+    
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $Statute;
     
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $ProofOfRegistration;
     
     /**
-     * 
-     * @var String 
+     *
+     * @var String
      */
     public $ShareholderDeclaration;
     
     /**
      * Construct
      */
-    function __construct($id = null) {
+    public function __construct($id = null)
+    {
         parent::__construct($id);
         $this->SetPersonType(PersonType::Legal);
     }
@@ -115,11 +116,12 @@ class UserLegal extends User {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         $properties = parent::GetReadOnlyProperties();
-        array_push( $properties, 'Statute' );
-        array_push( $properties, 'ProofOfRegistration' );
-        array_push( $properties, 'ShareholderDeclaration' );
+        array_push($properties, 'Statute');
+        array_push($properties, 'ProofOfRegistration');
+        array_push($properties, 'ShareholderDeclaration');
         
         return $properties;
     }

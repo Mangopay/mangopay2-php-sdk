@@ -5,8 +5,8 @@ namespace MangoPay\Libraries;
 /**
  * Class represents error object
  */
-class Error {
-    
+class Error
+{
     /**
      * Error message
      * @var String
@@ -20,7 +20,4 @@ class Error {
      * @access public
      */
     public $Errors;
-    
-    
-    
 }

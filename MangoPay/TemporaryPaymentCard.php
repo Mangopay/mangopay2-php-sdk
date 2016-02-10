@@ -5,11 +5,11 @@ namespace MangoPay;
  * WARNING!!
  * It's temporary entity and it will be removed in the future.
  * Please, contact with support before using these features or if you have any questions.
- * 
+ *
  * Temporary Payment Card entity.
  */
-class TemporaryPaymentCard extends Libraries\EntityBase {
-    
+class TemporaryPaymentCard extends Libraries\EntityBase
+{
     /**
      * User Id
      * @var string
@@ -18,31 +18,31 @@ class TemporaryPaymentCard extends Libraries\EntityBase {
     
     /**
      * Culture
-     * @var string 
+     * @var string
      */
     public $Culture;
     
     /**
      * Return URL
-     * @var string 
+     * @var string
      */
     public $ReturnURL;
     
     /**
      * Template URL
-     * @var string 
+     * @var string
      */
     public $TemplateURL;
     
     /**
      * Redirect URL
-     * @var string 
+     * @var string
      */
     public $RedirectURL;
     
     /**
      * Alias
-     * @var string 
+     * @var string
      */
     public $Alias;
 }

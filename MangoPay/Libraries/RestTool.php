@@ -5,8 +5,8 @@ use Psr\Log\LoggerInterface;
 /**
  * Class to prepare HTTP request, call the request and decode the response
  */
-class RestTool {
-
+class RestTool
+{
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance
      * @var \MangoPay\MangoPayApi
@@ -15,37 +15,37 @@ class RestTool {
 
     /**
      * Variable to flag that in request authentication data are required
-     * @var bool 
+     * @var bool
      */
     private $_authRequired;
     
     /**
      * Array with HTTP header to send with request
-     * @var array 
+     * @var array
      */
     private $_requestHttpHeaders;
     
     /**
      * cURL handle
-     * @var resource  
+     * @var resource
      */
     private $_curlHandle;
     
     /**
      * Request type for current request
-     * @var RequestType 
+     * @var RequestType
      */
     private $_requestType;
     
     /**
      * Array with data to pass in the request
-     * @var array 
+     * @var array
      */
     private $_requestData;
     
     /**
      * Code get from response
-     * @var int 
+     * @var int
      */
     private $_responseCode;
 
@@ -56,7 +56,7 @@ class RestTool {
 
     /**
      * Pagination object
-     * @var MangoPay\Pagination 
+     * @var MangoPay\Pagination
      */
     private $_pagination;
     
@@ -69,16 +69,18 @@ class RestTool {
      * @param bool $authRequired Variable to flag that in request the authentication data are required
      * @param \MangoPay\MangoPayApi Root/parent instance that holds the OAuthToken and Configuration instance
      */
-    function __construct($authRequired = true, $root) {
+    public function __construct($authRequired = true, $root)
+    {
         $this->_authRequired = $authRequired;
         $this->_root = $root;
         $this->logger = $root->getLogger();
     }
     
-    public function AddRequestHttpHeader($httpHeader) {
-        
-        if (is_null($this->_requestHttpHeaders))
+    public function AddRequestHttpHeader($httpHeader)
+    {
+        if (is_null($this->_requestHttpHeaders)) {
             $this->_requestHttpHeaders = array();
+        }
         
         array_push($this->_requestHttpHeaders, $httpHeader);
     }
@@ -92,8 +94,9 @@ class RestTool {
      * @param array Array with additional parameters to URL. Expected keys: "sort" and "filter"
      * @return object Response data
      */
-    public function Request($urlMethod, $requestType, $requestData = null, $idempotencyKey = null, & $pagination = null, $additionalUrlParams = null) {
-        
+    public function Request($urlMethod, $requestType, $requestData = null, $idempotencyKey = null, & $pagination = null, $additionalUrlParams = null)
+    {
+ 
         $this->_requestType = $requestType;
         $this->_requestData = $requestData;
         
@@ -106,6 +109,7 @@ class RestTool {
         $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams, $idempotencyKey);
         $responseResult = $this->RunRequest();
         
+
         if(!is_null($pagination)) {
             $pagination = $this->_pagination;
         }
@@ -118,12 +122,11 @@ class RestTool {
      * @return object Response data
      * @throws Exception If cURL has error
      */
-    private function RunRequest() {
-        
+    private function RunRequest()
+    {
         $result = curl_exec($this->_curlHandle);
         if ($result === false && curl_errno($this->_curlHandle) != 0) {
             $this->logger->error("cURL error: " . curl_error($this->_curlHandle));
-
             throw new Exception('cURL error: ' . curl_error($this->_curlHandle));
         }
         
@@ -156,8 +159,8 @@ class RestTool {
      * @param String $urlMethod Type of method in REST API
      * @throws Exception If some parameters are not set
      */
-    private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null, $idempotencyKey = null) {
-        
+    private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null, $idempotencyKey = null)
+    {
         $urlTool = new UrlTool($this->_root);
         $restUrl = $urlTool->GetRestUrl($urlMethod, $this->_authRequired, $pagination, $additionalUrlParams);
 
@@ -170,17 +173,16 @@ class RestTool {
         }
         
         $this->_curlHandle = curl_init($this->_requestUrl);
-        if ($this->_curlHandle === false){
+        if ($this->_curlHandle === false) {
             $this->logger->error('Cannot initialize cURL session');
-
             throw new Exception('Cannot initialize cURL session');
         }
         
         curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
 
-        if ($this->_root->Config->CertificatesFilePath == '')
+        if ($this->_root->Config->CertificatesFilePath == '') {
             curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, false);
-        else {
+        } else {
             curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($this->_curlHandle, CURLOPT_CAINFO, $this->_root->Config->CertificatesFilePath);
         }
@@ -203,6 +205,7 @@ class RestTool {
         }
 
         $this->logger->debug('RequestType : ' . $this->_requestType);
+
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('RequestType', $this->_requestType);
         }
@@ -212,13 +215,14 @@ class RestTool {
         curl_setopt($this->_curlHandle, CURLOPT_HTTPHEADER, $httpHeaders);
 
         $this->logger->debug('HTTP Headers : ' . print_r($httpHeaders, true));
+
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('HTTP Headers', $httpHeaders);
         }
 
         if (!is_null($this->_requestData)) {
-
             $this->logger->debug('RequestData object :' . print_r($this->_requestData, true));
+
             if ($this->_root->Config->DebugMode) {
                 $logClass::Debug('RequestData object', $this->_requestData);
             }
@@ -228,8 +232,8 @@ class RestTool {
 
                 // FIXME This can also fail hard and is not checked.
                 $this->_requestData = json_encode($this->_requestData);
-
                 $this->logger->debug('RequestData JSON :' . print_r($this->_requestData, true));
+
                 if ($this->_root->Config->DebugMode) {
                     $logClass::Debug('RequestData JSON', $this->_requestData);
                 }
@@ -245,13 +249,15 @@ class RestTool {
      * @param string $header Header from response
      * @return int Length of header
      */
-    private function ReadResponseHeader($handle, $header) {
-        
+    private function ReadResponseHeader($handle, $header)
+    {
         $logClass = $this->_root->Config->LogClass;
 
         $this->logger->debug('Response headers :' . $header);
-        if ($this->_root->Config->DebugMode) 
+
+        if ($this->_root->Config->DebugMode) {
             $logClass::Debug('Response headers', $header);
+        }
         
         if (strpos($header, 'X-Number-Of-Pages:') !== false) {
             $this->_pagination->TotalPages = (int)trim(str_replace('X-Number-Of-Pages:', '', $header));
@@ -262,17 +268,16 @@ class RestTool {
         }
         
         if (strpos($header, 'Link: ') !== false) {
-
             $strLinks = trim(str_replace('Link:', '', $header));
             $arrayLinks = explode(',', $strLinks);
             if ($arrayLinks !== false) {
                 $this->_pagination->Links = array();
                 foreach ($arrayLinks as $link) {
-
                     $tmp = str_replace(array('<"', '">', ' rel="', '"'), '', $link);
                     $oneLink = explode(';', $tmp);
-                    if (is_array($oneLink) && isset($oneLink[0]) && isset($oneLink[1]))
+                    if (is_array($oneLink) && isset($oneLink[0]) && isset($oneLink[1])) {
                         $this->_pagination->Links[$oneLink[1]] = $oneLink[0];
+                    }
                 }
             }
         }
@@ -282,9 +287,10 @@ class RestTool {
     
     /**
      * Get HTTP header to use in request
-     * @return array Array with HTTP headers 
+     * @return array Array with HTTP headers
      */
-    private function GetHttpHeaders(){
+    private function GetHttpHeaders()
+    {
         // return if already created...
         if (!is_null($this->_requestHttpHeaders)) {
             return $this->_requestHttpHeaders;
@@ -300,7 +306,7 @@ class RestTool {
         if ($this->_authRequired) {
             $authHlp = new AuthenticationHelper($this->_root);
             array_push($this->_requestHttpHeaders, $authHlp->GetHttpHeaderKey());
-        }        
+        }
 
         return $this->_requestHttpHeaders;
     }
@@ -310,20 +316,17 @@ class RestTool {
      * @param object $response Response from REST API
      * @throws ResponseException If response code not OK
      */
-    private function CheckResponseCode($response){
-
+    private function CheckResponseCode($response)
+    {
         if ($this->_responseCode != 200) {
-            
             if (isset($response) && is_object($response) && isset($response->Message)) {
-                
                 $error = new Error();
                 $error->Message = $response->Message;
-                $error->Errors = property_exists($response, 'Errors') 
-                        ? $response->Errors 
+                $error->Errors = property_exists($response, 'Errors')
+                        ? $response->Errors
                         : property_exists($response, 'errors') ? $response->errors : null;
                 throw new ResponseException($this->_requestUrl, $this->_responseCode, $error);
-                
-            } else {        
+            } else {
                 throw new ResponseException($this->_requestUrl, $this->_responseCode);
             }
         }

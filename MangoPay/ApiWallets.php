@@ -4,14 +4,15 @@ namespace MangoPay;
 /**
  * Class to management MangoPay API for wallets
  */
-class ApiWallets extends Libraries\ApiBase {
-    
+class ApiWallets extends Libraries\ApiBase
+{
     /**
      * Create new wallet
      * @param Wallet $wallet
      * @return \MangoPay\Wallet Wallet object returned from API
      */
-    public function Create($wallet, $idempotencyKey = null) {
+    public function Create($wallet, $idempotencyKey = null)
+    {
         return $this->CreateObject('wallets_create', $wallet, '\MangoPay\Wallet', null, null, $idempotencyKey);
     }
     
@@ -20,7 +21,8 @@ class ApiWallets extends Libraries\ApiBase {
      * @param int $walletId Wallet identifier
      * @return \MangoPay\Wallet Wallet object returned from API
      */
-    public function Get($walletId) {
+    public function Get($walletId)
+    {
         return $this->GetObject('wallets_get', $walletId, '\MangoPay\Wallet');
     }
     
@@ -29,7 +31,8 @@ class ApiWallets extends Libraries\ApiBase {
      * @param Wallet $wallet Wallet object to save
      * @return \MangoPay\Wallet Wallet object returned from API
      */
-    public function Update($wallet) {
+    public function Update($wallet)
+    {
         return $this->SaveObject('wallets_save', $wallet, '\MangoPay\Wallet');
     }
 
@@ -41,7 +44,8 @@ class ApiWallets extends Libraries\ApiBase {
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return \MangoPay\Transaction[] Transactions for wallet returned from API
      */
-    public function GetTransactions($walletId, & $pagination = null, $filter = null, $sorting = null) {
+    public function GetTransactions($walletId, & $pagination = null, $filter = null, $sorting = null)
+    {
         return $this->GetList('wallets_alltransactions', $pagination, '\MangoPay\Transaction', $walletId, $filter, $sorting);
     }
 }

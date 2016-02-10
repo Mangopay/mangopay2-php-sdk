@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Class represents GB bank account type for in BankAccount entity
  */
-class BankAccountDetailsGB extends Libraries\Dto implements BankAccountDetails {
-    
+class BankAccountDetailsGB extends Libraries\Dto implements BankAccountDetails
+{
     /**
      * Account number
      * @var string
@@ -14,7 +14,7 @@ class BankAccountDetailsGB extends Libraries\Dto implements BankAccountDetails {
     
     /**
      * Sort code
-     * @var string 
+     * @var string
      */
     public $SortCode;
 }

@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Event types
  */
-class EventType {
+class EventType
+{
     const KycCreated = "KYC_CREATED";
     const KycSucceeded = "KYC_SUCCEEDED";
     const KycFailed = "KYC_FAILED";

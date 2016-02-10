@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Pay-in entity
  */
-class PayIn extends Transaction {
-
+class PayIn extends Transaction
+{
     /**
      * Credited wallet Id
      * @var int
@@ -14,33 +14,34 @@ class PayIn extends Transaction {
     
     /**
      * PaymentType {CARD, BANK_WIRE, AUTOMATIC_DEBIT, DIRECT_DEBIT }
-     * @var string  
+     * @var string
      */
     public $PaymentType;
     
     /**
      * One of PayInPaymentDetails implementations, depending on $PaymentType
-     * @var object 
+     * @var object
      */
     public $PaymentDetails;
     
     /**
      * ExecutionType { WEB, TOKEN, DIRECT, PREAUTHORIZED, RECURRING_ORDER_EXECUTION }
-     * @var string  
+     * @var string
      */
     public $ExecutionType;
     
     /**
      * One of PayInExecutionDetails implementations, depending on $ExecutionType
-     * @var object 
+     * @var object
      */
     public $ExecutionDetails;
 
     /**
-     * Get array with mapping which property depends on other property  
+     * Get array with mapping which property depends on other property
      * @return array
      */
-    public function GetDependsObjects() {
+    public function GetDependsObjects()
+    {
         return array(
             'PaymentType' => array(
                 '_property_name' => 'PaymentDetails',
@@ -63,10 +64,11 @@ class PayIn extends Transaction {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         $properties = parent::GetReadOnlyProperties();
-        array_push( $properties, 'PaymentType' );
-        array_push( $properties, 'ExecutionType' );
+        array_push($properties, 'PaymentType');
+        array_push($properties, 'ExecutionType');
         
         return $properties;
     }

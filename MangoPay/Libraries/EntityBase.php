@@ -5,8 +5,8 @@ namespace MangoPay\Libraries;
 /**
  * Abstract class with common properties
  */
-abstract class EntityBase extends Dto {
-    
+abstract class EntityBase extends Dto
+{
     /**
      * @var Int Unique identifier
      * (At this moment type is Integer - in the feature will be GUID)
@@ -27,7 +27,8 @@ abstract class EntityBase extends Dto {
      * Construct
      * @param type $id Entity identifier
      */
-    function __construct($id = null) {
+    public function __construct($id = null)
+    {
         $this->Id = $id;
     }
     
@@ -35,7 +36,8 @@ abstract class EntityBase extends Dto {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         return array( 'Id', 'CreationDate' );
     }
 }

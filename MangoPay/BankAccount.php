@@ -4,8 +4,8 @@ namespace MangoPay;
 /**
  * Bank Account entity
  */
-class BankAccount extends Libraries\EntityBase {
-    
+class BankAccount extends Libraries\EntityBase
+{
     /**
      * User identifier
      * @var LeetchiId
@@ -14,13 +14,13 @@ class BankAccount extends Libraries\EntityBase {
     
     /**
      * Type of bank account
-     * @var string 
+     * @var string
      */
     public $Type;
     
     /**
      * Owner name
-     * @var string 
+     * @var string
      */
     public $OwnerName;
     
@@ -32,7 +32,7 @@ class BankAccount extends Libraries\EntityBase {
     
      /**
      * One of BankAccountDetails implementations, depending on $Type
-     * @var object 
+     * @var object
      */
     public $Details;
     
@@ -52,7 +52,8 @@ class BankAccount extends Libraries\EntityBase {
      * Get array with mapping which property depends on other property  
      * @return array
      */
-    public function GetDependsObjects() {
+    public function GetDependsObjects()
+    {
         return array(
             'Type' => array(
                 '_property_name' => 'Details',
@@ -69,10 +70,11 @@ class BankAccount extends Libraries\EntityBase {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         $properties = parent::GetReadOnlyProperties();
-        array_push( $properties, 'UserId' );
-        array_push( $properties, 'Type' );
+        array_push($properties, 'UserId');
+        array_push($properties, 'Type');
         return $properties;
     }
 }
