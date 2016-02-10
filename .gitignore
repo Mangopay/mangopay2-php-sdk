@@ -1,3 +1,10 @@
 /nbproject/
+
 demos/api/MangoPaySdkStorage.tmp.php
 demos/paymentDirect/MangoPaySdkStorage.tmp.php
+
+.DS_Store
+
+# Ignore /vendor/ directory when using composer
+/vendor/
+composer.lock
