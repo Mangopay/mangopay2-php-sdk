@@ -129,7 +129,7 @@ class PayIns extends Base {
     function test_PayIns_BankWireDirect_Create() {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
-        // create pay-in PRE-AUTHORIZED DIRECT
+        // create pay-in BANKWIRE DIRECT
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $user->Id;
@@ -166,7 +166,7 @@ class PayIns extends Base {
     function test_PayIns_BankWireDirect_Get() {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
-        // create pay-in PRE-AUTHORIZED DIRECT
+        // create pay-in BANKWIRE DIRECT
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $user->Id;
@@ -202,7 +202,7 @@ class PayIns extends Base {
     function test_PayIns_DirectDebitWeb_Create() {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
-        // create pay-in PRE-AUTHORIZED DIRECT
+        // create pay-in DIRECT DEBIT WEB
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $user->Id;
