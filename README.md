@@ -12,7 +12,7 @@ Compatibility Notes
 
 Installation
 -------------------------------------------------
-SDK has been written in PHP 5.5 and has no dependencies on external packages.
+SDK has been written in PHP 5.5 and has a single dependency on `psr/log`.
 You only have to ensure that curl and openssl extensions (that are part of
 standard PHP distribution) are enabled in your PHP installation.
 
@@ -24,6 +24,8 @@ under any location that will be available for including by
 ```php
     require_once '{your-installation-dir}/MangoPay/Autoloader.php';
 ```
+
+If you are not using `composer`, you should manually add and autoload the `psr/log` package.
 
 in your project (see examples below).
 
