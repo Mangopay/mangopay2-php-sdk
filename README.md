@@ -7,54 +7,56 @@ MangopaySDK is a PHP client library to work with
 Compatibility Notes
 -------------------------------------------------
 * Since v2.1 of this SDK, you must be using at least v2.01 of the API ([more information about the changes required](https://docs.mangopay.com/api-v2-01-overview/))
-* If you experience problems with authentification and/or the temporary token file following an SDK update (particuarly updating to v2.0 of the SDK), you may need to just delete your temporary file (that you specify with $api->Config->TemporaryFolder) - which allows it to be regenerated correctly the next time it's needed
+* If you experience problems with authentification and/or the temporary token file following an SDK update (particuarly updating to v2.0 of the SDK), you may need to just delete your temporary file (that you specify with `$api->Config->TemporaryFolder`) - which allows it to be regenerated correctly the next time it's needed
 
-
-Installation
--------------------------------------------------
-SDK has been written in PHP 5.5 and has no dependencies on external packages.
-You only have to ensure that curl and openssl extensions (that are part of
-standard PHP distribution) are enabled in your PHP installation.
-
-The project attempts to comply with PSR-4 specification for autoloading classes from file paths. 
-As a namespace prefix is 'MangoPay\' with base directory '{your-installation-dir}/'.
-
-But if not using PSR-4 the installation is as easy as downloading the package and storing it
-under any location that will be available for including by
-```php
-    require_once '{your-installation-dir}/MangoPay/Autoloader.php';
-```
-
-in your project (see examples below).
 
 Installation with Composer
 -------------------------------------------------
-You can use Mangopay SDK library as a dependency in your project with Composer. A composer.json file is available in the repository and it has been referenced on packagist. 
+You can use Mangopay SDK library as a dependency in your project with [Composer](https://getcomposer.org/) (which is the preferred technique). Follow [these installation instructions](https://getcomposer.org/doc/00-intro.md) if you do not already have Composer installed.
+A composer.json file is available in the repository and it has been referenced from [Packagist](https://packagist.org/packages/mangopay/php-sdk-v2). 
 
-The installation with Composer is easy, reliable : 
-Step 1 - Add the Mangopay SDK as a dependency in your composer.json file as follow :
-```json
-    "require": {
-        ...
-        "mangopay/php-sdk-v2": "^2.1"
-    },
-```
+The installation with Composer is easy and reliable: 
 
+Step 1 - Add the Mangopay SDK as a dependency by executing the following command:
+
+    you@yourhost:/path/to/your-project$ composer require mangopay/php-sdk-v2:^2.3
+    
 Step 2 - Update your dependencies with Composer
 
-    you@yourhost:/path/to/project$ php composer.phar update mangopay/php-sdk-v2
+    you@yourhost:/path/to/your-project$ composer update
+    
+Step 3 - Finally, be sure to include the autoloader in your project
 
-The Library has been added into your dependencies and ready to be used.
+    require_once '/path/to/your-project/vendor/autoload.php';
+
+The Library has been added into your dependencies and is ready to be used.
+
+
+Installation without Composer
+-------------------------------------------------
+SDK has been written in PHP 5.5 and has only one dependency on [`psr/log`](https://github.com/php-fig/log). You should ensure that curl and openssl extensions (that are part of standard PHP distribution) are enabled in your PHP installation.
+
+The project attempts to comply with PSR-4 specification for autoloading classes from file paths. As a namespace prefix is `MangoPay\` with base directory `/path/to/your-project/`.
+
+But if you're not using PSR-4 or Composer, the installation is as easy as downloading the library and storing it under any location that will be available for including in your project (don't forget to include the required library dependencies though):
+```php
+    require_once '/path/to/your-project/MangoPay/Autoloader.php';
+```
+Alternatively you can download the package in its entirety (ie with all required dependencies) from the [Releases page](https://github.com/Mangopay/mangopay2-php-sdk/releases) (look for the `mangopay2-php-sdk-[RELEASE_NAME].zip` file).
+Uncompress the zip file you download, and include the autoloader in your project:
+```php
+    require_once '/path/to/your-project/mangopay2-php-sdk/vendor/autoload.php';
+```
 
 
 License
 -------------------------------------------------
-MangopaySDK is distributed under MIT license, see LICENSE file.
+MangopaySDK is distributed under MIT license, see the [LICENSE file](https://github.com/Mangopay/mangopay2-php-sdk/blob/master/LICENSE).
 
 
 Unit Tests
 -------------------------------------------------
-Tests are placed under {your-installation-dir}/tests.
+Tests are placed under /path/to/your-project/tests/.
 The /tests/suites/all.php suite runs ALL tests.
 You can also use any of /tests/cases/*.php to run a single test case.
 
@@ -62,7 +64,7 @@ You can also use any of /tests/cases/*.php to run a single test case.
 Contacts
 -------------------------------------------------
 Report bugs or suggest features using
-[issue tracker at GitHub](https://github.com/Mangopay/mangopay2-php-sdk).
+[issue tracker on GitHub](https://github.com/Mangopay/mangopay2-php-sdk).
 
 
 Account creation
@@ -72,7 +74,7 @@ You can get yourself a [free sandbox account](https://www.mangopay.com/get-start
 
 Configuration
 -------------------------------------------------
-Using the credential info from the signup process above, you should then set `$api->Config->ClientId` to your Mangopay Client ID and `$api->Config->ClientPassword` to your passphrase.
+Using the credential info from the signup process above, you should then set `$api->Config->ClientId` to your Mangopay ClientId and `$api->Config->ClientPassword` to your Mangopay passphrase.
 
 You also need to set a folder path in `$api->Config->TemporaryFolder` that SDK needs 
 to store temporary files. This path should be outside your www folder.
@@ -83,14 +85,14 @@ It could be `/tmp/` or `/var/tmp/` or any other location that PHP can write to.
 environment, set it to `https://api.mangopay.com`.
 
 ```php
-require_once '{your-installation-dir}/MangoPay/Autoloader.php';
+require_once '/path/to/your-project/vendor/autoload.php';
 $api = new MangoPay\MangoPayApi();
 
 // configuration
 $api->Config->ClientId = 'your-client-id';
 $api->Config->ClientPassword = 'your-client-password';
 $api->Config->TemporaryFolder = '/some/path/';
-//$api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
+//$api->Config->BaseUrl = 'https://api.mangopay.com';//uncomment this to use the production environment
 
 // call some API methods...
 $users = $api->Users->GetAll();
@@ -100,7 +102,7 @@ $users = $api->Users->GetAll();
 Sample usage
 -------------------------------------------------
 ```php
-require_once '{your-installation-dir}/MangoPay/Autoloader.php';
+require_once '/path/to/your-project/vendor/autoload.php';
 $api = new MangoPay\MangoPayApi();
 
 // configuration

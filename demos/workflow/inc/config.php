@@ -1,5 +1,5 @@
 <?php
-require_once '../../MangoPay/Autoloader.php';
+require_once '../../vendor/autoload.php';
 require_once 'inc/mockStorage.php';
 
 define("MangoPayAPIClientId", empty($_SESSION["MangoPayDemoConfig"]["ClientId"]) ? "demo" : $_SESSION["MangoPayDemoConfig"]["ClientId"]);

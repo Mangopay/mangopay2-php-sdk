@@ -3,7 +3,7 @@
 session_start();
 
 // include MangoPay SDK
-require_once '../../MangoPay/Autoloader.php';
+require_once '../../vendor/autoload.php';
 require_once 'config.php';
 
 // check if payment has been initialized

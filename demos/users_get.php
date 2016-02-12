@@ -1,6 +1,6 @@
 <?php
 // require include only one file
-require_once '../MangoPay/Autoloader.php';
+require_once '../vendor/autoload.php';
 
 try {
     // create object to manage MangoPay API

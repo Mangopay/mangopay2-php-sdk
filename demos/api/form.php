@@ -1,7 +1,6 @@
 <?php
 namespace MangoPay\Demo;
-//require_once '../../MangoPaySDK/mangoPayApi.inc';
-require_once '../../MangoPay/Autoloader.php';
+require_once '../../vendor/autoload.php';
 require_once 'htmlHelper.php';
 require_once 'config.php';
 

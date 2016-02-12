@@ -1,13 +1,13 @@
 <?php
 
 // include MangoPay SDK
-require_once '../../MangoPay/Autoloader.php';
+require_once '../../vendor/autoload.php';
 require_once 'config.php';
 
 // sample data to demo
 $_SESSION['amount'] = 3300;
 $_SESSION['currency'] = 'EUR';
-$_SESSION['cardType'] = 'CB_VISA_MASTERCARD';//or alternatively MAESTRO or DINERS
+$_SESSION['cardType'] = 'CB_VISA_MASTERCARD';//or alternatively MAESTRO or DINERS etc
 
 // create instance of MangoPayApi SDK
 $mangoPayApi = new \MangoPay\MangoPayApi();
