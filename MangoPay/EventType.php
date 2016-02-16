@@ -42,7 +42,7 @@ class EventType
 	const DisputeFurtherActionRequired = "DISPUTE_FURTHER_ACTION_REQUIRED";
 	const DisputeClosed = "DISPUTE_CLOSED";
 	const DisputeSentToBank = "DISPUTE_SENT_TO_BANK";
-	const TransferSettlementFailed = "TRANSFER_SETTLEMENT_CREATED";
-	const TransferSettlementFailed = "TRANSFER_SETTLEMENT_SUCCEEDED";
+	const TransferSettlementCreated = "TRANSFER_SETTLEMENT_CREATED";
+	const TransferSettlementSucceeded = "TRANSFER_SETTLEMENT_SUCCEEDED";
 	const TransferSettlementFailed = "TRANSFER_SETTLEMENT_FAILED";
 }
