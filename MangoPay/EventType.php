@@ -28,4 +28,10 @@ class EventType
     const TransferRefundCreated = "TRANSFER_REFUND_CREATED";
     const TransferRefundSucceeded = "TRANSFER_REFUND_SUCCEEDED";
     const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
+    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
+    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
+    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
+    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
+    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
+    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
 }
