@@ -28,10 +28,21 @@ class EventType
     const TransferRefundCreated = "TRANSFER_REFUND_CREATED";
     const TransferRefundSucceeded = "TRANSFER_REFUND_SUCCEEDED";
     const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
-    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
-    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
-    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
-    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
-    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
-    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
+    
+    const PayinRepudiationCreated = "PAYIN_REPUDIATION_CREATED";
+    const PayinRepudiationSucceeded = "PAYIN_REPUDIATION_SUCCEEDED";
+    const PayinRepudiationFailed = "PAYIN_REPUDIATION_FAILED";
+    const DisputeDocumentCreated = "DISPUTE_DOCUMENT_CREATED";
+    const DisputeDocumentValidationAsked = "DISPUTE_DOCUMENT_VALIDATION_ASKED";
+    const DisputeDocumentSucceeded = "DISPUTE_DOCUMENT_SUCCEEDED";
+    const DisputeDocumentFailed = "DISPUTE_DOCUMENT_FAILED";
+    const DisputeCreated = "DISPUTE_CREATED";
+    const DisputeSubmitted = "DISPUTE_SUBMITTED";
+    const DisputeActionRequired = "DISPUTE_ACTION_REQUIRED";
+	const DisputeFurtherActionRequired = "DISPUTE_FURTHER_ACTION_REQUIRED";
+	const DisputeClosed = "DISPUTE_CLOSED";
+	const DisputeSentToBank = "DISPUTE_SENT_TO_BANK";
+	const TransferSettlementFailed = "TRANSFER_SETTLEMENT_CREATED";
+	const TransferSettlementFailed = "TRANSFER_SETTLEMENT_SUCCEEDED";
+	const TransferSettlementFailed = "TRANSFER_SETTLEMENT_FAILED";
 }
