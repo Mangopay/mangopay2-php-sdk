@@ -34,7 +34,7 @@ The Library has been added into your dependencies and is ready to be used.
 
 Installation without Composer
 -------------------------------------------------
-SDK has been written in PHP 5.5 and has only one dependency on [`psr/log`](https://github.com/php-fig/log). You should ensure that curl and openssl extensions (that are part of standard PHP distribution) are enabled in your PHP installation.
+SDK has been written in PHP 5.4 and has only one dependency on [`psr/log`](https://github.com/php-fig/log). You should ensure that curl and openssl extensions (that are part of standard PHP distribution) are enabled in your PHP installation.
 
 The project attempts to comply with PSR-4 specification for autoloading classes from file paths. As a namespace prefix is `MangoPay\` with base directory `/path/to/your-project/`.
 
