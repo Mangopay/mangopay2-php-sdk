@@ -92,12 +92,8 @@ abstract class Base extends \UnitTestCase {
         $api->Config->ClientId = 'sdk-unit-tests';
 
 		// sandbox environment:
-		// $api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
-		// $api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
-
-		// test environment:
-		$api->Config->BaseUrl = 'https://api-test.mangopay.com';
-		$api->Config->ClientPassword = '9RMGpwVUwFLK0SurxObJ2yaadDcO0zeKFKxWmthjB93SQjFzy0';
+		$api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
+		$api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
 
         $api->OAuthTokenManager->RegisterCustomStorageStrategy(new \MangoPay\Tests\MockStorageStrategy());
 
