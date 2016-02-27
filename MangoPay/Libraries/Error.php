@@ -20,4 +20,13 @@ class Error
      * @access public
      */
     public $Errors;
+    
+    /**
+     * Return the stdClass error serialized as string
+     * @access public 
+     */
+    public function __toString()
+    {
+        return serialize($this->Errors);
+    }
 }
