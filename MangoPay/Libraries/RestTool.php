@@ -177,6 +177,9 @@ class RestTool
             $this->logger->error('Cannot initialize cURL session');
             throw new Exception('Cannot initialize cURL session');
         }
+		
+		curl_setopt($this->_curlHandle, CURLOPT_CONNECTTIMEOUT, $this->GetCurlConnectionTimeout());
+		curl_setopt($this->_curlHandle, CURLOPT_TIMEOUT, $this->GetCurlResponseTimeout());
         
         curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
 
@@ -331,4 +334,22 @@ class RestTool
             }
         }
     }
+	
+	/**
+     * Get cURL connection timeout to use in request
+     * @return int Time in seconds
+     */
+    private function GetCurlConnectionTimeout()
+    {
+    	return (int) max($this->_root->Config->CurlConnectionTimeout, 0);
+	}
+	
+	/**
+     * Get cURL response timeout to use in request
+     * @return int Time in seconds
+     */
+    private function GetCurlResponseTimeout()
+    {
+    	return (int) max($this->_root->Config->CurlResponseTimeout, 0);
+	}
 }
