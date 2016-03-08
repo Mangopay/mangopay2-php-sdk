@@ -8,8 +8,9 @@ namespace MangoPay\Libraries;
 abstract class EntityBase extends Dto
 {
     /**
-     * @var Int Unique identifier
-     * (At this moment type is Integer - in the feature will be GUID)
+     * @var string Unique identifier
+     *
+     * At this moment, identifier is a numeric string - in the future, will be GUID.
      */
     public $Id;
     
