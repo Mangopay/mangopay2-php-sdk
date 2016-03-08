@@ -169,7 +169,6 @@ abstract class ApiBase
      */
     protected function CreateObject($methodKey, $entity, $responseClassName = null, $entityId = null, $subEntityId = null, $idempotencyKey = null)
     {
-
         if (is_null($entityId)) {
             $urlMethod = $this->GetRequestUrl($methodKey);
         } elseif (is_null($subEntityId)) {
@@ -348,7 +347,7 @@ abstract class ApiBase
                 } else {
                     /* UNCOMMENT THE LINE BELOW TO ENABLE RESTRICTIVE REFLECTION MODE */
                     //throw new Exception('Cannot cast response to entity object. Missing property ' . $name .' in entity ' . $entityClassName);
-                    
+
                     continue;
                 }
             }
@@ -384,8 +383,9 @@ abstract class ApiBase
             }
         }
         
-        if (count($requestData) == 0)
+        if (count($requestData) == 0) {
             return new \stdClass();
+        }
         
         return $requestData;
     }

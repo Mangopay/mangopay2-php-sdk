@@ -47,16 +47,15 @@ class Configuration
      * Set the logging class if DebugMode is enabled
      */
     public $LogClass = 'MangoPay\Libraries\Logs';
-	
-	
-	/**
+    
+    
+    /**
      * Set the cURL connection timeout limit (in seconds)
      */
     public $CurlConnectionTimeout = 30;
-	
-	/**
+    
+    /**
      * Set the cURL response timeout limit (in seconds)
      */
     public $CurlResponseTimeout = 80;
-	
 }

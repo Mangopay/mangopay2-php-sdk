@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Filter for event list
  */
-class FilterKycDocuments extends FilterBase {
+class FilterKycDocuments extends FilterBase
+{
     
     /**
      * KycDocumentStatus {CREATED, VALIDATION_ASKED, VALIDATED, REFUSED}

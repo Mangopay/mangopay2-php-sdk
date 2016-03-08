@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Dispute statuses
  */
-class DisputeStatus {
+class DisputeStatus
+{
     const Created = "CREATED";
     const PendingClientAction = "PENDING_CLIENT_ACTION";
     const Submitted = "SUBMITTED";

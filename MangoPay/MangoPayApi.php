@@ -169,7 +169,6 @@ class MangoPayApi
 
         // Setting default NullLogger
         $this->logger = new NullLogger();
-
     }
 
     /**

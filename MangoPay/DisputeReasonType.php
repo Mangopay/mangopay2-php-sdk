@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Dispute reason types
  */
-class DisputeReasonType {
+class DisputeReasonType
+{
     const Duplicate = "DUPLICATE";
     const Fraud = "FRAUD";
     const ProductUnacceptable = "PRODUCT_UNACCEPTABLE";

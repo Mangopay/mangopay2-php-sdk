@@ -40,7 +40,8 @@ class BankAccount extends Libraries\EntityBase
      * Get array with mapping which property is object and what type of object 
      * @return array
      */
-    public function GetSubObjects() {
+    public function GetSubObjects()
+    {
         $subObjects = parent::GetSubObjects();
         
         $subObjects['OwnerAddress'] = '\MangoPay\Address';

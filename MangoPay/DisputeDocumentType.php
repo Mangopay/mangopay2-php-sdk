@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Dispute document types
  */
-class DisputeDocumentType {
+class DisputeDocumentType
+{
     const DeliveryProof = "DELIVERY_PROOF";
     const Invoice = "INVOICE";
     const RefundProof = "REFUND_PROOF";

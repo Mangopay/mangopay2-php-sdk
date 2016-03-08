@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Response entity
  */
-class Response extends Libraries\Dto {
+class Response extends Libraries\Dto
+{
     
     /**
      * Status code

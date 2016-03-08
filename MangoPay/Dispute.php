@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Dispute entity
  */
-class Dispute extends Libraries\EntityBase {
+class Dispute extends Libraries\EntityBase
+{
     
     /**
      * Identifier of the transaction that was disputed
@@ -76,11 +77,12 @@ class Dispute extends Libraries\EntityBase {
      * Get array with mapping which property is object and what type of object 
      * @return array
      */
-    public function GetSubObjects() {
-        return array( 
+    public function GetSubObjects()
+    {
+        return array(
             'DisputeReason' => '\MangoPay\DisputeReason',
             'DisputedFunds' => '\MangoPay\Money',
-            'ContestedFunds' => '\MangoPay\Money' 
+            'ContestedFunds' => '\MangoPay\Money'
             );
     }
     
@@ -88,18 +90,19 @@ class Dispute extends Libraries\EntityBase {
      * Get array with read-only properties
      * @return array
      */
-    public function GetReadOnlyProperties() {
+    public function GetReadOnlyProperties()
+    {
         $properties = parent::GetReadOnlyProperties();
-        array_push( $properties, 'InitialTransactionId' );
-        array_push( $properties, 'InitialTransactionType' );
-        array_push( $properties, 'DisputeType' );
-        array_push( $properties, 'ContestDeadlineDate' );
-        array_push( $properties, 'DisputeReason' );
-        array_push( $properties, 'DisputedFunds' );
-        array_push( $properties, 'Status' );
-        array_push( $properties, 'StatusMessage' );
-        array_push( $properties, 'ResultCode' );
-        array_push( $properties, 'ResultMessage' );
+        array_push($properties, 'InitialTransactionId');
+        array_push($properties, 'InitialTransactionType');
+        array_push($properties, 'DisputeType');
+        array_push($properties, 'ContestDeadlineDate');
+        array_push($properties, 'DisputeReason');
+        array_push($properties, 'DisputedFunds');
+        array_push($properties, 'Status');
+        array_push($properties, 'StatusMessage');
+        array_push($properties, 'ResultCode');
+        array_push($properties, 'ResultMessage');
         
         return $properties;
     }

@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Settlement transfer entity.
  */
-class SettlementTransfer extends Libraries\EntityBase {
+class SettlementTransfer extends Libraries\EntityBase
+{
     
     /**
      * The Id of the author of the original PayIn that was repudiated
@@ -34,7 +35,8 @@ class SettlementTransfer extends Libraries\EntityBase {
      * Get array with mapping which property is object and what type of object 
      * @return array
      */
-    public function GetSubObjects() {
+    public function GetSubObjects()
+    {
         return array(
             'DebitedFunds' => '\MangoPay\Money' ,
             'Fees' => '\MangoPay\Money'

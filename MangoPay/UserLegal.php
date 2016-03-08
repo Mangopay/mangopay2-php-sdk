@@ -103,7 +103,8 @@ class UserLegal extends User
      * Get array with mapping which property is object and what type of object 
      * @return array
      */
-    public function GetSubObjects() {
+    public function GetSubObjects()
+    {
         $subObjects = parent::GetSubObjects();
         
         $subObjects['HeadquartersAddress'] = '\MangoPay\Address';
