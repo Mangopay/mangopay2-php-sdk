@@ -8,7 +8,8 @@ namespace MangoPay;
  * Class ApiDisputeDocuments
  * @package MangoPay
  */
-class ApiDisputeDocuments extends Libraries\ApiBase {
+class ApiDisputeDocuments extends Libraries\ApiBase
+{
     
     /**
      * Gets dispute's document

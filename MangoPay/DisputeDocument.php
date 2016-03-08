@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Dispute document entity
  */
-class DisputeDocument extends Libraries\Document {
+class DisputeDocument extends Libraries\Document
+{
     
     /**
      * Type of dispute document

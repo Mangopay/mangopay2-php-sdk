@@ -39,10 +39,10 @@ class EventType
     const DisputeCreated = "DISPUTE_CREATED";
     const DisputeSubmitted = "DISPUTE_SUBMITTED";
     const DisputeActionRequired = "DISPUTE_ACTION_REQUIRED";
-	const DisputeFurtherActionRequired = "DISPUTE_FURTHER_ACTION_REQUIRED";
-	const DisputeClosed = "DISPUTE_CLOSED";
-	const DisputeSentToBank = "DISPUTE_SENT_TO_BANK";
-	const TransferSettlementCreated = "TRANSFER_SETTLEMENT_CREATED";
-	const TransferSettlementSucceeded = "TRANSFER_SETTLEMENT_SUCCEEDED";
-	const TransferSettlementFailed = "TRANSFER_SETTLEMENT_FAILED";
+    const DisputeFurtherActionRequired = "DISPUTE_FURTHER_ACTION_REQUIRED";
+    const DisputeClosed = "DISPUTE_CLOSED";
+    const DisputeSentToBank = "DISPUTE_SENT_TO_BANK";
+    const TransferSettlementCreated = "TRANSFER_SETTLEMENT_CREATED";
+    const TransferSettlementSucceeded = "TRANSFER_SETTLEMENT_SUCCEEDED";
+    const TransferSettlementFailed = "TRANSFER_SETTLEMENT_FAILED";
 }

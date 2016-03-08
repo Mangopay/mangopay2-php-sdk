@@ -1,5 +1,6 @@
 <?php
 namespace MangoPay\Libraries;
+
 use Psr\Log\LoggerInterface;
 
 /**
@@ -96,7 +97,6 @@ class RestTool
      */
     public function Request($urlMethod, $requestType, $requestData = null, $idempotencyKey = null, & $pagination = null, $additionalUrlParams = null)
     {
- 
         $this->_requestType = $requestType;
         $this->_requestData = $requestData;
         
@@ -110,7 +110,7 @@ class RestTool
         $responseResult = $this->RunRequest();
         
 
-        if(!is_null($pagination)) {
+        if (!is_null($pagination)) {
             $pagination = $this->_pagination;
         }
         
@@ -177,9 +177,9 @@ class RestTool
             $this->logger->error('Cannot initialize cURL session');
             throw new Exception('Cannot initialize cURL session');
         }
-		
-		curl_setopt($this->_curlHandle, CURLOPT_CONNECTTIMEOUT, $this->GetCurlConnectionTimeout());
-		curl_setopt($this->_curlHandle, CURLOPT_TIMEOUT, $this->GetCurlResponseTimeout());
+        
+        curl_setopt($this->_curlHandle, CURLOPT_CONNECTTIMEOUT, $this->GetCurlConnectionTimeout());
+        curl_setopt($this->_curlHandle, CURLOPT_TIMEOUT, $this->GetCurlResponseTimeout());
         
         curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
 
@@ -214,7 +214,9 @@ class RestTool
         }
 
         $httpHeaders = $this->GetHttpHeaders();
-		if ($idempotencyKey != null) array_push($httpHeaders, 'Idempotency-Key: ' . $idempotencyKey);
+        if ($idempotencyKey != null) {
+            array_push($httpHeaders, 'Idempotency-Key: ' . $idempotencyKey);
+        }
         curl_setopt($this->_curlHandle, CURLOPT_HTTPHEADER, $httpHeaders);
 
         $this->logger->debug('HTTP Headers : ' . print_r($httpHeaders, true));
@@ -297,7 +299,7 @@ class RestTool
         // return if already created...
         if (!is_null($this->_requestHttpHeaders)) {
             return $this->_requestHttpHeaders;
-		}
+        }
         
         // ...or initialize with default headers
         $this->_requestHttpHeaders = array();
@@ -334,22 +336,22 @@ class RestTool
             }
         }
     }
-	
-	/**
+    
+    /**
      * Get cURL connection timeout to use in request
      * @return int Time in seconds
      */
     private function GetCurlConnectionTimeout()
     {
-    	return (int) max($this->_root->Config->CurlConnectionTimeout, 0);
-	}
-	
-	/**
+        return (int) max($this->_root->Config->CurlConnectionTimeout, 0);
+    }
+    
+    /**
      * Get cURL response timeout to use in request
      * @return int Time in seconds
      */
     private function GetCurlResponseTimeout()
     {
-    	return (int) max($this->_root->Config->CurlResponseTimeout, 0);
-	}
+        return (int) max($this->_root->Config->CurlResponseTimeout, 0);
+    }
 }

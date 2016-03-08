@@ -4,7 +4,8 @@ namespace MangoPay;
 /**
  * Repudiation entity
  */
-class Repudiation extends Libraries\EntityBase {
+class Repudiation extends Libraries\EntityBase
+{
     
     /**
      * The Id of the origin payin author
@@ -86,8 +87,9 @@ class Repudiation extends Libraries\EntityBase {
      * Get array with mapping which property is object and what type of object 
      * @return array
      */
-    public function GetSubObjects() {
-        return array( 
+    public function GetSubObjects()
+    {
+        return array(
             'DebitedFunds' => '\MangoPay\Money',
             'Fees' => '\MangoPay\Money',
             'CreditedFunds' => '\MangoPay\Money',

@@ -5,7 +5,8 @@ namespace MangoPay;
 /**
  * Class represents dispute's reason
  */
-class DisputeReason extends Libraries\Dto {
+class DisputeReason extends Libraries\Dto
+{
     
     /**
      * Dispute's reason type

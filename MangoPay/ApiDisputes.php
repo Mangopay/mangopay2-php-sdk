@@ -8,14 +8,16 @@ namespace MangoPay;
  * Class ApiDisputes
  * @package MangoPay
  */
-class ApiDisputes extends Libraries\ApiBase {
+class ApiDisputes extends Libraries\ApiBase
+{
     
     /**
      * Gets dispute
      * @param Int|GUID $disputeId Dispute identifier
      * @return \MangoPay\Dispute Dispute instance returned from API
      */
-    public function Get($disputeId) {
+    public function Get($disputeId)
+    {
         return $this->GetObject('disputes_get', $disputeId, '\MangoPay\Dispute');
     }
     
@@ -25,7 +27,8 @@ class ApiDisputes extends Libraries\ApiBase {
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return array Array with disputes
      */
-    public function GetAll(& $pagination = null, $sorting = null) {
+    public function GetAll(& $pagination = null, $sorting = null)
+    {
         return $this->GetList('disputes_all', $pagination, '\MangoPay\Dispute', null, null, $sorting);
     }
     
@@ -154,7 +157,7 @@ class ApiDisputes extends Libraries\ApiBase {
     public function GetDocumentsForDispute($disputeId, $pagination = null, $sorting = null)
     {
         return $this->GetList('disputes_document_get_for_dispute', $pagination, 'MangoPay\DisputeDocument', $disputeId, null, $sorting);
-    }   
+    }
         
     /**
      * Update dispute document
@@ -186,7 +189,7 @@ class ApiDisputes extends Libraries\ApiBase {
      */
     public function CreateDisputeDocumentPage($disputeId, $disputeDocumentId, $disputeDocumentPage, $idempotencyKey = null)
     {
-        try{
+        try {
             $this->CreateObject('disputes_document_page_create', $disputeDocumentPage, null, $disputeId, $disputeDocumentId, $idempotencyKey);
         } catch (\MangoPay\Libraries\ResponseException $exc) {
             if ($exc->getCode() != 204) {
@@ -202,8 +205,8 @@ class ApiDisputes extends Libraries\ApiBase {
      * @param string $file File path
      * @throws \MangoPay\Libraries\Exception
      */
-    public function CreateDisputeDocumentPageFromFile($disputeId, $disputeDocumentId, $file, $idempotencyKey = null) {
-        
+    public function CreateDisputeDocumentPageFromFile($disputeId, $disputeDocumentId, $file, $idempotencyKey = null)
+    {
         $filePath = $file;
         if (is_array($file)) {
             $filePath = $file['tmp_name'];

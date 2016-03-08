@@ -110,7 +110,7 @@ class ApiUsers extends Libraries\ApiBase
      * @param \MangoPay\BankAccount $bankAccount Entity of bank account object
      * @return \MangoPay\BankAccount Create bank account object
      */
-    public function CreateBankAccount($userId, $bankAccount, $idempotencyKey = null) 
+    public function CreateBankAccount($userId, $bankAccount, $idempotencyKey = null)
     {
         $type = $this->GetBankAccountType($bankAccount);
         return $this->CreateObject('users_createbankaccounts_' . $type, $bankAccount, '\MangoPay\BankAccount', $userId, null, $idempotencyKey);
@@ -197,10 +197,10 @@ class ApiUsers extends Libraries\ApiBase
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
-	 * @param \MangoPay\FilterKycDocuments $filter Object to filter data
+     * @param \MangoPay\FilterKycDocuments $filter Object to filter data
      * 
      * @return array Array with KYC documents entities
-     */    
+     */
     public function GetKycDocuments($userId, & $pagination = null, $sorting = null, $filter = null)
     {
         return $this->GetList('users_allkycdocuments', $pagination, 'MangoPay\KycDocument', $userId, $filter, $sorting);
@@ -237,8 +237,7 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey = null)
     {
-        
-        try{
+        try {
             $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId, $idempotencyKey);
         } catch (\MangoPay\Libraries\ResponseException $exc) {
             if ($exc->getCode() != 204) {

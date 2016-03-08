@@ -11,7 +11,7 @@ class ApiHooks extends Libraries\ApiBase
      * @param Hook $hook
      * @return \MangoPay\Hook Hook object returned from API
      */
-    public function Create($hook, $idempotencyKey = null) 
+    public function Create($hook, $idempotencyKey = null)
     {
         return $this->CreateObject('hooks_create', $hook, '\MangoPay\Hook', null, null, $idempotencyKey);
     }

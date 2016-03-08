@@ -5,7 +5,8 @@ namespace MangoPay;
 /**
  * Class represents an address.
  */
-class Address extends Libraries\Dto {
+class Address extends Libraries\Dto
+{
     
     /**
      * Address line 1.
