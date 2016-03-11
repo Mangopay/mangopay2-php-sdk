@@ -31,6 +31,12 @@ class OAuthToken extends Dto
     public $expires_in;
     
     /**
+     * Autentication key
+     * @var string
+     */
+    public $autentication_key;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -45,5 +51,9 @@ class OAuthToken extends Dto
     public function IsExpired()
     {
         return (time() >= ($this->create_time + $this->expires_in));
+    }
+    
+    public function GetAutenticationKey(){
+        return $this->autentication_key;
     }
 }

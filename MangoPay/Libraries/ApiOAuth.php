@@ -26,6 +26,9 @@ class ApiOAuth extends ApiBase
         $rest->AddRequestHttpHeader('Authorization: Basic ' . $authHlp->GetHttpHeaderBasicKey());
         $rest->AddRequestHttpHeader('Content-Type: application/x-www-form-urlencoded');
         $response = $rest->Request($urlMethod, $requestType, $requestData);
-        return $this->CastResponseToEntity($response, '\MangoPay\Libraries\OAuthToken');
+        $token = $this->CastResponseToEntity($response, '\MangoPay\Libraries\OAuthToken');
+        $token->autentication_key = $authHlp->GetAutenticationKey();
+        
+        return $token;
     }
 }

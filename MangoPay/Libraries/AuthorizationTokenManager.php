@@ -25,11 +25,11 @@ class AuthorizationTokenManager extends ApiBase
      * If currently stored token is expired, this method creates a new one.
      * @return \MangoPay\Libraries\OAuthToken Valid OAuthToken instance.
      */
-    public function GetToken()
+    public function GetToken($autenticationKey)
     {
         $token = $this->_storageStrategy->get();
         
-        if (is_null($token) || $token->IsExpired()) {
+        if (is_null($token) || $token->IsExpired() || $token->GetAutenticationKey() != $autenticationKey) {
             $this->storeToken($this->_root->AuthenticationManager->createToken());
         }
     

@@ -46,6 +46,18 @@ class AuthenticationHelper
         return base64_encode($signature);
     }
     
+    public function GetAutenticationKey(){
+        if (is_null($this->_root->Config->ClientId) || strlen($this->_root->Config->ClientId) == 0) {
+            throw new Exception('MangoPayApi.Config.ClientId is not set.');
+        }
+        
+        if (is_null($this->_root->Config->BaseUrl) || strlen($this->_root->Config->BaseUrl) == 0) {
+            throw new Exception('MangoPayApi.Config.BaseUrl is not set.');
+        }
+        
+        return md5($this->_root->Config->BaseUrl . $this->_root->Config->ClientId);
+    }
+    
     /**
      * Get HTTP header value with authorization string for basic authentication
      *
@@ -65,7 +77,7 @@ class AuthenticationHelper
      */
     private function GetHttpHeaderStrong()
     {
-        $token = $this->_root->OAuthTokenManager->GetToken();
+        $token = $this->_root->OAuthTokenManager->GetToken($this->GetAutenticationKey());
 
         if (is_null($token) || !isset($token->access_token) || !isset($token->token_type)) {
             throw new Exception('OAuth token is not created (or is invalid) for strong authentication');
