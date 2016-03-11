@@ -55,7 +55,9 @@ class AuthenticationHelper
             throw new Exception('MangoPayApi.Config.BaseUrl is not set.');
         }
         
-        return md5($this->_root->Config->BaseUrl . $this->_root->Config->ClientId);
+        return md5($this->_root->Config->BaseUrl.
+                    $this->_root->Config->ClientId.
+                    $this->_root->Config->ClientPassword);
     }
     
     /**
