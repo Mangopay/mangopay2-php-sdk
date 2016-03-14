@@ -247,5 +247,28 @@ class PayIns extends Base {
         $this->assertNotNull($createPayIn->ExecutionDetails->RedirectURL);
         $this->assertNotNull($createPayIn->ExecutionDetails->TemplateURL);
     }
+    
+    function test_PayIns_Create_DirectDebitDirect() {
+        $johnWallet = $this->getJohnsWalletWithMoney();
+        $beforeWallet = $this->_api->Wallets->Get($johnWallet->Id);
+
+        $payIn = $this->getNewPayInDirectDebitDirect();
+        $wallet = $this->_api->Wallets->Get($johnWallet->Id);
+        $user = $this->getJohn();
+
+        $this->assertTrue($payIn->Id > 0);
+        $this->assertEqual($wallet->Id, $payIn->CreditedWalletId);
+        $this->assertEqual('DIRECT_DEBIT', $payIn->PaymentType);
+        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsDirectDebit');
+        $this->assertEqual('DIRECT', $payIn->ExecutionType);
+        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsDirect');
+        $this->assertIsA($payIn->DebitedFunds, '\MangoPay\Money');
+        $this->assertIsA($payIn->CreditedFunds, '\MangoPay\Money');
+        $this->assertIsA($payIn->Fees, '\MangoPay\Money');
+        $this->assertEqual($user->Id, $payIn->AuthorId);
+        $this->assertEqual($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
+        $this->assertEqual('SUCCEEDED', $payIn->Status);
+        $this->assertEqual('PAYIN', $payIn->Type);
+    }
 }
 

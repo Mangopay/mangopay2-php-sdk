@@ -379,6 +379,35 @@ abstract class Base extends \UnitTestCase {
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
         return $this->_api->PayIns->Create($payIn);
     }
+    
+    /**
+     * Creates Pay-In direct debit direct object
+     * @return \MangoPay\PayIn
+     */
+    protected function getNewPayInDirectDebitDirect($userId = null) {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)){
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+        
+        // create pay-in CARD DIRECT
+        $payIn = new \MangoPay\PayIn();
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->AuthorId = $userId;
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 10000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'EUR';
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsDirectDebit();
+        $payIn->PaymentDetails->MandateId = "1234"; //@TODO
+        // execution type as DIRECT
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        return $this->_api->PayIns->Create($payIn);
+    }
 
     /**
      * Creates Pay-Out  Bank Wire object
