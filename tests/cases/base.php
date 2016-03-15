@@ -91,9 +91,9 @@ abstract class Base extends \UnitTestCase {
         // use test client credentails
         $api->Config->ClientId = 'sdk-unit-tests';
 
-		// sandbox environment:
-		$api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
-		$api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
+        // sandbox environment:
+        $api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
+        $api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
 
         $api->OAuthTokenManager->RegisterCustomStorageStrategy(new \MangoPay\Tests\MockStorageStrategy());
 
@@ -638,6 +638,22 @@ abstract class Base extends \UnitTestCase {
         }
         
         return self::$JohnsHook;
+    }
+    
+    /**
+     * Creates mandate belonging to John
+     * @return \MangoPay\Mandate
+     */
+    protected function getJohnsMandate() {
+        $account = $this->getJohnsAccount();
+
+        $mandate = new \MangoPay\Mandate();
+        $mandate->Tag = "Tag test";
+        $mandate->BankAccountId = $account->Id;
+        $mandate->ReturnURL = "http://www.mysite.com/returnURL/";
+        $mandate->Culture = "FR";
+        
+        return $this->_api->Mandates->Create($mandate);
     }
     
     /**

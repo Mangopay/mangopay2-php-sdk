@@ -132,6 +132,12 @@ class MangoPayApi
      * @var ApiDisputeDocuments 
      */
     public $DisputeDocuments;
+    
+    /**
+     * Provides dispute documents methods
+     * @var ApiMandates 
+     */
+    public $Mandates;
 
     /**
      * @var LoggerInterface
@@ -166,6 +172,7 @@ class MangoPayApi
         $this->KycDocuments = new ApiKycDocuments($this);
         $this->Disputes = new ApiDisputes($this);
         $this->DisputeDocuments = new ApiDisputeDocuments($this);
+        $this->Mandates = new ApiMandates($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();

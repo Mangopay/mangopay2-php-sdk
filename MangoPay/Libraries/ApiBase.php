@@ -82,6 +82,8 @@ abstract class ApiBase
         'users_allcards' => array( '/users/%s/cards', RequestType::GET ),
         'users_alltransactions' => array( '/users/%s/transactions', RequestType::GET ),
         'users_allkycdocuments' => array( '/users/%s/KYC/documents', RequestType::GET ),
+        'users_allmandates' => array( '/users/%s/mandates', RequestType::GET ),
+        'users_allbankaccount_mandates' => array( '/users/%s/bankaccounts/%s/mandates', RequestType::GET ),
         'users_get' => array( '/users/%s', RequestType::GET ),
         'users_getnaturals' => array( '/users/natural/%s', RequestType::GET ),
         'users_getlegals' => array( '/users/legal/%s', RequestType::GET ),
@@ -129,6 +131,11 @@ abstract class ApiBase
         'temp_paymentcards_create' => array( '/temp/paymentcards', RequestType::POST ),
         'temp_paymentcards_get' => array( '/temp/paymentcards/%s', RequestType::GET ),
         'temp_immediatepayins_create' => array( '/temp/immediate-payins', RequestType::POST ),
+        
+        'mandates_create' => array( '/mandates/directdebit/web', RequestType::POST ),
+        'mandates_save' => array( '/mandates/%s', RequestType::PUT ),
+        'mandates_get' => array( '/mandates/%s', RequestType::GET ),
+        'mandates_all' => array( '/mandates', RequestType::GET )
     );
 
     /**
@@ -225,9 +232,9 @@ abstract class ApiBase
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return object Response data
      */
-    protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null)
+    protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null, $secondEntityId = null)
     {
-        $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
+        $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId);
         
         if (is_null($pagination) || !is_object($pagination) || get_class($pagination) != 'MangoPay\Pagination') {
             $pagination = new \MangoPay\Pagination();

@@ -598,4 +598,27 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 
         $this->assertTrue($wallets[0]->CreationDate > $wallets[1]->CreationDate);
     }
+    
+    function test_Users_AllMandates() {
+        $john = $this->getJohn();
+        $this->getJohnsMandate();
+        $pagination = new \MangoPay\Pagination(1, 1);
+        
+        $mandates = $this->_api->Users->GetMandates($john->Id, $pagination);
+
+        $this->assertEqual(count($mandates), 1);
+        $this->assertIsA($mandates[0], '\MangoPay\Mandate');
+    }
+    
+    function test_Users_AllMandatesForBankAccount() {
+        $john = $this->getJohn();
+        $account = $this->getJohnsAccount();
+        $this->getJohnsMandate();
+        $pagination = new \MangoPay\Pagination(1, 1);
+        
+        $mandates = $this->_api->Users->GetMandatesForBankAccount($john->Id, $account->Id, $pagination);
+
+        $this->assertEqual(count($mandates), 1);
+        $this->assertIsA($mandates[0], '\MangoPay\Mandate');
+    }
 }

@@ -104,6 +104,14 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'List all dispute documents' => 'DisputeDocument_DisputeDocuments_All___$Sort',
         'List dispute documents for dispute' => 'Dispute_Disputes_ListSubEntity_GetDocumentsForDispute__$Sort',
     ),
+    'Mandates' => array(
+        'Create mandate' => 'Mandate_Mandates_Create',
+        'Get mandate' => 'Mandate_Mandates_Get',
+        'Cancel mandate' => 'Mandate_Mandates_Cancel',
+        'List of mandates' => 'Mandate_Mandates_All__FilterTransactions___$Sort',
+        'List mandate for user' => 'User_Users_ListSubEntity_GetMandates_FilterTransactions_$Sort',
+        'List mandate for user and for bank account' => 'User_Users_ListSubSubEntity_GetMandatesForBankAccount_FilterTransactions_BankAccount___$Sort',
+    ),
 );
 
 ?>

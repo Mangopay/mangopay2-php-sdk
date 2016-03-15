@@ -23,6 +23,7 @@ class HtmlHelper {
                 self::renderEntity($entityName);
                 break;
             case 'Get':
+            case 'Cancel':
             case 'CloseDispute':
                 self::renderId($entityName);
                 break;
@@ -59,6 +60,18 @@ class HtmlHelper {
                 break;
             case 'ListSubEntity':
                 self::renderId($entityName);
+                if (isset($filterName) && $filterName != "") {
+                    self::renderFormRow('<i>Optional filters:</i>');
+                    self::renderEntity($filterName);
+                }
+                
+                self::renderFormRow('<i>Pagination:</i>');
+                self::renderEntity('Pagination');
+                break;
+                break;
+            case 'ListSubSubEntity':
+                self::renderId($entityName);
+                self::renderId($subEntityName[1], 'IdSubEntity');
                 if (isset($filterName) && $filterName != "") {
                     self::renderFormRow('<i>Optional filters:</i>');
                     self::renderEntity($filterName);
