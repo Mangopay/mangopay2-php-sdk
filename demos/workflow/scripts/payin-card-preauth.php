@@ -11,7 +11,7 @@ $PayIn->DebitedFunds->Amount = 950;
 $PayIn->Fees = new \MangoPay\Money();
 $PayIn->Fees->Currency = "EUR";
 $PayIn->Fees->Amount = 550;
-$PayIn->ExecutionType = "DIRECT";
+$PayIn->ExecutionType = \MangoPay\PayInExecutionType::Direct;
 $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
 $result = $mangoPayApi->PayIns->Create($PayIn);
 
