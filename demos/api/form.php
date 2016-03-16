@@ -51,8 +51,15 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
             case 'Get':
                 $apiResult = $api->$subApiName->Get($entityId);
                 break;
+            case 'GetNoParams':
+                $apiResult = $api->$subApiName->Get();
+                break;
             case 'Save':
                 $entity = HtmlHelper::getEntity($entityName, $entityId);
+                $apiResult = $api->$subApiName->Update($entity);
+                break;
+            case 'SaveNoId':
+                $entity = HtmlHelper::getEntity($entityName);
                 $apiResult = $api->$subApiName->Update($entity);
                 break;
             case 'All':
@@ -125,6 +132,13 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                 break;
             case 'CloseDispute':
                 $apiResult = $api->$subApiName->$operation($entityId);
+                break;
+            case 'Upload':
+                $entity = HtmlHelper::getEntity($subEntityName);
+                $apiResult = $api->$subApiName->$subSubEntityName($entity);
+                break;
+             case 'UploadFromFile':
+                $apiResult = $api->$subApiName->$subSubEntityName($_FILES['page_file']);
                 break;
         }
         

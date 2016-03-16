@@ -5,7 +5,7 @@ namespace MangoPay\Libraries;
 /**
  * Abstract class for all documents
  */
-abstract class Page extends Dto
+abstract class Upload extends Dto
 {
     
     /**

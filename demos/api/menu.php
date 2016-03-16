@@ -103,6 +103,12 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'List all dispute documents' => 'DisputeDocument_DisputeDocuments_All___$Sort',
         'List dispute documents for dispute' => 'Dispute_Disputes_ListSubEntity_GetDocumentsForDispute__$Sort',
     ),
+    'Client' => array(
+        'Get client information' => 'Client_Clients_GetNoParams',
+        'Update client' => 'Client_Clients_SaveNoId',
+        'Upload logo from base64' => 'Client_Clients_Upload_ClientLogoUpload__UploadLogo',
+        'Upload logo from file' => 'Client_Clients_UploadFromFile___UploadLogoFromFile',
+    ),
 );
 
 ?>

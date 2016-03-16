@@ -30,6 +30,9 @@ class HtmlHelper {
                 self::renderId($entityName);
                 self::renderEntity($entityName);
                 break;
+            case 'SaveNoId':
+                self::renderEntity($entityName);
+                break;
             case 'All':
                 if (isset($filterName) && $filterName != "") {
                     self::renderFormRow('<i>Optional filters:</i>');
@@ -76,6 +79,13 @@ class HtmlHelper {
                 self::renderId($entityName, 'IdSubEntity');
                 self::renderEntity($subEntityName[0]);
                 break;
+             case 'Upload':
+                self::renderEntity($subEntityName[0]);
+                break;
+                break;
+             case 'UploadFromFile':
+                self::renderFormRow('<tr><td></td><td><input type="file" name="page_file" /></td></tr>');
+                break;
         }
         
         $module = @$_GET['module'];
@@ -83,7 +93,14 @@ class HtmlHelper {
             self::renderSort();
         }
         
-        echo '<tr><td></td><td><input type="submit" value="' . $operation . '" /></td></tr>';
+        $buttonText = $operation;
+        if ($operation == "GetNoParams"){
+            $buttonText = "Get";
+        } else if ($operation == "SaveNoId"){
+            $buttonText = "Save";
+        }
+        
+        echo '<tr><td></td><td><input type="submit" value="' . $buttonText . '" /></td></tr>';
         echo '</table>';
         echo '<input type="hidden" name="_postback" value="1"/>';
         echo '</form>';
