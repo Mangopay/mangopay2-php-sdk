@@ -2,7 +2,7 @@
 $PayIn = new \MangoPay\PayIn();
 $PayIn->CreditedWalletId = $_SESSION["MangoPayDemo"]["WalletForNaturalUser"];
 $PayIn->AuthorId = $_SESSION["MangoPayDemo"]["UserNatural"];
-$PayIn->PaymentType = "CARD";
+$PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
 $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsPreAuthorized();
 $PayIn->PaymentDetails->PreauthorizationId = $_SESSION["MangoPayDemo"]["PreAuth"];
 $PayIn->DebitedFunds = new \MangoPay\Money();
