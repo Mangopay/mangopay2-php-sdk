@@ -2,7 +2,7 @@
 $PayIn = new \MangoPay\PayIn();
 $PayIn->CreditedWalletId = $_SESSION["MangoPayDemo"]["WalletForNaturalUser"];
 $PayIn->AuthorId = $_SESSION["MangoPayDemo"]["UserNatural"];
-$PayIn->PaymentType = "CARD";
+$PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
 $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
 $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
 $PayIn->DebitedFunds = new \MangoPay\Money();
@@ -11,7 +11,7 @@ $PayIn->DebitedFunds->Amount = 2500;
 $PayIn->Fees = new \MangoPay\Money();
 $PayIn->Fees->Currency = "EUR";
 $PayIn->Fees->Amount = 150;
-$PayIn->ExecutionType = "WEB";
+$PayIn->ExecutionType = \MangoPay\PayInExecutionType::Web;
 $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
 $PayIn->ExecutionDetails->ReturnURL = "http".(isset($_SERVER['HTTPS']) ? "s" : null)."://".$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]."?stepId=".($stepId+1);
 $PayIn->ExecutionDetails->Culture = "EN";

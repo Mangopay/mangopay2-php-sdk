@@ -34,7 +34,7 @@ class PayOut extends Transaction
         return array(
             'PaymentType' => array(
                 '_property_name' => 'MeanOfPaymentDetails',
-                'BANK_WIRE' => '\MangoPay\PayOutPaymentDetailsBankWire',
+                PayOutPaymentType::BankWire => '\MangoPay\PayOutPaymentDetailsBankWire',
                 // ...and more in future...
             )
         );

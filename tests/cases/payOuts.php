@@ -12,7 +12,7 @@ class PayOuts extends Base {
         $payOut = $this->getJohnsPayOutForCardDirect();
         
         $this->assertTrue($payOut->Id > 0);
-        $this->assertIdentical($payOut->PaymentType, 'BANK_WIRE');
+        $this->assertIdentical($payOut->PaymentType, \MangoPay\PayOutPaymentType::BankWire);
         $this->assertIsA($payOut->MeanOfPaymentDetails, '\MangoPay\PayOutPaymentDetailsBankWire');
     }
     

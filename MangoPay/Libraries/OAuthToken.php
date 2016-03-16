@@ -53,7 +53,8 @@ class OAuthToken extends Dto
         return (time() >= ($this->create_time + $this->expires_in));
     }
     
-    public function GetAutenticationKey(){
+    public function GetAutenticationKey()
+    {
         return $this->autentication_key;
     }
 }

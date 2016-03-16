@@ -45,16 +45,16 @@ class PayIn extends Transaction
         return array(
             'PaymentType' => array(
                 '_property_name' => 'PaymentDetails',
-                'CARD' => '\MangoPay\PayInPaymentDetailsCard',
-                'PREAUTHORIZED' => '\MangoPay\PayInPaymentDetailsPreAuthorized',
-                'BANK_WIRE' => '\MangoPay\PayInPaymentDetailsBankWire',
-                'DIRECT_DEBIT' => '\MangoPay\PayInPaymentDetailsDirectDebit',
+                PayInPaymentType::Card => '\MangoPay\PayInPaymentDetailsCard',
+                PayInPaymentType::Preauthorized => '\MangoPay\PayInPaymentDetailsPreAuthorized',
+                PayInPaymentType::BankWire => '\MangoPay\PayInPaymentDetailsBankWire',
+                PayInPaymentType::DirectDebit => '\MangoPay\PayInPaymentDetailsDirectDebit',
                 // ...and more in future...
             ),
             'ExecutionType' => array(
                 '_property_name' => 'ExecutionDetails',
-                'WEB' => '\MangoPay\PayInExecutionDetailsWeb',
-                'DIRECT' => '\MangoPay\PayInExecutionDetailsDirect',
+                PayInExecutionType::Web => '\MangoPay\PayInExecutionDetailsWeb',
+                PayInExecutionType::Direct => '\MangoPay\PayInExecutionDetailsDirect',
                 // ...and more in future...
             )
         );

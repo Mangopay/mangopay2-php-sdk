@@ -46,7 +46,8 @@ class AuthenticationHelper
         return base64_encode($signature);
     }
     
-    public function GetAutenticationKey(){
+    public function GetAutenticationKey()
+    {
         if (is_null($this->_root->Config->ClientId) || strlen($this->_root->Config->ClientId) == 0) {
             throw new Exception('MangoPayApi.Config.ClientId is not set.');
         }
