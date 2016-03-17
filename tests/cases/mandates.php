@@ -29,10 +29,13 @@ class Mandates extends Base {
     function test_Mandates_Cancel() {
         $mandate = $this->getJohnsMandate();
         
-        $cancelMandate = $this->_api->Mandates->Cancel($mandate->Id);
-        
-        $this->assertIdentical($mandate->Id, $cancelMandate->Id);
-        $this->assertIdentical('FAILED', $cancelMandate->Status);
+        try{
+            $this->_api->Mandates->Cancel($mandate->Id);
+            
+            $this->fail('Expected ResponseException when cancel a mandate with status CREATED');
+        } catch (\MangoPay\Libraries\ResponseException $exc) {
+           $this->assertIdentical($exc->getCode(), 400); 
+        }
     }
     
     function test_Mandates_GetAll() {

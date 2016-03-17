@@ -390,6 +390,7 @@ abstract class Base extends \UnitTestCase {
             $user = $this->getJohn();
             $userId = $user->Id;
         }
+        $mandate = $this->getJohnsMandate();
         
         // create pay-in CARD DIRECT
         $payIn = new \MangoPay\PayIn();
@@ -403,7 +404,7 @@ abstract class Base extends \UnitTestCase {
         $payIn->Fees->Currency = 'EUR';
         // payment type as CARD
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsDirectDebit();
-        $payIn->PaymentDetails->MandateId = "1234"; //@TODO
+        $payIn->PaymentDetails->MandateId = $mandate->Id;
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         return $this->_api->PayIns->Create($payIn);

@@ -133,7 +133,7 @@ abstract class ApiBase
         'temp_immediatepayins_create' => array( '/temp/immediate-payins', RequestType::POST ),
         
         'mandates_create' => array( '/mandates/directdebit/web', RequestType::POST ),
-        'mandates_save' => array( '/mandates/%s', RequestType::PUT ),
+        'mandates_save' => array( '/mandates/%s/cancel', RequestType::PUT ),
         'mandates_get' => array( '/mandates/%s', RequestType::GET ),
         'mandates_all' => array( '/mandates', RequestType::GET )
     );

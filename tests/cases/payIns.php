@@ -250,12 +250,11 @@ class PayIns extends Base {
     
     function test_PayIns_Create_DirectDebitDirect() {
         $johnWallet = $this->getJohnsWalletWithMoney();
-        $beforeWallet = $this->_api->Wallets->Get($johnWallet->Id);
-
+        
         $payIn = $this->getNewPayInDirectDebitDirect();
+
         $wallet = $this->_api->Wallets->Get($johnWallet->Id);
         $user = $this->getJohn();
-
         $this->assertTrue($payIn->Id > 0);
         $this->assertEqual($wallet->Id, $payIn->CreditedWalletId);
         $this->assertEqual('DIRECT_DEBIT', $payIn->PaymentType);
@@ -266,8 +265,7 @@ class PayIns extends Base {
         $this->assertIsA($payIn->CreditedFunds, '\MangoPay\Money');
         $this->assertIsA($payIn->Fees, '\MangoPay\Money');
         $this->assertEqual($user->Id, $payIn->AuthorId);
-        $this->assertEqual($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
-        $this->assertEqual('SUCCEEDED', $payIn->Status);
+        $this->assertEqual('FAILED', $payIn->Status);
         $this->assertEqual('PAYIN', $payIn->Type);
     }
 }
