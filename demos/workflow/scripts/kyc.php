@@ -11,7 +11,7 @@ $result2 = $mangoPayApi->Users->CreateKycPageFromFile($_SESSION["MangoPayDemo"][
 //submit the doc for validation
 $KycDocument = new MangoPay\KycDocument();
 $KycDocument->Id = $KycDocumentId;
-$KycDocument->Status = "VALIDATION_ASKED";
+$KycDocument->Status = \MangoPay\KycDocumentStatus::ValidationAsked;
 $result3 = $mangoPayApi->Users->UpdateKycDocument($_SESSION["MangoPayDemo"]["UserNatural"], $KycDocument);
 
 

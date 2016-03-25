@@ -17,7 +17,7 @@ class CardRegistrations extends Base {
         $this->assertNotNull($cardRegistration->CardRegistrationURL);
         $this->assertEqual($user->Id, $cardRegistration->UserId);
         $this->assertEqual('EUR', $cardRegistration->Currency);
-        $this->assertEqual('CREATED', $cardRegistration->Status);
+        $this->assertEqual(\MangoPay\CardRegistrationStatus::Created, $cardRegistration->Status);
     }
     
     function test_CardRegistrations_Get() {
@@ -38,7 +38,7 @@ class CardRegistrations extends Base {
 
         $this->assertEqual($registrationData, $getCardRegistration->RegistrationData);
         $this->assertNotNull($getCardRegistration->CardId);
-        $this->assertIdentical('VALIDATED', $getCardRegistration->Status);
+        $this->assertIdentical(\MangoPay\CardRegistrationStatus::Validated, $getCardRegistration->Status);
         $this->assertIdentical('000000', $getCardRegistration->ResultCode);
     }
     
@@ -52,7 +52,7 @@ class CardRegistrations extends Base {
         
         $getCardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
 
-        $this->assertEqual("ERROR", $getCardRegistration->Status);
+        $this->assertEqual(\MangoPay\CardRegistrationStatus::Error, $getCardRegistration->Status);
         $this->assertNotNull($getCardRegistration->ResultCode);
         $this->assertNotNull($getCardRegistration->ResultMessage);
     }

@@ -13,6 +13,6 @@ $result = $mangoPayApi->CardPreAuthorizations->Create($CardPreAuthorization);
 //Display result
 pre_dump($result);
 $_SESSION["MangoPayDemo"]["PreAuth"] = $result->Id;
-if ($result->SecureModeNeeded && $result->Status!="FAILED") {
+if ($result->SecureModeNeeded && $result->Status!=\MangoPay\CardPreAuthorizationStatus::Failed) {
 	$nextButton = array("url"=>$result->SecureModeRedirectURL, "text"=>"Go to 3DS payment page");
 }
