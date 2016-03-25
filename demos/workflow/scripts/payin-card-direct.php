@@ -19,6 +19,6 @@ $result = $mangoPayApi->PayIns->Create($PayIn);
 //Display result
 pre_dump($result);
 $_SESSION["MangoPayDemo"]["PayInCardDirect"] = $result->Id;
-if ($result->ExecutionDetails->SecureModeNeeded && $result->Status!="FAILED") {
+if ($result->ExecutionDetails->SecureModeNeeded && $result->Status!=\MangoPay\PayInStatus::Failed) {
 	$nextButton = array("url"=>$result->ExecutionDetails->SecureModeRedirectURL, "text"=>"Go to 3DS payment page");
 }
