@@ -23,7 +23,7 @@ class PayOuts extends Base {
         
         $this->assertIdentical($payOut->Id, $payOutGet->Id);
         $this->assertIdentical($payOut->PaymentType, $payOutGet->PaymentType);
-        $this->assertIdentical($payOutGet->Status, 'CREATED');
+        $this->assertIdentical($payOutGet->Status, \MangoPay\PayOutStatus::Created);
         $this->assertIdenticalInputProps($payOut, $payOutGet);
         $this->assertNull($payOutGet->ExecutionDate);
     }
@@ -32,7 +32,7 @@ class PayOuts extends Base {
     function test_PayOuts_Create_BankWire_FailsCauseNotEnoughMoney() {
         $payOut = $this->getJohnsPayOutBankWire();
         
-        $this->assertIdentical('FAILED', $payOut->Status);
+        $this->assertIdentical(\MangoPay\PayOutStatus::Failed, $payOut->Status);
     }
 }
 
