@@ -13,7 +13,7 @@ class CardPreAuthorizations extends Base {
         
         $this->assertTrue($cardPreAuthorization->Id > 0);
         $this->assertIdentical($cardPreAuthorization->Status, \MangoPay\CardPreAuthorizationStatus::Succeeded);
-        $this->assertIdentical($cardPreAuthorization->PaymentStatus, 'WAITING');
+        $this->assertIdentical($cardPreAuthorization->PaymentStatus, \MangoPay\CardPreAuthorizationPaymentStatus::Waiting);
         $this->assertIdentical($cardPreAuthorization->ExecutionType, 'DIRECT');
         $this->assertNull($cardPreAuthorization->PayInId);
     }
@@ -29,11 +29,11 @@ class CardPreAuthorizations extends Base {
     
     function test_CardPreAuthorization_Update() {
         $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
-        $cardPreAuthorization->PaymentStatus = "CANCELED ";
+        $cardPreAuthorization->PaymentStatus = \MangoPay\CardPreAuthorizationPaymentStatus::Canceled;
         
         $resultCardPreAuthorization = $this->_api->CardPreAuthorizations->Update($cardPreAuthorization);
         
         $this->assertIdentical($resultCardPreAuthorization->Status, \MangoPay\CardPreAuthorizationStatus::Succeeded);
-        $this->assertIdentical($resultCardPreAuthorization->PaymentStatus, 'CANCELED');
+        $this->assertIdentical($resultCardPreAuthorization->PaymentStatus, \MangoPay\CardPreAuthorizationPaymentStatus::Canceled);
     }
 }
