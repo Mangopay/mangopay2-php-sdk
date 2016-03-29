@@ -9,6 +9,14 @@ Compatibility Notes
 * Since v2.1 of this SDK, you must be using at least v2.01 of the API ([more information about the changes required](https://docs.mangopay.com/api-v2-01-overview/))
 * If you experience problems with authentification and/or the temporary token file following an SDK update (particuarly updating to v2.0 of the SDK), you may need to just delete your temporary file (that you specify with `$api->Config->TemporaryFolder`) - which allows it to be regenerated correctly the next time it's needed
 
+Requirements
+-------------------------------------------------
+To use this SDK, you will need (as a minimum):
+* PHP v5.4
+* cURL (included and enabled in a standard PHP distribution)
+* OpenSSL (included and enabled in a standard PHP distribution)
+* [psr/log](https://github.com/php-fig/log) v1.0
+* You do not have to use [Composer](https://getcomposer.org/), but you are strongly advised to (particularly for handling the dependancy on the PSR Log library)
 
 Installation with Composer
 -------------------------------------------------
@@ -34,11 +42,9 @@ The Library has been added into your dependencies and is ready to be used.
 
 Installation without Composer
 -------------------------------------------------
-SDK has been written in PHP 5.4 and has only one dependency on [`psr/log`](https://github.com/php-fig/log). You should ensure that curl and openssl extensions (that are part of standard PHP distribution) are enabled in your PHP installation.
-
 The project attempts to comply with PSR-4 specification for autoloading classes from file paths. As a namespace prefix is `MangoPay\` with base directory `/path/to/your-project/`.
 
-But if you're not using PSR-4 or Composer, the installation is as easy as downloading the library and storing it under any location that will be available for including in your project (don't forget to include the required library dependencies though):
+If you're not using PSR-4 or Composer, the installation is as easy as downloading the library and storing it under any location that will be available for including in your project (**don't forget to include the required library dependencies though**):
 ```php
     require_once '/path/to/your-project/MangoPay/Autoloader.php';
 ```
@@ -56,9 +62,9 @@ MangopaySDK is distributed under MIT license, see the [LICENSE file](https://git
 
 Unit Tests
 -------------------------------------------------
-Tests are placed under /path/to/your-project/tests/.
-The /tests/suites/all.php suite runs ALL tests.
-You can also use any of /tests/cases/*.php to run a single test case.
+Tests are placed under `/path/to/your-project/tests/`.
+The `/tests/suites/all.php` suite runs ALL tests.
+You can also use any of `/tests/cases/*.php` to run a single test case.
 
 
 Contacts
@@ -132,7 +138,7 @@ $accounts = $api->Users->GetBankAccounts($john->Id, $pagination);
 ```
 
 
-Sample usage of Mangopay SDK installed with Composer in a Symfony project
+Sample usage with Composer in a Symfony project
 -------------------------------------------------
 You can integrate Mangopay features in a Service in your Symfony project. 
 
