@@ -88,13 +88,13 @@ class CardPreAuthorization extends Libraries\EntityBase
     
     /**
      * The date when the payment is processed
-     * @var Timestamp
+     * @var int Unix timestamp
      */
     public $ExpirationDate;
     
      /**
      * The date when the payment was authorized
-     * @var Timestamp
+     * @var int Unix timestamp
      */
     public $AuthorizationDate;
     

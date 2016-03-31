@@ -20,7 +20,7 @@ class ApiPayIns extends Libraries\ApiBase
     
     /**
      * Get pay-in object
-     * @param $payInId Pay-in identifier
+     * @param string $payInId Pay-in identifier
      * @return \MangoPay\PayIn Object returned from API
      */
     public function Get($payInId)
@@ -30,7 +30,7 @@ class ApiPayIns extends Libraries\ApiBase
     
     /**
      * Create refund for pay-in object
-     * @param type $payInId Pay-in identifier
+     * @param string $payInId Pay-in identifier
      * @param \MangoPay\Refund $refund Refund object to create
      * @return \MangoPay\Refund Object returned by REST API
      */

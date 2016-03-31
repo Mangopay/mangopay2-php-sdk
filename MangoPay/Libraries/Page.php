@@ -10,7 +10,7 @@ abstract class Page extends Dto
     
     /**
      * Image base64
-     * @var type string
+     * @var string
      */
     public $File;
 }

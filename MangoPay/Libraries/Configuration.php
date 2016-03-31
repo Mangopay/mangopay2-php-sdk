@@ -22,7 +22,7 @@ class Configuration
      * Base URL to MangoPay API
      * @var string
      */
-    /**Producion URL changes to {public $BaseUrl = 'https://api.mangopay.com';}**/
+    /**Production URL changes to {public $BaseUrl = 'https://api.mangopay.com';}**/
     public $BaseUrl = 'https://api.sandbox.mangopay.com';
     
     /**

@@ -8,7 +8,7 @@ class AuthorizationTokenManager extends ApiBase
 {
     /**
      * Storage object
-     * @var \MangoPay\IStorageStrategy
+     * @var \MangoPay\Libraries\IStorageStrategy
      */
     private $_storageStrategy;
     
@@ -51,7 +51,7 @@ class AuthorizationTokenManager extends ApiBase
      * By default, the DefaultStorageStrategy instance is used.
      * There is no need to explicitly call this method until some more complex
      * storage implementation is needed.
-     * @param \MangoPay\IStorageStrategy $customStorageStrategy IStorageStrategy interface implementation.
+     * @param \MangoPay\Libraries\IStorageStrategy $customStorageStrategy IStorageStrategy interface implementation.
      */
     public function RegisterCustomStorageStrategy($customStorageStrategy)
     {

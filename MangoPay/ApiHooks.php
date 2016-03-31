@@ -18,7 +18,7 @@ class ApiHooks extends Libraries\ApiBase
     
     /**
      * Get hook
-     * @param type $hookId Hook identifier
+     * @param string $hookId Hook identifier
      * @return \MangoPay\Hook Wallet object returned from API
      */
     public function Get($hookId)
@@ -28,7 +28,7 @@ class ApiHooks extends Libraries\ApiBase
     
     /**
      * Save hook
-     * @param type $hook Hook object to save
+     * @param \MangoPay\Hook $hook Hook object to save
      * @return \MangoPay\Hook Hook object returned from API
      */
     public function Update($hook)

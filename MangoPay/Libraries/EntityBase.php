@@ -20,13 +20,13 @@ abstract class EntityBase extends Dto
     public $Tag;
     
     /**
-     * @var Time Date of creation
+     * @var int Unix timestamp, Date of creation
      */
     public $CreationDate;
     
     /**
      * Construct
-     * @param type $id Entity identifier
+     * @param string $id Entity identifier
      */
     public function __construct($id = null)
     {

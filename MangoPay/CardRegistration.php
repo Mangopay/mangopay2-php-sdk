@@ -55,7 +55,7 @@ class CardRegistration extends Libraries\EntityBase
     public $ResultCode;
     
     /**
-     * The message explaning the result code
+     * The message explaining the result code
      * @var string
      */
     public $ResultMessage;

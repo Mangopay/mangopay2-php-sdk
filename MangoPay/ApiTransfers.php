@@ -18,17 +18,17 @@ class ApiTransfers extends Libraries\ApiBase
     
     /**
      * Get transfer
-     * @param type $transferId Transfer identifier
+     * @param string $transferId Transfer identifier
      * @return \MangoPay\Transfer Transfer object returned from API
      */
-    public function Get($transfer)
+    public function Get($transferId)
     {
-        return $this->GetObject('transfers_get', $transfer, '\MangoPay\Transfer');
+        return $this->GetObject('transfers_get', $transferId, '\MangoPay\Transfer');
     }
     
     /**
      * Create refund for transfer object
-     * @param type $transferId Transfer identifier
+     * @param string $transferId Transfer identifier
      * @param \MangoPay\Refund $refund Refund object to create
      * @return \MangoPay\Refund Object returned by REST API
      */

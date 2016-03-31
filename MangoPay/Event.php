@@ -20,7 +20,7 @@ class Event extends Libraries\Dto
         
     /**
      * Date of event
-     * @var Date
+     * @var int Unix timestamp
      */
     public $Date;
 }

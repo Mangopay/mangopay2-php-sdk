@@ -28,7 +28,7 @@ class ApiCardPreAuthorizations extends Libraries\ApiBase
     
     /**
      * Update pre-authorization object
-     * @param \MangoPay\CardPreAuthorization $preAuthorization PreAuthorization object to save
+     * @param \MangoPay\CardPreAuthorization $cardPreAuthorization PreAuthorization object to save
      * @return \MangoPay\CardPreAuthorization PreAuthorization object returned from API
      */
     public function Update($cardPreAuthorization)
