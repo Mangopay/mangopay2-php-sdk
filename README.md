@@ -101,8 +101,8 @@ $api->Config->TemporaryFolder = '/some/path/';
 //$api->Config->BaseUrl = 'https://api.mangopay.com';//uncomment this to use the production environment
 
 //uncomment any of the following to use a custom value (these are all entirely optional)
-//$api->Config->CurlResponseTimeout = 20;//The cURL response timeout in seconds
-//$api->Config->CurlConnectionTimeout = 60;//The cURL connection timeout in seconds
+//$api->Config->CurlResponseTimeout = 20;//The cURL response timeout in seconds (its 30 by default)
+//$api->Config->CurlConnectionTimeout = 60;//The cURL connection timeout in seconds (its 80 by default)
 //$api->Config->CertificatesFilePath = ''; //Absolute path to file holding one or more certificates to verify the peer with (if empty, there won't be any verification of the peer's certificate)
 
 // call some API methods...
