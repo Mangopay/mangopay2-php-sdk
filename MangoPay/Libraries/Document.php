@@ -10,13 +10,13 @@ abstract class Document extends EntityBase
     
     /**
      * Refused reason type
-     * @var type string
+     * @var string
      */
     public $RefusedReasonType;
     
     /**
      * Refused reason message
-     * @var type string
+     * @var string
      */
     public $RefusedReasonMessage;
     

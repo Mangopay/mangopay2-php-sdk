@@ -17,23 +17,27 @@ class Sorting
     const SortUrlParameterName = "Sort";
     
     /**
-     * Array with fileds to sort
-     * @var type Array
+     * Array with fields to sort
+     * @var array
      */
     private $_sortFields;
     
     /**
      * Add filed to sort
      * @param string $filedName Property name to sort
-     * @param \MangoPay\SortDirection $sortDirection Sort direction
+     * @param string $sortDirection Sort direction (ASC | DESC)
      */
     public function AddField($filedName, $sortDirection)
     {
         $this->_sortFields[$filedName] = $sortDirection;
     }
+
+    /**
+     * @deprecated Contains typo, kept for backward compatibility
+     */
     public function AddFiled($filedName, $sortDirection)
     {
-        //for backward comptability from before typo fix
+        //for backward compatibility from before typo fix
         $this->AddField($filedName, $sortDirection);
     }
     /**

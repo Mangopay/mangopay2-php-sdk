@@ -27,7 +27,7 @@ class Dispute extends Libraries\EntityBase
 
     /**
      * The date by which you must submit docs if they wish to contest the dispute
-     * @var date
+     * @var int Unix timestamp
      */
     public $ContestDeadlineDate;
 

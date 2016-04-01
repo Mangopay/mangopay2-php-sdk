@@ -20,7 +20,7 @@ class KycDocument extends Libraries\Document
     
     /**
      * User identifier
-     * @var type string
+     * @var string
      */
     public $UserId;
 }

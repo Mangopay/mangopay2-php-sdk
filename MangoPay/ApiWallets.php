@@ -38,7 +38,7 @@ class ApiWallets extends Libraries\ApiBase
 
     /**
      * Get transactions for the wallet
-     * @param type $walletId Wallet identifier
+     * @param string $walletId Wallet identifier
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data

@@ -16,7 +16,7 @@ class Error
         
     /**
      * Array with errors information
-     * @var KeyValueArray
+     * @var array
      * @access public
      */
     public $Errors;

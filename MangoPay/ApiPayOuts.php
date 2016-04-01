@@ -19,7 +19,7 @@ class ApiPayOuts extends Libraries\ApiBase
     
     /**
      * Get pay-out object
-     * @param $payOutId PayOut identifier
+     * @param string $payOutId PayOut identifier
      * @return \MangoPay\PayOut Object returned from API
      */
     public function Get($payOutId)

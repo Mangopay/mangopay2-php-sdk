@@ -8,7 +8,7 @@ class KycPage extends Libraries\Page
 {
     /**
      * Image base64
-     * @var type string
+     * @var string
      */
     public $File;
 }

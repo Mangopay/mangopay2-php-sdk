@@ -58,7 +58,7 @@ class Repudiation extends Libraries\EntityBase
 
     /**
      * The execution date of the repudiation
-     * @var date
+     * @var int Unix timestamp
      */
     public $ExecutionDate;
 

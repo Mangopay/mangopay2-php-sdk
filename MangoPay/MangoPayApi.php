@@ -17,7 +17,7 @@ class MangoPayApi
 
     /**
      * Authorization token methods
-     * @var \MangoPay\AuthorizationTokenManager
+     * @var \MangoPay\Libraries\AuthorizationTokenManager
      */
     public $OAuthTokenManager;
 
@@ -33,7 +33,7 @@ class MangoPayApi
 
     /**
      * OAuth methods
-     * @var ApiOAuth
+     * @var \MangoPay\Libraries\ApiOAuth
      */
     public $AuthenticationManager;
     
@@ -93,7 +93,7 @@ class MangoPayApi
         
     /**
      * Pre-authorization methods
-     * @var ApiCardPreAuthorization
+     * @var ApiCardPreAuthorizations
      */
     public $CardPreAuthorizations;
         
