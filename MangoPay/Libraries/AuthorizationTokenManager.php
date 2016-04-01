@@ -27,13 +27,13 @@ class AuthorizationTokenManager extends ApiBase
      */
     public function GetToken($autenticationKey)
     {
-        $token = $this->_storageStrategy->get();
+        $token = $this->_storageStrategy->Get();
         
         if (is_null($token) || $token->IsExpired() || $token->GetAutenticationKey() != $autenticationKey) {
-            $this->storeToken($this->_root->AuthenticationManager->createToken());
+            $this->StoreToken($this->_root->AuthenticationManager->CreateToken());
         }
     
-        return $this->_storageStrategy->get();
+        return $this->_storageStrategy->Get();
     }
     
     /**

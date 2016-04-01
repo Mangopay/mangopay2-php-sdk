@@ -10,8 +10,8 @@ class Tokens extends Base {
     function test_forceToken() {
         $authHlp = new \MangoPay\Libraries\AuthenticationHelper($this->_api);
         
-        $oldToken = $this->_api->OAuthTokenManager->getToken($authHlp->GetAutenticationKey());
-        $newToken = $this->_api->AuthenticationManager->createToken();
+        $oldToken = $this->_api->OAuthTokenManager->GetToken($authHlp->GetAutenticationKey());
+        $newToken = $this->_api->AuthenticationManager->CreateToken();
         
         $this->assertNotEqual($oldToken->access_token, $newToken->access_token);
     }
@@ -23,15 +23,15 @@ class Tokens extends Base {
         $token->token_type = 'type test';
         $token->expires_in = 500;
         $token->autentication_key = $authHlp->GetAutenticationKey();
-        $this->_api->OAuthTokenManager->storeToken($token);
+        $this->_api->OAuthTokenManager->StoreToken($token);
                 
-        $storedToken = $this->_api->OAuthTokenManager->getToken($authHlp->GetAutenticationKey());
+        $storedToken = $this->_api->OAuthTokenManager->GetToken($authHlp->GetAutenticationKey());
         
         $this->assertEqual('access test', $storedToken->access_token);
         $this->assertEqual('type test', $storedToken->token_type);
         
         $token->expires_in = 0;
-        $this->_api->OAuthTokenManager->storeToken($token);
+        $this->_api->OAuthTokenManager->StoreToken($token);
     }
     
     function test_storeToken_differentAutenticationKey() {
@@ -41,24 +41,24 @@ class Tokens extends Base {
         $token->token_type = 'type test';
         $token->expires_in = 500;
         $token->autentication_key = 'old_value';
-        $this->_api->OAuthTokenManager->storeToken($token);
+        $this->_api->OAuthTokenManager->StoreToken($token);
                 
-        $storedToken = $this->_api->OAuthTokenManager->getToken('new_value');
+        $storedToken = $this->_api->OAuthTokenManager->GetToken('new_value');
         
         $this->assertNotEqual('access test', $storedToken->access_token);
         $this->assertNotEqual('type test', $storedToken->token_type);
         $this->assertEqual($authHlp->GetAutenticationKey(), $storedToken->autentication_key);
         
         $token->expires_in = 0;
-        $this->_api->OAuthTokenManager->storeToken($token);
+        $this->_api->OAuthTokenManager->StoreToken($token);
     }
     
     function test_stadnardUseToken() {
         $authHlp = new \MangoPay\Libraries\AuthenticationHelper($this->_api);
-        $token = $this->_api->OAuthTokenManager->getToken($authHlp->GetAutenticationKey());
+        $token = $this->_api->OAuthTokenManager->GetToken($authHlp->GetAutenticationKey());
         
         $this->_api->Users->GetAll();
-        $tokenAfterCall = $this->_api->OAuthTokenManager->getToken($authHlp->GetAutenticationKey());
+        $tokenAfterCall = $this->_api->OAuthTokenManager->GetToken($authHlp->GetAutenticationKey());
         
         $this->assertEqual($token->access_token, $tokenAfterCall->access_token);
         $this->assertEqual($token->token_type, $tokenAfterCall->token_type);
@@ -68,8 +68,8 @@ class Tokens extends Base {
         $authHlp = new \MangoPay\Libraries\AuthenticationHelper($this->_api);
         $api = $this->buildNewMangoPayApi();
         
-        $token1 = $this->_api->OAuthTokenManager->getToken($authHlp->GetAutenticationKey());
-        $token2 = $api->OAuthTokenManager->getToken($authHlp->GetAutenticationKey());
+        $token1 = $this->_api->OAuthTokenManager->GetToken($authHlp->GetAutenticationKey());
+        $token2 = $api->OAuthTokenManager->GetToken($authHlp->GetAutenticationKey());
         
         $this->assertEqual($token1->access_token, $token2->access_token);
         $this->assertEqual($token1->token_type, $token2->token_type);
