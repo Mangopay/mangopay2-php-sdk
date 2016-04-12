@@ -151,7 +151,7 @@ class MangoPayApi
         // API managers
         $this->AuthenticationManager = new Libraries\ApiOAuth($this);
         $this->Responses = new ApiResponses($this);
-        $this->Clients = new Libraries\ApiClients($this);
+        $this->Clients = new ApiClients($this);
         $this->Users = new ApiUsers($this);
         $this->Wallets = new ApiWallets($this);
         $this->Transfers = new ApiTransfers($this);

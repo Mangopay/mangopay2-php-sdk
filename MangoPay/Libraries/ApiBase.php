@@ -128,6 +128,10 @@ abstract class ApiBase
         'temp_paymentcards_create' => array( '/temp/paymentcards', RequestType::POST ),
         'temp_paymentcards_get' => array( '/temp/paymentcards/%s', RequestType::GET ),
         'temp_immediatepayins_create' => array( '/temp/immediate-payins', RequestType::POST ),
+        
+        'client_get' => array( '/clients', RequestType::GET ),
+        'client_save' => array( '/clients', RequestType::PUT ),
+        'client_upload_logo' => array( '/clients/logo', RequestType::PUT ),
     );
 
     /**
@@ -263,10 +267,15 @@ abstract class ApiBase
      */
     protected function SaveObject($methodKey, $entity, $responseClassName = null, $secondEntityId = null)
     {
+        $entityId = null;
+        if (isset($entity->Id)){
+            $entityId = $entity->Id;
+        }
+        
         if (is_null($secondEntityId)) {
-            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entity->Id);
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
         } else {
-            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $secondEntityId, $entity->Id);
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $secondEntityId, $entityId);
         }
 
         $requestData = $this->BuildRequestData($entity);

@@ -4,11 +4,6 @@ namespace MangoPay;
 /**
  * KYC page entity for Kyc document
  */
-class KycPage extends Libraries\Page
+class KycPage extends Libraries\Upload
 {
-    /**
-     * Image base64
-     * @var string
-     */
-    public $File;
 }
