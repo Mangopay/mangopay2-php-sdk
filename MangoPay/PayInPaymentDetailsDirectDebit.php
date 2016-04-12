@@ -11,4 +11,10 @@ class PayInPaymentDetailsDirectDebit extends Libraries\Dto implements PayInPayme
      * @var string
      */
     public $DirectDebitType;
+	    
+     /**
+      * Mandate Id
+      * @var string
+      */
+     public $MandateId;
 }

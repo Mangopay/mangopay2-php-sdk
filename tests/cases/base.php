@@ -381,6 +381,36 @@ abstract class Base extends \UnitTestCase {
     }
 
     /**
+     * Creates Pay-In direct debit direct object
+     * @return \MangoPay\PayIn
+     */
+     protected function getNewPayInDirectDebitDirect($userId = null) {
+         $wallet = $this->getJohnsWalletWithMoney();
+         if (is_null($userId)){
+             $user = $this->getJohn();
+             $userId = $user->Id;
+         }
+         $mandate = $this->getJohnsMandate();
+         
+         // create pay-in CARD DIRECT
+         $payIn = new \MangoPay\PayIn();
+         $payIn->CreditedWalletId = $wallet->Id;
+         $payIn->AuthorId = $userId;
+         $payIn->DebitedFunds = new \MangoPay\Money();
+         $payIn->DebitedFunds->Amount = 10000;
+         $payIn->DebitedFunds->Currency = 'EUR';
+         $payIn->Fees = new \MangoPay\Money();
+         $payIn->Fees->Amount = 0;
+         $payIn->Fees->Currency = 'EUR';
+         // payment type as CARD
+         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsDirectDebit();
+         $payIn->PaymentDetails->MandateId = $mandate->Id;
+         // execution type as DIRECT
+         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+         return $this->_api->PayIns->Create($payIn);
+     }
+ 
+    /**
      * Creates Pay-Out  Bank Wire object
      * @return \MangoPay\PayOut
      */
@@ -611,6 +641,22 @@ abstract class Base extends \UnitTestCase {
         return self::$JohnsHook;
     }
     
+     /**
+      * Creates mandate belonging to John
+      * @return \MangoPay\Mandate
+      */
+     protected function getJohnsMandate() {
+         $account = $this->getJohnsAccount();
+ 
+         $mandate = new \MangoPay\Mandate();
+         $mandate->Tag = "Tag test";
+         $mandate->BankAccountId = $account->Id;
+         $mandate->ReturnURL = "http://www.mysite.com/returnURL/";
+         $mandate->Culture = "FR";
+         
+         return $this->_api->Mandates->Create($mandate);
+    }
+ 
     /**
      * Asserts the passed entities have identical values (by assertIdentical())
      * but ONLY FOR INPUT PROPERTIES, i.e. properties that are accepted by Create methods:

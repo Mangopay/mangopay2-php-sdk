@@ -24,6 +24,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
 
     try {
         $api = new \MangoPay\MangoPayApi();
+		$api->Config->BaseUrl = MangoPayDemo_BaseUrl;
         $api->Config->ClientId = MangoPayDemo_ClientId;
         $api->Config->ClientPassword = MangoPayDemo_ClientPassword;
         $api->Config->TemporaryFolder = MangoPayDemo_TemporaryFolder;
@@ -102,20 +103,32 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                 $apiResult = $api->$subApiName->$methodName($subEntityId, $entity);
                 break;
             case 'ListSubEntity':
+			case 'ListSubSubEntity':
                 $pagination = HtmlHelper::getEntity('Pagination');
                 $methodName = $subEntityName;
                 $filter = null;
                 if (isset($filterName) && $filterName != "")
                     $filter = HtmlHelper::getEntity($filterName);
 
-                if (isset($filter) && !isset($sorting))
-                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter);
-                else if (!isset($filter) && isset($sorting))
-                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $sorting);
-                else if (isset($filter) && isset($sorting))
-                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter, $sorting);
-                else
-                    $apiResult = $api->$subApiName->$methodName($entityId, $pagination);
+                if ($operation == 'ListSubSubEntity') {
+                     if (isset($filter) && !isset($sorting))
+                         $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId, $pagination, $filter);
+                     else if (!isset($filter) && isset($sorting))
+                         $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId, $pagination, null, $sorting);
+                     else if (isset($filter) && isset($sorting))
+                         $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId, $pagination, $filter, $sorting);
+                     else
+                         $apiResult = $api->$subApiName->$methodName($entityId, $subEntityId, $pagination);
+                }else{
+                     if (isset($filter) && !isset($sorting))
+                         $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter);
+                     else if (!isset($filter) && isset($sorting))
+                         $apiResult = $api->$subApiName->$methodName($entityId, $pagination, null, $sorting);
+                     else if (isset($filter) && isset($sorting))
+                         $apiResult = $api->$subApiName->$methodName($entityId, $pagination, $filter, $sorting);
+                     else
+                         $apiResult = $api->$subApiName->$methodName($entityId, $pagination);
+                }
                 
                 print '<pre>';print_r($pagination);print '</pre>';
                 if (isset($sorting))

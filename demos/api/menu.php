@@ -40,6 +40,7 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'Create pay-in direct pre-authorized' => 'PayIn_PayIns_Create_:PREAUTHORIZED:DIRECT',
         'Create pay-in direct bank wire' => 'PayIn_PayIns_Create_:BANK_WIRE:DIRECT',
         'Create pay-in direct debit web' => 'PayIn_PayIns_Create_:DIRECT_DEBIT:WEB',
+        'Create pay-in direct debit direct' => 'PayIn_PayIns_Create_:DIRECT_DEBIT:DIRECT',
         'Get pay-in' => 'PayIn_PayIns_Get',
     ),
     'Pay-outs' => array(
@@ -103,6 +104,14 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'List all dispute documents' => 'DisputeDocument_DisputeDocuments_All___$Sort',
         'List dispute documents for dispute' => 'Dispute_Disputes_ListSubEntity_GetDocumentsForDispute__$Sort',
     ),
+    'Mandates' => array(
+         'Create mandate' => 'Mandate_Mandates_Create',
+         'Get mandate' => 'Mandate_Mandates_Get',
+         'Cancel mandate' => 'Mandate_Mandates_Cancel',
+         'List of mandates' => 'Mandate_Mandates_All__FilterTransactions___$Sort',
+         'List mandate for user' => 'User_Users_ListSubEntity_GetMandates_FilterTransactions_$Sort',
+         'List mandate for user and for bank account' => 'User_Users_ListSubSubEntity_GetMandatesForBankAccount_FilterTransactions_BankAccount___$Sort',
+     ),
     'Client' => array(
         'Get client information' => 'Client_Clients_GetNoParams',
         'Update client' => 'Client_Clients_SaveNoId',

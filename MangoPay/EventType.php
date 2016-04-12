@@ -27,8 +27,7 @@ class EventType
     const PayoutRefundFailed = "PAYOUT_REFUND_FAILED";
     const TransferRefundCreated = "TRANSFER_REFUND_CREATED";
     const TransferRefundSucceeded = "TRANSFER_REFUND_SUCCEEDED";
-    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
-    
+    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";    
     const PayinRepudiationCreated = "PAYIN_REPUDIATION_CREATED";
     const PayinRepudiationSucceeded = "PAYIN_REPUDIATION_SUCCEEDED";
     const PayinRepudiationFailed = "PAYIN_REPUDIATION_FAILED";
@@ -45,4 +44,8 @@ class EventType
     const TransferSettlementCreated = "TRANSFER_SETTLEMENT_CREATED";
     const TransferSettlementSucceeded = "TRANSFER_SETTLEMENT_SUCCEEDED";
     const TransferSettlementFailed = "TRANSFER_SETTLEMENT_FAILED";
+	const MandateCreated = "MANDATE_CREATED";
+ 	const MandatedFailed = "MANDATED_FAILED";
+ 	const MandateActivated = "MANDATE_ACTIVATED";
+ 	const MandateSubmitted = "MANDATE_SUBMITTED";
 }
