@@ -114,6 +114,7 @@ class Disputes extends Base {
         
         $this->assertNotNull($result);
         $this->assertEqual($result->Type, \MangoPay\DisputeDocumentType::DeliveryProof);
+		$this->assertEqual($result->DisputeId, $disputeForDoc->Id);
     }
     
     function test_Disputes_CreateDisputePage() {
@@ -248,6 +249,7 @@ class Disputes extends Base {
         $this->assertEqual($result->Status, $docCreated->Status);
         $this->assertEqual($result->Tag, $docCreated->Tag);
         $this->assertEqual($result->Type, $docCreated->Type);
+        $this->assertEqual($result->DisputeId, $disputeForTest->Id);
     }
     
     function test_Disputes_GetDocumentsForDispute() {
