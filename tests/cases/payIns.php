@@ -268,5 +268,31 @@ class PayIns extends Base {
          $this->assertEqual('FAILED', $payIn->Status);
          $this->assertEqual('PAYIN', $payIn->Type);
      }
+
+	 function test_PayIns_Create_PaypalWeb() {
+        $payIn = $this->getJohnsPayInPaypalWeb();
+
+        $this->assertTrue($payIn->Id > 0);
+        $this->assertIdentical($payIn->PaymentType, 'PAYPAL');
+        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsPaypal');
+        $this->assertIdentical($payIn->ExecutionType, 'WEB');
+        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsWeb');
+    }
+    
+    function test_PayIns_Get_PaypalWeb() {
+        $payIn = $this->getJohnsPayInPaypalWeb();
+
+        $getPayIn = $this->_api->PayIns->Get($payIn->Id);
+
+        $this->assertIdentical($payIn->Id, $getPayIn->Id);
+        $this->assertIdentical($payIn->PaymentType, 'PAYPAL');
+        $this->assertIsA($payIn->PaymentDetails, '\MangoPay\PayInPaymentDetailsPaypal');
+        $this->assertIdentical($payIn->ExecutionType, 'WEB');
+        $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsWeb');
+        $this->assertIdenticalInputProps($payIn, $getPayIn);
+        $this->assertIdentical($getPayIn->Status, 'CREATED');
+        $this->assertNull($getPayIn->ExecutionDate);
+        $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
+    }
 }
 
