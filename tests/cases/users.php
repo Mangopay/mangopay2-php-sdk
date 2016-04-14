@@ -39,7 +39,7 @@ class Users extends Base {
         $user->HeadquartersAddress->Region = 'Region';
         $user->Name = "SomeOtherSampleOrg";
         $user->Email = "mail@test.com";
-        $user->LegalPersonType = "BUSINESS";
+        $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
         $user->LegalRepresentativeFirstName = "FirstName";
         $user->LegalRepresentativeLastName = "LastName";
         $user->LegalRepresentativeAddress = new \MangoPay\Address();

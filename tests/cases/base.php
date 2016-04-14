@@ -165,7 +165,7 @@ abstract class Base extends \UnitTestCase {
             $user = new \MangoPay\UserLegal();
             $user->Name = "MartixSampleOrg";
             $user->Email = "mail@test.com";
-            $user->LegalPersonType = "BUSINESS";
+            $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
             $user->HeadquartersAddress = $this->getNewAddress();
             $user->LegalRepresentativeFirstName = $john->FirstName;
             $user->LegalRepresentativeLastName = $john->LastName;
