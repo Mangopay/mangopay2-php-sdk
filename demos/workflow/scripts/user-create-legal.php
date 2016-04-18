@@ -1,7 +1,7 @@
 <?php
 $User = new MangoPay\UserLegal();
 $User->Name = "Name Legal Test";
-$User->LegalPersonType = "BUSINESS";
+$User->LegalPersonType = \MangoPay\LegalPersonType::Business;
 $User->Email = "legal@testmangopay.com";
 $User->LegalRepresentativeFirstName = "Bob";
 $User->LegalRepresentativeLastName = "Briant";
