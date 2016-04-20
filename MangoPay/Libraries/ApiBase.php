@@ -140,6 +140,14 @@ abstract class ApiBase
         'client_get' => array( '/clients', RequestType::GET ),
         'client_save' => array( '/clients', RequestType::PUT ),
         'client_upload_logo' => array( '/clients/logo', RequestType::PUT ),
+        'client_wallets' => array( '/clients/wallets', RequestType::GET ),
+        'client_wallets_fees' => array( '/clients/wallets/fees', RequestType::GET ),
+        'client_wallets_fees_currency' => array( '/clients/wallets/fees/%s', RequestType::GET ),
+        'client_wallets_credit' => array( '/clients/wallets/credit', RequestType::GET ),
+        'client_wallets_credit_currency' => array( '/clients/wallets/credit/%s', RequestType::GET ),
+        'client_wallets_transactions' => array( '/clients/transactions', RequestType::GET ),
+        'client_wallets_transactions_fees_currency' => array( '/clients/wallets/fees/%s/transactions', RequestType::GET ),
+        'client_wallets_transactions_credit_currency' => array( '/clients/wallets/credit/%s/transactions', RequestType::GET ),
     );
 
     /**

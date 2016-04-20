@@ -113,10 +113,15 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
          'List mandate for user and for bank account' => 'User_Users_ListSubSubEntity_GetMandatesForBankAccount_FilterTransactions_BankAccount___$Sort',
      ),
     'Client' => array(
-        'Get client information' => 'Client_Clients_GetNoParams',
+        'Get client information' => 'Client_Clients_|NoParams|_Get',
         'Update client' => 'Client_Clients_SaveNoId',
         'Upload logo from base64' => 'Client_Clients_Upload_ClientLogoUpload__UploadLogo',
         'Upload logo from file' => 'Client_Clients_UploadFromFile___UploadLogoFromFile',
+        'View your client wallets' => 'Wallet_Clients_|NoParams|_GetWallets',
+        'View your fees/credit wallets for each currency' => 'Wallet_Clients_|EnumParams|_GetWallets__FundsType',
+        'View one wallets (fees or credit) with a particular currency' => 'Wallet_Clients_|EnumParams|_GetWallet__FundsType$CurrencyIso',
+        'View the transactions linked to your client wallets (fees and credit)' => 'Wallet_Clients_|GetWalletTransactions|',
+        'View the transactions linked to one of your client wallets (fees or credit) with a particular currency' => 'Wallet_Clients_|EnumParamsList|_GetWalletTransactions_FilterTransactions_FundsType$CurrencyIso',
      )
 );
 
