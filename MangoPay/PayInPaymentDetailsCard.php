@@ -19,7 +19,7 @@ class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetai
     public $CardId;
     
     /**
-     * CardId
+     * StatementDescriptor
      * @var string
      */
     public $StatementDescriptor;
