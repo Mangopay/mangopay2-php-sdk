@@ -156,7 +156,7 @@ class RestTool
     
     /**
      * Prepare all parameter to request
-     * @param String $urlMethod Type of method in REST API
+     * @param string $urlMethod Type of method in REST API
      * @throws Exception If some parameters are not set
      */
     private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null, $idempotencyKey = null)

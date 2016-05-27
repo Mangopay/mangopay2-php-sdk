@@ -8,13 +8,13 @@ class UserLegal extends User
 {
     /**
      * Name of user
-     * @var String
+     * @var string
      */
     public $Name;
     
     /**
      * Type for legal user. Possible: ‘BUSINESS’, ’ORGANIZATION’
-     * @var String
+     * @var string
      */
     public $LegalPersonType;
     
@@ -26,13 +26,13 @@ class UserLegal extends User
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $LegalRepresentativeFirstName;
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $LegalRepresentativeLastName;
     
@@ -44,7 +44,7 @@ class UserLegal extends User
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $LegalRepresentativeEmail;
     
@@ -56,37 +56,37 @@ class UserLegal extends User
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $LegalRepresentativeNationality;
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $LegalRepresentativeCountryOfResidence;
         
     /**
      *
-     * @var String
+     * @var string
      */
     public $ProofOfIdentity;
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $Statute;
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $ProofOfRegistration;
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $ShareholderDeclaration;
     

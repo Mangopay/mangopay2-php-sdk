@@ -52,7 +52,7 @@ class ApiUsers extends Libraries\ApiBase
     
     /**
      * Get natural or legal user by ID
-     * @param Int|GUID $userId User identifier
+     * @param int|GUID $userId User identifier
      * @return UserLegal | UserNatural User object returned from API
      */
     public function Get($userId)
@@ -63,7 +63,7 @@ class ApiUsers extends Libraries\ApiBase
     
     /**
      * Get natural user by ID
-     * @param Int|GUID $userId User identifier
+     * @param int|GUID $userId User identifier
      * @return UserLegal|UserNatural User object returned from API
      */
     public function GetNatural($userId)
@@ -74,7 +74,7 @@ class ApiUsers extends Libraries\ApiBase
     
     /**
      * Get legal user by ID
-     * @param Int|GUID $userId User identifier
+     * @param int|GUID $userId User identifier
      * @return UserLegal|UserNatural User object returned from API
      */
     public function GetLegal($userId)
