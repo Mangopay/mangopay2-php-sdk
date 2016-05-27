@@ -8,13 +8,13 @@ class UserNatural extends User
 {
     /**
      * First name for user
-     * @var String
+     * @var string
      */
     public $FirstName;
     
      /**
      * Last name for user
-     * @var String
+     * @var string
      */
     public $LastName;
     
@@ -26,43 +26,43 @@ class UserNatural extends User
     
      /**
      * Date of birth
-     * @var Unix timestamp
+     * @var int Unix timestamp
      */
     public $Birthday;
     
      /**
      * User's country
-     * @var String
+     * @var string
      */
     public $Nationality;
     
      /**
      * Country of residence
-     * @var String
+     * @var string
      */
     public $CountryOfResidence;
     
     /**
      * User's occupation
-     * @var String
+     * @var string
      */
     public $Occupation;
     
     /**
      *
-     * @var Int
+     * @var int
      */
     public $IncomeRange;
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $ProofOfIdentity;
     
     /**
      *
-     * @var String
+     * @var string
      */
     public $ProofOfAddress;
     

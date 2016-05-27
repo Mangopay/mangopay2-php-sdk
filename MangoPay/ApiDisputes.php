@@ -13,7 +13,7 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Gets dispute
-     * @param Int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeId Dispute identifier
      * @return \MangoPay\Dispute Dispute instance returned from API
      */
     public function Get($disputeId)
@@ -44,7 +44,7 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Contests dispute
-     * @param Int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeId Dispute identifier
      * @param \MangoPay\Money $contestedFunds Contested funds
      * @return \MangoPay\Dispute Dispute instance returned from API
      */
@@ -58,7 +58,7 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * This method is used to resubmit a Dispute if it is reopened requiring more docs 
-     * @param Int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeId Dispute identifier
      * @return \MangoPay\Dispute Dispute instance returned from API
      */
     public function ResubmitDispute($disputeId)
@@ -70,7 +70,7 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Close dispute
-     * @param Int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeId Dispute identifier
      * @return \MangoPay\Dispute Dispute instance returned from API
      */
     public function CloseDispute($disputeId)
@@ -82,7 +82,7 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Gets dispute's transactions
-     * @param Int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeId Dispute identifier
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return array List of Transaction instances returned from API
@@ -94,7 +94,7 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Gets dispute's documents for wallet
-     * @param Int|GUID $walletId Wallet identifier
+     * @param int|GUID $walletId Wallet identifier
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return array List of dispute instances returned from API
@@ -106,7 +106,7 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Gets user's disputes
-     * @param Int|GUID $userId User identifier
+     * @param int|GUID $userId User identifier
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return array List of Dispute instances returned from API
@@ -118,7 +118,7 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Gets repudiation
-     * @param Int|GUID $repudiationId Repudiation identifier
+     * @param int|GUID $repudiationId Repudiation identifier
      * @return \MangoPay\Repudiation Repudiation instance returned from API
      */
     public function GetRepudiation($repudiationId)
@@ -129,7 +129,7 @@ class ApiDisputes extends Libraries\ApiBase
     /**
      * Creates settlement transfer
      * @param \MangoPay\SettlementTransfer $settlementTransfer Settlement transfer
-     * @param Int|GUID $repudiationId Repudiation identifier
+     * @param int|GUID $repudiationId Repudiation identifier
      * @return \MangoPay\Transfer Transfer instance returned from API
      */
     public function CreateSettlementTransfer($settlementTransfer, $repudiationId, $idempotencyKey = null)
@@ -139,7 +139,7 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Gets settlement transfer
-     * @param Int|GUID $settlementTransferId Settlement transfer identifier
+     * @param int|GUID $settlementTransferId Settlement transfer identifier
      * @return \MangoPay\Transfer Transfer instance returned from API
      */
     public function GetSettlementTransfer($settlementTransferId)
@@ -149,7 +149,7 @@ class ApiDisputes extends Libraries\ApiBase
    
     /**
      * Gets documents for dispute
-     * @param Int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeId Dispute identifier
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return array List of DisputeDocument instances returned from API
@@ -161,7 +161,7 @@ class ApiDisputes extends Libraries\ApiBase
         
     /**
      * Update dispute document
-     * @param Int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeId Dispute identifier
      * @param \MangoPay\DisputeDocument $disputeDocument Dispute document to save
      * @return \MangoPay\DisputeDocument Document returned from API
      */
@@ -172,7 +172,7 @@ class ApiDisputes extends Libraries\ApiBase
         
     /**
      * Creates document for dispute
-     * @param Int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeId Dispute identifier
      * @param \MangoPay\DisputeDocument $disputeDocument Dispute document to be created
      * @return \MangoPay\DisputeDocument Dispute document returned from API
      */
@@ -183,8 +183,8 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Creates document's page for dispute
-     * @param Int|GUID $disputeId Dispute identifier
-     * @param Int|GUID $disputeDocumentId Dispute document identifier
+     * @param int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeDocumentId Dispute document identifier
      * @param \MangoPay\DisputeDocumentPage $disputeDocumentPage Dispute document page object
      */
     public function CreateDisputeDocumentPage($disputeId, $disputeDocumentId, $disputeDocumentPage, $idempotencyKey = null)
@@ -200,8 +200,8 @@ class ApiDisputes extends Libraries\ApiBase
     
     /**
      * Creates document's page for dispute from file
-     * @param Int|GUID $disputeId Dispute identifier
-     * @param Int|GUID $disputeDocumentId Dispute document identifier
+     * @param int|GUID $disputeId Dispute identifier
+     * @param int|GUID $disputeDocumentId Dispute document identifier
      * @param string $file File path
      * @throws \MangoPay\Libraries\Exception
      */

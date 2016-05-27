@@ -9,14 +9,14 @@ class KeyValueArray
 {
     /**
      * Key for tabular variable
-     * @var String
+     * @var string
      * @access public
      */
     public $Key;
     
     /**
      * Value for tabular variable
-     * @var String
+     * @var string
      * @access public
      */
     public $Value;

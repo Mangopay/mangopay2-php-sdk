@@ -10,37 +10,37 @@ class Address extends Libraries\Dto
     
     /**
      * Address line 1.
-     * @var String
+     * @var string
      */
     public $AddressLine1;
 
     /**
      * Address line 2.
-     * @var String
+     * @var string
      */
     public $AddressLine2;
 
     /**
      * City.
-     * @var String
+     * @var string
      */
     public $City;
 
     /**
      * Region.
-     * @var String
+     * @var string
      */
     public $Region;
 
     /**
      * Postal code.
-     * @var String
+     * @var string
      */
     public $PostalCode;
 
     /**
      * Country.
-     * @var String
+     * @var string
      */
     public $Country;
 }

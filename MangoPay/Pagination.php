@@ -9,25 +9,25 @@ class Pagination extends Libraries\Dto
 {
     /**
      * Page number
-     * @var Int
+     * @var int
      */
     public $Page;
     
     /**
      * Number of items per page
-     * @var Int
+     * @var int
      */
     public $ItemsPerPage;
     
     /**
      * Number of total pages
-     * @var Int
+     * @var int
      */
     public $TotalPages;
     
     /**
      * Number of total items
-     * @var Int
+     * @var int
      */
     public $TotalItems;
     

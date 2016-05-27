@@ -9,7 +9,7 @@ class Error
 {
     /**
      * Error message
-     * @var String
+     * @var string
      * @access public
      */
     public $Message;

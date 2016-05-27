@@ -45,7 +45,7 @@ class MangoPayApi
 
     /**
      * Clients methods
-     * @var ApiClient
+     * @var ApiClients
      */
     public $Clients;
     
