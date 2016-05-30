@@ -246,6 +246,13 @@ class RestTool
 
             curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $this->_requestData);
         }
+
+        if (!is_null($this->_root->Config->HostProxy))
+            curl_setopt($this->_curlHandle, CURLOPT_PROXY, $this->_root->Config->HostProxy);
+
+        if (!is_null($this->_root->Config->UserPasswordProxy))
+            curl_setopt($this->_curlHandle, CURLOPT_PROXYUSERPWD, $this->_root->Config->UserPasswordProxy);
+
     }
     
     /**
