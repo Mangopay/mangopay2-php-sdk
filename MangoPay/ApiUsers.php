@@ -140,7 +140,18 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetObject('users_getbankaccount', $userId, 'MangoPay\BankAccount', $bankAccountId);
     }
-    
+
+    /**
+     * Save a bank account
+     * @param $userId
+     * @param $bankAccount
+     * @return object
+     */
+    public function UpdateBankAccount($userId, $bankAccount)
+    {
+        return $this->SaveObject('bankaccounts_save', $bankAccount, '\MangoPay\BankAccount', $userId);
+    }
+
     /**
      * Get all wallets for user
      * @param int $userId User Id
