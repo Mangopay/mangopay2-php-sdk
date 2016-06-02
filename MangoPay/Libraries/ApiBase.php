@@ -91,6 +91,8 @@ abstract class ApiBase
         'users_savenaturals' => array( '/users/natural/%s', RequestType::PUT ),
         'users_savelegals' => array( '/users/legal/%s', RequestType::PUT ),
         
+        'bankaccounts_save' => array( '/users/%s/bankaccounts/%s', RequestType::PUT ),
+
         'wallets_create' => array( '/wallets', RequestType::POST ),
         'wallets_alltransactions' => array( '/wallets/%s/transactions', RequestType::GET ),
         'wallets_get' => array( '/wallets/%s', RequestType::GET ),

@@ -35,6 +35,11 @@ class BankAccount extends Libraries\EntityBase
      * @var object
      */
     public $Details;
+
+    /**
+     * @var boolean
+     */
+    public $Active;
     
     /**
      * Get array with mapping which property is object and what type of object 
