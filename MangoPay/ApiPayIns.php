@@ -39,6 +39,26 @@ class ApiPayIns extends Libraries\ApiBase
         return $this->CreateObject('payins_createrefunds', $refund, '\MangoPay\Refund', $payInId, null, $idempotencyKey);
     }
     
+        private function GetPaymentKey($payIn)
+    {
+        if (!isset($payIn->PaymentDetails) || !is_object($payIn->PaymentDetails)) {
+            throw new Libraries\Exception('PaymentDetails is not defined or it is not object type');
+        }
+        
+        $className = str_replace('MangoPay\\PayInPaymentDetails', '', get_class($payIn->PaymentDetails));
+        return strtolower($className);
+    }
+    
+    private function GetExecutionKey($payIn)
+    {
+        if (!isset($payIn->ExecutionDetails) || !is_object($payIn->ExecutionDetails)) {
+            throw new Libraries\Exception('ExecutionDetails is not defined or it is not object type');
+        }
+        
+        $className = str_replace('MangoPay\\PayInExecutionDetails', '', get_class($payIn->ExecutionDetails));
+        return strtolower($className);
+    }
+    
     /**
      * WARNING!!
      * It's temporary entity and it will be removed in the future.
@@ -51,25 +71,5 @@ class ApiPayIns extends Libraries\ApiBase
     public function CreateTemporaryImmediatePayIn($immediatePayIn, $idempotencyKey = null)
     {
         return $this->CreateObject('temp_immediatepayins_create', $immediatePayIn, '\MangoPay\TemporaryImmediatePayIn', null, null, $idempotencyKey);
-    }
-    
-    private function GetPaymentKey($payIn)
-    {
-        if (!isset($payIn->PaymentDetails) || !is_object($payIn->PaymentDetails)) {
-            throw new Libraries\Exception('Payment is not defined or it is not object type');
-        }
-        
-        $className = str_replace('MangoPay\\PayInPaymentDetails', '', get_class($payIn->PaymentDetails));
-        return strtolower($className);
-    }
-    
-    private function GetExecutionKey($payIn)
-    {
-        if (!isset($payIn->ExecutionDetails) || !is_object($payIn->ExecutionDetails)) {
-            throw new Libraries\Exception('Execution is not defined or it is not object type');
-        }
-        
-        $className = str_replace('MangoPay\\PayInExecutionDetails', '', get_class($payIn->ExecutionDetails));
-        return strtolower($className);
     }
 }
