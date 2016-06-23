@@ -143,9 +143,9 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Save a bank account
-     * @param $userId
-     * @param $bankAccount
-     * @return object
+     * @param int $userId
+     * @param \MangoPay\BankAccount $bankAccount
+     * @return \MangoPay\BankAccount Entity of bank account object
      */
     public function UpdateBankAccount($userId, $bankAccount)
     {

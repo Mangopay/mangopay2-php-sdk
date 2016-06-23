@@ -247,6 +247,17 @@ class Users extends Base {
         $this->assertTrue($list[0]->CreationDate > $list[1]->CreationDate);
     }
     
+    function test_Users_UpdateBankAccount(){
+        $john = $this->getJohn();
+        $account = $this->getJohnsAccount();
+        $account->Active = false;
+        
+        $accountResult = $this->_api->Users->UpdateBankAccount($john->Id, $account);
+        
+        $this->assertIdentical($account->Id, $accountResult->Id);
+        $this->assertFalse($accountResult->Active);
+    }
+    
     function test_Users_CreateKycDocument(){
         $kycDocument = $this->getJohnsKycDocument();
 
