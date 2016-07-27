@@ -50,10 +50,10 @@ try {
     // payment type as CARD
     $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
     $payIn->PaymentDetails->CardType = $card->CardType;
+    $payIn->PaymentDetails->CardId = $card->Id;
 
     // execution type as DIRECT
     $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-    $payIn->ExecutionDetails->CardId = $card->Id;
     $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
 
     // create Pay-In
