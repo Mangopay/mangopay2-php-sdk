@@ -50,8 +50,8 @@ $returnUrl .= 'payment.php';
     var redirectUrl = "<?php print $returnUrl; ?>";
 </script>
 
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/mangopay.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://rawgit.com/Mangopay/cardregistration-js-kit/master/kit/mangopay-kit.min.js"></script><!-- Or add the repo https://github.com/Mangopay/cardregistration-js-kit to your project -->
 <script src="js/script.js"></script>
 
 <p>
