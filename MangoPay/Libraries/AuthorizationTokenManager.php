@@ -29,7 +29,7 @@ class AuthorizationTokenManager extends ApiBase
     {
         $token = $this->_storageStrategy->Get();
         
-        if (is_null($token) || $token->IsExpired() || $token->GetAutenticationKey() != $autenticationKey) {
+        if (is_null($token) || false === $token || $token->IsExpired() || $token->GetAutenticationKey() != $autenticationKey) {
             $this->StoreToken($this->_root->AuthenticationManager->CreateToken());
         }
     
