@@ -1,7 +1,7 @@
 <?php
 $PayOut = new \MangoPay\PayOut();
 $PayOut->AuthorId = $_SESSION["MangoPayDemo"]["UserLegal"];
-$PayOut->DebitedWalletID = $_SESSION["MangoPayDemo"]["WalletForLegalUser"];
+$PayOut->DebitedWalletId = $_SESSION["MangoPayDemo"]["WalletForLegalUser"];
 $PayOut->DebitedFunds = new \MangoPay\Money();
 $PayOut->DebitedFunds->Currency = "EUR";
 $PayOut->DebitedFunds->Amount = 610;
