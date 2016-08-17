@@ -109,6 +109,21 @@ class Users extends Base {
         $this->assertIdenticalInputProps($userSaved, $john);
         $this->assertIdenticalInputProps($userFetched, $john);
     }
+    
+    function test_Users_Save_NaturalAndClearAddresIfNeeded() {
+        $user = new \MangoPay\UserNatural();
+        $user->FirstName = "John";
+        $user->LastName = "Doe";
+        $user->Email = "john.doe@sample.org";
+        $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+        $user->Nationality = "FR";
+        $user->CountryOfResidence = "FR";
+        $newUser = $this->_api->Users->Create($user);
+
+        $userSaved = $this->_api->Users->Update($newUser);
+        
+        $this->assertTrue($userSaved->Id > 0);
+    }
 
     function test_Users_Save_Legal() {
         $matrix = $this->getMatrix();
@@ -119,6 +134,23 @@ class Users extends Base {
         
         $this->assertIdenticalInputProps($userSaved, $matrix);
         $this->assertIdenticalInputProps($userFetched, $matrix);
+    }
+    
+    function test_Users_Save_LegalAndClearAddresIfNeeded() {
+        $user = new \MangoPay\UserLegal();
+        $user->Name = "MartixSampleOrg";
+        $user->Email = "mail@test.com";
+        $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
+        $user->LegalRepresentativeFirstName = "FirstName";
+        $user->LegalRepresentativeLastName = "LastName";
+        $user->LegalRepresentativeBirthday = mktime(0, 0, 0, 12, 21, 1975);
+        $user->LegalRepresentativeNationality = "FR";
+        $user->LegalRepresentativeCountryOfResidence = "FR";
+        $newUser = $this->_api->Users->Create($user);
+        
+        $userSaved = $this->_api->Users->Update($newUser);
+        
+        $this->assertTrue($userSaved->Id > 0);
     }
     
     function test_Users_CreateBankAccount_IBAN() {
