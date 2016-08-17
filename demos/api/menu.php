@@ -122,7 +122,13 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'View one wallets (fees or credit) with a particular currency' => 'Wallet_Clients_|EnumParams|_GetWallet__FundsType$CurrencyIso',
         'View the transactions linked to your client wallets (fees and credit)' => 'Wallet_Clients_|GetWalletTransactions|',
         'View the transactions linked to one of your client wallets (fees or credit) with a particular currency' => 'Wallet_Clients_|EnumParamsList|_GetWalletTransactions_FilterTransactions_FundsType$CurrencyIso',
-     )
+     ),
+    'Reports' => array(
+        'Create report request' => 'ReportRequest_Reports_Create',
+        'Get report request' => 'ReportRequest_Reports_Get',
+        'List all report request' => 'ReportRequest_Reports_All__FilterReports__$Sort',
+        //'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_GetTransactions_FilterTransactions__$Sort',
+    ),
 );
 
 ?>

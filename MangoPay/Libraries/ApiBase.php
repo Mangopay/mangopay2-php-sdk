@@ -150,6 +150,10 @@ abstract class ApiBase
         'client_wallets_transactions' => array( '/clients/transactions', RequestType::GET ),
         'client_wallets_transactions_fees_currency' => array( '/clients/wallets/fees/%s/transactions', RequestType::GET ),
         'client_wallets_transactions_credit_currency' => array( '/clients/wallets/credit/%s/transactions', RequestType::GET ),
+        
+        'reports_create' => array( '/reports/%s', RequestType::POST ),
+        'reports_all' => array( '/reports', RequestType::GET ),
+        'reports_get' => array( '/reports/%s', RequestType::GET ),
     );
 
     /**

@@ -201,6 +201,8 @@ class HtmlHelper {
                 self::renderEnum("\\MangoPay\\DisputeDocumentType", $name, $prefix);
             } elseif ($className == "\\MangoPay\\DisputeDocument" && $name == "Status") {
                 self::renderEnum("\\MangoPay\\DisputeDocumentStatus", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\ReportRequest" && $name == "ReportType") {
+                self::renderEnum("\\MangoPay\\ReportType", $name, $prefix);
             }
             else
                 echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/>';
