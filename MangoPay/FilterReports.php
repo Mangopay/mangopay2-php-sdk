@@ -192,6 +192,18 @@ class FilterReports extends FilterTransactions
      * @var string 
      */
     public $ResultCode;
+    
+    /**
+     * User ID
+     * @var string
+     */
+    public $UserId;
+    
+    /**
+     * Wallet ID
+     * @var string
+     */
+    public $WalletId;
         
     /**
      * Minimal debited funds amount
