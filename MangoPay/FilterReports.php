@@ -197,7 +197,7 @@ class FilterReports extends FilterTransactions
      * User ID
      * @var string
      */
-    public $UserId;
+    public $AuthorId;
     
     /**
      * Wallet ID
