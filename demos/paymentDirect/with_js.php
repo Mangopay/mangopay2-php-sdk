@@ -42,17 +42,22 @@ $returnUrl .= 'payment.php';
 
 ?>
 
-<script>
-    var cardRegistrationURL = "<?php print $createdCardRegister->CardRegistrationURL; ?>";
-    var preregistrationData = "<?php print $createdCardRegister->PreregistrationData; ?>";
-    var accessKey = "<?php print $createdCardRegister->AccessKey; ?>";
-    var ajaxUrl = "<?php print $returnUrl; ?>";
-    var redirectUrl = "<?php print $returnUrl; ?>";
-</script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://rawgit.com/Mangopay/cardregistration-js-kit/master/kit/mangopay-kit.min.js"></script><!-- Or add the repo https://github.com/Mangopay/cardregistration-js-kit to your project -->
 <script src="js/script.js"></script>
+
+<script>
+    var cardRegistrationURL = "<?php print $createdCardRegister->CardRegistrationURL; ?>";
+    var preregistrationData = "<?php print $createdCardRegister->PreregistrationData; ?>";
+    var cardRegistrationId = "<?php print $createdCardRegister->Id; ?>";
+    var cardType = "<?php print $createdCardRegister->CardType; ?>";
+    var accessKey = "<?php print $createdCardRegister->AccessKey; ?>";
+    var ajaxUrl = "<?php print $returnUrl; ?>";
+    var redirectUrl = "<?php print $returnUrl; ?>";
+    
+    mangoPay.cardRegistration.baseURL = "<?php print $mangoPayApi->Config->BaseUrl; ?>";
+    mangoPay.cardRegistration.clientId = "<?php print $mangoPayApi->Config->ClientId; ?>";
+</script>
 
 <p>
   <i>
@@ -82,14 +87,17 @@ $returnUrl .= 'payment.php';
         <label for="cardCvx">CVV</label>
         <input type="text" name="cardCvx" value="" />
         <div class="clear"></div>
+        <br>
 
-        <input type="button" value="Pay with Ajax" id="payAjax" />
+        <input type="button" value="Register with Ajax (will fail for non supporting CORS browsers)" id="payAjax" />
         <div class="clear"></div>
+        <br>
         
-        <input type="button" value="Pay with Ajax or redirect" id="payAjaxOrRedirect" />
+        <input type="button" value="Register with Ajax or redirect if no CORS support" id="payAjaxOrRedirect" />
         <div class="clear"></div>
-
-        <input type="button" value="Pay with redirect" id="payRedirect" />
+		<br>
+		
+        <input type="button" value="Register with redirect and then pay" id="payRedirect" />
         <div class="clear"></div>
 
     </form>
