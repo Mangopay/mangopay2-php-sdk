@@ -141,6 +141,7 @@ abstract class ApiBase
  
         'client_get' => array( '/clients', RequestType::GET ),
         'client_save' => array( '/clients', RequestType::PUT ),
+        'client_payout' => array( '/clients/payouts/', RequestType::POST ),
         'client_upload_logo' => array( '/clients/logo', RequestType::PUT ),
         'client_wallets' => array( '/clients/wallets', RequestType::GET ),
         'client_wallets_fees' => array( '/clients/wallets/fees', RequestType::GET ),
