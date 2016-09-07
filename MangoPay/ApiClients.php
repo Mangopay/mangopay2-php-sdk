@@ -180,4 +180,14 @@ class ApiClients extends Libraries\ApiBase
         
         return $this->GetList($methodKey, $pagination, '\MangoPay\Transaction', $currencyIso, $filter, null);
     }
+    
+    /**
+     * Create new pay-out from a client wallet
+     * @param PayOut $payOut
+     * @return \MangoPay\PayOut Object returned from API
+     */
+    public function Payout($payOut, $idempotencyKey = null)
+    {
+        return $this->CreateObject('client_payout', $payOut, '\MangoPay\PayOut', null, null, $idempotencyKey);
+    }
 }
