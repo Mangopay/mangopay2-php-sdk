@@ -45,7 +45,7 @@ class EventType
     const TransferSettlementSucceeded = "TRANSFER_SETTLEMENT_SUCCEEDED";
     const TransferSettlementFailed = "TRANSFER_SETTLEMENT_FAILED";
     const MandateCreated = "MANDATE_CREATED";
-    const MandatedFailed = "MANDATED_FAILED";
+    const MandatedFailed = "MANDATE_FAILED";
     const MandateActivated = "MANDATE_ACTIVATED";
     const MandateSubmitted = "MANDATE_SUBMITTED";
 }
