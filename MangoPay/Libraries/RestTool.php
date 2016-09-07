@@ -339,6 +339,9 @@ class RestTool
                 $error->Errors = property_exists($response, 'Errors')
                         ? $response->Errors
                         : property_exists($response, 'errors') ? $response->errors : null;
+				$error->Id = property_exists($response, 'Id') ? $response->Id : null;
+				$error->Type = property_exists($response, 'Type') ? $response->Type : null;
+				$error->Date = property_exists($response, 'Date') ? $response->Date : null;
                 throw new ResponseException($this->_requestUrl, $this->_responseCode, $error);
             } else {
                 throw new ResponseException($this->_requestUrl, $this->_responseCode);

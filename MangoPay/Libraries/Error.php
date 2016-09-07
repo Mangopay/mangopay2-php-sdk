@@ -20,6 +20,27 @@ class Error
      * @access public
      */
     public $Errors;
+	
+	/**
+     * An identifer for this API response
+     * @var string
+     * @access public
+     */
+    public $Id;
+	
+	/**
+     * The timestamp of this API response
+     * @var timestamp
+     * @access public
+     */
+    public $Date;
+	
+	/**
+     * The type of error
+     * @var string
+     * @access public
+     */
+    public $Type;
     
     /**
      * Return the stdClass error serialized as string
