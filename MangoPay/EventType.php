@@ -48,4 +48,8 @@ class EventType
     const MandatedFailed = "MANDATE_FAILED";
     const MandateActivated = "MANDATE_ACTIVATED";
     const MandateSubmitted = "MANDATE_SUBMITTED";
+    const PreAuthorizationPaymentWaiting = "PREAUTHORIZATION_PAYMENT_WAITING";
+    const PreAuthorizationPaymentExpired = "PREAUTHORIZATION_PAYMENT_EXPIRED";
+    const PreAuthorizationPaymentCanceled = "PREAUTHORIZATION_PAYMENT_CANCELED";
+    const PreAuthorizationPaymentValidated = "PREAUTHORIZATION_PAYMENT_VALIDATED";
 }
