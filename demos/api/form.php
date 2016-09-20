@@ -17,8 +17,8 @@ $operation = @$details[2];
 $subEntityName = @$details[3];
 $filterName = @$details[4];
 $subSubEntityName = @$details[5];
-$entityId = (int)@$_POST['Id'];
-$subEntityId = (int)@$_POST['IdSubEntity'];
+$entityId = @$_POST['Id'];
+$subEntityId = @$_POST['IdSubEntity'];
 
 if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
 

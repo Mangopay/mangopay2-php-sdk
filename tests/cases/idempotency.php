@@ -42,4 +42,15 @@ class Idempotency extends Base {
         $this->assertTrue($resp1->Resource->Id == $user1->Id);
         $this->assertTrue($resp2->Resource->Id == $user2->Id);
     }
+    
+    function test_IdempotencyKey_CheckResponseObject() {
+        $idempotencyKey = md5(uniqid());
+        $user = $this->buildJohn();
+        $user1 = $this->_api->Users->Create($user, $idempotencyKey);
+
+        // responses may be retreived later
+        $resp1 = $this->_api->Responses->Get($idempotencyKey);
+	
+        $this->assertIsA($resp1->Resource, '\MangoPay\UserNatural');
+    }
 }

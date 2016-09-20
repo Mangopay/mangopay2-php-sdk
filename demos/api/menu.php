@@ -129,6 +129,9 @@ $GLOBALS['MangoPay_Demo_Menu'] = array(
         'List all report request' => 'ReportRequest_Reports_All__FilterReports__$Sort',
         //'List transactions for wallet' => 'Wallet_Wallets_ListSubEntity_GetTransactions_FilterTransactions__$Sort',
     ),
+    'Responses' => array(
+        'Get responses' => 'Response_Responses_Get'
+    ),
 );
 
 ?>

@@ -91,9 +91,9 @@ abstract class Base extends \UnitTestCase {
         // use test client credentails
         $api->Config->ClientId = 'sdk-unit-tests';
 
-		// sandbox environment:
-		$api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
-		$api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
+        // sandbox environment:
+        $api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
+        $api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
 
         $api->OAuthTokenManager->RegisterCustomStorageStrategy(new \MangoPay\Tests\MockStorageStrategy());
 
