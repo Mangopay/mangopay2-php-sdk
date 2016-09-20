@@ -7,28 +7,6 @@ namespace MangoPay;
 class ApiClients extends Libraries\ApiBase
 {
     /**
-     * Get client data for Basic Access Authentication
-     * @param string $clientId Client identifier
-     * @param string $clientName Beautiful name for presentation
-     * @param string $clientEmail Client's email
-     * @return \MangoPay\Client Client object
-     */
-    public function Create($clientId, $clientName, $clientEmail)
-    {
-        $urlMethod = $this->GetRequestUrl('authentication_base');
-        $requestType = $this->GetRequestType('authentication_base');
-        $requestData = array(
-            'ClientId' => $clientId,
-            'Name' => $clientName,
-            'Email' => $clientEmail,
-        );
-        
-        $rest = new Libraries\RestTool(false, $this->_root);
-        $response = $rest->Request($urlMethod, $requestType, $requestData);
-        return $this->CastResponseToEntity($response, '\MangoPay\Client');
-    }
-    
-    /**
      * Get client information
      * 
      * @return \MangoPay\Client Client object returned from API
@@ -45,6 +23,12 @@ class ApiClients extends Libraries\ApiBase
      */
     public function Update($client)
     {
+        if (!is_null($client->HeadquartersAddress) 
+            && is_a($client->HeadquartersAddress, "MangoPay\Address")
+            && $client->HeadquartersAddress->CanBeNull()) {
+                    $client->HeadquartersAddress = null;
+        }
+            
         return $this->SaveObject('client_save', $client, '\MangoPay\Client');
     }
     

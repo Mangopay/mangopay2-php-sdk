@@ -17,6 +17,21 @@ class Clients extends Base {
         $clients = new \MangoPay\Client();
         $clients->PrimaryButtonColour = "#afafae";
         $clients->PrimaryThemeColour = "#afafae";
+        $clients->PlatformDescription = "platform description";
+        $clients->PlatformType = \MangoPay\PlatformType::Other;
+        $clients->PlatformURL = "http://sdk-unit-tests.com";
+        $clients->HeadquartersAddress = new \MangoPay\Address();
+        $clients->HeadquartersAddress->AddressLine1 = "AddressLine1";
+        $clients->HeadquartersAddress->AddressLine2 = "AddressLine2";
+        $clients->HeadquartersAddress->City = "City";
+        $clients->HeadquartersAddress->Region = "Region";
+        $clients->HeadquartersAddress->PostalCode = "11222";
+        $clients->HeadquartersAddress->Country = "FR";
+        $clients->TaxNumber = "12345";
+        $clients->TechEmails = array("hugo@mangopay.com", "test@mangopay.com");
+        $clients->AdminEmails = array("hugo@mangopay.com", "test@mangopay.com");
+        $clients->FraudEmails = array("hugo@mangopay.com", "test@mangopay.com");
+        $clients->BillingEmails = array("hugo@mangopay.com", "test@mangopay.com");
          
         $saveClients = $this->_api->Clients->Update($clients);
         

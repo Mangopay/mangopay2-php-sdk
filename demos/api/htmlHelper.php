@@ -203,6 +203,8 @@ class HtmlHelper {
                 self::renderEnum("\\MangoPay\\DisputeDocumentStatus", $name, $prefix);
             } elseif ($className == "\\MangoPay\\ReportRequest" && $name == "ReportType") {
                 self::renderEnum("\\MangoPay\\ReportType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\Client" && $name == "PlatformType") {
+                self::renderEnum("\\MangoPay\\PlatformType", $name, $prefix);
             }
             else
                 echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/>';
@@ -283,8 +285,14 @@ class HtmlHelper {
             if (isset($_POST[$frmName]) && strlen($_POST[$frmName]) > 0) {
 
                 // special fields for Owners property
-                if ($entityName == 'Wallet' && $name == 'Owners')
+                if ($entityName == 'Wallet' && $name == 'Owners'
+                    || $entityName == 'Client' && $name == 'TechEmails'
+                    || $entityName == 'Client' && $name == 'AdminEmails'
+                    || $entityName == 'Client' && $name == 'FraudEmails'
+                    || $entityName == 'Client' && $name == 'BillingEmails'){
+                    
                     $entity->$name = explode(';', $_POST[$frmName]);
+                }
                 // special cast to int for Birthday property in UserNatural 
                 // and UserLegal class
                 elseif (($entityName == 'UserNatural' && $name == 'Birthday')
