@@ -21,7 +21,7 @@ class ApiResponses extends Libraries\ApiBase
     {
         $response = $this->GetObject('responses_get', $idempotencyKey, 'MangoPay\Response');
         $className = $this->GetObjectForIdempotencyUrl($response->RequestUrl);
-        if (is_null($className) || empty($className))
+        if (is_null($className) || empty($className) || is_null($response->Resource) || empty($response->Resource))
             return $response;
         
         $response->Resource = $this->CastResponseToEntity($response->Resource, $className);

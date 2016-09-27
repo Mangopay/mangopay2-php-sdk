@@ -463,9 +463,9 @@ abstract class ApiBase
             'temp_immediatepayins_create' => '\MangoPay\TemporaryImmediatePayIn',
             'payouts_bankwire_create' => '\MangoPay\PayOut',
             'reports_create' => '\MangoPay\ReportRequest',
-            'transfers_create' => '\MangoPay\Transfer',
             'transfers_createrefunds' => '\MangoPay\Refund',
-            'users_createnaturals' => '\MangoPay\UserNatural',
+            'transfers_create' => '\MangoPay\Transfer',
+            'users_createnaturals' => '\MangoPay\UserNatural', // done
             'users_createlegals' => '\MangoPay\UserLegal',
             'users_createbankaccounts_iban' => '\MangoPay\BankAccount',
             'users_createbankaccounts_gb' => '\MangoPay\BankAccount',
