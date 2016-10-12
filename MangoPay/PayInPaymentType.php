@@ -10,4 +10,5 @@ class PayInPaymentType
     const Card = 'CARD';
     const DirectDebit = 'DIRECT_DEBIT';
     const Preauthorized = 'PREAUTHORIZED';
+	const PayPal = 'PAYPAL';
 }
