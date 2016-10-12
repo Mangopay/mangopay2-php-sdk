@@ -25,7 +25,7 @@ abstract class ApiBase
      * @var array
      */
     private $_methods = array(
-        'authentication_base' => array( '/api/clients/', RequestType::POST ),
+        'authentication_base' => array( '/clients/', RequestType::POST ),
         'authentication_oauth' => array( '/oauth/token ', RequestType::POST ),
         
         'responses_get' => array( '/responses/%s', RequestType::GET),
@@ -92,6 +92,8 @@ abstract class ApiBase
         'users_savenaturals' => array( '/users/natural/%s', RequestType::PUT ),
         'users_savelegals' => array( '/users/legal/%s', RequestType::PUT ),
         
+        'bankaccounts_save' => array( '/users/%s/bankaccounts/%s', RequestType::PUT ),
+
         'wallets_create' => array( '/wallets', RequestType::POST ),
         'wallets_alltransactions' => array( '/wallets/%s/transactions', RequestType::GET ),
         'wallets_get' => array( '/wallets/%s', RequestType::GET ),
@@ -133,7 +135,7 @@ abstract class ApiBase
         'temp_paymentcards_get' => array( '/temp/paymentcards/%s', RequestType::GET ),
         'temp_immediatepayins_create' => array( '/temp/immediate-payins', RequestType::POST ),
         
-		'mandates_create' => array( '/mandates/directdebit/web', RequestType::POST ),
+        'mandates_create' => array( '/mandates/directdebit/web', RequestType::POST ),
         'mandates_save' => array( '/mandates/%s/cancel', RequestType::PUT ),
         'mandates_get' => array( '/mandates/%s', RequestType::GET ),
         'mandates_all' => array( '/mandates', RequestType::GET ),
@@ -141,6 +143,18 @@ abstract class ApiBase
         'client_get' => array( '/clients', RequestType::GET ),
         'client_save' => array( '/clients', RequestType::PUT ),
         'client_upload_logo' => array( '/clients/logo', RequestType::PUT ),
+        'client_wallets' => array( '/clients/wallets', RequestType::GET ),
+        'client_wallets_fees' => array( '/clients/wallets/fees', RequestType::GET ),
+        'client_wallets_fees_currency' => array( '/clients/wallets/fees/%s', RequestType::GET ),
+        'client_wallets_credit' => array( '/clients/wallets/credit', RequestType::GET ),
+        'client_wallets_credit_currency' => array( '/clients/wallets/credit/%s', RequestType::GET ),
+        'client_wallets_transactions' => array( '/clients/transactions', RequestType::GET ),
+        'client_wallets_transactions_fees_currency' => array( '/clients/wallets/fees/%s/transactions', RequestType::GET ),
+        'client_wallets_transactions_credit_currency' => array( '/clients/wallets/credit/%s/transactions', RequestType::GET ),
+        
+        'reports_create' => array( '/reports/%s', RequestType::POST ),
+        'reports_all' => array( '/reports', RequestType::GET ),
+        'reports_get' => array( '/reports/%s', RequestType::GET ),
     );
 
     /**
@@ -424,5 +438,56 @@ abstract class ApiBase
         }
         
         return false;
+    }
+    
+    protected function GetObjectForIdempotencyUrl($url){
+        if (is_null($url) || empty($url))
+            return null;
+        
+        $map = array(
+            'preauthorization_create' => '\MangoPay\CardPreAuthorization',
+            'cardregistration_create' => '\MangoPay\CardRegistration',
+            'temp_paymentcards_create' => '\MangoPay\TemporaryPaymentCard',
+            'client_upload_logo' => '',
+            'disputes_repudiation_create_settlement' => '\MangoPay\Transfer',
+            'disputes_document_create' => '\MangoPay\DisputeDocument',
+            'disputes_document_page_create' => '',
+            'hooks_create' => '\MangoPay\Hook',
+            'mandates_create' => '\MangoPay\Mandate',
+            'payins_card-web_create' => '\MangoPay\PayIn',
+            'payins_card-direct_create' => '\MangoPay\PayIn',
+            'payins_preauthorized-direct_create' => '\MangoPay\PayIn',
+            'payins_bankwire-direct_create' => '\MangoPay\PayIn',
+            'payins_directdebit-web_create' => '\MangoPay\PayIn',
+            'payins_directdebit-direct_create' => '\MangoPay\PayIn',
+            'payins_createrefunds' => '\MangoPay\Refund',
+            'temp_immediatepayins_create' => '\MangoPay\TemporaryImmediatePayIn',
+            'payouts_bankwire_create' => '\MangoPay\PayOut',
+            'reports_create' => '\MangoPay\ReportRequest',
+            'transfers_createrefunds' => '\MangoPay\Refund',
+            'transfers_create' => '\MangoPay\Transfer',
+            'users_createnaturals' => '\MangoPay\UserNatural', // done
+            'users_createlegals' => '\MangoPay\UserLegal',
+            'users_createbankaccounts_iban' => '\MangoPay\BankAccount',
+            'users_createbankaccounts_gb' => '\MangoPay\BankAccount',
+            'users_createbankaccounts_us' => '\MangoPay\BankAccount',
+            'users_createbankaccounts_ca' => '\MangoPay\BankAccount',
+            'users_createbankaccounts_other' => '\MangoPay\BankAccount',
+            'kyc_documents_create' => '\MangoPay\KycDocument',
+            'kyc_page_create' => '',
+            'wallets_create' => '\MangoPay\Wallet'
+        );
+        
+        foreach ($map as $key => $className) {
+            $sourceUrl = $this->GetRequestUrl($key);
+            $sourceUrl = str_replace("%s", "[0-9a-zA-Z]*", $sourceUrl);
+            $sourceUrl = str_replace("/", "\/", $sourceUrl);
+            $pattern = '/' . $sourceUrl . '/';
+            if (preg_match($pattern, $url) > 0) {
+                return $className;
+            }            
+        }
+        
+        return null;
     }
 }

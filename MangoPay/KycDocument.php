@@ -8,13 +8,13 @@ class KycDocument extends Libraries\Document
 {
     /**
      * Document type
-     * @var \MangoPay\KycDocumentType
+     * @var string (See \MangoPay\KycDocumentType)
      */
     public $Type;
     
     /**
      * Document status
-     * @var \MangoPay\KycDocumentStatus
+     * @var string (See \MangoPay\KycDocumentStatus)
      */
     public $Status;
     

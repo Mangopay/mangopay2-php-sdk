@@ -31,6 +31,13 @@ class Response extends Libraries\Dto
      */
     public $Date;
     
+    
+    /**
+     * Request URL where the idempotency key was used
+     * @var string
+     */
+    public $RequestURL;
+    
     /**
      * Entity or response data (JSON-serialized)
      * @var string

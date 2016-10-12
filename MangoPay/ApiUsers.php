@@ -52,7 +52,7 @@ class ApiUsers extends Libraries\ApiBase
     
     /**
      * Get natural or legal user by ID
-     * @param Int|GUID $userId User identifier
+     * @param int|GUID $userId User identifier
      * @return UserLegal | UserNatural User object returned from API
      */
     public function Get($userId)
@@ -63,7 +63,7 @@ class ApiUsers extends Libraries\ApiBase
     
     /**
      * Get natural user by ID
-     * @param Int|GUID $userId User identifier
+     * @param int|GUID $userId User identifier
      * @return UserLegal|UserNatural User object returned from API
      */
     public function GetNatural($userId)
@@ -74,7 +74,7 @@ class ApiUsers extends Libraries\ApiBase
     
     /**
      * Get legal user by ID
-     * @param Int|GUID $userId User identifier
+     * @param int|GUID $userId User identifier
      * @return UserLegal|UserNatural User object returned from API
      */
     public function GetLegal($userId)
@@ -94,8 +94,23 @@ class ApiUsers extends Libraries\ApiBase
         $className = get_class($user);
         if ($className == 'MangoPay\UserNatural') {
             $methodKey = 'users_savenaturals';
+            if (!is_null($user->Address) 
+                && is_a($user->Address, "MangoPay\Address")
+                && $user->Address->CanBeNull()) {
+                    $user->Address = null;
+            }
         } elseif ($className == 'MangoPay\UserLegal') {
             $methodKey = 'users_savelegals';
+            if (!is_null($user->HeadquartersAddress) 
+                && is_a($user->HeadquartersAddress, "MangoPay\Address")
+                && $user->HeadquartersAddress->CanBeNull()) {
+                    $user->HeadquartersAddress = null;
+            }
+            if (!is_null($user->LegalRepresentativeAddress) 
+                && is_a($user->LegalRepresentativeAddress, "MangoPay\Address")
+                && $user->LegalRepresentativeAddress->CanBeNull()) {
+                    $user->LegalRepresentativeAddress = null;
+            }
         } else {
             throw new Libraries\Exception('Wrong entity class for user');
         }
@@ -140,7 +155,18 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetObject('users_getbankaccount', $userId, 'MangoPay\BankAccount', $bankAccountId);
     }
-    
+
+    /**
+     * Save a bank account
+     * @param int $userId
+     * @param \MangoPay\BankAccount $bankAccount
+     * @return \MangoPay\BankAccount Entity of bank account object
+     */
+    public function UpdateBankAccount($userId, $bankAccount)
+    {            
+        return $this->SaveObject('bankaccounts_save', $bankAccount, '\MangoPay\BankAccount', $userId);
+    }
+
     /**
      * Get all wallets for user
      * @param int $userId User Id

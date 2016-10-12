@@ -44,6 +44,12 @@ class CardPreAuthorization extends Libraries\EntityBase
      * @var string
      */
     public $ResultMessage;
+    
+    /**
+     * An optional value to be specified on the user's bank statement
+     * @var string
+     */
+    public $StatementDescriptor;
         
     /**
      * How the PreAuthorization has been executed.

@@ -19,8 +19,8 @@ session_start();
                     height: 10px;
             }
             input[type=submit], input[type=button] {
-                    width: 200px;
-                    margin-left: 85px;
+                    /*width: 200px;
+                    margin-left: 85px;*/
             }
         </style>
         

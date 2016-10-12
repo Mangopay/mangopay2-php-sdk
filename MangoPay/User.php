@@ -9,25 +9,25 @@ abstract class User extends Libraries\EntityBase
 {
     /**
      * Type of user
-     * @var String
+     * @var string
      */
     public $PersonType;
     
     /**
      * Email address
-     * @var String
+     * @var string
      */
     public $Email;
     
     /**
      * KYC Level (LIGHT or REGULAR)
-     * @var String
+     * @var string
      */
     public $KYCLevel;
     
     /**
      * Construct
-     * @param string $personType String with type of person
+     * @param string $personType string with type of person
      */
     protected function SetPersonType($personType)
     {

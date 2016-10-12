@@ -17,8 +17,8 @@ $operation = @$details[2];
 $subEntityName = @$details[3];
 $filterName = @$details[4];
 $subSubEntityName = @$details[5];
-$entityId = (int)@$_POST['Id'];
-$subEntityId = (int)@$_POST['IdSubEntity'];
+$entityId = @$_POST['Id'];
+$subEntityId = @$_POST['IdSubEntity'];
 
 if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
 
@@ -45,16 +45,51 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
         
         // normal cases
         switch ($operation) {
+             case '|NoParams|':
+                $methodName = $subEntityName;
+                $apiResult = $api->$subApiName->$methodName();
+                break;
+            case '|GetWalletTransactions|':
+                $pagination = HtmlHelper::getEntity('Pagination');
+                $filter = null;
+                if (isset($filterName) && $filterName != ""){
+                    $filter = HtmlHelper::getEntity($filterName);
+                }
+                $apiResult = $api->$subApiName->GetWalletTransactions(null, null, $pagination, $filter);
+                
+                print '<pre>';print_r($pagination);print '</pre>';
+                
+                break;
+            case '|EnumParams|':
+                $methodName = $subEntityName;
+                $enums = explode('$', $subSubEntityName);
+                if (count($enums) == 1){
+                    $apiResult = $api->$subApiName->$methodName($_POST[$enums[0]]);
+                } else if (count($enums) == 2) {
+                    $apiResult = $api->$subApiName->$methodName($_POST[$enums[0]], $_POST[$enums[1]]);
+                }
+                break;
+            case '|EnumParamsList|':
+                $pagination = HtmlHelper::getEntity('Pagination');
+                $filter = null;
+                if (isset($filterName) && $filterName != ""){
+                    $filter = HtmlHelper::getEntity($filterName);
+                }
+                $methodName = $subEntityName;
+                $enums = explode('$', $subSubEntityName);
+                if (count($enums) == 1){
+                    $apiResult = $api->$subApiName->$methodName($_POST[$enums[0]], $pagination, $filter);
+                } else if (count($enums) == 2) {
+                    $apiResult = $api->$subApiName->$methodName($_POST[$enums[0]], $_POST[$enums[1]], $pagination, $filter);
+                }
+                break;
             case 'Create':
                 $entity = HtmlHelper::getEntity($entityName);
                 $apiResult = $api->$subApiName->Create($entity);
                 break;
             case 'Get':
                 $apiResult = $api->$subApiName->Get($entityId);
-                break;
-            case 'GetNoParams':
-                $apiResult = $api->$subApiName->Get();
-                break;
+                break;           
             case 'Save':
                 $entity = HtmlHelper::getEntity($entityName, $entityId);
                 $apiResult = $api->$subApiName->Update($entity);
@@ -103,7 +138,7 @@ if (isset($_POST['_postback']) && $_POST['_postback'] == '1') {
                 $apiResult = $api->$subApiName->$methodName($subEntityId, $entity);
                 break;
             case 'ListSubEntity':
-			case 'ListSubSubEntity':
+            case 'ListSubSubEntity':
                 $pagination = HtmlHelper::getEntity('Pagination');
                 $methodName = $subEntityName;
                 $filter = null;

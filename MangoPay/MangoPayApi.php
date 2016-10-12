@@ -45,7 +45,7 @@ class MangoPayApi
 
     /**
      * Clients methods
-     * @var Client
+     * @var ApiClients
      */
     public $Clients;
     
@@ -138,6 +138,11 @@ class MangoPayApi
      * @var ApiMandates 
      */
     public $Mandates;
+    /**
+     * Provides reports request methods
+     * @var ApiReports 
+     */
+    public $Reports;
 
     /**
      * @var LoggerInterface
@@ -173,6 +178,7 @@ class MangoPayApi
         $this->Disputes = new ApiDisputes($this);
         $this->DisputeDocuments = new ApiDisputeDocuments($this);
         $this->Mandates = new ApiMandates($this);
+        $this->Reports = new ApiReports($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();

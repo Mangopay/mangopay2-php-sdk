@@ -25,7 +25,7 @@ try {
     // CREATE LEGAL USER
     $legalUser = new MangoPay\UserLegal();
     $legalUser->Name = 'Name Legal Test';
-    $legalUser->LegalPersonType = 'BUSINESS';
+    $legalUser->LegalPersonType = \MangoPay\LegalPersonType::Business;
     $legalUser->Email = 'legal@testmangopay.com';
 	$legalUser->LegalRepresentativeFirstName = "Bob";
 	$legalUser->LegalRepresentativeLastName = "Briant";

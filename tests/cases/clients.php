@@ -6,22 +6,8 @@ require_once 'base.php';
  * Test class for Client API
  */
 class Clients extends Base {
-    
-   function test_ClientsCreateClient() {        
-        $id = rand(1000000000, 10000000000);
-        $client = $this->_api->Clients->create($id, "test",  "test@o2.pl");
-        $this->assertTrue("test" == $client->Name);
-        $this->assertTrue(strlen($client->Passphrase) > 0);
-    }
-    
-    function test_Clients_TryCreateInvalidClient() {
-        // invalid id
-        $this->expectException('MangoPay\Libraries\ResponseException');
-        $client = $this->_api->Clients->create("0", "test",  "test@o2.pl");
-        $this->assertTrue($client == null);
-    }
-	
-	function test_Clients_Get() {
+ 
+    function test_Clients_Get() {
         $getClients = $this->_api->Clients->Get();
         
         $this->assertEqual($this->_api->Config->ClientId, $getClients->ClientId);
@@ -31,6 +17,21 @@ class Clients extends Base {
         $clients = new \MangoPay\Client();
         $clients->PrimaryButtonColour = "#afafae";
         $clients->PrimaryThemeColour = "#afafae";
+        $clients->PlatformDescription = "platform description";
+        $clients->PlatformType = \MangoPay\PlatformType::Other;
+        $clients->PlatformURL = "http://sdk-unit-tests.com";
+        $clients->HeadquartersAddress = new \MangoPay\Address();
+        $clients->HeadquartersAddress->AddressLine1 = "AddressLine1";
+        $clients->HeadquartersAddress->AddressLine2 = "AddressLine2";
+        $clients->HeadquartersAddress->City = "City";
+        $clients->HeadquartersAddress->Region = "Region";
+        $clients->HeadquartersAddress->PostalCode = "11222";
+        $clients->HeadquartersAddress->Country = "FR";
+        $clients->TaxNumber = "12345";
+        $clients->TechEmails = array("hugo@mangopay.com", "test@mangopay.com");
+        $clients->AdminEmails = array("hugo@mangopay.com", "test@mangopay.com");
+        $clients->FraudEmails = array("hugo@mangopay.com", "test@mangopay.com");
+        $clients->BillingEmails = array("hugo@mangopay.com", "test@mangopay.com");
          
         $saveClients = $this->_api->Clients->Update($clients);
         
@@ -97,5 +98,125 @@ class Clients extends Base {
     function test_Clients_UploadLogoFromFile_CorrectFilePath() {
                 
         $this->_api->Clients->UploadLogoFromFile(__DIR__ ."/../TestKycPageFile.png");
+    }
+    
+    function test_GetWallets_WrongFundsTypeValue(){
+        try{
+            $this->_api->Clients->GetWallets("WrongValue");
+            
+            $this->fail('Expected ResponseException when wrong value for FundsType');
+        } catch (\MangoPay\Libraries\Exception $exc) {
+            
+            $this->assertIsA($exc, '\MangoPay\Libraries\Exception');
+        }
+    }
+    
+    function test_GetWallets_FundsTypeAll(){
+        $wallets = $this->_api->Clients->GetWallets(null);
+        
+        $this->assertTrue(count($wallets) > 0);
+        $this->assertIsA($wallets[0], '\MangoPay\Wallet');
+    }
+    
+    function test_GetWallets_FundsTypeFees(){
+        $wallets = $this->_api->Clients->GetWallets(\MangoPay\FundsType::FEES);
+        
+        $this->assertTrue(count($wallets) > 0);
+        $this->assertIsA($wallets[0], '\MangoPay\Wallet');
+    }
+    
+    function test_GetWallets_FundsTypeCredit(){
+        $wallets = $this->_api->Clients->GetWallets(\MangoPay\FundsType::CREDIT);
+        
+        $this->assertTrue(count($wallets) > 0);
+        $this->assertIsA($wallets[0], '\MangoPay\Wallet');
+    }
+    
+    function test_GetWallet_FirstParameterNull(){
+        
+        try{
+            $this->_api->Clients->GetWallet(null, null);
+            
+            $this->fail('Expected ResponseException when wrong value for FundsType');
+        } catch (\MangoPay\Libraries\Exception $exc) {
+            
+            $this->assertIdentical($exc->getMessage(), 'First parameter in function GetWallet in class ApiClients is required.');
+        }
+    }
+    
+    function test_GetWallet_FirstParameterWrongValue(){
+        
+        try{
+            $this->_api->Clients->GetWallet("WrongValue", \MangoPay\CurrencyIso::EUR);
+            
+            $this->fail('Expected ResponseException when wrong value for FundsType');
+        } catch (\MangoPay\Libraries\Exception $exc) {
+            
+            $this->assertIsA($exc, '\MangoPay\Libraries\Exception');
+        }
+    }
+    
+    function test_GetWallet_SecondParameterNull(){
+        
+        try{
+            $this->_api->Clients->GetWallet(\MangoPay\FundsType::FEES, null);
+            
+            $this->fail('Expected ResponseException when wrong value for FundsType');
+        } catch (\MangoPay\Libraries\Exception $exc) {
+            
+            $this->assertIdentical($exc->getMessage(), 'Second parameter in function GetWallet in class ApiClients is required.');
+        }
+    }
+    
+    function test_GetWallet_FundsTypeFees(){
+        $wallet = $this->_api->Clients->GetWallet(\MangoPay\FundsType::FEES, \MangoPay\CurrencyIso::EUR);
+        
+        $this->assertIsA($wallet, '\MangoPay\Wallet');
+        $this->assertEqual($wallet->Currency, \MangoPay\CurrencyIso::EUR);
+    }
+    
+    function test_GetWallet_FundsTypeCredit(){
+        $wallet = $this->_api->Clients->GetWallet(\MangoPay\FundsType::CREDIT, \MangoPay\CurrencyIso::EUR);
+
+        $this->assertIsA($wallet, '\MangoPay\Wallet');
+        $this->assertEqual($wallet->Currency, \MangoPay\CurrencyIso::EUR);
+    }
+    
+    function test_GetWalletTransactions_WrongFundsTypeValue(){
+        
+        try{
+            $this->_api->Clients->GetWalletTransactions("WrongValue", null);
+            
+            $this->fail('Expected ResponseException when wrong value for FundsType');
+        } catch (\MangoPay\Libraries\Exception $exc) {
+            
+            $this->assertIdentical($exc->getMessage(), '\MangoPay\FundsType object has wrong value.');
+        }
+    }
+    
+    function test_GetWalletTransactions_SecondParameterNull(){
+        
+        try{
+            $this->_api->Clients->GetWalletTransactions(\MangoPay\FundsType::FEES, null);
+            
+            $this->fail('Expected ResponseException when wrong value for FundsType');
+        } catch (\MangoPay\Libraries\Exception $exc) {
+            
+            $this->assertIdentical($exc->getMessage(), 'If FundsType is defined the second parameter (currency) is required.');
+        }
+    }
+    
+    function test_GetWalletTransactions_All(){
+        $transactions = $this->_api->Clients->GetWalletTransactions();
+            
+        $this->assertTrue(count($transactions) > 0);
+        $this->assertIsA($transactions[0], '\MangoPay\Transaction');
+    }
+    
+    function test_GetWalletTransactions_Fees(){
+        $transactions = $this->_api->Clients->GetWalletTransactions(\MangoPay\FundsType::FEES, \MangoPay\CurrencyIso::EUR);
+  
+        $this->assertTrue(count($transactions) > 0);
+        $this->assertIsA($transactions[0], '\MangoPay\Transaction');
     }
 }

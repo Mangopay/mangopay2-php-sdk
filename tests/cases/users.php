@@ -39,7 +39,7 @@ class Users extends Base {
         $user->HeadquartersAddress->Region = 'Region';
         $user->Name = "SomeOtherSampleOrg";
         $user->Email = "mail@test.com";
-        $user->LegalPersonType = "BUSINESS";
+        $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
         $user->LegalRepresentativeFirstName = "FirstName";
         $user->LegalRepresentativeLastName = "LastName";
         $user->LegalRepresentativeAddress = new \MangoPay\Address();
@@ -109,6 +109,21 @@ class Users extends Base {
         $this->assertIdenticalInputProps($userSaved, $john);
         $this->assertIdenticalInputProps($userFetched, $john);
     }
+    
+    function test_Users_Save_NaturalAndClearAddresIfNeeded() {
+        $user = new \MangoPay\UserNatural();
+        $user->FirstName = "John";
+        $user->LastName = "Doe";
+        $user->Email = "john.doe@sample.org";
+        $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+        $user->Nationality = "FR";
+        $user->CountryOfResidence = "FR";
+        $newUser = $this->_api->Users->Create($user);
+
+        $userSaved = $this->_api->Users->Update($newUser);
+        
+        $this->assertTrue($userSaved->Id > 0);
+    }
 
     function test_Users_Save_Legal() {
         $matrix = $this->getMatrix();
@@ -119,6 +134,23 @@ class Users extends Base {
         
         $this->assertIdenticalInputProps($userSaved, $matrix);
         $this->assertIdenticalInputProps($userFetched, $matrix);
+    }
+    
+    function test_Users_Save_LegalAndClearAddresIfNeeded() {
+        $user = new \MangoPay\UserLegal();
+        $user->Name = "MartixSampleOrg";
+        $user->Email = "mail@test.com";
+        $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
+        $user->LegalRepresentativeFirstName = "FirstName";
+        $user->LegalRepresentativeLastName = "LastName";
+        $user->LegalRepresentativeBirthday = mktime(0, 0, 0, 12, 21, 1975);
+        $user->LegalRepresentativeNationality = "FR";
+        $user->LegalRepresentativeCountryOfResidence = "FR";
+        $newUser = $this->_api->Users->Create($user);
+        
+        $userSaved = $this->_api->Users->Update($newUser);
+        
+        $this->assertTrue($userSaved->Id > 0);
     }
     
     function test_Users_CreateBankAccount_IBAN() {
@@ -245,6 +277,17 @@ class Users extends Base {
         $list = $this->_api->Users->GetBankAccounts($john->Id, $pagination, $sorting);
         
         $this->assertTrue($list[0]->CreationDate > $list[1]->CreationDate);
+    }
+    
+    function test_Users_UpdateBankAccount(){
+        $john = $this->getJohn();
+        $account = $this->getJohnsAccount();
+        $account->Active = false;
+        
+        $accountResult = $this->_api->Users->UpdateBankAccount($john->Id, $account);
+        
+        $this->assertIdentical($account->Id, $accountResult->Id);
+        $this->assertFalse($accountResult->Active);
     }
     
     function test_Users_CreateKycDocument(){

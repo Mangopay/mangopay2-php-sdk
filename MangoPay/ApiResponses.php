@@ -12,7 +12,6 @@ namespace MangoPay;
  */
 class ApiResponses extends Libraries\ApiBase
 {
-
     /**
      * Get response from previous call by idempotency key
      * @param string $idempotencyKey Idempotency key
@@ -20,6 +19,12 @@ class ApiResponses extends Libraries\ApiBase
      */
     public function Get($idempotencyKey)
     {
-        return $this->GetObject('responses_get', $idempotencyKey, 'MangoPay\Response');
+        $response = $this->GetObject('responses_get', $idempotencyKey, 'MangoPay\Response');
+        $className = $this->GetObjectForIdempotencyUrl($response->RequestURL);
+        if (is_null($className) || empty($className) || is_null($response->Resource) || empty($response->Resource))
+            return $response;
+        
+        $response->Resource = $this->CastResponseToEntity($response->Resource, $className);
+        return $response;
     }
 }

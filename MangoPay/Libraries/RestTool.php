@@ -156,7 +156,7 @@ class RestTool
     
     /**
      * Prepare all parameter to request
-     * @param String $urlMethod Type of method in REST API
+     * @param string $urlMethod Type of method in REST API
      * @throws Exception If some parameters are not set
      */
     private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null, $idempotencyKey = null)
@@ -246,6 +246,15 @@ class RestTool
 
             curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $this->_requestData);
         }
+
+        if (!is_null($this->_root->Config->HostProxy)) {
+            curl_setopt($this->_curlHandle, CURLOPT_PROXY, $this->_root->Config->HostProxy);
+        }
+
+        if (!is_null($this->_root->Config->UserPasswordProxy)) {
+            curl_setopt($this->_curlHandle, CURLOPT_PROXYUSERPWD, $this->_root->Config->UserPasswordProxy);
+        }
+
     }
     
     /**
@@ -330,6 +339,9 @@ class RestTool
                 $error->Errors = property_exists($response, 'Errors')
                         ? $response->Errors
                         : property_exists($response, 'errors') ? $response->errors : null;
+				$error->Id = property_exists($response, 'Id') ? $response->Id : null;
+				$error->Type = property_exists($response, 'Type') ? $response->Type : null;
+				$error->Date = property_exists($response, 'Date') ? $response->Date : null;
                 throw new ResponseException($this->_requestUrl, $this->_responseCode, $error);
             } else {
                 throw new ResponseException($this->_requestUrl, $this->_responseCode);

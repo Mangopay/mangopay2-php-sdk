@@ -10,7 +10,7 @@ class OAuthToken extends Dto
      * Created time
      * @var int
      */
-    private $create_time;
+    public $create_time;
     
     /**
      * Value of token

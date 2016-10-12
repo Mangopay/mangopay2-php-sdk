@@ -8,25 +8,112 @@ class Client extends Libraries\EntityBase
 {
     /**
      * Client identifier
-     * @var String
+     * @var string
      */
     public $ClientId;
     
     /**
      * Name of client
-     * @var String
+     * @var string
      */
     public $Name;
     
     /**
-     * Email of client
-     * @var String
+     * The primary branding colour to use for your merchant
+     * @var string
      */
-    public $Email;
+    public $PrimaryThemeColour;
+    
     
     /**
-     * Password for client
-     * @var String
+     * The primary branding colour to use for buttons for your merchant
+     * @var string
      */
-    public $Passphrase;
+    public $PrimaryButtonColour;
+    
+    /**
+     * The URL of the logo of your client
+     * @var string
+     */
+    public $Logo;
+    
+    /**
+     * A list of email addresses to use when contacting you for technical issues/communications
+     * @var array
+     */
+    public $TechEmails;
+    
+    /**
+     * A list of email addresses to use when contacting you for admin/commercial issues/communications
+     * @var array
+     */
+    public $AdminEmails;
+    
+    /**
+     * A list of email addresses to use when contacting you for fraud/compliance issues/communications
+     * @var array
+     */
+    public $FraudEmails;
+    
+    /**
+     * A list of email addresses to use when contacting you for billing issues/communications
+     * @var string
+     */
+    public $BillingEmails;
+    
+    /**
+     * A description of what your platform does
+     * @var string
+     */
+    public $PlatformDescription;
+    
+    /**
+     * The type of platform
+     * @var \MangoPay\PlatformType
+     */
+    public $PlatformType;
+    
+    /**
+     * The URL for your website
+     * @var string
+     */
+    public $PlatformURL;
+    
+    /**
+     * The address of the company’s headquarters
+     * @var \MangoPay\Address
+     */
+    public $HeadquartersAddress;
+    
+    /**
+     * The tax (or VAT) number for your company
+     * @var string
+     */
+    public $TaxNumber;
+    
+    /**
+     * Get array with mapping which property is object and what type of object 
+     * @return array
+     */
+    public function GetSubObjects()
+    {
+        $subObjects = parent::GetSubObjects();
+        $subObjects['HeadquartersAddress'] = '\MangoPay\Address';
+        
+        return $subObjects;
+    }
+    
+    /**
+     * Get array with read-only properties
+     * @return array
+     */
+    public function GetReadOnlyProperties()
+    {
+        $properties = parent::GetReadOnlyProperties();
+        array_push($properties, 'ClientId');
+        array_push($properties, 'Name');
+        array_push($properties, 'Logo');
+        
+        return $properties;
+    }
 }

@@ -97,9 +97,9 @@ abstract class Base extends \UnitTestCase {
         // use test client credentails
         $api->Config->ClientId = 'sdk-unit-tests';
 
-		// sandbox environment:
-		$api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
-		$api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
+        // sandbox environment:
+        $api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
+        $api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
 
         $api->OAuthTokenManager->RegisterCustomStorageStrategy(new \MangoPay\Tests\MockStorageStrategy());
 
@@ -171,7 +171,7 @@ abstract class Base extends \UnitTestCase {
             $user = new \MangoPay\UserLegal();
             $user->Name = "MartixSampleOrg";
             $user->Email = "mail@test.com";
-            $user->LegalPersonType = "BUSINESS";
+            $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
             $user->HeadquartersAddress = $this->getNewAddress();
             $user->LegalRepresentativeFirstName = $john->FirstName;
             $user->LegalRepresentativeLastName = $john->LastName;
@@ -572,7 +572,7 @@ abstract class Base extends \UnitTestCase {
      * Creates card registration object
      * @return \MangoPay\CardPreAuthorization
      */
-    protected function getJohnsCardPreAuthorization() {
+    protected function getJohnsCardPreAuthorization($idempotencyKey = null) {
             $user = $this->getJohn();
             $cardRegistration = new \MangoPay\CardRegistration();
             $cardRegistration->UserId = $user->Id;
@@ -591,7 +591,7 @@ abstract class Base extends \UnitTestCase {
             $cardPreAuthorization->CardId = $getCardRegistration->CardId;
             $cardPreAuthorization->SecureModeReturnURL = 'http://test.com';
             
-            return $this->_api->CardPreAuthorizations->Create($cardPreAuthorization);
+            return $this->_api->CardPreAuthorizations->Create($cardPreAuthorization, $idempotencyKey);
     }
     
     /**

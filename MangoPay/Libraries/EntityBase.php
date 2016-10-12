@@ -15,7 +15,7 @@ abstract class EntityBase extends Dto
     public $Id;
     
     /**
-     * @var String Custom data
+     * @var string Custom data
      */
     public $Tag;
     

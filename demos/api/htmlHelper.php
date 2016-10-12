@@ -19,6 +19,30 @@ class HtmlHelper {
         echo '<table>';
         
         switch ($operation) {
+            case '|EnumParams|':
+            case '|EnumParamsList|':
+                $enums = explode('$', $subEntityName[1]);
+                foreach ($enums as $enum) {
+                    echo '<tr><td>';
+                    echo $enum;
+                    echo '</td>';
+                    echo '<td>';
+                    self::renderEnum('\MangoPay\\' . $enum, $enum, "");
+                    echo '</td></tr>';
+                }
+                if ($operation == '|EnumParams|'){
+                    break;
+                }                
+            case 'All':
+            case '|GetWalletTransactions|':
+                if (isset($filterName) && $filterName != "") {
+                    self::renderFormRow('<i>Optional filters:</i>');
+                    self::renderEntity($filterName);
+                }
+                
+                self::renderFormRow('<i>Pagination:</i>');
+                self::renderEntity('Pagination');
+                break;
             case 'Create':
                 self::renderEntity($entityName);
                 break;
@@ -33,15 +57,6 @@ class HtmlHelper {
                 break;
             case 'SaveNoId':
                 self::renderEntity($entityName);
-                break;
-            case 'All':
-                if (isset($filterName) && $filterName != "") {
-                    self::renderFormRow('<i>Optional filters:</i>');
-                    self::renderEntity($filterName);
-                }
-                
-                self::renderFormRow('<i>Pagination:</i>');
-                self::renderEntity('Pagination');
                 break;
             case 'CreateSubEntity':
                 self::renderId($entityName);
@@ -94,7 +109,6 @@ class HtmlHelper {
              case 'Upload':
                 self::renderEntity($subEntityName[0]);
                 break;
-                break;
              case 'UploadFromFile':
                 self::renderFormRow('<tr><td></td><td><input type="file" name="page_file" /></td></tr>');
                 break;
@@ -106,8 +120,8 @@ class HtmlHelper {
         }
         
         $buttonText = $operation;
-        if ($operation == "GetNoParams"){
-            $buttonText = "Get";
+        if ($operation == "|NoParams|" || $operation == "|EnumParams|"){
+            $buttonText = $subEntityName[0];
         } else if ($operation == "SaveNoId"){
             $buttonText = "Save";
         }
@@ -187,6 +201,10 @@ class HtmlHelper {
                 self::renderEnum("\\MangoPay\\DisputeDocumentType", $name, $prefix);
             } elseif ($className == "\\MangoPay\\DisputeDocument" && $name == "Status") {
                 self::renderEnum("\\MangoPay\\DisputeDocumentStatus", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\ReportRequest" && $name == "ReportType") {
+                self::renderEnum("\\MangoPay\\ReportType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\Client" && $name == "PlatformType") {
+                self::renderEnum("\\MangoPay\\PlatformType", $name, $prefix);
             }
             else
                 echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/>';
@@ -195,7 +213,7 @@ class HtmlHelper {
     }
     
     public static function renderEnum($enumClassName, $name, $prefix) {
-        
+
         $enum = new $enumClassName();
         $enumObject = new \ReflectionObject($enum);
         $constants = $enumObject->getConstants();
@@ -267,8 +285,14 @@ class HtmlHelper {
             if (isset($_POST[$frmName]) && strlen($_POST[$frmName]) > 0) {
 
                 // special fields for Owners property
-                if ($entityName == 'Wallet' && $name == 'Owners')
+                if ($entityName == 'Wallet' && $name == 'Owners'
+                    || $entityName == 'Client' && $name == 'TechEmails'
+                    || $entityName == 'Client' && $name == 'AdminEmails'
+                    || $entityName == 'Client' && $name == 'FraudEmails'
+                    || $entityName == 'Client' && $name == 'BillingEmails'){
+                    
                     $entity->$name = explode(';', $_POST[$frmName]);
+                }
                 // special cast to int for Birthday property in UserNatural 
                 // and UserLegal class
                 elseif (($entityName == 'UserNatural' && $name == 'Birthday')

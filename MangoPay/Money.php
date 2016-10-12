@@ -9,7 +9,7 @@ class Money extends Libraries\Dto
 {
     /**
      * Text with currency code with ISO 4217 standard
-     * @var String
+     * @var string
      */
     public $Currency;
     

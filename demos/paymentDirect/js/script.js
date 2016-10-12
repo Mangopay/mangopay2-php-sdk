@@ -4,7 +4,8 @@ $(document).ready(function(){
     mangoPay.cardRegistration.init({
         cardRegistrationURL : cardRegistrationURL,
         preregistrationData : preregistrationData,
-        accessKey : accessKey
+        accessKey : accessKey,
+        Id : cardRegistrationId
     });
 
     // Action for button "Pay with Ajax"
@@ -13,28 +14,8 @@ $(document).ready(function(){
         // Disable button to prevent double click while waiting
         $("#payAjax").attr("disabled", true).val("Please wait...");
 
-        // Collect sensitive card data from the form
-        var cardData = {
-            cardNumber : $("#paymentForm").find("input[name$='cardNumber']").val(),
-            cardExpirationDate : $("#paymentForm").find("input[name$='cardExpirationDate']").val(),
-            cardCvx : $("#paymentForm").find("input[name$='cardCvx']").val()
-        };
+        runCardRegAjax();
 
-        // Process data
-        mangoPay.cardRegistration.sendDataWithAjax(
-            // URL to capture response
-            ajaxUrl,
-            // Card data
-            cardData,
-            // Result Ajax callback
-            function(data) { 
-                $("#divForm").html(data); 
-            },
-            // Error Ajax callback
-            function(xhr, status, error){ 
-                alert("Payment error : " + xhr.responseText + " (" + status + " - " + error + ")");
-            }
-        );
     });
 
     // Action for button "Pay with Ajax or Redirect"
@@ -42,49 +23,78 @@ $(document).ready(function(){
 
         // Disable button to prevent double click while waiting
         $("#payAjaxOrRedirect").attr("disabled", true).val("Please wait...");
-
-        // Collect sensitive card data from the form
-        var cardData = {
-            cardNumber : $("#paymentForm").find("input[name$='cardNumber']").val(),
-            cardExpirationDate : $("#paymentForm").find("input[name$='cardExpirationDate']").val(),
-            cardCvx : $("#paymentForm").find("input[name$='cardCvx']").val()
-        };
-
-        // Process data
-        mangoPay.cardRegistration.sendDataWithAjaxOrRedirect(
-            // URL to capture response when CORS is available
-            ajaxUrl,
-            // URL to capture response when CORS is not available
-            redirectUrl,
-            // Card data
-            cardData,
-            // Result Ajax callback
-            function(data) { 
-                $("#divForm").html(data); 
-            },
-            // Error ajax callback
-            function(xhr, status, error){ 
-                alert("Payment error : " + xhr.responseText + " (" + status + " - " + error + ")");
-            }
-        );
+		
+		if(mangoPay.browser.corsSupport()) {
+             runCardRegAjax();
+             return;
+        }
+ 
+        runCardRegReturnUrl();
+        
     });
 
     // Action for button "Pay with Redirect"
     $("#payRedirect").click(function() {
         
-        // Collect sensitive card data from the form
-        var cardData = {
-            cardNumber : $("#paymentForm").find("input[name$='cardNumber']").val(),
-            cardExpirationDate : $("#paymentForm").find("input[name$='cardExpirationDate']").val(),
-            cardCvx : $("#paymentForm").find("input[name$='cardCvx']").val()
-        };
-        
-        // Process data  
-        mangoPay.cardRegistration.sendDataWithRedirect(
-            // URL to capture response
-            redirectUrl,
-            // Card data
-            cardData
-        );
+       runCardRegReturnUrl();
+       
     });
 });
+
+
+function runCardRegAjax() {
+	// Collect sensitive card data from the form
+    var cardData = getCardData();
+
+    // Process data        
+    mangoPay.cardRegistration.registerCard(cardData, 
+	    function(res) {
+	    	var message = 'Card has been succesfully registered under the Card Id ' + res.CardId + '.<br />';
+    	  	message += 'Card is now ready to use e.g. in a «Direct PayIn» Object.';
+            $("#divForm").html(message);
+        },
+	    function(res){ 
+        	alert("Error occured while registering the card: " + "ResultCode: " + res.ResultCode + ", ResultMessage: " + res.ResultMessage);
+        }
+	);
+}
+
+function runCardRegReturnUrl() {
+	
+	var cardData = getCardData();
+	
+	// Build the form and append to the document
+    var form = document.createElement('form');
+	form.setAttribute('action', cardRegistrationURL);
+	form.setAttribute('method', 'post');
+	form.setAttribute('style', 'display: none');
+	document.getElementsByTagName('body')[0].appendChild(form);
+	
+	// Add card registration data to the form
+ 	form.appendChild(getInputElement('data', preregistrationData));
+	form.appendChild(getInputElement('accessKeyRef', accessKey));
+	form.appendChild(getInputElement('cardNumber', cardData.cardNumber));
+	form.appendChild(getInputElement('cardExpirationDate', cardData.cardExpirationDate));
+	form.appendChild(getInputElement('cardCvx', cardData.cardCvx));
+	form.appendChild(getInputElement('returnURL', redirectUrl));
+
+    // Submit the form
+	form.submit();
+}
+
+function getCardData() {
+	return {
+       cardNumber : $("#paymentForm").find("input[name$='cardNumber']").val(),
+       cardExpirationDate : $("#paymentForm").find("input[name$='cardExpirationDate']").val(),
+       cardCvx : $("#paymentForm").find("input[name$='cardCvx']").val(),
+       cardType : cardType
+    };
+}
+
+function getInputElement(name, value) {
+	var input = document.createElement('input');
+	input.setAttribute('type', 'hidden');
+	input.setAttribute('name', name);
+	input.setAttribute('value', value);
+	return input;
+}
