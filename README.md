@@ -110,7 +110,13 @@ $api->Config->TemporaryFolder = '/some/path/';
 //$api->Config->CertificatesFilePath = ''; //Absolute path to file holding one or more certificates to verify the peer with (if empty, there won't be any verification of the peer's certificate)
 
 // call some API methods...
-$users = $api->Users->GetAll();
+try {
+    $users = $api->Users->GetAll(); 
+} catch(MangoPay\Libraries\ResponseException $e) {
+    // handle/log the response exception with code $e->GetCode(), message $e->GetMessage() and error(s) $e->GetErrorDetails()
+} catch(MangoPay\Libraries\Exception $e) {
+    // handle/log the exception $e->GetMessage()
+}
 ```
 
 
@@ -126,19 +132,43 @@ $api->Config->ClientPassword = 'your-client-password';
 $api->Config->TemporaryFolder = '/some/path/';
 
 // get some user by id
-$john = $api->Users->Get($someId);
+try {
+    $john = $api->Users->Get($someId);
+} catch(MangoPay\Libraries\ResponseException $e) {
+    // handle/log the response exception with code $e->GetCode(), message $e->GetMessage() and error(s) $e->GetErrorDetails()
+} catch(MangoPay\Libraries\Exception $e) {
+    // handle/log the exception $e->GetMessage()
+}
 
 // change and update some of his data
 $john->LastName .= " - CHANGED";
-$api->Users->Update($john);
+try {
+    $api->Users->Update($john);
+} catch(MangoPay\Libraries\ResponseException $e) {
+    // handle/log the response exception with code $e->GetCode(), message $e->GetMessage() and error(s) $e->GetErrorDetails()
+} catch(MangoPay\Libraries\Exception $e) {
+    // handle/log the exception $e->GetMessage()
+}
 
 // get all users (with pagination)
 $pagination = new MangoPay\Pagination(1, 8); // get 1st page, 8 items per page
-$users = $api->Users->GetAll($pagination);
+try {
+    $users = $api->Users->GetAll($pagination);
+} catch(MangoPay\Libraries\ResponseException $e) {
+    // handle/log the response exception with code $e->GetCode(), message $e->GetMessage() and error(s) $e->GetErrorDetails()
+} catch(MangoPay\Libraries\Exception $e) {
+    // handle/log the exception $e->GetMessage()
+}
 
 // get his bank accounts
 $pagination = new MangoPay\Pagination(2, 10); // get 2nd page, 10 items per page
-$accounts = $api->Users->GetBankAccounts($john->Id, $pagination);
+try {
+    $accounts = $api->Users->GetBankAccounts($john->Id, $pagination);
+} catch(MangoPay\Libraries\ResponseException $e) {
+    // handle/log the response exception with code $e->GetCode(), message $e->GetMessage() and error(s) $e->GetErrorDetails()
+} catch(MangoPay\Libraries\Exception $e) {
+    // handle/log the exception $e->GetMessage()
+}
 ```
 
 
