@@ -28,10 +28,10 @@ class Clients extends Base {
         $clients->HeadquartersAddress->PostalCode = "11222";
         $clients->HeadquartersAddress->Country = "FR";
         $clients->TaxNumber = "12345";
-        $clients->TechEmails = array("hugo@mangopay.com", "test@mangopay.com");
-        $clients->AdminEmails = array("hugo@mangopay.com", "test@mangopay.com");
-        $clients->FraudEmails = array("hugo@mangopay.com", "test@mangopay.com");
-        $clients->BillingEmails = array("hugo@mangopay.com", "test@mangopay.com");
+        $clients->TechEmails = array("technical@mangopay.com", "support@mangopay.com");
+        $clients->AdminEmails = array("technical@mangopay.com", "support@mangopay.com");
+        $clients->FraudEmails = array("technical@mangopay.com", "support@mangopay.com");
+        $clients->BillingEmails = array("technical@mangopay.com", "support@mangopay.com");
          
         $saveClients = $this->_api->Clients->Update($clients);
         
