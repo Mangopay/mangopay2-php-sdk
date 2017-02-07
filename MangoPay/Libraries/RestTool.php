@@ -19,31 +19,31 @@ class RestTool
      * @var bool
      */
     private $_authRequired;
-    
+
     /**
      * Array with HTTP header to send with request
      * @var array
      */
     private $_requestHttpHeaders;
-    
+
     /**
      * cURL handle
      * @var resource
      */
     private $_curlHandle;
-    
+
     /**
      * Request type for current request
      * @var RequestType
      */
     private $_requestType;
-    
+
     /**
      * Array with data to pass in the request
      * @var array
      */
     private $_requestData;
-    
+
     /**
      * Code get from response
      * @var int
@@ -60,11 +60,11 @@ class RestTool
      * @var MangoPay\Pagination
      */
     private $_pagination;
-    
+
     private $_requestUrl;
-    
+
     private static $_JSON_HEADER = 'Content-Type: application/json';
-        
+
     /**
      * Constructor
      * @param bool $authRequired Variable to flag that in request the authentication data are required
@@ -76,16 +76,16 @@ class RestTool
         $this->_root = $root;
         $this->logger = $root->getLogger();
     }
-    
+
     public function AddRequestHttpHeader($httpHeader)
     {
         if (is_null($this->_requestHttpHeaders)) {
             $this->_requestHttpHeaders = array();
         }
-        
+
         array_push($this->_requestHttpHeaders, $httpHeader);
     }
-    
+
     /**
      * Call request to MangoPay API
      * @param string $urlMethod Type of method in REST API
@@ -99,24 +99,24 @@ class RestTool
     {
         $this->_requestType = $requestType;
         $this->_requestData = $requestData;
-        
+
         $logClass = $this->_root->Config->LogClass;
         $this->logger->debug("New request");
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('++++++++++++++++++++++ New request ++++++++++++++++++++++', '');
         }
-        
+
         $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams, $idempotencyKey);
         $responseResult = $this->RunRequest();
-        
+
 
         if (!is_null($pagination)) {
             $pagination = $this->_pagination;
         }
-        
+
         return $responseResult;
     }
-    
+
     /**
      * Execute request and check response
      * @return object Response data
@@ -129,9 +129,9 @@ class RestTool
             $this->logger->error("cURL error: " . curl_error($this->_curlHandle));
             throw new Exception('cURL error: ' . curl_error($this->_curlHandle));
         }
-        
+
         $this->_responseCode = (int) curl_getinfo($this->_curlHandle, CURLINFO_HTTP_CODE);
-        
+
         curl_close($this->_curlHandle);
 
         $logClass = $this->_root->Config->LogClass;
@@ -150,10 +150,10 @@ class RestTool
         }
 
         $this->CheckResponseCode($response);
-        
+
         return $response;
     }
-    
+
     /**
      * Prepare all parameter to request
      * @param string $urlMethod Type of method in REST API
@@ -171,16 +171,16 @@ class RestTool
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('FullUrl', $this->_requestUrl);
         }
-        
+
         $this->_curlHandle = curl_init($this->_requestUrl);
         if ($this->_curlHandle === false) {
             $this->logger->error('Cannot initialize cURL session');
             throw new Exception('Cannot initialize cURL session');
         }
-        
+
         curl_setopt($this->_curlHandle, CURLOPT_CONNECTTIMEOUT, $this->GetCurlConnectionTimeout());
         curl_setopt($this->_curlHandle, CURLOPT_TIMEOUT, $this->GetCurlResponseTimeout());
-        
+
         curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
 
         if ($this->_root->Config->CertificatesFilePath == '') {
@@ -189,12 +189,12 @@ class RestTool
             curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($this->_curlHandle, CURLOPT_CAINFO, $this->_root->Config->CertificatesFilePath);
         }
-        
+
         if (!is_null($pagination)) {
             curl_setopt($this->_curlHandle, CURLOPT_HEADERFUNCTION, array(&$this, 'ReadResponseHeader'));
             $this->_pagination = $pagination;
         }
-        
+
         switch ($this->_requestType) {
             case RequestType::POST:
                 curl_setopt($this->_curlHandle, CURLOPT_POST, true);
@@ -256,7 +256,7 @@ class RestTool
         }
 
     }
-    
+
     /**
      * Callback to read response headers
      * @param resource $handle cURL handle
@@ -272,15 +272,15 @@ class RestTool
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('Response headers', $header);
         }
-        
+
         if (strpos($header, 'X-Number-Of-Pages:') !== false) {
             $this->_pagination->TotalPages = (int)trim(str_replace('X-Number-Of-Pages:', '', $header));
         }
-        
+
         if (strpos($header, 'X-Number-Of-Items:') !== false) {
             $this->_pagination->TotalItems = (int)trim(str_replace('X-Number-Of-Items:', '', $header));
         }
-        
+
         if (strpos($header, 'Link: ') !== false) {
             $strLinks = trim(str_replace('Link:', '', $header));
             $arrayLinks = explode(',', $strLinks);
@@ -295,10 +295,10 @@ class RestTool
                 }
             }
         }
-        
+
         return strlen($header);
     }
-    
+
     /**
      * Get HTTP header to use in request
      * @return array Array with HTTP headers
@@ -309,13 +309,19 @@ class RestTool
         if (!is_null($this->_requestHttpHeaders)) {
             return $this->_requestHttpHeaders;
         }
-        
+
         // ...or initialize with default headers
         $this->_requestHttpHeaders = array();
-        
+
         // content type
         array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
-        
+
+        // Add User-Agent Header
+        $composerJsonData = file_get_contents(__DIR__ . '/../../composer.json');
+        $decodedComposerJson = json_decode($composerJsonData, true);
+        array_push($this->_requestHttpHeaders, 'User-Agent: MangoPay V2 PHP/' . $decodedComposerJson['version']);
+
+
         // Authentication http header
         if ($this->_authRequired) {
             $authHlp = new AuthenticationHelper($this->_root);
@@ -324,7 +330,7 @@ class RestTool
 
         return $this->_requestHttpHeaders;
     }
-    
+
     /**
      * Check response code
      * @param object $response Response from REST API
@@ -348,7 +354,7 @@ class RestTool
             }
         }
     }
-    
+
     /**
      * Get cURL connection timeout to use in request
      * @return int Time in seconds
@@ -357,7 +363,7 @@ class RestTool
     {
         return (int) max($this->_root->Config->CurlConnectionTimeout, 0);
     }
-    
+
     /**
      * Get cURL response timeout to use in request
      * @return int Time in seconds
