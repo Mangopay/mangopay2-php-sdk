@@ -58,18 +58,5 @@ class ApiPayIns extends Libraries\ApiBase
         $className = str_replace('MangoPay\\PayInExecutionDetails', '', get_class($payIn->ExecutionDetails));
         return strtolower($className);
     }
-    
-    /**
-     * WARNING!!
-     * It's temporary entity and it will be removed in the future.
-     * Please, contact with support before using these features or if you have any questions.
-     *
-     * Create new temporary immediate pay-in
-     * @param \MangoPay\TemporaryImmediatePayIn $immediatePayIn Immediate pay-in object to create
-     * @return \MangoPay\TemporaryImmediatePayIn Immediate pay-in object returned from API
-     */
-    public function CreateTemporaryImmediatePayIn($immediatePayIn, $idempotencyKey = null)
-    {
-        return $this->CreateObject('temp_immediatepayins_create', $immediatePayIn, '\MangoPay\TemporaryImmediatePayIn', null, null, $idempotencyKey);
-    }
+
 }

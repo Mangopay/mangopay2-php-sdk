@@ -129,12 +129,6 @@ abstract class ApiBase
         'disputes_repudiation_create_settlement' => array( '/repudiations/%s/settlementtransfer', RequestType::POST),
         'disputes_repudiation_get_settlement' => array( '/settlements/%s', RequestType::GET),
         
-        // These are temporary functions and WILL be removed in the future.
-        // Please, contact with support before using these features or if you have any questions.
-        'temp_paymentcards_create' => array( '/temp/paymentcards', RequestType::POST ),
-        'temp_paymentcards_get' => array( '/temp/paymentcards/%s', RequestType::GET ),
-        'temp_immediatepayins_create' => array( '/temp/immediate-payins', RequestType::POST ),
-        
         'mandates_create' => array( '/mandates/directdebit/web', RequestType::POST ),
         'mandates_save' => array( '/mandates/%s/cancel', RequestType::PUT ),
         'mandates_get' => array( '/mandates/%s', RequestType::GET ),

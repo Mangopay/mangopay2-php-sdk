@@ -80,35 +80,5 @@ class CardRegistrations extends Base {
         $this->assertEqual($updatedCard->Validity, \MangoPay\CardValidity::Valid);
         $this->assertFalse($updatedCard->Active);
     }
-    
-    function test_TemporaryPaymentCard_Create(){
-        $user = $this->getJohn();
-        $paymentCard = new \MangoPay\TemporaryPaymentCard();
-        $paymentCard->UserId = $user->Id;
-        $paymentCard->Tag = "Test tag";
-        $paymentCard->Culture = "FR";
-        $paymentCard->ReturnURL = "http://test.com/test";
-        $paymentCard->TemplateURL = "https://test.com/test";
-                       
-        $paymentCardCreated = $this->_api->Cards->CreateTemporaryPaymentCard($paymentCard);
-        
-        $this->assertTrue($paymentCardCreated->Id > 0);
-        $this->assertEqual($paymentCardCreated->UserId, $user->Id);
-    }
-    
-    function test_TemporaryPaymentCard_Get(){
-        $user = $this->getJohn();
-        $paymentCard = new \MangoPay\TemporaryPaymentCard();
-        $paymentCard->UserId = $user->Id;
-        $paymentCard->Tag = "Test tag";
-        $paymentCard->Culture = "FR";
-        $paymentCard->ReturnURL = "http://test.com/test";
-        $paymentCard->TemplateURL = "https://test.com/test";
-        $paymentCardCreated = $this->_api->Cards->CreateTemporaryPaymentCard($paymentCard);
-        
-        $paymentCardGet = $this->_api->Cards->GetTemporaryPaymentCard($paymentCardCreated->Id);
-        
-        $this->assertTrue($paymentCardGet->Id > 0);
-        $this->assertEqual($paymentCardGet->Id, $paymentCardCreated->Id);
-    }
+
 }
