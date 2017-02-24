@@ -26,7 +26,7 @@ class MangoPayApi
      * @var \MangoPay\Libraries\Configuration
      */
     public $Config;
-    
+
     /////////////////////////////////////////////////
     // API managers props
     /////////////////////////////////////////////////
@@ -36,10 +36,10 @@ class MangoPayApi
      * @var \MangoPay\Libraries\ApiOAuth
      */
     public $AuthenticationManager;
-    
+
     /**
      * Provides responses methods
-     * @var ApiResponses 
+     * @var ApiResponses
      */
     public $Responses;
 
@@ -48,99 +48,99 @@ class MangoPayApi
      * @var ApiClients
      */
     public $Clients;
-    
+
     /**
      * Users methods
      * @var ApiUsers
      */
     public $Users;
-    
+
     /**
      * Wallets methods
      * @var ApiWallets
      */
     public $Wallets;
-        
+
     /**
      * Transfers methods
      * @var ApiTransfers
      */
     public $Transfers;
-    
+
     /**
      * Pay-in methods
      * @var ApiPayIns
      */
     public $PayIns;
-    
+
     /**
      * Pay-out methods
      * @var ApiPayOuts
      */
     public $PayOuts;
-        
+
     /**
      * Refund methods
      * @var ApiRefunds
      */
     public $Refunds;
-        
+
     /**
      * Card registration methods
      * @var ApiCardRegistrations
      */
     public $CardRegistrations;
-        
+
     /**
      * Pre-authorization methods
      * @var ApiCardPreAuthorizations
      */
     public $CardPreAuthorizations;
-        
+
     /**
      * Card methods
      * @var ApiCards
      */
     public $Cards;
-    
+
     /**
      * Events methods
      * @var ApiEvents
      */
     public $Events;
-    
+
     /**
      * Hooks methods
      * @var ApiHooks
      */
     public $Hooks;
-    
+
     /**
      * Kyc documents list
      * @var ApiKycDocuments
      */
     public $KycDocuments;
-    
+
     /**
      * Provides disputes methods
-     * @var ApiDisputes 
+     * @var ApiDisputes
      */
     public $Disputes;
-    
+
     /**
      * Provides dispute documents methods
-     * @var ApiDisputeDocuments 
+     * @var ApiDisputeDocuments
      */
     public $DisputeDocuments;
-    
+
     /**
      * Provides dispute documents methods
-     * @var ApiMandates 
+     * @var ApiMandates
      */
     public $Mandates;
     /**
      * Provides reports request methods
-     * @var ApiReports 
+     * @var ApiReports
      */
     public $Reports;
 
@@ -148,6 +148,11 @@ class MangoPayApi
      * @var LoggerInterface
      */
     public $logger;
+
+    /**
+     * @var \MangoPay\Libraries\HttpBase
+     */
+    public $httpClient;
 
     /**
      * Constructor
@@ -158,7 +163,7 @@ class MangoPayApi
         // default config setup
         $this->Config = new Libraries\Configuration();
         $this->OAuthTokenManager = new Libraries\AuthorizationTokenManager($this);
-        
+
         // API managers
         $this->AuthenticationManager = new Libraries\ApiOAuth($this);
         $this->Responses = new ApiResponses($this);
@@ -182,6 +187,7 @@ class MangoPayApi
 
         // Setting default NullLogger
         $this->logger = new NullLogger();
+        $this->httpClient = new \MangoPay\Libraries\HttpCurl($this);
     }
 
     /**
@@ -198,5 +204,21 @@ class MangoPayApi
     public function getLogger()
     {
         return $this->logger;
+    }
+
+    /**
+     * @param \MangoPay\Libraries\HttpBase $httpClient
+     */
+    public function setHttpClient(\MangoPay\Libraries\HttpBase $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
+    /**
+     * @return \MangoPay\Libraries\HttpBase
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
     }
 }

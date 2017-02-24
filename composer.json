@@ -8,8 +8,7 @@
         "php": ">=5.4.0",
         "ext-curl": "*",
         "ext-openssl": "*",
-        "psr/log": "^1.0",
-        "mangopay/php-sdk-v2": "^2.3"
+        "psr/log": "^1.0"
     },
     "autoload": {
         "psr-4": { "MangoPay\\": "MangoPay/" }
