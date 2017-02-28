@@ -57,7 +57,7 @@ class ReportRequest extends Libraries\EntityBase
 
     /**
      * Filters for the report list.
-     * @var array
+     * @var \MangoPay\FilterReports
      */
     public $Filters;
 
