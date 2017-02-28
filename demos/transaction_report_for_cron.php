@@ -9,7 +9,7 @@ function getReportAndEmail($reportId) {
 	$getReportRequest = $api->Reports->Get($reportId);
 	if ($getReportRequest->Status=="PENDING") {
 		
-		sleep(1);
+		sleep(1); #TODO use the reporting `CallbackURL` functionality instead of this!
 		return getReportAndEmail($reportId);
 		
 	}elseif($getReportRequest->Status=="READY_FOR_DOWNLOAD") {
