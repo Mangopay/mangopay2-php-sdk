@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * Bank Account entity
  */
-class BankingAliasIBAN extends Mangopay\BankingAlias
+class BankingAliasIBAN extends BankingAlias
 {
     /**
      * The type of banking alias (note that only IBAN is available at present)

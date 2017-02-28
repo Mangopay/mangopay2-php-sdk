@@ -24,7 +24,7 @@ class ApiBankingAliases extends Libraries\ApiBase
      */
     public function Create($bankingAlias)
     {
-        $className = get_class($user);
+        $className = get_class($bankingAlias);
         if ($className == 'MangoPay\BankingAliasIBAN') {
             $methodKey = 'banking_aliases_iban_create';
         } else {
