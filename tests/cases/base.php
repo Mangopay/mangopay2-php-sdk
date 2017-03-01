@@ -85,7 +85,13 @@ abstract class Base extends \UnitTestCase {
 
     /** @var \MangoPay\Hook */
     public static $JohnsHook;
-    
+
+    /**
+     * Test Banking Alias IBAN
+     * @var \MangoPay\BankingAliasIBAN
+     */
+    public static $JohnsBankingAliasIBAN;
+
     function __construct() {
         $this->_api = $this->buildNewMangoPayApi();
     }
@@ -285,13 +291,35 @@ abstract class Base extends \UnitTestCase {
             $kycDocument = new \MangoPay\KycDocument();
             $kycDocument->Status = \MangoPay\KycDocumentStatus::Created;
             $kycDocument->Type = \MangoPay\KycDocumentType::IdentityProof;
-            
+
             self::$JohnsKycDocument = $this->_api->Users->CreateKycDocument($john->Id, $kycDocument);
         }
 
         return self::$JohnsKycDocument;
     }
-    
+
+    /**
+     * Creates self::$JohnsBankingAliasIBAN (Banking alias belonging to John) if not created yet
+     * @return \MangoPay\BankingAliasIBAN
+     */
+    protected function getJohnsBankingAliasIBAN() {
+        if (self::$JohnsBankingAliasIBAN === null) {
+            $john = $this->getJohn();
+            $wallet = $this->getJohnsWallet();
+
+            $bankingAliasIBAN = new \MangoPay\BankingAliasIBAN();
+            $bankingAliasIBAN->CreditedUserId = $john->Id;
+            $bankingAliasIBAN->WalletId = $wallet->Id;
+            $bankingAliasIBAN->OwnerName = $john->FirstName;
+            $bankingAliasIBAN->Country = "LU";
+            $bankingAliasIBAN->Active = "true";
+
+            self::$JohnsBankingAliasIBAN = $this->_api->BankingAliases->Create($bankingAliasIBAN, $wallet->Id);
+        }
+
+        return self::$JohnsBankingAliasIBAN;
+    }
+
     /**
      * @return \MangoPay\PayInPaymentDetailsCard
      */
@@ -397,7 +425,7 @@ abstract class Base extends \UnitTestCase {
              $userId = $user->Id;
          }
          $mandate = $this->getJohnsMandate();
-         
+
          // create pay-in CARD DIRECT
          $payIn = new \MangoPay\PayIn();
          $payIn->CreditedWalletId = $wallet->Id;
@@ -415,7 +443,7 @@ abstract class Base extends \UnitTestCase {
          $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
          return $this->_api->PayIns->Create($payIn);
      }
- 
+
     /**
      * Creates Pay-Out  Bank Wire object
      * @return \MangoPay\PayOut
@@ -456,7 +484,7 @@ abstract class Base extends \UnitTestCase {
         if (self::$JohnsPayOutForCardDirect === null) {
             $payIn = $this->getNewPayInCardDirect();
             $account = $this->getJohnsAccount();
-            
+
             $payOut = new \MangoPay\PayOut();
             $payOut->Tag = 'DefaultTag';
             $payOut->AuthorId = $payIn->AuthorId;
@@ -467,7 +495,7 @@ abstract class Base extends \UnitTestCase {
             $payOut->Fees = new \MangoPay\Money();
             $payOut->Fees->Currency = 'EUR';
             $payOut->Fees->Amount = 5;
-            
+
             $payOut->DebitedWalletId = $payIn->CreditedWalletId;
             $payOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
             $payOut->MeanOfPaymentDetails->BankAccountId = $account->Id;
@@ -478,7 +506,7 @@ abstract class Base extends \UnitTestCase {
 
         return self::$JohnsPayOutForCardDirect;
     }
-    
+
     /**
      * Creates Pay-Out  Bank Wire object
      * @return \MangoPay\Transfer
@@ -578,11 +606,11 @@ abstract class Base extends \UnitTestCase {
             $cardRegistration->UserId = $user->Id;
             $cardRegistration->Currency = 'EUR';
             $newCardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
-            
+
             $registrationData = $this->getPaylineCorrectRegistartionData($newCardRegistration);
             $newCardRegistration->RegistrationData = $registrationData;
             $getCardRegistration = $this->_api->CardRegistrations->Update($newCardRegistration);
-       
+
             $cardPreAuthorization = new \MangoPay\CardPreAuthorization();
             $cardPreAuthorization->AuthorId = $user->Id;
             $cardPreAuthorization->DebitedFunds = new \MangoPay\Money();
@@ -590,17 +618,17 @@ abstract class Base extends \UnitTestCase {
             $cardPreAuthorization->DebitedFunds->Amount = 10000;
             $cardPreAuthorization->CardId = $getCardRegistration->CardId;
             $cardPreAuthorization->SecureModeReturnURL = 'http://test.com';
-            
+
             return $this->_api->CardPreAuthorizations->Create($cardPreAuthorization, $idempotencyKey);
     }
-    
+
     /**
      * Get registration data from Payline service
      * @param \MangoPay\CardRegistration $cardRegistration
      * @return string
      */
     protected function getPaylineCorrectRegistartionData($cardRegistration) {
-		
+
 		/*
 		 ****** DO NOT use this code in a production environment - it is just for unit tests. In production you are not allowed to have the user's card details pass via your server (which is what is required to use this code here) *******
 		 */
@@ -659,10 +687,10 @@ abstract class Base extends \UnitTestCase {
      */
     protected function getJohnHook() {
         if (self::$JohnsHook === null) {
-            
+
             $pagination = new \MangoPay\Pagination(1, 1);
             $list = $this->_api->Hooks->GetAll($pagination);
-            
+
             if (isset($list[0])){
                 self::$JohnsHook = $list[0];
             } else {
@@ -672,31 +700,31 @@ abstract class Base extends \UnitTestCase {
                 self::$JohnsHook = $this->_api->Hooks->Create($hook);
             }
         }
-        
+
         return self::$JohnsHook;
     }
-    
+
      /**
       * Creates mandate belonging to John
       * @return \MangoPay\Mandate
       */
      protected function getJohnsMandate() {
          $account = $this->getJohnsAccount();
- 
+
          $mandate = new \MangoPay\Mandate();
          $mandate->Tag = "Tag test";
          $mandate->BankAccountId = $account->Id;
          $mandate->ReturnURL = "http://www.mysite.com/returnURL/";
          $mandate->Culture = "FR";
-         
+
          return $this->_api->Mandates->Create($mandate);
     }
- 
+
     /**
      * Asserts the passed entities have identical values (by assertIdentical())
      * but ONLY FOR INPUT PROPERTIES, i.e. properties that are accepted by Create methods:
      * IGNORES SYSTEM PROPERTIES set by the Mango API (Id, CreationDate etc).
-     * 
+     *
      * @param \MangoPay\Libraries\EntityBase $entity1
      * @param \MangoPay\Libraries\EntityBase $entity2
      */
@@ -735,7 +763,7 @@ abstract class Base extends \UnitTestCase {
             $this->assertEqual($entity1->HeadquartersAddress->Region, $entity1->HeadquartersAddress->Region);
             $this->assertIdentical($entity1->LegalRepresentativeFirstName, $entity2->LegalRepresentativeFirstName);
             $this->assertIdentical($entity1->LegalRepresentativeLastName, $entity2->LegalRepresentativeLastName);
-            
+
 
             //$this->assertIdentical($entity1->LegalRepresentativeAddress, $entity2->LegalRepresentativeAddress, "***** TEMPORARY API ISSUE: RETURNED OBJECT MISSES THIS PROP AFTER CREATION *****");
             $this->assertNotNull($entity1->LegalRepresentativeAddress);
@@ -746,8 +774,8 @@ abstract class Base extends \UnitTestCase {
             $this->assertEqual($entity1->LegalRepresentativeAddress->Country, $entity1->LegalRepresentativeAddress->Country);
             $this->assertEqual($entity1->LegalRepresentativeAddress->PostalCode, $entity1->LegalRepresentativeAddress->PostalCode);
             $this->assertEqual($entity1->LegalRepresentativeAddress->Region, $entity1->LegalRepresentativeAddress->Region);
-            
-            
+
+
             $this->assertIdentical($entity1->LegalRepresentativeEmail, $entity2->LegalRepresentativeEmail);
             $this->assertIdentical($entity1->LegalRepresentativeBirthday, $entity2->LegalRepresentativeBirthday, "***** TEMPORARY API ISSUE: RETURNED OBJECT HAS THIS PROP CHANGED FROM TIMESTAMP INTO ISO STRING AFTER CREATION *****");
             $this->assertIdentical($entity1->LegalRepresentativeNationality, $entity2->LegalRepresentativeNationality);
@@ -849,7 +877,7 @@ abstract class Base extends \UnitTestCase {
     }
 
     protected function getEntityFromList($entityId, $list){
-        
+
         foreach ($list as $entity) {
             if($entityId == $entity->Id)
                 return $entity;
