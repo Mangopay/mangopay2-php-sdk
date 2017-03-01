@@ -8,3 +8,5 @@ demos/paymentDirect/MangoPaySdkStorage.tmp.php
 # Ignore /vendor/ directory when using composer
 /vendor/
 composer.lock
+
+.idea

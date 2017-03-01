@@ -248,7 +248,7 @@ abstract class ApiBase
      * @param int $entityId Entity identifier
      * @param object $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data
-     * @return object Response data
+     * @return object[] Response data
      */
     protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null, $secondEntityId = null)
     {
