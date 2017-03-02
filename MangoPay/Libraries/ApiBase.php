@@ -446,7 +446,6 @@ abstract class ApiBase
         $map = array(
             'preauthorization_create' => '\MangoPay\CardPreAuthorization',
             'cardregistration_create' => '\MangoPay\CardRegistration',
-            'temp_paymentcards_create' => '\MangoPay\TemporaryPaymentCard',
             'client_upload_logo' => '',
             'disputes_repudiation_create_settlement' => '\MangoPay\Transfer',
             'disputes_document_create' => '\MangoPay\DisputeDocument',
@@ -460,7 +459,6 @@ abstract class ApiBase
             'payins_directdebit-web_create' => '\MangoPay\PayIn',
             'payins_directdebit-direct_create' => '\MangoPay\PayIn',
             'payins_createrefunds' => '\MangoPay\Refund',
-            'temp_immediatepayins_create' => '\MangoPay\TemporaryImmediatePayIn',
             'payouts_bankwire_create' => '\MangoPay\PayOut',
             'reports_create' => '\MangoPay\ReportRequest',
             'transfers_createrefunds' => '\MangoPay\Refund',
