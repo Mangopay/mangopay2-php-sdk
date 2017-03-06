@@ -180,6 +180,7 @@ class RestTool
 
         curl_setopt($this->_curlHandle, CURLOPT_CONNECTTIMEOUT, $this->GetCurlConnectionTimeout());
         curl_setopt($this->_curlHandle, CURLOPT_TIMEOUT, $this->GetCurlResponseTimeout());
+        curl_setopt($this->_curlHandle, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_0);
 
         curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
 
