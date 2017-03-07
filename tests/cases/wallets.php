@@ -41,6 +41,8 @@ class Wallets extends Base {
         self::$JohnsPayInCardWeb = null;
         $payIn = $this->getJohnsPayInCardWeb();
 
+        sleep(2);
+
         $pagination = new \MangoPay\Pagination(1, 1);
         $filter = new \MangoPay\FilterTransactions();
         $filter->Type = 'PAYIN';
