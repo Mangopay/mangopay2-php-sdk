@@ -871,8 +871,10 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->Type, $entity2->Type);
             $this->assertIdentical($entity1->Status, $entity2->Status);
             $this->assertIdentical($entity1->UserId, $entity2->UserId);
+        } elseif(is_a($entity1, '\MangoPay\PayInPaymentDetailsPaypal')) {
+            // TODO Add the right comparison
         } else {
-            throw new \Exception("Unsupported type");
+            throw new \Exception("Unsupported type " . get_class($entity1));
         }
     }
 
