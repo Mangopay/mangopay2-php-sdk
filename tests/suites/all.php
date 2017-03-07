@@ -2,10 +2,6 @@
 
 namespace MangoPay\Tests;
 
-if (getenv('TRAVIS')) {
-    $options['curl'][CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_1;
-}
-
 require_once '../simpletest/autorun.php';
 
 /**

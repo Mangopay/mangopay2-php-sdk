@@ -3,6 +3,15 @@ namespace MangoPay\Libraries;
 
 use Psr\Log\LoggerInterface;
 
+
+if (!defined('CURL_SSLVERSION_TLSv1_0')) {
+    define('CURL_SSLVERSION_TLSv1_0', 4);
+}
+
+if (getenv('TRAVIS')) {
+    $options['curl'][CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_0;
+}
+
 /**
  * Class to prepare HTTP request, call the request and decode the response
  */
