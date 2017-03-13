@@ -2,9 +2,9 @@
 namespace MangoPay;
 
 /**
- * Bank Account entity
+ * EMoney entity
  */
-class EMoney extends Libraries\EntityBase
+class EMoney extends Libraries\Dto
 {
     /**
      * User identifier
