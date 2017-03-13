@@ -256,6 +256,17 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetList('users_allmandates', $pagination, 'MangoPay\Mandate', $userId, $filter, $sorting);
     }
+
+    /**
+     * Get emoney for user
+     * @param int $userId User Id
+     *
+     * @return \MangoPay\EMoney User EMoney
+     */
+    public function GetEMoney($userId)
+    {
+        return $this->GetObject('users_emoney_get', $userId, 'MangoPay\EMoney');
+    }
     
     /**
      * Get mandates for user and bank account

@@ -86,6 +86,7 @@ abstract class ApiBase
         'users_allmandates' => array( '/users/%s/mandates', RequestType::GET ),
         'users_allbankaccount_mandates' => array( '/users/%s/bankaccounts/%s/mandates', RequestType::GET ),
         'users_get' => array( '/users/%s', RequestType::GET ),
+        'users_emoney_get' => array( '/users/%s/emoney', RequestType::GET ),
         'users_getnaturals' => array( '/users/natural/%s', RequestType::GET ),
         'users_getlegals' => array( '/users/legal/%s', RequestType::GET ),
         'users_getbankaccount' => array( '/users/%s/bankaccounts/%s', RequestType::GET ),

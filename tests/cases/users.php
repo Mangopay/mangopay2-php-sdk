@@ -664,4 +664,13 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
          $this->assertEqual(count($mandates), 1);
          $this->assertIsA($mandates[0], '\MangoPay\Mandate');
      }
+
+     function test_Users_EMoney() {
+         $john = $this->getJohn();
+
+         $emoney = $this->_api->Users->GetEMoney($john->Id);
+
+         $this->assertEqual($john->Id, $emoney->UserId);
+         $this->assertIsA($emoney,'\MangoPay\EMoney');
+     }
 }
