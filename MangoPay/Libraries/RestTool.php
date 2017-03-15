@@ -4,18 +4,6 @@ namespace MangoPay\Libraries;
 use Psr\Log\LoggerInterface;
 
 /**
- * Hotfix for Travis-CI integration issue.
- * CURLOPT_SSLVERSION is not set correctly, causing SSL requests issue
- */
-if (!defined('CURL_SSLVERSION_TLSv1_0')) {
-    define('CURL_SSLVERSION_TLSv1_0', 4);
-}
-
-if (getenv('TRAVIS')) {
-    $options['curl'][CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_0;
-}
-
-/**
  * Class to prepare HTTP request, call the request and decode the response
  */
 class RestTool
@@ -192,7 +180,19 @@ class RestTool
 
         curl_setopt($this->_curlHandle, CURLOPT_CONNECTTIMEOUT, $this->GetCurlConnectionTimeout());
         curl_setopt($this->_curlHandle, CURLOPT_TIMEOUT, $this->GetCurlResponseTimeout());
-        curl_setopt($this->_curlHandle, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_0);
+
+        /**
+         * Hotfix for Travis-CI integration issue.
+         * CURLOPT_SSLVERSION is not set correctly, causing SSL requests issue
+         */
+        if (getenv('TRAVIS')) {
+            if (!defined('CURL_SSLVERSION_TLSv1_0')) {
+                define('CURL_SSLVERSION_TLSv1_0', 4);
+            }
+
+            $options['curl'][CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_0;
+            curl_setopt($this->_curlHandle, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_0);
+        }
 
         curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
 
