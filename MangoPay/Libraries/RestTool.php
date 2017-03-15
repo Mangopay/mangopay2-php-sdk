@@ -8,6 +8,8 @@ use Psr\Log\LoggerInterface;
  */
 class RestTool
 {
+    const VERSION = '2.5.0';
+
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance
      * @var \MangoPay\MangoPayApi
@@ -330,9 +332,7 @@ class RestTool
         array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
 
         // Add User-Agent Header
-        $composerJsonData = file_get_contents(__DIR__ . '/../../composer.json');
-        $decodedComposerJson = json_decode($composerJsonData, true);
-        array_push($this->_requestHttpHeaders, 'User-Agent: MangoPay V2 PHP/' . $decodedComposerJson['version']);
+        array_push($this->_requestHttpHeaders, 'User-Agent: MangoPay V2 PHP/' . self::VERSION);
 
 
         // Authentication http header
