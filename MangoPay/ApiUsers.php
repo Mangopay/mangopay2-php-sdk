@@ -334,10 +334,9 @@ class ApiUsers extends Libraries\ApiBase
     }
 
     /**
-     * Get KYC document
+     * Get user EMoney
      * @param int $userId User Id
-     * @param string $kycDocumentId Document identifier
-     * @return \MangoPay\EMoney Document returned from API
+     * @return \MangoPay\EMoney EMoney obhect returned from API
      */
     public function GetEMoney($userId)
     {
