@@ -91,6 +91,7 @@ abstract class ApiBase
         'users_getbankaccount' => array( '/users/%s/bankaccounts/%s', RequestType::GET ),
         'users_savenaturals' => array( '/users/natural/%s', RequestType::PUT ),
         'users_savelegals' => array( '/users/legal/%s', RequestType::PUT ),
+        'users_getemoney' => array( '/users/%s/emoney', RequestType::GET ),
 
         'bankaccounts_save' => array( '/users/%s/bankaccounts/%s', RequestType::PUT ),
 
@@ -472,7 +473,8 @@ abstract class ApiBase
             'users_createbankaccounts_other' => '\MangoPay\BankAccount',
             'kyc_documents_create' => '\MangoPay\KycDocument',
             'kyc_page_create' => '',
-            'wallets_create' => '\MangoPay\Wallet'
+            'wallets_create' => '\MangoPay\Wallet',
+            'users_getemoney' => '\MangoPay\EMoney',
         );
 
         foreach ($map as $key => $className) {

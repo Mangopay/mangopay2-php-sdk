@@ -332,6 +332,17 @@ class ApiUsers extends Libraries\ApiBase
         
         $this->CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey);
     }
+
+    /**
+     * Get KYC document
+     * @param int $userId User Id
+     * @param string $kycDocumentId Document identifier
+     * @return \MangoPay\EMoney Document returned from API
+     */
+    public function GetEMoney($userId)
+    {
+        return $this->GetObject('users_getemoney', $userId, '\MangoPay\EMoney');
+    }
     
     /**
      * Get correct user object

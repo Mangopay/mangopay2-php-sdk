@@ -19,6 +19,12 @@ class Users extends Base {
         $this->assertIdentical($matrix->PersonType, \MangoPay\PersonType::Legal);
     }
 
+    function test_Users_GetEMoney() {
+        $john = $this->getJohn();
+        $ret = $this->_api->Users->GetEMoney($john->Id);
+        $this->assertIdentical($john->Id, $ret->UserId);
+    }
+
     function test_Users_CreateLegal_FailsIfRequiredPropsNotProvided() {
         $user = new \MangoPay\UserLegal();
         $this->expectException();
