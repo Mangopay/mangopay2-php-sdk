@@ -296,6 +296,9 @@ class Disputes extends Base {
         $document = new \MangoPay\DisputeDocument();
         $document->Type = \MangoPay\DisputeDocumentType::DeliveryProof;
         $disputeDocument = $this->_api->Disputes->CreateDisputeDocument($disputeForTest->Id, $document);
+        
+        $this->_api->Disputes->CreateDisputeDocumentPageFromFile($disputeForTest->Id, $disputeDocument->Id, __DIR__ ."/../TestKycPageFile.png");
+        
         $disputeDocument->Status = \MangoPay\DisputeDocumentStatus::ValidationAsked;
         
         $result = $this->_api->Disputes->UpdateDisputeDocument($disputeForTest->Id, $disputeDocument);
