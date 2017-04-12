@@ -395,6 +395,9 @@ class Users extends Base {
     function test_Users_UpdateKycDocument(){
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
+        
+        $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, __DIR__ ."/../TestKycPageFile.png");
+        
         $kycDocument->Status = \MangoPay\KycDocumentStatus::ValidationAsked;
         
         $updateKycDocument = $this->_api->Users->UpdateKycDocument($user->Id, $kycDocument);
