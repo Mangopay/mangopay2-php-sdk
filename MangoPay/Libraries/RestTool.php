@@ -29,10 +29,13 @@ class RestTool
     private $_requestHttpHeaders;
 
     /**
-     * cURL handle
-     * @var resource
+     * Return HTTP header to send with request
+     * @return array
      */
-    private $_curlHandle;
+    public function GetRequestHeaders()
+    {
+        return $this->_requestHttpHeaders;
+    }
 
     /**
      * Request type for current request
@@ -41,16 +44,28 @@ class RestTool
     private $_requestType;
 
     /**
+     * Return HTTP request method
+     * @return RequestType
+     */
+    public function GetRequestType()
+    {
+        return $this->_requestType;
+    }
+
+    /**
      * Array with data to pass in the request
-     * @var array
+     * @var array|string
      */
     private $_requestData;
 
     /**
-     * Code get from response
-     * @var int
+     * Return HTTP request data
+     * @return array|string
      */
-    private $_responseCode;
+    public function GetRequestData()
+    {
+        return $this->_requestData;
+    }
 
     /**
      * @var LoggerInterface
@@ -59,18 +74,30 @@ class RestTool
 
     /**
      * Pagination object
-     * @var MangoPay\Pagination
+     * @var \MangoPay\Pagination
      */
     private $_pagination;
 
+    /**
+     * @var string
+     */
     private $_requestUrl;
+
+    /**
+     * Return HTTP request url
+     * @return string
+     */
+    public function GetRequestUrl()
+    {
+        return $this->_requestUrl;
+    }
 
     private static $_JSON_HEADER = 'Content-Type: application/json';
 
     /**
      * Constructor
      * @param bool $authRequired Variable to flag that in request the authentication data are required
-     * @param \MangoPay\MangoPayApi Root/parent instance that holds the OAuthToken and Configuration instance
+     * @param \MangoPay\MangoPayApi $root Root/parent instance that holds the OAuthToken and Configuration instance
      */
     public function __construct($authRequired = true, $root)
     {
@@ -93,8 +120,9 @@ class RestTool
      * @param string $urlMethod Type of method in REST API
      * @param \MangoPay\Libraries\RequestType $requestType Type of request
      * @param array $requestData Data to send in request
+     * @param string $idempotencyKey
      * @param \MangoPay\Pagination $pagination Pagination object
-     * @param array Array with additional parameters to URL. Expected keys: "sort" and "filter"
+     * @param array $additionalUrlParams with additional parameters to URL. Expected keys: "sort" and "filter"
      * @return object Response data
      */
     public function Request($urlMethod, $requestType, $requestData = null, $idempotencyKey = null, & $pagination = null, $additionalUrlParams = null)
@@ -109,57 +137,41 @@ class RestTool
         }
 
         $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams, $idempotencyKey);
-        $responseResult = $this->RunRequest();
-
-
-        if (!is_null($pagination)) {
-            $pagination = $this->_pagination;
-        }
-
-        return $responseResult;
-    }
-
-    /**
-     * Execute request and check response
-     * @return object Response data
-     * @throws Exception If cURL has error
-     */
-    private function RunRequest()
-    {
-        $result = curl_exec($this->_curlHandle);
-        if ($result === false && curl_errno($this->_curlHandle) != 0) {
-            $this->logger->error("cURL error: " . curl_error($this->_curlHandle));
-            throw new Exception('cURL error: ' . curl_error($this->_curlHandle));
-        }
-
-        $this->_responseCode = (int) curl_getinfo($this->_curlHandle, CURLINFO_HTTP_CODE);
-
-        curl_close($this->_curlHandle);
+        $responseResult = $this->_root->getHttpClient()->Request($this);
 
         $logClass = $this->_root->Config->LogClass;
 
-        $this->logger->debug('Response JSON : ' . print_r($result, true));
+        $this->logger->debug('Response JSON : ' . print_r($responseResult->Body, true));
         if ($this->_root->Config->DebugMode) {
-            $logClass::Debug('Response JSON', $result);
+            $logClass::Debug('Response JSON', $responseResult->Body);
         }
 
         // FIXME This can fail hard.
-        $response = json_decode($result);
+        $response = json_decode($responseResult->Body);
 
         $this->logger->debug('Decoded object : ' . print_r($response, true));
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('Response object', $response);
         }
 
-        $this->CheckResponseCode($response);
+        $this->CheckResponseCode($responseResult->ResponseCode, $response);
+        $this->ReadResponseHeader($responseResult->Headers);
+
+        if (!is_null($pagination)) {
+            $pagination = $this->_pagination;
+        }
 
         return $response;
     }
 
+
     /**
      * Prepare all parameter to request
+     *
      * @param string $urlMethod Type of method in REST API
-     * @throws Exception If some parameters are not set
+     * @param \MangoPay\Pagination $pagination
+     * @param null $additionalUrlParams
+     * @param null $idempotencyKey
      */
     private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null, $idempotencyKey = null)
     {
@@ -206,20 +218,7 @@ class RestTool
         }
 
         if (!is_null($pagination)) {
-            curl_setopt($this->_curlHandle, CURLOPT_HEADERFUNCTION, array(&$this, 'ReadResponseHeader'));
             $this->_pagination = $pagination;
-        }
-
-        switch ($this->_requestType) {
-            case RequestType::POST:
-                curl_setopt($this->_curlHandle, CURLOPT_POST, true);
-                break;
-            case RequestType::PUT:
-                curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, 'PUT');
-                break;
-            case RequestType::DELETE:
-                curl_setopt($this->_curlHandle, CURLOPT_CUSTOMREQUEST, "DELETE");
-                break;
         }
 
         $this->logger->debug('RequestType : ' . $this->_requestType);
@@ -228,11 +227,7 @@ class RestTool
             $logClass::Debug('RequestType', $this->_requestType);
         }
 
-        $httpHeaders = $this->GetHttpHeaders();
-        if ($idempotencyKey != null) {
-            array_push($httpHeaders, 'Idempotency-Key: ' . $idempotencyKey);
-        }
-        curl_setopt($this->_curlHandle, CURLOPT_HTTPHEADER, $httpHeaders);
+        $httpHeaders = $this->GetHttpHeaders($idempotencyKey);
 
         $this->logger->debug('HTTP Headers : ' . print_r($httpHeaders, true));
 
@@ -259,66 +254,56 @@ class RestTool
                 }
             }
 
-            curl_setopt($this->_curlHandle, CURLOPT_POSTFIELDS, $this->_requestData);
-        }
-
-        if (!is_null($this->_root->Config->HostProxy)) {
-            curl_setopt($this->_curlHandle, CURLOPT_PROXY, $this->_root->Config->HostProxy);
-        }
-
-        if (!is_null($this->_root->Config->UserPasswordProxy)) {
-            curl_setopt($this->_curlHandle, CURLOPT_PROXYUSERPWD, $this->_root->Config->UserPasswordProxy);
         }
 
     }
 
     /**
-     * Callback to read response headers
-     * @param resource $handle cURL handle
-     * @param string $header Header from response
-     * @return int Length of header
+     * Read ead response headers
+     * @param array $headers Header from response
      */
-    private function ReadResponseHeader($handle, $header)
+    private function ReadResponseHeader($headers)
     {
         $logClass = $this->_root->Config->LogClass;
 
-        $this->logger->debug('Response headers :' . $header);
+        $this->logger->debug('Response headers :' . print_r($headers, true));
 
         if ($this->_root->Config->DebugMode) {
-            $logClass::Debug('Response headers', $header);
+            $logClass::Debug('Response headers', print_r($headers, true));
         }
 
-        if (strpos($header, 'X-Number-Of-Pages:') !== false) {
-            $this->_pagination->TotalPages = (int)trim(str_replace('X-Number-Of-Pages:', '', $header));
-        }
+        foreach ($headers as $header) {
+            if (strpos($header, 'X-Number-Of-Pages:') !== false) {
+                $this->_pagination->TotalPages = (int)trim(str_replace('X-Number-Of-Pages:', '', $header));
+            }
 
-        if (strpos($header, 'X-Number-Of-Items:') !== false) {
-            $this->_pagination->TotalItems = (int)trim(str_replace('X-Number-Of-Items:', '', $header));
-        }
+            if (strpos($header, 'X-Number-Of-Items:') !== false) {
+                $this->_pagination->TotalItems = (int)trim(str_replace('X-Number-Of-Items:', '', $header));
+            }
 
-        if (strpos($header, 'Link: ') !== false) {
-            $strLinks = trim(str_replace('Link:', '', $header));
-            $arrayLinks = explode(',', $strLinks);
-            if ($arrayLinks !== false) {
-                $this->_pagination->Links = array();
-                foreach ($arrayLinks as $link) {
-                    $tmp = str_replace(array('<"', '">', ' rel="', '"'), '', $link);
-                    $oneLink = explode(';', $tmp);
-                    if (is_array($oneLink) && isset($oneLink[0]) && isset($oneLink[1])) {
-                        $this->_pagination->Links[$oneLink[1]] = $oneLink[0];
+            if (strpos($header, 'Link: ') !== false) {
+                $strLinks = trim(str_replace('Link:', '', $header));
+                $arrayLinks = explode(',', $strLinks);
+                if ($arrayLinks !== false) {
+                    $this->_pagination->Links = array();
+                    foreach ($arrayLinks as $link) {
+                        $tmp = str_replace(array('<"', '">', ' rel="', '"'), '', $link);
+                        $oneLink = explode(';', $tmp);
+                        if (is_array($oneLink) && isset($oneLink[0]) && isset($oneLink[1])) {
+                            $this->_pagination->Links[$oneLink[1]] = $oneLink[0];
+                        }
                     }
                 }
             }
         }
-
-        return strlen($header);
     }
 
     /**
      * Get HTTP header to use in request
+     * @param null $idempotencyKey
      * @return array Array with HTTP headers
      */
-    private function GetHttpHeaders()
+    private function GetHttpHeaders($idempotencyKey = null)
     {
         // return if already created...
         if (!is_null($this->_requestHttpHeaders)) {
@@ -341,17 +326,24 @@ class RestTool
             array_push($this->_requestHttpHeaders, $authHlp->GetHttpHeaderKey());
         }
 
+        if ($idempotencyKey != null) {
+            array_push($this->_requestHttpHeaders, 'Idempotency-Key: ' . $idempotencyKey);
+        }
+
         return $this->_requestHttpHeaders;
     }
 
     /**
      * Check response code
+     *
+     * @param int $responseCode
      * @param object $response Response from REST API
+     *
      * @throws ResponseException If response code not OK
      */
-    private function CheckResponseCode($response)
+    private function CheckResponseCode($responseCode, $response)
     {
-        if ($this->_responseCode != 200) {
+        if ($responseCode != 200) {
             if (isset($response) && is_object($response) && isset($response->Message)) {
                 $error = new Error();
                 $error->Message = $response->Message;
@@ -361,28 +353,11 @@ class RestTool
 				$error->Id = property_exists($response, 'Id') ? $response->Id : null;
 				$error->Type = property_exists($response, 'Type') ? $response->Type : null;
 				$error->Date = property_exists($response, 'Date') ? $response->Date : null;
-                throw new ResponseException($this->_requestUrl, $this->_responseCode, $error);
+                throw new ResponseException($this->_requestUrl, $responseCode, $error);
             } else {
-                throw new ResponseException($this->_requestUrl, $this->_responseCode);
+                throw new ResponseException($this->_requestUrl, $responseCode);
             }
         }
     }
 
-    /**
-     * Get cURL connection timeout to use in request
-     * @return int Time in seconds
-     */
-    private function GetCurlConnectionTimeout()
-    {
-        return (int) max($this->_root->Config->CurlConnectionTimeout, 0);
-    }
-
-    /**
-     * Get cURL response timeout to use in request
-     * @return int Time in seconds
-     */
-    private function GetCurlResponseTimeout()
-    {
-        return (int) max($this->_root->Config->CurlResponseTimeout, 0);
-    }
 }
