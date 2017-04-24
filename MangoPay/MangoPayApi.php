@@ -156,6 +156,11 @@ class MangoPayApi
     public $logger;
 
     /**
+     * @var \MangoPay\Libraries\HttpBase
+     */
+    public $httpClient;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -189,6 +194,7 @@ class MangoPayApi
 
         // Setting default NullLogger
         $this->logger = new NullLogger();
+        $this->httpClient = new \MangoPay\Libraries\HttpCurl($this);
     }
 
     /**
@@ -205,5 +211,21 @@ class MangoPayApi
     public function getLogger()
     {
         return $this->logger;
+    }
+
+    /**
+     * @param \MangoPay\Libraries\HttpBase $httpClient
+     */
+    public function setHttpClient(\MangoPay\Libraries\HttpBase $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
+    /**
+     * @return \MangoPay\Libraries\HttpBase
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
     }
 }
