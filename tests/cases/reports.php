@@ -39,17 +39,6 @@ class Reports extends Base {
         $this->assertIsA($getAllReportRequests[0], '\MangoPay\ReportRequest');
     }
     
-    function test_ReportRequest_All_FilterReports() {
-        $pagination = new \MangoPay\Pagination(1, 1);
-        $filter = new \MangoPay\FilterReports();
-        $filter->ResultCode = "000000";
-        
-        $getAllReportRequests = $this->_api->Reports->GetAll($pagination, $filter);
-
-        $this->assertEqual(count($getAllReportRequests), 1);
-        $this->assertIsA($getAllReportRequests[0], '\MangoPay\ReportRequest');
-    }
-    
     function test_ReportRequest_All_SortByCreationDate() {
         $pagination = new \MangoPay\Pagination(1, 1);
         $sorting = new \MangoPay\Sorting();

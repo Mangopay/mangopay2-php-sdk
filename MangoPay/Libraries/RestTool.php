@@ -8,6 +8,8 @@ use Psr\Log\LoggerInterface;
  */
 class RestTool
 {
+    const VERSION = '2.5.0';
+
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance
      * @var \MangoPay\MangoPayApi
@@ -184,6 +186,37 @@ class RestTool
             $logClass::Debug('FullUrl', $this->_requestUrl);
         }
 
+        $this->_curlHandle = curl_init($this->_requestUrl);
+        if ($this->_curlHandle === false) {
+            $this->logger->error('Cannot initialize cURL session');
+            throw new Exception('Cannot initialize cURL session');
+        }
+
+        curl_setopt($this->_curlHandle, CURLOPT_CONNECTTIMEOUT, $this->GetCurlConnectionTimeout());
+        curl_setopt($this->_curlHandle, CURLOPT_TIMEOUT, $this->GetCurlResponseTimeout());
+
+        /**
+         * Hotfix for Travis-CI integration issue.
+         * CURLOPT_SSLVERSION is not set correctly, causing SSL requests issue
+         */
+        if (getenv('TRAVIS')) {
+            if (!defined('CURL_SSLVERSION_TLSv1_0')) {
+                define('CURL_SSLVERSION_TLSv1_0', 4);
+            }
+
+            $options['curl'][CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_0;
+            curl_setopt($this->_curlHandle, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_0);
+        }
+
+        curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
+
+        if ($this->_root->Config->CertificatesFilePath == '') {
+            curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, false);
+        } else {
+            curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($this->_curlHandle, CURLOPT_CAINFO, $this->_root->Config->CertificatesFilePath);
+        }
+
         if (!is_null($pagination)) {
             $this->_pagination = $pagination;
         }
@@ -284,9 +317,7 @@ class RestTool
         array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
 
         // Add User-Agent Header
-        $composerJsonData = file_get_contents(__DIR__ . '/../../composer.json');
-        $decodedComposerJson = json_decode($composerJsonData, true);
-        array_push($this->_requestHttpHeaders, 'User-Agent: MangoPay V2 PHP/' . $decodedComposerJson['version']);
+        array_push($this->_requestHttpHeaders, 'User-Agent: MangoPay V2 PHP/' . self::VERSION);
 
 
         // Authentication http header

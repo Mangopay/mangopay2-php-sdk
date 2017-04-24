@@ -206,7 +206,7 @@ class FilterReports extends FilterTransactions
     public $WalletId;
         
     /**
-     * Minimal debited funds amount
+     * Minimum debited funds amount
      * @var int
      */
     public $MinDebitedFundsAmount;
@@ -228,4 +228,28 @@ class FilterReports extends FilterTransactions
      * @var string
      */
     public $MaxDebitedFundsCurrency;
+    
+        /**
+     * Minimum Fees amount
+     * @var int
+     */
+    public $MinFeesAmount;
+    
+    /**
+     * Currency for minimal Fees amount
+     * @var string
+     */
+    public $MinFeesCurrency;
+    
+    /**
+     * Maximum Fees amount
+     * @var int
+     */
+    public $MaxFeesAmount;
+    
+    /**
+     * Currency for maximum Fees amount
+     * @var string
+     */
+    public $MaxFeesCurrency;
 }

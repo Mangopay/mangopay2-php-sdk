@@ -1,4 +1,4 @@
-MANGOPAY PHP SDK [![Latest Stable Version](https://poser.pugx.org/mangopay/php-sdk-v2/v/stable)](https://packagist.org/packages/mangopay/php-sdk-v2) [![Total Downloads](https://poser.pugx.org/mangopay/php-sdk-v2/downloads)](https://packagist.org/packages/mangopay/php-sdk-v2) [![License](https://poser.pugx.org/mangopay/php-sdk-v2/license)](https://packagist.org/packages/mangopay/php-sdk-v2)
+MANGOPAY PHP SDK  [![Build Status](https://travis-ci.org/Mangopay/mangopay2-php-sdk.svg?branch=master)](https://travis-ci.org/Mangopay/mangopay2-php-sdk) [![Latest Stable Version](https://poser.pugx.org/mangopay/php-sdk-v2/v/stable)](https://packagist.org/packages/mangopay/php-sdk-v2) [![Total Downloads](https://poser.pugx.org/mangopay/php-sdk-v2/downloads)](https://packagist.org/packages/mangopay/php-sdk-v2) [![License](https://poser.pugx.org/mangopay/php-sdk-v2/license)](https://packagist.org/packages/mangopay/php-sdk-v2)
 =================================================
 
 MangopaySDK is a PHP client library to work with [Mangopay REST API](http://docs.mangopay.com/api-references/).

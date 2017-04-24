@@ -145,6 +145,12 @@ class MangoPayApi
     public $Reports;
 
     /**
+     * Provides banking aliases methods
+     * @var ApiBankingAliases
+     */
+    public $BankingAliases;
+
+    /**
      * @var LoggerInterface
      */
     public $logger;
@@ -184,6 +190,7 @@ class MangoPayApi
         $this->DisputeDocuments = new ApiDisputeDocuments($this);
         $this->Mandates = new ApiMandates($this);
         $this->Reports = new ApiReports($this);
+        $this->BankingAliases = new ApiBankingAliases($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();
@@ -221,4 +228,5 @@ class MangoPayApi
     {
         return $this->httpClient;
     }
+
 }

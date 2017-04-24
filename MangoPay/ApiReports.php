@@ -33,7 +33,7 @@ class ApiReports extends Libraries\ApiBase
     /**
      * Gets all report requests.
      * @param \MangoPay\Pagination $pagination Pagination object
-     * @param \MangoPay\FilterReports $filter Object to filter data
+     * @param \MangoPay\FilterTransactions $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return array Array with report requests
      */

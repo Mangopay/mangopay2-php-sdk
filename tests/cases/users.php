@@ -19,6 +19,12 @@ class Users extends Base {
         $this->assertIdentical($matrix->PersonType, \MangoPay\PersonType::Legal);
     }
 
+    function test_Users_GetEMoney() {
+        $john = $this->getJohn();
+        $ret = $this->_api->Users->GetEMoney($john->Id);
+        $this->assertIdentical($john->Id, $ret->UserId);
+    }
+
     function test_Users_CreateLegal_FailsIfRequiredPropsNotProvided() {
         $user = new \MangoPay\UserLegal();
         $this->expectException();
@@ -389,6 +395,9 @@ class Users extends Base {
     function test_Users_UpdateKycDocument(){
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
+        
+        $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, __DIR__ ."/../TestKycPageFile.png");
+        
         $kycDocument->Status = \MangoPay\KycDocumentStatus::ValidationAsked;
         
         $updateKycDocument = $this->_api->Users->UpdateKycDocument($user->Id, $kycDocument);
