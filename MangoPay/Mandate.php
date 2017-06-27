@@ -11,32 +11,32 @@ class Mandate extends Libraries\EntityBase
      * @var string
      */
     public $BankAccountId;
-    
+
     /**
-     * The type of mandate – it will be « SEPA » or « BACS » 
+     * The type of mandate – it will be « SEPA » or « BACS »
      * but will only be completed once the mandate has been submitted
      * @var string
      */
     public $Scheme;
-    
+
     /**
      * The language to use for the confirmation web page presented to your user
      * @var string
      */
-    public $Culture;    
-        
+    public $Culture;
+
     /**
      * The URL to view/download the mandate document
      * @var string
      */
-    public $DocumentURL;    
-    
+    public $DocumentURL;
+
     /**
      * Redirect URL
      * @var string
      */
     public $RedirectURL;
-    
+
     /**
      * Return URL
      * @var string
@@ -48,34 +48,40 @@ class Mandate extends Libraries\EntityBase
      * @var string
      */
     public $UserId;
-    
+
     /**
      * Status of the mandate: CREATED, SUBMITTED, ACTIVE, FAILED
      * @var string
      */
     public $Status;
-    
+
     /**
      * The mandate result code
      * @var string
      */
     public $ResultCode;
-    
+
     /**
      * The mandate result Message
      * @var string
      */
     public $ResultMessage;
-    
+
     /**
      * The type of mandate: DIRECT_DEBIT
      * @var string
      */
     public $MandateType;
-    
+
     /**
-     * How the mandate has been created: WEB 
+     * How the mandate has been created: WEB
      * @var string
      */
     public $ExecutionType;
+
+    /**
+     * The bank reference
+     * @var string
+     */
+    public $BankReference;
 }
