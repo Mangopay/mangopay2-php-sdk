@@ -152,9 +152,11 @@ abstract class ApiBase
         'banking_aliases_update' => array( '/bankingaliases/%s', RequestType::PUT ),
         'banking_aliases_all' => array( '/wallets/%s/bankingaliases', RequestType::GET ),
 
-        'reports_create' => array( '/reports/%s', RequestType::POST ),
+        'reports_transactions_create' => array( '/reports/%s/transactions', RequestType::POST ),
+        'reports_wallets_create' => array( '/reports/%s/wallets', RequestType::POST ),
         'reports_all' => array( '/reports', RequestType::GET ),
         'reports_get' => array( '/reports/%s', RequestType::GET ),
+
     );
 
     /**
