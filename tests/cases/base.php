@@ -196,7 +196,7 @@ abstract class Base extends \UnitTestCase {
      * @return \MangoPay\BankAccount
      */
     protected function getJohnsAccount() {
-        if (self::$JohnsAccount === null) {
+        if (self::$JohnsAccount === null || self::$JohnsAccount->Active == false) {
             $john = $this->getJohn();
             $account = new \MangoPay\BankAccount();
             $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
