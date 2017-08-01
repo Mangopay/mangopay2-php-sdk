@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 
 dist: trusty
 
@@ -6,9 +6,8 @@ language: php
 
 php:
   - 5.4
-
-before_install:
-  - sudo apt-get -y install git zip php5-cli php5-curl
+  - 7.0
+  - 7.1
 
 before_script:
   - php -r "printf('PHP %s', phpversion());"
