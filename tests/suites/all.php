@@ -2,7 +2,8 @@
 
 namespace MangoPay\Tests;
 
-require_once '../simpletest/autorun.php';
+require_once '../../vendor/autoload.php';
+require_once '../../vendor/simpletest/simpletest/autorun.php';
 
 /**
  * Runs all test cases
