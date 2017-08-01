@@ -41,7 +41,8 @@ class Mandates extends Base {
     function test_Mandates_GetAll() {
         $this->getJohnsMandate();
         
-        $mandates = $this->_api->Mandates->GetAll(new \MangoPay\Pagination());
+        $pagination = new \MangoPay\Pagination();
+        $mandates = $this->_api->Mandates->GetAll($pagination);
         
         $this->assertTrue(count($mandates) > 0);
     }
