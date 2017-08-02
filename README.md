@@ -12,7 +12,7 @@ Compatibility Notes
 Requirements
 -------------------------------------------------
 To use this SDK, you will need (as a minimum):
-* PHP v5.4
+* PHP v5.4 (at least 5.6 is recommended)
 * cURL (included and enabled in a standard PHP distribution)
 * OpenSSL (included and enabled in a standard PHP distribution)
 * [psr/log](https://github.com/php-fig/log) v1.0
