@@ -16,7 +16,7 @@ To use this SDK, you will need (as a minimum):
 * cURL (included and enabled in a standard PHP distribution)
 * OpenSSL (included and enabled in a standard PHP distribution)
 * [psr/log](https://github.com/php-fig/log) v1.0
-* You do not have to use [Composer](https://getcomposer.org/), but you are strongly advised to (particularly for handling the dependancy on the PSR Log library)
+* You do not have to use [Composer](https://getcomposer.org/), but you are strongly advised to (particularly for handling the dependency on the PSR Log library)
 
 Installation with Composer
 -------------------------------------------------
