@@ -91,12 +91,14 @@ class ApiClients extends Libraries\ApiBase
      */
     public function GetWallets($fundsType = null)
     {
+        $pagination = new \MangoPay\Pagination();
+
         if (is_null($fundsType)){
-            return $this->GetList('client_wallets', new \MangoPay\Pagination(), '\MangoPay\Wallet');
+            return $this->GetList('client_wallets', $pagination, '\MangoPay\Wallet');
         } else if ($fundsType == FundsType::FEES){
-            return $this->GetList('client_wallets_fees', new \MangoPay\Pagination(), '\MangoPay\Wallet');
+            return $this->GetList('client_wallets_fees', $pagination, '\MangoPay\Wallet');
         } else if ($fundsType == FundsType::CREDIT){
-            return $this->GetList('client_wallets_credit', new \MangoPay\Pagination(), '\MangoPay\Wallet');
+            return $this->GetList('client_wallets_credit', $pagination, '\MangoPay\Wallet');
         }
         
         throw new \MangoPay\Libraries\Exception('\MangoPay\FundsType object has wrong value and cannot get wallets'); 
