@@ -300,36 +300,32 @@ class ApiUsers extends Libraries\ApiBase
             }
         }
     }
-    
+
     /**
      * Create page for Kyc document from file
      * @param int $userId User Id
      * @param int $kycDocumentId KYC Document Id
-     * @param string $file File path
+     * @param string $filePath File path
      * @throws \MangoPay\Libraries\Exception
      */
-    public function CreateKycPageFromFile($userId, $kycDocumentId, $file, $idempotencyKey = null)
+    public function CreateKycPageFromFile($userId, $kycDocumentId, $filePath, $idempotencyKey = null)
     {
-        $filePath = $file;
-        if (is_array($file)) {
-            $filePath = $file['tmp_name'];
-        }
-        
+
         if (empty($filePath)) {
             throw new \MangoPay\Libraries\Exception('Path of file cannot be empty');
         }
-        
+
         if (!file_exists($filePath)) {
             throw new \MangoPay\Libraries\Exception('File not exist');
         }
-        
+
         $kycPage = new \MangoPay\KycPage();
         $kycPage->File = base64_encode(file_get_contents($filePath));
-        
+
         if (empty($kycPage->File)) {
             throw new \MangoPay\Libraries\Exception('Content of the file cannot be empty');
         }
-        
+
         $this->CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey);
     }
 

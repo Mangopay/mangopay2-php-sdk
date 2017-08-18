@@ -1,0 +1,26 @@
+<?php
+namespace MangoPay;
+
+/**
+ * Class represents direct debit type for mean of payment in PayIn entity
+ */
+class PayInPaymentDetailsDirectDebit extends Libraries\Dto implements PayInPaymentDetails
+{
+    /**
+     * Mandate identifier.
+     * @var string
+     */
+    public $MandateId;
+
+     /**
+      * Mandate Id
+      * @var string
+      */
+     public $MandateId;
+
+	 /**
+     * StatementDescriptor
+     * @var string
+     */
+     public $StatementDescriptor;
+}
