@@ -14,12 +14,20 @@ class ApiReports extends Libraries\ApiBase
     public function Create($reportRequest, $idempotencyKey = null)
     {
         $type = $reportRequest->ReportType;
+
         if (is_null($type) || strlen($type) == 0)
-            throw new Libraries\Exception('Report type property is reguire when create a report request.');
-        
-        return $this->CreateObject('reports_create', $reportRequest, '\MangoPay\ReportRequest', $type, null, $idempotencyKey);
+            throw new Libraries\Exception('Report type property is required when create a report request.');
+
+        switch ($type) {
+            case ReportType::Transactions:
+                return $this->CreateObject('reports_transactions_create', $reportRequest, '\MangoPay\ReportRequest', $type, null, $idempotencyKey);
+            case ReportType::Wallets:
+                return $this->CreateObject('reports_wallets_create', $reportRequest, '\MangoPay\ReportRequest', $type, null, $idempotencyKey);
+            default:
+                throw new Libraries\Exception('Unexpected Report type. Wrong ReportType value.');
+        }
     }
-    
+
     /**
      * Gets report request.
      * @param int $reportRequestId Report request identifier
@@ -29,7 +37,7 @@ class ApiReports extends Libraries\ApiBase
     {
         return $this->GetObject('reports_get', $reportRequestId, '\MangoPay\ReportRequest');
     }
-    
+
     /**
      * Gets all report requests.
      * @param \MangoPay\Pagination $pagination Pagination object

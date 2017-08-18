@@ -152,9 +152,11 @@ abstract class ApiBase
         'banking_aliases_update' => array( '/bankingaliases/%s', RequestType::PUT ),
         'banking_aliases_all' => array( '/wallets/%s/bankingaliases', RequestType::GET ),
 
-        'reports_create' => array( '/reports/%s', RequestType::POST ),
+        'reports_transactions_create' => array( '/reports/transactions', RequestType::POST ),
+        'reports_wallets_create' => array( '/reports/wallets', RequestType::POST ),
         'reports_all' => array( '/reports', RequestType::GET ),
         'reports_get' => array( '/reports/%s', RequestType::GET ),
+
     );
 
     /**
@@ -461,7 +463,8 @@ abstract class ApiBase
             'payins_directdebit-direct_create' => '\MangoPay\PayIn',
             'payins_createrefunds' => '\MangoPay\Refund',
             'payouts_bankwire_create' => '\MangoPay\PayOut',
-            'reports_create' => '\MangoPay\ReportRequest',
+            'reports_transactions_create' => '\MangoPay\ReportRequest',
+            'reports_wallets_create' => '\MangoPay\ReportRequest',
             'transfers_createrefunds' => '\MangoPay\Refund',
             'transfers_create' => '\MangoPay\Transfer',
             'users_createnaturals' => '\MangoPay\UserNatural', // done
