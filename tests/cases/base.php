@@ -39,13 +39,13 @@ abstract class Base extends \UnitTestCase {
      * @var \MangoPay\Wallet
      */
     public static $JohnsWallet;
-    
+
     /**
      * Test Kyc Document belonging to John
      * @var \MangoPay\KycDocument
      */
     public static $JohnsKycDocument;
-    
+
     /**
      * Test wallets belonging to John with money - access by getJohnsWalletWithMoney()
      * @var \MangoPay\Wallet
@@ -111,21 +111,21 @@ abstract class Base extends \UnitTestCase {
 
         return $api;
     }
-    
+
     /**
      * Creates new address
      * @return \MangoPay\Address
      */
     protected function getNewAddress() {
         $result = new \MangoPay\Address();
-        
+
         $result->AddressLine1 = 'Address line 1';
         $result->AddressLine2 = 'Address line 2';
         $result->City = 'City';
         $result->Country = 'FR';
         $result->PostalCode = '11222';
         $result->Region = 'Region';
-        
+
         return $result;
     }
 
@@ -166,7 +166,7 @@ abstract class Base extends \UnitTestCase {
         $user = $this->buildJohn();
         return $this->_api->Users->Create($user);
     }
-    
+
     /**
      * Creates self::$Matrix (test legal user) if not created yet
      * @return \MangoPay\UserLegal
@@ -385,7 +385,7 @@ abstract class Base extends \UnitTestCase {
             $user = $this->getJohn();
             $userId = $user->Id;
         }
-        
+
         $cardRegistration = new \MangoPay\CardRegistration();
         $cardRegistration->UserId = $userId;
         $cardRegistration->Currency = 'EUR';
@@ -672,6 +672,10 @@ abstract class Base extends \UnitTestCase {
             $payIn->Fees->Amount = 5;
             $payIn->CreditedWalletId = $wallet->Id;
             $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsPaypal();
+            $shippingAddress = new \MangoPay\ShippingAddress();
+            $shippingAddress->RecipientName = $user->FirstName . " " . $user->LastName;
+            $shippingAddress->Address = $this->getNewAddress();
+            $payIn->PaymentDetails->ShippingAddress = $shippingAddress;
             $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
             $payIn->ExecutionDetails->ReturnURL = 'https://test.com';
 
@@ -730,7 +734,14 @@ abstract class Base extends \UnitTestCase {
      */
     protected function assertIdenticalInputProps($entity1, $entity2) {
 
-        if (is_a($entity1, '\MangoPay\UserNatural')) {
+        if (is_a($entity1, '\MangoPay\Address')) {
+            $this->assertEqual($entity1->AddressLine1, $entity2->AddressLine1);
+            $this->assertEqual($entity1->AddressLine2, $entity2->AddressLine2);
+            $this->assertEqual($entity1->City, $entity2->City);
+            $this->assertEqual($entity1->Country, $entity2->Country);
+            $this->assertEqual($entity1->PostalCode, $entity2->PostalCode);
+            $this->assertEqual($entity1->Region, $entity2->Region);
+        } elseif (is_a($entity1, '\MangoPay\UserNatural')) {
             $this->assertIdentical($entity1->Tag, $entity2->Tag);
             $this->assertIdentical($entity1->PersonType, $entity2->PersonType);
             $this->assertIdentical($entity1->FirstName, $entity2->FirstName);
@@ -738,12 +749,7 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->Email, $entity2->Email);
             $this->assertNotNull($entity1->Address);
             $this->assertNotNull($entity2->Address);
-            $this->assertEqual($entity1->Address->AddressLine1, $entity1->Address->AddressLine1);
-            $this->assertEqual($entity1->Address->AddressLine2, $entity1->Address->AddressLine2);
-            $this->assertEqual($entity1->Address->City, $entity1->Address->City);
-            $this->assertEqual($entity1->Address->Country, $entity1->Address->Country);
-            $this->assertEqual($entity1->Address->PostalCode, $entity1->Address->PostalCode);
-            $this->assertEqual($entity1->Address->Region, $entity1->Address->Region);
+            $this->assertIdenticalInputProps($entity1->Address, $entity2->Address);
             $this->assertIdentical($entity1->Birthday, $entity2->Birthday);
             $this->assertIdentical($entity1->Nationality, $entity2->Nationality);
             $this->assertIdentical($entity1->CountryOfResidence, $entity2->CountryOfResidence);
@@ -755,12 +761,7 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->Name, $entity2->Name);
             $this->assertNotNull($entity1->HeadquartersAddress);
             $this->assertNotNull($entity2->HeadquartersAddress);
-            $this->assertEqual($entity1->HeadquartersAddress->AddressLine1, $entity1->HeadquartersAddress->AddressLine1);
-            $this->assertEqual($entity1->HeadquartersAddress->AddressLine2, $entity1->HeadquartersAddress->AddressLine2);
-            $this->assertEqual($entity1->HeadquartersAddress->City, $entity1->HeadquartersAddress->City);
-            $this->assertEqual($entity1->HeadquartersAddress->Country, $entity1->HeadquartersAddress->Country);
-            $this->assertEqual($entity1->HeadquartersAddress->PostalCode, $entity1->HeadquartersAddress->PostalCode);
-            $this->assertEqual($entity1->HeadquartersAddress->Region, $entity1->HeadquartersAddress->Region);
+            $this->assertIdenticalInputProps($entity1->HeadquartersAddress, $entity2->HeadquartersAddress);
             $this->assertIdentical($entity1->LegalRepresentativeFirstName, $entity2->LegalRepresentativeFirstName);
             $this->assertIdentical($entity1->LegalRepresentativeLastName, $entity2->LegalRepresentativeLastName);
 
@@ -768,12 +769,7 @@ abstract class Base extends \UnitTestCase {
             //$this->assertIdentical($entity1->LegalRepresentativeAddress, $entity2->LegalRepresentativeAddress, "***** TEMPORARY API ISSUE: RETURNED OBJECT MISSES THIS PROP AFTER CREATION *****");
             $this->assertNotNull($entity1->LegalRepresentativeAddress);
             $this->assertNotNull($entity2->LegalRepresentativeAddress);
-            $this->assertEqual($entity1->LegalRepresentativeAddress->AddressLine1, $entity1->LegalRepresentativeAddress->AddressLine1);
-            $this->assertEqual($entity1->LegalRepresentativeAddress->AddressLine2, $entity1->LegalRepresentativeAddress->AddressLine2);
-            $this->assertEqual($entity1->LegalRepresentativeAddress->City, $entity1->LegalRepresentativeAddress->City);
-            $this->assertEqual($entity1->LegalRepresentativeAddress->Country, $entity1->LegalRepresentativeAddress->Country);
-            $this->assertEqual($entity1->LegalRepresentativeAddress->PostalCode, $entity1->LegalRepresentativeAddress->PostalCode);
-            $this->assertEqual($entity1->LegalRepresentativeAddress->Region, $entity1->LegalRepresentativeAddress->Region);
+            $this->assertIdenticalInputProps($entity1->LegalRepresentativeAddress, $entity2->LegalRepresentativeAddress);
 
 
             $this->assertIdentical($entity1->LegalRepresentativeEmail, $entity2->LegalRepresentativeEmail);
@@ -787,12 +783,7 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->OwnerName, $entity2->OwnerName);
             $this->assertNotNull($entity1->OwnerAddress);
             $this->assertNotNull($entity2->OwnerAddress);
-            $this->assertEqual($entity1->OwnerAddress->AddressLine1, $entity1->OwnerAddress->AddressLine1);
-            $this->assertEqual($entity1->OwnerAddress->AddressLine2, $entity1->OwnerAddress->AddressLine2);
-            $this->assertEqual($entity1->OwnerAddress->City, $entity1->OwnerAddress->City);
-            $this->assertEqual($entity1->OwnerAddress->Country, $entity1->OwnerAddress->Country);
-            $this->assertEqual($entity1->OwnerAddress->PostalCode, $entity1->OwnerAddress->PostalCode);
-            $this->assertEqual($entity1->OwnerAddress->Region, $entity1->OwnerAddress->Region);
+            $this->assertIdenticalInputProps($entity1->OwnerAddress, $entity2->OwnerAddress);
             if ($entity1->Type == 'IBAN') {
                 $this->assertIdentical($entity1->Details->IBAN, $entity2->Details->IBAN);
                 $this->assertIdentical($entity1->Details->BIC, $entity2->Details->BIC);
@@ -871,8 +862,11 @@ abstract class Base extends \UnitTestCase {
             $this->assertIdentical($entity1->Type, $entity2->Type);
             $this->assertIdentical($entity1->Status, $entity2->Status);
             $this->assertIdentical($entity1->UserId, $entity2->UserId);
-        } elseif(is_a($entity1, '\MangoPay\PayInPaymentDetailsPaypal')) {
-            // TODO Add the right comparison
+        } elseif (is_a($entity1, '\MangoPay\PayInPaymentDetailsPaypal')) {
+            $this->assertIdenticalInputProps($entity1->ShippingAddress, $entity2->ShippingAddress);
+        } elseif (is_a($entity1, '\MangoPay\ShippingAddress')) {
+            $this->assertIdentical($entity1->RecipientName, $entity2->RecipientName);
+            $this->assertIdenticalInputProps($entity1->Address, $entity2->Address);
         } else {
             throw new \Exception("Unsupported type " . get_class($entity1));
         }
