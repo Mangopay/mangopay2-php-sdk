@@ -35,7 +35,7 @@ class KycDocuments extends Base {
         $this->assertTrue($list[0]->Id > $list[1]->Id);
     }
 	
-	function test_KycDocuments__Get(){
+	function test_KycDocuments_Get(){
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
         
@@ -45,5 +45,14 @@ class KycDocuments extends Base {
         $this->assertIdentical($kycDocument->Status, $getKycDocument->Status);
         $this->assertIdentical($kycDocument->Type, $getKycDocument->Type);
         $this->assertIdentical($kycDocument->UserId, $user->Id);
+    }
+
+    function test_KycDocuments_CreateConsult() {
+	    $kycDocument = $this->getJohnsKycDocument();
+
+	    $consults = $this->_api->KycDocuments->CreateKycDocumentConsult($kycDocument->Id);
+
+	    $this->assertNotNull($consults);
+	    $this->assertIsA($consults, 'array');
     }
 }
