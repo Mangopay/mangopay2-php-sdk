@@ -107,6 +107,7 @@ abstract class ApiBase
         'kyc_page_create' => array( '/users/%s/KYC/documents/%s/pages', RequestType::POST ),
         'kyc_documents_all' => array( '/KYC/documents', RequestType::GET ),
         'kyc_documents_get_alt' => array( '/KYC/documents/%s', RequestType::GET ),
+        'kyc_documents_create_consult' => array( '/KYC/documents/%s/consult', RequestType::POST ),
 
         'disputes_get' => array( '/disputes/%s', RequestType::GET),
         'disputes_save_tag' => array( '/disputes/%s', RequestType::PUT),
@@ -125,6 +126,7 @@ abstract class ApiBase
         'disputes_document_get' => array( '/dispute-documents/%s', RequestType::GET),
         'disputes_document_get_for_dispute' => array( '/disputes/%s/documents', RequestType::GET),
         'disputes_document_all' => array( '/dispute-documents', RequestType::GET),
+        'disputes_document_create_consult' => array( '/dispute-documents/%s/consult', RequestType::POST),
 
         'disputes_repudiation_get' => array( '/repudiations/%s', RequestType::GET),
 

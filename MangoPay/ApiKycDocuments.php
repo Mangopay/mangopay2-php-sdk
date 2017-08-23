@@ -27,4 +27,16 @@ class ApiKycDocuments extends Libraries\ApiBase
     {
         return $this->GetObject('kyc_documents_get_alt', $kycDocumentId, '\MangoPay\KycDocument');
     }
+
+
+    /**
+     * Creates temporary URLs where each page of a KYC document can be viewed.
+     *
+     * @param string $kycDocumentId Identification of the document whose pages to view
+     * @return array Array of consults for viewing the KYC document's pages
+     */
+    public function CreateKycDocumentConsult($kycDocumentId, $pagination = null)
+    {
+        return $this->GetList('kyc_documents_create_consult', $pagination, '\MangoPay\DocumentPageConsult', $kycDocumentId, null, null);
+    }
 }

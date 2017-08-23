@@ -1,6 +1,9 @@
 <?php
+
 namespace MangoPay\Libraries;
+
 use Psr\Log\LoggerInterface;
+
 /**
  * Class to prepare HTTP request, call the request and decode the response
  */
@@ -23,6 +26,7 @@ class RestTool
      * @var array
      */
     private $_requestHttpHeaders;
+
     /**
      * Return HTTP header to send with request
      * @return array
@@ -31,11 +35,13 @@ class RestTool
     {
         return $this->_requestHttpHeaders;
     }
+
     /**
      * Request type for current request
      * @var RequestType
      */
     private $_requestType;
+
     /**
      * Return HTTP request method
      * @return RequestType
@@ -44,11 +50,13 @@ class RestTool
     {
         return $this->_requestType;
     }
+
     /**
      * Array with data to pass in the request
      * @var array|string
      */
     private $_requestData;
+
     /**
      * Return HTTP request data
      * @return array|string
@@ -57,6 +65,7 @@ class RestTool
     {
         return $this->_requestData;
     }
+
     /**
      * @var LoggerInterface
      */
@@ -70,6 +79,7 @@ class RestTool
      * @var string
      */
     private $_requestUrl;
+
     /**
      * Return HTTP request url
      * @return string
@@ -78,7 +88,9 @@ class RestTool
     {
         return $this->_requestUrl;
     }
+
     private static $_JSON_HEADER = 'Content-Type: application/json';
+
     /**
      * Constructor
      * @param bool $authRequired Variable to flag that in request the authentication data are required
@@ -90,6 +102,7 @@ class RestTool
         $this->_root = $root;
         $this->logger = $root->getLogger();
     }
+
     public function AddRequestHttpHeader($httpHeader)
     {
         if (is_null($this->_requestHttpHeaders)) {
@@ -97,6 +110,7 @@ class RestTool
         }
         array_push($this->_requestHttpHeaders, $httpHeader);
     }
+
     /**
      * Call request to MangoPay API
      * @param string $urlMethod Type of method in REST API
@@ -111,6 +125,10 @@ class RestTool
     {
         $this->_requestType = $requestType;
         $this->_requestData = $requestData;
+        if (strpos($urlMethod, 'consult') !== false
+            && (strpos($urlMethod, 'KYC/documents') !== false || strpos($urlMethod, 'dispute-documents') !== false)) {
+            $this->_requestData = "";
+        }
         $logClass = $this->_root->Config->LogClass;
         $this->logger->debug("New request");
         if ($this->_root->Config->DebugMode) {
@@ -136,6 +154,7 @@ class RestTool
         }
         return $response;
     }
+
     /**
      * Prepare all parameter to request
      *
@@ -182,6 +201,7 @@ class RestTool
             }
         }
     }
+
     /**
      * Read ead response headers
      * @param array $headers Header from response
@@ -216,6 +236,7 @@ class RestTool
             }
         }
     }
+
     /**
      * Get HTTP header to use in request
      * @param null $idempotencyKey
@@ -243,6 +264,7 @@ class RestTool
         }
         return $this->_requestHttpHeaders;
     }
+
     /**
      * Check response code
      *
@@ -258,11 +280,11 @@ class RestTool
                 $error = new Error();
                 $error->Message = $response->Message;
                 $error->Errors = property_exists($response, 'Errors')
-                        ? $response->Errors
-                        : property_exists($response, 'errors') ? $response->errors : null;
-				$error->Id = property_exists($response, 'Id') ? $response->Id : null;
-				$error->Type = property_exists($response, 'Type') ? $response->Type : null;
-				$error->Date = property_exists($response, 'Date') ? $response->Date : null;
+                    ? $response->Errors
+                    : property_exists($response, 'errors') ? $response->errors : null;
+                $error->Id = property_exists($response, 'Id') ? $response->Id : null;
+                $error->Type = property_exists($response, 'Type') ? $response->Type : null;
+                $error->Date = property_exists($response, 'Date') ? $response->Date : null;
                 throw new ResponseException($this->_requestUrl, $responseCode, $error);
             } else {
                 throw new ResponseException($this->_requestUrl, $responseCode);
