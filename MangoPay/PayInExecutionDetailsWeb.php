@@ -2,7 +2,7 @@
 namespace MangoPay;
 
 /**
- * Class represents Web type for execution option in PayIn entity
+ * Class represents Web type for 'WEB' execution option in PayIn entity
  */
 class PayInExecutionDetailsWeb extends Libraries\Dto implements PayInExecutionDetails
 {
