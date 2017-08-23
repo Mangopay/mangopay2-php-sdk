@@ -46,6 +46,7 @@ abstract class ApiBase
         'preauthorization_save' => array( '/preauthorizations/%s', RequestType::PUT ),
 
         'card_get' => array( '/cards/%s', RequestType::GET ),
+        'cards_get_by_fingerprint' => array('/cards/fingerprints/%s', RequestType::GET),
         'card_save' => array( '/cards/%s', RequestType::PUT ),
 
         // pay ins URLs

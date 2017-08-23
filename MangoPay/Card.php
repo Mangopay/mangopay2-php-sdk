@@ -71,4 +71,10 @@ class Card extends Libraries\EntityBase
      * @var \MangoPay\CardValidity
      */
     public $Validity;
+
+    /**
+     * Card's fingerprint hash, unique per 16-digit card number
+     * @var string
+     */
+    public $Fingerprint;
 }
