@@ -15,7 +15,7 @@ class PayInPaymentDetailsPaypal extends Libraries\Dto implements PayInPaymentDet
     {
         $subObjects = parent::GetSubObjects();
 
-        $subObjects['ShippingAddress'] = '\Mangopay\ShippingAddress';
+        $subObjects['ShippingAddress'] = '\MangoPay\ShippingAddress';
 
         return $subObjects;
     }

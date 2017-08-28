@@ -29,7 +29,7 @@ class ShippingAddress extends Libraries\Dto
     {
         $subObjects = parent::GetSubObjects();
 
-        $subObjects['Address'] = '\Mangopay\Address';
+        $subObjects['Address'] = '\MangoPay\Address';
 
         return $subObjects;
     }
