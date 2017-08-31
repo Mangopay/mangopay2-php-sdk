@@ -74,6 +74,12 @@ class Dispute extends Libraries\EntityBase
     public $ResultMessage;
     
     /**
+     * The Id of the associated repudiation transaction
+     * @var string
+     */
+    public $RepudiationId;
+    
+    /**
      * Get array with mapping which property is object and what type of object 
      * @return array
      */
