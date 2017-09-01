@@ -274,7 +274,7 @@ class Users extends Base {
 
         $this->assertIsA($list[0], '\MangoPay\BankAccount');
         $this->assertIdentical($account->Id, $list[sizeof($list) - 1]->Id);
-        $this->assertIdenticalInputProps($account, $list[0]);
+        $this->assertIdenticalInputProps($account, $list[sizeof($list) - 1]);
         $this->assertIdentical($pagination->Page, 1);
         $this->assertIdentical($pagination->ItemsPerPage, 12);
         $this->assertTrue(isset($pagination->TotalPages));
