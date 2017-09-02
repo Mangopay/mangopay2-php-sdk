@@ -1,18 +1,15 @@
 <?php
+
 namespace MangoPay;
 
 /**
- * Class to management MangoPay API for users
- */
-/**
- * Class ApiUsers
- * @package MangoPay
+ * Class to manage MangoPay API calls for the user entity.
  */
 class ApiUsers extends Libraries\ApiBase
 {
     /**
      * Create a new user
-     * @param UserLegal/UserNatural $user
+     * @param UserLegal /UserNatural $user
      * @return UserLegal/UserNatural User object returned from API
      * @throws Libraries\Exception If occur Wrong entity class for user
      */
@@ -26,11 +23,11 @@ class ApiUsers extends Libraries\ApiBase
         } else {
             throw new Libraries\Exception('Wrong entity class for user');
         }
-        
+
         $response = $this->CreateObject($methodKey, $user, null, null, null, $idempotencyKey);
         return $this->GetUserResponse($response);
     }
-    
+
     /**
      * Get all users
      * @param \MangoPay\Pagination $pagination Pagination object
@@ -40,7 +37,7 @@ class ApiUsers extends Libraries\ApiBase
     public function GetAll(& $pagination = null, $sorting = null)
     {
         $usersList = $this->GetList('users_all', $pagination, null, null, null, $sorting);
-        
+
         $users = array();
         if (is_array($usersList)) {
             foreach ($usersList as $user) {
@@ -49,7 +46,7 @@ class ApiUsers extends Libraries\ApiBase
         }
         return $users;
     }
-    
+
     /**
      * Get natural or legal user by ID
      * @param int|GUID $userId User identifier
@@ -60,7 +57,7 @@ class ApiUsers extends Libraries\ApiBase
         $response = $this->GetObject('users_get', $userId);
         return $this->GetUserResponse($response);
     }
-    
+
     /**
      * Get natural user by ID
      * @param int|GUID $userId User identifier
@@ -71,7 +68,7 @@ class ApiUsers extends Libraries\ApiBase
         $response = $this->GetObject('users_getnaturals', $userId);
         return $this->GetUserResponse($response);
     }
-    
+
     /**
      * Get legal user by ID
      * @param int|GUID $userId User identifier
@@ -82,7 +79,7 @@ class ApiUsers extends Libraries\ApiBase
         $response = $this->GetObject('users_getlegals', $userId);
         return $this->GetUserResponse($response);
     }
-    
+
     /**
      * Save user
      * @param UserLegal|UserNatural $user
@@ -94,31 +91,31 @@ class ApiUsers extends Libraries\ApiBase
         $className = get_class($user);
         if ($className == 'MangoPay\UserNatural') {
             $methodKey = 'users_savenaturals';
-            if (!is_null($user->Address) 
+            if (!is_null($user->Address)
                 && is_a($user->Address, "MangoPay\Address")
                 && $user->Address->CanBeNull()) {
-                    $user->Address = null;
+                $user->Address = null;
             }
         } elseif ($className == 'MangoPay\UserLegal') {
             $methodKey = 'users_savelegals';
-            if (!is_null($user->HeadquartersAddress) 
+            if (!is_null($user->HeadquartersAddress)
                 && is_a($user->HeadquartersAddress, "MangoPay\Address")
                 && $user->HeadquartersAddress->CanBeNull()) {
-                    $user->HeadquartersAddress = null;
+                $user->HeadquartersAddress = null;
             }
-            if (!is_null($user->LegalRepresentativeAddress) 
+            if (!is_null($user->LegalRepresentativeAddress)
                 && is_a($user->LegalRepresentativeAddress, "MangoPay\Address")
                 && $user->LegalRepresentativeAddress->CanBeNull()) {
-                    $user->LegalRepresentativeAddress = null;
+                $user->LegalRepresentativeAddress = null;
             }
         } else {
             throw new Libraries\Exception('Wrong entity class for user');
         }
-        
+
         $response = $this->SaveObject($methodKey, $user);
         return $this->GetUserResponse($response);
     }
-    
+
     /**
      * Create bank account for user
      * @param int $userId User Id
@@ -130,7 +127,7 @@ class ApiUsers extends Libraries\ApiBase
         $type = $this->GetBankAccountType($bankAccount);
         return $this->CreateObject('users_createbankaccounts_' . $type, $bankAccount, '\MangoPay\BankAccount', $userId, null, $idempotencyKey);
     }
-    
+
     /**
      * Get all bank accounts for user
      * @param int $userId User Id
@@ -143,7 +140,7 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetList('users_allbankaccount', $pagination, 'MangoPay\BankAccount', $userId, null, $sorting);
     }
-    
+
     /**
      * Get bank account for user
      * @param int $userId User Id
@@ -163,7 +160,7 @@ class ApiUsers extends Libraries\ApiBase
      * @return \MangoPay\BankAccount Entity of bank account object
      */
     public function UpdateBankAccount($userId, $bankAccount)
-    {            
+    {
         return $this->SaveObject('bankaccounts_save', $bankAccount, '\MangoPay\BankAccount', $userId);
     }
 
@@ -179,7 +176,7 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetList('users_allwallets', $pagination, 'MangoPay\Wallet', $userId, null, $sorting);
     }
-        
+
     /**
      * Get all transactions for user
      * @param int $userId User Id
@@ -193,7 +190,7 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetList('users_alltransactions', $pagination, '\MangoPay\Transaction', $userId, $filter, $sorting);
     }
-    
+
     /**
      * Get all cards for user
      * @param int $userId User Id
@@ -206,7 +203,7 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetList('users_allcards', $pagination, '\MangoPay\Card', $userId, null, $sorting);
     }
-    
+
     /**
      * Create new KYC document
      * @param int $userId User Id
@@ -217,21 +214,21 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->CreateObject('kyc_documents_create', $kycDocument, '\MangoPay\KycDocument', $userId, null, $idempotencyKey);
     }
-    
+
     /**
      * Get all KYC documents for user
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @param \MangoPay\FilterKycDocuments $filter Object to filter data
-     * 
+     *
      * @return array Array with KYC documents entities
      */
     public function GetKycDocuments($userId, & $pagination = null, $sorting = null, $filter = null)
     {
         return $this->GetList('users_allkycdocuments', $pagination, 'MangoPay\KycDocument', $userId, $filter, $sorting);
     }
-    
+
     /**
      * Get KYC document
      * @param int $userId User Id
@@ -242,7 +239,7 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetObject('kyc_documents_get', $userId, '\MangoPay\KycDocument', $kycDocumentId);
     }
-    
+
     /**
      * Get all mandates for user
      * @param int $userId User Id
@@ -256,7 +253,7 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetList('users_allmandates', $pagination, 'MangoPay\Mandate', $userId, $filter, $sorting);
     }
-    
+
     /**
      * Get mandates for user and bank account
      * @param int $userId User Id
@@ -264,14 +261,14 @@ class ApiUsers extends Libraries\ApiBase
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data
-     * 
+     *
      * @return array Array with mandate entities
      */
     public function GetMandatesForBankAccount($userId, $bankAccountId, & $pagination = null, $filter = null, $sorting = null)
     {
         return $this->GetList('users_allbankaccount_mandates', $pagination, 'MangoPay\Mandate', $userId, $filter, $sorting, $bankAccountId);
     }
-    
+
     /**
      * Save KYC document
      * @param int $userId User Id
@@ -282,7 +279,7 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->SaveObject('kyc_documents_save', $kycDocument, '\MangoPay\KycDocument', $userId);
     }
-    
+
     /**
      * Create page for Kyc document
      * @param int $userId User Id
@@ -338,7 +335,18 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetObject('users_getemoney', $userId, '\MangoPay\EMoney');
     }
-    
+
+    /**
+     * Create a UBO declaration.
+     * @param string $userId ID of the legal user owning the declaration
+     * @param \MangoPay\UboDeclaration $declaration UBO declaration data
+     * @return \MangoPay\UboDeclaration Newly-created UBO declaration object
+     */
+    public function CreateUboDeclaration($userId, $declaration)
+    {
+        return $this->CreateObject('ubo_declaration_create', $declaration, '\MangoPay\UboDeclaration', $userId);
+    }
+
     /**
      * Get correct user object
      * @param object $response Response from API
@@ -360,13 +368,13 @@ class ApiUsers extends Libraries\ApiBase
             throw new Libraries\Exception('Unexpected response. Missing PersonType property');
         }
     }
-    
+
     private function GetBankAccountType($bankAccount)
     {
         if (!isset($bankAccount->Details) || !is_object($bankAccount->Details)) {
             throw new Libraries\Exception('Details is not defined or it is not object type');
         }
-        
+
         $className = str_replace('MangoPay\\BankAccountDetails', '', get_class($bankAccount->Details));
         return strtolower($className);
     }

@@ -160,6 +160,9 @@ abstract class ApiBase
         'reports_all' => array( '/reports', RequestType::GET ),
         'reports_get' => array( '/reports/%s', RequestType::GET ),
 
+        'ubo_declaration_create' => array( '/users/legal/%s/ubodeclarations', RequestType::POST ),
+        'ubo_declaration_update' => array( '/ubodeclarations/%s', RequestType::PUT ),
+        'ubo_declaration_get' => array( '/ubodeclarations/%s', RequestType::GET )
     );
 
     /**
@@ -358,6 +361,19 @@ abstract class ApiBase
                 $entityProperty = $entityReflection->getProperty($name);
                 $entityProperty->setAccessible(true);
 
+                if ($entityProperty->getName() == "DeclaredUBOs") {
+                    $declaredUbos = [];
+                    foreach ($value as $declaredUboRaw) {
+                        $declaredUbo = new \MangoPay\DeclaredUbo();
+                        $declaredUbo->UserId = $declaredUboRaw->UserId;
+                        $declaredUbo->Status = $declaredUboRaw->Status;
+                        $declaredUbo->RefusedReasonType = $declaredUboRaw->RefusedReasonMessage;
+                        $declaredUbo->RefusedReasonMessage = $declaredUboRaw->RefusedReasonMessage;
+                        array_push($declaredUbos, $declaredUbo);
+                    }
+                    $value = $declaredUbos;
+                }
+
                 // is sub object?
                 if (isset($subObjects[$name])) {
                     if (is_null($value)) {
@@ -400,6 +416,17 @@ abstract class ApiBase
      */
     protected function BuildRequestData($entity)
     {
+        if (is_a($entity, 'MangoPay\UboDeclaration')) {
+            $declaredUboIds = [];
+            foreach ($entity->DeclaredUBOs as $declaredUBO) {
+                if (is_string($declaredUBO)) {
+                    array_push($declaredUboIds, $declaredUBO);
+                } else {
+                    array_push($declaredUboIds, $declaredUBO->UserId);
+                }
+            }
+            $entity->DeclaredUBOs = $declaredUboIds;
+        }
         $entityProperties = get_object_vars($entity);
         $blackList = $entity->GetReadOnlyProperties();
         $requestData = array();

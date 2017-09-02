@@ -65,6 +65,13 @@ class UserNatural extends User
      * @var string
      */
     public $ProofOfAddress;
+
+    /**
+     * Capacity of the user within MangoPay
+     * Takes values from \MangoPay\NaturalUserCapacity
+     * @var string
+     */
+    public $Capacity;
     
     /**
      * Construct
