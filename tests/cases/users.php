@@ -683,4 +683,18 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
          $this->assertEqual(count($mandates), 1);
          $this->assertIsA($mandates[0], '\MangoPay\Mandate');
      }
+
+     function test_Users_CreateUboDeclaration() {
+        $matrix = $this->getMatrix();
+        $john = $this->getDeclarativeJohn();
+        $declaredUboIds = [$john->Id];
+        $declaration = new \MangoPay\UboDeclaration();
+        $declaration->DeclaredUBOs = $declaredUboIds;
+
+        $createdDeclaration = $this->_api->Users->CreateUboDeclaration($matrix->Id, $declaration);
+        $this->assertNotNull($createdDeclaration);
+        $this->assertEqual($createdDeclaration->Status, \MangoPay\UboDeclarationStatus::Created);
+        $this->assertEqual($createdDeclaration->UserId, $matrix->Id);
+        $this->assertEqual($createdDeclaration->DeclaredUBOs[0]->UserId, $john->Id);
+     }
 }

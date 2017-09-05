@@ -151,6 +151,12 @@ class MangoPayApi
     public $BankingAliases;
 
     /**
+     * Provides UBO declaration methods.
+     * @var ApiUboDeclarations
+     */
+    public $UboDeclarations;
+
+    /**
      * @var LoggerInterface
      */
     public $logger;
@@ -191,6 +197,7 @@ class MangoPayApi
         $this->Mandates = new ApiMandates($this);
         $this->Reports = new ApiReports($this);
         $this->BankingAliases = new ApiBankingAliases($this);
+        $this->UboDeclarations = new ApiUboDeclarations($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();

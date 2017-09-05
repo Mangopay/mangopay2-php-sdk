@@ -168,6 +168,16 @@ abstract class Base extends \UnitTestCase {
     }
 
     /**
+     * Creates new user to be used for declarative purposes.
+     * @return \MangoPay\UserNatural
+     */
+    protected function getDeclarativeJohn() {
+        $user = $this->buildJohn();
+        $user->Capacity = \MangoPay\NaturalUserCapacity::Declarative;
+        return $this->_api->Users->Create($user);
+    }
+
+    /**
      * Creates self::$Matrix (test legal user) if not created yet
      * @return \MangoPay\UserLegal
      */
@@ -722,6 +732,20 @@ abstract class Base extends \UnitTestCase {
          $mandate->Culture = "FR";
 
          return $this->_api->Mandates->Create($mandate);
+    }
+
+    /**
+     * Creates a UBO declaration.
+     * @return \MangoPay\UboDeclaration
+     */
+    protected function getCreatedUboDeclaration() {
+         $matrix = $this->getMatrix();
+         $john = $this->getDeclarativeJohn();
+         $declaredUboIds = [$john->Id];
+         $declaration = new \MangoPay\UboDeclaration();
+         $declaration->DeclaredUBOs = $declaredUboIds;
+
+         return $this->_api->Users->CreateUboDeclaration($matrix->Id, $declaration);
     }
 
     /**
