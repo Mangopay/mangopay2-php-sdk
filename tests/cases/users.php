@@ -247,6 +247,16 @@ class Users extends Base {
         $this->assertIdentical($createAccount->Details->BIC, 'BINAADADXXX');
     }
 
+    function test_Users_DeactivateBankAccount() {
+       $john = $this->getJohn();
+       $account = $this->getJohnsAccount();
+       $account->Active = false;
+
+       $account = $this->_api->Users->UpdateBankAccount($john->Id, $account);
+
+       $this->assertFalse($account->Active);
+   }
+
     function test_Users_BankAccount() {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
@@ -263,8 +273,8 @@ class Users extends Base {
         $list = $this->_api->Users->GetBankAccounts($john->Id, $pagination);
 
         $this->assertIsA($list[0], '\MangoPay\BankAccount');
-        $this->assertIdentical($account->Id, $list[0]->Id);
-        $this->assertIdenticalInputProps($account, $list[0]);
+        $this->assertIdentical($account->Id, $list[sizeof($list) - 1]->Id);
+        $this->assertIdenticalInputProps($account, $list[sizeof($list) - 1]);
         $this->assertIdentical($pagination->Page, 1);
         $this->assertIdentical($pagination->ItemsPerPage, 12);
         $this->assertTrue(isset($pagination->TotalPages));

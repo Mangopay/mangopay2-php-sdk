@@ -19,6 +19,12 @@ abstract class Document extends EntityBase
      * @var string
      */
     public $RefusedReasonMessage;
+
+    /**
+     * Date when this document was processed
+     * @var int Unix timestamp
+     */
+    public $ProcessedDate;
     
     /**
      * Get array with read-only properties
