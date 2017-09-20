@@ -21,6 +21,7 @@ class ApiBankingAliases extends Libraries\ApiBase
      * Create a banking alias
      * @param \MangoPay\BankingAlias $bankingAlias Banking alias
      * @return object returned from API
+     * @throws Libraries\Exception
      */
     public function Create($bankingAlias)
     {
@@ -31,7 +32,8 @@ class ApiBankingAliases extends Libraries\ApiBase
             throw new Libraries\Exception('Wrong entity class for BankingAlias');
         }
 
-        return $this->CreateObject($methodKey, $bankingAlias, '\MangoPay\BankingAlias', $bankingAlias->WalletId);
+        $response = $this->CreateObject($methodKey, $bankingAlias, null, $bankingAlias->WalletId);
+        return $this->GetBankingAliasResponse($response);
     }
 
     /**
@@ -41,7 +43,8 @@ class ApiBankingAliases extends Libraries\ApiBase
      */
     public function Update($bankingAlias)
     {
-        return $this->SaveObject('banking_aliases_update', $bankingAlias, '\MangoPay\BankingAlias');
+        $response = $this->SaveObject('banking_aliases_update', $bankingAlias);
+        return $this->GetBankingAliasResponse($response);
     }
 
     /**
@@ -53,7 +56,7 @@ class ApiBankingAliases extends Libraries\ApiBase
      */
     public function GetAll($walletId, & $pagination = null, $sorting = null)
     {
-        $bankingAliases = $this->GetList('banking_aliases_all', $pagination, '\MangoPay\BankingAlias', $walletId, null, $sorting);
+        $bankingAliases = $this->GetList('banking_aliases_all', $pagination, null, $walletId, null, $sorting);
         return array_map(array($this, "GetBankingAliasResponse"), $bankingAliases);
     }
 
