@@ -134,7 +134,7 @@ class ApiDisputes extends Libraries\ApiBase
      */
     public function CreateSettlementTransfer($settlementTransfer, $repudiationId, $idempotencyKey = null)
     {
-        return $this->CreateObject('disputes_repudiation_create_settlement', $settlementTransfer, '\MangoPay\Transfer', $repudiationId, null, $idempotencyKey);
+        return $this->CreateObject('disputes_repudiation_create_settlement', $settlementTransfer, '\MangoPay\SettlementTransfer', $repudiationId, null, $idempotencyKey);
     }
     
     /**
@@ -144,7 +144,7 @@ class ApiDisputes extends Libraries\ApiBase
      */
     public function GetSettlementTransfer($settlementTransferId)
     {
-        return $this->GetObject('disputes_repudiation_get_settlement', $settlementTransferId, '\MangoPay\Transfer');
+        return $this->GetObject('disputes_repudiation_get_settlement', $settlementTransferId, '\MangoPay\SettlementTransfer');
     }
    
     /**
