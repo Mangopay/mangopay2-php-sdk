@@ -134,7 +134,6 @@ abstract class ApiBase
         'disputes_repudiation_get_settlement' => array( '/settlements/%s', RequestType::GET),
         'disputes_pendingsettlement' => array('/disputes/pendingsettlement' , RequestType::GET),
 
-
         'mandates_create' => array( '/mandates/directdebit/web', RequestType::POST ),
         'mandates_save' => array( '/mandates/%s/cancel', RequestType::PUT ),
         'mandates_get' => array( '/mandates/%s', RequestType::GET ),
