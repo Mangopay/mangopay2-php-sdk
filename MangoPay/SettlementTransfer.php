@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * Settlement transfer entity.
  */
-class SettlementTransfer extends Transaction
+class SettlementTransfer extends Transfer
 {
     
     /**
