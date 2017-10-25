@@ -144,7 +144,7 @@ class ApiDisputes extends Libraries\ApiBase
      */
     public function GetSettlementTransfer($settlementTransferId)
     {
-        return $this->GetObject('disputes_repudiation_get_settlement', $settlementTransferId, '\MangoPay\Transfer');
+        return $this->GetObject('disputes_repudiation_get_settlement', $settlementTransferId, '\MangoPay\SettlementTransfer');
     }
    
     /**
