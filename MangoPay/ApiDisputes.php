@@ -32,6 +32,17 @@ class ApiDisputes extends Libraries\ApiBase
         return $this->GetList('disputes_all', $pagination, '\MangoPay\Dispute', null, null, $sorting);
     }
     
+     /**
+     * List Disputes that need settling
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
+     * @return array Array with disputes
+     */
+    public function GetPendingSettlements(& $pagination = null, $sorting = null)
+    {
+        return $this->GetList('disputes_pendingsettlement', $pagination, '\MangoPay\Dispute', null, null, $sorting);
+    }
+    
     /**
      * Updates dispute's tag
      * @param \MangoPay\Dispute Dispute object to update
