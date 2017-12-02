@@ -9,8 +9,8 @@ class ApiUsers extends Libraries\ApiBase
 {
     /**
      * Create a new user
-     * @param UserLegal /UserNatural $user
-     * @return UserLegal/UserNatural User object returned from API
+     * @param UserLegal|UserNatural $user
+     * @return UserLegal|UserNatural User object returned from API
      * @throws Libraries\Exception If occur Wrong entity class for user
      */
     public function Create($user, $idempotencyKey = null)
