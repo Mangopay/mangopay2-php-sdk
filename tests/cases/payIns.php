@@ -294,5 +294,13 @@ class PayIns extends Base {
         $this->assertNull($getPayIn->ExecutionDate);
         $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
     }
+
+    function test_PayIns_Get_ExtendedCardView() {
+        $payIn = $this->getJohnsPayInCardWeb();
+
+        $getExtendedCardView = $this->_api->PayIns->GetExtendedCardView($payIn->Id);
+
+        $this->assertNotNull($getExtendedCardView);
+    }
 }
 

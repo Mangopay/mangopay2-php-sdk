@@ -60,6 +60,8 @@ abstract class ApiBase
         'payins_get' => array( '/payins/%s', RequestType::GET ),
         'payins_createrefunds' => array( '/payins/%s/refunds', RequestType::POST ),
 
+        'get_extended_card_view' => array( '/payins/card/web/%s/extended', RequestType::GET ),
+
         'payouts_bankwire_create' => array( '/payouts/bankwire/', RequestType::POST ),
         'payouts_get' => array( '/payouts/%s', RequestType::GET ),
 
