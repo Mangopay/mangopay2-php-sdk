@@ -43,10 +43,11 @@ abstract class ApiBase
 
         'preauthorization_create' => array( '/preauthorizations/card/direct', RequestType::POST ),
         'preauthorization_get' => array( '/preauthorizations/%s', RequestType::GET ),
+        'preauthorizations_get_for_card' => array( '/cards/%s/preauthorizations', RequestType::GET ),
         'preauthorization_save' => array( '/preauthorizations/%s', RequestType::PUT ),
 
         'card_get' => array( '/cards/%s', RequestType::GET ),
-        'cards_get_by_fingerprint' => array('/cards/fingerprints/%s', RequestType::GET),
+        'cards_get_by_fingerprint' => array('/cards/fingerprints/%s', RequestType::GET ),
         'card_save' => array( '/cards/%s', RequestType::PUT ),
 
         // pay ins URLs

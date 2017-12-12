@@ -18,4 +18,15 @@ class Cards extends Base {
             $this->assertIdentical($cardByFingerprint->Fingerprint, $card->Fingerprint);
         }
     }
+
+    function test_Card_GetPreAuthorizations() {
+        $john = $this->getNewJohn();
+        $payIn = $this->getNewPayInCardDirect($john->Id);
+        $card = $this->_api->Cards->Get($payIn->PaymentDetails->CardId);
+
+        $preauthorizations = $this->_api->Cards->GetPreauthorizations($card->Id);
+
+        $this->assertNotNull($preauthorizations);
+        $this->assertIsA($preauthorizations, 'array');
+    }
 }
