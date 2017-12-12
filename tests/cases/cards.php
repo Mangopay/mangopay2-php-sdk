@@ -24,7 +24,7 @@ class Cards extends Base {
         $payIn = $this->getNewPayInCardDirect($john->Id);
         $card = $this->_api->Cards->Get($payIn->PaymentDetails->CardId);
 
-        $preauthorizations = $this->_api->Cards->GetPreauthorizations($card->Id);
+        $preauthorizations = $this->_api->Cards->GetPreAuthorizations($card->Id);
 
         $this->assertNotNull($preauthorizations);
         $this->assertIsA($preauthorizations, 'array');
