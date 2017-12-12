@@ -356,7 +356,7 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function GetPreAuthorizations($userId, $pagination = null, $sorting = null)
     {
-        return $this->GetList('preauthorizations_get_for_user', $pagination, '\MangoPay\PreAuthorization', $userId, null, $sorting);
+        return $this->GetList('preauthorizations_get_for_user', $pagination, '\MangoPay\CardPreAuthorization', $userId, null, $sorting);
     }
 
     /**
