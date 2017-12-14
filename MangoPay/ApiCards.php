@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -15,6 +16,7 @@ class ApiCards extends Libraries\ApiBase
     {
         return $this->GetObject('card_get', $cardId, '\MangoPay\Card');
     }
+
     /**
      * Gets a list of cards having the same fingerprint.
      * The fingerprint is a hash uniquely generated per 16-digit card number.
@@ -27,7 +29,7 @@ class ApiCards extends Libraries\ApiBase
     {
         return $this->GetList('cards_get_by_fingerprint', $pagination, '\MangoPay\Card', $fingerprint);
     }
-    
+
     /**
      * Update card
      * @param \MangoPay\Card $card Card object to save
@@ -38,4 +40,15 @@ class ApiCards extends Libraries\ApiBase
         return $this->SaveObject('card_save', $card, '\MangoPay\Card');
     }
 
+    /**
+     * Gets a Card's PreAuthorizations
+     * @param int $cardId ID of the Card for which to retrieve PreAuthorizations
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Sorting object
+     * @return array List of the Card's PreAuthorizations
+     */
+    public function GetPreAuthorizations($cardId, $pagination = null, $sorting = null)
+    {
+        return $this->GetList("preauthorizations_get_for_card", $pagination, '\MangoPay\CardPreAuthorization', $cardId, null, $sorting);
+    }
 }
