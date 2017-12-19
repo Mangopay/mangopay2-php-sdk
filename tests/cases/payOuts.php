@@ -37,8 +37,10 @@ class PayOuts extends Base {
 
     function test_PayOut_GetRefunds(){
         $payOut = $this->getJohnsPayOutForCardDirect();
+        $pagination = new \MangoPay\Pagination();
+        $filter = new \MangoPay\FilterRefunds();
 
-        $refunds = $this->_api->PayOuts->GetRefunds($payOut->Id);
+        $refunds = $this->_api->PayOuts->GetRefunds($payOut->Id, $pagination, $filter);
 
         $this->assertNotNull($refunds);
         $this->assertIsA($refunds, 'array');

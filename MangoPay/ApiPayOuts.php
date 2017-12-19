@@ -31,12 +31,13 @@ class ApiPayOuts extends Libraries\ApiBase
      * Returns a list of Refunds pertaining to a certain PayOut.
      * @param string $payOutId ID of the PayOut for which to retrieve Refunds
      * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterRefunds filter Filtering object
      * @param \MangoPay\Sorting $sorting Sorting object
      * @return array List of Refunds for the PayOut
      */
-    public function GetRefunds($payOutId, & $pagination = null, $sorting = null)
+    public function GetRefunds($payOutId, & $pagination = null, $filter = null, $sorting = null)
     {
-        return $this->GetList('refunds_get_for_payout', $pagination, '\MangoPay\Refund', $payOutId, null, $sorting);
+        return $this->GetList('refunds_get_for_payout', $pagination, '\MangoPay\Refund', $payOutId, $filter, $sorting);
     }
     
     private function GetPaymentKey($payOut)
