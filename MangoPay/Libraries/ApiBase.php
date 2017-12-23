@@ -66,6 +66,7 @@ abstract class ApiBase
         'payouts_get' => array( '/payouts/%s', RequestType::GET ),
 
         'refunds_get' => array( '/refunds/%s', RequestType::GET ),
+        'refunds_get_for_repudiation' => array( '/repudiations/%s/refunds', RequestType::GET ),
 
         'transfers_create' => array( '/transfers', RequestType::POST ),
         'transfers_get' => array( '/transfers/%s', RequestType::GET ),
