@@ -36,4 +36,17 @@ class ApiTransfers extends Libraries\ApiBase
     {
         return $this->CreateObject('transfers_createrefunds', $refund, '\MangoPay\Refund', $transferId, null, $idempotencyKey);
     }
+
+    /**
+     * Retrieve list of Refunds pertaining to a certain Transfer
+     * @param string $transferId Transfer identifier
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterRefunds $filter Filtering object
+     * @param \MangoPay\Sorting $sorting Sorting object
+     * @return array List of the Transfer's Refunds
+     */
+    public function GetRefunds($transferId, & $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('refunds_get_for_transfer', $pagination, '\MangoPay\Refund', $transferId, $filter, $sorting);
+    }
 }
