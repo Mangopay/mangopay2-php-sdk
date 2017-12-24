@@ -50,4 +50,16 @@ class ApiMandates extends Libraries\ApiBase
     {
         return $this->GetList('mandates_all', $pagination, 'MangoPay\Mandate', null, $filter, $sorting);
     }
+
+    /**
+     * Retrieves list of Transactions pertaining to a certain Mandate
+     * @param string $mandateId Mandate identifier
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterTransactions $filter Filtering object
+     * @param \MangoPay\Sorting $sorting Sorting object
+     */
+    public function GetTransactions($mandateId, & $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('transactions_get_for_mandate', $pagination, '\MangoPay\Transaction', $mandateId, $filter, $sorting);
+    }
 }
