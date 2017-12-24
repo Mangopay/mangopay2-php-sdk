@@ -23,4 +23,10 @@ class FilterTransactions extends FilterBase
      * @var string
      */
     public $Nature;
+
+    /**
+     * Transaction's result code
+     * @var string
+     */
+    public $ResultCode;
 }
