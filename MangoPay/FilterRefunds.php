@@ -13,7 +13,7 @@ class FilterRefunds extends Libraries\Dto
      * @var string
      */
     public $Status;
-
+  
     /**
      * The result code of the transaction
      * Multiple values separated by commas are allowed
