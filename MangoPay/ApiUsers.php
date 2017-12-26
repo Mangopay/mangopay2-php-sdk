@@ -351,12 +351,14 @@ class ApiUsers extends Libraries\ApiBase
      * Gets a list with PreAuthorizations belonging to a specific user
      * @param string $userId ID of the user whose PreAuthorizations to retrieve
      * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterPreAuthorizations $filter Filtering object
      * @param \MangoPay\Sorting $sorting Sorting object
      * @return array The user's PreAuthorizations
      */
-    public function GetPreAuthorizations($userId, & $pagination = null, $sorting = null)
+
+    public function GetPreAuthorizations($userId, $pagination = null, $filter = null, $sorting = null)
     {
-        return $this->GetList('preauthorizations_get_for_user', $pagination, '\MangoPay\CardPreAuthorization', $userId, null, $sorting);
+        return $this->GetList('preauthorizations_get_for_user', $pagination, '\MangoPay\CardPreAuthorization', $userId, $filter, $sorting);
     }
 
     /**
