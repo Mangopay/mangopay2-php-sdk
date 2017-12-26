@@ -171,8 +171,10 @@ abstract class ApiBase
         'ubo_declaration_update' => array( '/ubodeclarations/%s', RequestType::PUT ),
         'ubo_declaration_get' => array( '/ubodeclarations/%s', RequestType::GET ),
 
+        'transactions_get_for_mandate' => array( '/mandates/%s/transactions', RequestType::GET ),
         'transactions_get_for_card' => array( '/cards/%s/transactions', RequestType::GET ),
         'transactions_get_for_bank_account' => array( '/bankaccounts/%s/transactions', RequestType::GET )
+
     );
 
     /**

@@ -46,4 +46,15 @@ class Mandates extends Base {
         
         $this->assertTrue(count($mandates) > 0);
     }
+
+    function test_Mandate_GetTransactions() {
+        $mandate = $this->getJohnsMandate();
+        $pagination = new \MangoPay\Pagination();
+        $filter = new \MangoPay\FilterTransactions();
+
+        $transactions = $this->_api->Mandates->GetTransactions($mandate->Id, $pagination, $filter);
+
+        $this->assertNotNull($transactions);
+        $this->assertIsA($transactions, 'array');
+    }
 }
