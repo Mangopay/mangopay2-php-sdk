@@ -157,6 +157,12 @@ class MangoPayApi
     public $UboDeclarations;
 
     /**
+     * Provides Repudiation methods
+     * @var ApiRepudiations
+     */
+    public $Repudiations;
+
+    /**
      * @var LoggerInterface
      */
     public $logger;
@@ -198,6 +204,7 @@ class MangoPayApi
         $this->Reports = new ApiReports($this);
         $this->BankingAliases = new ApiBankingAliases($this);
         $this->UboDeclarations = new ApiUboDeclarations($this);
+        $this->Repudiations = new ApiRepudiations($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();
