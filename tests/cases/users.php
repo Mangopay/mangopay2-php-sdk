@@ -701,7 +701,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
      function test_Users_GetPreAuthorizations() {
         $john = $this->getJohn();
 
-        $preauthorizations = $this->_api->Users->GetPreAuthorizations($john->Id, null, null);
+        $preauthorizations = $this->_api->Users->GetPreAuthorizations($john->Id);
 
         $this->assertNotNull($preauthorizations);
         $this->assertIsA($preauthorizations, 'array');

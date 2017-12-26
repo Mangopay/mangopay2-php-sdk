@@ -355,6 +355,7 @@ class ApiUsers extends Libraries\ApiBase
      * @param \MangoPay\Sorting $sorting Sorting object
      * @return array The user's PreAuthorizations
      */
+
     public function GetPreAuthorizations($userId, $pagination = null, $filter = null, $sorting = null)
     {
         return $this->GetList('preauthorizations_get_for_user', $pagination, '\MangoPay\CardPreAuthorization', $userId, $filter, $sorting);

@@ -48,6 +48,7 @@ class ApiCards extends Libraries\ApiBase
      * @param \MangoPay\Sorting $sorting Sorting object
      * @return array List of the Card's PreAuthorizations
      */
+
     public function GetPreAuthorizations($cardId, $pagination = null, $filter = null, $sorting = null)
     {
         return $this->GetList("preauthorizations_get_for_card", $pagination, '\MangoPay\CardPreAuthorization', $cardId, $filter, $sorting);
