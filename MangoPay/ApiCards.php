@@ -53,4 +53,16 @@ class ApiCards extends Libraries\ApiBase
     {
         return $this->GetList("preauthorizations_get_for_card", $pagination, '\MangoPay\CardPreAuthorization', $cardId, $filter, $sorting);
     }
+
+    /**
+     * Retrives a list of Transactions pertaining to a certain Card
+     * @param string $cardId Card identifier
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterTransactions $filter Filtering object
+     * @param \MangoPay\Sorting $sorting Sorting object
+     */
+    public function GetTransactions($cardId, & $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('transactions_get_for_card', $pagination, '\MangoPay\Transaction', $cardId, $filter, $sorting);
+    }
 }
