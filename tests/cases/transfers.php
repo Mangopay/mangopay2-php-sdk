@@ -37,7 +37,7 @@ class Transfers extends Base {
         $transfer = $this->getNewTransfer();
         $wallet = $this->getJohnsWalletWithMoney();
         $walletBefore = $this->_api->Wallets->Get($wallet->Id);
-                
+
         $refund = $this->getNewRefundForTransfer($transfer);
         $walletAfter = $this->_api->Wallets->Get($wallet->Id);
 
@@ -47,5 +47,16 @@ class Transfers extends Base {
         $this->assertEqual('TRANSFER', $refund->Type);
         $this->assertEqual('REFUND', $refund->Nature);
         $this->assertIsA($refund->RefundReason, '\MangoPay\RefundReasonDetails');
+    }
+
+    public function test_Transfer_GetRefunds() {
+        $transfer = $this->getNewTransfer();
+        $pagination = new \MangoPay\Pagination();
+        $filter = new \MangoPay\FilterRefunds();
+
+        $refunds = $this->_api->Transfers->GetRefunds($transfer->Id, $pagination, $filter);
+
+        $this->assertNotNull($refunds);
+        $this->assertIsA($refunds, 'array');
     }
 }
