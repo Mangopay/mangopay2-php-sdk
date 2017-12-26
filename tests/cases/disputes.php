@@ -396,4 +396,29 @@ class Disputes extends Base {
         $this->assertTrue($transfer->Id == $fetchedTransfer->Id);
         $this->assertTrue($transfer->CreationDate == $fetchedTransfer->CreationDate);
     }
+
+    public function test_Repudiations_GetRefunds()
+    {
+        $disputeForTest = null;
+        foreach($this->_clientDisputes as $dispute){
+            if ($dispute->Status == \MangoPay\DisputeStatus::Closed && $dispute->DisputeType == \MangoPay\DisputeType::NotContestable){
+                $disputeForTest = $dispute;
+                break;
+            }
+        }
+        if (is_null($disputeForTest)){
+            $this->reporter->paintSkip("Cannot test getting repudiation's refunds because there's no closed, not costestable disputes in the disputes list.");
+            return;
+        }
+        $pagination = new \MangoPay\Pagination();
+        $transactions = $this->_api->Disputes->GetTransactions($disputeForTest->Id, $pagination);
+        $repudiationId = $transactions[0]->Id;
+        $repudiation = $this->_api->Disputes->GetRepudiation($repudiationId);
+        $filter = new \MangoPay\FilterRefunds();
+
+        $refunds = $this->_api->Repudiations->GetRefunds($repudiation->Id, $pagination, $filter);
+
+        $this->assertNotNull($refunds);
+        $this->assertIsA($refunds, 'array');
+    }
 }

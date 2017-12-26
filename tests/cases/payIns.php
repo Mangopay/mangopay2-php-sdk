@@ -294,5 +294,16 @@ class PayIns extends Base {
         $this->assertNull($getPayIn->ExecutionDate);
         $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
     }
+
+    function test_PayIn_GetRefunds() {
+        $payIn = $this->getJohnsPayInCardWeb();
+        $pagination = new \MangoPay\Pagination();
+        $filter = new \MangoPay\FilterRefunds();
+
+        $refunds = $this->_api->PayIns->GetRefunds($payIn->Id, $pagination, $filter);
+
+        $this->assertNotNull($refunds);
+        $this->assertIsA($refunds, 'array');
+    }
 }
 
