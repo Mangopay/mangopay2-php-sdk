@@ -18,7 +18,7 @@ class ApiMandates extends Libraries\ApiBase
     
     /**
      * Get mandate
-     * @param int $mandateId Mandate identifier
+     * @param string $mandateId Mandate identifier
      * @return \MangoPay\Mandate Mandate object returned from API
      */
     public function Get($mandateId)
@@ -28,7 +28,7 @@ class ApiMandates extends Libraries\ApiBase
     
     /**
      * Cancel mandate
-     * @param Mandate $mandateId Id of mandate object to cancel
+     * @param string $mandateId Id of mandate object to cancel
      * @return \MangoPay\Mandate Mandate object returned from API
      */
     public function Cancel($mandateId)
