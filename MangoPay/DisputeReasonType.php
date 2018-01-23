@@ -19,8 +19,8 @@ class DisputeReasonType
     const LateFailureBankaccountIncorrect = "LATE_FAILURE_BANKACCOUNT_INCORRECT";
     const AuthorisationDisputed = "AUTHORISATION_DISPUTED";
     const TransactionNotRecognized = "TRANSACTION_NOT_RECOGNIZED";
-	const ProductNotProvided = PRODUCT_NOT_PROVIDED";
-	const CanceledReoccuringTransaction = "CANCELED_REOCCURING_TRANSACTION";
-	const RefundNotProcessed = "REFUND_NOT_PROCESSED";
+    const ProductNotProvided = "PRODUCT_NOT_PROVIDED";
+    const CanceledReoccuringTransaction = "CANCELED_REOCCURING_TRANSACTION";
+    const RefundNotProcessed = "REFUND_NOT_PROCESSED";
 }
 
