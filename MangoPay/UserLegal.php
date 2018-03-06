@@ -70,7 +70,7 @@ class UserLegal extends User
      *
      * @var string
      */
-    public $ProofOfIdentity;
+    public $LegalRepresentativeProofOfIdentity;
     
     /**
      *
