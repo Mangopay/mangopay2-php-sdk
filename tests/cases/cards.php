@@ -1,5 +1,8 @@
 <?php
 namespace MangoPay\Tests;
+use MangoPay\SortDirection;
+use MangoPay\Sorting;
+
 require_once 'base.php';
 
 /**
@@ -12,7 +15,10 @@ class Cards extends Base {
         $payIn = $this->getNewPayInCardDirect($john->Id);
         $card = $this->_api->Cards->Get($payIn->PaymentDetails->CardId);
 
-        $cardsByFingerprint = $this->_api->Cards->GetByFingerprint($card->Fingerprint);
+        $sorting = new Sorting();
+        $sorting->AddField("CreationDate", SortDirection::DESC);
+
+        $cardsByFingerprint = $this->_api->Cards->GetByFingerprint($card->Fingerprint, $sorting);
 
         foreach($cardsByFingerprint as $cardByFingerprint) {
             $this->assertIdentical($cardByFingerprint->Fingerprint, $card->Fingerprint);

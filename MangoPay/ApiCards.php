@@ -23,11 +23,12 @@ class ApiCards extends Libraries\ApiBase
      *
      * @param string $fingerprint The fingerprint hash
      * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Sorting object
      * @return array List of Cards corresponding to provided fingerprint
      */
-    public function GetByFingerprint($fingerprint, $pagination = null)
+    public function GetByFingerprint($fingerprint, & $pagination = null, $sorting = null)
     {
-        return $this->GetList('cards_get_by_fingerprint', $pagination, '\MangoPay\Card', $fingerprint);
+        return $this->GetList('cards_get_by_fingerprint', $pagination, '\MangoPay\Card', $fingerprint, null, $sorting);
     }
 
     /**

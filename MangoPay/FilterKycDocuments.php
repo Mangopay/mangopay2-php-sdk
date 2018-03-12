@@ -2,7 +2,7 @@
 namespace MangoPay;
 
 /**
- * Filter for event list
+ * Filter for dispute document list
  */
 class FilterKycDocuments extends FilterBase
 {

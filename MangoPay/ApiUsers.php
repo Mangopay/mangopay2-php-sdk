@@ -208,6 +208,7 @@ class ApiUsers extends Libraries\ApiBase
      * Create new KYC document
      * @param int $userId User Id
      * @param \MangoPay\KycDocument $kycDocument
+     * @param string $idempotencyKey Key for response replication
      * @return \MangoPay\KycDocument Document returned from API
      */
     public function CreateKycDocument($userId, $kycDocument, $idempotencyKey = null)

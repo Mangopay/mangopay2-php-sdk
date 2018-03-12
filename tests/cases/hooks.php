@@ -1,5 +1,8 @@
 <?php
 namespace MangoPay\Tests;
+use MangoPay\SortDirection;
+use MangoPay\Sorting;
+
 require_once 'base.php';
 
 /**
@@ -34,8 +37,10 @@ class Hooks extends Base {
     function test_Hooks_All() {
         $hook = $this->getJohnHook();
         $pagination = new \MangoPay\Pagination(1, 1);
+        $sorting = new Sorting();
+        $sorting->AddField("CreationDate", SortDirection::ASC);
         
-        $list = $this->_api->Hooks->GetAll($pagination);
+        $list = $this->_api->Hooks->GetAll($pagination, $sorting);
         
         $this->assertIsA($list[0], '\MangoPay\Hook');
         $this->assertIdentical($hook->Id, $list[0]->Id);

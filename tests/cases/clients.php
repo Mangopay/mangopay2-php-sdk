@@ -1,5 +1,7 @@
 <?php
 namespace MangoPay\Tests;
+use MangoPay\Sorting;
+
 require_once 'base.php';
 
 /**
@@ -112,7 +114,9 @@ class Clients extends Base {
     }
     
     function test_GetWallets_FundsTypeAll(){
-        $wallets = $this->_api->Clients->GetWallets(null);
+        $sorting = new Sorting();
+        $sorting->AddField("CreationDate", \MangoPay\SortDirection::ASC);
+        $wallets = $this->_api->Clients->GetWallets(null, $sorting);
         
         $this->assertTrue(count($wallets) > 0);
         $this->assertIsA($wallets[0], '\MangoPay\Wallet');
