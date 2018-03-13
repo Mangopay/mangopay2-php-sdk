@@ -1,5 +1,10 @@
 <?php
 namespace MangoPay\Tests;
+use MangoPay\DisputeDocumentStatus;
+use MangoPay\FilterDisputeDocuments;
+use MangoPay\SortDirection;
+use MangoPay\Sorting;
+
 require_once 'base.php';
 
 /**
@@ -301,7 +306,11 @@ class Disputes extends Base {
 
     function test_Disputes_GetAllDocuments() {
         $pagination = new \MangoPay\Pagination();
-        $result = $this->_api->DisputeDocuments->GetAll($pagination);
+        $sorting = new Sorting();
+        $sorting->AddField("CreationDate", SortDirection::DESC);
+        $filter = new FilterDisputeDocuments();
+        $filter->Status = DisputeDocumentStatus::Created;
+        $result = $this->_api->DisputeDocuments->GetAll($pagination, $sorting, $filter);
 
         $this->assertNotNull($result);
     }
