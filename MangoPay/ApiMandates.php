@@ -28,7 +28,7 @@ class ApiMandates extends Libraries\ApiBase
     
     /**
      * Cancel mandate
-     * @param Mandate $mandateId Id of mandate object to cancel
+     * @param int $mandateId Id of mandate object to cancel
      * @return \MangoPay\Mandate Mandate object returned from API
      */
     public function Cancel($mandateId)
