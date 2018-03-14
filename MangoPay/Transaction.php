@@ -57,7 +57,7 @@ class Transaction extends Libraries\EntityBase
     
     /**
      * Execution date;
-     * @var date
+     * @var int
      */
     public $ExecutionDate;
     

@@ -43,10 +43,12 @@ abstract class ApiBase
 
         'preauthorization_create' => array( '/preauthorizations/card/direct', RequestType::POST ),
         'preauthorization_get' => array( '/preauthorizations/%s', RequestType::GET ),
+        'preauthorizations_get_for_card' => array( '/cards/%s/preauthorizations', RequestType::GET ),
+        'preauthorizations_get_for_user' => array( '/users/%s/preauthorizations', RequestType::GET ),
         'preauthorization_save' => array( '/preauthorizations/%s', RequestType::PUT ),
 
         'card_get' => array( '/cards/%s', RequestType::GET ),
-        'cards_get_by_fingerprint' => array('/cards/fingerprints/%s', RequestType::GET),
+        'cards_get_by_fingerprint' => array('/cards/fingerprints/%s', RequestType::GET ),
         'card_save' => array( '/cards/%s', RequestType::PUT ),
 
         // pay ins URLs
@@ -66,6 +68,10 @@ abstract class ApiBase
         'payouts_get' => array( '/payouts/%s', RequestType::GET ),
 
         'refunds_get' => array( '/refunds/%s', RequestType::GET ),
+        'refunds_get_for_repudiation' => array( '/repudiations/%s/refunds', RequestType::GET ),
+        'refunds_get_for_transfer' => array( '/transfers/%s/refunds', RequestType::GET ),
+        'refunds_get_for_payin' => array( '/payins/%s/refunds', RequestType::GET ),
+        'refunds_get_for_payout' => array( '/payouts/%s/refunds', RequestType::GET ),
 
         'transfers_create' => array( '/transfers', RequestType::POST ),
         'transfers_get' => array( '/transfers/%s', RequestType::GET ),
@@ -165,7 +171,12 @@ abstract class ApiBase
 
         'ubo_declaration_create' => array( '/users/legal/%s/ubodeclarations', RequestType::POST ),
         'ubo_declaration_update' => array( '/ubodeclarations/%s', RequestType::PUT ),
-        'ubo_declaration_get' => array( '/ubodeclarations/%s', RequestType::GET )
+        'ubo_declaration_get' => array( '/ubodeclarations/%s', RequestType::GET ),
+
+        'transactions_get_for_mandate' => array( '/mandates/%s/transactions', RequestType::GET ),
+        'transactions_get_for_card' => array( '/cards/%s/transactions', RequestType::GET ),
+        'transactions_get_for_bank_account' => array( '/bankaccounts/%s/transactions', RequestType::GET )
+
     );
 
     /**

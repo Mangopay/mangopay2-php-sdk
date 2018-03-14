@@ -39,6 +39,19 @@ class ApiPayIns extends Libraries\ApiBase
         return $this->CreateObject('payins_createrefunds', $refund, '\MangoPay\Refund', $payInId, null, $idempotencyKey);
     }
 
+    /**
+     * Retrieves a list of Refunds pertaining to a certain PayIn
+     * @param string $payInId ID of PayIn for which to retrieve Refunds
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterRefunds $filter Filtering object
+     * @param \MangoPay\Sorting $sorting Sorting object
+     * @return array List of the PayIn's Refunds
+     */
+    public function GetRefunds($payInId, & $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('refunds_get_for_payin', $pagination, '\MangoPay\Refund', $payInId, $filter, $sorting);
+    }
+
         private function GetPaymentKey($payIn)
     {
         if (!isset($payIn->PaymentDetails) || !is_object($payIn->PaymentDetails)) {

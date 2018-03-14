@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
  */
 class RestTool
 {
-    const VERSION = '2.6.4';
+    const VERSION = '2.7.1';
 
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance
@@ -161,7 +161,7 @@ class RestTool
      * @param string $urlMethod Type of method in REST API
      * @param \MangoPay\Pagination $pagination
      * @param null $additionalUrlParams
-     * @param null $idempotencyKey
+     * @param string $idempotencyKey Key for response replication
      */
     private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null, $idempotencyKey = null)
     {
@@ -239,7 +239,7 @@ class RestTool
 
     /**
      * Get HTTP header to use in request
-     * @param null $idempotencyKey
+     * @param string $idempotencyKey Key for response replication
      * @return array Array with HTTP headers
      */
     private function GetHttpHeaders($idempotencyKey = null)

@@ -697,4 +697,13 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertEqual($createdDeclaration->UserId, $matrix->Id);
         $this->assertEqual($createdDeclaration->DeclaredUBOs[0]->UserId, $john->Id);
      }
+
+     function test_Users_GetPreAuthorizations() {
+        $john = $this->getJohn();
+
+        $preauthorizations = $this->_api->Users->GetPreAuthorizations($john->Id);
+
+        $this->assertNotNull($preauthorizations);
+        $this->assertIsA($preauthorizations, 'array');
+     }
 }

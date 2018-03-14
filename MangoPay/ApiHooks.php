@@ -9,6 +9,7 @@ class ApiHooks extends Libraries\ApiBase
     /**
      * Create new hook
      * @param Hook $hook
+     * @param string $idempotencyKey Idempotency key for response replication
      * @return \MangoPay\Hook Hook object returned from API
      */
     public function Create($hook, $idempotencyKey = null)
@@ -35,14 +36,16 @@ class ApiHooks extends Libraries\ApiBase
     {
         return $this->SaveObject('hooks_save', $hook, '\MangoPay\Hook');
     }
-    
+
     /**
      * Get all hooks
      * @param \MangoPay\Pagination $pagination Pagination object
-     * @return \MangoPay\Hook[] Array with objects returned from API
+     * @param \MangoPay\Sorting $sorting Sorting object
+     * @return object[] Array with objects returned from API
+     * @throws Libraries\Exception
      */
-    public function GetAll(& $pagination = null)
+    public function GetAll(& $pagination = null, $sorting = null)
     {
-        return $this->GetList('hooks_all', $pagination, '\MangoPay\Hook');
+        return $this->GetList('hooks_all', $pagination, '\MangoPay\Hook', null, null, $sorting);
     }
 }

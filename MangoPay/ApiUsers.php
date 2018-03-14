@@ -9,8 +9,8 @@ class ApiUsers extends Libraries\ApiBase
 {
     /**
      * Create a new user
-     * @param UserLegal /UserNatural $user
-     * @return UserLegal/UserNatural User object returned from API
+     * @param UserLegal|UserNatural $user
+     * @return UserLegal|UserNatural User object returned from API
      * @throws Libraries\Exception If occur Wrong entity class for user
      */
     public function Create($user, $idempotencyKey = null)
@@ -208,6 +208,7 @@ class ApiUsers extends Libraries\ApiBase
      * Create new KYC document
      * @param int $userId User Id
      * @param \MangoPay\KycDocument $kycDocument
+     * @param string $idempotencyKey Key for response replication
      * @return \MangoPay\KycDocument Document returned from API
      */
     public function CreateKycDocument($userId, $kycDocument, $idempotencyKey = null)
@@ -345,6 +346,20 @@ class ApiUsers extends Libraries\ApiBase
     public function CreateUboDeclaration($userId, $declaration)
     {
         return $this->CreateObject('ubo_declaration_create', $declaration, '\MangoPay\UboDeclaration', $userId);
+    }
+
+    /**
+     * Gets a list with PreAuthorizations belonging to a specific user
+     * @param string $userId ID of the user whose PreAuthorizations to retrieve
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterPreAuthorizations $filter Filtering object
+     * @param \MangoPay\Sorting $sorting Sorting object
+     * @return array The user's PreAuthorizations
+     */
+
+    public function GetPreAuthorizations($userId, $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('preauthorizations_get_for_user', $pagination, '\MangoPay\CardPreAuthorization', $userId, $filter, $sorting);
     }
 
     /**

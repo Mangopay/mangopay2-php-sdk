@@ -1,5 +1,10 @@
 <?php
 namespace MangoPay\Tests;
+use MangoPay\DisputeDocumentStatus;
+use MangoPay\FilterDisputeDocuments;
+use MangoPay\SortDirection;
+use MangoPay\Sorting;
+
 require_once 'base.php';
 
 /**
@@ -301,7 +306,11 @@ class Disputes extends Base {
 
     function test_Disputes_GetAllDocuments() {
         $pagination = new \MangoPay\Pagination();
-        $result = $this->_api->DisputeDocuments->GetAll($pagination);
+        $sorting = new Sorting();
+        $sorting->AddField("CreationDate", SortDirection::DESC);
+        $filter = new FilterDisputeDocuments();
+        $filter->Status = DisputeDocumentStatus::Created;
+        $result = $this->_api->DisputeDocuments->GetAll($pagination, $sorting, $filter);
 
         $this->assertNotNull($result);
     }
@@ -395,5 +404,30 @@ class Disputes extends Base {
         $fetchedTransfer = $this->_api->Disputes->GetSettlementTransfer($transfer->Id);
         $this->assertTrue($transfer->Id == $fetchedTransfer->Id);
         $this->assertTrue($transfer->CreationDate == $fetchedTransfer->CreationDate);
+    }
+
+    public function test_Repudiations_GetRefunds()
+    {
+        $disputeForTest = null;
+        foreach($this->_clientDisputes as $dispute){
+            if ($dispute->Status == \MangoPay\DisputeStatus::Closed && $dispute->DisputeType == \MangoPay\DisputeType::NotContestable){
+                $disputeForTest = $dispute;
+                break;
+            }
+        }
+        if (is_null($disputeForTest)){
+            $this->reporter->paintSkip("Cannot test getting repudiation's refunds because there's no closed, not costestable disputes in the disputes list.");
+            return;
+        }
+        $pagination = new \MangoPay\Pagination();
+        $transactions = $this->_api->Disputes->GetTransactions($disputeForTest->Id, $pagination);
+        $repudiationId = $transactions[0]->Id;
+        $repudiation = $this->_api->Disputes->GetRepudiation($repudiationId);
+        $filter = new \MangoPay\FilterRefunds();
+
+        $refunds = $this->_api->Repudiations->GetRefunds($repudiation->Id, $pagination, $filter);
+
+        $this->assertNotNull($refunds);
+        $this->assertIsA($refunds, 'array');
     }
 }
