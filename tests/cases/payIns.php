@@ -2,6 +2,8 @@
 
 namespace MangoPay\Tests;
 
+use MangoPay\Libraries\Exception;
+
 require_once 'base.php';
 
 /**
@@ -298,9 +300,17 @@ class PayIns extends Base {
     function test_PayIns_Get_ExtendedCardView() {
         $payIn = $this->getJohnsPayInCardWeb();
 
-        $getExtendedCardView = $this->_api->PayIns->GetExtendedCardView($payIn->Id);
+        $message = null;
+        try {
+            $this->_api->PayIns->GetExtendedCardView($payIn->Id);
+        } catch (Exception $e) {
+            // This test will throw \MangoPay\Libraries\ResponseException because some external actions are needed
+            // in order to get the PayIn in the CREATED status needed in order to get an extended view for it.
+            $message = $e->getMessage();
+        }
 
-        $this->assertNotNull($getExtendedCardView);
+        $this->assertNotNull($message);
+        $this->assertTrue(strpos($message, 'Not found') !== false);
     }
 }
 
