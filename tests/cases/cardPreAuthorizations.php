@@ -1,6 +1,8 @@
 <?php
 namespace MangoPay\Tests;
 
+use MangoPay\AVSResult;
+
 require_once 'base.php';
 
 /**
@@ -16,6 +18,7 @@ class CardPreAuthorizations extends Base {
         $this->assertIdentical($cardPreAuthorization->PaymentStatus, \MangoPay\CardPreAuthorizationPaymentStatus::Waiting);
         $this->assertIdentical($cardPreAuthorization->ExecutionType, 'DIRECT');
         $this->assertNull($cardPreAuthorization->PayInId);
+        $this->assertIdentical($cardPreAuthorization->SecurityInfo->AVSResult, AVSResult::FULL_MATCH);
     }
     
     function test_CardPreAuthorization_Get() {
