@@ -72,4 +72,14 @@ class ApiPayIns extends Libraries\ApiBase
         return strtolower($className);
     }
 
+    /**
+     * Retrieves a more detailed view of details concerning
+     * the card used to process a Web payment.
+     * @param string $payInId ID of the PayIn to retrieve card details for
+     * @return \MangoPay\PayInWebExtendedView Object returned from API
+     */
+    public function GetExtendedCardView($payInId)
+    {
+        return $this->GetObject('get_extended_card_view', $payInId, '\MangoPay\PayInWebExtendedView');
+    }
 }
