@@ -9,7 +9,7 @@ class PlatformCategorization extends Libraries\Dto
 
     /**
      * Type of business conducted by the platform
-     * @var string (see \MangoPay\BusinessType
+     * @var string (see \MangoPay\BusinessType)
      */
     public $BusinessType;
 

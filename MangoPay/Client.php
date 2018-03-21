@@ -99,6 +99,7 @@ class Client extends Libraries\EntityBase
     {
         $subObjects = parent::GetSubObjects();
         $subObjects['HeadquartersAddress'] = '\MangoPay\Address';
+        $subObjects['PlatformCategorization'] = '\MangoPay\PlatformCategorization';
         
         return $subObjects;
     }
