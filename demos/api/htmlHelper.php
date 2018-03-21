@@ -203,8 +203,10 @@ class HtmlHelper {
                 self::renderEnum("\\MangoPay\\DisputeDocumentStatus", $name, $prefix);
             } elseif ($className == "\\MangoPay\\ReportRequest" && $name == "ReportType") {
                 self::renderEnum("\\MangoPay\\ReportType", $name, $prefix);
-            } elseif ($className == "\\MangoPay\\Client" && $name == "PlatformType") {
-                self::renderEnum("\\MangoPay\\PlatformType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\PlatformCategorization" && $name == "BusinessType") {
+                self::renderEnum("\\MangoPay\\BusinessType", $name, $prefix);
+            } elseif ($className == "\\MangoPay\\PlatformCategorization" && $name == "Sector") {
+                self::renderEnum("\\MangoPay\\Sector", $name, $prefix);
             }
             else
                 echo '<input type="text" name="' . $prefix . $name . '" value="' . $value . '"/>';

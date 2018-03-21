@@ -68,10 +68,10 @@ class Client extends Libraries\EntityBase
     public $PlatformDescription;
     
     /**
-     * The type of platform
-     * @var \MangoPay\PlatformType
+     * Categorization details of the client
+     * @var \MangoPay\PlatformCategorization
      */
-    public $PlatformType;
+    public $PlatformCategorization;
     
     /**
      * The URL for your website
