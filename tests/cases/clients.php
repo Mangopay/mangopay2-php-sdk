@@ -1,5 +1,7 @@
 <?php
 namespace MangoPay\Tests;
+use MangoPay\BusinessType;
+use MangoPay\Sector;
 use MangoPay\Sorting;
 
 require_once 'base.php';
@@ -20,7 +22,9 @@ class Clients extends Base {
         $clients->PrimaryButtonColour = "#afafae";
         $clients->PrimaryThemeColour = "#afafae";
         $clients->PlatformDescription = "platform description";
-        $clients->PlatformType = \MangoPay\PlatformType::Other;
+        $clients->PlatformCategorization = new \MangoPay\PlatformCategorization();
+        $clients->PlatformCategorization->BusinessType = BusinessType::MARKETPLACE;
+        $clients->PlatformCategorization->Sector = Sector::FURNITURE_GARDEN;
         $clients->PlatformURL = "http://sdk-unit-tests.com";
         $clients->HeadquartersAddress = new \MangoPay\Address();
         $clients->HeadquartersAddress->AddressLine1 = "AddressLine1";

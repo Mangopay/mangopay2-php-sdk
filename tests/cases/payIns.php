@@ -3,6 +3,7 @@
 namespace MangoPay\Tests;
 
 use MangoPay\AVSResult;
+use MangoPay\Libraries\Exception;
 
 require_once 'base.php';
 
@@ -296,6 +297,22 @@ class PayIns extends Base {
         $this->assertIdentical($getPayIn->Status, 'CREATED');
         $this->assertNull($getPayIn->ExecutionDate);
         $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
+    }
+
+    function test_PayIns_Get_ExtendedCardView() {
+        $payIn = $this->getJohnsPayInCardWeb();
+
+        $message = null;
+        try {
+            $this->_api->PayIns->GetExtendedCardView($payIn->Id);
+        } catch (Exception $e) {
+            // This test will throw \MangoPay\Libraries\ResponseException because some external actions are needed
+            // in order to get the PayIn in the CREATED status needed in order to get an extended view for it.
+            $message = $e->getMessage();
+        }
+
+        $this->assertNotNull($message);
+        $this->assertTrue(strpos($message, 'Not found') !== false);
     }
 
     function test_PayIn_GetRefunds() {
