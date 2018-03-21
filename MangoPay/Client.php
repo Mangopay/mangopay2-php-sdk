@@ -68,10 +68,10 @@ class Client extends Libraries\EntityBase
     public $PlatformDescription;
     
     /**
-     * The type of platform
-     * @var \MangoPay\PlatformType
+     * Categorization details of the client
+     * @var \MangoPay\PlatformCategorization
      */
-    public $PlatformType;
+    public $PlatformCategorization;
     
     /**
      * The URL for your website
@@ -99,6 +99,7 @@ class Client extends Libraries\EntityBase
     {
         $subObjects = parent::GetSubObjects();
         $subObjects['HeadquartersAddress'] = '\MangoPay\Address';
+        $subObjects['PlatformCategorization'] = '\MangoPay\PlatformCategorization';
         
         return $subObjects;
     }
