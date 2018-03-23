@@ -2,6 +2,7 @@
 
 namespace MangoPay\Tests;
 
+use MangoPay\AVSResult;
 use MangoPay\Libraries\Exception;
 
 require_once 'base.php';
@@ -73,6 +74,7 @@ class PayIns extends Base {
         $this->assertIsA($payIn->ExecutionDetails, '\MangoPay\PayInExecutionDetailsDirect');
         $this->assertIdenticalInputProps($payIn, $getPayIn);
         $this->assertNotNull($getPayIn->PaymentDetails->CardId);
+        $this->assertEqual($getPayIn->ExecutionDetails->SecurityInfo->AVSResult, AVSResult::FULL_MATCH);
     }
 
     function test_PayIns_CreateRefund_CardDirect() {

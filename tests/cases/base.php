@@ -421,6 +421,17 @@ abstract class Base extends \UnitTestCase {
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+
+        $address = new \MangoPay\Address();
+        $address->AddressLine1 = 'Main Street no 5';
+        $address->City = 'Paris';
+        $address->Country = 'FR';
+        $address->PostalCode = '68400';
+        $address->Region = 'Europe';
+        $billing = new \MangoPay\Billing();
+        $billing->Address = $address;
+        $payIn->ExecutionDetails->Billing = $billing;
+
         return $this->_api->PayIns->Create($payIn);
     }
 
@@ -628,6 +639,16 @@ abstract class Base extends \UnitTestCase {
             $cardPreAuthorization->DebitedFunds->Amount = 10000;
             $cardPreAuthorization->CardId = $getCardRegistration->CardId;
             $cardPreAuthorization->SecureModeReturnURL = 'http://test.com';
+
+            $address = new \MangoPay\Address();
+            $address->AddressLine1 = 'Main Street no 5';
+            $address->City = 'Paris';
+            $address->Country = 'FR';
+            $address->PostalCode = '68400';
+            $address->Region = 'Europe';
+            $billing = new \MangoPay\Billing();
+            $billing->Address = $address;
+            $cardPreAuthorization->Billing = $billing;
 
             return $this->_api->CardPreAuthorizations->Create($cardPreAuthorization, $idempotencyKey);
     }
