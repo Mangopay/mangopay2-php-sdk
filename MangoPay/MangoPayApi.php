@@ -234,6 +234,22 @@ class MangoPayApi
     {
         return $this->logger;
     }
+    
+    /**
+     * @return Libraries\Configuration
+     */
+    public function getConfig()
+    {
+        return $this->Config;
+    }
+
+    /**
+     * @param Libraries\Configuration $Config
+     */
+    public function setConfig($Config)
+    {
+        $this->Config = $Config;
+    }
 
     /**
      * @param \MangoPay\Libraries\HttpBase $httpClient
