@@ -678,8 +678,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
          $this->getJohnsMandate();
          $pagination = new \MangoPay\Pagination(1, 1);
 
-         $filter = new \MangoPay\FilterTransactions();
-         $mandates = $this->_api->Users->GetMandatesForBankAccount($john->Id, $account->Id, $pagination, $filter);
+         $mandates = $this->_api->Users->GetMandatesForBankAccount($john->Id, $account->Id, $pagination);
 
          $this->assertEqual(count($mandates), 1);
          $this->assertIsA($mandates[0], '\MangoPay\Mandate');
