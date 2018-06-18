@@ -292,7 +292,7 @@ class Users extends Base {
 
         $list = $this->_api->Users->GetBankAccounts($john->Id, $pagination, $sorting);
 
-        $this->assertTrue($list[0]->CreationDate > $list[1]->CreationDate);
+        $this->assertTrue($list[0]->CreationDate >= $list[1]->CreationDate);
     }
 
     function test_Users_UpdateBankAccount(){
@@ -356,7 +356,7 @@ class Users extends Base {
 
         $getKycDocuments = $this->_api->Users->GetKycDocuments($user->Id, $pagination, $sorting);
 
-        $this->assertTrue($getKycDocuments[0]->CreationDate > $getKycDocuments[1]->CreationDate);
+        $this->assertTrue($getKycDocuments[0]->CreationDate >= $getKycDocuments[1]->CreationDate);
     }
 
     function test_Users_CreateKycDocument_TestAll(){
@@ -607,7 +607,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 
         $transactions = $this->_api->Users->GetTransactions($john->Id, $pagination, $filter, $sorting);
 
-        $this->assertTrue($transactions[0]->CreationDate > $transactions[1]->CreationDate);
+        $this->assertTrue($transactions[0]->CreationDate >= $transactions[1]->CreationDate);
     }
 
     function test_Users_AllCards() {
@@ -658,7 +658,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 
         $wallets = $this->_api->Users->GetWallets($john->Id, $pagination, $sorting);
 
-        $this->assertTrue($wallets[0]->CreationDate > $wallets[1]->CreationDate);
+        $this->assertTrue($wallets[0]->CreationDate >= $wallets[1]->CreationDate);
     }
 
 	function test_Users_AllMandates() {
@@ -678,7 +678,8 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
          $this->getJohnsMandate();
          $pagination = new \MangoPay\Pagination(1, 1);
 
-         $mandates = $this->_api->Users->GetMandatesForBankAccount($john->Id, $account->Id, $pagination);
+         $filter = new \MangoPay\FilterTransactions();
+         $mandates = $this->_api->Users->GetMandatesForBankAccount($john->Id, $account->Id, $pagination, $filter);
 
          $this->assertEqual(count($mandates), 1);
          $this->assertIsA($mandates[0], '\MangoPay\Mandate');
