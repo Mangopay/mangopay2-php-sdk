@@ -10,8 +10,8 @@ class Events extends Base {
     function test_GetEventList_PayinNormalCreated() {
         $payIn = $this->getJohnsPayInCardWeb();
         $filter = new \MangoPay\FilterEvents();
-        $filter->BeforeDate = $payIn->CreationDate;
-        $filter->AfterDate = $payIn->CreationDate;
+        $filter->BeforeDate = $payIn->CreationDate + 1;
+        $filter->AfterDate = $payIn->CreationDate - 1;
         $filter->EventType = \MangoPay\EventType::PayinNormalCreated;
         $pagination = new \MangoPay\Pagination();
 
