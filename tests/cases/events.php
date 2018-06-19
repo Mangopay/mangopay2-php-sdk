@@ -83,7 +83,7 @@ class Events extends Base {
 
         $result = $this->_api->Events->GetAll($pagination, $filter, $sorting);
  
-        $this->assertTrue($result[0]->Date > $result[1]->Date);
+        $this->assertTrue($result[0]->Date >= $result[1]->Date);
     }
     
     private function ExistEventById($eventList, $eventId) {
