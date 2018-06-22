@@ -15,7 +15,7 @@ class DocumentPageConsult extends Libraries\Dto
 
     /**
      * Time in millis when the page consult will expire.
-     * @var Long
+     * @var int
      */
     public $ExpirationDate;
 }
