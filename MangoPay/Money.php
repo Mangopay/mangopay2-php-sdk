@@ -15,7 +15,7 @@ class Money extends Libraries\Dto
     
     /**
      * The currency amount of money
-     * @var Long
+     * @var int
      */
     public $Amount;
 }
