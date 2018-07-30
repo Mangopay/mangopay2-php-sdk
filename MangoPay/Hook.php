@@ -25,8 +25,8 @@ class Hook extends Libraries\EntityBase
     public $Validity;
     
     /**
-     * EventType
-     * @var EventType
+     * EventType. See constants in MangoPay\EventType for allowed values.
+     * @var string
      */
     public $EventType;
 }
