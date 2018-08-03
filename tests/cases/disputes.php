@@ -176,7 +176,9 @@ class Disputes extends Base {
             if (($dispute->DisputeType == \MangoPay\DisputeType::Contestable
                     || $dispute->DisputeType == \MangoPay\DisputeType::Retrieval)
                  && ($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
-                    || $dispute->Status == \MangoPay\DisputeStatus::ReopenedPendingClientAction)){
+                    || $dispute->Status == \MangoPay\DisputeStatus::ReopenedPendingClientAction)
+		 && ($dispute->ContestDeadlineDate > time())
+	       ){
                 $notContestedDispute = $dispute;
                 break;
             }
