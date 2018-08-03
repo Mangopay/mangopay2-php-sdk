@@ -206,7 +206,8 @@ class Disputes extends Base {
         foreach($this->_clientDisputes as $dispute){
             if (($dispute->DisputeType == \MangoPay\DisputeType::Contestable
                     || $dispute->DisputeType == \MangoPay\DisputeType::Retrieval)
-                 && ($dispute->Status == \MangoPay\DisputeStatus::ReopenedPendingClientAction)){
+                 && ($dispute->Status == \MangoPay\DisputeStatus::ReopenedPendingClientAction)
+	         && ($dispute->ContestDeadlineDate > time())){
                 $toTestDispute = $dispute;
                 break;
             }
@@ -238,8 +239,10 @@ class Disputes extends Base {
     function test_Disputes_CloseDispute() {
         $disputeForTest = null;
         foreach($this->_clientDisputes as $dispute){
-            if ($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
-                    || $dispute->Status == \MangoPay\DisputeStatus::ReopenedPendingClientAction){
+            if (($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
+                    || $dispute->Status == \MangoPay\DisputeStatus::ReopenedPendingClientAction)
+		&& ($dispute->ContestDeadlineDate > time())
+		){{
                 $disputeForTest = $dispute;
                 break;
             }
