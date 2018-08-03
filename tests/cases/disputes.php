@@ -27,7 +27,9 @@ class Disputes extends Base {
     public function skip()
     {
         $pagination = new \MangoPay\Pagination(1, 100);
-        $this->_clientDisputes = $this->_api->Disputes->GetAll($pagination);
+        $sorting = new Sorting();
+        $sorting->AddField("CreationDate", SortDirection::DESC);
+        $this->_clientDisputes = $this->_api->Disputes->GetAll($pagination,$sorting);
         $this->skipIf(empty($this->_clientDisputes), 'INITIALIZATION FAILURE - cannot test disputes. Not exist any dispute.');
     }
 
