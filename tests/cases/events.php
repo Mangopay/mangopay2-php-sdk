@@ -10,8 +10,8 @@ class Events extends Base {
     function test_GetEventList_PayinNormalCreated() {
         $payIn = $this->getJohnsPayInCardWeb();
         $filter = new \MangoPay\FilterEvents();
-        $filter->BeforeDate = $payIn->CreationDate;
-        $filter->AfterDate = $payIn->CreationDate;
+        $filter->BeforeDate = $payIn->CreationDate + 1;
+        $filter->AfterDate = $payIn->CreationDate - 1;
         $filter->EventType = \MangoPay\EventType::PayinNormalCreated;
         $pagination = new \MangoPay\Pagination();
 
@@ -83,7 +83,7 @@ class Events extends Base {
 
         $result = $this->_api->Events->GetAll($pagination, $filter, $sorting);
  
-        $this->assertTrue($result[0]->Date > $result[1]->Date);
+        $this->assertTrue($result[0]->Date >= $result[1]->Date);
     }
     
     private function ExistEventById($eventList, $eventId) {

@@ -73,6 +73,6 @@ class Wallets extends Base {
         
         $transactions = $this->_api->Wallets->GetTransactions($wallet->Id, $pagination, $filter, $sorting);
 
-        $this->assertTrue($transactions[0]->CreationDate > $transactions[1]->CreationDate);
+        $this->assertTrue($transactions[0]->CreationDate >= $transactions[1]->CreationDate);
     }
 }
