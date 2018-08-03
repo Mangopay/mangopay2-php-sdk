@@ -242,7 +242,7 @@ class Disputes extends Base {
             if (($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
                     || $dispute->Status == \MangoPay\DisputeStatus::ReopenedPendingClientAction)
 		&& ($dispute->ContestDeadlineDate > time())
-		){{
+		){
                 $disputeForTest = $dispute;
                 break;
             }
