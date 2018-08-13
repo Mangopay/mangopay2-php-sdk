@@ -67,8 +67,8 @@ class Card extends Libraries\EntityBase
     public $Currency;
     
     /**
-     * Validity
-     * @var \MangoPay\CardValidity
+     * Validity. For allowed values, see constants in MangoPay\CardValidity
+     * @var string
      */
     public $Validity;
 

@@ -16,7 +16,7 @@ class Error
         
     /**
      * Array with errors information
-     * @var array
+     * @var object
      * @access public
      */
     public $Errors;
@@ -30,7 +30,7 @@ class Error
 	
 	/**
      * The timestamp of this API response
-     * @var timestamp
+     * @var int
      * @access public
      */
     public $Date;
