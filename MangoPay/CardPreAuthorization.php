@@ -75,7 +75,7 @@ class CardPreAuthorization extends Libraries\EntityBase
 
     /**
      * Boolean. The value is 'true' if the SecureMode was used
-     * @var string
+     * @var bool
      */
     public $SecureModeNeeded;
 

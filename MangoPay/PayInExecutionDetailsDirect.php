@@ -26,7 +26,7 @@ class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutio
 
      /**
      * SecureModeNeeded
-     * @var string
+     * @var bool
      */
     public $SecureModeNeeded;
 
