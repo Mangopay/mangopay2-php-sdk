@@ -80,7 +80,7 @@ You can get yourself a [free sandbox account](https://www.mangopay.com/signup/cr
 
 Configuration
 -------------------------------------------------
-Using the credential info from the signup process above, you should then set `$api->Config->ClientId` to your Mangopay ClientId and `$api->Config->ClientPassword` to your Mangopay passphrase.
+Using the credential info from the signup process above, you should then set `$api->Config->ClientId` to your Mangopay ClientId and `$api->Config->ClientPassword` to your Mangopay APIKey.
 
 You also need to set a folder path in `$api->Config->TemporaryFolder` that SDK needs 
 to store temporary files. This path should be outside your www folder.
