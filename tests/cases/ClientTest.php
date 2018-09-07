@@ -23,6 +23,8 @@ class ClientTest extends Base
 
     function test_Clients_Save()
     {
+        $phoneNumber = (string)rand(0, 99999999);
+
         $clients = new \MangoPay\Client();
         $clients->PrimaryButtonColour = "#afafae";
         $clients->PrimaryThemeColour = "#afafae";
@@ -38,6 +40,7 @@ class ClientTest extends Base
         $clients->HeadquartersAddress->Region = "Region";
         $clients->HeadquartersAddress->PostalCode = "11222";
         $clients->HeadquartersAddress->Country = "FR";
+        $clients->HeadquartersPhoneNumber = $phoneNumber;
         $clients->TaxNumber = "12345";
         $clients->TechEmails = array("technical@mangopay.com", "support@mangopay.com");
         $clients->AdminEmails = array("technical@mangopay.com", "support@mangopay.com");
@@ -47,6 +50,7 @@ class ClientTest extends Base
         $saveClients = $this->_api->Clients->Update($clients);
 
         $this->assertEquals($this->_api->Config->ClientId, $saveClients->ClientId);
+        $this->assertSame($clients->HeadquartersPhoneNumber, $saveClients->HeadquartersPhoneNumber);
     }
 
     function test_Clients_UploadLogo_EmptyFileString()
