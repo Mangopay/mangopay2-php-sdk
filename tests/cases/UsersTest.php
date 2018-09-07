@@ -33,10 +33,14 @@ class UsersTest extends Base
         $this->assertSame($john->Id, $ret->UserId);
     }
 
+    /**
+     * @expectedException MangoPay\Libraries\ResponseException
+     * @throws Exception
+     */
     function test_Users_CreateLegal_FailsIfRequiredPropsNotProvided()
     {
         $user = new \MangoPay\UserLegal();
-        $this->expectException(Exception::class);
+//        $this->expectException(Exception::class);
 
         $ret = $this->_api->Users->Create($user);
 
@@ -87,20 +91,27 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($user1, $john);
     }
 
+    /**
+     *
+     * @expectedException MangoPay\Libraries\ResponseException
+     */
     function test_Users_GetNatural_FailsForLegalUser()
     {
         $matrix = $this->getMatrix();
-        $this->expectException(Exception::class);
+//        $this->expectException(Exception::class);
 
         $user = $this->_api->Users->GetNatural($matrix->Id);
 
         $this->fail("GetNatural should fail when called with legal user id");
     }
 
+    /**
+     * @expectedException MangoPay\Libraries\ResponseException
+     */
     function test_Users_GetLegal_FailsForNaturalUser()
     {
         $john = $this->getJohn();
-        $this->expectException(Exception::class);
+//        $this->expectException(Exception::class);
 
         $user = $this->_api->Users->GetLegal($john->Id);
 

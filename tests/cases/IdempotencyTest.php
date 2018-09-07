@@ -20,13 +20,18 @@ class IdempotencyTest extends Base
     }
 
     // if post request called twice with same idempotency key, 2nd call is blocked
+
+    /**
+     * @expectedException MangoPay\Libraries\ResponseException
+     * @throws \MangoPay\Libraries\Exception
+     */
     function test_SameIdempotencyKey_Blocks2ndCall()
     {
         $idempotencyKey = md5(uniqid());
         $user = $this->buildJohn();
         $user1 = $this->_api->Users->Create($user);
         $user1 = $this->_api->Users->Create($user, $idempotencyKey);
-        $this->expectException('MangoPay\Libraries\ResponseException');
+//        $this->expectException('MangoPay\Libraries\ResponseException');
         $user2 = $this->_api->Users->Create($user, $idempotencyKey);
         $this->assertTrue($user2 = null);
     }
