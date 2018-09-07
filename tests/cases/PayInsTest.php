@@ -4,6 +4,7 @@ namespace MangoPay\Tests;
 
 use MangoPay\AVSResult;
 use MangoPay\Libraries\Exception;
+use MangoPay\PayInPaymentType;
 
 require_once 'base.php';
 
@@ -310,6 +311,22 @@ class PayInsTest extends Base
         $this->assertSame('CREATED', $getPayIn->Status);
         $this->assertNull($getPayIn->ExecutionDate);
         $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
+    }
+
+    function test_PayPal_BuyerAccountEmail()
+    {
+        $payInId = "54088959";
+        $buyerEmail = "paypal-buyer-user@mangopay.com";
+        $payin = $this->_api->PayIns->Get($payInId);
+
+        $this->assertNotNull($payin, "PayPal payin came back null");
+        $this->assertSame(PayInPaymentType::PayPal, $payin->PaymentType, "Payment is not of PayPal type");
+
+        $paymentDetails = $payin->PaymentDetails;
+        $this->assertNotNull($paymentDetails, "Payment details are null");
+        $this->assertInstanceOf("\MangoPay\PayInPaymentDetailsPaypal", $paymentDetails);
+        $this->assertNotNull($paymentDetails->PaypalBuyerAccountEmail);
+        $this->assertSame($paymentDetails->PaypalBuyerAccountEmail, $buyerEmail);
     }
 
     function test_PayIns_Get_ExtendedCardView()
