@@ -1,5 +1,7 @@
 <?php
+
 namespace MangoPay\Tests;
+
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
 
@@ -8,43 +10,48 @@ require_once 'base.php';
 /**
  * Tests basic methods for wallets
  */
-class Hooks extends Base {
-    
-    function test_Hooks_Create() {
+class HooksTest extends Base
+{
+
+    function test_Hooks_Create()
+    {
         $hook = $this->getJohnHook();
-        
+
         $this->assertTrue($hook->Id > 0);
     }
-    
-    function test_Hooks_Get() {
+
+    function test_Hooks_Get()
+    {
         $hook = $this->getJohnHook();
-        
+
         $getHook = $this->_api->Hooks->Get($hook->Id);
-        
-        $this->assertIdentical($getHook->Id, $hook->Id);
+
+        $this->assertSame($hook->Id, $getHook->Id);
     }
-    
-    function test_Hooks_Update() {
+
+    function test_Hooks_Update()
+    {
         $hook = $this->getJohnHook();
         $hook->Url = "http://test123.com";
-        
+
         $saveHook = $this->_api->Hooks->Update($hook);
-        
-        $this->assertIdentical($saveHook->Id, $hook->Id);
-        $this->assertIdentical($saveHook->Url, "http://test123.com");
+
+        $this->assertSame($hook->Id, $saveHook->Id);
+        $this->assertSame("http://test123.com", $saveHook->Url);
     }
-    
-    function test_Hooks_All() {
+
+    function test_Hooks_All()
+    {
         $hook = $this->getJohnHook();
         $pagination = new \MangoPay\Pagination(1, 1);
         $sorting = new Sorting();
         $sorting->AddField("CreationDate", SortDirection::ASC);
-        
+
         $list = $this->_api->Hooks->GetAll($pagination, $sorting);
-        
-        $this->assertIsA($list[0], '\MangoPay\Hook');
-        $this->assertIdentical($hook->Id, $list[0]->Id);
-        $this->assertIdentical($pagination->Page, 1);
-        $this->assertIdentical($pagination->ItemsPerPage, 1);
+
+        $this->assertInstanceOf('\MangoPay\Hook', $list[0]);
+        $this->assertSame($hook->Id, $list[0]->Id);
+        $this->assertSame(1, $pagination->Page);
+        $this->assertSame(1, $pagination->ItemsPerPage);
     }
 }
