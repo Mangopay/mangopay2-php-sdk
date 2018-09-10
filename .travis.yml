@@ -15,6 +15,7 @@ before_script:
   - php -r "printf('PHP %s', phpversion());"
   - composer self-update
   - composer install --no-interaction
+  - composer dumpautoload -o
 
 script: ./vendor/bin/phpunit
 

@@ -1,6 +1,7 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Cases;
+
 require_once __DIR__ . "/../../vendor/autoload.php";
 /**
  * Tests basic methods for Banking Aliases

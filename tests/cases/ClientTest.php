@@ -1,6 +1,6 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Cases;
 
 use MangoPay\BusinessType;
 use MangoPay\Sector;

@@ -16,7 +16,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "MangoPay\\Tests\\": "tests/cases"
+      "MangoPay\\Tests\\": "tests/"
     }
   },
   "require-dev": {
