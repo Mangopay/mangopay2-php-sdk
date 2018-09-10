@@ -81,6 +81,7 @@ abstract class Base extends TestCase
 
     function __construct()
     {
+        parent::__construct();
         $this->_api = $this->buildNewMangoPayApi();
     }
 

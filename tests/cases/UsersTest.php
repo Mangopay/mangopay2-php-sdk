@@ -584,6 +584,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $kycPage->File = $fileString;
 
         $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
+        $this->assertTrue(true);
     }
 
     function test_Users_CreateKycPage_EmptyFilePath()
@@ -627,6 +628,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $kycDocument = $this->_api->Users->CreateKycDocument($user->Id, $kycDocumentInit);
 
         $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, __DIR__ . "/../TestKycPageFile.png");
+        $this->assertTrue(true);
     }
 
     function test_Users_AllTransactions()
