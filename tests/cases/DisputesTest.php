@@ -7,7 +7,7 @@ use MangoPay\FilterDisputeDocuments;
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
 
-require_once 'base.php';
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Tests basic methods for disputes

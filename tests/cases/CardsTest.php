@@ -5,7 +5,7 @@ namespace MangoPay\Tests;
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
 
-require_once 'base.php';
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Tests methods for card registrations

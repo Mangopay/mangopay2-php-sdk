@@ -2,7 +2,7 @@
 
 namespace MangoPay\Tests;
 
-require_once 'base.php';
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Tests basic methods for transfers

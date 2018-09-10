@@ -3,7 +3,7 @@
 namespace MangoPay\Tests;
 use MangoPay\Libraries\ResponseException;
 
-require_once 'base.php';
+require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Tests for holding authentication token in instance
