@@ -5,7 +5,6 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Tests basic methods for wallets

@@ -6,7 +6,6 @@ use MangoPay\BusinessType;
 use MangoPay\Sector;
 use MangoPay\Sorting;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Test class for Client API

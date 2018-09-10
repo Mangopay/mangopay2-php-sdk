@@ -4,7 +4,6 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\AVSResult;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
 /**
  * Tests methods for pay-ins
  */

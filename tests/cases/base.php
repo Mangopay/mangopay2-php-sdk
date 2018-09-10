@@ -2,7 +2,6 @@
 
 namespace MangoPay\Tests\Cases;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
 
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use PHPUnit\Framework\TestCase;

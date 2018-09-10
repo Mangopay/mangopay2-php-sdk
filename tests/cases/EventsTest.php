@@ -2,7 +2,6 @@
 
 namespace MangoPay\Tests\Cases;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Tests methods for events

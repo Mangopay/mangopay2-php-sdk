@@ -4,7 +4,6 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\Libraries\Exception;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Tests basic CRUD methods for users

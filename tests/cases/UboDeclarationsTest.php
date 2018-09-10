@@ -2,7 +2,6 @@
 
 namespace MangoPay\Tests\Cases;
 
-require_once __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * Tests API methods for the UBO declaration entity.
