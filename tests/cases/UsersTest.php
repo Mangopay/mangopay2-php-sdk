@@ -451,13 +451,14 @@ class UsersTest extends Base
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
 
-        $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, __DIR__ . "/../TestKycPageFile.png");
+        $success = $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, __DIR__ . "/../TestKycPageFile.png");
 
         $kycDocument->Status = \MangoPay\KycDocumentStatus::ValidationAsked;
 
         $updateKycDocument = $this->_api->Users->UpdateKycDocument($user->Id, $kycDocument);
 
         $this->assertSame(\MangoPay\KycDocumentStatus::ValidationAsked, $updateKycDocument->Status);
+        $this->assertTrue($success);
     }
 
     function test_Users_CreateKycPage_EmptyFileString()
@@ -466,12 +467,12 @@ class UsersTest extends Base
         $user = $this->getJohn();
         $kycPage = new \MangoPay\KycPage();
         $kycPage->File = "";
+        $uploaded = null;
         try {
             $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
 
             $this->fail('Expected ResponseException when empty file string');
         } catch (\MangoPay\Libraries\ResponseException $exc) {
-
             $this->assertSame(400, $exc->getCode());
         }
     }
@@ -583,8 +584,8 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 /wIMAPlarS0ONmynAAAAAElFTkSuQmCC";
         $kycPage->File = $fileString;
 
-        $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
-        $this->assertTrue(true);
+        $uploaded = $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
+        $this->assertTrue($uploaded);
     }
 
     function test_Users_CreateKycPage_EmptyFilePath()
@@ -597,6 +598,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 
         try {
             $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, '');
+            $this->fail("This should have failed because path to file is empty");
         } catch (\MangoPay\Libraries\Exception $exc) {
 
             $this->assertSame('Path of file cannot be empty', $exc->getMessage());
@@ -613,6 +615,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 
         try {
             $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, 'notExistFileName.tmp');
+            $this->fail("This should have failed because file is non existent");
         } catch (\MangoPay\Libraries\Exception $exc) {
 
             $this->assertSame('File not exist', $exc->getMessage());
