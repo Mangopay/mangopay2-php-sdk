@@ -1,5 +1,5 @@
 <?php
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Mocks;
 
 /**
  * Storage strategy implementation for tests

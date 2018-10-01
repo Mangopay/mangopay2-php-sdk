@@ -1,41 +1,47 @@
 <?php
-namespace MangoPay\Tests;
-require_once 'base.php';
+
+namespace MangoPay\Tests\Cases;
+
 
 /**
  * Tests basic methods for wallets
  */
-class Wallets extends Base {
-    
-    function test_Wallets_Create() {
+class WalletsTest extends Base
+{
+
+    function test_Wallets_Create()
+    {
         $john = $this->getJohn();
         $wallet = $this->getJohnsWallet();
-        
+
         $this->assertTrue($wallet->Id > 0);
         $this->assertTrue(in_array($john->Id, $wallet->Owners));
     }
-    
-    function test_Wallets_Get() {
+
+    function test_Wallets_Get()
+    {
         $john = $this->getJohn();
         $wallet = $this->getJohnsWallet();
-        
+
         $getWallet = $this->_api->Wallets->Get($wallet->Id);
-        
-        $this->assertIdentical($wallet->Id, $getWallet->Id);
+
+        $this->assertSame($wallet->Id, $getWallet->Id);
         $this->assertTrue(in_array($john->Id, $getWallet->Owners));
     }
-    
-    function test_Wallets_Save() {
+
+    function test_Wallets_Save()
+    {
         $wallet = $this->getJohnsWallet();
         $wallet->Description = 'New description to test';
-        
+
         $saveWallet = $this->_api->Wallets->Update($wallet);
-        
-        $this->assertIdentical($wallet->Id, $saveWallet->Id);
-        $this->assertIdentical('New description to test', $saveWallet->Description);
+
+        $this->assertSame($wallet->Id, $saveWallet->Id);
+        $this->assertSame('New description to test', $saveWallet->Description);
     }
-    
-    function test_Wallets_Transactions() {
+
+    function test_Wallets_Transactions()
+    {
         $john = $this->getJohn();
         $wallet = $this->getJohnsWallet();
         self::$JohnsPayInCardWeb = null;
@@ -46,9 +52,9 @@ class Wallets extends Base {
         $filter->Type = 'PAYIN';
         $transactions = $this->_api->Wallets->GetTransactions($wallet->Id, $pagination, $filter);
 
-        $this->assertEqual(count($transactions), 1);
-        $this->assertIsA($transactions[0], '\MangoPay\Transaction');
-        $this->assertEqual($transactions[0]->AuthorId, $john->Id);
+        $this->assertEquals(1, count($transactions));
+        $this->assertInstanceOf('\MangoPay\Transaction', $transactions[0]);
+        $this->assertEquals($john->Id, $transactions[0]->AuthorId);
 
         /**
          * TODO - investigate why this assertion fails when running all the tests. When running it individually, it
@@ -57,8 +63,9 @@ class Wallets extends Base {
          */
 //        $this->assertIdenticalInputProps($transactions[0], $payIn);
     }
-    
-    function test_Wallets_Transactions_SortByCreationDate() {
+
+    function test_Wallets_Transactions_SortByCreationDate()
+    {
         $wallet = $this->getJohnsWallet();
         // create 2 pay-in objects
         self::$JohnsPayInCardWeb = null;
@@ -70,7 +77,7 @@ class Wallets extends Base {
         $pagination = new \MangoPay\Pagination(1, 20);
         $filter = new \MangoPay\FilterTransactions();
         $filter->Type = 'PAYIN';
-        
+
         $transactions = $this->_api->Wallets->GetTransactions($wallet->Id, $pagination, $filter, $sorting);
 
         $this->assertTrue($transactions[0]->CreationDate >= $transactions[1]->CreationDate);

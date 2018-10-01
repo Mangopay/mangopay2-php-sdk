@@ -1,13 +1,16 @@
 <?php
-namespace MangoPay\Tests;
-require_once 'base.php';
+
+namespace MangoPay\Tests\Cases;
+
 
 /**
  * Tests methods for events
  */
-class Events extends Base {
-    
-    function test_GetEventList_PayinNormalCreated() {
+class EventsTest extends Base
+{
+
+    function test_GetEventList_PayinNormalCreated()
+    {
         $payIn = $this->getJohnsPayInCardWeb();
         $filter = new \MangoPay\FilterEvents();
         $filter->BeforeDate = $payIn->CreationDate + 1;
@@ -18,10 +21,23 @@ class Events extends Base {
         $result = $this->_api->Events->GetAll($pagination, $filter);
 
         $this->assertTrue(count($result) > 0);
-        $this->assertTrue($this->ExistEventById($result, $payIn->Id));        
+        $this->assertTrue($this->ExistEventById($result, $payIn->Id));
     }
-    
-    function test_GetEventList_PayinNormalSucceeded() {
+
+    private function ExistEventById($eventList, $eventId)
+    {
+
+        foreach ($eventList as $event) {
+            if ($event->ResourceId == $eventId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function test_GetEventList_PayinNormalSucceeded()
+    {
         $payIn = $this->getNewPayInCardDirect();
         $filter = new \MangoPay\FilterEvents();
         $filter->BeforeDate = $payIn->ExecutionDate + 10;
@@ -32,10 +48,11 @@ class Events extends Base {
         $result = $this->_api->Events->GetAll($pagination, $filter);
 
         $this->assertTrue(count($result) > 0);
-        $this->assertTrue($this->ExistEventById($result, $payIn->Id));        
+        $this->assertTrue($this->ExistEventById($result, $payIn->Id));
     }
-    
-    function test_GetEventList_PayoutNormalCreated() {
+
+    function test_GetEventList_PayoutNormalCreated()
+    {
         $payOut = $this->getJohnsPayOutBankWire();
         $filter = new \MangoPay\FilterEvents();
         $filter->BeforeDate = $payOut->CreationDate + 10;
@@ -46,10 +63,11 @@ class Events extends Base {
         $result = $this->_api->Events->GetAll($pagination, $filter);
 
         $this->assertTrue(count($result) > 0);
-        $this->assertTrue($this->ExistEventById($result, $payOut->Id));        
+        $this->assertTrue($this->ExistEventById($result, $payOut->Id));
     }
-    
-    function test_GetKycDocumentsList_KycCreated(){
+
+    function test_GetKycDocumentsList_KycCreated()
+    {
         $user = $this->getJohn();
         $kycDocumentInit = new \MangoPay\KycDocument();
         $kycDocumentInit->Status = \MangoPay\KycDocumentStatus::Created;
@@ -64,15 +82,16 @@ class Events extends Base {
         $result = $this->_api->Events->GetAll($pagination, $filter);
 
         $this->assertTrue(count($result) > 0);
-        $this->assertTrue($this->ExistEventById($result, $kycDocument->Id)); 
+        $this->assertTrue($this->ExistEventById($result, $kycDocument->Id));
     }
-    
-    function test_Events_GetAll_SortByCreationDate() {
+
+    function test_Events_GetAll_SortByCreationDate()
+    {
         self::$JohnsPayInCardWeb = null;
         $payIn1 = $this->getJohnsPayInCardWeb();
         self::$JohnsPayInCardWeb = null;
         $payIn2 = $this->getJohnsPayInCardWeb();
-        
+
         $filter = new \MangoPay\FilterEvents();
         $filter->BeforeDate = $payIn2->CreationDate + 10;
         $filter->AfterDate = $payIn1->CreationDate - 10;
@@ -82,18 +101,7 @@ class Events extends Base {
         $pagination = new \MangoPay\Pagination();
 
         $result = $this->_api->Events->GetAll($pagination, $filter, $sorting);
- 
+
         $this->assertTrue($result[0]->Date >= $result[1]->Date);
-    }
-    
-    private function ExistEventById($eventList, $eventId) {
-        
-        foreach ($eventList as $event) {
-            if ($event->ResourceId == $eventId) {
-                return true;
-            }
-        }
-        
-        return false;
     }
 }
