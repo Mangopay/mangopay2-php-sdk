@@ -1,8 +1,7 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Cases;
 
-require_once 'base.php';
 
 /**
  * Tests methods for pay-outs

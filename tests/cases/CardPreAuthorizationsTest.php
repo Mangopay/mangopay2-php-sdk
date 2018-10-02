@@ -1,10 +1,8 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Cases;
 
 use MangoPay\AVSResult;
-
-require_once 'base.php';
 
 /**
  * Tests methods for pay-ins

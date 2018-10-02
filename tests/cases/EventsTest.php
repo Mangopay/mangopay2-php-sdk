@@ -1,7 +1,7 @@
 <?php
 
-namespace MangoPay\Tests;
-require_once 'base.php';
+namespace MangoPay\Tests\Cases;
+
 
 /**
  * Tests methods for events

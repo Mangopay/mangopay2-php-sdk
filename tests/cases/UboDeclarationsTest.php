@@ -1,7 +1,7 @@
 <?php
 
-namespace MangoPay\Tests;
-require_once 'base.php';
+namespace MangoPay\Tests\Cases;
+
 
 /**
  * Tests API methods for the UBO declaration entity.

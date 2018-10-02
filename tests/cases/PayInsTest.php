@@ -1,12 +1,11 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Cases;
 
 use MangoPay\AVSResult;
 use MangoPay\Libraries\Exception;
 use MangoPay\PayInPaymentType;
 
-require_once 'base.php';
 
 /**
  * Tests methods for pay-ins
