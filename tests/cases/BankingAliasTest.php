@@ -1,7 +1,6 @@
 <?php
 
-namespace MangoPay\Tests;
-require_once 'base.php';
+namespace MangoPay\Tests\Cases;
 
 /**
  * Tests basic methods for Banking Aliases

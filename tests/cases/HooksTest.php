@@ -1,11 +1,10 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Cases;
 
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
 
-require_once 'base.php';
 
 /**
  * Tests basic methods for wallets

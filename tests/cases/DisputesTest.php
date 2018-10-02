@@ -1,13 +1,12 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Cases;
 
 use MangoPay\DisputeDocumentStatus;
 use MangoPay\FilterDisputeDocuments;
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
 
-require_once 'base.php';
 
 /**
  * Tests basic methods for disputes
@@ -156,6 +155,7 @@ class DisputesTest extends Base
         $documentCreated = $this->_api->Disputes->CreateDisputeDocument($disputeForDoc->Id, $document);
 
         $this->_api->Disputes->CreateDisputeDocumentPageFromFile($disputeForDoc->Id, $documentCreated->Id, __DIR__ . "/../TestKycPageFile.png");
+        $this->assertTrue(true);
     }
 
     function test_Disputes_CreateDisputeDocumentConsult()

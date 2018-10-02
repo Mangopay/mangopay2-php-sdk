@@ -1,18 +1,25 @@
 {
-    "name": "mangopay/php-sdk-v2",
-    "description": "SDK PHP for Mangopay api V2",
-    "minimum-stability": "stable",
-    "license": "MIT",
-    "require": {
-        "php": ">=5.4.0",
-        "ext-curl": "*",
-        "ext-openssl": "*",
-        "psr/log": "^1.0"
-    },
-    "autoload": {
-        "psr-4": { "MangoPay\\": "MangoPay/" }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^4"
+  "name": "mangopay/php-sdk-v2",
+  "description": "SDK PHP for Mangopay api V2",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4.0",
+    "ext-curl": "*",
+    "ext-openssl": "*",
+    "psr/log": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MangoPay\\": "MangoPay/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MangoPay\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8.36 || ^5.7.27 || 7.3"
+  }
 }

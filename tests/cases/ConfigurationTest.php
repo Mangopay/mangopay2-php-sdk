@@ -1,9 +1,8 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Cases;
 use MangoPay\Libraries\ResponseException;
 
-require_once 'base.php';
 
 /**
  * Tests for holding authentication token in instance

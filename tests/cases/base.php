@@ -1,11 +1,9 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Cases;
 
-//require_once '../../vendor/simpletest/simpletest/autorun.php';
-//require_once '../../vendor/autoload.php';
-require_once __DIR__ . "/../mocks/mockStorageStrategy.php";
 
+use MangoPay\Tests\Mocks\MockStorageStrategy;
 use PHPUnit\Framework\TestCase;
 
 set_time_limit(0);
@@ -83,6 +81,7 @@ abstract class Base extends TestCase
 
     function __construct()
     {
+        parent::__construct();
         $this->_api = $this->buildNewMangoPayApi();
     }
 
@@ -98,7 +97,7 @@ abstract class Base extends TestCase
         $api->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
         $api->Config->ClientPassword = 'cqFfFrWfCcb7UadHNxx2C9Lo6Djw8ZduLi7J9USTmu8bhxxpju';
 
-        $api->OAuthTokenManager->RegisterCustomStorageStrategy(new \MangoPay\Tests\MockStorageStrategy());
+        $api->OAuthTokenManager->RegisterCustomStorageStrategy(new MockStorageStrategy());
 
         return $api;
     }
