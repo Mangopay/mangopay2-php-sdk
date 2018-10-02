@@ -14,6 +14,7 @@ php:
 before_script:
   - php -r "printf('PHP %s', phpversion());"
   - composer self-update
-  - composer install --no-interaction
+  - composer install --no-interaction -o
 
-script: cd tests/suites/ && php all.php
+script: ./vendor/bin/phpunit
+
