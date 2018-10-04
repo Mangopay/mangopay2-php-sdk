@@ -133,12 +133,13 @@ class ApiUsers extends Libraries\ApiBase
      * @param int $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
+     * @param \MangoPay\FilterBankAccounts $filter Filtering object
      *
      * @return array Array with bank account entities
      */
-    public function GetBankAccounts($userId, & $pagination = null, $sorting = null)
+    public function GetBankAccounts($userId, & $pagination = null, $sorting = null, $filter = null)
     {
-        return $this->GetList('users_allbankaccount', $pagination, 'MangoPay\BankAccount', $userId, null, $sorting);
+        return $this->GetList('users_allbankaccount', $pagination, 'MangoPay\BankAccount', $userId, $filter, $sorting);
     }
 
     /**
