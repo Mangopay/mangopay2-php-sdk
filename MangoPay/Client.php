@@ -25,7 +25,6 @@ class Client extends Libraries\EntityBase
      */
     public $PrimaryThemeColour;
 
-
     /**
      * The primary branding colour to use for buttons for your merchant
      * @var string
