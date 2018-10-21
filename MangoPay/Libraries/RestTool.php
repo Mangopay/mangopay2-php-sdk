@@ -275,7 +275,7 @@ class RestTool
      */
     private function CheckResponseCode($responseCode, $response)
     {
-        if ($responseCode != 200) {
+        if ($responseCode < 200 || $responseCode > 299) {
             if (isset($response) && is_object($response) && isset($response->Message)) {
                 $error = new Error();
                 $error->Message = $response->Message;

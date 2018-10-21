@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay\Libraries;
 
 /**
@@ -12,6 +13,7 @@ class ResponseException extends Exception
      */
     private $_responseCodes = array(
         200 => 'OK',
+        204 => 'No Content',
         206 => 'PartialContent',
         400 => 'Bad request',
         401 => 'Unauthorized',
@@ -23,19 +25,19 @@ class ResponseException extends Exception
         500 => 'Internal server error',
         501 => 'Not implemented'
     );
-    
+
     /**
      * Error details
      * @var Error
      */
     private $_errorInfo;
-    
+
     /**
      * Request URL
      * @var string
      */
     public $RequestUrl;
-    
+
     /**
      * Construct
      * @param int $code Response code
@@ -45,21 +47,21 @@ class ResponseException extends Exception
     {
         $this->RequestUrl = $requestUrl;
         $this->_code = $code;
-        
+
         if (isset($this->_responseCodes[$code])) {
             $errorMsg = $this->_responseCodes[$code];
         } else {
             $errorMsg = 'Unknown response error';
         }
-        
+
         if (!is_null($errorInfo)) {
             $errorMsg .= '. ' . $errorInfo->Message;
             $this->_errorInfo = $errorInfo;
         }
-        
+
         parent::__construct($errorMsg, $code);
     }
-    
+
     /**
      * Get Error object returned by REST API
      * @return Error

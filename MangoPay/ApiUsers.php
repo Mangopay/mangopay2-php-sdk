@@ -290,13 +290,18 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey = null)
     {
+        $uploaded = false;
         try {
-            $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId, $idempotencyKey);
+            $response = $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId, $idempotencyKey);
+            $uploaded = true;
         } catch (\MangoPay\Libraries\ResponseException $exc) {
             if ($exc->getCode() != 204) {
                 throw $exc;
+            } else {
+                $uploaded = true;
             }
         }
+        return $uploaded;
     }
 
     /**
@@ -324,7 +329,7 @@ class ApiUsers extends Libraries\ApiBase
             throw new \MangoPay\Libraries\Exception('Content of the file cannot be empty');
         }
 
-        $this->CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey);
+        return $this->CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey);
     }
 
     /**
