@@ -3,6 +3,8 @@
 namespace MangoPay\Tests\Cases;
 
 
+use MangoPay\MandateStatus;
+
 /**
  * Tests basic methods for mandates
  */
@@ -17,6 +19,7 @@ class MandatesTest extends Base
 
         $this->assertTrue($mandate->Id > 0);
         $this->assertEquals($john->Id, $mandate->UserId);
+        $this->assertSame(MandateStatus::Created, $mandate->Status);
     }
 
     function test_Mandates_Get()
