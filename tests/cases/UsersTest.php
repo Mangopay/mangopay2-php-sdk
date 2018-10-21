@@ -332,6 +332,26 @@ class UsersTest extends Base
         $this->assertTrue($list[0]->CreationDate >= $list[1]->CreationDate);
     }
 
+    function test_Users_BankAccounts_Filtering()
+    {
+        $john = $this->getJohn();
+        $this->getJohnsAccount();
+        self::$JohnsAccount = null;
+        $this->getJohnsAccount();
+        $pagination = new \MangoPay\Pagination(1, 12);
+        $filter = new \MangoPay\FilterBankAccounts();
+        $filter->Active = 'false';
+
+        $inactiveList = $this->_api->Users->GetBankAccounts($john->Id, $pagination, null, $filter);
+        $this->assertCount(1, $inactiveList);
+
+        $filter = new \MangoPay\FilterBankAccounts();
+        $filter->Active = 'true';
+
+        $activeList = $this->_api->Users->GetBankAccounts($john->Id, $pagination, null, $filter);
+        $this->assertCount(12, $activeList);
+    }
+
     function test_Users_UpdateBankAccount()
     {
         $john = $this->getJohn();
