@@ -118,7 +118,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Create bank account for user
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param \MangoPay\BankAccount $bankAccount Entity of bank account object
      * @return \MangoPay\BankAccount Create bank account object
      */
@@ -130,7 +130,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get all bank accounts for user
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @param \MangoPay\FilterBankAccounts $filter Filtering object
@@ -144,7 +144,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get bank account for user
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param int $bankAccountId Bank account Id
      *
      * @return \MangoPay\BankAccount Entity of bank account object
@@ -156,7 +156,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Save a bank account
-     * @param int $userId
+     * @param string $userId
      * @param \MangoPay\BankAccount $bankAccount
      * @return \MangoPay\BankAccount Entity of bank account object
      */
@@ -167,7 +167,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get all wallets for user
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
      *
@@ -180,7 +180,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get all transactions for user
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data
@@ -194,7 +194,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get all cards for user
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
      *
@@ -207,7 +207,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Create new KYC document
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param \MangoPay\KycDocument $kycDocument
      * @param string $idempotencyKey Key for response replication
      * @return \MangoPay\KycDocument Document returned from API
@@ -219,7 +219,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get all KYC documents for user
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @param \MangoPay\FilterKycDocuments $filter Object to filter data
@@ -233,7 +233,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get KYC document
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param string $kycDocumentId Document identifier
      * @return \MangoPay\KycDocument Document returned from API
      */
@@ -244,7 +244,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get all mandates for user
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data
@@ -258,7 +258,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get mandates for user and bank account
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param int $bankAccountId Bank account Id
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Object to filter data
@@ -273,7 +273,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Save KYC document
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param \MangoPay\KycDocument $kycDocument Document to save
      * @return \MangoPay\KycDocument Document returned from API
      */
@@ -284,7 +284,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Create page for Kyc document
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param int $kycDocumentId KYC Document Id
      * @param \MangoPay\KycPage $kycPage KYC Page
      * @throws \MangoPay\Libraries\Exception
@@ -307,7 +307,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Create page for Kyc document from file
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @param int $kycDocumentId KYC Document Id
      * @param string $filePath File path
      * @throws \MangoPay\Libraries\Exception
@@ -335,7 +335,7 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get user EMoney
-     * @param int $userId User Id
+     * @param string $userId User Id
      * @return \MangoPay\EMoney EMoney obhect returned from API
      */
     public function GetEMoney($userId)

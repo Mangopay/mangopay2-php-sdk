@@ -213,7 +213,7 @@ abstract class ApiBase
      * @param string $methodKey Key with request data
      * @param object $entity Entity object
      * @param object $responseClassName Name of entity class from response
-     * @param int $entityId Entity identifier
+     * @param string $entityId Entity identifier
      * @return object Response data
      */
     protected function CreateObject($methodKey, $entity, $responseClassName = null, $entityId = null, $subEntityId = null, $idempotencyKey = null)
@@ -244,7 +244,7 @@ abstract class ApiBase
     /**
      * Get entity object from API
      * @param string $methodKey Key with request data
-     * @param int $entityId Entity identifier
+     * @param string $entityId Entity identifier
      * @param object $responseClassName Name of entity class from response
      * @param int $secondEntityId Entity identifier for second entity
      * @return object Response data
@@ -268,7 +268,7 @@ abstract class ApiBase
      * @param string $methodKey Key with request data
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param object $responseClassName Name of entity class from response
-     * @param int $entityId Entity identifier
+     * @param string $entityId Entity identifier
      * @param object $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return object[] Response data
