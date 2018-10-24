@@ -287,6 +287,7 @@ class ApiUsers extends Libraries\ApiBase
      * @param string $userId User Id
      * @param int $kycDocumentId KYC Document Id
      * @param \MangoPay\KycPage $kycPage KYC Page
+     * @return bool `true` if the upload was successful, `false` otherwise
      * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey = null)
@@ -310,6 +311,7 @@ class ApiUsers extends Libraries\ApiBase
      * @param string $userId User Id
      * @param int $kycDocumentId KYC Document Id
      * @param string $filePath File path
+     * @return bool `true` if the upload was successful, `false` otherwise
      * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPageFromFile($userId, $kycDocumentId, $filePath, $idempotencyKey = null)
