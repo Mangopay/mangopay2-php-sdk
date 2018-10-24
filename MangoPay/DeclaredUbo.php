@@ -15,13 +15,15 @@ class DeclaredUbo
 
     /**
      * Validation status of this declared UBO.
-     * @var \MangoPay\DeclaredUboStatus
+     * @var string
+     * @see \MangoPay\DeclaredUboStatus
      */
     public $Status;
 
     /**
      * Reason why the declared UBO is not valid.
-     * @var \MangoPay\UboRefusedReasonType
+     * @var string
+     * @see \MangoPay\UboRefusedReasonType
      */
     public $RefusedReasonType;
 

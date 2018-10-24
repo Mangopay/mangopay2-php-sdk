@@ -6,16 +6,15 @@ namespace MangoPay;
  */
 class FilterKycDocuments extends FilterBase
 {
-    
     /**
-     * KycDocumentStatus {CREATED, VALIDATION_ASKED, VALIDATED, REFUSED}
      * @var string
+     * @see \MangoPay\KycDocumentStatus
      */
     public $Status;
-    
+
     /**
-     * KycDocumentType {IDENTITY_PROOF, REGISTRATION_PROOF, ARTICLES_OF_ASSOCIATION, SHAREHOLDER_DECLARATION, ADDRESS_PROOF}
-     * @var string 
+     * @var string
+     * @see \MangoPay\KycDocumentType
      */
     public $Type;
 }

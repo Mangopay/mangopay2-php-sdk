@@ -8,15 +8,14 @@ class FilterDisputes extends FilterBase
 {
 
     /**
-     * DisputeType {CONTESTABLE, NOT_CONTESTABLE, RETRIEVAL}
      * @var string
+     * @see \MangoPay\DisputeType
      */
     public $DisputeType;
 
     /**
-     * DisputeStatus {CREATED, PENDING_CLIENT_ACTION, SUBMITTED, PENDING_BANK_ACTION,
-     * REOPENED_PENDING_CLIENT_ACTION, CLOSED}
      * @var string
+     * @see DisputeStatus
      */
     public $Status;
 }
