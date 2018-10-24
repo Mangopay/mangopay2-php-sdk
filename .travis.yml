@@ -10,6 +10,8 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - 7.2
+  - 7.3
 
 before_script:
   - php -r "printf('PHP %s', phpversion());"
@@ -17,4 +19,3 @@ before_script:
   - composer install --no-interaction -o
 
 script: ./vendor/bin/phpunit
-
