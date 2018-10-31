@@ -13,6 +13,7 @@ class ApiRepudiations extends Libraries\ApiBase
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterRefunds $filter Filtering object
      * @param \MangoPay\Sorting $sorting Sorting object
+     * @return \MangoPay\Refund[]
      */
     public function GetRefunds($repudiationId, & $pagination = null, $filter = null, $sorting = null)
     {

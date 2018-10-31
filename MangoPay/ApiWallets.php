@@ -18,7 +18,7 @@ class ApiWallets extends Libraries\ApiBase
     
     /**
      * Get wallet
-     * @param int $walletId Wallet identifier
+     * @param string $walletId Wallet identifier
      * @return \MangoPay\Wallet Wallet object returned from API
      */
     public function Get($walletId)

@@ -18,7 +18,7 @@ class ApiCardRegistrations extends Libraries\ApiBase
     
     /**
      * Get card registration
-     * @param int $cardRegistrationId Card Registration identifier
+     * @param string $cardRegistrationId Card Registration identifier
      * @return \MangoPay\CardRegistration Card registration  object returned from API
      */
     public function Get($cardRegistrationId)

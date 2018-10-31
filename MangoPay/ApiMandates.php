@@ -44,7 +44,7 @@ class ApiMandates extends Libraries\ApiBase
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data
-     * @return array Array with mandates
+     * @return \MangoPay\Mandate[] Array with mandates
      */
     public function GetAll(& $pagination = null, $filter = null, $sorting = null)
     {
@@ -57,6 +57,7 @@ class ApiMandates extends Libraries\ApiBase
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterTransactions $filter Filtering object
      * @param \MangoPay\Sorting $sorting Sorting object
+     * @return \MangoPay\Transaction[]
      */
     public function GetTransactions($mandateId, & $pagination = null, $filter = null, $sorting = null)
     {

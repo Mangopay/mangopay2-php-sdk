@@ -110,8 +110,8 @@ class ApiClients extends Libraries\ApiBase
      * 
      * @param \MangoPay\FundsType $fundsType FundsType enum
      * @param \MangoPay\CurrencyIso $currencyIso CurrencyIso enum
-     * 
-     * @return \MangoPay\Wallet Wallets (fees or credit) with a particular currency
+     *
+     * @return \MangoPay\Wallet Wallet (fees or credit) with a particular currency
      */
     public function GetWallet($fundsType, $currencyIso)
     {        

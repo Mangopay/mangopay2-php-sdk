@@ -18,7 +18,7 @@ class ApiCardPreAuthorizations extends Libraries\ApiBase
     
     /**
      * Get pre-authorization object
-     * @param int $cardPreAuthorizationId PreAuthorization identifier
+     * @param string $cardPreAuthorizationId PreAuthorization identifier
      * @return \MangoPay\CardPreAuthorization Card registration  object returned from API
      */
     public function Get($cardPreAuthorizationId)

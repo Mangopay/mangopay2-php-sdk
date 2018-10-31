@@ -3,12 +3,7 @@ namespace MangoPay;
 
 /**
  * Class to management MangoPay API for responses
- * See 
- */
-
- /**
- * Class ApiResponses
- * @package MangoPay
+ * See
  */
 class ApiResponses extends Libraries\ApiBase
 {

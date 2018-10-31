@@ -41,7 +41,7 @@ class ApiHooks extends Libraries\ApiBase
      * Get all hooks
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\Sorting $sorting Sorting object
-     * @return object[] Array with objects returned from API
+     * @return \MangoPay\Hook[] Array with objects returned from API
      * @throws Libraries\Exception
      */
     public function GetAll(& $pagination = null, $sorting = null)
