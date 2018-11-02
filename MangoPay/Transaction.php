@@ -9,13 +9,13 @@ class Transaction extends Libraries\EntityBase
 {
     /**
      * Author Id
-     * @var int
+     * @var string
      */
     public $AuthorId;
     
     /**
      * Credited user Id
-     * @var int
+     * @var string
      */
     public $CreditedUserId;
     
@@ -75,13 +75,13 @@ class Transaction extends Libraries\EntityBase
     
     /**
      * Debited wallet Id
-     * @var int
+     * @var string
      */
     public $DebitedWalletId;
     
     /**
      * Credited wallet Id
-     * @var int  
+     * @var string  
      */
     public $CreditedWalletId;
     
