@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,6 +7,13 @@ namespace MangoPay;
  */
 class ApiRepudiations extends Libraries\ApiBase
 {
+    /**
+     * @param string $repudiationId
+     */
+    public function Get($repudiationId)
+    {
+        return $this->GetObject('repudiation_get', $repudiationId, '\MangoPay\Repudiation');
+    }
 
     /**
      * Retrieves a list of Refunds pertaining to a certain Repudiation
@@ -16,6 +24,6 @@ class ApiRepudiations extends Libraries\ApiBase
      */
     public function GetRefunds($repudiationId, & $pagination = null, $filter = null, $sorting = null)
     {
-        return $this->GetList('refunds_get_for_repudiation', $pagination, '\MangoPay\Refund', $repudiationId, $filter, $sorting);
+        return $this->GetList('refunds_get_for_repudiation', $pagination, '\MangoPay\Repudiation', $repudiationId, $filter, $sorting);
     }
 }
