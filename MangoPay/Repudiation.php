@@ -39,8 +39,9 @@ class Repudiation extends Libraries\EntityBase
     public $DebitedWalletId;
 
     /**
-     * The status of the transfer {CREATED, SUCCEEDED, FAILED}
-     * @var string 
+     * The status of the transfer
+     * @var string
+     * @see \MangoPay\TransactionStatus
      */
     public $Status;
 
@@ -75,11 +76,11 @@ class Repudiation extends Libraries\EntityBase
      * @var string
      */
     public $InitialTransactionId;
-    
 
     /**
      * The initial transaction type
      * @var string
+     * @see \MangoPay\TransactionType
      */
     public $InitialTransactionType;
     
@@ -93,6 +94,6 @@ class Repudiation extends Libraries\EntityBase
             'DebitedFunds' => '\MangoPay\Money',
             'Fees' => '\MangoPay\Money',
             'CreditedFunds' => '\MangoPay\Money',
-            );
+        );
     }
 }

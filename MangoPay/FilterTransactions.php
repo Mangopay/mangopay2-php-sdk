@@ -7,25 +7,24 @@ namespace MangoPay;
 class FilterTransactions extends FilterBase
 {
     /**
-     * TransactionStatus {CREATED, SUCCEEDED, FAILED}
      * @var string
+     * @see \MangoPay\TransactionStatus
      */
     public $Status;
     
     /**
-     * TransactionType {PAYIN, PAYOUT, TRANSFER}
      * @var string
+     * @see \MangoPay\TransactionType
      */
     public $Type;
     
     /**
-     * TransactionNature {REGULAR, REFUND, REPUDIATION, SETTLEMENT}
      * @var string
+     * @see \MangoPay\TransactionNature
      */
     public $Nature;
 
     /**
-     * Transaction's result code
      * @var string
      */
     public $ResultCode;

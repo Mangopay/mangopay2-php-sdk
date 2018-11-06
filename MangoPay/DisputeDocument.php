@@ -14,13 +14,15 @@ class DisputeDocument extends Libraries\Document
 	
     /**
      * Type of dispute document
-     * @var \MangoPay\DisputeDocumentType
+     * @var string
+     * @see \MangoPay\DisputeDocumentType
      */
     public $Type;
     
     /**
      * Status of dispute document
-     * @var \MangoPay\DisputeDocumentStatus
+     * @var string
+     * @see \MangoPay\DisputeDocumentStatus
      */
     public $Status;
 }

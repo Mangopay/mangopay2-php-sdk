@@ -13,20 +13,20 @@ class Hook extends Libraries\EntityBase
     public $Url;
         
     /**
-     * Status: ENABLED, DISABLED
      * @var string
+     * @see \MangoPay\HookStatus
      */
     public $Status;
     
     /**
-     * Validity: VALID, INVALID
      * @var string
+     * @see \MangoPay\HookValidity
      */
     public $Validity;
     
     /**
-     * EventType. See constants in MangoPay\EventType for allowed values.
      * @var string
+     * @see \MangoPay\EventType
      */
     public $EventType;
 }

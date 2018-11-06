@@ -8,14 +8,14 @@ class ReportRequest extends Libraries\EntityBase
 {
     /**
      * Date of when the report was requested.
-     * @var Timestamp
+     * @var int
      */
     public $ReportDate;
 
     /**
-     * Status of the report. 
-     * {"PENDING", "EXPIRED", "FAILED" or "READY_FOR_DOWNLOAD"}
+     * Status of the report.
      * @var string
+     * @see \MangoPay\ReportStatus
      */
     public $Status;
 
@@ -38,8 +38,9 @@ class ReportRequest extends Libraries\EntityBase
     public $CallbackURL;
 
     /**
-     * Type of the report. 
-     * @var \MangoPay\ReportType
+     * Type of the report.
+     * @var string
+     * @see \MangoPay\ReportType
      */
     public $ReportType;
 

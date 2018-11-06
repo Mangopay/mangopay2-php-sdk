@@ -228,8 +228,8 @@ class FilterReports extends FilterTransactions
      * @var string
      */
     public $MaxDebitedFundsCurrency;
-    
-        /**
+
+    /**
      * Minimum Fees amount
      * @var int
      */
