@@ -38,8 +38,8 @@ class Transaction extends Libraries\EntityBase
     public $Fees;
     
     /**
-     * TransactionStatus {CREATED, SUCCEEDED, FAILED}
      * @var string
+     * @see \MangoPay\TransactionStatus
      */
     public $Status;
     
@@ -56,20 +56,20 @@ class Transaction extends Libraries\EntityBase
     public $ResultMessage;
     
     /**
-     * Execution date;
+     * Execution date
      * @var int
      */
     public $ExecutionDate;
     
     /**
-     * TransactionType {PAYIN, PAYOUT, TRANSFER}
      * @var string
+     * @see \MangoPay\TransactionType
      */
     public $Type;
     
     /**
-     * TransactionNature { REGULAR, REFUND, REPUDIATION, SETTLEMENT }
      * @var string
+     * @see \MangoPay\TransactionNature
      */
     public $Nature;
     

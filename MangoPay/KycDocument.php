@@ -7,19 +7,18 @@ namespace MangoPay;
 class KycDocument extends Libraries\Document
 {
     /**
-     * Document type
-     * @var string (See \MangoPay\KycDocumentType)
+     * @var string
+     * @see \MangoPay\KycDocumentType
      */
     public $Type;
     
     /**
-     * Document status
-     * @var string (See \MangoPay\KycDocumentStatus)
+     * @var string
+     * @see \MangoPay\KycDocumentStatus
      */
     public $Status;
     
     /**
-     * User identifier
      * @var string
      */
     public $UserId;

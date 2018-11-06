@@ -16,12 +16,14 @@ class Dispute extends Libraries\EntityBase
     /**
      * The type of transaction that is disputed
      * @var string
+     * @see \MangoPay\TransactionType
      */
     public $InitialTransactionType;
 
      /**
      * The type of dispute
-     * @var \MangoPay\DisputeType
+     * @var string
+     * @see \MangoPay\DisputeType
      */
     public $DisputeType;
 
@@ -51,7 +53,8 @@ class Dispute extends Libraries\EntityBase
 
     /**
      * The current status of the dispute
-     * @var \MangoPay\DisputeStatus
+     * @var string
+     * @see \MangoPay\DisputeStatus
      */
     public $Status;
 
@@ -89,7 +92,7 @@ class Dispute extends Libraries\EntityBase
             'DisputeReason' => '\MangoPay\DisputeReason',
             'DisputedFunds' => '\MangoPay\Money',
             'ContestedFunds' => '\MangoPay\Money'
-            );
+        );
     }
     
     /**

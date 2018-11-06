@@ -51,8 +51,9 @@ class Mandate extends Libraries\EntityBase
     public $UserId;
 
     /**
-     * Status of the mandate: CREATED, SUBMITTED, ACTIVE, FAILED
-     * @var \MangoPay\MandateStatus
+     * Status of the mandate
+     * @var string
+     * @see \MangoPay\MandateStatus
      */
     public $Status;
 

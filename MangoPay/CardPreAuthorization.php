@@ -22,15 +22,16 @@ class CardPreAuthorization extends Libraries\EntityBase
     public $DebitedFunds;
 
     /**
-     * Status of the PreAuthorization: CREATED, SUCCEEDED, FAILED
+     * Status of the PreAuthorization
      * @var string
+     * @see \MangoPay\CardPreAuthorizationStatus
      */
     public $Status;
 
     /**
-     * The status of the payment after the PreAuthorization:
-     * WAITING, CANCELED, EXPIRED, VALIDATED
+     * The status of the payment after the PreAuthorization
      * @var string
+     * @see \MangoPay\CardPreAuthorizationPaymentStatus
      */
     public $PaymentStatus;
 
