@@ -34,7 +34,7 @@ class ApiKycDocuments extends Libraries\ApiBase
      *
      * @param string $kycDocumentId Identification of the document whose pages to view
      * @param \MangoPay\Pagination $pagination Pagination object
-     * @return array Array of consults for viewing the KYC document's pages
+     * @return \MangoPay\DocumentPageConsult[] Array of consults for viewing the KYC document's pages
      * @throws Libraries\Exception
      */
     public function CreateKycDocumentConsult($kycDocumentId, & $pagination = null)

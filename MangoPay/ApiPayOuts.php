@@ -33,7 +33,7 @@ class ApiPayOuts extends Libraries\ApiBase
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterRefunds filter Filtering object
      * @param \MangoPay\Sorting $sorting Sorting object
-     * @return array List of Refunds for the PayOut
+     * @return \MangoPay\Refund[] List of Refunds for the PayOut
      */
     public function GetRefunds($payOutId, & $pagination = null, $filter = null, $sorting = null)
     {

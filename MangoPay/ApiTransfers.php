@@ -43,7 +43,7 @@ class ApiTransfers extends Libraries\ApiBase
      * @param \MangoPay\Pagination $pagination Pagination object
      * @param \MangoPay\FilterRefunds $filter Filtering object
      * @param \MangoPay\Sorting $sorting Sorting object
-     * @return array List of the Transfer's Refunds
+     * @return \MangoPay\Refund[] List of the Transfer's Refunds
      */
     public function GetRefunds($transferId, & $pagination = null, $filter = null, $sorting = null)
     {
