@@ -8,13 +8,13 @@ class Transfer extends Transaction
 {
     /**
      * Debited wallet Id
-     * @var int
+     * @var string
      */
     public $DebitedWalletId;
     
     /**
      * Credited wallet Id
-     * @var int
+     * @var string
      */
     public $CreditedWalletId;
 }
