@@ -120,6 +120,7 @@ class PayInsTest extends Base
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+        $payIn->ExecutionDetails->Culture='FR';
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
 
@@ -154,6 +155,7 @@ class PayInsTest extends Base
         $payIn->PaymentDetails->DeclaredFees->Amount = 0;
         $payIn->PaymentDetails->DeclaredFees->Currency = 'EUR';
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        $payIn->ExecutionDetails->Culture = "FR";
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
 
@@ -212,7 +214,7 @@ class PayInsTest extends Base
         $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->Details->BIC);
     }
 
-    function test_PayIns_DirectDebitWeb_Create()
+    function test_PayIns_DirectDeDirectDebitWeb_Create()
     {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
