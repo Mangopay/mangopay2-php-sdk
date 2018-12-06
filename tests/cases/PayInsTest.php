@@ -120,7 +120,7 @@ class PayInsTest extends Base
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
-        $payIn->ExecutionDetails->Culture='FR';
+        $payIn->ExecutionDetails->Culture = 'FR';
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
 
@@ -357,6 +357,15 @@ class PayInsTest extends Base
 
         $this->assertNotNull($refunds);
         $this->assertInternalType('array', $refunds);
+    }
+
+    function test_PayIns_Culture_Code()
+    {
+        $payin = $this->getNewPayInCardDirect();
+
+        $this->assertNotNull($payin);
+        $this->assertNotNull($payin->ExecutionDetails);
+        $this->assertNotNull($payin->ExecutionDetails->Culture);
     }
 }
 
