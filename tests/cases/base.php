@@ -534,6 +534,7 @@ abstract class Base extends TestCase
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+        $payIn->ExecutionDetails->Culture = 'FR';
 
         $address = new \MangoPay\Address();
         $address->AddressLine1 = 'Main Street no 5';

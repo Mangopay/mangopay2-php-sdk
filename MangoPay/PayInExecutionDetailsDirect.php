@@ -42,6 +42,12 @@ class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutio
      */
     public $SecurityInfo;
 
+    /**
+     * The language to use for the payment page - needs to be the ISO code of the language
+     * @var string
+     */
+    public $Culture;
+
     public function GetSubObjects()
     {
         $subObjects = parent::GetSubObjects();
