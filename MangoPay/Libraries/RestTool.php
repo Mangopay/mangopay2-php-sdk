@@ -214,11 +214,11 @@ class RestTool
             $logClass::Debug('Response headers', print_r($headers, true));
         }
         foreach ($headers as $header) {
-            if (strpos($header, 'X-Number-Of-Pages:') !== false) {
-                $this->_pagination->TotalPages = (int)trim(str_replace('X-Number-Of-Pages:', '', $header));
+            if (strpos(strtolower($header), 'x-number-of-pages:') !== false) {
+                $this->_pagination->TotalPages = (int)trim(str_replace('x-number-of-pages:', '', $header));
             }
-            if (strpos($header, 'X-Number-Of-Items:') !== false) {
-                $this->_pagination->TotalItems = (int)trim(str_replace('X-Number-Of-Items:', '', $header));
+            if (strpos(strtolower($header), 'x-number-of-items:') !== false) {
+            $this->_pagination->TotalItems = (int)trim(str_replace('x-number-of-items:', '', $header));
             }
             if (strpos($header, 'Link: ') !== false) {
                 $strLinks = trim(str_replace('Link:', '', $header));
