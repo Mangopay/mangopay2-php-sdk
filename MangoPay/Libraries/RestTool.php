@@ -2,6 +2,7 @@
 
 namespace MangoPay\Libraries;
 
+use MangoPay\RateLimit;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -209,16 +210,21 @@ class RestTool
     private function ReadResponseHeader($headers)
     {
         $logClass = $this->_root->Config->LogClass;
+
         $this->logger->debug('Response headers :' . print_r($headers, true));
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('Response headers', print_r($headers, true));
         }
+
+        $updatedRateLimits = null;
+
         foreach ($headers as $header) {
-            if (strpos(strtolower($header), 'x-number-of-pages:') !== false) {
+            $lowercaseHeader = strtolower($header);
+            if (strpos($lowercaseHeader, 'x-number-of-pages:') !== false) {
                 $this->_pagination->TotalPages = (int)trim(str_replace('x-number-of-pages:', '', $header));
             }
-            if (strpos(strtolower($header), 'x-number-of-items:') !== false) {
-            $this->_pagination->TotalItems = (int)trim(str_replace('x-number-of-items:', '', $header));
+            if (strpos($lowercaseHeader, 'x-number-of-items:') !== false) {
+                $this->_pagination->TotalItems = (int)trim(str_replace('x-number-of-items:', '', $header));
             }
             if (strpos($header, 'Link: ') !== false) {
                 $strLinks = trim(str_replace('Link:', '', $header));
@@ -234,7 +240,72 @@ class RestTool
                     }
                 }
             }
+
+            if (strpos($lowercaseHeader, 'x-ratelimit-remaining:') !== false) {
+                if ($updatedRateLimits == null) {
+                    $updatedRateLimits = $this->initRateLimits();
+                }
+                $rateLimit = $this->findFirstRateLimitMatchingPredicate($updatedRateLimits, function ($rate) {
+                    return $rate->CallsRemaining == null;
+                });
+                $rateLimit->CallsRemaining = (int)trim(str_replace('x-ratelimit-remaining:', '', $lowercaseHeader));
+            }
+
+            if (strpos($lowercaseHeader, 'x-ratelimit:') !== false) {
+                if ($updatedRateLimits == null) {
+                    $updatedRateLimits = $this->initRateLimits();
+                }
+                $rateLimit = $this->findFirstRateLimitMatchingPredicate($updatedRateLimits, function ($rate) {
+                    return $rate->CallsMade == null;
+                });
+                $rateLimit->CallsMade = (int)trim(str_replace('x-ratelimit:', '', $lowercaseHeader));
+            }
+
+            if (strpos($lowercaseHeader, 'x-ratelimit-reset:') !== false) {
+                if ($updatedRateLimits == null) {
+                    $updatedRateLimits = $this->initRateLimits();
+                }
+                $rateLimit = $this->findFirstRateLimitMatchingPredicate($updatedRateLimits, function ($rate) {
+                    return $rate->ResetTimeMillis == null;
+                });
+                $rateLimit->ResetTimeMillis = (int)trim(str_replace('x-ratelimit-reset:', '', $lowercaseHeader));
+            }
         }
+
+        if ($updatedRateLimits != null) {
+            $this->_root->RateLimits = $updatedRateLimits;
+        }
+    }
+
+
+    /**
+     * @param RateLimit[] $updatedRateLimits
+     * @param callable $predicate
+     * @return RateLimit
+     */
+    private function findFirstRateLimitMatchingPredicate($updatedRateLimits, $predicate)
+    {
+        for ($i = 0; $i < sizeof($updatedRateLimits); $i++) {
+            if ($predicate($updatedRateLimits[$i])) {
+                return $updatedRateLimits[$i];
+            }
+        }
+        return new RateLimit();
+    }
+
+
+    /**
+     * Initializes the list of rate limits.
+     * @return RateLimit[]
+     */
+    private function initRateLimits()
+    {
+        return [
+            new RateLimit(15),
+            new RateLimit(30),
+            new RateLimit(60),
+            new RateLimit(24 * 60),
+        ];
     }
 
     /**
