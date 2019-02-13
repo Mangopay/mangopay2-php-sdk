@@ -180,6 +180,11 @@ class MangoPayApi
     public $httpClient;
 
     /**
+     * @var RateLimit[] Holds data as specified by X-RateLimit response headers.
+     */
+    public $RateLimits;
+
+    /**
      * Constructor
      */
     public function __construct()

@@ -238,3 +238,57 @@ $logger->pushHandler(new StreamHandler($logConfig['path'], Logger::DEBUG));
 $this->mangoPayApi = new MangoPay\MangoPayApi();
 $this->mangoPayApi->setLogger($logger);
 ```
+
+Verifying rate limits status
+---------------------------
+According to API docs (https://docs.mangopay.com/guide/rate-limiting), MangoPay is providing a way of 
+verifying how many API calls were made, how many are left and when the counter will be reset. 
+So there are 4 groups of rate limits available:
+1. Last 15 minutes:
+2. Last 30 minutes
+3. Last 60 minutes
+4. Last 24 hours
+
+This information is available from the MangoPayApi instance, like in the following example:
+```php
+<?php
+
+namespace Path\To\Service;
+
+use MangoPay;
+
+
+class MangoPayService
+{
+
+    /**
+    * @var MangoPay\MangoPayApi 
+    */
+    private $mangoPayApi;
+
+    public function __construct()
+    {
+        $this->mangoPayApi = new MangoPay\MangoPayApi();
+        $this->mangoPayApi->Config->ClientId = 'your-client-id';
+        $this->mangoPayApi->Config->ClientPassword = 'your-client-password';
+        $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';    
+        //$this->mangoPayApi->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
+    }
+    
+    public function verifyRateLimits()
+    {
+        // This is an arary of 4 RateLimit objects.
+        $rateLimits = $this->mangoPayApi->RateLimits;
+        print "There were " . $rateLimits[0]->CallsMade . " calls made in the last 15 minutes\n";
+        print "You can do " . $rateLimits[0]->CallsRemaining . " more calls in the next 15 minutes\n";
+        print "The 15 minutes counter will reset in " . $rateLimits[0]->ResetTimeMillis . " ms\n\n";
+        print "There were " . $rateLimits[2]->CallsMade . " calls made in the last 60 minutes\n";
+        print "You can do " . $rateLimits[2]->CallsRemaining . " more calls in the next 60 minutes\n";
+        print "The 60 minutes counter will reset in " . $rateLimits[1]->ResetTimeMillis . " ms\n\n";
+    }
+}
+
+```
+
+
+
