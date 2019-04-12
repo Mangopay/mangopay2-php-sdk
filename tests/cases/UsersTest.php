@@ -71,6 +71,7 @@ class UsersTest extends Base
         $user->LegalRepresentativeBirthday = mktime(0, 0, 0, 12, 21, 1975);
         $user->LegalRepresentativeNationality = "FR";
         $user->LegalRepresentativeCountryOfResidence = "FR";
+        $user->CompanyNumber = "LU12345678";
 
         $ret = $this->_api->Users->Create($user);
 
