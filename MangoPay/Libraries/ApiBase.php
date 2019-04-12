@@ -171,9 +171,13 @@ abstract class ApiBase
         'reports_all' => array( '/reports', RequestType::GET ),
         'reports_get' => array( '/reports/%s', RequestType::GET ),
 
-        'ubo_declaration_create' => array( '/users/legal/%s/ubodeclarations', RequestType::POST ),
-        'ubo_declaration_update' => array( '/ubodeclarations/%s', RequestType::PUT ),
-        'ubo_declaration_get' => array( '/ubodeclarations/%s', RequestType::GET ),
+        'ubo_declaration_create' => array('/users/%s/kyc/ubodeclarations', RequestType::POST),
+        'ubo_declaration_all' => array('/users/%s/kyc/ubodeclarations', RequestType::GET),
+        'ubo_declaration_submit' => array('/users/%s/kyc/ubodeclarations/%s', RequestType::PUT),
+        'ubo_declaration_get' => array('/users/%s/kyc/ubodeclarations/%s', RequestType::GET),
+        'ubo_create' => array('/users/%s/kyc/ubodeclarations/%s/ubos', RequestType::POST),
+        'ubo_update' => array('/users/%s/kyc/ubodeclarations/%s/ubos/%s', RequestType::PUT),
+        'ubo_get' => array('/users/%s/kyc/ubodeclarations/%s/ubos/%s', RequestType::GET),
 
         'transactions_get_for_mandate' => array( '/mandates/%s/transactions', RequestType::GET ),
         'transactions_get_for_card' => array( '/cards/%s/transactions', RequestType::GET ),
@@ -249,11 +253,16 @@ abstract class ApiBase
      * @param string $entityId Entity identifier
      * @param object $responseClassName Name of entity class from response
      * @param int $secondEntityId Entity identifier for second entity
+     * @param int $thirdEntityId Entity identifier for third entity
      * @return object Response data
      */
-    protected function GetObject($methodKey, $entityId, $responseClassName = null, $secondEntityId = null)
+    protected function GetObject($methodKey, $entityId, $responseClassName = null, $secondEntityId = null, $thirdEntityId = null)
     {
-        $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId);
+        if ($thirdEntityId === null) {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId);
+        } else {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId, $thirdEntityId);
+        }
 
         $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
@@ -312,7 +321,7 @@ abstract class ApiBase
      * @param object $responseClassName Name of entity class from response
      * @return object Response data
      */
-    protected function SaveObject($methodKey, $entity, $responseClassName = null, $secondEntityId = null)
+    protected function SaveObject($methodKey, $entity, $responseClassName = null, $secondEntityId = null, $thirdEntityId = null)
     {
         $entityId = null;
         if (isset($entity->Id)){
@@ -321,8 +330,10 @@ abstract class ApiBase
 
         if (is_null($secondEntityId)) {
             $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
-        } else {
+        } else if (is_null($thirdEntityId)) {
             $urlMethod = sprintf($this->GetRequestUrl($methodKey), $secondEntityId, $entityId);
+        } else {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $secondEntityId, $thirdEntityId, $entityId);
         }
 
         $requestData = $this->BuildRequestData($entity);
@@ -432,7 +443,7 @@ abstract class ApiBase
      */
     protected function BuildRequestData($entity)
     {
-        if (is_a($entity, 'MangoPay\UboDeclaration')) {
+        /*if (is_a($entity, 'MangoPay\UboDeclaration')) {
             $declaredUboIds = [];
             foreach ($entity->DeclaredUBOs as $declaredUBO) {
                 if (is_string($declaredUBO)) {
@@ -442,7 +453,7 @@ abstract class ApiBase
                 }
             }
             $entity->DeclaredUBOs = $declaredUboIds;
-        }
+        }*/
         $entityProperties = get_object_vars($entity);
         $blackList = $entity->GetReadOnlyProperties();
         $requestData = array();

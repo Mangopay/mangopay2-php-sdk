@@ -3,7 +3,9 @@
 namespace MangoPay\Tests\Cases;
 
 
+use MangoPay\Birthplace;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
+use MangoPay\Ubo;
 use PHPUnit\Framework\TestCase;
 
 set_time_limit(0);
@@ -24,6 +26,15 @@ abstract class Base extends TestCase
      * @var \MangoPay\UserLegal
      */
     public static $Matrix;
+
+    /**
+     * @var \MangoPay\UboDeclaration
+     */
+    public static $MatrixUboDeclaration;
+    /**
+     * @var \MangoPay\Ubo
+     */
+    public static $MatrixUbo;
     /**
      * Test bank account belonging to John - access by getJohnsAccount()
      * @var \MangoPay\BankAccount
@@ -738,21 +749,6 @@ abstract class Base extends TestCase
     }
 
     /**
-     * Creates a UBO declaration.
-     * @return \MangoPay\UboDeclaration
-     */
-    protected function getCreatedUboDeclaration()
-    {
-        $matrix = $this->getMatrix();
-        $john = $this->getDeclarativeJohn();
-        $declaredUboIds = [$john->Id];
-        $declaration = new \MangoPay\UboDeclaration();
-        $declaration->DeclaredUBOs = $declaredUboIds;
-
-        return $this->_api->Users->CreateUboDeclaration($matrix->Id, $declaration);
-    }
-
-    /**
      * Creates self::$Matrix (test legal user) if not created yet
      * @return \MangoPay\UserLegal
      */
@@ -775,6 +771,48 @@ abstract class Base extends TestCase
             self::$Matrix = $this->_api->Users->Create($user);
         }
         return self::$Matrix;
+    }
+
+    /**
+     * @return \MangoPay\UboDeclaration|object
+     */
+    public function getMatrixUboDeclaration() {
+        if (self::$MatrixUboDeclaration === null) {
+            self::$MatrixUboDeclaration = $this->_api->UboDeclarations->Create($this->getMatrix()->Id);
+        }
+        return self::$MatrixUboDeclaration;
+    }
+
+    public function createNewUboForMatrix() {
+        $matrix = $this->getMatrix();
+        $declaration = $this->getMatrixUboDeclaration();
+
+        $ubo = new Ubo();
+        $ubo->FirstName = "First";
+        $ubo->LastName = "Last";
+        $ubo->Address = $this->getNewAddress();
+        $ubo->Nationality = "FR";
+        $ubo->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+        $ubo->Birthplace = new Birthplace();
+        $ubo->Birthplace->City = 'City';
+        $ubo->Birthplace->Country = 'FR';
+
+        return $ubo;
+    }
+
+    /**
+     * @return Ubo|object
+     */
+    public function getMatrixUbo() {
+        if (self::$MatrixUbo === null) {
+            $matrix = $this->getMatrix();
+            $declaration = $this->getMatrixUboDeclaration();
+
+            $ubo = $this->createNewUboForMatrix();
+
+            self::$MatrixUbo = $this->_api->UboDeclarations->CreateUbo($matrix->Id, $declaration->Id, $ubo);
+        }
+        return self::$MatrixUbo;
     }
 
     /**

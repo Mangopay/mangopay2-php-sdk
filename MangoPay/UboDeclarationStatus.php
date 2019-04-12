@@ -26,4 +26,6 @@ class UboDeclarationStatus
      * When the UBO declaration was refused
      */
     const Refused = 'REFUSED';
+
+    const Incomplete = 'INCOMPLETE';
 }

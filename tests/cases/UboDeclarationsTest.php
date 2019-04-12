@@ -3,27 +3,114 @@
 namespace MangoPay\Tests\Cases;
 
 
+use MangoPay\UboDeclarationStatus;
+
 /**
  * Tests API methods for the UBO declaration entity.
  */
 class UboDeclarationsTest extends Base
 {
 
-    function test_UboDeclarations_Get()
+    function test_CreateUboDeclaration()
     {
-        $declaration = $this->getCreatedUboDeclaration();
-        $declaration = $this->_api->UboDeclarations->Get($declaration->Id);
+        $declaration = $this->getMatrixUboDeclaration();
 
         $this->assertNotNull($declaration);
+        $this->assertEquals(UboDeclarationStatus::Created, $declaration->Status);
+        $this->assertNotNull($declaration->Id);
     }
 
-    function test_UboDeclarations_Update()
+    function test_ListUboDeclarations()
     {
-        $declaration = $this->getCreatedUboDeclaration();
-        $declaration->Status = \MangoPay\UboDeclarationStatus::ValidationAsked;
-        $declaration = $this->_api->UboDeclarations->Update($declaration);
+        $declaration = $this->getMatrixUboDeclaration();
+        $matrix = $this->getMatrix();
 
-        $this->assertNotNull($declaration);
-        $this->assertEquals(\MangoPay\UboDeclarationStatus::ValidationAsked, $declaration->Status);
+        $declarations = $this->_api->UboDeclarations->GetAll($matrix->Id);
+
+        $this->assertNotNull($declarations);
+        $this->assertNotEmpty($declarations);
+        $this->assertEquals(1, sizeof($declarations));
+        $this->assertEquals($declaration->Id, $declarations[0]->Id);
+    }
+
+    function test_GetUboDeclaration()
+    {
+        $declaration = $this->getMatrixUboDeclaration();
+        $matrix = $this->getMatrix();
+
+        $declarationFromApi = $this->_api->UboDeclarations->Get($matrix->Id, $declaration->Id);
+
+        $this->assertNotNull($declarationFromApi);
+        $this->assertEquals($declaration->Id, $declarationFromApi->Id);
+
+    }
+
+    function test_CreateUbo()
+    {
+        $ubo = $this->createNewUboForMatrix();
+
+        $newUbo = $this->getMatrixUbo();
+
+        $this->assertNotNull($newUbo);
+        $this->assertNotNull($newUbo->Id);
+        $this->assertEquals($ubo->FirstName, $newUbo->FirstName);
+        $this->assertEquals($ubo->LastName, $newUbo->LastName);
+        $this->assertEquals($ubo->Address, $newUbo->Address);
+        $this->assertEquals($ubo->Nationality, $newUbo->Nationality);
+        $this->assertEquals($ubo->Birthday, $newUbo->Birthday);
+        $this->assertEquals($ubo->Birthplace, $newUbo->Birthplace);
+    }
+
+    public function test_UpdateUbo()
+    {
+        $matrix = $this->getMatrix();
+        $uboDeclaration = $this->getMatrixUboDeclaration();
+
+        $toBeUpdated = $this->getMatrixUbo();
+        $toBeUpdated->FirstName = "UpdatedFirstName";
+        $toBeUpdated->LastName = "UpdatedLastName";
+        $toBeUpdated->Address->AddressLine1 = "UpdatedLine1";
+        $toBeUpdated->Nationality = "GB";
+        $toBeUpdated->Birthday = mktime(0, 0, 0, 12, 21, 1991);
+        $toBeUpdated->Birthplace->Country = "GB";
+
+        $ubo = $this->_api->UboDeclarations->UpdateUbo($matrix->Id, $uboDeclaration->Id, $toBeUpdated);
+
+        $this->assertEquals($toBeUpdated->FirstName, $ubo->FirstName);
+        $this->assertEquals($toBeUpdated->LastName, $ubo->LastName);
+        $this->assertEquals($toBeUpdated->Address, $ubo->Address);
+        $this->assertEquals($toBeUpdated->Nationality, $ubo->Nationality);
+        $this->assertEquals($toBeUpdated->Birthday, $ubo->Birthday);
+        $this->assertEquals($toBeUpdated->Birthplace, $ubo->Birthplace);
+    }
+
+    public function test_GetUbo()
+    {
+        $matrix = $this->getMatrix();
+        $uboDeclaration = $this->getMatrixUboDeclaration();
+        $existingUbo = $this->getMatrixUbo();
+
+        $dd = $this->_api->UboDeclarations->Get($matrix->Id, $uboDeclaration->Id);
+
+        $fetchedUbo = $this->_api->UboDeclarations->GetUbo($matrix->Id, $uboDeclaration->Id, $existingUbo->Id);
+
+        $this->assertNotNull($fetchedUbo);
+
+        $this->assertEquals($existingUbo->FirstName, $fetchedUbo->FirstName);
+        $this->assertEquals($existingUbo->LastName, $fetchedUbo->LastName);
+        $this->assertEquals($existingUbo->Address, $fetchedUbo->Address);
+        $this->assertEquals($existingUbo->Nationality, $fetchedUbo->Nationality);
+        $this->assertEquals($existingUbo->Birthday, $fetchedUbo->Birthday);
+        $this->assertEquals($existingUbo->Birthplace, $fetchedUbo->Birthplace);
+    }
+
+    function test_SubmitForValidation()
+    {
+        $declaration = $this->getMatrixUboDeclaration();
+        $matrix = $this->getMatrix();
+
+        $newDeclaration = $this->_api->UboDeclarations->SubmitForValidation($matrix->Id, $declaration->Id);
+
+        $this->assertEquals($declaration->Id, $newDeclaration->Id);
     }
 }

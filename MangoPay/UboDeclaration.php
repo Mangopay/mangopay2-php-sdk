@@ -8,11 +8,9 @@ namespace MangoPay;
 class UboDeclaration extends Libraries\EntityBase
 {
     /**
-     * Owner's user ID.
-     * Non-null, cannot be updated after creating declaration.
-     * @var string
+     * @var int Unix timestamp, Date of process
      */
-    public $UserId;
+    public $ProcessedDate;
 
     /**
      * Declaration status.
@@ -23,35 +21,43 @@ class UboDeclaration extends Libraries\EntityBase
 
     /**
      * List of reasons why the declaration was refused.
-     * @var string[]
+     * @var string
      * @see \MangoPay\UboDeclarationRefusedReasonType
      */
-    public $RefusedReasonTypes;
+    public $Reason;
 
     /**
      * Explanation of why the declaration was refused.
      * @var string
      */
-    public $RefusedReasonMessage;
+    public $Message;
 
     /**
      * Listed representations of natural users declared as UBOs.
      * When transmitting a UBO declaration (POST / PUT), must be an array of
      * IDs (string) of the users to be declared as UBOs.
      * In a received UBO declaration (GET), will be an array of representations
-     * of the natural users declared as UBOs (\MangoPay\DeclaredUbo).
-     * @var array
+     * of the natural users declared as UBOs (\MangoPay\Ubo).
+     * @var Ubo[]
      */
-    public $DeclaredUBOs;
+    public $Ubos;
 
     public function GetReadOnlyProperties()
     {
         $readOnly = parent::GetReadOnlyProperties();
 
-        array_push($readOnly, "RefusedReasonTypes");
-        array_push($readOnly, "RefusedReasonMessage");
+        array_push($readOnly, "ProcessedDate");
+        array_push($readOnly, "Reason");
+        array_push($readOnly, "Message");
 
         return $readOnly;
+    }
+
+    public function GetSubObjects()
+    {
+        $subObjects = parent::GetSubObjects();
+        $subObjects['Ubos'] = '\MangoPay\Ubo';
+        return $subObjects;
     }
 
 
