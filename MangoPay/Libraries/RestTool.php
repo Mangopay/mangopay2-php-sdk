@@ -144,6 +144,9 @@ class RestTool
         }
         // FIXME This can fail hard.
         $response = json_decode($responseResult->Body);
+        if (!isset($response)) {
+            print_r($response);
+        }
         $this->logger->debug('Decoded object : ' . print_r($response, true));
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('Response object', $response);
