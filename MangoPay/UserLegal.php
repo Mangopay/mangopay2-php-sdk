@@ -89,6 +89,11 @@ class UserLegal extends User
      * @var string
      */
     public $ShareholderDeclaration;
+
+    /**
+     * @var string
+     */
+    public $CompanyNumber;
     
     /**
      * Construct
