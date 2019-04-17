@@ -10,6 +10,15 @@ use MangoPay\UboDeclarationStatus;
  */
 class UboDeclarationsTest extends Base
 {
+    function setUp() {
+        $this->_api->Config->DebugMode = true;
+    }
+
+    protected function tearDown()
+    {
+        $this->_api->Config->DebugMode = false;
+    }
+
 
     function test_CreateUboDeclaration()
     {

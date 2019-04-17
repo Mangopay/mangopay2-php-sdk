@@ -102,7 +102,6 @@ abstract class Base extends TestCase
         $api = new \MangoPay\MangoPayApi();
 
         // use test client credentails
-        $api->Config->DebugMode = true;
         $api->Config->ClientId = 'sdk-unit-tests';
 
         // sandbox environment:
