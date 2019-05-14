@@ -345,17 +345,6 @@ class ApiUsers extends Libraries\ApiBase
     }
 
     /**
-     * Create a UBO declaration.
-     * @param string $userId ID of the legal user owning the declaration
-     * @param \MangoPay\UboDeclaration $declaration UBO declaration data
-     * @return \MangoPay\UboDeclaration Newly-created UBO declaration object
-     */
-    public function CreateUboDeclaration($userId, $declaration)
-    {
-        return $this->CreateObject('ubo_declaration_create', $declaration, '\MangoPay\UboDeclaration', $userId);
-    }
-
-    /**
      * Gets a list with PreAuthorizations belonging to a specific user
      * @param string $userId ID of the user whose PreAuthorizations to retrieve
      * @param \MangoPay\Pagination $pagination Pagination object

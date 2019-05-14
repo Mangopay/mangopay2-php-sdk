@@ -769,21 +769,6 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertInstanceOf('\MangoPay\Mandate', $mandates[0]);
     }
 
-    function test_Users_CreateUboDeclaration()
-    {
-        $matrix = $this->getMatrix();
-        $john = $this->getDeclarativeJohn();
-        $declaredUboIds = [$john->Id];
-        $declaration = new \MangoPay\UboDeclaration();
-        $declaration->DeclaredUBOs = $declaredUboIds;
-
-        $createdDeclaration = $this->_api->Users->CreateUboDeclaration($matrix->Id, $declaration);
-        $this->assertNotNull($createdDeclaration);
-        $this->assertEquals(\MangoPay\UboDeclarationStatus::Created, $createdDeclaration->Status);
-        $this->assertEquals($matrix->Id, $createdDeclaration->UserId);
-        $this->assertEquals($john->Id, $createdDeclaration->DeclaredUBOs[0]->UserId);
-    }
-
     function test_Users_GetPreAuthorizations()
     {
         $john = $this->getJohn();
