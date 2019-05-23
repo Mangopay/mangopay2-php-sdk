@@ -52,4 +52,9 @@ class EventType
     const PreAuthorizationPaymentExpired = "PREAUTHORIZATION_PAYMENT_EXPIRED";
     const PreAuthorizationPaymentCanceled = "PREAUTHORIZATION_PAYMENT_CANCELED";
     const PreAuthorizationPaymentValidated = "PREAUTHORIZATION_PAYMENT_VALIDATED";
+    const UboDeclarationCreated = "UBO_DECLARATION_CREATED";
+    const UboDeclarationValidationAsked = "UBO_DECLARATION_VALIDATION_ASKED";
+    const UboDeclarationRefused = "UBO_DECLARATION_REFUSED";
+    const UboDeclarationValidated = "UBO_DECLARATION_VALIDATED";
+    const UboDeclarationIncomplete = "UBO_DECLARATION_INCOMPLETE";
 }
