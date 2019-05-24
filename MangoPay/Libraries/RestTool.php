@@ -221,13 +221,13 @@ class RestTool
 
         foreach ($headers as $header) {
             $lowercaseHeader = strtolower($header);
-            if (strpos($lowercaseHeader, 'x-number-of-pages:') !== false) {
+            if (!is_null($this->_pagination) && strpos($lowercaseHeader, 'x-number-of-pages:') !== false) {
                 $this->_pagination->TotalPages = (int)trim(str_replace('x-number-of-pages:', '', $lowercaseHeader));
             }
-            if (strpos($lowercaseHeader, 'x-number-of-items:') !== false) {
+            if (!is_null($this->_pagination) && strpos($lowercaseHeader, 'x-number-of-items:') !== false) {
                 $this->_pagination->TotalItems = (int)trim(str_replace('x-number-of-items:', '', $lowercaseHeader));
             }
-            if (strpos($header, 'Link: ') !== false) {
+            if (!is_null($this->_pagination) && strpos($header, 'Link: ') !== false) {
                 $strLinks = trim(str_replace('Link:', '', $header));
                 $arrayLinks = explode(',', $strLinks);
                 if ($arrayLinks !== false) {
