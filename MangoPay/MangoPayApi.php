@@ -74,6 +74,12 @@ class MangoPayApi
     public $PayIns;
 
     /**
+     * Pay-in Apple Pay methods
+     * @var ApiPayInsApple
+     */
+    public $PayInsApplePay;
+
+    /**
      * Pay-out methods
      * @var ApiPayOuts
      */
@@ -202,6 +208,7 @@ class MangoPayApi
         $this->Wallets = new ApiWallets($this);
         $this->Transfers = new ApiTransfers($this);
         $this->PayIns = new ApiPayIns($this);
+        $this->PayInsApplePay = new ApiPayInsApple($this);
         $this->PayOuts = new ApiPayOuts($this);
         $this->Refunds = new ApiRefunds($this);
         $this->CardRegistrations = new ApiCardRegistrations($this);

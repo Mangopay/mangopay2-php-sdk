@@ -367,5 +367,48 @@ class PayInsTest extends Base
         $this->assertNotNull($payin->ExecutionDetails);
         $this->assertNotNull($payin->ExecutionDetails->Culture);
     }
+
+    function test_PayIns_Apple_Pay_Create()
+    {
+        $wallet = $this->getJohnsWallet();
+        $user = $this->getJohn();
+        // create Apple Pay direct pay-in
+        $applePayPayIn = new \MangoPay\PayInApple();
+        $applePayPayIn->CreditedWalletId = $wallet->Id;
+        $applePayPayIn->AuthorId = $user->Id;
+        $applePayPayIn->CreditedUserId = $user->Id;
+        $applePayPayIn->DebitedFunds = new \MangoPay\Money();
+        $applePayPayIn->DebitedFunds->Amount = 10000;
+        $applePayPayIn->DebitedFunds->Currency = 'EUR';
+        $applePayPayIn->Fees = new \MangoPay\Money();
+        $applePayPayIn->Fees->Amount = 100;
+        $applePayPayIn->Fees->Currency = 'EUR';
+        // payment data
+        $applePayPayIn->PaymentData = new \MangoPay\PaymentData();
+        $applePayPayIn->PaymentData->TransactionId = 'askldjasljdlasjdljasldasjldk';
+        $applePayPayIn->PaymentData->Network = 'VISA';
+        $applePayPayIn->PaymentData->TokenData = 'asljdlasdkalsdklsjad';
+
+        $applePayPayIn->StatementDescriptor = 'Mar2019';
+        $applePayPayIn->Tag = 'custom meta';
+
+        $createPayIn = $this->_api->PayInsApplePay->Create($applePayPayIn);
+
+        $this->assertTrue($createPayIn->Id > 0);
+        $this->assertEquals($wallet->Id, $createPayIn->CreditedWalletId);
+        $this->assertEquals($user->Id, $createPayIn->AuthorId);
+        $this->assertEquals(\MangoPay\PayInStatus::Created, $createPayIn->Status);
+        $this->assertInstanceOf('\MangoPay\Money', $createPayIn->DebitedFunds);
+        $this->assertEquals(10000, $createPayIn->DebitedFunds->Amount);
+        $this->assertEquals("EUR", $createPayIn->DebitedFunds->Currency);
+        $this->assertInstanceOf('\MangoPay\Money', $createPayIn->Fees);
+        $this->assertEquals(100, $createPayIn->Fees->Amount);
+        $this->assertEquals("EUR", $createPayIn->Fees->Currency);
+        $this->assertInstanceOf('\MangoPay\PaymentData', $createPayIn->PaymentData);
+        $this->assertEquals('askldjasljdlasjdljasldasjldk', $createPayIn->PaymentData->TransactionId);
+        $this->assertEquals('VISA', $createPayIn->PaymentData->Network);
+        $this->assertEquals('asljdlasdkalsdklsjad', $createPayIn->PaymentData->TokenData);
+
+    }
 }
 
