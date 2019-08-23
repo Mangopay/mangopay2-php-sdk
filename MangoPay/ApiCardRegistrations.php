@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -15,7 +16,7 @@ class ApiCardRegistrations extends Libraries\ApiBase
     {
         return $this->CreateObject('cardregistration_create', $cardRegistration, '\MangoPay\CardRegistration', null, null, $idempotencyKey);
     }
-    
+
     /**
      * Get card registration
      * @param string $cardRegistrationId Card Registration identifier
@@ -23,9 +24,9 @@ class ApiCardRegistrations extends Libraries\ApiBase
      */
     public function Get($cardRegistrationId)
     {
-        return $this->GetObject('cardregistration_get', $cardRegistrationId, '\MangoPay\CardRegistration');
+        return $this->GetObject('cardregistration_get', '\MangoPay\CardRegistration', $cardRegistrationId);
     }
-    
+
     /**
      * Update card registration
      * @param \MangoPay\CardRegistration $cardRegistration Card registration object to save

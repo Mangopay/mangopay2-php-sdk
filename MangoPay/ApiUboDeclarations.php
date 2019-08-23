@@ -30,7 +30,7 @@ class ApiUboDeclarations extends Libraries\ApiBase
      */
     public function Get($userId, $uboDeclarationId)
     {
-        return $this->GetObject('ubo_declaration_get', $userId, '\MangoPay\UboDeclaration', $uboDeclarationId);
+        return $this->GetObject('ubo_declaration_get', '\MangoPay\UboDeclaration', $userId, $uboDeclarationId);
     }
 
     /**
@@ -66,7 +66,7 @@ class ApiUboDeclarations extends Libraries\ApiBase
      */
     public function GetUbo($userId, $uboDeclarationId, $uboId)
     {
-        return $this->GetObject('ubo_get', $userId, '\MangoPay\Ubo', $uboDeclarationId, $uboId);
+        return $this->GetObject('ubo_get', '\MangoPay\Ubo', $userId, $uboDeclarationId, $uboId);
     }
 
     /**

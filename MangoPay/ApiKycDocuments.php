@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -17,15 +18,15 @@ class ApiKycDocuments extends Libraries\ApiBase
     {
         return $this->GetList('kyc_documents_all', $pagination, '\MangoPay\KycDocument', null, $filter, $sorting);
     }
-    
-     /**
+
+    /**
      * Get KYC document
      * @param string $kycDocumentId Document identifier
      * @return \MangoPay\KycDocument Document returned from API
      */
     public function Get($kycDocumentId)
     {
-        return $this->GetObject('kyc_documents_get_alt', $kycDocumentId, '\MangoPay\KycDocument');
+        return $this->GetObject('kyc_documents_get_alt', '\MangoPay\KycDocument', $kycDocumentId);
     }
 
 

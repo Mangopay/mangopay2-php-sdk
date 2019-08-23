@@ -23,7 +23,7 @@ class ApiCardPreAuthorizations extends Libraries\ApiBase
      */
     public function Get($cardPreAuthorizationId)
     {
-        return $this->GetObject('preauthorization_get', $cardPreAuthorizationId, '\MangoPay\CardPreAuthorization');
+        return $this->GetObject('preauthorization_get', '\MangoPay\CardPreAuthorization', $cardPreAuthorizationId);
     }
     
     /**

@@ -54,7 +54,7 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function Get($userId)
     {
-        $response = $this->GetObject('users_get', $userId);
+        $response = $this->GetObject('users_get', null, $userId);
         return $this->GetUserResponse($response);
     }
 
@@ -65,7 +65,7 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function GetNatural($userId)
     {
-        $response = $this->GetObject('users_getnaturals', $userId);
+        $response = $this->GetObject('users_getnaturals', null, $userId);
         return $this->GetUserResponse($response);
     }
 
@@ -76,7 +76,7 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function GetLegal($userId)
     {
-        $response = $this->GetObject('users_getlegals', $userId);
+        $response = $this->GetObject('users_getlegals', null, $userId);
         return $this->GetUserResponse($response);
     }
 
@@ -151,7 +151,7 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function GetBankAccount($userId, $bankAccountId)
     {
-        return $this->GetObject('users_getbankaccount', $userId, 'MangoPay\BankAccount', $bankAccountId);
+        return $this->GetObject('users_getbankaccount', 'MangoPay\BankAccount', $userId, $bankAccountId);
     }
 
     /**
@@ -239,7 +239,7 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function GetKycDocument($userId, $kycDocumentId)
     {
-        return $this->GetObject('kyc_documents_get', $userId, '\MangoPay\KycDocument', $kycDocumentId);
+        return $this->GetObject('kyc_documents_get', '\MangoPay\KycDocument', $userId, $kycDocumentId);
     }
 
     /**
@@ -337,11 +337,15 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get user EMoney
      * @param string $userId User Id
+     * @param $year
+     * @param $month
      * @return \MangoPay\EMoney EMoney obhect returned from API
+     * @throws Libraries\Exception
      */
-    public function GetEMoney($userId)
+    public function GetEMoney($userId, $year, $month)
     {
-        return $this->GetObject('users_getemoney', $userId, '\MangoPay\EMoney');
+        $methodKey = $month == null ? 'users_getemoney_year' : 'users_getemoney_month';
+        return $this->GetObject($methodKey, '\MangoPay\EMoney', $userId, $year, $month);
     }
 
     /**

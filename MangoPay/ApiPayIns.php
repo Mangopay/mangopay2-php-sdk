@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -25,7 +26,7 @@ class ApiPayIns extends Libraries\ApiBase
      */
     public function Get($payInId)
     {
-        return $this->GetObject('payins_get', $payInId, '\MangoPay\PayIn');
+        return $this->GetObject('payins_get', '\MangoPay\PayIn', $payInId);
     }
 
     /**
@@ -80,6 +81,6 @@ class ApiPayIns extends Libraries\ApiBase
      */
     public function GetExtendedCardView($payInId)
     {
-        return $this->GetObject('get_extended_card_view', $payInId, '\MangoPay\PayInWebExtendedView');
+        return $this->GetObject('get_extended_card_view', '\MangoPay\PayInWebExtendedView', $payInId);
     }
 }
