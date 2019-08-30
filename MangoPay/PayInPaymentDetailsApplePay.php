@@ -2,12 +2,9 @@
 
 namespace MangoPay;
 
-/**
- * Apple Pay-in entity
- */
-class PayInApple extends Transaction
-{
 
+class PayInPaymentDetailsApplePay extends Libraries\Dto implements PayInPaymentDetails
+{
     /**
      * Payment information returned by Apple Pay payment
      * @var \MangoPay\PaymentData
@@ -21,11 +18,12 @@ class PayInApple extends Transaction
      */
     public $StatementDescriptor;
 
-    public function GetDependsObjects()
+    public function GetSubObjects()
     {
-        return array(
-            'PaymentData' => '\MangoPay\PaymentData'
-        );
-    }
+        $subObjects = parent::GetSubObjects();
 
+        $subObjects['PaymentData'] = '\MangoPay\PaymentData';
+
+        return $subObjects;
+    }
 }

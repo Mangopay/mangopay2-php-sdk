@@ -61,7 +61,7 @@ abstract class ApiBase
         'payins_paypal-web_create' => array( '/payins/paypal/web', RequestType::POST ),
         'payins_get' => array( '/payins/%s', RequestType::GET ),
         'payins_createrefunds' => array( '/payins/%s/refunds', RequestType::POST ),
-        'payins_applepay' => array('/payins/applepay/direct', RequestType::POST),
+        'payins_applepay-direct_create' => array('/payins/applepay/direct', RequestType::POST),
 
         'repudiation_get' => array('/repudiations/%s', RequestType::GET),
 
@@ -244,7 +244,6 @@ abstract class ApiBase
 
         $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData, $idempotencyKey);
-
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
         }
@@ -373,7 +372,7 @@ abstract class ApiBase
         if (is_string($entityClassName)) {
             $entity = new $entityClassName();
         } else {
-            throw new Exception('Cannot cast response to entity object. Wrong entity class name');
+            throw new Exception("Cannot cast response to entity object. Wrong entity class name");
         }
 
         $responseReflection = new \ReflectionObject($response);

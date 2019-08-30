@@ -12,4 +12,5 @@ class PayInPaymentType
     const DirectDebitDirect = 'DIRECT_DEBIT_DIRECT';
     const Preauthorized = 'PREAUTHORIZED';
 	const PayPal = 'PAYPAL';
+    const ApplePay = 'APPLEPAY';
 }
