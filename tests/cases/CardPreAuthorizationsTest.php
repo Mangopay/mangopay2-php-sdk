@@ -19,7 +19,7 @@ class CardPreAuthorizationsTest extends Base
         $this->assertSame(\MangoPay\CardPreAuthorizationPaymentStatus::Waiting, $cardPreAuthorization->PaymentStatus);
         $this->assertSame('DIRECT', $cardPreAuthorization->ExecutionType);
         $this->assertNull($cardPreAuthorization->PayInId);
-        $this->assertSame(AVSResult::FULL_MATCH, $cardPreAuthorization->SecurityInfo->AVSResult);
+        $this->assertSame(AVSResult::NO_CHECK, $cardPreAuthorization->SecurityInfo->AVSResult);
     }
 
     function test_CardPreAuthorization_Get()

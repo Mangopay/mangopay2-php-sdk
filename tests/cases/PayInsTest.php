@@ -79,7 +79,7 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $payIn->ExecutionDetails);
         $this->assertIdenticalInputProps($payIn, $getPayIn);
         $this->assertNotNull($getPayIn->PaymentDetails->CardId);
-        $this->assertEquals(AVSResult::FULL_MATCH, $getPayIn->ExecutionDetails->SecurityInfo->AVSResult);
+        $this->assertEquals(AVSResult::NO_CHECK, $getPayIn->ExecutionDetails->SecurityInfo->AVSResult);
     }
 
     function test_PayIns_CreateRefund_CardDirect()
