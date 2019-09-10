@@ -34,6 +34,11 @@ class Ubo extends Libraries\EntityBase
      * @var Birthplace
      */
     public $Birthplace;
+    
+    /**
+     * @var bool
+     */
+    public $isActive;
 
     /**
      * Get array with mapping which property is object and what type of object
