@@ -271,7 +271,7 @@ abstract class ApiBase
         } else if (!is_null($firstEntityId)) {
             $urlMethod = sprintf($this->GetRequestUrl($methodKey), $firstEntityId);
         } else {
-            $urlMethod = sprintf($this->GetRequestUrl($methodKey));
+            $urlMethod = $this->GetRequestUrl($methodKey);
         }
         $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
