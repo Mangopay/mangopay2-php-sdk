@@ -28,7 +28,12 @@ class UsersTest extends Base
     function test_Users_GetEMoney()
     {
         $john = $this->getJohn();
-        $ret = $this->_api->Users->GetEMoney($john->Id);
+        $year = 2019;
+        $month = 4;
+        $ret = $this->_api->Users->GetEMoney($john->Id, $year, null);
+        $this->assertSame($john->Id, $ret->UserId);
+
+        $ret = $this->_api->Users->GetEMoney($john->Id, $year, $month);
         $this->assertSame($john->Id, $ret->UserId);
     }
 

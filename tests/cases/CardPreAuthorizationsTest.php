@@ -20,7 +20,7 @@ class CardPreAuthorizationsTest extends Base
         $this->assertSame('DIRECT', $cardPreAuthorization->ExecutionType);
         $this->assertNull($cardPreAuthorization->PayInId);
         //FIXME AVS tests to be uncommented when AVS provider will fix results issue
-        //$this->assertSame(AVSResult::FULL_MATCH, $cardPreAuthorization->SecurityInfo->AVSResult);
+        //$this->assertSame(AVSResult::NO_CHECK, $cardPreAuthorization->SecurityInfo->AVSResult);
     }
 
     function test_CardPreAuthorization_Get()

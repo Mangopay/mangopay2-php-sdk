@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -15,7 +16,7 @@ class ApiMandates extends Libraries\ApiBase
     {
         return $this->CreateObject('mandates_create', $mandate, '\MangoPay\Mandate', null, null, $idempotencyKey);
     }
-    
+
     /**
      * Get mandate
      * @param string $mandateId Mandate identifier
@@ -23,9 +24,9 @@ class ApiMandates extends Libraries\ApiBase
      */
     public function Get($mandateId)
     {
-        return $this->GetObject('mandates_get', $mandateId, '\MangoPay\Mandate');
+        return $this->GetObject('mandates_get', '\MangoPay\Mandate', $mandateId);
     }
-    
+
     /**
      * Cancel mandate
      * @param string $mandateId Id of mandate object to cancel
@@ -35,10 +36,10 @@ class ApiMandates extends Libraries\ApiBase
     {
         $mandate = new \MangoPay\Mandate();
         $mandate->Id = $mandateId;
-        
+
         return $this->SaveObject('mandates_save', $mandate, '\MangoPay\Mandate');
     }
-    
+
     /**
      * Get all mandates
      * @param \MangoPay\Pagination $pagination Pagination object

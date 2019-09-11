@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -15,7 +16,7 @@ class ApiTransfers extends Libraries\ApiBase
     {
         return $this->CreateObject('transfers_create', $transfer, '\MangoPay\Transfer', null, null, $idempotencyKey);
     }
-    
+
     /**
      * Get transfer
      * @param string $transferId Transfer identifier
@@ -23,9 +24,9 @@ class ApiTransfers extends Libraries\ApiBase
      */
     public function Get($transferId)
     {
-        return $this->GetObject('transfers_get', $transferId, '\MangoPay\Transfer');
+        return $this->GetObject('transfers_get', '\MangoPay\Transfer', $transferId);
     }
-    
+
     /**
      * Create refund for transfer object
      * @param string $transferId Transfer identifier

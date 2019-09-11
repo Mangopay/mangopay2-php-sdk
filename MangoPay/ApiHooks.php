@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -16,7 +17,7 @@ class ApiHooks extends Libraries\ApiBase
     {
         return $this->CreateObject('hooks_create', $hook, '\MangoPay\Hook', null, null, $idempotencyKey);
     }
-    
+
     /**
      * Get hook
      * @param string $hookId Hook identifier
@@ -24,9 +25,9 @@ class ApiHooks extends Libraries\ApiBase
      */
     public function Get($hookId)
     {
-        return $this->GetObject('hooks_get', $hookId, '\MangoPay\Hook');
+        return $this->GetObject('hooks_get', '\MangoPay\Hook', $hookId);
     }
-    
+
     /**
      * Save hook
      * @param \MangoPay\Hook $hook Hook object to save

@@ -13,7 +13,7 @@ class ApiBankingAliases extends Libraries\ApiBase
      */
     public function Get($bankingAliasId)
     {
-        $response = $this->GetObject('banking_aliases_get', $bankingAliasId);
+        $response = $this->GetObject('banking_aliases_get', null, $bankingAliasId);
         return $this->GetBankingAliasResponse($response);
     }
 

@@ -80,7 +80,7 @@ class PayInsTest extends Base
         $this->assertIdenticalInputProps($payIn, $getPayIn);
         $this->assertNotNull($getPayIn->PaymentDetails->CardId);
         //FIX ME - To be uncommented when AVS provided will answer properly again.
-        //$this->assertEquals(AVSResult::FULL_MATCH, $getPayIn->ExecutionDetails->SecurityInfo->AVSResult);
+        //$this->assertEquals(AVSResult::NO_CHECK, $getPayIn->ExecutionDetails->SecurityInfo->AVSResult);
     }
 
     function test_PayIns_CreateRefund_CardDirect()
