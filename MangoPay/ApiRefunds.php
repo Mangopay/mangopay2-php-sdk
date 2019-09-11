@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -13,6 +14,6 @@ class ApiRefunds extends Libraries\ApiBase
      */
     public function Get($refundId)
     {
-        return $this->GetObject('refunds_get', $refundId, '\MangoPay\Refund');
+        return $this->GetObject('refunds_get', '\MangoPay\Refund', $refundId);
     }
 }

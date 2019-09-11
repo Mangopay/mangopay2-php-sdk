@@ -14,7 +14,7 @@ class ApiCards extends Libraries\ApiBase
      */
     public function Get($cardId)
     {
-        return $this->GetObject('card_get', $cardId, '\MangoPay\Card');
+        return $this->GetObject('card_get', '\MangoPay\Card', $cardId);
     }
 
     /**

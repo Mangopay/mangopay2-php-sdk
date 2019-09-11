@@ -12,7 +12,7 @@ class ApiRepudiations extends Libraries\ApiBase
      */
     public function Get($repudiationId)
     {
-        return $this->GetObject('repudiation_get', $repudiationId, '\MangoPay\Repudiation');
+        return $this->GetObject('repudiation_get', '\MangoPay\Repudiation', $repudiationId);
     }
 
     /**

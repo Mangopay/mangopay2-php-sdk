@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -35,7 +36,7 @@ class ApiReports extends Libraries\ApiBase
      */
     public function Get($reportRequestId)
     {
-        return $this->GetObject('reports_get', $reportRequestId, '\MangoPay\ReportRequest');
+        return $this->GetObject('reports_get', '\MangoPay\ReportRequest', $reportRequestId);
     }
 
     /**

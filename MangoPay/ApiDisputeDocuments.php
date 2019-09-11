@@ -1,9 +1,11 @@
 <?php
+
 namespace MangoPay;
 
 /**
  * Class to management MangoPay API for dispute documents
  */
+
 /**
  * Class ApiDisputeDocuments
  * @package MangoPay
@@ -17,7 +19,7 @@ class ApiDisputeDocuments extends Libraries\ApiBase
      */
     public function Get($documentId)
     {
-        return $this->GetObject('disputes_document_get', $documentId, 'MangoPay\DisputeDocument');
+        return $this->GetObject('disputes_document_get', 'MangoPay\DisputeDocument', $documentId);
     }
 
     /**

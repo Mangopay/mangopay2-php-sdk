@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -16,7 +17,7 @@ class ApiPayOuts extends Libraries\ApiBase
         $paymentKey = $this->GetPaymentKey($payOut);
         return $this->CreateObject('payouts_' . $paymentKey . '_create', $payOut, '\MangoPay\PayOut', null, null, $idempotencyKey);
     }
-    
+
     /**
      * Get pay-out object
      * @param string $payOutId PayOut identifier
@@ -24,7 +25,7 @@ class ApiPayOuts extends Libraries\ApiBase
      */
     public function Get($payOutId)
     {
-        return $this->GetObject('payouts_get', $payOutId, '\MangoPay\PayOut');
+        return $this->GetObject('payouts_get', '\MangoPay\PayOut', $payOutId);
     }
 
     /**
@@ -39,13 +40,13 @@ class ApiPayOuts extends Libraries\ApiBase
     {
         return $this->GetList('refunds_get_for_payout', $pagination, '\MangoPay\Refund', $payOutId, $filter, $sorting);
     }
-    
+
     private function GetPaymentKey($payOut)
     {
         if (!isset($payOut->MeanOfPaymentDetails) || !is_object($payOut->MeanOfPaymentDetails)) {
             throw new Libraries\Exception('Mean of payment is not defined or it is not object type');
         }
-        
+
         $className = str_replace('MangoPay\\PayOutPaymentDetails', '', get_class($payOut->MeanOfPaymentDetails));
         return strtolower($className);
     }

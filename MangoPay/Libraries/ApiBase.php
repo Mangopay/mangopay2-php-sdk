@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay\Libraries;
 
 /**
@@ -25,31 +26,31 @@ abstract class ApiBase
      * @var array
      */
     private $_methods = array(
-        'authentication_base' => array( '/clients/', RequestType::POST ),
-        'authentication_oauth' => array( '/oauth/token', RequestType::POST ),
+        'authentication_base' => array('/clients/', RequestType::POST),
+        'authentication_oauth' => array('/oauth/token', RequestType::POST),
 
-        'responses_get' => array( '/responses/%s', RequestType::GET),
+        'responses_get' => array('/responses/%s', RequestType::GET),
 
-        'events_all' => array( '/events', RequestType::GET ),
+        'events_all' => array('/events', RequestType::GET),
 
-        'hooks_create' => array( '/hooks', RequestType::POST ),
-        'hooks_all' => array( '/hooks', RequestType::GET ),
-        'hooks_get' => array( '/hooks/%s', RequestType::GET ),
-        'hooks_save' => array( '/hooks/%s', RequestType::PUT ),
+        'hooks_create' => array('/hooks', RequestType::POST),
+        'hooks_all' => array('/hooks', RequestType::GET),
+        'hooks_get' => array('/hooks/%s', RequestType::GET),
+        'hooks_save' => array('/hooks/%s', RequestType::PUT),
 
-        'cardregistration_create' => array( '/cardregistrations', RequestType::POST ),
-        'cardregistration_get' => array( '/cardregistrations/%s', RequestType::GET ),
-        'cardregistration_save' => array( '/cardregistrations/%s', RequestType::PUT ),
+        'cardregistration_create' => array('/cardregistrations', RequestType::POST),
+        'cardregistration_get' => array('/cardregistrations/%s', RequestType::GET),
+        'cardregistration_save' => array('/cardregistrations/%s', RequestType::PUT),
 
-        'preauthorization_create' => array( '/preauthorizations/card/direct', RequestType::POST ),
-        'preauthorization_get' => array( '/preauthorizations/%s', RequestType::GET ),
-        'preauthorizations_get_for_card' => array( '/cards/%s/preauthorizations', RequestType::GET ),
-        'preauthorizations_get_for_user' => array( '/users/%s/preauthorizations', RequestType::GET ),
-        'preauthorization_save' => array( '/preauthorizations/%s', RequestType::PUT ),
+        'preauthorization_create' => array('/preauthorizations/card/direct', RequestType::POST),
+        'preauthorization_get' => array('/preauthorizations/%s', RequestType::GET),
+        'preauthorizations_get_for_card' => array('/cards/%s/preauthorizations', RequestType::GET),
+        'preauthorizations_get_for_user' => array('/users/%s/preauthorizations', RequestType::GET),
+        'preauthorization_save' => array('/preauthorizations/%s', RequestType::PUT),
 
-        'card_get' => array( '/cards/%s', RequestType::GET ),
-        'cards_get_by_fingerprint' => array('/cards/fingerprints/%s', RequestType::GET ),
-        'card_save' => array( '/cards/%s', RequestType::PUT ),
+        'card_get' => array('/cards/%s', RequestType::GET),
+        'cards_get_by_fingerprint' => array('/cards/fingerprints/%s', RequestType::GET),
+        'card_save' => array('/cards/%s', RequestType::PUT),
 
         // pay ins URLs
         'payins_card-web_create' => array( '/payins/card/web/', RequestType::POST ),
@@ -65,112 +66,113 @@ abstract class ApiBase
 
         'repudiation_get' => array('/repudiations/%s', RequestType::GET),
 
-        'get_extended_card_view' => array( '/payins/card/web/%s/extended', RequestType::GET ),
+        'get_extended_card_view' => array('/payins/card/web/%s/extended', RequestType::GET),
 
-        'payouts_bankwire_create' => array( '/payouts/bankwire/', RequestType::POST ),
-        'payouts_get' => array( '/payouts/%s', RequestType::GET ),
+        'payouts_bankwire_create' => array('/payouts/bankwire/', RequestType::POST),
+        'payouts_get' => array('/payouts/%s', RequestType::GET),
 
-        'refunds_get' => array( '/refunds/%s', RequestType::GET ),
-        'refunds_get_for_repudiation' => array( '/repudiations/%s/refunds', RequestType::GET ),
-        'refunds_get_for_transfer' => array( '/transfers/%s/refunds', RequestType::GET ),
-        'refunds_get_for_payin' => array( '/payins/%s/refunds', RequestType::GET ),
-        'refunds_get_for_payout' => array( '/payouts/%s/refunds', RequestType::GET ),
+        'refunds_get' => array('/refunds/%s', RequestType::GET),
+        'refunds_get_for_repudiation' => array('/repudiations/%s/refunds', RequestType::GET),
+        'refunds_get_for_transfer' => array('/transfers/%s/refunds', RequestType::GET),
+        'refunds_get_for_payin' => array('/payins/%s/refunds', RequestType::GET),
+        'refunds_get_for_payout' => array('/payouts/%s/refunds', RequestType::GET),
 
-        'transfers_create' => array( '/transfers', RequestType::POST ),
-        'transfers_get' => array( '/transfers/%s', RequestType::GET ),
-        'transfers_createrefunds' => array( '/transfers/%s/refunds', RequestType::POST ),
+        'transfers_create' => array('/transfers', RequestType::POST),
+        'transfers_get' => array('/transfers/%s', RequestType::GET),
+        'transfers_createrefunds' => array('/transfers/%s/refunds', RequestType::POST),
 
-        'users_createnaturals' => array( '/users/natural', RequestType::POST ),
-        'users_createlegals' => array( '/users/legal', RequestType::POST ),
+        'users_createnaturals' => array('/users/natural', RequestType::POST),
+        'users_createlegals' => array('/users/legal', RequestType::POST),
 
-        'users_createbankaccounts_iban' => array( '/users/%s/bankaccounts/iban', RequestType::POST ),
-        'users_createbankaccounts_gb' => array( '/users/%s/bankaccounts/gb', RequestType::POST ),
-        'users_createbankaccounts_us' => array( '/users/%s/bankaccounts/us', RequestType::POST ),
-        'users_createbankaccounts_ca' => array( '/users/%s/bankaccounts/ca', RequestType::POST ),
-        'users_createbankaccounts_other' => array( '/users/%s/bankaccounts/other', RequestType::POST ),
+        'users_createbankaccounts_iban' => array('/users/%s/bankaccounts/iban', RequestType::POST),
+        'users_createbankaccounts_gb' => array('/users/%s/bankaccounts/gb', RequestType::POST),
+        'users_createbankaccounts_us' => array('/users/%s/bankaccounts/us', RequestType::POST),
+        'users_createbankaccounts_ca' => array('/users/%s/bankaccounts/ca', RequestType::POST),
+        'users_createbankaccounts_other' => array('/users/%s/bankaccounts/other', RequestType::POST),
 
-        'users_all' => array( '/users', RequestType::GET ),
-        'users_allwallets' => array( '/users/%s/wallets', RequestType::GET ),
-        'users_allbankaccount' => array( '/users/%s/bankaccounts', RequestType::GET ),
-        'users_allcards' => array( '/users/%s/cards', RequestType::GET ),
-        'users_alltransactions' => array( '/users/%s/transactions', RequestType::GET ),
-        'users_allkycdocuments' => array( '/users/%s/KYC/documents', RequestType::GET ),
-        'users_allmandates' => array( '/users/%s/mandates', RequestType::GET ),
-        'users_allbankaccount_mandates' => array( '/users/%s/bankaccounts/%s/mandates', RequestType::GET ),
-        'users_get' => array( '/users/%s', RequestType::GET ),
-        'users_getnaturals' => array( '/users/natural/%s', RequestType::GET ),
-        'users_getlegals' => array( '/users/legal/%s', RequestType::GET ),
-        'users_getbankaccount' => array( '/users/%s/bankaccounts/%s', RequestType::GET ),
-        'users_savenaturals' => array( '/users/natural/%s', RequestType::PUT ),
-        'users_savelegals' => array( '/users/legal/%s', RequestType::PUT ),
-        'users_getemoney' => array( '/users/%s/emoney', RequestType::GET ),
+        'users_all' => array('/users', RequestType::GET),
+        'users_allwallets' => array('/users/%s/wallets', RequestType::GET),
+        'users_allbankaccount' => array('/users/%s/bankaccounts', RequestType::GET),
+        'users_allcards' => array('/users/%s/cards', RequestType::GET),
+        'users_alltransactions' => array('/users/%s/transactions', RequestType::GET),
+        'users_allkycdocuments' => array('/users/%s/KYC/documents', RequestType::GET),
+        'users_allmandates' => array('/users/%s/mandates', RequestType::GET),
+        'users_allbankaccount_mandates' => array('/users/%s/bankaccounts/%s/mandates', RequestType::GET),
+        'users_get' => array('/users/%s', RequestType::GET),
+        'users_getnaturals' => array('/users/natural/%s', RequestType::GET),
+        'users_getlegals' => array('/users/legal/%s', RequestType::GET),
+        'users_getbankaccount' => array('/users/%s/bankaccounts/%s', RequestType::GET),
+        'users_savenaturals' => array('/users/natural/%s', RequestType::PUT),
+        'users_savelegals' => array('/users/legal/%s', RequestType::PUT),
+        'users_getemoney_year' => array('/users/%s/emoney/%s', RequestType::GET),
+        'users_getemoney_month' => array('/users/%s/emoney/%s/%s', RequestType::GET),
 
-        'bankaccounts_save' => array( '/users/%s/bankaccounts/%s', RequestType::PUT ),
+        'bankaccounts_save' => array('/users/%s/bankaccounts/%s', RequestType::PUT),
 
-        'wallets_create' => array( '/wallets', RequestType::POST ),
-        'wallets_alltransactions' => array( '/wallets/%s/transactions', RequestType::GET ),
-        'wallets_get' => array( '/wallets/%s', RequestType::GET ),
-        'wallets_save' => array( '/wallets/%s', RequestType::PUT ),
+        'wallets_create' => array('/wallets', RequestType::POST),
+        'wallets_alltransactions' => array('/wallets/%s/transactions', RequestType::GET),
+        'wallets_get' => array('/wallets/%s', RequestType::GET),
+        'wallets_save' => array('/wallets/%s', RequestType::PUT),
 
-        'kyc_documents_create' => array( '/users/%s/KYC/documents/', RequestType::POST ),
-        'kyc_documents_get' => array( '/users/%s/KYC/documents/%s', RequestType::GET ),
-        'kyc_documents_save' => array( '/users/%s/KYC/documents/%s', RequestType::PUT ),
-        'kyc_page_create' => array( '/users/%s/KYC/documents/%s/pages', RequestType::POST ),
-        'kyc_documents_all' => array( '/KYC/documents', RequestType::GET ),
-        'kyc_documents_get_alt' => array( '/KYC/documents/%s', RequestType::GET ),
-        'kyc_documents_create_consult' => array( '/KYC/documents/%s/consult', RequestType::POST ),
+        'kyc_documents_create' => array('/users/%s/KYC/documents/', RequestType::POST),
+        'kyc_documents_get' => array('/users/%s/KYC/documents/%s', RequestType::GET),
+        'kyc_documents_save' => array('/users/%s/KYC/documents/%s', RequestType::PUT),
+        'kyc_page_create' => array('/users/%s/KYC/documents/%s/pages', RequestType::POST),
+        'kyc_documents_all' => array('/KYC/documents', RequestType::GET),
+        'kyc_documents_get_alt' => array('/KYC/documents/%s', RequestType::GET),
+        'kyc_documents_create_consult' => array('/KYC/documents/%s/consult', RequestType::POST),
 
-        'disputes_get' => array( '/disputes/%s', RequestType::GET),
-        'disputes_save_tag' => array( '/disputes/%s', RequestType::PUT),
-        'disputes_save_contest_funds' => array( '/disputes/%s/submit', RequestType::PUT),
-        'dispute_save_close' => array( '/disputes/%s/close', RequestType::PUT),
+        'disputes_get' => array('/disputes/%s', RequestType::GET),
+        'disputes_save_tag' => array('/disputes/%s', RequestType::PUT),
+        'disputes_save_contest_funds' => array('/disputes/%s/submit', RequestType::PUT),
+        'dispute_save_close' => array('/disputes/%s/close', RequestType::PUT),
 
-        'disputes_get_transactions' => array( '/disputes/%s/transactions', RequestType::GET),
+        'disputes_get_transactions' => array('/disputes/%s/transactions', RequestType::GET),
 
-        'disputes_all' => array( '/disputes', RequestType::GET),
-        'disputes_get_for_wallet' => array( '/wallets/%s/disputes', RequestType::GET),
-        'disputes_get_for_user' => array( '/users/%s/disputes', RequestType::GET),
+        'disputes_all' => array('/disputes', RequestType::GET),
+        'disputes_get_for_wallet' => array('/wallets/%s/disputes', RequestType::GET),
+        'disputes_get_for_user' => array('/users/%s/disputes', RequestType::GET),
 
-        'disputes_document_create' => array( '/disputes/%s/documents', RequestType::POST),
-        'disputes_document_page_create' => array( '/disputes/%s/documents/%s/pages', RequestType::POST),
-        'disputes_document_save' => array( '/disputes/%s/documents/%s', RequestType::PUT),
-        'disputes_document_get' => array( '/dispute-documents/%s', RequestType::GET),
-        'disputes_document_get_for_dispute' => array( '/disputes/%s/documents', RequestType::GET),
-        'disputes_document_all' => array( '/dispute-documents', RequestType::GET),
-        'disputes_document_create_consult' => array( '/dispute-documents/%s/consult', RequestType::POST),
+        'disputes_document_create' => array('/disputes/%s/documents', RequestType::POST),
+        'disputes_document_page_create' => array('/disputes/%s/documents/%s/pages', RequestType::POST),
+        'disputes_document_save' => array('/disputes/%s/documents/%s', RequestType::PUT),
+        'disputes_document_get' => array('/dispute-documents/%s', RequestType::GET),
+        'disputes_document_get_for_dispute' => array('/disputes/%s/documents', RequestType::GET),
+        'disputes_document_all' => array('/dispute-documents', RequestType::GET),
+        'disputes_document_create_consult' => array('/dispute-documents/%s/consult', RequestType::POST),
 
-        'disputes_repudiation_get' => array( '/repudiations/%s', RequestType::GET),
+        'disputes_repudiation_get' => array('/repudiations/%s', RequestType::GET),
 
-        'disputes_repudiation_create_settlement' => array( '/repudiations/%s/settlementtransfer', RequestType::POST),
-        'disputes_repudiation_get_settlement' => array( '/settlements/%s', RequestType::GET),
-        'disputes_pendingsettlement' => array('/disputes/pendingsettlement' , RequestType::GET),
+        'disputes_repudiation_create_settlement' => array('/repudiations/%s/settlementtransfer', RequestType::POST),
+        'disputes_repudiation_get_settlement' => array('/settlements/%s', RequestType::GET),
+        'disputes_pendingsettlement' => array('/disputes/pendingsettlement', RequestType::GET),
 
-        'mandates_create' => array( '/mandates/directdebit/web', RequestType::POST ),
-        'mandates_save' => array( '/mandates/%s/cancel', RequestType::PUT ),
-        'mandates_get' => array( '/mandates/%s', RequestType::GET ),
-        'mandates_all' => array( '/mandates', RequestType::GET ),
+        'mandates_create' => array('/mandates/directdebit/web', RequestType::POST),
+        'mandates_save' => array('/mandates/%s/cancel', RequestType::PUT),
+        'mandates_get' => array('/mandates/%s', RequestType::GET),
+        'mandates_all' => array('/mandates', RequestType::GET),
 
-        'client_get' => array( '/clients', RequestType::GET ),
-        'client_save' => array( '/clients', RequestType::PUT ),
-        'client_upload_logo' => array( '/clients/logo', RequestType::PUT ),
-        'client_wallets' => array( '/clients/wallets', RequestType::GET ),
-        'client_wallets_fees' => array( '/clients/wallets/fees', RequestType::GET ),
-        'client_wallets_fees_currency' => array( '/clients/wallets/fees/%s', RequestType::GET ),
-        'client_wallets_credit' => array( '/clients/wallets/credit', RequestType::GET ),
-        'client_wallets_credit_currency' => array( '/clients/wallets/credit/%s', RequestType::GET ),
-        'client_wallets_transactions' => array( '/clients/transactions', RequestType::GET ),
-        'client_wallets_transactions_fees_currency' => array( '/clients/wallets/fees/%s/transactions', RequestType::GET ),
-        'client_wallets_transactions_credit_currency' => array( '/clients/wallets/credit/%s/transactions', RequestType::GET ),
+        'client_get' => array('/clients', RequestType::GET),
+        'client_save' => array('/clients', RequestType::PUT),
+        'client_upload_logo' => array('/clients/logo', RequestType::PUT),
+        'client_wallets' => array('/clients/wallets', RequestType::GET),
+        'client_wallets_fees' => array('/clients/wallets/fees', RequestType::GET),
+        'client_wallets_fees_currency' => array('/clients/wallets/fees/%s', RequestType::GET),
+        'client_wallets_credit' => array('/clients/wallets/credit', RequestType::GET),
+        'client_wallets_credit_currency' => array('/clients/wallets/credit/%s', RequestType::GET),
+        'client_wallets_transactions' => array('/clients/transactions', RequestType::GET),
+        'client_wallets_transactions_fees_currency' => array('/clients/wallets/fees/%s/transactions', RequestType::GET),
+        'client_wallets_transactions_credit_currency' => array('/clients/wallets/credit/%s/transactions', RequestType::GET),
 
-        'banking_aliases_iban_create' => array( '/wallets/%s/bankingaliases/iban', RequestType::POST ),
-        'banking_aliases_get' => array( '/bankingaliases/%s', RequestType::GET ),
-        'banking_aliases_update' => array( '/bankingaliases/%s', RequestType::PUT ),
-        'banking_aliases_all' => array( '/wallets/%s/bankingaliases', RequestType::GET ),
+        'banking_aliases_iban_create' => array('/wallets/%s/bankingaliases/iban', RequestType::POST),
+        'banking_aliases_get' => array('/bankingaliases/%s', RequestType::GET),
+        'banking_aliases_update' => array('/bankingaliases/%s', RequestType::PUT),
+        'banking_aliases_all' => array('/wallets/%s/bankingaliases', RequestType::GET),
 
-        'reports_transactions_create' => array( '/reports/transactions', RequestType::POST ),
-        'reports_wallets_create' => array( '/reports/wallets', RequestType::POST ),
-        'reports_all' => array( '/reports', RequestType::GET ),
-        'reports_get' => array( '/reports/%s', RequestType::GET ),
+        'reports_transactions_create' => array('/reports/transactions', RequestType::POST),
+        'reports_wallets_create' => array('/reports/wallets', RequestType::POST),
+        'reports_all' => array('/reports', RequestType::GET),
+        'reports_get' => array('/reports/%s', RequestType::GET),
 
         'ubo_declaration_create' => array('/users/%s/kyc/ubodeclarations', RequestType::POST),
         'ubo_declaration_all' => array('/users/%s/kyc/ubodeclarations', RequestType::GET),
@@ -180,9 +182,9 @@ abstract class ApiBase
         'ubo_update' => array('/users/%s/kyc/ubodeclarations/%s/ubos/%s', RequestType::PUT),
         'ubo_get' => array('/users/%s/kyc/ubodeclarations/%s/ubos/%s', RequestType::GET),
 
-        'transactions_get_for_mandate' => array( '/mandates/%s/transactions', RequestType::GET ),
-        'transactions_get_for_card' => array( '/cards/%s/transactions', RequestType::GET ),
-        'transactions_get_for_bank_account' => array( '/bankaccounts/%s/transactions', RequestType::GET )
+        'transactions_get_for_mandate' => array('/mandates/%s/transactions', RequestType::GET),
+        'transactions_get_for_card' => array('/cards/%s/transactions', RequestType::GET),
+        'transactions_get_for_bank_account' => array('/bankaccounts/%s/transactions', RequestType::GET)
 
     );
 
@@ -237,7 +239,7 @@ abstract class ApiBase
         if (!is_null($entity)) {
             $requestData = $this->BuildRequestData($entity);
         }
-        
+
         if (is_null($requestData) && $responseClassName == '\MangoPay\UboDeclaration') {
             $requestData = "";
         }
@@ -254,27 +256,28 @@ abstract class ApiBase
     /**
      * Get entity object from API
      * @param string $methodKey Key with request data
-     * @param string $entityId Entity identifier
      * @param object $responseClassName Name of entity class from response
-     * @param int $secondEntityId Entity identifier for second entity
-     * @param int $thirdEntityId Entity identifier for third entity
+     * @param array $params path variable in urls
      * @return object Response data
+     * @throws Exception
      */
-    protected function GetObject($methodKey, $entityId, $responseClassName = null, $secondEntityId = null, $thirdEntityId = null)
+    protected function GetObject($methodKey, $responseClassName, $firstEntityId = null, $secondEntityId = null, $thirdEntityId = null)
     {
-        if ($thirdEntityId === null) {
-            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId);
+        if (!is_null($thirdEntityId)) {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $firstEntityId, $secondEntityId, $thirdEntityId);
+        } else if (!is_null($secondEntityId)) {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $firstEntityId, $secondEntityId);
+        } else if (!is_null($firstEntityId)) {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $firstEntityId);
         } else {
-            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId, $thirdEntityId);
+            $urlMethod = $this->GetRequestUrl($methodKey);
         }
-
         $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
         }
-
         return $response;
     }
 
@@ -328,7 +331,7 @@ abstract class ApiBase
     protected function SaveObject($methodKey, $entity, $responseClassName = null, $secondEntityId = null, $thirdEntityId = null)
     {
         $entityId = null;
-        if (isset($entity->Id)){
+        if (isset($entity->Id)) {
             $entityId = $entity->Id;
         }
 
@@ -488,7 +491,7 @@ abstract class ApiBase
     private function CanReadSubRequestData($entity, $propertyName)
     {
         if (get_class($entity) == 'MangoPay\PayIn' &&
-                    ($propertyName == 'PaymentDetails' || $propertyName == 'ExecutionDetails')) {
+            ($propertyName == 'PaymentDetails' || $propertyName == 'ExecutionDetails')) {
             return true;
         }
 
@@ -503,7 +506,8 @@ abstract class ApiBase
         return false;
     }
 
-    protected function GetObjectForIdempotencyUrl($url){
+    protected function GetObjectForIdempotencyUrl($url)
+    {
         if (is_null($url) || empty($url))
             return null;
 
