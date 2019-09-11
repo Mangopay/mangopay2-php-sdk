@@ -59,7 +59,7 @@ abstract class ApiBase
         'payins_bankwire-direct_create' => array('/payins/bankwire/direct/', RequestType::POST),
         'payins_directdebit-web_create' => array('/payins/directdebit/web', RequestType::POST),
         'payins_directdebit-direct_create' => array('/payins/directdebit/direct', RequestType::POST),
-        'payins_directdebitdirect-direct_create' => array( '/payins/directdebit/direct', RequestType::POST ),
+        'payins_directdebitdirect-direct_create' => array('/payins/directdebit/direct', RequestType::POST),
         'payins_paypal-web_create' => array('/payins/paypal/web', RequestType::POST),
         'payins_get' => array('/payins/%s', RequestType::GET),
         'payins_createrefunds' => array('/payins/%s/refunds', RequestType::POST),
@@ -262,9 +262,17 @@ abstract class ApiBase
      * @return object Response data
      * @throws Exception
      */
-    protected function GetObject($methodKey, $responseClassName, ...$params)
+    protected function GetObject($methodKey, $responseClassName, $firstEntityId = null, $secondEntityId = null, $thirdEntityId = null)
     {
-        $urlMethod = vsprintf($this->GetRequestUrl($methodKey), $params);
+        if (!is_null($thirdEntityId)) {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $firstEntityId, $secondEntityId, $thirdEntityId);
+        } else if (!is_null($secondEntityId)) {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $firstEntityId, $secondEntityId);
+        } else if (!is_null($firstEntityId)) {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $firstEntityId);
+        } else {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey));
+        }
         $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
 
