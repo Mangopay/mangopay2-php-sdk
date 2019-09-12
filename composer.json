@@ -1,6 +1,6 @@
 {
   "name": "mangopay/php-sdk-v2",
-  "description": "SDK PHP for Mangopay api V2",
+  "description": "PHP SDK for MANGOPAY",
   "minimum-stability": "stable",
   "license": "MIT",
   "require": {

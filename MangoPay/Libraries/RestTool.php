@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
  */
 class RestTool
 {
-    const VERSION = '2.12.1';
+    const VERSION = '2.12.2';
 
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance
@@ -325,7 +325,7 @@ class RestTool
         // content type
         array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
         // Add User-Agent Header
-        array_push($this->_requestHttpHeaders, 'User-Agent: MangoPay V2 PHP/' . self::VERSION);
+        array_push($this->_requestHttpHeaders, 'User-Agent: MANGOPAY PHP SDK/' . self::VERSION);
         // Authentication http header
         if ($this->_authRequired) {
             $authHlp = new AuthenticationHelper($this->_root);

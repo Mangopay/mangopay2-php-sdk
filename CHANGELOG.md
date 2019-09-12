@@ -1,6 +1,9 @@
 ## [Unreleased]
 ### Added
 - ApplePay `Payin` functions are now available. More info about activation to come in the following weeks...  
+
+## [2.12.2] - 2019-09-11
+### Changed
 - GET EMoney method now supports year and month parameters. More info on our [docs](https://docs.mangopay.com/endpoints/v2.01/user-emoney#e895_view-a-users-emoney)
 ### Fixed
 - Add missing `isActive`property for `UBOs`
