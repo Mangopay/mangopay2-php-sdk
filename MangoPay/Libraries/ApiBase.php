@@ -53,16 +53,16 @@ abstract class ApiBase
         'card_save' => array('/cards/%s', RequestType::PUT),
 
         // pay ins URLs
-        'payins_card-web_create' => array('/payins/card/web/', RequestType::POST),
-        'payins_card-direct_create' => array('/payins/card/direct/', RequestType::POST),
-        'payins_preauthorized-direct_create' => array('/payins/preauthorized/direct/', RequestType::POST),
-        'payins_bankwire-direct_create' => array('/payins/bankwire/direct/', RequestType::POST),
-        'payins_directdebit-web_create' => array('/payins/directdebit/web', RequestType::POST),
-        'payins_directdebit-direct_create' => array('/payins/directdebit/direct', RequestType::POST),
-        'payins_directdebitdirect-direct_create' => array('/payins/directdebit/direct', RequestType::POST),
-        'payins_paypal-web_create' => array('/payins/paypal/web', RequestType::POST),
-        'payins_get' => array('/payins/%s', RequestType::GET),
-        'payins_createrefunds' => array('/payins/%s/refunds', RequestType::POST),
+        'payins_card-web_create' => array( '/payins/card/web/', RequestType::POST ),
+        'payins_card-direct_create' => array( '/payins/card/direct/', RequestType::POST ),
+        'payins_preauthorized-direct_create' => array( '/payins/preauthorized/direct/', RequestType::POST ),
+        'payins_bankwire-direct_create' => array( '/payins/bankwire/direct/', RequestType::POST ),
+        'payins_directdebit-web_create' => array( '/payins/directdebit/web', RequestType::POST ),
+        'payins_directdebit-direct_create' => array( '/payins/directdebit/direct', RequestType::POST ),
+        'payins_paypal-web_create' => array( '/payins/paypal/web', RequestType::POST ),
+        'payins_get' => array( '/payins/%s', RequestType::GET ),
+        'payins_createrefunds' => array( '/payins/%s/refunds', RequestType::POST ),
+        'payins_applepay-direct_create' => array('/payins/applepay/direct', RequestType::POST),
 
         'repudiation_get' => array('/repudiations/%s', RequestType::GET),
 
@@ -246,7 +246,6 @@ abstract class ApiBase
 
         $rest = new RestTool(true, $this->_root);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData, $idempotencyKey);
-
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
         }
@@ -376,7 +375,7 @@ abstract class ApiBase
         if (is_string($entityClassName)) {
             $entity = new $entityClassName();
         } else {
-            throw new Exception('Cannot cast response to entity object. Wrong entity class name');
+            throw new Exception("Cannot cast response to entity object. Wrong entity class name");
         }
 
         $responseReflection = new \ReflectionObject($response);
