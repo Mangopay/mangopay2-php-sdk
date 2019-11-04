@@ -82,4 +82,14 @@ class ApiUboDeclarations extends Libraries\ApiBase
         $entity->Status = UboDeclarationStatus::ValidationAsked;
         return $this->SaveObject('ubo_declaration_submit', $entity, '\MangoPay\UboDeclaration', $userId);
     }
+
+    /**
+     * Gets an UBO Declaration.
+     * @param string $uboDeclarationId
+     * @return UboDeclaration UBO Declaration object returned from API
+     */
+    public function GetUboDeclarationById($uboDeclarationId)
+    {
+        return $this->GetObject('ubo_declaration_get_by_id', '\MangoPay\UboDeclaration', $uboDeclarationId);
+    }
 }
