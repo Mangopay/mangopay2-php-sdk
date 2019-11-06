@@ -309,7 +309,6 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsPaypal', $payIn->PaymentDetails);
         $this->assertSame('WEB', $payIn->ExecutionType);
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
-        $this->assertSame("FR", $payIn->ExecutionDetails->Culture);
         $this->assertIdenticalInputProps($payIn, $getPayIn);
         $this->assertSame('CREATED', $getPayIn->Status);
         $this->assertNull($getPayIn->ExecutionDate);
