@@ -178,6 +178,7 @@ abstract class ApiBase
         'ubo_declaration_all' => array('/users/%s/kyc/ubodeclarations', RequestType::GET),
         'ubo_declaration_submit' => array('/users/%s/kyc/ubodeclarations/%s', RequestType::PUT),
         'ubo_declaration_get' => array('/users/%s/kyc/ubodeclarations/%s', RequestType::GET),
+        'ubo_declaration_get_by_id' => array('/kyc/ubodeclarations/%s', RequestType::GET),
         'ubo_create' => array('/users/%s/kyc/ubodeclarations/%s/ubos', RequestType::POST),
         'ubo_update' => array('/users/%s/kyc/ubodeclarations/%s/ubos/%s', RequestType::PUT),
         'ubo_get' => array('/users/%s/kyc/ubodeclarations/%s/ubos/%s', RequestType::GET),
