@@ -37,6 +37,20 @@ class UsersTest extends Base
         $this->assertSame($john->Id, $ret->UserId);
     }
 
+    function test_Users_GetEMoneyFunctionWithOneParam()
+    {
+        $john = $this->getJohn();
+        $ret = $this->_api->Users->GetEMoney($john->Id);
+        $this->assertSame($john->Id, $ret->UserId);
+    }
+
+    function test_Users_GetEMoneyWithNullValues()
+    {
+        $john = $this->getJohn();
+        $ret = $this->_api->Users->GetEMoney($john->Id, null, null);
+        $this->assertSame($john->Id, $ret->UserId);
+    }
+
     /**
      * @expectedException MangoPay\Libraries\ResponseException
      * @throws Exception
