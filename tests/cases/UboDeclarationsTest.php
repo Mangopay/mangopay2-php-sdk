@@ -57,7 +57,6 @@ class UboDeclarationsTest extends Base
     function test_getUboDeclarationById()
     {
         $declaration = $this->getMatrixUboDeclaration();
-
         $declarationFromApi = $this->_api->UboDeclarations->GetUboDeclarationById($declaration->Id);
         $this->assertNotNull($declarationFromApi);
         $this->assertEquals($declaration->Id, $declarationFromApi->Id);
