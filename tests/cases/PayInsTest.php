@@ -5,6 +5,7 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\AVSResult;
 use MangoPay\Libraries\Exception;
 use MangoPay\PayInPaymentType;
+use MangoPay\PayInStatus;
 
 
 /**
@@ -36,7 +37,7 @@ class PayInsTest extends Base
         $this->assertSame(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
         $this->assertIdenticalInputProps($payIn, $getPayIn);
-        $this->assertSame(\MangoPay\PayInStatus::Created, $getPayIn->Status);
+        $this->assertSame(PayInStatus::Created, $getPayIn->Status);
         $this->assertNull($getPayIn->ExecutionDate);
         $this->assertNotNull($getPayIn->ExecutionDetails->RedirectURL);
         $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
@@ -62,7 +63,7 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\Money', $payIn->Fees);
         $this->assertEquals($user->Id, $payIn->AuthorId);
         $this->assertEquals($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
-        $this->assertEquals(\MangoPay\PayInStatus::Succeeded, $payIn->Status);
+        $this->assertEquals(PayInStatus::Succeeded, $payIn->Status);
         $this->assertEquals('PAYIN', $payIn->Type);
     }
 
@@ -135,7 +136,7 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\Money', $createPayIn->CreditedFunds);
         $this->assertInstanceOf('\MangoPay\Money', $createPayIn->Fees);
         $this->assertEquals($user->Id, $createPayIn->AuthorId);
-        $this->assertEquals(\MangoPay\PayInStatus::Succeeded, $createPayIn->Status);
+        $this->assertEquals(PayInStatus::Succeeded, $createPayIn->Status);
         $this->assertEquals('PAYIN', $createPayIn->Type);
     }
 
@@ -169,7 +170,7 @@ class PayInsTest extends Base
         $this->assertEquals(\MangoPay\PayInExecutionType::Direct, $createPayIn->ExecutionType);
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $createPayIn->ExecutionDetails);
         $this->assertEquals($user->Id, $createPayIn->AuthorId);
-        $this->assertEquals(\MangoPay\PayInStatus::Created, $createPayIn->Status);
+        $this->assertEquals(PayInStatus::Created, $createPayIn->Status);
         $this->assertEquals('PAYIN', $createPayIn->Type);
         $this->assertNotNull($createPayIn->PaymentDetails->WireReference);
         $this->assertInstanceOf('\MangoPay\BankAccount', $createPayIn->PaymentDetails->BankAccount);
@@ -249,7 +250,7 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $createPayIn->ExecutionDetails);
         $this->assertEquals("FR", $createPayIn->ExecutionDetails->Culture);
         $this->assertEquals($user->Id, $createPayIn->AuthorId);
-        $this->assertEquals(\MangoPay\PayInStatus::Created, $createPayIn->Status);
+        $this->assertEquals(PayInStatus::Created, $createPayIn->Status);
         $this->assertEquals('PAYIN', $createPayIn->Type);
         $this->assertInstanceOf('\MangoPay\Money', $createPayIn->DebitedFunds);
         $this->assertEquals(10000, $createPayIn->DebitedFunds->Amount);
@@ -399,7 +400,7 @@ class PayInsTest extends Base
         $this->assertTrue($createPayIn->Id > 0);
         $this->assertEquals($wallet->Id, $createPayIn->CreditedWalletId);
         $this->assertEquals($user->Id, $createPayIn->AuthorId);
-        $this->assertEquals(\MangoPay\PayInStatus::Succeeded, $createPayIn->Status);
+        $this->assertEquals(PayInStatus::Succeeded, $createPayIn->Status);
         $this->assertInstanceOf('\MangoPay\Money', $createPayIn->DebitedFunds);
         $this->assertEquals(199, $createPayIn->DebitedFunds->Amount);
         $this->assertEquals("EUR", $createPayIn->DebitedFunds->Currency);
