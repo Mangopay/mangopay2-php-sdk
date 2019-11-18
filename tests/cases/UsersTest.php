@@ -355,7 +355,7 @@ class UsersTest extends Base
         $filter->Active = 'true';
 
         $activeList = $this->_api->Users->GetBankAccounts($john->Id, $pagination, null, $filter);
-        $this->assertCount(12, $activeList);
+        $this->assertCount(7, $activeList);
     }
 
     function test_Users_UpdateBankAccount()
