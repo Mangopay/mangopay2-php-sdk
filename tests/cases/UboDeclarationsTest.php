@@ -47,11 +47,19 @@ class UboDeclarationsTest extends Base
         $declaration = $this->getMatrixUboDeclaration();
         $matrix = $this->getMatrix();
 
-        $declarationFromApi = $this->_api->UboDeclarations->Get($matrix->Id, $declaration->Id);
+        $declarationFromApi = $this->_api->UboDeclarations->GET($matrix->Id, $declaration->Id);
 
         $this->assertNotNull($declarationFromApi);
         $this->assertEquals($declaration->Id, $declarationFromApi->Id);
 
+    }
+
+    function test_getUboDeclarationById()
+    {
+        $declaration = $this->getMatrixUboDeclaration();
+        $declarationFromApi = $this->_api->UboDeclarations->GetUboDeclarationById($declaration->Id);
+        $this->assertNotNull($declarationFromApi);
+        $this->assertEquals($declaration->Id, $declarationFromApi->Id);
     }
 
     function test_CreateUbo()
