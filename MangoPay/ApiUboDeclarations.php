@@ -34,6 +34,16 @@ class ApiUboDeclarations extends Libraries\ApiBase
     }
 
     /**
+     * Gets an UBO Declaration directly by Id.
+     * @param string $uboDeclarationId
+     * @return UboDeclaration UBO Declaration object returned from API
+     */
+    public function GetById($uboDeclarationId)
+    {
+        return $this->GetObject('ubo_declaration_get_by_id', '\MangoPay\UboDeclaration', $uboDeclarationId);
+    }
+
+    /**
      * Creates a new UBO for the specified arguments
      * @param string $userId int
      * @param string $uboDeclarationId int

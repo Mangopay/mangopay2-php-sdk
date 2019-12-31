@@ -93,6 +93,15 @@ class UboDeclarationsTest extends Base
         $this->assertEquals($toBeUpdated->Birthplace, $ubo->Birthplace);
     }
 
+    public function test_GetUboById()
+    {
+        $uboDeclaration = $this->getMatrixUboDeclaration();
+        $dd = $this->_api->UboDeclarations->GetById($uboDeclaration->Id);
+
+        $this->assertNotNull($dd);
+        $this->assertEquals($uboDeclaration->Id, $dd->Id);
+    }
+
     public function test_GetUbo()
     {
         $matrix = $this->getMatrix();
