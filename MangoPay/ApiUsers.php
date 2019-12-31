@@ -342,10 +342,24 @@ class ApiUsers extends Libraries\ApiBase
      * @return \MangoPay\EMoney EMoney obhect returned from API
      * @throws Libraries\Exception
      */
-    public function GetEMoney($userId, $year, $month)
+    public function GetEMoney($userId, $year = null, $month = null)
     {
+        if ($year == null)
+        {
+            $year = $this->GetCurrentYear();
+        }
+
         $methodKey = $month == null ? 'users_getemoney_year' : 'users_getemoney_month';
         return $this->GetObject($methodKey, '\MangoPay\EMoney', $userId, $year, $month);
+    }
+
+    /**
+     * Get the current year
+     * @return int currentYear
+     */
+    private function GetCurrentYear()
+    {
+        return (new \DateTime())->format("Y");
     }
 
     /**
