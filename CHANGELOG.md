@@ -1,6 +1,11 @@
 ## [Unreleased]
+
+## [2.13.0]
 ### Added
 - ApplePay `Payin` functions are now available. More info about activation to come in the following weeks...  
+- `UBODeclaration` can be retrieved only with its ID thanks to new `GetById`function
+- `COUNTERFEIT_PRODUCT` added as a new `DisputeReasonType`
+- `GetEMoney` function has been fixed due to too many mandatory parameters.
 
 ## [2.12.2] - 2019-09-11
 ### Changed
