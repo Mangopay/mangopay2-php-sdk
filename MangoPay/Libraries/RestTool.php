@@ -351,9 +351,9 @@ class RestTool
             if (isset($response) && is_object($response) && isset($response->Message)) {
                 $error = new Error();
                 $error->Message = $response->Message;
-                $error->Errors = property_exists($response, 'Errors')
+                $error->Errors = (property_exists($response, 'Errors')
                     ? $response->Errors
-                    : property_exists($response, 'errors') ? $response->errors : null;
+                    : property_exists($response, 'errors')) ? $response->errors : null;
                 $error->Id = property_exists($response, 'Id') ? $response->Id : null;
                 $error->Type = property_exists($response, 'Type') ? $response->Type : null;
                 $error->Date = property_exists($response, 'Date') ? $response->Date : null;
