@@ -1,4 +1,7 @@
 ## [Unreleased]
+## [2.13.1]
+### Fixed
+- Deprecated syntax on RestTool.php file for PHP 7.4 version.
 
 ## [2.13.0]
 ### Added
