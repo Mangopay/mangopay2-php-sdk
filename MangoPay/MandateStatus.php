@@ -8,4 +8,5 @@ class MandateStatus
     const Submitted = "SUBMITTED";
     const Active = "ACTIVE";
     const Failed = "FAILED";
+    const Expired = "EXPIRED";
 }
