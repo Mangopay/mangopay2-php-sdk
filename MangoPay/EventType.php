@@ -45,9 +45,12 @@ class EventType
     const TransferSettlementSucceeded = "TRANSFER_SETTLEMENT_SUCCEEDED";
     const TransferSettlementFailed = "TRANSFER_SETTLEMENT_FAILED";
     const MandateCreated = "MANDATE_CREATED";
+    //MandatedFailed typo to be deprecated, typo fixed.
     const MandatedFailed = "MANDATE_FAILED";
+    const MandateFailed = "MANDATE_FAILED";
     const MandateActivated = "MANDATE_ACTIVATED";
     const MandateSubmitted = "MANDATE_SUBMITTED";
+    const MandateExpired = "MANDATE_EXPIRED";
     const PreAuthorizationPaymentWaiting = "PREAUTHORIZATION_PAYMENT_WAITING";
     const PreAuthorizationPaymentExpired = "PREAUTHORIZATION_PAYMENT_EXPIRED";
     const PreAuthorizationPaymentCanceled = "PREAUTHORIZATION_PAYMENT_CANCELED";
