@@ -1,4 +1,9 @@
 ## [Unreleased]
+
+## [2.13.2]
+### Added
+- Mandate Status `EXPIRED` and EventType `MANDATE_EXPIRED` have been added.
+
 ## [2.13.1]
 ### Fixed
 - Deprecated syntax on RestTool.php file for PHP 7.4 version.
