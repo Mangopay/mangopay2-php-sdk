@@ -12,12 +12,4 @@ class PayInTemplateURLOptions extends Libraries\Dto
      * @var string
      */
     public $PAYLINE;
-    
-    /**
-     * PAYLINEV2 options - to be used instead of PAYLINE options
-     *
-     * @var string
-     */
-    public $PAYLINEV2;
-    
 }
