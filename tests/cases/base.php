@@ -256,6 +256,11 @@ abstract class Base extends TestCase
             $payIn->CreditedWalletId = $wallet->Id;
             $payIn->PaymentDetails = $this->getPayInPaymentDetailsCard();
             $payIn->ExecutionDetails = $this->getPayInExecutionDetailsWeb();
+            
+            //Add for PAYLINEV2 parameter support. You must now use this object for Payin Card only
+            $payIn->ExecutionDetails->TemplateURLOptions = new \MangoPay\PayInCardTemplateURLOptions();
+            $payIn->ExecutionDetails->TemplateURLOptions->PAYLINE = "https://www.maysite.com/payline_template/";
+            $payIn->ExecutionDetails->TemplateURLOptions->PAYLINEV2 = "https://www.maysite.com/payline_template/";
 
             self::$JohnsPayInCardWeb = $this->_api->PayIns->Create($payIn);
         }
