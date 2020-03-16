@@ -13,9 +13,11 @@ class PayInCardTemplateURLOptions extends Libraries\Dto
      */
     public $PAYLINE;
     
-        /**
+    /**
      * PAYLINEV2 options
      *
      * @var string
      */
-    public $PAYLINV2E;
+    public $PAYLINEV2;
+    
+}
