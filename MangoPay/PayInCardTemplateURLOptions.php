@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * Class represents template URL options
  */
-class PayInTemplateURLOptions extends Libraries\Dto
+class PayInCardTemplateURLOptions extends Libraries\Dto
 {
     /**
      * PAYLINE options - Will be deprecated on March 31th (Sandbox) and April 30th (production)
@@ -12,4 +12,12 @@ class PayInTemplateURLOptions extends Libraries\Dto
      * @var string
      */
     public $PAYLINE;
+    
+    /**
+     * PAYLINEV2 options
+     *
+     * @var string
+     */
+    public $PAYLINEV2;
+    
 }
