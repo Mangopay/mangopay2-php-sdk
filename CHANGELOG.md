@@ -1,4 +1,13 @@
 ## [Unreleased]
+
+## [3.0.0]
+### BREAKING CHANGES
+- Add a new `PAYLINEV2` parameter for Payin Web Card only. You must now use `PayInCardTemplateURLOptions` object instead of `PayInTemplateURLOptions` (if you use custom Template). You can always use `PayInTemplateURLOptions`for all of your Payin Direct Debit Web.
+
+## [2.13.2]
+### Added
+- Add a new `EXPIRED` Mandate status and related EventType `MANDATE_EXPIRED`.
+
 ## [2.13.1]
 ### Fixed
 - Deprecated syntax on RestTool.php file for PHP 7.4 version.
