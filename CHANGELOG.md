@@ -6,7 +6,7 @@
 
 ## [2.13.2]
 ### Added
-- Add a new `EXPIRED` Mandate status and related EventType `MANDATE_EXPIRED`.
+- Mandate Status `EXPIRED` and EventType `MANDATE_EXPIRED` have been added.
 
 ## [2.13.1]
 ### Fixed
