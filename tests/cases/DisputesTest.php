@@ -26,18 +26,18 @@ class DisputesTest extends Base
 
     private $_clientDisputes = null;
 
-//    public function skip()
-//    {
-//        $pagination = new \MangoPay\Pagination(1, 100);
-//        $sorting = new Sorting();
-//        $sorting->AddField("CreationDate", SortDirection::DESC);
-//        $this->_clientDisputes = $this->_api->Disputes->GetAll($pagination, $sorting);
-//        echo 'CLIENT DISPUTES';
-//        echo empty($this->_clientDisputes);
-//        if (empty($this->_clientDisputes)) {
-//            $this->markTestSkipped('INITIALIZATION FAILURE - cannot test disputes. Not exist any dispute.');
-//        }
-//    }
+    public function skip()
+    {
+        $pagination = new \MangoPay\Pagination(1, 100);
+        $sorting = new Sorting();
+        $sorting->AddField("CreationDate", SortDirection::DESC);
+        $this->_clientDisputes = $this->_api->Disputes->GetAll($pagination, $sorting);
+        echo 'CLIENT DISPUTES';
+        echo empty($this->_clientDisputes);
+        if (empty($this->_clientDisputes)) {
+            $this->markTestSkipped('INITIALIZATION FAILURE - cannot test disputes. Not exist any dispute.');
+        }
+    }
 
     
     /*
