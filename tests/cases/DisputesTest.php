@@ -42,7 +42,7 @@ class DisputesTest extends Base
     
     /*
     * TO BE FIXED - DISPUTES TESTS KO - DATA ON ACCOUNT HAVE TO BE FIXED 
-    *
+    */
     function test_Disputes_Get()
     {
         $dispute = $this->_api->Disputes->Get($this->_clientDisputes[0]->Id);
@@ -51,6 +51,7 @@ class DisputesTest extends Base
         $this->assertEquals($dispute->Id, $this->_clientDisputes[0]->Id);
     }
 
+    /**
     function test_Disputes_GetTransactions()
     {
         $disputeToTest = null;
