@@ -297,6 +297,7 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsPaypal', $payIn->PaymentDetails);
         $this->assertSame('WEB', $payIn->ExecutionType);
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
+        $this->assertSame('FR', $payIn->ExecutionDetails->Culture);
     }
 
     function test_PayIns_Get_PaypalWeb()
@@ -314,6 +315,7 @@ class PayInsTest extends Base
         $this->assertSame('CREATED', $getPayIn->Status);
         $this->assertNull($getPayIn->ExecutionDate);
         $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
+        $this->assertSame('FR', $getPayIn->ExecutionDetails->Culture);
     }
 
     function test_PayPal_BuyerAccountEmail()
