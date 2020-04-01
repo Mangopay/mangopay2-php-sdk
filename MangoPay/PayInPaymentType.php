@@ -13,4 +13,5 @@ class PayInPaymentType
     const Preauthorized = 'PREAUTHORIZED';
 	const PayPal = 'PAYPAL';
     const ApplePay = 'APPLEPAY';
+    const GooglePay = 'GOOGLEPAY';
 }

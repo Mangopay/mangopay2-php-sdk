@@ -408,5 +408,49 @@ class PayInsTest extends Base
         $this->assertEquals(1, $createPayIn->Fees->Amount);
         $this->assertEquals("EUR", $createPayIn->Fees->Currency);
     }
+
+
+    function test_PayIns_Google_Pay_Create()
+    {
+        $this->markTestIncomplete(
+            "Cannot test Google Pay"
+        );
+        $wallet = $this->getJohnsWallet();
+        $user = $this->getJohn();
+
+        // create Google Pay direct pay-in
+        $googlePayPayIn = new \MangoPay\PayIn();
+        $googlePayPayIn->CreditedWalletId = $wallet->Id;
+        $googlePayPayIn->AuthorId = $user->Id;
+        $googlePayPayIn->CreditedUserId = $user->Id;
+        $googlePayPayIn->DebitedFunds = new \MangoPay\Money();
+        $googlePayPayIn->DebitedFunds->Amount = 199;
+        $googlePayPayIn->DebitedFunds->Currency = 'EUR';
+        $googlePayPayIn->Fees = new \MangoPay\Money();
+        $googlePayPayIn->Fees->Amount = 1;
+        $googlePayPayIn->Fees->Currency = 'EUR';
+        $googlePayPayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        // payment data
+        $googlePayPayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsGooglePay();
+        $googlePayPayIn->PaymentDetails->PaymentData = new \MangoPay\PaymentData();
+        $googlePayPayIn->PaymentDetails->PaymentData->TransactionId = 'placeholder';
+        $googlePayPayIn->PaymentDetails->PaymentData->Network = 'placeholder';
+        $googlePayPayIn->PaymentDetails->PaymentData->TokenData = 'placeholder';
+
+        $googlePayPayIn->PaymentDetails->StatementDescriptor = 'PHP';
+        $googlePayPayIn->Tag = 'Create an Google card direct Payin';
+
+        $createPayIn = $this->_api->PayIns->Create($googlePayPayIn, null);
+        $this->assertTrue($createPayIn->Id > 0);
+        $this->assertEquals($wallet->Id, $createPayIn->CreditedWalletId);
+        $this->assertEquals($user->Id, $createPayIn->AuthorId);
+        $this->assertEquals(PayInStatus::Succeeded, $createPayIn->DebitedFunds);
+        $this->assertInstanceOf('\MangoPay\Money', $createPayIn->DebitedFunds);
+        $this->assertEquals(199, $createPayIn->DebitedFunds->Amount);
+        $this->assertEquals("EUR", $createPayIn->DebitedFunds->Currency);
+        $this->assertInstanceOf('\MangoPay\Money', $createPayIn->Fees);
+        $this->assertEquals(1, $createPayIn->Fees->Amount);
+        $this->assertEquals("EUR", $createPayIn->Fees->Currency);
+    }
 }
 
