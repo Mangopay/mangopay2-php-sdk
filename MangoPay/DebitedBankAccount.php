@@ -18,4 +18,29 @@ class DebitedBankAccount extends Libraries\EntityBase
      * @var string
      */
     public $OwnerName;
+
+    /**
+     * The Account Number
+     */
+    public $AccountNumber;
+
+    /**
+     * IBAN
+     */
+    public $IBAN;
+
+    /**
+     * BIC
+     */
+    public $BIC;
+
+    /**
+     * Type
+     */
+    public $Type;
+
+    /**
+     * Country
+     */
+    public $Country;
 }
