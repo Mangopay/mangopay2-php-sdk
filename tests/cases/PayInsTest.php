@@ -379,7 +379,7 @@ class PayInsTest extends Base
 
     function test_get_bank_wire_external_instructions_iban(){
         $payIn = $this->_api->PayIns->Get("74980101");
-        var_dump($payIn);
+
         $this->assertTrue($payIn->PaymentType == PayInPaymentType::BankWire);
         $this->assertTrue($payIn->PaymentDetails instanceof PayInPaymentDetailsBankWire);
         $this->assertTrue($payIn->ExecutionType == PayInExecutionType::ExternalInstruction);
@@ -394,7 +394,7 @@ class PayInsTest extends Base
     function test_get_bank_wire_external_instructions_account_number()
     {
         $payIn = $this->_api->PayIns->Get("74981216");
-        var_dump($payIn);
+
         $this->assertTrue($payIn->PaymentType == PayInPaymentType::BankWire);
         $this->assertTrue($payIn->PaymentDetails instanceof PayInPaymentDetailsBankWire);
         $this->assertTrue($payIn->ExecutionType == PayInExecutionType::ExternalInstruction);
