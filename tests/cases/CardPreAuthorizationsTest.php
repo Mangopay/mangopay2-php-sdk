@@ -44,3 +44,4 @@ class CardPreAuthorizationsTest extends Base
         $this->assertSame(\MangoPay\CardPreAuthorizationPaymentStatus::Canceled, $resultCardPreAuthorization->PaymentStatus);
     }
 }
+
