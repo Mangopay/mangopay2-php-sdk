@@ -52,6 +52,7 @@ class PayIn extends Transaction
                 PayInPaymentType::DirectDebitDirect => '\MangoPay\PayInPaymentDetailsDirectDebitDirect',
                 PayInPaymentType::PayPal => '\MangoPay\PayInPaymentDetailsPaypal',
                 PayInPaymentType::ApplePay => 'MangoPay\PayInPaymentDetailsApplePay',
+                PayInPaymentType::GooglePay => 'MangoPay\PayInPaymentDetailsGooglePay',
                 // ...and more in future...
             ),
             'ExecutionType' => array(
