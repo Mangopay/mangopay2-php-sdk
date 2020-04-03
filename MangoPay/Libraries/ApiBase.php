@@ -63,6 +63,7 @@ abstract class ApiBase
         'payins_get' => array( '/payins/%s', RequestType::GET ),
         'payins_createrefunds' => array( '/payins/%s/refunds', RequestType::POST ),
         'payins_applepay-direct_create' => array('/payins/applepay/direct', RequestType::POST),
+        'payins_googlepay-direct_create' => array('/payins/googlepay/direct', RequestType::POST),
 
         'repudiation_get' => array('/repudiations/%s', RequestType::GET),
 
@@ -486,7 +487,6 @@ abstract class ApiBase
         if (count($requestData) == 0) {
             return new \stdClass();
         }
-
         return $requestData;
     }
 
