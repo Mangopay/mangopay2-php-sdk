@@ -3,6 +3,8 @@
 namespace MangoPay\Tests\Cases;
 
 
+use MangoPay\BankAccount;
+use MangoPay\BankAccountDetailsOTHER;
 use MangoPay\Tests\Cases\Base;
 
 /**
@@ -21,5 +23,21 @@ class BankAccountsTest extends Base
 
         $this->assertNotNull($transactions);
         $this->assertInternalType('array', $transactions);
+    }
+
+    function test_create_bank_account_other(){
+        $john = $this->getJohn();
+        $account = new BankAccount();
+        $account->OwnerName = "ANTHONY TEST";
+        $account->OwnerAddress = $john->Address;
+        $account->Details = new BankAccountDetailsOTHER();
+        $account->Details->Type = "OTHER";
+        $account->Details->Country = "FR";
+        $account->Details->AccountNumber = "ABC123";
+        $account->Details->BIC = "CELLLULL";
+
+        $bankAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
+
+        $this->assertNotNull($bankAccount);
     }
 }

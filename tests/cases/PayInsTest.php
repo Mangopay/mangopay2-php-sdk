@@ -4,6 +4,7 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\AVSResult;
 use MangoPay\BankingAlias;
+use MangoPay\DebitedBankAccount;
 use MangoPay\Libraries\Exception;
 use MangoPay\Money;
 use MangoPay\PayIn;
@@ -380,10 +381,11 @@ class PayInsTest extends Base
     function test_get_bank_wire_external_instructions_iban(){
         $payIn = $this->_api->PayIns->Get("74980101");
 
+
+
         $this->assertTrue($payIn->PaymentType == PayInPaymentType::BankWire);
         $this->assertTrue($payIn->PaymentDetails instanceof PayInPaymentDetailsBankWire);
         $this->assertTrue($payIn->ExecutionType == PayInExecutionType::ExternalInstruction);
-
 
         $this->assertTrue($payIn->Status == TransactionStatus::Succeeded);
         $this->assertTrue($payIn->ExecutionDate != null);
@@ -398,7 +400,6 @@ class PayInsTest extends Base
         $this->assertTrue($payIn->PaymentType == PayInPaymentType::BankWire);
         $this->assertTrue($payIn->PaymentDetails instanceof PayInPaymentDetailsBankWire);
         $this->assertTrue($payIn->ExecutionType == PayInExecutionType::ExternalInstruction);
-
 
         $this->assertTrue($payIn->Status == TransactionStatus::Succeeded);
         $this->assertTrue($payIn->ExecutionDate != null);
