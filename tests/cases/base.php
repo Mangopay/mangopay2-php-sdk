@@ -722,6 +722,7 @@ abstract class Base extends TestCase
             $payIn->PaymentDetails->ShippingAddress = $shippingAddress;
             $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
             $payIn->ExecutionDetails->ReturnURL = 'https://test.com';
+            $payIn->ExecutionDetails->Culture = 'fr';
 
             self::$JohnsPayInPaypalWeb = $this->_api->PayIns->Create($payIn);
         }

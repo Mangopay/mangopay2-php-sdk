@@ -33,6 +33,7 @@ class CardPreAuthorizationsTest extends Base
         $this->assertSame('000000', $getCardPreAuthorization->ResultCode);
     }
 
+
 //    function test_CardPreAuthorization_Update()
 //    {
         //TO BE FIXED
@@ -43,6 +44,9 @@ class CardPreAuthorizationsTest extends Base
 
         $this->assertSame(\MangoPay\CardPreAuthorizationStatus::Succeeded, $resultCardPreAuthorization->Status);
         $this->assertSame(\MangoPay\CardPreAuthorizationPaymentStatus::Canceled, $resultCardPreAuthorization->PaymentStatus);
+
         */
 //    }
+
 }
+
