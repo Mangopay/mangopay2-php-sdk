@@ -3,9 +3,17 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\AVSResult;
+use MangoPay\BankingAlias;
+use MangoPay\DebitedBankAccount;
 use MangoPay\Libraries\Exception;
+use MangoPay\Money;
+use MangoPay\PayIn;
+use MangoPay\PayInExecutionType;
+use MangoPay\PayInPaymentDetails;
+use MangoPay\PayInPaymentDetailsBankWire;
 use MangoPay\PayInPaymentType;
 use MangoPay\PayInStatus;
+use MangoPay\TransactionStatus;
 
 
 /**
@@ -370,6 +378,33 @@ class PayInsTest extends Base
         $this->assertNotNull($payin);
         $this->assertNotNull($payin->ExecutionDetails);
         $this->assertNotNull($payin->ExecutionDetails->Culture);
+    }
+
+    function test_get_bank_wire_external_instructions_iban(){
+        $payIn = $this->_api->PayIns->Get("74980101");
+
+        $this->assertTrue($payIn->PaymentType == PayInPaymentType::BankWire);
+        $this->assertTrue($payIn->PaymentDetails instanceof PayInPaymentDetailsBankWire);
+        $this->assertTrue($payIn->ExecutionType == PayInExecutionType::ExternalInstruction);
+
+        $this->assertTrue($payIn->Status == TransactionStatus::Succeeded);
+        $this->assertTrue($payIn->ExecutionDate != null);
+        $this->assertNotNull($payIn->ExecutionDetails->DebitedBankAccount->IBAN);
+        $this->assertNull($payIn->ExecutionDetails->DebitedBankAccount->AccountNumber);
+    }
+
+    function test_get_bank_wire_external_instructions_account_number()
+    {
+        $payIn = $this->_api->PayIns->Get("74981216");
+
+        $this->assertTrue($payIn->PaymentType == PayInPaymentType::BankWire);
+        $this->assertTrue($payIn->PaymentDetails instanceof PayInPaymentDetailsBankWire);
+        $this->assertTrue($payIn->ExecutionType == PayInExecutionType::ExternalInstruction);
+
+        $this->assertTrue($payIn->Status == TransactionStatus::Succeeded);
+        $this->assertTrue($payIn->ExecutionDate != null);
+        $this->assertNull($payIn->ExecutionDetails->DebitedBankAccount->IBAN);
+        $this->assertNotNull($payIn->ExecutionDetails->DebitedBankAccount->AccountNumber);
     }
 
     function test_PayIns_Apple_Pay_Create()
