@@ -60,4 +60,5 @@ class EventType
     const UboDeclarationRefused = "UBO_DECLARATION_REFUSED";
     const UboDeclarationValidated = "UBO_DECLARATION_VALIDATED";
     const UboDeclarationIncomplete = "UBO_DECLARATION_INCOMPLETE";
+    const UserKycRegular = "USER_KYC_REGULAR";
 }
