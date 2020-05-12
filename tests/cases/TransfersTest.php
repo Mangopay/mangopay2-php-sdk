@@ -3,6 +3,9 @@
 namespace MangoPay\Tests\Cases;
 
 
+use MangoPay\Money;
+use MangoPay\Transfer;
+
 /**
  * Tests basic methods for transfers
  */
@@ -62,5 +65,29 @@ class TransfersTest extends Base
 
         $this->assertNotNull($refunds);
         $this->assertInternalType('array', $refunds);
+    }
+
+    public function test_Transfer_Create(){
+        $john = $this->getJohn();
+        $debitedWallet = $this->getJohnsWalletWithMoney();
+        $creditedWallet = $this->getJohnsWallet();
+        $transfer = new Transfer();
+        $transfer->AuthorId = $john->Id;
+        $transfer->CreditedUserId = $john->Id;
+        $transfer->DebitedFunds = new Money();
+        $transfer->DebitedFunds->Currency = "EUR";
+        $transfer->DebitedFunds->Amount = 10;
+        $transfer->Fees = new Money();
+        $transfer->Fees->Currency = "EUR";
+        $transfer->Fees->Amount = 0;
+        $transfer->DebitedWalletId = $debitedWallet->Id;
+        $transfer->CreditedWalletId = $creditedWallet->Id;
+
+        $result = $this->_api->Transfers->Create($transfer);
+
+        $this->assertNotNull($result);
+        $this->assertEquals($transfer->DebitedFunds->Currency, $creditedWallet->Currency);
+        $this->assertEquals($transfer->Fees->Currency, $creditedWallet->Currency);
+
     }
 }
