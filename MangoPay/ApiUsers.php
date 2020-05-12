@@ -196,13 +196,14 @@ class ApiUsers extends Libraries\ApiBase
      * Get all cards for user
      * @param string $userId User Id
      * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterCards $filter Object to filter data
      * @param \MangoPay\Sorting $sorting Object to sorting data
      *
      * @return \MangoPay\Card[] Cards for user returned from API
      */
-    public function GetCards($userId, & $pagination = null, $sorting = null)
+    public function GetCards($userId, & $pagination = null, $filter = null, $sorting = null)
     {
-        return $this->GetList('users_allcards', $pagination, '\MangoPay\Card', $userId, null, $sorting);
+        return $this->GetList('users_allcards', $pagination, '\MangoPay\Card', $userId, $filter, $sorting);
     }
 
     /**
