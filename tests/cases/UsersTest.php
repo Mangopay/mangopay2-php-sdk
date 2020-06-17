@@ -3,7 +3,6 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\Libraries\Exception;
-use Webmozart\Assert\Assert;
 
 
 /**
