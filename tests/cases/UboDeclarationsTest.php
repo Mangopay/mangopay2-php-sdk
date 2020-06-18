@@ -65,9 +65,12 @@ class UboDeclarationsTest extends Base
     {
         $ubo = $this->createNewUboForMatrix();
         $newUbo = $this->getMatrixUbo();
+
         $declaration = $this->getMatrixUboDeclaration();
 
         $this->assertNotEmpty($declaration->Id);
+
+
         $this->assertNotNull($newUbo);
         $this->assertNotNull($newUbo->Id);
         $this->assertEquals($ubo->FirstName, $newUbo->FirstName);
