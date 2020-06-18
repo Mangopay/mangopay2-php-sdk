@@ -79,6 +79,15 @@ class UboDeclarationsTest extends Base
         $this->assertEquals($ubo->Birthplace, $newUbo->Birthplace);
     }
 
+    function test_throw_CreateUbo(){
+        $declaration = $this->getMatrixUboDeclaration();
+
+        if(empty($declaration->Id)){
+            self::throwException('Parameter uboDeclarationId is empty');
+        }
+
+    }
+
     public function test_UpdateUbo()
     {
         $matrix = $this->getMatrix();
