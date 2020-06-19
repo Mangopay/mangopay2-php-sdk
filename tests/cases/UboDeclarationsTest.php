@@ -3,6 +3,7 @@
 namespace MangoPay\Tests\Cases;
 
 
+use MangoPay\Libraries\ResponseException;
 use MangoPay\UboDeclarationStatus;
 
 /**
@@ -80,12 +81,10 @@ class UboDeclarationsTest extends Base
     }
 
     function test_throw_CreateUbo(){
-        $declaration = $this->getMatrixUboDeclaration();
-
-        if(empty($declaration->Id)){
-            self::throwException('Parameter uboDeclarationId is empty');
-        }
-
+        $matrix = $this->getMatrix();
+        $ubo = $this->createNewUboForMatrix();
+        $this->expectException(ResponseException::class);
+        $this->_api->UboDeclarations->CreateUbo($matrix->Id,null, $ubo);
     }
 
     public function test_UpdateUbo()
