@@ -394,7 +394,7 @@ abstract class Base extends TestCase
          */
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
-            '&cardNumber=4970100000000154' .
+            '&cardNumber=4972485830400056' .
             '&cardExpirationDate=1224' .
             '&cardCvx=123';
 
