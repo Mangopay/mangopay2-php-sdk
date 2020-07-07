@@ -3,6 +3,7 @@
 namespace MangoPay\Tests\Cases;
 
 
+use MangoPay\Libraries\Exception;
 use MangoPay\Libraries\ResponseException;
 use MangoPay\UboDeclarationStatus;
 
@@ -80,10 +81,11 @@ class UboDeclarationsTest extends Base
         $this->assertEquals($ubo->Birthplace, $newUbo->Birthplace);
     }
 
-    function test_throw_CreateUbo(){
+    function test_throw_CreateUbo()
+    {
         $matrix = $this->getMatrix();
         $ubo = $this->createNewUboForMatrix();
-        $this->expectException(ResponseException::class);
+        $this->expectException("\MangoPay\Libraries\Exception");
         $this->_api->UboDeclarations->CreateUbo($matrix->Id,null, $ubo);
     }
 
