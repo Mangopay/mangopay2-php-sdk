@@ -194,7 +194,7 @@ class RestTool
             }
             // encode to json if needed
             if (in_array(self::$_JSON_HEADER, $httpHeaders)) {
-                if($this->_requestData != null){
+                if($this->_requestData != null || empty($this->_requestData)){
                     $this->_requestData = json_encode($this->_requestData);
                     $this->logger->debug('RequestData JSON :' . print_r($this->_requestData, true));
                     if ($this->_root->Config->DebugMode) {
