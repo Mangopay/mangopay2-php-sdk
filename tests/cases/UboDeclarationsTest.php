@@ -85,7 +85,7 @@ class UboDeclarationsTest extends Base
     {
         $matrix = $this->getMatrix();
         $ubo = $this->createNewUboForMatrix();
-        $this->expectException(\MangoPay\Libraries\ResponseException::class);
+        $this->expectException(\MangoPay\Libraries\ResponseException::CONSTANT);
         $this->_api->UboDeclarations->CreateUbo($matrix->Id,null, $ubo);
     }
 
