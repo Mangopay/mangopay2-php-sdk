@@ -85,7 +85,13 @@ class UboDeclarationsTest extends Base
     {
         $matrix = $this->getMatrix();
         $ubo = $this->createNewUboForMatrix();
-        $this->expectExceptionCode(400);
+        if(phpversion() != '5.4'){
+            $this->expectExceptionCode(400);
+        }else{
+            $this->setExpectedException(ResponseException::class);
+        }
+        //$this->expectExceptionCode(400);
+
         $this->_api->UboDeclarations->CreateUbo($matrix->Id,null, $ubo);
     }
 
