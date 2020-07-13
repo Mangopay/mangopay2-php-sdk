@@ -194,7 +194,7 @@ class RestTool
             }
             // encode to json if needed
             if (in_array(self::$_JSON_HEADER, $httpHeaders)) {
-                if($this->_requestData != null || !empty($this->_requestData)){
+                if($this->_requestData != null){
                     $this->_requestData = json_encode($this->_requestData);
                     $this->logger->debug('RequestData JSON :' . print_r($this->_requestData, true));
                     if ($this->_root->Config->DebugMode) {
@@ -349,11 +349,6 @@ class RestTool
     private function CheckResponseCode($responseCode, $response)
     {
         if ($responseCode < 200 || $responseCode > 299) {
-
-            $logClass = $this->_root->Config->LogClass;
-            $logClass::DEBUG('isset-response ---------- ', isset($response));
-            $logClass::DEBUG('is_object-response ---------- ', is_object($response));
-            $logClass::DEBUG('isset-response->msg ---------- ', isset($response->Message));
             if (isset($response) && is_object($response) && isset($response->Message)) {
                 $error = new Error();
                 $error->Message = $response->Message;
