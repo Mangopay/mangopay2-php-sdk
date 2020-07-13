@@ -349,6 +349,11 @@ class RestTool
     private function CheckResponseCode($responseCode, $response)
     {
         if ($responseCode < 200 || $responseCode > 299) {
+
+            $logClass = $this->_root->Config->LogClass;
+            $logClass::DEBUG('isset-response ---------- ', isset($response));
+            $logClass::DEBUG('is_object-response ---------- ', is_object($response));
+            $logClass::DEBUG('isset-response->msg ---------- ', isset($response->Message));
             if (isset($response) && is_object($response) && isset($response->Message)) {
                 $error = new Error();
                 $error->Message = $response->Message;
