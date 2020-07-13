@@ -134,7 +134,7 @@ class UboDeclarationsTest extends Base
     {
         $declaration = $this->getMatrixUboDeclaration();
         $matrix = $this->getMatrix();
-
+        $existingUbo = $this->getMatrixUbo();
         $newDeclaration = $this->_api->UboDeclarations->SubmitForValidation($matrix->Id, $declaration->Id);
 
         $this->assertEquals($declaration->Id, $newDeclaration->Id);
