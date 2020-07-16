@@ -194,6 +194,7 @@ class RestTool
             }
             // encode to json if needed
             if (in_array(self::$_JSON_HEADER, $httpHeaders)) {
+                var_dump($httpHeaders);
                 if($this->_requestData != null){
                     $this->_requestData = json_encode($this->_requestData);
                     $this->logger->debug('RequestData JSON :' . print_r($this->_requestData, true));
@@ -327,6 +328,8 @@ class RestTool
         array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
         // Add User-Agent Header
         array_push($this->_requestHttpHeaders, 'User-Agent: MANGOPAY PHP SDK/' . self::VERSION);
+        // Add Content-Length
+        array_push($this->_requestHttpHeaders, 'ContentLength: ' . ob_get_length());
         // Authentication http header
         if ($this->_authRequired) {
             $authHlp = new AuthenticationHelper($this->_root);
