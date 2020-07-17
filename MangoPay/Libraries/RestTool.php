@@ -328,7 +328,7 @@ class RestTool
         // Add User-Agent Header
         array_push($this->_requestHttpHeaders, 'User-Agent: MANGOPAY PHP SDK/' . self::VERSION);
         // Add Content-Length
-        array_push($this->_requestHttpHeaders, 'ContentLength: 0');
+        array_push($this->_requestHttpHeaders, 'content-length: ' . ob_get_length());
         // Authentication http header
         if ($this->_authRequired) {
             $authHlp = new AuthenticationHelper($this->_root);
