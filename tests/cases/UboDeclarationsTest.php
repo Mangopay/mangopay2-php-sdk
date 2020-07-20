@@ -85,12 +85,14 @@ class UboDeclarationsTest extends Base
     {
         $matrix = $this->getMatrix();
         $ubo = $this->createNewUboForMatrix();
+        $this->assertNotNull($ubo);
+        $this->assertNotNull($matrix->Id);
         try{
             $this->_api->UboDeclarations->CreateUbo($matrix->Id,null, $ubo);
         } catch (ResponseException $e){
             log($e->_code);
         }
-        $this->assertNotNull($ubo);
+
     }
 
     public function test_UpdateUbo()
