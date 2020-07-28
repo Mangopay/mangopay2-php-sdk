@@ -30,7 +30,7 @@ class CardPreAuthorizationsTest extends Base
         $getCardPreAuthorization = $this->_api->CardPreAuthorizations->Get($cardPreAuthorization->Id);
 
         $this->assertSame($getCardPreAuthorization->Id, $cardPreAuthorization->Id);
-        $this->assertSame('000000', $getCardPreAuthorization->ResultCode);
+        $this->assertSame('008515', $getCardPreAuthorization->ResultCode);
     }
 
 
