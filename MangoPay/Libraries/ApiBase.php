@@ -52,6 +52,8 @@ abstract class ApiBase
         'cards_get_by_fingerprint' => array('/cards/fingerprints/%s', RequestType::GET),
         'card_save' => array('/cards/%s', RequestType::PUT),
 
+        'card_validate' => array('/cards/%s/validate', RequestType::POST),
+
         // pay ins URLs
         'payins_card-web_create' => array( '/payins/card/web/', RequestType::POST ),
         'payins_card-direct_create' => array( '/payins/card/direct/', RequestType::POST ),
@@ -348,8 +350,9 @@ abstract class ApiBase
         }
 
         $requestData = $this->BuildRequestData($entity);
-
+        var_dump($requestData);
         $rest = new RestTool(true, $this->_root);
+        var_dump($urlMethod);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
 
         if (!is_null($responseClassName)) {

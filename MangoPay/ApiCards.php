@@ -17,6 +17,10 @@ class ApiCards extends Libraries\ApiBase
         return $this->GetObject('card_get', '\MangoPay\Card', $cardId);
     }
 
+    public function CardValidate($card)
+    {
+        return $this->SaveObject('card_validate', $card, '\MangoPay\Card');
+    }
     /**
      * Gets a list of cards having the same fingerprint.
      * The fingerprint is a hash uniquely generated per 16-digit card number.
