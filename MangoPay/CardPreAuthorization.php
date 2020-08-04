@@ -22,6 +22,12 @@ class CardPreAuthorization extends Libraries\EntityBase
     public $DebitedFunds;
 
     /**
+     * Remaining Funds
+     * @var \MangoPay\Money
+     */
+    public $RemainingFunds;
+
+    /**
      * Status of the PreAuthorization
      * @var string
      * @see \MangoPay\CardPreAuthorizationStatus
@@ -139,7 +145,8 @@ class CardPreAuthorization extends Libraries\EntityBase
         return array(
             'DebitedFunds' => '\MangoPay\Money',
             'Billing' => '\MangoPay\Billing',
-            'SecurityInfo' => '\MangoPay\SecurityInfo'
+            'SecurityInfo' => '\MangoPay\SecurityInfo',
+            'RemainingFunds' => '\MangoPay\Money'
         );
     }
 

@@ -679,6 +679,9 @@ abstract class Base extends TestCase
         $cardPreAuthorization->DebitedFunds = new \MangoPay\Money();
         $cardPreAuthorization->DebitedFunds->Currency = "EUR";
         $cardPreAuthorization->DebitedFunds->Amount = 10000;
+        $cardPreAuthorization->RemainingFunds = new \MangoPay\Money();
+        $cardPreAuthorization->RemainingFunds->Currency = "EUR";
+        $cardPreAuthorization->RemainingFunds->Amount = 10000;
         $cardPreAuthorization->CardId = $getCardRegistration->CardId;
         $cardPreAuthorization->SecureModeReturnURL = 'http://test.com';
 
