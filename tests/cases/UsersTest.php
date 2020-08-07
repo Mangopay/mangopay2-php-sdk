@@ -797,4 +797,51 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertNotNull($preauthorizations);
         $this->assertInternalType('array', $preauthorizations);
     }
+
+    function test_395()
+    {
+        try
+        {
+            /*
+            $this->_api->Config->ClientId = 'wd786';
+            $this->_api->Config->ClientPassword = 'my_api_key';
+            $this->_api->Config->TemporaryFolder = 'temp/xxx/';
+            $this->_api->Config->BaseUrl = 'https://api.sandbox.mangopay.com'; */
+            // CREATE NATURAL USER
+            $naturalUser = new \MangoPay\UserNatural();
+            $naturalUser->Email = 'test_natural_user@testmangopay.com';
+            $naturalUser->FirstName = "Bob";
+            $naturalUser->LastName = "Briant";
+            $naturalUser->Birthday = 121271;
+            $naturalUser->Nationality = "FR";
+            $naturalUser->CountryOfResidence = "ZA";
+            $naturalUserResult = $this->_api->Users->Create($naturalUser); // display result
+            \MangoPay\Libraries\Logs::Debug('CREATED NATURAL USER', $naturalUserResult);
+            // CREATE LEGAL USER
+            $legalUser = new \MangoPay\UserLegal();
+            $legalUser->Name = 'Name Legal Test';
+            $legalUser->LegalPersonType = 'BUSINESS';
+            $legalUser->Email = 'legal@testmangopay.com';
+            $legalUser->LegalRepresentativeFirstName = "Bob";
+            $legalUser->LegalRepresentativeLastName = "Briant";
+            $legalUser->LegalRepresentativeBirthday = 121271;
+            $legalUser->LegalRepresentativeNationality = "FR";
+            $legalUser->LegalRepresentativeCountryOfResidence = "ZA";
+            $legalUserResult = $this->_api->Users->Create($legalUser);
+            // display result
+            \MangoPay\Libraries\Logs::Debug('CREATED LEGAL USER', $legalUserResult);
+
+            $this->assertEquals($naturalUserResult->Email, $naturalUser->Email);
+        }
+        catch (\MangoPay\Libraries\ResponseException $e)
+        {
+            \MangoPay\Libraries\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
+            \MangoPay\Libraries\Logs::Debug('Message', $e->GetMessage());
+            \MangoPay\Libraries\Logs::Debug('Details', $e->GetErrorDetails());
+        }
+        catch (\MangoPay\Libraries\Exception $e)
+        {
+            \MangoPay\Libraries\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
+        }
+    }
 }
