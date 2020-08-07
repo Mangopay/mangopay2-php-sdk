@@ -1,4 +1,9 @@
-## [Unreleased]
+## [3.1.0]
+- USER_KYC_REGULAR has been added as a new Event. Thanks to it, you are now able to know when all the needed KYCs for a user have been validated and its KYCLevel is updated.
+- Release adds typing for EventType values KYC_OUTDATED USER_KYC_REGULAR and USER_KYC_LIGHT
+- Updated filtering on user Cards list
+- Google Pay are ready to be supported!
+- AccountNumber has been added for Payin External Instruction as a part of DebitedBankAccountDetails. Funds from a non-IBAN account are now better identified.
 
 ## [3.0.0]
 ### BREAKING CHANGES
