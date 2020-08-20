@@ -37,6 +37,7 @@ class HttpCurl extends HttpBase
             throw new Exception('Cannot initialize cURL session');
         }
 
+        curl_setopt($this->_curlHandle, CURLOPT_SSLVERSION, 6);
         curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->_curlHandle, CURLOPT_HEADER, true);
 
