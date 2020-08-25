@@ -27,7 +27,7 @@ The installation with Composer is easy and reliable:
 
 Step 1 - Add the Mangopay SDK as a dependency by executing the following command:
 
-    you@yourhost:/path/to/your-project$ composer require mangopay/php-sdk-v2:^2.3
+    you@yourhost:/path/to/your-project$ composer require mangopay/php-sdk-v2
     
 Step 2 - Update your dependencies with Composer
 

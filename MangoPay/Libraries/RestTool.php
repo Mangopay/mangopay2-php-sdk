@@ -194,11 +194,12 @@ class RestTool
             }
             // encode to json if needed
             if (in_array(self::$_JSON_HEADER, $httpHeaders)) {
-                // FIXME This can also fail hard and is not checked.
-                $this->_requestData = json_encode($this->_requestData);
-                $this->logger->debug('RequestData JSON :' . print_r($this->_requestData, true));
-                if ($this->_root->Config->DebugMode) {
-                    $logClass::Debug('RequestData JSON', $this->_requestData);
+                if(!is_null($this->_requestData)){
+                    $this->_requestData = json_encode($this->_requestData);
+                    $this->logger->debug('RequestData JSON :' . print_r($this->_requestData, true));
+                    if ($this->_root->Config->DebugMode) {
+                        $logClass::Debug('RequestData JSON', $this->_requestData);
+                    }
                 }
             }
         }
@@ -325,6 +326,7 @@ class RestTool
         // content type
         array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
         // Add User-Agent Header
+      
         array_push($this->_requestHttpHeaders, 'MangoPay V2 SDK PHP ' . self::VERSION);
         // Authentication http header
         if ($this->_authRequired) {

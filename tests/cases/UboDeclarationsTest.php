@@ -3,6 +3,8 @@
 namespace MangoPay\Tests\Cases;
 
 
+use MangoPay\Libraries\Exception;
+use MangoPay\Libraries\ResponseException;
 use MangoPay\UboDeclarationStatus;
 
 /**
@@ -23,7 +25,6 @@ class UboDeclarationsTest extends Base
     function test_CreateUboDeclaration()
     {
         $declaration = $this->getMatrixUboDeclaration();
-
         $this->assertNotNull($declaration);
         $this->assertEquals(UboDeclarationStatus::Created, $declaration->Status);
         $this->assertNotNull($declaration->Id);
@@ -65,9 +66,11 @@ class UboDeclarationsTest extends Base
     function test_CreateUbo()
     {
         $ubo = $this->createNewUboForMatrix();
-
         $newUbo = $this->getMatrixUbo();
 
+        $declaration = $this->getMatrixUboDeclaration();
+
+        $this->assertNotEmpty($declaration->Id);
         $this->assertNotNull($newUbo);
         $this->assertNotNull($newUbo->Id);
         $this->assertEquals($ubo->FirstName, $newUbo->FirstName);
@@ -76,6 +79,20 @@ class UboDeclarationsTest extends Base
         $this->assertEquals($ubo->Nationality, $newUbo->Nationality);
         $this->assertEquals($ubo->Birthday, $newUbo->Birthday);
         $this->assertEquals($ubo->Birthplace, $newUbo->Birthplace);
+    }
+
+    function test_throw_CreateUbo()
+    {
+        $matrix = $this->getMatrix();
+        $ubo = $this->createNewUboForMatrix();
+        $this->assertNotNull($ubo);
+        $this->assertNotNull($matrix->Id);
+        try{
+            $this->_api->UboDeclarations->CreateUbo($matrix->Id,null, $ubo);
+        } catch (ResponseException $e){
+            log($e->_code);
+        }
+
     }
 
     public function test_UpdateUbo()
@@ -134,7 +151,7 @@ class UboDeclarationsTest extends Base
     {
         $declaration = $this->getMatrixUboDeclaration();
         $matrix = $this->getMatrix();
-
+        $existingUbo = $this->getMatrixUbo();
         $newDeclaration = $this->_api->UboDeclarations->SubmitForValidation($matrix->Id, $declaration->Id);
 
         $this->assertEquals($declaration->Id, $newDeclaration->Id);
