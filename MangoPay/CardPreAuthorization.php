@@ -131,6 +131,12 @@ class CardPreAuthorization extends Libraries\EntityBase
     public $SecurityInfo;
 
     /**
+     * Boolean. The value is 'true' if the MultiCapture was used
+     * @var bool
+     */
+    public $MultiCapture;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */
