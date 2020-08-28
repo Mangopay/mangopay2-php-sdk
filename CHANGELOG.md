@@ -1,3 +1,9 @@
+## [3.1.1] - 2020-08-28
+- As part of KYC improvements, we are adding an OUT_OF_DATE status for KYC documents
+- New MultiCapture Parameter added to Preauthorization object (Complete feature not fully activated, please listen for product announcements)
+- "User-agent" format in the headers changed, aligned to other assets
+- Improvements to error handling for RestTool.php requests
+
 ## [3.1.0]
 - USER_KYC_REGULAR has been added as a new Event. Thanks to it, you are now able to know when all the needed KYCs for a user have been validated and its KYCLevel is updated.
 - Release adds typing for EventType values KYC_OUTDATED USER_KYC_REGULAR and USER_KYC_LIGHT
