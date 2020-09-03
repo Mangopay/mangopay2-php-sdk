@@ -22,7 +22,7 @@ class UboDeclaration extends Libraries\EntityBase
     /**
      * List of reasons why the declaration was refused.
      * @var string
-     * @see \MangoPay\UboDeclarationRefusedReasonType
+     * @see \MangoPay\UboDeclarationRefusedOrIncompleteReasonType
      */
     public $Reason;
 
