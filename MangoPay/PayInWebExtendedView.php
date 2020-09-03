@@ -4,7 +4,7 @@ namespace MangoPay;
 /**
  * Pay-in entity
  */
-class PayInWebExtendedView
+class PayInWebExtendedView extends Libraries\Dto
 {
     /**
      * The PayIn's ID
@@ -19,10 +19,10 @@ class PayInWebExtendedView
     public $PaymentType;
 
     /**
-     * Time when the transaction happened
-     * @var int
+     * ExecutionType { WEB, TOKEN, DIRECT, PREAUTHORIZED, RECURRING_ORDER_EXECUTION }
+     * @var string
      */
-    public $ExecutionDate;
+    public $ExecutionType;
 
     /**
      * The expiry date of the credit card (MMYY)
@@ -47,4 +47,10 @@ class PayInWebExtendedView
      * @var string
      */
     public $Country;
+
+    /**
+     * Card's fingerprint hash, unique per 16-digit card number
+     * @var string
+     */
+    public $Fingerprint;
 }
