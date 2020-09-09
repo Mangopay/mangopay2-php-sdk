@@ -24,21 +24,21 @@ class Sorting
     
     /**
      * Add filed to sort
-     * @param string $filedName Property name to sort
+     * @param string $fieldName Property name to sort
      * @param string $sortDirection Sort direction (ASC | DESC)
      */
-    public function AddField($filedName, $sortDirection)
+    public function AddField($fieldName, $sortDirection)
     {
-        $this->_sortFields[$filedName] = $sortDirection;
+        $this->_sortFields[$fieldName] = $sortDirection;
     }
 
     /**
      * @deprecated Contains typo, kept for backward compatibility
      */
-    public function AddFiled($filedName, $sortDirection)
+    public function AddFiled($fieldName, $sortDirection)
     {
         //for backward compatibility from before typo fix
-        $this->AddField($filedName, $sortDirection);
+        $this->AddField($fieldName, $sortDirection);
     }
     /**
      * Get sort parametrs to URL
