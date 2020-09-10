@@ -53,4 +53,16 @@ class CardsTest extends Base
         $this->assertNotNull($transactions);
         $this->assertInternalType('array', $transactions);
     }
+
+    function test_Card_Validate()
+    {
+        $john = $this->getNewJohn();
+        $payIn = $this->getNewPayInCardDirect($john->Id);
+        $card = $this->_api->Cards->Get($payIn->PaymentDetails->CardId);
+
+        $validatedCard = $this->_api->Cards->ValidateCard($card->Id);
+        print_r($validatedCard);
+
+        $this->assertNotNull($validatedCard);
+    }
 }

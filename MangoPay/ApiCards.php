@@ -66,4 +66,8 @@ class ApiCards extends Libraries\ApiBase
     {
         return $this->GetList('transactions_get_for_card', $pagination, '\MangoPay\Transaction', $cardId, $filter, $sorting);
     }
+
+    public function ValidateCard($cardId){
+        return $this->GetObject('card_validate', '\MangoPay\Card', $cardId);
+    }
 }
