@@ -40,4 +40,40 @@ class BankAccountsTest extends Base
 
         $this->assertNotNull($bankAccount);
     }
+
+    function test_update_bank_account() {
+        $john = $this->getJohn();
+        //creates an account to John
+        $account = $this->getJohnsAccount();
+
+        $accounts = $this->_api->Users->GetBankAccounts($john->Id);
+        $bankAccountToDeactivate = clone $accounts[0];
+        //should be active
+        $this->assertTrue($bankAccountToDeactivate->Active);
+        $bankAccountToDeactivate->Active = false;
+        $updated = $this->_api->Users->UpdateBankAccount($john->Id, $bankAccountToDeactivate);
+
+        //shouldn't be active
+        $this->assertNotNull($updated);
+        $this->assertNotTrue($updated->Active);
+    }
+
+    function test_issue_420() {
+        $john = $this->getJohn();
+        $userId = $john->Id;
+        //creates an account to John, as it does not have any
+        $account = $this->getJohnsAccount();
+        $this->_api->Users->GetBankAccounts($userId);
+        $bankAccount = $this->_api->Users->GetBankAccounts($userId)[0];
+        $bankAccount = $this->_api->Users->GetBankAccount($userId,$bankAccount->Id);
+        $bankAccountToDeactivate = clone $bankAccount;
+        $bankAccountToDeactivate->Active = false;
+        /*$bk = $this->api->Users->UpdateBankAccount($userId, $bankAccount);*/
+        /*dd($this->api->Users->GetBankAccount($userId,$bankAccount->Id));*/
+        $bk = $this->_api->Users->UpdateBankAccount($userId, $bankAccountToDeactivate);
+
+        //shouldn't be active
+        $this->assertNotNull($bk);
+        $this->assertNotTrue($bk->Active);
+    }
 }
