@@ -349,6 +349,7 @@ class RestTool
      */
     private function CheckResponseCode($responseCode, $response)
     {
+        print_r($response);
         if ($responseCode < 200 || $responseCode > 299) {
             if (isset($response) && is_object($response) && isset($response->Message)) {
                 $error = new Error();
@@ -361,6 +362,7 @@ class RestTool
                 $error->Date = property_exists($response, 'Date') ? $response->Date : null;
                 throw new ResponseException($this->_requestUrl, $responseCode, $error);
             } else {
+                print_r($responseCode);
                 throw new ResponseException($this->_requestUrl, $responseCode);
             }
         }
