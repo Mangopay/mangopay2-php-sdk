@@ -361,8 +361,6 @@ class RestTool
                 $error->Date = property_exists($response, 'Date') ? $response->Date : null;
                 throw new ResponseException($this->_requestUrl, $responseCode, $error);
             } else {
-                print_r("Why so serious?!");
-                print_r($response);
                 throw new ResponseException($this->_requestUrl, $responseCode);
             }
         }
