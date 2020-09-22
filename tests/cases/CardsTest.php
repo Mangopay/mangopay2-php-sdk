@@ -54,19 +54,20 @@ class CardsTest extends Base
         $this->assertNotNull($transactions);
         $this->assertInternalType('array', $transactions);
     }
-/*
+
     function test_Card_Validate()
     {
+        $new_api = $this->buildNewMangoPayApi();
+
         $john = $this->getNewJohn();
         $payIn = $this->getNewPayInCardDirect($john->Id);
-        $card = $this->_api->Cards->Get($payIn->PaymentDetails->CardId);
+        $card = $new_api->Cards->Get($payIn->PaymentDetails->CardId);
 
         try {
-            $validatedCard = $this->_api->Cards->ValidateCard($card->Id);
+            $validatedCard = $new_api->Cards->ValidateCard($card->Id);
             $this->assertNotNull($validatedCard);
         } catch (Exception $e) {
             print_r("can't test due to client issues");
         }
     }
-*/
 }
