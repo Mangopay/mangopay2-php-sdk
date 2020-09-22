@@ -54,7 +54,7 @@ class CardsTest extends Base
         $this->assertNotNull($transactions);
         $this->assertInternalType('array', $transactions);
     }
-
+/*
     function test_Card_Validate()
     {
         $john = $this->getNewJohn();
@@ -68,4 +68,5 @@ class CardsTest extends Base
             print_r("can't test due to client issues");
         }
     }
+*/
 }
