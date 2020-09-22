@@ -70,7 +70,7 @@ class ApiCards extends Libraries\ApiBase
     /**
      * Validate a card
      * @param $cardId
-     * @return array||object
+     * @return \MangoPay\Card
      * @throws Libraries\Exception
      */
     public function ValidateCard($cardId){

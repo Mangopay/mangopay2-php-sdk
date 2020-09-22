@@ -61,7 +61,6 @@ class CardsTest extends Base
         $card = $this->_api->Cards->Get($payIn->PaymentDetails->CardId);
 
         $validatedCard = $this->_api->Cards->ValidateCard($card->Id);
-        print_r($validatedCard);
 
         $this->assertNotNull($validatedCard);
     }
