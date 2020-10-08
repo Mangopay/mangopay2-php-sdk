@@ -327,7 +327,7 @@ class RestTool
         array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
         // Add User-Agent Header
       
-        array_push($this->_requestHttpHeaders, 'MangoPay V2 SDK PHP ' . self::VERSION);
+        array_push($this->_requestHttpHeaders, 'User-Agent: MangoPay V2 SDK PHP ' . self::VERSION);
         // Authentication http header
         if ($this->_authRequired) {
             $authHlp = new AuthenticationHelper($this->_root);
