@@ -332,7 +332,7 @@ abstract class Base extends TestCase
      * Creates self::$JohnsWalletWithMoney (wallets belonging to John) if not created yet
      * @return \MangoPay\Wallet
      */
-    protected function getJohnsWalletWithMoney($amount = 10000)
+    protected function getJohnsWalletWithMoney($amount = 1000)
     {
 
         if (self::$JohnsWalletWithMoney === null) {
@@ -539,7 +539,7 @@ abstract class Base extends TestCase
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $userId;
         $payIn->DebitedFunds = new \MangoPay\Money();
-        $payIn->DebitedFunds->Amount = 10000;
+        $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
         $payIn->Fees = new \MangoPay\Money();
         $payIn->Fees->Amount = 0;
@@ -678,7 +678,7 @@ abstract class Base extends TestCase
         $cardPreAuthorization->AuthorId = $user->Id;
         $cardPreAuthorization->DebitedFunds = new \MangoPay\Money();
         $cardPreAuthorization->DebitedFunds->Currency = "EUR";
-        $cardPreAuthorization->DebitedFunds->Amount = 10000;
+        $cardPreAuthorization->DebitedFunds->Amount = 1000;
         $cardPreAuthorization->CardId = $getCardRegistration->CardId;
         $cardPreAuthorization->SecureModeReturnURL = 'http://test.com';
 
