@@ -88,8 +88,8 @@ class HttpCurl extends HttpBase
                 define('CURL_SSLVERSION_TLSv1_0', 4);
             }
 
-            $options['curl'][CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_1;
-            curl_setopt($this->_curlHandle, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_1);
+            $options['curl'][CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_2;
+            curl_setopt($this->_curlHandle, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
         }
     }
 
