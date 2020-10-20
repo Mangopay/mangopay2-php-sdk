@@ -1,3 +1,8 @@
+## [3.1.2] - 2020-09-25
+- New endpoint to support changes to Card Validation process (please listen out for product announcements)
+- New RemainingFunds Parameters (Complete feature not fully activated, please listen for product announcements)
+- Fix to PayInWebExtendedView
+
 ## [3.1.1] - 2020-08-28
 - As part of KYC improvements, we are adding an OUT_OF_DATE status for KYC documents
 - New MultiCapture Parameter added to Preauthorization object (Complete feature not fully activated, please listen for product announcements)
