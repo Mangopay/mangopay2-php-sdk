@@ -84,12 +84,8 @@ class HttpCurl extends HttpBase
          * CURLOPT_SSLVERSION is not set correctly, causing SSL requests issue
          */
         if (getenv('TRAVIS')) {
-            if (!defined('CURL_SSLVERSION_TLSv1_0')) {
-                define('CURL_SSLVERSION_TLSv1_0', 4);
-            }
-
-            $options['curl'][CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_0;
-            curl_setopt($this->_curlHandle, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_0);
+            $options['curl'][CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_2;
+            curl_setopt($this->_curlHandle, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
         }
     }
 
