@@ -20,7 +20,7 @@ class Sorting
      * Array with fields to sort
      * @var array
      */
-    private $_sortFields;
+    private $_sortFields = [];
     
     /**
      * Add filed to sort
