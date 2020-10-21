@@ -35,4 +35,9 @@ class ApiCardPreAuthorizations extends Libraries\ApiBase
     {
         return $this->SaveObject('preauthorization_save', $cardPreAuthorization, '\MangoPay\CardPreAuthorization');
     }
+
+    public function GetTransactions($cardPreAuthorizationId, & $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('preauthorization_transactions_get', $pagination, '\MangoPay\Transaction', $cardPreAuthorizationId, $filter, $sorting);
+    }
 }

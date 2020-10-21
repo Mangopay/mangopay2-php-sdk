@@ -47,6 +47,7 @@ abstract class ApiBase
         'preauthorizations_get_for_card' => array('/cards/%s/preauthorizations', RequestType::GET),
         'preauthorizations_get_for_user' => array('/users/%s/preauthorizations', RequestType::GET),
         'preauthorization_save' => array('/preauthorizations/%s', RequestType::PUT),
+        'preauthorization_transactions_get' => array('/preauthorizations/%s/transactions', RequestType::GET),
 
         'card_get' => array('/cards/%s', RequestType::GET),
         'cards_get_by_fingerprint' => array('/cards/fingerprints/%s', RequestType::GET),

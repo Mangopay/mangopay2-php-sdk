@@ -134,6 +134,8 @@ class PayInsTest extends Base
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
 
+        $transactions = $this->_api->CardPreAuthorizations->GetTransactions($cardPreAuthorization->Id);
+
         $this->assertTrue($createPayIn->Id > 0);
         $this->assertEquals($wallet->Id, $createPayIn->CreditedWalletId);
         $this->assertEquals(\MangoPay\PayInPaymentType::Preauthorized, $createPayIn->PaymentType);
@@ -146,6 +148,7 @@ class PayInsTest extends Base
         $this->assertEquals($user->Id, $createPayIn->AuthorId);
         $this->assertEquals(PayInStatus::Succeeded, $createPayIn->Status);
         $this->assertEquals('PAYIN', $createPayIn->Type);
+        $this->assertEquals($transactions[0]->Status, TransactionStatus::Succeeded);
     }
 
     function test_PayIns_BankWireDirect_Create()
