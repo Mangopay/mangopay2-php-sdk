@@ -1,3 +1,10 @@
+## [3.1.4] - 2020-10-23
+- New endpoint : GET .../v2.01/ClientId/preauthorizations/PreAuthorizationId/transactions/ which allows multiple transactions to be listed
+- Testing config changes for TLS, this was blocking a part of the deploy process
+- Sorting::_sortFields changed to avoid an error when calling GetSortParameter()
+- Changed ignore phpunit-cache and minor "Field" typo
+- removed php 5.4 and 5.5 from travis and updated curl ssl version
+
 ## [3.1.2] - 2020-09-25
 - New endpoint to support changes to Card Validation process (please listen out for product announcements)
 - New RemainingFunds Parameters (Complete feature not fully activated, please listen for product announcements)
