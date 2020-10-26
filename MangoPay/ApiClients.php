@@ -168,4 +168,14 @@ class ApiClients extends Libraries\ApiBase
 
         return $this->GetList($methodKey, $pagination, '\MangoPay\Transaction', $currencyIso, $filter, null);
     }
+
+    public function CreateBankAccount($bankAccount, $idempotencyKey = null)
+    {
+        return $this->CreateObject('client_create_bank_account_iban', $bankAccount, '\MangoPay\BankAccount', null, null, $idempotencyKey);
+    }
+
+    public function CreatePayOut($payOut, $idempotencyKey = null)
+    {
+        return $this->CreateObject('client_create_payout', $payOut, '\MangoPay\PayOut', null, null, $idempotencyKey);
+    }
 }

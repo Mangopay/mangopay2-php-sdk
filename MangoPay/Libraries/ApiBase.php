@@ -167,6 +167,8 @@ abstract class ApiBase
         'client_wallets_transactions' => array('/clients/transactions', RequestType::GET),
         'client_wallets_transactions_fees_currency' => array('/clients/wallets/fees/%s/transactions', RequestType::GET),
         'client_wallets_transactions_credit_currency' => array('/clients/wallets/credit/%s/transactions', RequestType::GET),
+        'client_create_bank_account_iban' => array('/clients/bankaccounts/iban', RequestType::POST),
+        'client_create_payout' => array('/clients/payouts', RequestType::POST),
 
         'banking_aliases_iban_create' => array('/wallets/%s/bankingaliases/iban', RequestType::POST),
         'banking_aliases_get' => array('/bankingaliases/%s', RequestType::GET),
