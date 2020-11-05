@@ -110,6 +110,7 @@ abstract class ApiBase
         'users_savelegals' => array('/users/legal/%s', RequestType::PUT),
         'users_getemoney_year' => array('/users/%s/emoney/%s', RequestType::GET),
         'users_getemoney_month' => array('/users/%s/emoney/%s/%s', RequestType::GET),
+        'users_block_status' => array('/users/%s/blockStatus', RequestType::GET),
 
         'bankaccounts_save' => array('/users/%s/bankaccounts/%s', RequestType::PUT),
 
