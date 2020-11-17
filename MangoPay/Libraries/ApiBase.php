@@ -59,6 +59,7 @@ abstract class ApiBase
         'payins_card-direct_create' => array( '/payins/card/direct/', RequestType::POST ),
         'payins_preauthorized-direct_create' => array( '/payins/preauthorized/direct/', RequestType::POST ),
         'payins_bankwire-direct_create' => array( '/payins/bankwire/direct/', RequestType::POST ),
+	'payins_bankwire-externalinstruction_create' => array( '/payins/bankwire/direct/', RequestType::POST ),
         'payins_directdebit-web_create' => array( '/payins/directdebit/web', RequestType::POST ),
         'payins_directdebit-direct_create' => array( '/payins/directdebit/direct', RequestType::POST ),
 		'payins_directdebitdirect-direct_create' => array( '/payins/directdebit/direct', RequestType::POST ),
