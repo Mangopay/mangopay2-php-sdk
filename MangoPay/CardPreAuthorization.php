@@ -155,6 +155,12 @@ class CardPreAuthorization extends Libraries\EntityBase
     public $BrowserInfo;
 
     /**
+     * Shipping
+     * @var Shipping
+     */
+    public $Shipping;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */

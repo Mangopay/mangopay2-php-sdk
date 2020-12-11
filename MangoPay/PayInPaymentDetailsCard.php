@@ -35,4 +35,10 @@ class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetai
      * @var BrowserInfo
      */
     public $BrowserInfo;
+
+    /**
+     * Shipping
+     * @var Shipping
+     */
+    public $Shipping;
 }
