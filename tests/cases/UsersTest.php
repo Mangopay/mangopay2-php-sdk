@@ -844,4 +844,12 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
             \MangoPay\Libraries\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
         }
     }
+
+    function test_get_user_block_status()
+    {
+        $user = $this->getJohn();
+        $blockStatus = $this->_api->Users->GetBlockStatus($user->Id);
+
+        $this->assertNotNull($blockStatus);
+    }
 }

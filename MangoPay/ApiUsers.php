@@ -408,4 +408,14 @@ class ApiUsers extends Libraries\ApiBase
         $className = str_replace('MangoPay\\BankAccountDetails', '', get_class($bankAccount->Details));
         return strtolower($className);
     }
+
+    /**
+     * Get the Block Status of a User
+     * @param string $userId User identifier
+     * @return UserBlockStatus User object returned from API
+     */
+    public function GetBlockStatus($userId)
+    {
+        return $this->GetObject('users_block_status', 'MangoPay\UserBlockStatus', $userId);
+    }
 }
