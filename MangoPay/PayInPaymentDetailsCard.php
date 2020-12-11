@@ -23,4 +23,10 @@ class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetai
      * @var string
      */
     public $StatementDescriptor;
+
+    /**
+     * IpAddress
+     * @var string
+     */
+    public $IpAddress;
 }
