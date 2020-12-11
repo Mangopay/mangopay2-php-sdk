@@ -63,4 +63,8 @@ class EventType
     const UboDeclarationIncomplete = "UBO_DECLARATION_INCOMPLETE";
     const UserKycRegular = "USER_KYC_REGULAR";
     const UserKycLight = "USER_KYC_LIGHT";
+    const UserInflowsBlocked = "USER_INFLOWS_BLOCKED";
+    const UserInflowsUnblocked = "USER_INFLOWS_UNBLOCKED";
+    const UserOutflowsBlocked = "USER_OUTFLOWS_BLOCKED";
+    const UserOutflowsUnblocked = "USER_OUTFLOWS_UNBLOCKED";
 }

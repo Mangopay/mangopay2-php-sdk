@@ -110,6 +110,7 @@ abstract class ApiBase
         'users_savelegals' => array('/users/legal/%s', RequestType::PUT),
         'users_getemoney_year' => array('/users/%s/emoney/%s', RequestType::GET),
         'users_getemoney_month' => array('/users/%s/emoney/%s/%s', RequestType::GET),
+        'users_block_status' => array('/users/%s/blockStatus', RequestType::GET),
 
         'bankaccounts_save' => array('/users/%s/bankaccounts/%s', RequestType::PUT),
 
@@ -167,6 +168,8 @@ abstract class ApiBase
         'client_wallets_transactions' => array('/clients/transactions', RequestType::GET),
         'client_wallets_transactions_fees_currency' => array('/clients/wallets/fees/%s/transactions', RequestType::GET),
         'client_wallets_transactions_credit_currency' => array('/clients/wallets/credit/%s/transactions', RequestType::GET),
+        'client_create_bank_account_iban' => array('/clients/bankaccounts/iban', RequestType::POST),
+        'client_create_payout' => array('/clients/payouts', RequestType::POST),
 
         'banking_aliases_iban_create' => array('/wallets/%s/bankingaliases/iban', RequestType::POST),
         'banking_aliases_get' => array('/bankingaliases/%s', RequestType::GET),
