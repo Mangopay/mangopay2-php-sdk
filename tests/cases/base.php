@@ -3,6 +3,8 @@
 namespace MangoPay\Tests\Cases;
 
 
+use MangoPay\BankAccount;
+use MangoPay\BankAccountDetailsIBAN;
 use MangoPay\Birthplace;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
@@ -989,5 +991,17 @@ abstract class Base extends TestCase
             if ($entityId == $entity->Id)
                 return $entity;
         }
+    }
+
+    protected function getClientBankAccount(){
+        $account = new BankAccount();
+        $account->OwnerName = "Joe Blogs";
+        $account->OwnerAddress = $this->getNewAddress();
+        $account->Details = new BankAccountDetailsIBAN();
+        $account->Details->IBAN = "FR7630004000031234567890143";
+        $account->Details->BIC = "CRLYFRPP";
+        $account->Tag = "custom meta";
+
+        return $account;
     }
 }

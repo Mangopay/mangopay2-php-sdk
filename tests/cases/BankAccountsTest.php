@@ -5,7 +5,6 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\BankAccount;
 use MangoPay\BankAccountDetailsOTHER;
-use MangoPay\Tests\Cases\Base;
 
 /**
  * Tests basic methods for Banking Aliases

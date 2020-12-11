@@ -3,6 +3,9 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\BusinessType;
+use MangoPay\Money;
+use MangoPay\PayOut;
+use MangoPay\PayOutPaymentDetailsBankWire;
 use MangoPay\Sector;
 use MangoPay\Sorting;
 
@@ -254,5 +257,40 @@ class ClientTest extends Base
 
         $this->assertTrue(count($transactions) > 0);
         $this->assertInstanceOf('\MangoPay\Transaction', $transactions[0]);
+    }
+
+    function test_CreateBankAccount()
+    {
+        $account = $this->getClientBankAccount();
+
+        $createdAccount = $this->_api->Clients->CreateBankAccount($account);
+
+        $this->assertNotNull($createdAccount);
+        $this->assertNotNull($createdAccount->Id);
+    }
+
+    function test_CreatePayOut()
+    {
+        $account = $this->getClientBankAccount();
+        $createdAccount = $this->_api->Clients->CreateBankAccount($account);
+
+        $wallets = $this->_api->Clients->GetWallets(\MangoPay\FundsType::FEES);
+        $payOut = new PayOut();
+
+        $payOut->Tag = 'bla';
+        $payOut->DebitedFunds = new Money();
+        $payOut->DebitedFunds->Currency = 'EUR';
+        $payOut->DebitedFunds->Amount = 12;
+
+        $payOut->DebitedWalletId = $wallets[0]->Id;
+        $payOut->MeanOfPaymentDetails = new PayOutPaymentDetailsBankWire();
+        $payOut->MeanOfPaymentDetails->BankAccountId = $createdAccount->Id;
+        $payOut->MeanOfPaymentDetails->BankWireRef = 'invoice 7282';
+
+        $createdPayOut = $this->_api->Clients->CreatePayOut($payOut);
+        print_r($createdPayOut);
+
+        $this->assertNotNull($createdPayOut);
+        $this->assertNotNull($createdPayOut->Id);
     }
 }
