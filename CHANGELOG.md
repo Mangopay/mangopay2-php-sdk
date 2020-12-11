@@ -1,3 +1,8 @@
+## [3.1.5] - 2020-12-11
+- Removed testing older PHP testing versions
+- Added 'Regulatory' endpoint to allow checks of User Block Status
+- Added support for Regulatory -> Blocked Status Hooks
+- Added methods for creating Client bank accounts and client payouts
 ## [3.1.4] - 2020-10-23
 - New endpoint : GET .../v2.01/ClientId/preauthorizations/PreAuthorizationId/transactions/ which allows multiple transactions to be listed
 - Testing config changes for TLS, this was blocking a part of the deploy process
