@@ -149,6 +149,12 @@ class CardPreAuthorization extends Libraries\EntityBase
     public $IpAddress;
 
     /**
+     * BrowserInfo
+     * @var BrowserInfo
+     */
+    public $BrowserInfo;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */
