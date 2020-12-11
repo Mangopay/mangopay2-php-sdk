@@ -7,7 +7,7 @@ namespace MangoPay;
 class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutionDetails
 {
     /**
-     * SecureMode { DEFAULT, FORCE }
+     * SecureMode { DEFAULT, FORCE, NO_CHOICE }
      * @var string
      */
     public $SecureMode;
