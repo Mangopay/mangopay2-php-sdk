@@ -845,6 +845,8 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         }
     }
 
+    //the endpoint isn't on the API yet
+    /*
     function test_get_user_block_status()
     {
         $user = $this->getJohn();
@@ -852,4 +854,5 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 
         $this->assertNotNull($blockStatus);
     }
+    */
 }
