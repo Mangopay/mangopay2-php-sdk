@@ -845,7 +845,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         }
     }
 
-    //not on api yet
+    //the endpoint isn't on the API yet
     /*
     function test_get_user_block_status()
     {
@@ -854,6 +854,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 
         $this->assertNotNull($blockStatus);
     }
+
 
     function test_get_user_block_regulatory()
     {
