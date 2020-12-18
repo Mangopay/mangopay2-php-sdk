@@ -42,7 +42,7 @@ class PayInExecutionDetailsWeb extends Libraries\Dto implements PayInExecutionDe
     public $Culture;
     
     /**
-     * Mode3DSType { DEFAULT, FORCE }
+     * Mode3DSType { DEFAULT, FORCE, NO_CHOICE }
      * @var string
      */
     public $SecureMode;
