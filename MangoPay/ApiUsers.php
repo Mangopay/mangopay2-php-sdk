@@ -418,4 +418,14 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetObject('users_block_status', 'MangoPay\UserBlockStatus', $userId);
     }
+
+    /**
+     * Get the Block Status Regulatory  of a User
+     * @param string $userId User identifier
+     * @return UserBlockStatus User object returned from API
+     */
+    public function GetRegulatory($userId)
+    {
+        return $this->GetObject('users_block_status_regulatory', 'MangoPay\UserBlockStatus', $userId);
+    }
 }

@@ -854,5 +854,15 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 
         $this->assertNotNull($blockStatus);
     }
+
+
+    function test_get_user_block_regulatory()
+    {
+        $user = $this->getJohn();
+        $regulatory = $this->_api->Users->GetRegulatory($user->Id);
+
+        $this->assertNotNull($regulatory);
+    }
+
     */
 }

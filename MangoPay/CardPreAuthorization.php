@@ -136,7 +136,29 @@ class CardPreAuthorization extends Libraries\EntityBase
      */
     public $MultiCapture;
 
+    /**
+     * RemainingFunds
+     * @var string
+     */
     public $RemainingFunds;
+
+    /**
+     * IpAddress
+     * @var string
+     */
+    public $IpAddress;
+
+    /**
+     * BrowserInfo
+     * @var BrowserInfo
+     */
+    public $BrowserInfo;
+
+    /**
+     * Shipping
+     * @var Shipping
+     */
+    public $Shipping;
 
     /**
      * Get array with mapping which property is object and what type of object

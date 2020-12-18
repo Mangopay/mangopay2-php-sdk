@@ -278,6 +278,7 @@ abstract class Base extends TestCase
         if (self::$PayInPaymentDetailsCard === null) {
             self::$PayInPaymentDetailsCard = new \MangoPay\PayInPaymentDetailsCard();
             self::$PayInPaymentDetailsCard->CardType = 'CB_VISA_MASTERCARD';
+            self::$PayInPaymentDetailsCard->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
         }
 
         return self::$PayInPaymentDetailsCard;
@@ -683,6 +684,7 @@ abstract class Base extends TestCase
         $cardPreAuthorization->DebitedFunds->Amount = 1000;
         $cardPreAuthorization->CardId = $getCardRegistration->CardId;
         $cardPreAuthorization->SecureModeReturnURL = 'http://test.com';
+        $cardPreAuthorization->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
 
         $address = new \MangoPay\Address();
         $address->AddressLine1 = 'Main Street no 5';
