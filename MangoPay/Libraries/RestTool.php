@@ -94,10 +94,10 @@ class RestTool
 
     /**
      * Constructor
-     * @param bool $authRequired Variable to flag that in request the authentication data are required
      * @param \MangoPay\MangoPayApi $root Root/parent instance that holds the OAuthToken and Configuration instance
+     * @param bool $authRequired Variable to flag that in request the authentication data are required
      */
-    public function __construct($authRequired = true, $root)
+    public function __construct($root, $authRequired = true)
     {
         $this->_authRequired = $authRequired;
         $this->_root = $root;
