@@ -18,4 +18,4 @@ before_script:
   - composer self-update
   - composer install --no-interaction -o
 
-script: ./vendor/bin/phpunit
+script: ./vendor/bin/phpunit --debug
