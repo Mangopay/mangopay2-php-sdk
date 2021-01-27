@@ -18,7 +18,7 @@ class ApiOAuth extends ApiBase
             'grant_type' => 'client_credentials'
         );
         
-        $rest = new RestTool(false, $this->_root);
+        $rest = new RestTool($this->_root, false);
         $authHlp = new AuthenticationHelper($this->_root);
         
         $urlDetails = parse_url($this->_root->Config->BaseUrl);

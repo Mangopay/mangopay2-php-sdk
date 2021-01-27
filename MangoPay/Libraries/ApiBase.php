@@ -254,7 +254,7 @@ abstract class ApiBase
             $requestData = "";
         }
 
-        $rest = new RestTool(true, $this->_root);
+        $rest = new RestTool($this->_root, true);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData, $idempotencyKey);
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
@@ -282,7 +282,7 @@ abstract class ApiBase
         } else {
             $urlMethod = $this->GetRequestUrl($methodKey);
         }
-        $rest = new RestTool(true, $this->_root);
+        $rest = new RestTool($this->_root, true);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
 
         if (!is_null($responseClassName)) {
@@ -309,7 +309,7 @@ abstract class ApiBase
             $pagination = new \MangoPay\Pagination();
         }
 
-        $rest = new RestTool(true, $this->_root);
+        $rest = new RestTool($this->_root, true);
         $additionalUrlParams = array();
         if (!is_null($filter)) {
             $additionalUrlParams["filter"] = $filter;
@@ -355,7 +355,7 @@ abstract class ApiBase
 
         $requestData = $this->BuildRequestData($entity);
 
-        $rest = new RestTool(true, $this->_root);
+        $rest = new RestTool($this->_root, true);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
 
         if (!is_null($responseClassName)) {
