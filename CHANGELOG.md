@@ -1,6 +1,5 @@
 # [3.1.7] - 2021-01-27
 Due to compatibility issues with newer versions of PHP we have inverted params in certain methods, including constructor, please check the release code for further detail
-
 # [3.1.6] -  2020-12-18
 Added IpAddress and BrowserInfo parameters to the following endpoints and corresponding objects
 - /payins/card/direct
