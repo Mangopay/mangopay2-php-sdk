@@ -24,17 +24,17 @@ class BrowserInfo extends Dto
     public $Language;
 
     /**
-     * @var string
+     * @var int
      */
     public $ColorDepth;
 
     /**
-     * @var string
+     * @var int
      */
     public $ScreenHeight;
 
     /**
-     * @var string
+     * @var int
      */
     public $ScreenWidth;
 
@@ -49,7 +49,7 @@ class BrowserInfo extends Dto
     public $UserAgent;
 
     /**
-     * @var string
+     * @var boolean
      */
     public $JavascriptEnabled;
 }
