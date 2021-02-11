@@ -286,6 +286,7 @@ class ClientTest extends Base
         $payOut->MeanOfPaymentDetails = new PayOutPaymentDetailsBankWire();
         $payOut->MeanOfPaymentDetails->BankAccountId = $createdAccount->Id;
         $payOut->MeanOfPaymentDetails->BankWireRef = 'invoice 7282';
+        $payOut->MeanOfPaymentDetails->PayoutModeRequested = 'STANDARD';
 
         $createdPayOut = $this->_api->Clients->CreatePayOut($payOut);
         print_r($createdPayOut);

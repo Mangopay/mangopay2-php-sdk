@@ -477,6 +477,7 @@ abstract class Base extends TestCase
             $payOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
             $payOut->MeanOfPaymentDetails->BankAccountId = $account->Id;
             $payOut->MeanOfPaymentDetails->BankWireRef = 'Johns payment';
+            $payOut->MeanOfPaymentDetails->PayoutModeRequested = 'STANDARD';
 
             self::$JohnsPayOutBankWire = $this->_api->PayOuts->Create($payOut);
         }
@@ -509,6 +510,7 @@ abstract class Base extends TestCase
             $payOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
             $payOut->MeanOfPaymentDetails->BankAccountId = $account->Id;
             $payOut->MeanOfPaymentDetails->BankWireRef = 'Johns payment';
+            $payOut->MeanOfPaymentDetails->PayoutModeRequested = 'STANDARD';
 
             self::$JohnsPayOutForCardDirect = $this->_api->PayOuts->Create($payOut);
         }

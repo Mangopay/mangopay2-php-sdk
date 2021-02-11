@@ -317,6 +317,7 @@ class IdempotencyTest extends Base
         $payOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
         $payOut->MeanOfPaymentDetails->BankAccountId = $account->Id;
         $payOut->MeanOfPaymentDetails->BankWireRef = 'Johns payment';
+        $payOut->MeanOfPaymentDetails->PayoutModeRequested = 'STANDARD';
         $this->_api->PayOuts->Create($payOut, $key);
 
         $resp = $this->_api->Responses->Get($key);
