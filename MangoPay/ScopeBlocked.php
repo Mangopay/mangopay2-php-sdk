@@ -4,15 +4,15 @@
 namespace MangoPay;
 
 
-class ScopeBlocked
+class ScopeBlocked extends Libraries\Dto
 {
     /**
-     * @var string
+     * @var boolean
      */
     public $Inflows;
 
     /**
-     * @var string
+     * @var boolean
      */
     public $Outflows;
 }

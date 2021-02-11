@@ -853,7 +853,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $blockStatus = $this->_api->Users->GetBlockStatus($user->Id);
 
         $this->assertNotNull($blockStatus);
-    }
+    }*/
 
 
     function test_get_user_block_regulatory()
@@ -863,6 +863,4 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
 
         $this->assertNotNull($regulatory);
     }
-
-    */
 }
