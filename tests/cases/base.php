@@ -564,6 +564,8 @@ abstract class Base extends TestCase
         $address->PostalCode = '68400';
         $address->Region = 'Europe';
         $billing = new \MangoPay\Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
         $billing->Address = $address;
         $payIn->ExecutionDetails->Billing = $billing;
 
@@ -695,8 +697,15 @@ abstract class Base extends TestCase
         $address->PostalCode = '68400';
         $address->Region = 'Europe';
         $billing = new \MangoPay\Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
         $billing->Address = $address;
+        $shipping = new \MangoPay\Shipping();
+        $shipping->FirstName = 'JohnS';
+        $shipping->LastName = 'DoeS';
+        $shipping->Address = $address;
         $cardPreAuthorization->Billing = $billing;
+        $cardPreAuthorization->Shipping = $shipping;
 
         return $this->_api->CardPreAuthorizations->Create($cardPreAuthorization, $idempotencyKey);
     }
