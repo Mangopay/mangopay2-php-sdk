@@ -1,5 +1,16 @@
-# [3.1.7] - 2021-01-27
-Due to compatibility issues with newer versions of PHP we have inverted params in certain methods, including constructor, please check the release code for further detail
+# [3.2.0] - 2021-02-19
+- 3DS2 integration with Shipping and Billing objects, including FirstName and a LastName fields
+The objects Billing and Shipping may be included on all calls to the following endpoints:
+  - /preauthorizations/card/direct
+  - /payins/card/direct
+  - /payins/card/web
+- Activate Instant Payment for payouts by adding a new parameter PayoutModeRequested on the following endpoint /payouts/bankwire
+  - The new parameter PayoutModeRequested can take two differents values : "INSTANT_PAYMENT" or "STANDARD" (STANDARD = the way we procede normaly a payout request)
+  - This new parameter is not mandatory and if empty or not present, the payout will be "STANDARD" by default
+  - Instant Payment is in beta all over Europe - SEPA region
+- Fix inverted params for PHP compatibility : Due to compatibility issues with newer versions of PHP we have inverted params in certain methods, including constructor, please check the release code for further detail 🔄
+- Fix method ScopeBlocked for blocked status
+- Fix BrowserInfo class
 # [3.1.6] -  2020-12-18
 Added IpAddress and BrowserInfo parameters to the following endpoints and corresponding objects
 - /payins/card/direct
