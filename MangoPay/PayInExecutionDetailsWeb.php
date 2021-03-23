@@ -46,6 +46,18 @@ class PayInExecutionDetailsWeb extends Libraries\Dto implements PayInExecutionDe
      * @var string
      */
     public $SecureMode;
+
+    /**
+     * Requested3DSVersion
+     * @var string
+     */
+    public $Requested3DSVersion;
+
+    /**
+     * Applied3DSVersion
+     * @var string
+     */
+    public $Applied3DSVersion;
     
     /**
      * Get array with read-only properties

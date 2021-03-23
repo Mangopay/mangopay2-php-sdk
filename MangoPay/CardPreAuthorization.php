@@ -161,6 +161,18 @@ class CardPreAuthorization extends Libraries\EntityBase
     public $Shipping;
 
     /**
+     * Requested3DSVersion
+     * @var string
+     */
+    public $Requested3DSVersion;
+
+    /**
+     * Applied3DSVersion
+     * @var string
+     */
+    public $Applied3DSVersion;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */

@@ -263,6 +263,7 @@ abstract class Base extends TestCase
             $payIn->ExecutionDetails->TemplateURLOptions = new \MangoPay\PayInCardTemplateURLOptions();
             $payIn->ExecutionDetails->TemplateURLOptions->PAYLINE = "https://www.maysite.com/payline_template/";
             $payIn->ExecutionDetails->TemplateURLOptions->PAYLINEV2 = "https://www.maysite.com/payline_template/";
+            $payIn->ExecutionDetails->Requested3DSVersion = "V1";
 
             self::$JohnsPayInCardWeb = $this->_api->PayIns->Create($payIn);
         }
@@ -568,6 +569,7 @@ abstract class Base extends TestCase
         $billing->LastName = 'Doe';
         $billing->Address = $address;
         $payIn->ExecutionDetails->Billing = $billing;
+        $payIn->ExecutionDetails->Requested3DSVersion = "V1";
 
         return $this->_api->PayIns->Create($payIn);
     }
@@ -706,6 +708,7 @@ abstract class Base extends TestCase
         $shipping->Address = $address;
         $cardPreAuthorization->Billing = $billing;
         $cardPreAuthorization->Shipping = $shipping;
+        $cardPreAuthorization->Requested3DSVersion = "V1";
 
         return $this->_api->CardPreAuthorizations->Create($cardPreAuthorization, $idempotencyKey);
     }
