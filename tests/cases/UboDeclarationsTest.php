@@ -61,6 +61,7 @@ class UboDeclarationsTest extends Base
         $declarationFromApi = $this->_api->UboDeclarations->GetUboDeclarationById($declaration->Id);
         $this->assertNotNull($declarationFromApi);
         $this->assertEquals($declaration->Id, $declarationFromApi->Id);
+        $this->assertNotNull($declarationFromApi->UserId);
     }
 
     function test_CreateUbo()
