@@ -31,6 +31,7 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsCard', $payIn->PaymentDetails);
         $this->assertSame(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
+        $this->assertNotNull($payIn->ExecutionDetails->Billing);
     }
 
     function test_PayIns_Get_CardWeb()

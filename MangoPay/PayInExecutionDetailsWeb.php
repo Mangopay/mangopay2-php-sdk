@@ -46,6 +46,12 @@ class PayInExecutionDetailsWeb extends Libraries\Dto implements PayInExecutionDe
      * @var string
      */
     public $SecureMode;
+
+    /**
+     * Billing information
+     * @var \MangoPay\Billing
+     */
+    public $Billing;
     
     /**
      * Get array with read-only properties
@@ -66,6 +72,7 @@ class PayInExecutionDetailsWeb extends Libraries\Dto implements PayInExecutionDe
     public function GetSubObjects()
     {
         return array(
+            'Billing' => '\MangoPay\Billing',
             'TemplateURLOptions' => '\MangoPay\PayInTemplateURLOptions'
         );
     }
