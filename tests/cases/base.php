@@ -263,7 +263,6 @@ abstract class Base extends TestCase
             $payIn->ExecutionDetails->TemplateURLOptions = new \MangoPay\PayInCardTemplateURLOptions();
             $payIn->ExecutionDetails->TemplateURLOptions->PAYLINE = "https://www.maysite.com/payline_template/";
             $payIn->ExecutionDetails->TemplateURLOptions->PAYLINEV2 = "https://www.maysite.com/payline_template/";
-            $payIn->ExecutionDetails->Requested3DSVersion = "V1";
 
             self::$JohnsPayInCardWeb = $this->_api->PayIns->Create($payIn);
         }
