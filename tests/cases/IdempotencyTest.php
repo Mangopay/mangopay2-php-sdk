@@ -430,8 +430,8 @@ class IdempotencyTest extends Base
         $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
         $account->OwnerAddress = $john->Address;
         $account->Details = new \MangoPay\BankAccountDetailsIBAN();
-        $account->Details->IBAN = 'FR7618829754160173622224154';
-        $account->Details->BIC = 'CMBRFR2BCME';
+        $account->Details->IBAN = 'FR7630004000031234567890143';
+        $account->Details->BIC = 'CRLYFRPP';
         $this->_api->Users->CreateBankAccount($john->Id, $account, $key);
 
         $resp = $this->_api->Responses->Get($key);
