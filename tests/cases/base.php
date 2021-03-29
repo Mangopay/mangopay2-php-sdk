@@ -444,8 +444,8 @@ abstract class Base extends TestCase
             $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
             $account->OwnerAddress = $john->Address;
             $account->Details = new \MangoPay\BankAccountDetailsIBAN();
-            $account->Details->IBAN = 'FR7618829754160173622224154';
-            $account->Details->BIC = 'CMBRFR2BCME';
+            $account->Details->IBAN = 'FR7630004000031234567890143';
+            $account->Details->BIC = 'CRLYFRPP';
             self::$JohnsAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
         }
         return self::$JohnsAccount;
