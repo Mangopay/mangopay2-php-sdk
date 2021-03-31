@@ -445,7 +445,7 @@ abstract class Base extends TestCase
             $account->OwnerAddress = $john->Address;
             $account->Details = new \MangoPay\BankAccountDetailsIBAN();
             $account->Details->IBAN = 'FR7630004000031234567890143';
-            $account->Details->BIC = 'CRLYFRPP';
+            $account->Details->BIC = 'BNPAFRPP';
             self::$JohnsAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
         }
         return self::$JohnsAccount;
@@ -1015,7 +1015,7 @@ abstract class Base extends TestCase
         $account->OwnerAddress = $this->getNewAddress();
         $account->Details = new BankAccountDetailsIBAN();
         $account->Details->IBAN = "FR7630004000031234567890143";
-        $account->Details->BIC = "CRLYFRPP";
+        $account->Details->BIC = "BNPAFRPP";
         $account->Tag = "custom meta";
 
         return $account;
