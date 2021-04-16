@@ -20,8 +20,8 @@ class TestCasesCollector extends \SimpleCollector {
 
     protected function isHidden($filename) {
 
-        // ignore base.php: with abstract test case class (throws Bad TestSuite [No runnable test cases] otherwise)
-        if ($filename == "base.php" || $filename == "index.php")
+        // ignore Base.php: with abstract test case class (throws Bad TestSuite [No runnable test cases] otherwise)
+        if ($filename == "Base.php" || $filename == "index.php")
             return true;
 
         return parent::isHidden($filename);
