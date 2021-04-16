@@ -2,14 +2,12 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 /**
  * Tests methods for events
  */
 class EventsTest extends Base
 {
-
-    function test_GetEventList_PayinNormalCreated()
+    public function test_GetEventList_PayinNormalCreated()
     {
         $payIn = $this->getJohnsPayInCardWeb();
         $filter = new \MangoPay\FilterEvents();
@@ -26,7 +24,6 @@ class EventsTest extends Base
 
     private function ExistEventById($eventList, $eventId)
     {
-
         foreach ($eventList as $event) {
             if ($event->ResourceId == $eventId) {
                 return true;
@@ -36,7 +33,7 @@ class EventsTest extends Base
         return false;
     }
 
-    function test_GetEventList_PayinNormalSucceeded()
+    public function test_GetEventList_PayinNormalSucceeded()
     {
         $payIn = $this->getNewPayInCardDirect();
         $filter = new \MangoPay\FilterEvents();
@@ -51,7 +48,7 @@ class EventsTest extends Base
         $this->assertTrue($this->ExistEventById($result, $payIn->Id));
     }
 
-    function test_GetEventList_PayoutNormalCreated()
+    public function test_GetEventList_PayoutNormalCreated()
     {
         $payOut = $this->getJohnsPayOutBankWire();
         $filter = new \MangoPay\FilterEvents();
@@ -66,7 +63,7 @@ class EventsTest extends Base
         $this->assertTrue($this->ExistEventById($result, $payOut->Id));
     }
 
-    function test_GetKycDocumentsList_KycCreated()
+    public function test_GetKycDocumentsList_KycCreated()
     {
         $user = $this->getJohn();
         $kycDocumentInit = new \MangoPay\KycDocument();
@@ -85,7 +82,7 @@ class EventsTest extends Base
         $this->assertTrue($this->ExistEventById($result, $kycDocument->Id));
     }
 
-    function test_Events_GetAll_SortByCreationDate()
+    public function test_Events_GetAll_SortByCreationDate()
     {
         self::$JohnsPayInCardWeb = null;
         $payIn1 = $this->getJohnsPayInCardWeb();

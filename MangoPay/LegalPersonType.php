@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,7 +7,7 @@ namespace MangoPay;
  */
 class LegalPersonType
 {
-    const Business = 'BUSINESS';
-    const Organization = 'ORGANIZATION';
-    const Soletrader = 'SOLETRADER';
+    public const Business = 'BUSINESS';
+    public const Organization = 'ORGANIZATION';
+    public const Soletrader = 'SOLETRADER';
 }

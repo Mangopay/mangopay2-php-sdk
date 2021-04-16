@@ -1,9 +1,10 @@
 <?php
+
 namespace MangoPay;
 
 class CardValidity
 {
-    const Unknown = 'UNKNOWN';
-    const Valid = 'VALID';
-    const Invalid = 'INVALID';
+    public const Unknown = 'UNKNOWN';
+    public const Valid = 'VALID';
+    public const Invalid = 'INVALID';
 }

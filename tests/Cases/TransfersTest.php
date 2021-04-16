@@ -2,7 +2,6 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 use MangoPay\Money;
 use MangoPay\Transfer;
 
@@ -11,8 +10,7 @@ use MangoPay\Transfer;
  */
 class TransfersTest extends Base
 {
-
-    function test_Transfers_Create()
+    public function test_Transfers_Create()
     {
         $john = $this->getJohn();
 
@@ -25,7 +23,7 @@ class TransfersTest extends Base
         $this->assertEquals(100, $creditedWallet->Balance->Amount);
     }
 
-    function test_Transfers_Get()
+    public function test_Transfers_Get()
     {
         $john = $this->getJohn();
         $transfer = $this->getNewTransfer();
@@ -67,7 +65,8 @@ class TransfersTest extends Base
         $this->assertInternalType('array', $refunds);
     }
 
-    public function test_Transfer_Create(){
+    public function test_Transfer_Create()
+    {
         $john = $this->getJohn();
         $debitedWallet = $this->getJohnsWalletWithMoney();
         $creditedWallet = $this->getJohnsWallet();
@@ -88,6 +87,5 @@ class TransfersTest extends Base
         $this->assertNotNull($result);
         $this->assertEquals($transfer->DebitedFunds->Currency, $creditedWallet->Currency);
         $this->assertEquals($transfer->Fees->Currency, $creditedWallet->Currency);
-
     }
 }

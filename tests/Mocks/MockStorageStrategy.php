@@ -1,18 +1,22 @@
 <?php
+
 namespace MangoPay\Tests\Mocks;
+
+use MangoPay\Libraries\IStorageStrategy;
 
 /**
  * Storage strategy implementation for tests
  */
-class MockStorageStrategy implements IStorageStrategy {
-
+class MockStorageStrategy implements IStorageStrategy
+{
     private static $_oAuthToken = null;
 
     /**
      * Gets the current authorization token.
      * @return \MangoPay\Libraries\OAuthToken Currently stored token instance or null.
      */
-    public function Get() {
+    public function Get()
+    {
         return self::$_oAuthToken;
     }
 
@@ -20,7 +24,8 @@ class MockStorageStrategy implements IStorageStrategy {
      * Stores authorization token passed as an argument.
      * @param \MangoPay\Libraries\OAuthToken $token Token instance to be stored.
      */
-    public function Store($token) {
+    public function Store($token)
+    {
         self::$_oAuthToken = $token;
     }
 }

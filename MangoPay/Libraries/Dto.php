@@ -14,7 +14,7 @@ abstract class Dto
      */
     public function GetSubObjects()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -24,9 +24,9 @@ abstract class Dto
      */
     public function GetDependsObjects()
     {
-        return array();
+        return [];
     }
-    
+
     /**
      * Get array with read only properties - not used in response
      * To be overridden in child class if has any read-only properties.
@@ -34,6 +34,6 @@ abstract class Dto
      */
     public function GetReadOnlyProperties()
     {
-        return array();
+        return [];
     }
 }

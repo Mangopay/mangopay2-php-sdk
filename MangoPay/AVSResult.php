@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,14 +7,13 @@ namespace MangoPay;
  */
 class AVSResult
 {
+    public const FULL_MATCH = "FULL_MATCH";
 
-    const FULL_MATCH = "FULL_MATCH";
+    public const ADDRESS_MATCH_ONLY = "ADDRESS_MATCH_ONLY";
 
-    const ADDRESS_MATCH_ONLY = "ADDRESS_MATCH_ONLY";
+    public const POSTAL_CODE_MATCH_ONLY = "POSTAL_CODE_MATCH_ONLY";
 
-    const POSTAL_CODE_MATCH_ONLY = "POSTAL_CODE_MATCH_ONLY";
+    public const NO_MATCH = "NO_MATCH";
 
-    const NO_MATCH = "NO_MATCH";
-
-    const NO_CHECK = "NO_CHECK";
+    public const NO_CHECK = "NO_CHECK";
 }

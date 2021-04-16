@@ -2,7 +2,6 @@
 
 namespace MangoPay;
 
-
 class Ubo extends Libraries\EntityBase
 {
     /**
@@ -34,7 +33,7 @@ class Ubo extends Libraries\EntityBase
      * @var Birthplace
      */
     public $Birthplace;
-    
+
     /**
      * @var bool
      */
@@ -44,7 +43,8 @@ class Ubo extends Libraries\EntityBase
      * Get array with mapping which property is object and what type of object
      * @return array
      */
-    public function GetSubObjects(){
+    public function GetSubObjects()
+    {
         $subObjects = parent::GetSubObjects();
 
         $subObjects['Address'] = '\MangoPay\Address';

@@ -1,12 +1,15 @@
 <?php
+
 namespace MangoPay;
 
 final class ReportStatus
 {
-    const Pending = 'PENDING';
-    const Expired = 'EXPIRED';
-    const Failed = 'FAILED';
-    const ReadyForDownload = 'READY_FOR_DOWNLOAD';
+    public const Pending = 'PENDING';
+    public const Expired = 'EXPIRED';
+    public const Failed = 'FAILED';
+    public const ReadyForDownload = 'READY_FOR_DOWNLOAD';
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 }

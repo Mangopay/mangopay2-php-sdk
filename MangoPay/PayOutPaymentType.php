@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,5 +7,5 @@ namespace MangoPay;
  */
 class PayOutPaymentType
 {
-    const BankWire = 'BANK_WIRE';
+    public const BankWire = 'BANK_WIRE';
 }

@@ -1,10 +1,13 @@
 <?php
+
 namespace MangoPay;
 
 final class HookStatus
 {
-    const Disabled = 'DISABLED';
-    const Enabled = 'ENABLED';
+    public const Disabled = 'DISABLED';
+    public const Enabled = 'ENABLED';
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 }

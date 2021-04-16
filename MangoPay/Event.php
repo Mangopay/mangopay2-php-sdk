@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,13 +12,13 @@ class Event extends Libraries\Dto
      * @var string
      */
     public $ResourceId;
-    
+
     /**
      * Event type
      * @var \MangoPay\EventType
      */
     public $EventType;
-        
+
     /**
      * Date of event
      * @var int Unix timestamp

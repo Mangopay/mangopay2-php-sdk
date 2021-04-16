@@ -9,8 +9,7 @@ use MangoPay\AVSResult;
  */
 class CardPreAuthorizationsTest extends Base
 {
-
-    function test_CardPreAuthorization_Create()
+    public function test_CardPreAuthorization_Create()
     {
         $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
 
@@ -25,7 +24,7 @@ class CardPreAuthorizationsTest extends Base
         //$this->assertSame(AVSResult::NO_CHECK, $cardPreAuthorization->SecurityInfo->AVSResult);
     }
 
-    function test_CardPreAuthorization_Get()
+    public function test_CardPreAuthorization_Get()
     {
         $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
 
@@ -50,6 +49,4 @@ class CardPreAuthorizationsTest extends Base
 
         */
 //    }
-
 }
-

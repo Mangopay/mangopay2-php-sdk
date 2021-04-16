@@ -2,14 +2,12 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 /**
  * Tests methods for pay-outs
  */
 class PayOutsTest extends Base
 {
-
-    function test_PayOut_Create()
+    public function test_PayOut_Create()
     {
         $payOut = $this->getJohnsPayOutForCardDirect();
 
@@ -18,7 +16,7 @@ class PayOutsTest extends Base
         $this->assertInstanceOf('\MangoPay\PayOutPaymentDetailsBankWire', $payOut->MeanOfPaymentDetails);
     }
 
-    function test_PayOut_Get()
+    public function test_PayOut_Get()
     {
         $payOut = $this->getJohnsPayOutForCardDirect();
 
@@ -33,14 +31,14 @@ class PayOutsTest extends Base
     }
 
     // Cannot test anything else here: have no pay-ins with sufficient status?
-    function test_PayOuts_Create_BankWire_FailsCauseNotEnoughMoney()
+    public function test_PayOuts_Create_BankWire_FailsCauseNotEnoughMoney()
     {
         $payOut = $this->getJohnsPayOutBankWire();
 
         $this->assertSame(\MangoPay\PayOutStatus::Failed, $payOut->Status);
     }
 
-    function test_PayOut_GetRefunds()
+    public function test_PayOut_GetRefunds()
     {
         $payOut = $this->getJohnsPayOutForCardDirect();
         $pagination = new \MangoPay\Pagination();
@@ -52,4 +50,3 @@ class PayOutsTest extends Base
         $this->assertInternalType('array', $refunds);
     }
 }
-

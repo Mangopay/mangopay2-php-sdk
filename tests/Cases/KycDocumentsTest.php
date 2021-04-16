@@ -2,14 +2,12 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 /**
  * Tests basic methods for KYC documents
  */
 class KycDocumentsTest extends Base
 {
-
-    function test_KycDocuments_GetAll()
+    public function test_KycDocuments_GetAll()
     {
         $this->getJohnsKycDocument();
         $pagination = new \MangoPay\Pagination(1, 20);
@@ -27,7 +25,7 @@ class KycDocumentsTest extends Base
         $this->assertTrue(isset($pagination->TotalItems));
     }
 
-    function test_KycDocuments_GetAll_SortByCreationDate()
+    public function test_KycDocuments_GetAll_SortByCreationDate()
     {
         $this->getJohnsKycDocument();
         $pagination = new \MangoPay\Pagination(1, 20);
@@ -39,7 +37,7 @@ class KycDocumentsTest extends Base
         $this->assertTrue($list[0]->Id > $list[1]->Id);
     }
 
-    function test_KycDocuments_Get()
+    public function test_KycDocuments_Get()
     {
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
@@ -52,7 +50,7 @@ class KycDocumentsTest extends Base
         $this->assertSame($kycDocument->UserId, $user->Id);
     }
 
-    function test_KycDocuments_CreateConsult()
+    public function test_KycDocuments_CreateConsult()
     {
         $kycDocument = $this->getJohnsKycDocument();
 

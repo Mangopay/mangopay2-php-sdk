@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,7 +7,6 @@ namespace MangoPay;
  */
 class FilterRefunds extends Libraries\Dto
 {
-
     /**
      * Multiple values separated by commas are allowed
      * @var string

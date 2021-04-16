@@ -14,7 +14,6 @@ class ApiUboDeclarations extends Libraries\ApiBase
      */
     public function Create($userId)
     {
-
         return $this->CreateObject('ubo_declaration_create', null, '\MangoPay\UboDeclaration', $userId);
     }
 
@@ -53,8 +52,8 @@ class ApiUboDeclarations extends Libraries\ApiBase
      */
     public function CreateUbo($userId, $uboDeclarationId, $ubo)
     {
-        if(is_null($uboDeclarationId ) or empty($uboDeclarationId)){
-            throw new \MangoPay\Libraries\ResponseException('Parameter uboDeclarationId is empty',400);
+        if (is_null($uboDeclarationId) or empty($uboDeclarationId)) {
+            throw new \MangoPay\Libraries\ResponseException('Parameter uboDeclarationId is empty', 400);
         }
         return $this->SaveObject('ubo_create', $ubo, '\MangoPay\Ubo', $userId, $uboDeclarationId);
     }

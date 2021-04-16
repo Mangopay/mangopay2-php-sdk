@@ -7,7 +7,6 @@ namespace MangoPay\Libraries;
  */
 abstract class Upload extends Dto
 {
-    
     /**
      * Image base64
      * @var string

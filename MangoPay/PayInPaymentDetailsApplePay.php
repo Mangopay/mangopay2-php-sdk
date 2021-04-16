@@ -2,7 +2,6 @@
 
 namespace MangoPay;
 
-
 class PayInPaymentDetailsApplePay extends Libraries\Dto implements PayInPaymentDetails
 {
     /**

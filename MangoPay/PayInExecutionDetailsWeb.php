@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,19 +12,19 @@ class PayInExecutionDetailsWeb extends Libraries\Dto implements PayInExecutionDe
      * @var string
      */
     public $RedirectURL;
-    
+
     /**
      * URL format expected
      * @var string
      */
     public $ReturnURL;
-    
+
     /**
      * URL format expected.
      * @var string
      */
     public $TemplateURL;
-    
+
     /**
      * The URL where you host the iFramed template.
      * For CB, Visa, MasterCard you need to specify PAYLINE: before your URL
@@ -35,12 +36,12 @@ class PayInExecutionDetailsWeb extends Libraries\Dto implements PayInExecutionDe
      * @var PayInTemplateURLOptions
      */
     public $TemplateURLOptions;
-    
+
     /**
      * @var string
      */
     public $Culture;
-    
+
     /**
      * Mode3DSType { DEFAULT, FORCE, NO_CHOICE }
      * @var string
@@ -52,7 +53,7 @@ class PayInExecutionDetailsWeb extends Libraries\Dto implements PayInExecutionDe
      * @var \MangoPay\Billing
      */
     public $Billing;
-    
+
     /**
      * Get array with read-only properties
      * @return array
@@ -61,19 +62,19 @@ class PayInExecutionDetailsWeb extends Libraries\Dto implements PayInExecutionDe
     {
         $properties = parent::GetReadOnlyProperties();
         array_push($properties, 'RedirectURL');
-        
+
         return $properties;
     }
-    
+
     /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */
     public function GetSubObjects()
     {
-        return array(
+        return [
             'Billing' => '\MangoPay\Billing',
             'TemplateURLOptions' => '\MangoPay\PayInTemplateURLOptions'
-        );
+        ];
     }
 }

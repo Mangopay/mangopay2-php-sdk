@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,7 +7,6 @@ namespace MangoPay;
  */
 class Dispute extends Libraries\EntityBase
 {
-    
     /**
      * Identifier of the transaction that was disputed
      * @var string
@@ -20,11 +20,11 @@ class Dispute extends Libraries\EntityBase
      */
     public $InitialTransactionType;
 
-     /**
-     * The type of dispute
-     * @var string
-     * @see \MangoPay\DisputeType
-     */
+    /**
+    * The type of dispute
+    * @var string
+    * @see \MangoPay\DisputeType
+    */
     public $DisputeType;
 
     /**
@@ -75,26 +75,26 @@ class Dispute extends Libraries\EntityBase
      * @var string
      */
     public $ResultMessage;
-    
+
     /**
      * The Id of the associated repudiation transaction
      * @var string
      */
     public $RepudiationId;
-    
+
     /**
-     * Get array with mapping which property is object and what type of object 
+     * Get array with mapping which property is object and what type of object
      * @return array
      */
     public function GetSubObjects()
     {
-        return array(
+        return [
             'DisputeReason' => '\MangoPay\DisputeReason',
             'DisputedFunds' => '\MangoPay\Money',
             'ContestedFunds' => '\MangoPay\Money'
-        );
+        ];
     }
-    
+
     /**
      * Get array with read-only properties
      * @return array
@@ -112,7 +112,7 @@ class Dispute extends Libraries\EntityBase
         array_push($properties, 'StatusMessage');
         array_push($properties, 'ResultCode');
         array_push($properties, 'ResultMessage');
-        
+
         return $properties;
     }
 }

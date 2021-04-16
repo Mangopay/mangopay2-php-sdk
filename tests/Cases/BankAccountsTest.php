@@ -2,7 +2,6 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 use MangoPay\BankAccount;
 use MangoPay\BankAccountDetailsOTHER;
 
@@ -11,8 +10,7 @@ use MangoPay\BankAccountDetailsOTHER;
  */
 class BankAccountsTest extends Base
 {
-
-    function test_BankAccount_GetTransactions()
+    public function test_BankAccount_GetTransactions()
     {
         $bankAccount = $this->getJohnsAccount();
         $pagination = new \MangoPay\Pagination();
@@ -24,7 +22,8 @@ class BankAccountsTest extends Base
         $this->assertInternalType('array', $transactions);
     }
 
-    function test_create_bank_account_other(){
+    public function test_create_bank_account_other()
+    {
         $john = $this->getJohn();
         $account = new BankAccount();
         $account->OwnerName = "ANTHONY TEST";
@@ -40,7 +39,8 @@ class BankAccountsTest extends Base
         $this->assertNotNull($bankAccount);
     }
 
-    function test_update_bank_account() {
+    public function test_update_bank_account()
+    {
         $john = $this->getJohn();
         //creates an account to John
         $account = $this->getJohnsAccount();
@@ -57,14 +57,15 @@ class BankAccountsTest extends Base
         $this->assertNotTrue($updated->Active);
     }
 
-    function test_issue_420() {
+    public function test_issue_420()
+    {
         $john = $this->getJohn();
         $userId = $john->Id;
         //creates an account to John, as it does not have any
         $account = $this->getJohnsAccount();
         $this->_api->Users->GetBankAccounts($userId);
         $bankAccount = $this->_api->Users->GetBankAccounts($userId)[0];
-        $bankAccount = $this->_api->Users->GetBankAccount($userId,$bankAccount->Id);
+        $bankAccount = $this->_api->Users->GetBankAccount($userId, $bankAccount->Id);
         $bankAccountToDeactivate = clone $bankAccount;
         $bankAccountToDeactivate->Active = false;
         /*$bk = $this->api->Users->UpdateBankAccount($userId, $bankAccount);*/

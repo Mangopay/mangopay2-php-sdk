@@ -2,14 +2,12 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 /**
  * Tests for holding authentication token in instance
  */
 class TokensTest extends Base
 {
-
-    function test_forceToken()
+    public function test_forceToken()
     {
         $authHlp = new \MangoPay\Libraries\AuthenticationHelper($this->_api);
 
@@ -19,7 +17,7 @@ class TokensTest extends Base
         $this->assertNotEquals($oldToken->access_token, $newToken->access_token);
     }
 
-    function test_storeToken()
+    public function test_storeToken()
     {
         $authHlp = new \MangoPay\Libraries\AuthenticationHelper($this->_api);
         $token = new \MangoPay\Libraries\OAuthToken();
@@ -38,7 +36,7 @@ class TokensTest extends Base
         $this->_api->OAuthTokenManager->StoreToken($token);
     }
 
-    function test_storeToken_differentAutenticationKey()
+    public function test_storeToken_differentAutenticationKey()
     {
         $authHlp = new \MangoPay\Libraries\AuthenticationHelper($this->_api);
         $token = new \MangoPay\Libraries\OAuthToken();
@@ -58,7 +56,7 @@ class TokensTest extends Base
         $this->_api->OAuthTokenManager->StoreToken($token);
     }
 
-    function test_stadnardUseToken()
+    public function test_stadnardUseToken()
     {
         $authHlp = new \MangoPay\Libraries\AuthenticationHelper($this->_api);
         $token = $this->_api->OAuthTokenManager->GetToken($authHlp->GetAutenticationKey());
@@ -70,7 +68,7 @@ class TokensTest extends Base
         $this->assertEquals($token->token_type, $tokenAfterCall->token_type);
     }
 
-    function test_isTokenLeaking()
+    public function test_isTokenLeaking()
     {
         $authHlp = new \MangoPay\Libraries\AuthenticationHelper($this->_api);
         $api = $this->buildNewMangoPayApi();

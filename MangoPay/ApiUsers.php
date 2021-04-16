@@ -38,7 +38,7 @@ class ApiUsers extends Libraries\ApiBase
     {
         $usersList = $this->GetList('users_all', $pagination, null, null, null, $sorting);
 
-        $users = array();
+        $users = [];
         if (is_array($usersList)) {
             foreach ($usersList as $user) {
                 array_push($users, $this->GetUserResponse($user));
@@ -345,8 +345,7 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function GetEMoney($userId, $year = null, $month = null)
     {
-        if ($year == null)
-        {
+        if ($year == null) {
             $year = $this->GetCurrentYear();
         }
 

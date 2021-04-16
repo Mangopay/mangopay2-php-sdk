@@ -3,29 +3,28 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\Libraries\Exception;
-
+use MangoPay\Libraries\ResponseException;
 
 /**
  * Tests basic CRUD methods for users
  */
 class UsersTest extends Base
 {
-
-    function test_Users_CreateNatural()
+    public function test_Users_CreateNatural()
     {
         $john = $this->getJohn();
         $this->assertTrue($john->Id > 0);
         $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
     }
 
-    function test_Users_CreateLegal()
+    public function test_Users_CreateLegal()
     {
         $matrix = $this->getMatrix();
         $this->assertTrue($matrix->Id > 0);
         $this->assertSame(\MangoPay\PersonType::Legal, $matrix->PersonType);
     }
 
-    function test_Users_GetEMoney()
+    public function test_Users_GetEMoney()
     {
         $john = $this->getJohn();
         $year = 2019;
@@ -37,14 +36,14 @@ class UsersTest extends Base
         $this->assertSame($john->Id, $ret->UserId);
     }
 
-    function test_Users_GetEMoneyFunctionWithOneParam()
+    public function test_Users_GetEMoneyFunctionWithOneParam()
     {
         $john = $this->getJohn();
         $ret = $this->_api->Users->GetEMoney($john->Id);
         $this->assertSame($john->Id, $ret->UserId);
     }
 
-    function test_Users_GetEMoneyWithNullValues()
+    public function test_Users_GetEMoneyWithNullValues()
     {
         $john = $this->getJohn();
         $ret = $this->_api->Users->GetEMoney($john->Id, null, null);
@@ -55,7 +54,7 @@ class UsersTest extends Base
      * @expectedException MangoPay\Libraries\ResponseException
      * @throws Exception
      */
-    function test_Users_CreateLegal_FailsIfRequiredPropsNotProvided()
+    public function test_Users_CreateLegal_FailsIfRequiredPropsNotProvided()
     {
         $user = new \MangoPay\UserLegal();
 //        $this->expectException(Exception::class);
@@ -65,7 +64,7 @@ class UsersTest extends Base
         $this->fail("Creation should fail because required props are not set");
     }
 
-    function test_Users_CreateLegal_PassesIfRequiredPropsProvided()
+    public function test_Users_CreateLegal_PassesIfRequiredPropsProvided()
     {
         $user = new \MangoPay\UserLegal();
         $user->HeadquartersAddress = new \MangoPay\Address();
@@ -98,7 +97,7 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($user, $ret);
     }
 
-    function test_Users_GetNatural()
+    public function test_Users_GetNatural()
     {
         $john = $this->getJohn();
 
@@ -112,9 +111,9 @@ class UsersTest extends Base
 
     /**
      *
-     * @expectedException MangoPay\Libraries\ResponseException
+     * @expectedException ResponseException
      */
-    function test_Users_GetNatural_FailsForLegalUser()
+    public function test_Users_GetNatural_FailsForLegalUser()
     {
         $matrix = $this->getMatrix();
 //        $this->expectException(Exception::class);
@@ -125,9 +124,9 @@ class UsersTest extends Base
     }
 
     /**
-     * @expectedException MangoPay\Libraries\ResponseException
+     * @expectedException ResponseException
      */
-    function test_Users_GetLegal_FailsForNaturalUser()
+    public function test_Users_GetLegal_FailsForNaturalUser()
     {
         $john = $this->getJohn();
 //        $this->expectException(Exception::class);
@@ -137,7 +136,7 @@ class UsersTest extends Base
         $this->fail("GetLegal should fail when called with natural user id");
     }
 
-    function test_Users_GetLegal()
+    public function test_Users_GetLegal()
     {
         $matrix = $this->getMatrix();
 
@@ -149,7 +148,7 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($user1, $matrix);
     }
 
-    function test_Users_Save_Natural()
+    public function test_Users_Save_Natural()
     {
         $john = $this->getJohn();
         $john->LastName .= " - CHANGED";
@@ -161,7 +160,7 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($userFetched, $john);
     }
 
-    function test_Users_Save_NaturalAndClearAddresIfNeeded()
+    public function test_Users_Save_NaturalAndClearAddresIfNeeded()
     {
         $user = new \MangoPay\UserNatural();
         $user->FirstName = "John";
@@ -177,7 +176,7 @@ class UsersTest extends Base
         $this->assertTrue($userSaved->Id > 0);
     }
 
-    function test_Users_Save_Legal()
+    public function test_Users_Save_Legal()
     {
         $matrix = $this->getMatrix();
         $matrix->LegalRepresentativeLastName .= " - CHANGED";
@@ -189,7 +188,7 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($userFetched, $matrix);
     }
 
-    function test_Users_Save_LegalAndClearAddresIfNeeded()
+    public function test_Users_Save_LegalAndClearAddresIfNeeded()
     {
         $user = new \MangoPay\UserLegal();
         $user->Name = "MartixSampleOrg";
@@ -207,7 +206,7 @@ class UsersTest extends Base
         $this->assertTrue($userSaved->Id > 0);
     }
 
-    function test_Users_CreateBankAccount_IBAN()
+    public function test_Users_CreateBankAccount_IBAN()
     {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
@@ -216,7 +215,7 @@ class UsersTest extends Base
         $this->assertSame($john->Id, $account->UserId);
     }
 
-    function test_Users_CreateBankAccount_GB()
+    public function test_Users_CreateBankAccount_GB()
     {
         $john = $this->getJohn();
         $account = new \MangoPay\BankAccount();
@@ -235,7 +234,7 @@ class UsersTest extends Base
         $this->assertSame('200000', $createAccount->Details->SortCode);
     }
 
-    function test_Users_CreateBankAccount_US()
+    public function test_Users_CreateBankAccount_US()
     {
         $john = $this->getJohn();
         $account = new \MangoPay\BankAccount();
@@ -254,7 +253,7 @@ class UsersTest extends Base
         $this->assertSame('234334789', $createAccount->Details->ABA);
     }
 
-    function test_Users_CreateBankAccount_CA()
+    public function test_Users_CreateBankAccount_CA()
     {
         $john = $this->getJohn();
         $account = new \MangoPay\BankAccount();
@@ -277,7 +276,7 @@ class UsersTest extends Base
         $this->assertSame('123', $createAccount->Details->InstitutionNumber);
     }
 
-    function test_Users_CreateBankAccount_OTHER()
+    public function test_Users_CreateBankAccount_OTHER()
     {
         $john = $this->getJohn();
         $account = new \MangoPay\BankAccount();
@@ -300,7 +299,7 @@ class UsersTest extends Base
         $this->assertSame('BINAADADXXX', $createAccount->Details->BIC);
     }
 
-    function test_Users_DeactivateBankAccount()
+    public function test_Users_DeactivateBankAccount()
     {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
@@ -311,7 +310,7 @@ class UsersTest extends Base
         $this->assertFalse($account->Active);
     }
 
-    function test_Users_BankAccount()
+    public function test_Users_BankAccount()
     {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
@@ -320,7 +319,7 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($account, $accountFetched);
     }
 
-    function test_Users_BankAccounts()
+    public function test_Users_BankAccounts()
     {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
@@ -337,7 +336,7 @@ class UsersTest extends Base
         $this->assertTrue(isset($pagination->TotalItems));
     }
 
-    function test_Users_BankAccounts_SortByCreationDate()
+    public function test_Users_BankAccounts_SortByCreationDate()
     {
         $john = $this->getJohn();
         $this->getJohnsAccount();
@@ -352,7 +351,7 @@ class UsersTest extends Base
         $this->assertTrue($list[0]->CreationDate >= $list[1]->CreationDate);
     }
 
-    function test_Users_BankAccounts_Filtering()
+    public function test_Users_BankAccounts_Filtering()
     {
         $john = $this->getJohn();
         $this->getJohnsAccount();
@@ -372,7 +371,7 @@ class UsersTest extends Base
         $this->assertCount(12, $activeList);
     }
 
-    function test_Users_UpdateBankAccount()
+    public function test_Users_UpdateBankAccount()
     {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
@@ -384,7 +383,7 @@ class UsersTest extends Base
         $this->assertFalse($accountResult->Active);
     }
 
-    function test_Users_CreateKycDocument()
+    public function test_Users_CreateKycDocument()
     {
         $kycDocument = $this->getJohnsKycDocument();
 
@@ -395,7 +394,7 @@ class UsersTest extends Base
         $this->assertSame($kycDocument->UserId, $user->Id);
     }
 
-    function test_Users_GetKycDocument()
+    public function test_Users_GetKycDocument()
     {
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
@@ -408,7 +407,7 @@ class UsersTest extends Base
         $this->assertSame($kycDocument->UserId, $user->Id);
     }
 
-    function test_Users_GetKycDocuments()
+    public function test_Users_GetKycDocuments()
     {
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
@@ -426,7 +425,7 @@ class UsersTest extends Base
         $this->assertTrue(isset($pagination->TotalItems));
     }
 
-    function test_Users_GetKycDocuments_SortByCreationDate()
+    public function test_Users_GetKycDocuments_SortByCreationDate()
     {
         $this->getJohnsKycDocument();
         self::$JohnsKycDocument = null;
@@ -441,36 +440,33 @@ class UsersTest extends Base
         $this->assertTrue($getKycDocuments[0]->CreationDate >= $getKycDocuments[1]->CreationDate);
     }
 
-    function test_Users_CreateKycDocument_TestAll()
+    public function test_Users_CreateKycDocument_TestAll()
     {
         $john = $this->getJohn();
         $legalJohn = $this->getMatrix();
 
-        $aKycDocTypes = array(
-            array(\MangoPay\KycDocumentType::AddressProof, $john->Id),
-            array(\MangoPay\KycDocumentType::ArticlesOfAssociation, $legalJohn->Id),
-            array(\MangoPay\KycDocumentType::IdentityProof, $john->Id),
-            array(\MangoPay\KycDocumentType::RegistrationProof, $legalJohn->Id),
-            array(\MangoPay\KycDocumentType::ShareholderDeclaration, $legalJohn->Id)
-        );
+        $aKycDocTypes = [
+            [\MangoPay\KycDocumentType::AddressProof, $john->Id],
+            [\MangoPay\KycDocumentType::ArticlesOfAssociation, $legalJohn->Id],
+            [\MangoPay\KycDocumentType::IdentityProof, $john->Id],
+            [\MangoPay\KycDocumentType::RegistrationProof, $legalJohn->Id],
+            [\MangoPay\KycDocumentType::ShareholderDeclaration, $legalJohn->Id]
+        ];
 
         foreach ($aKycDocTypes as $kycDoc) {
             try {
                 $this->CreateKycDocument_TestOne($kycDoc[0], $kycDoc[1]);
             } catch (\MangoPay\Libraries\Exception $exc) {
-
                 $message = 'Error (Code: ' . $exc->getCode() . ', '
                     . $exc->getMessage() . ') '
                     . 'during create/get KYC Document with type: ' . $kycDoc[0];
                 $this->fail($message);
-
             }
         }
     }
 
-    function CreateKycDocument_TestOne($kycDocType, $userId)
+    public function CreateKycDocument_TestOne($kycDocType, $userId)
     {
-
         $kycDocument = new \MangoPay\KycDocument();
         $kycDocument->Status = \MangoPay\KycDocumentStatus::Created;
         $kycDocument->Type = $kycDocType;
@@ -486,7 +482,7 @@ class UsersTest extends Base
         $this->assertSame($getKycDocument->Type, $createdKycDocument->Type);
     }
 
-    function test_Users_UpdateKycDocument()
+    public function test_Users_UpdateKycDocument()
     {
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
@@ -501,7 +497,7 @@ class UsersTest extends Base
         $this->assertTrue($success);
     }
 
-    function test_Users_CreateKycPage_EmptyFileString()
+    public function test_Users_CreateKycPage_EmptyFileString()
     {
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
@@ -512,12 +508,12 @@ class UsersTest extends Base
             $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
 
             $this->fail('Expected ResponseException when empty file string');
-        } catch (\MangoPay\Libraries\ResponseException $exc) {
+        } catch (ResponseException $exc) {
             $this->assertSame(400, $exc->getCode());
         }
     }
 
-    function test_Users_CreateKycPage_WrongFileString()
+    public function test_Users_CreateKycPage_WrongFileString()
     {
         $kycDocument = $this->getJohnsKycDocument();
         $user = $this->getJohn();
@@ -528,13 +524,12 @@ class UsersTest extends Base
             $this->_api->Users->CreateKycPage($user->Id, $kycDocument->Id, $kycPage);
 
             $this->fail('Expected ResponseException when wrong value for file string');
-        } catch (\MangoPay\Libraries\ResponseException $exc) {
-
+        } catch (ResponseException $exc) {
             $this->assertSame(400, $exc->getCode());
         }
     }
 
-    function test_Users_CreateKycPage_CorrectFileString()
+    public function test_Users_CreateKycPage_CorrectFileString()
     {
         $user = $this->getJohn();
         $kycDocumentInit = new \MangoPay\KycDocument();
@@ -628,7 +623,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertTrue($uploaded);
     }
 
-    function test_Users_CreateKycPage_EmptyFilePath()
+    public function test_Users_CreateKycPage_EmptyFilePath()
     {
         $user = $this->getJohn();
         $kycDocumentInit = new \MangoPay\KycDocument();
@@ -640,12 +635,11 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
             $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, '');
             $this->fail("This should have failed because path to file is empty");
         } catch (\MangoPay\Libraries\Exception $exc) {
-
             $this->assertSame('Path of file cannot be empty', $exc->getMessage());
         }
     }
 
-    function test_Users_CreateKycPage_WrongFilePath()
+    public function test_Users_CreateKycPage_WrongFilePath()
     {
         $user = $this->getJohn();
         $kycDocumentInit = new \MangoPay\KycDocument();
@@ -657,12 +651,11 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
             $this->_api->Users->CreateKycPageFromFile($user->Id, $kycDocument->Id, 'notExistFileName.tmp');
             $this->fail("This should have failed because file is non existent");
         } catch (\MangoPay\Libraries\Exception $exc) {
-
             $this->assertSame('File not exist', $exc->getMessage());
         }
     }
 
-    function test_Users_CreateKycPage_CorrectFilePath()
+    public function test_Users_CreateKycPage_CorrectFilePath()
     {
         $user = $this->getJohn();
         $kycDocumentInit = new \MangoPay\KycDocument();
@@ -674,7 +667,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertTrue(true);
     }
 
-    function test_Users_AllTransactions()
+    public function test_Users_AllTransactions()
     {
         $john = $this->getJohn();
         $payIn = $this->getNewPayInCardDirect();
@@ -692,7 +685,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertIdenticalInputProps($transactions[0], $payIn);
     }
 
-    function test_Users_AllTransactions_SortByCreationDate()
+    public function test_Users_AllTransactions_SortByCreationDate()
     {
         $john = $this->getJohn();
         $this->getNewPayInCardDirect();
@@ -708,7 +701,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertTrue($transactions[0]->CreationDate >= $transactions[1]->CreationDate);
     }
 
-    function test_Users_AllCards()
+    public function test_Users_AllCards()
     {
         $john = $this->getNewJohn();
         $payIn = $this->getNewPayInCardDirect($john->Id);
@@ -722,7 +715,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertIdenticalInputProps($cards[0], $card);
     }
 
-    function test_Users_AllCards_SortByCreationDate()
+    public function test_Users_AllCards_SortByCreationDate()
     {
         $john = $this->getNewJohn();
         $this->getNewPayInCardDirect($john->Id);
@@ -736,7 +729,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertTrue($cards[0]->CreationDate < $cards[1]->CreationDate);
     }
 
-    function test_Users_AllWallets()
+    public function test_Users_AllWallets()
     {
         $john = $this->getJohn();
         $this->getJohnsWallet();
@@ -748,7 +741,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertInstanceOf('\MangoPay\Wallet', $wallets[0]);
     }
 
-    function test_Users_AllWallets_SortByCreationDate()
+    public function test_Users_AllWallets_SortByCreationDate()
     {
         $john = $this->getJohn();
         $this->getJohnsWallet();
@@ -763,7 +756,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertTrue($wallets[0]->CreationDate >= $wallets[1]->CreationDate);
     }
 
-    function test_Users_AllMandates()
+    public function test_Users_AllMandates()
     {
         $john = $this->getJohn();
         $this->getJohnsMandate();
@@ -775,7 +768,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertInstanceOf('\MangoPay\Mandate', $mandates[0]);
     }
 
-    function test_Users_AllMandatesForBankAccount()
+    public function test_Users_AllMandatesForBankAccount()
     {
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
@@ -788,7 +781,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertInstanceOf('\MangoPay\Mandate', $mandates[0]);
     }
 
-    function test_Users_GetPreAuthorizations()
+    public function test_Users_GetPreAuthorizations()
     {
         $john = $this->getJohn();
 
@@ -798,10 +791,9 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
         $this->assertInternalType('array', $preauthorizations);
     }
 
-    function test_395()
+    public function test_395()
     {
-        try
-        {
+        try {
             /*
             $this->_api->Config->ClientId = 'wd786';
             $this->_api->Config->ClientPassword = 'my_api_key';
@@ -832,15 +824,11 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
             \MangoPay\Libraries\Logs::Debug('CREATED LEGAL USER', $legalUserResult);
 
             $this->assertEquals($naturalUserResult->Email, $naturalUser->Email);
-        }
-        catch (\MangoPay\Libraries\ResponseException $e)
-        {
+        } catch (ResponseException $e) {
             \MangoPay\Libraries\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
             \MangoPay\Libraries\Logs::Debug('Message', $e->GetMessage());
             \MangoPay\Libraries\Logs::Debug('Details', $e->GetErrorDetails());
-        }
-        catch (\MangoPay\Libraries\Exception $e)
-        {
+        } catch (\MangoPay\Libraries\Exception $e) {
             \MangoPay\Libraries\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
         }
     }
@@ -856,7 +844,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
     }*/
 
 
-    function test_get_user_block_regulatory()
+    public function test_get_user_block_regulatory()
     {
         $user = $this->getJohn();
         $regulatory = $this->_api->Users->GetRegulatory($user->Id);

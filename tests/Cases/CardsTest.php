@@ -6,14 +6,12 @@ use MangoPay\Libraries\Exception;
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
 
-
 /**
  * Tests methods for card registrations
  */
 class CardsTest extends Base
 {
-
-    function test_CardsByFingerprint_Get()
+    public function test_CardsByFingerprint_Get()
     {
         $john = $this->getNewJohn();
         $payIn = $this->getNewPayInCardDirect($john->Id);
@@ -29,7 +27,7 @@ class CardsTest extends Base
         }
     }
 
-    function test_Card_GetPreAuthorizations()
+    public function test_Card_GetPreAuthorizations()
     {
         $john = $this->getNewJohn();
         $payIn = $this->getNewPayInCardDirect($john->Id);
@@ -41,7 +39,7 @@ class CardsTest extends Base
         $this->assertInternalType('array', $preauthorizations);
     }
 
-    function test_Card_GetTransactions()
+    public function test_Card_GetTransactions()
     {
         $john = $this->getNewJohn();
         $payIn = $this->getNewPayInCardDirect($john->Id);
@@ -55,7 +53,7 @@ class CardsTest extends Base
         $this->assertInternalType('array', $transactions);
     }
 
-    function test_Card_Validate()
+    public function test_Card_Validate()
     {
         $new_api = $this->buildNewMangoPayApi();
 

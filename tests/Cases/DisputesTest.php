@@ -7,21 +7,19 @@ use MangoPay\FilterDisputeDocuments;
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
 
-
 /**
  * Tests basic methods for disputes
  */
 class DisputesTest extends Base
 {
-
     /* IMPORTANT NOTE!
-    * 
+    *
     * Due to the fact the disputes CANNOT be created on user's side,
-    * a special approach in testing is needed. 
+    * a special approach in testing is needed.
     * In order to get the tests below pass, a bunch of disputes have
     * to be prepared on the API's side - if they're not, you can
     * just skip these tests, as they won't pass.
-    * 
+    *
     */
 
     private $_clientDisputes = null;
@@ -39,13 +37,13 @@ class DisputesTest extends Base
         }
     }
 
-    
+
     /*
-    * TO BE FIXED - DISPUTES TESTS KO - DATA ON ACCOUNT HAVE TO BE FIXED 
+    * TO BE FIXED - DISPUTES TESTS KO - DATA ON ACCOUNT HAVE TO BE FIXED
     */
-    function test_Disputes_Get()
+    public function test_Disputes_Get()
     {
-           $this->assertEquals("0","0");
+        $this->assertEquals("0", "0");
 //         $dispute = $this->_api->Disputes->Get($this->_clientDisputes[0]->Id);
 
 //         $this->assertNotNull($dispute);

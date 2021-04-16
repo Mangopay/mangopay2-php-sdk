@@ -2,7 +2,6 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 use MangoPay\Libraries\Exception;
 use MangoPay\Libraries\ResponseException;
 use MangoPay\UboDeclarationStatus;
@@ -12,7 +11,8 @@ use MangoPay\UboDeclarationStatus;
  */
 class UboDeclarationsTest extends Base
 {
-    function setUp() {
+    public function setUp()
+    {
         $this->_api->Config->DebugMode = true;
     }
 
@@ -22,7 +22,7 @@ class UboDeclarationsTest extends Base
     }
 
 
-    function test_CreateUboDeclaration()
+    public function test_CreateUboDeclaration()
     {
         $declaration = $this->getMatrixUboDeclaration();
         $this->assertNotNull($declaration);
@@ -30,7 +30,7 @@ class UboDeclarationsTest extends Base
         $this->assertNotNull($declaration->Id);
     }
 
-    function test_ListUboDeclarations()
+    public function test_ListUboDeclarations()
     {
         $declaration = $this->getMatrixUboDeclaration();
         $matrix = $this->getMatrix();
@@ -43,7 +43,7 @@ class UboDeclarationsTest extends Base
         $this->assertEquals($declaration->Id, $declarations[0]->Id);
     }
 
-    function test_GetUboDeclaration()
+    public function test_GetUboDeclaration()
     {
         $declaration = $this->getMatrixUboDeclaration();
         $matrix = $this->getMatrix();
@@ -52,10 +52,9 @@ class UboDeclarationsTest extends Base
 
         $this->assertNotNull($declarationFromApi);
         $this->assertEquals($declaration->Id, $declarationFromApi->Id);
-
     }
 
-    function test_getUboDeclarationById()
+    public function test_getUboDeclarationById()
     {
         $declaration = $this->getMatrixUboDeclaration();
         $declarationFromApi = $this->_api->UboDeclarations->GetUboDeclarationById($declaration->Id);
@@ -64,7 +63,7 @@ class UboDeclarationsTest extends Base
         $this->assertNotNull($declarationFromApi->UserId);
     }
 
-    function test_CreateUbo()
+    public function test_CreateUbo()
     {
         $ubo = $this->createNewUboForMatrix();
         $newUbo = $this->getMatrixUbo();
@@ -82,18 +81,17 @@ class UboDeclarationsTest extends Base
         $this->assertEquals($ubo->Birthplace, $newUbo->Birthplace);
     }
 
-    function test_throw_CreateUbo()
+    public function test_throw_CreateUbo()
     {
         $matrix = $this->getMatrix();
         $ubo = $this->createNewUboForMatrix();
         $this->assertNotNull($ubo);
         $this->assertNotNull($matrix->Id);
-        try{
-            $this->_api->UboDeclarations->CreateUbo($matrix->Id,null, $ubo);
-        } catch (ResponseException $e){
+        try {
+            $this->_api->UboDeclarations->CreateUbo($matrix->Id, null, $ubo);
+        } catch (ResponseException $e) {
             log($e->_code);
         }
-
     }
 
     public function test_UpdateUbo()
@@ -148,7 +146,7 @@ class UboDeclarationsTest extends Base
         $this->assertEquals($existingUbo->Birthplace, $fetchedUbo->Birthplace);
     }
 
-    function test_SubmitForValidation()
+    public function test_SubmitForValidation()
     {
         $declaration = $this->getMatrixUboDeclaration();
         $matrix = $this->getMatrix();

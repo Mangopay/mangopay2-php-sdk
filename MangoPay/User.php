@@ -12,19 +12,19 @@ abstract class User extends Libraries\EntityBase
      * @var string
      */
     public $PersonType;
-    
+
     /**
      * Email address
      * @var string
      */
     public $Email;
-    
+
     /**
      * KYC Level (LIGHT or REGULAR)
      * @var string
      */
     public $KYCLevel;
-    
+
     /**
      * Construct
      * @param string $personType string with type of person
@@ -33,7 +33,7 @@ abstract class User extends Libraries\EntityBase
     {
         $this->PersonType = $personType;
     }
-    
+
     /**
      * Get array with read-only properties
      * @return array
@@ -42,7 +42,7 @@ abstract class User extends Libraries\EntityBase
     {
         $properties = parent::GetReadOnlyProperties();
         array_push($properties, 'PersonType');
-        
+
         return $properties;
     }
 }

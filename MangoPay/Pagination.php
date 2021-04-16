@@ -12,25 +12,25 @@ class Pagination extends Libraries\Dto
      * @var int
      */
     public $Page;
-    
+
     /**
      * Number of items per page
      * @var int
      */
     public $ItemsPerPage;
-    
+
     /**
      * Number of total pages
      * @var int
      */
     public $TotalPages;
-    
+
     /**
      * Number of total items
      * @var int
      */
     public $TotalItems;
-    
+
     /**
      * Array with links to navigation.
      * All values optional. Format:
@@ -42,8 +42,8 @@ class Pagination extends Libraries\Dto
      * )
      * @var array
      */
-    public $Links = array();
-    
+    public $Links = [];
+
     /**
      * Construct
      * @param int $page Number of page

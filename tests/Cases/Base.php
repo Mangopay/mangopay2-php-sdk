@@ -2,7 +2,6 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 use MangoPay\BankAccount;
 use MangoPay\BankAccountDetailsIBAN;
 use MangoPay\Birthplace;
@@ -17,7 +16,6 @@ set_time_limit(0);
  */
 abstract class Base extends TestCase
 {
-
     /**
      * Test user (natural) - access by getJohn()
      * @var \MangoPay\UserNatural
@@ -92,7 +90,7 @@ abstract class Base extends TestCase
     /** @var \MangoPay\MangoPayApi */
     protected $_api;
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->_api = $this->buildNewMangoPayApi();
@@ -100,7 +98,6 @@ abstract class Base extends TestCase
 
     protected function buildNewMangoPayApi()
     {
-
         $api = new \MangoPay\MangoPayApi();
 
         // use test client credentails
@@ -226,7 +223,7 @@ abstract class Base extends TestCase
             $john = $this->getJohn();
 
             $wallet = new \MangoPay\Wallet();
-            $wallet->Owners = array($john->Id);
+            $wallet->Owners = [$john->Id];
             $wallet->Currency = 'EUR';
             $wallet->Description = 'WALLET IN EUR';
 
@@ -258,7 +255,7 @@ abstract class Base extends TestCase
             $payIn->CreditedWalletId = $wallet->Id;
             $payIn->PaymentDetails = $this->getPayInPaymentDetailsCard();
             $payIn->ExecutionDetails = $this->getPayInExecutionDetailsWeb();
-            
+
             //Add for PAYLINEV2 parameter support. You must now use this object for Payin Card only
             $payIn->ExecutionDetails->TemplateURLOptions = new \MangoPay\PayInCardTemplateURLOptions();
             $payIn->ExecutionDetails->TemplateURLOptions->PAYLINE = "https://www.maysite.com/payline_template/";
@@ -337,13 +334,11 @@ abstract class Base extends TestCase
      */
     protected function getJohnsWalletWithMoney($amount = 1000)
     {
-
         if (self::$JohnsWalletWithMoney === null) {
-
             $john = $this->getJohn();
             // create wallet with money
             $wallet = new \MangoPay\Wallet();
-            $wallet->Owners = array($john->Id);
+            $wallet->Owners = [$john->Id];
             $wallet->Currency = 'EUR';
             $wallet->Description = 'WALLET IN EUR WITH MONEY';
 
@@ -407,8 +402,9 @@ abstract class Base extends TestCase
         curl_setopt($curlHandle, CURLOPT_POST, true);
         curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $data);
         $response = curl_exec($curlHandle);
-        if ($response === false && curl_errno($curlHandle) != 0)
+        if ($response === false && curl_errno($curlHandle) != 0) {
             throw new \Exception('cURL error: ' . curl_error($curlHandle));
+        }
 
         curl_close($curlHandle);
 
@@ -583,7 +579,7 @@ abstract class Base extends TestCase
         $user = $this->getJohn();
         $walletWithMoney = $this->getJohnsWalletWithMoney();
         $wallet = new \MangoPay\Wallet();
-        $wallet->Owners = array($user->Id);
+        $wallet->Owners = [$user->Id];
         $wallet->Currency = 'EUR';
         $wallet->Description = 'WALLET IN EUR FOR TRANSFER';
         $wallet = $this->_api->Wallets->Create($wallet);
@@ -755,7 +751,6 @@ abstract class Base extends TestCase
     protected function getJohnHook()
     {
         if (self::$JohnsHook === null) {
-
             $pagination = new \MangoPay\Pagination(1, 1);
             $list = $this->_api->Hooks->GetAll($pagination);
 
@@ -801,14 +796,16 @@ abstract class Base extends TestCase
     /**
      * @return \MangoPay\UboDeclaration|object
      */
-    public function getMatrixUboDeclaration() {
+    public function getMatrixUboDeclaration()
+    {
         if (self::$MatrixUboDeclaration === null) {
             self::$MatrixUboDeclaration = $this->_api->UboDeclarations->Create($this->getMatrix()->Id);
         }
         return self::$MatrixUboDeclaration;
     }
 
-    public function createNewUboForMatrix() {
+    public function createNewUboForMatrix()
+    {
         $matrix = $this->getMatrix();
         $declaration = $this->getMatrixUboDeclaration();
 
@@ -828,7 +825,8 @@ abstract class Base extends TestCase
     /**
      * @return Ubo|object
      */
-    public function getMatrixUbo() {
+    public function getMatrixUbo()
+    {
         if (self::$MatrixUbo === null) {
             $matrix = $this->getMatrix();
             $declaration = $this->getMatrixUboDeclaration();
@@ -861,7 +859,6 @@ abstract class Base extends TestCase
      */
     protected function assertIdenticalInputProps($entity1, $entity2)
     {
-
         if (is_a($entity1, '\MangoPay\Address')) {
             $this->assertEquals($entity1->AddressLine1, $entity2->AddressLine1);
             $this->assertEquals($entity1->AddressLine2, $entity2->AddressLine2);
@@ -1002,14 +999,15 @@ abstract class Base extends TestCase
 
     protected function getEntityFromList($entityId, $list)
     {
-
         foreach ($list as $entity) {
-            if ($entityId == $entity->Id)
+            if ($entityId == $entity->Id) {
                 return $entity;
+            }
         }
     }
 
-    protected function getClientBankAccount(){
+    protected function getClientBankAccount()
+    {
         $account = new BankAccount();
         $account->OwnerName = "Joe Blogs";
         $account->OwnerAddress = $this->getNewAddress();

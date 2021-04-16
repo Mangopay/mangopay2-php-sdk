@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MangoPay;
-
 
 class ScopeBlocked extends Libraries\Dto
 {

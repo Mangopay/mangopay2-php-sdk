@@ -2,7 +2,6 @@
 
 namespace MangoPay;
 
-
 class Birthplace extends Libraries\Dto
 {
     /**

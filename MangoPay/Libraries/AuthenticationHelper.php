@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay\Libraries;
 
 class AuthenticationHelper
@@ -17,7 +18,7 @@ class AuthenticationHelper
     {
         $this->_root = $root;
     }
-    
+
     /**
      * Get HTTP header value with authorization string
      * @return string Authorization string
@@ -26,7 +27,7 @@ class AuthenticationHelper
     {
         return $this->GetHttpHeaderStrong();
     }
-    
+
     /**
      * Get basic key for HTTP header
      * @return string
@@ -37,30 +38,30 @@ class AuthenticationHelper
         if (is_null($this->_root->Config->ClientId) || strlen($this->_root->Config->ClientId) == 0) {
             throw new Exception('MangoPayApi.Config.ClientId is not set.');
         }
-        
+
         if (is_null($this->_root->Config->ClientPassword) || strlen($this->_root->Config->ClientPassword) == 0) {
             throw new Exception('MangoPayApi.Config.ClientPassword is not set.');
         }
-        
+
         $signature = $this->_root->Config->ClientId . ':' . $this->_root->Config->ClientPassword;
         return base64_encode($signature);
     }
-    
+
     public function GetAutenticationKey()
     {
         if (is_null($this->_root->Config->ClientId) || strlen($this->_root->Config->ClientId) == 0) {
             throw new Exception('MangoPayApi.Config.ClientId is not set.');
         }
-        
+
         if (is_null($this->_root->Config->BaseUrl) || strlen($this->_root->Config->BaseUrl) == 0) {
             throw new Exception('MangoPayApi.Config.BaseUrl is not set.');
         }
-        
+
         return md5($this->_root->Config->BaseUrl.
                     $this->_root->Config->ClientId.
                     $this->_root->Config->ClientPassword);
     }
-    
+
     /**
      * Get HTTP header value with authorization string for basic authentication
      *
@@ -71,7 +72,7 @@ class AuthenticationHelper
     {
         return 'Authorization: Basic ' . $this->GetHttpHeaderBasicKey();
     }
-    
+
     /**
      * Get HTTP header value with authorization string for strong authentication
      *

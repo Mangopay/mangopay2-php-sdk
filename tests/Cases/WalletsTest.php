@@ -2,14 +2,12 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 /**
  * Tests basic methods for wallets
  */
 class WalletsTest extends Base
 {
-
-    function test_Wallets_Create()
+    public function test_Wallets_Create()
     {
         $john = $this->getJohn();
         $wallet = $this->getJohnsWallet();
@@ -18,7 +16,7 @@ class WalletsTest extends Base
         $this->assertTrue(in_array($john->Id, $wallet->Owners));
     }
 
-    function test_Wallets_Get()
+    public function test_Wallets_Get()
     {
         $john = $this->getJohn();
         $wallet = $this->getJohnsWallet();
@@ -29,7 +27,7 @@ class WalletsTest extends Base
         $this->assertTrue(in_array($john->Id, $getWallet->Owners));
     }
 
-    function test_Wallets_Save()
+    public function test_Wallets_Save()
     {
         $wallet = $this->getJohnsWallet();
         $wallet->Description = 'New description to test';
@@ -40,7 +38,7 @@ class WalletsTest extends Base
         $this->assertSame('New description to test', $saveWallet->Description);
     }
 
-    function test_Wallets_Transactions()
+    public function test_Wallets_Transactions()
     {
         $john = $this->getJohn();
         $wallet = $this->getJohnsWallet();
@@ -64,7 +62,7 @@ class WalletsTest extends Base
 //        $this->assertIdenticalInputProps($transactions[0], $payIn);
     }
 
-    function test_Wallets_Transactions_SortByCreationDate()
+    public function test_Wallets_Transactions_SortByCreationDate()
     {
         $wallet = $this->getJohnsWallet();
         // create 2 pay-in objects

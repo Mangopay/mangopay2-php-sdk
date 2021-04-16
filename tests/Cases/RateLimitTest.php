@@ -2,11 +2,9 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 class RateLimitTest extends Base
 {
-
-    function test_RateLimitsUpdate()
+    public function test_RateLimitsUpdate()
     {
         $this->assertNull($this->_api->RateLimits);
         $this->getJohnsCardPreAuthorization();

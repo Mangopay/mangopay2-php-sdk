@@ -5,21 +5,19 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
 
-
 /**
  * Tests basic methods for wallets
  */
 class HooksTest extends Base
 {
-
-    function test_Hooks_Create()
+    public function test_Hooks_Create()
     {
         $hook = $this->getJohnHook();
 
         $this->assertTrue($hook->Id > 0);
     }
 
-    function test_Hooks_Get()
+    public function test_Hooks_Get()
     {
         $hook = $this->getJohnHook();
 
@@ -28,7 +26,7 @@ class HooksTest extends Base
         $this->assertSame($hook->Id, $getHook->Id);
     }
 
-    function test_Hooks_Update()
+    public function test_Hooks_Update()
     {
         $hook = $this->getJohnHook();
         $hook->Url = "http://test123.com";
@@ -39,7 +37,7 @@ class HooksTest extends Base
         $this->assertSame("http://test123.com", $saveHook->Url);
     }
 
-    function test_Hooks_All()
+    public function test_Hooks_All()
     {
         $hook = $this->getJohnHook();
         $pagination = new \MangoPay\Pagination(1, 1);

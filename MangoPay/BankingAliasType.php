@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,5 +7,5 @@ namespace MangoPay;
  */
 class BankingAliasType
 {
-    const IBAN = "IBAN";
+    public const IBAN = "IBAN";
 }

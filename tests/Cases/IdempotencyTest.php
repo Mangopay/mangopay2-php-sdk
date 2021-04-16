@@ -2,16 +2,14 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 /**
  * Tests methods for idempotency support
  * See https://docs.mangopay.com/api-references/idempotency-support/
  */
 class IdempotencyTest extends Base
 {
-
     // if post request called twice with no idempotency key, act independently
-    function test_NoIdempotencyKey_ActIndependently()
+    public function test_NoIdempotencyKey_ActIndependently()
     {
         $user = $this->buildJohn();
         $user1 = $this->_api->Users->Create($user);
@@ -25,7 +23,7 @@ class IdempotencyTest extends Base
      * @expectedException MangoPay\Libraries\ResponseException
      * @throws \MangoPay\Libraries\Exception
      */
-    function test_SameIdempotencyKey_Blocks2ndCall()
+    public function test_SameIdempotencyKey_Blocks2ndCall()
     {
         $idempotencyKey = md5(uniqid());
         $user = $this->buildJohn();
@@ -37,7 +35,7 @@ class IdempotencyTest extends Base
     }
 
     // if post request called twice with different idempotency key, act independently and responses may be retreived later
-    function test_DifferentIdempotencyKey_ActIndependentlyAndRetreivable()
+    public function test_DifferentIdempotencyKey_ActIndependentlyAndRetreivable()
     {
         $idempotencyKey1 = md5(uniqid());
         $idempotencyKey2 = md5(uniqid());
@@ -53,7 +51,7 @@ class IdempotencyTest extends Base
         $this->assertTrue($resp2->Resource->Id == $user2->Id);
     }
 
-    function test_GetIdempotencyKey_PreauthorizationCreate()
+    public function test_GetIdempotencyKey_PreauthorizationCreate()
     {
         $key = md5(uniqid());
         $this->getJohnsCardPreAuthorization($key);
@@ -63,12 +61,12 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\CardPreAuthorization', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_CardregistrationCreate()
+    public function test_GetIdempotencyKey_CardregistrationCreate()
     {
         $key = md5(uniqid());
         $john = $this->getJohn();
         $wallet = new \MangoPay\Wallet();
-        $wallet->Owners = array($john->Id);
+        $wallet->Owners = [$john->Id];
         $wallet->Currency = 'EUR';
         $wallet->Description = 'WALLET IN EUR WITH MONEY';
         $wallet1 = $this->_api->Wallets->Create($wallet);
@@ -88,13 +86,13 @@ class IdempotencyTest extends Base
         $hook->EventType = \MangoPay\EventType::PayinRefundFailed;
         $hook->Url = "http://test.com";
         $this->_api->Hooks->Create($hook, $key);
-        
+
         $resp = $this->_api->Responses->Get($key);
-        
+
         $this->assertInstanceOf($resp->Resource, '\MangoPay\Hook');
     }*/
 
-    function test_GetIdempotencyKey_MandatesCreate()
+    public function test_GetIdempotencyKey_MandatesCreate()
     {
         $key = md5(uniqid());
         $account = $this->getJohnsAccount();
@@ -110,7 +108,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\Mandate', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_PayinsCardWebCreate()
+    public function test_GetIdempotencyKey_PayinsCardWebCreate()
     {
         $key = md5(uniqid());
         $wallet = $this->getJohnsWallet();
@@ -139,7 +137,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\PayIn', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_PayinsCardDirectCreate()
+    public function test_GetIdempotencyKey_PayinsCardDirectCreate()
     {
         $key = md5(uniqid());
         $johnWallet = $this->getJohnsWalletWithMoney();
@@ -174,7 +172,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\PayIn', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_PayinsPreauthorizedDirectCreate()
+    public function test_GetIdempotencyKey_PayinsPreauthorizedDirectCreate()
     {
         $key = md5(uniqid());
         $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
@@ -200,7 +198,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\PayIn', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_PayinsBankWireDirectCreate()
+    public function test_GetIdempotencyKey_PayinsBankWireDirectCreate()
     {
         $key = md5(uniqid());
         $wallet = $this->getJohnsWallet();
@@ -223,7 +221,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\PayIn', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_PayinsDirectdebitWebCreate()
+    public function test_GetIdempotencyKey_PayinsDirectdebitWebCreate()
     {
         $key = md5(uniqid());
         $wallet = $this->getJohnsWallet();
@@ -251,7 +249,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\PayIn', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_PayinsDirectdebitDirectCreate()
+    public function test_GetIdempotencyKey_PayinsDirectdebitDirectCreate()
     {
         $key = md5(uniqid());
         $wallet = $this->getJohnsWalletWithMoney();
@@ -277,7 +275,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\PayIn', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_PayinsCreateRefunds()
+    public function test_GetIdempotencyKey_PayinsCreateRefunds()
     {
         $key = md5(uniqid());
         $payIn = $this->getNewPayInCardDirect();
@@ -298,7 +296,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\Refund', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_PayoutsBankwireCreate()
+    public function test_GetIdempotencyKey_PayoutsBankwireCreate()
     {
         $key = md5(uniqid());
         $payIn = $this->getNewPayInCardDirect();
@@ -325,7 +323,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\PayOut', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_ReportsCreate()
+    public function test_GetIdempotencyKey_ReportsCreate()
     {
         $key = md5(uniqid());
         $reportRequest = new \MangoPay\ReportRequest();
@@ -337,7 +335,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\ReportRequest', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_TransfersCreateRefunds()
+    public function test_GetIdempotencyKey_TransfersCreateRefunds()
     {
         $key = md5(uniqid());
         $transfer = $this->getNewTransfer();
@@ -359,13 +357,13 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\Refund', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_TransfersCreate()
+    public function test_GetIdempotencyKey_TransfersCreate()
     {
         $key = md5(uniqid());
         $user = $this->getJohn();
         $walletWithMoney = $this->getJohnsWalletWithMoney();
         $wallet1 = new \MangoPay\Wallet();
-        $wallet1->Owners = array($user->Id);
+        $wallet1->Owners = [$user->Id];
         $wallet1->Currency = 'EUR';
         $wallet1->Description = 'WALLET IN EUR FOR TRANSFER';
         $wallet = $this->_api->Wallets->Create($wallet1);
@@ -388,7 +386,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\Transfer', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_UsersCreateNaturals()
+    public function test_GetIdempotencyKey_UsersCreateNaturals()
     {
         $key = md5(uniqid());
         $user = $this->buildJohn();
@@ -399,7 +397,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\UserNatural', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_UsersCreateLegals()
+    public function test_GetIdempotencyKey_UsersCreateLegals()
     {
         $key = md5(uniqid());
         $john = $this->getJohn();
@@ -422,7 +420,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\UserLegal', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_UsersCreateBankAccountsIban()
+    public function test_GetIdempotencyKey_UsersCreateBankAccountsIban()
     {
         $key = md5(uniqid());
         $john = $this->getJohn();
@@ -439,7 +437,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\BankAccount', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_UsersCreateBankAccountsGb()
+    public function test_GetIdempotencyKey_UsersCreateBankAccountsGb()
     {
         $key = md5(uniqid());
         $john = $this->getJohn();
@@ -456,7 +454,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\BankAccount', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_UsersCreateBankAccountsUs()
+    public function test_GetIdempotencyKey_UsersCreateBankAccountsUs()
     {
         $key = md5(uniqid());
         $john = $this->getJohn();
@@ -473,7 +471,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\BankAccount', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_UsersCreateBankAccountsCa()
+    public function test_GetIdempotencyKey_UsersCreateBankAccountsCa()
     {
         $key = md5(uniqid());
         $john = $this->getJohn();
@@ -492,7 +490,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\BankAccount', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_UsersCreateBankAccountsOther()
+    public function test_GetIdempotencyKey_UsersCreateBankAccountsOther()
     {
         $key = md5(uniqid());
         $john = $this->getJohn();
@@ -511,7 +509,7 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\BankAccount', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_KycDocumentsCreate()
+    public function test_GetIdempotencyKey_KycDocumentsCreate()
     {
         $key = md5(uniqid());
         $user = $this->getJohn();
@@ -525,12 +523,12 @@ class IdempotencyTest extends Base
         $this->assertInstanceOf('\MangoPay\KycDocument', $resp->Resource);
     }
 
-    function test_GetIdempotencyKey_WalletsCreate()
+    public function test_GetIdempotencyKey_WalletsCreate()
     {
         $key = md5(uniqid());
         $john = $this->getJohn();
         $wallet = new \MangoPay\Wallet();
-        $wallet->Owners = array($john->Id);
+        $wallet->Owners = [$john->Id];
         $wallet->Currency = 'EUR';
         $wallet->Description = 'WALLET IN EUR';
         $this->_api->Wallets->Create($wallet, $key);

@@ -9,6 +9,6 @@ demos/paymentDirect/MangoPaySdkStorage.tmp.php
 /vendor/
 composer.lock
 
-.idea
-
-.phpunit.result.cache
+.*
+!.php_cs
+!.gitignore

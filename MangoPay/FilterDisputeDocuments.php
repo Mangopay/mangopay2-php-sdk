@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,7 +7,6 @@ namespace MangoPay;
  */
 class FilterDisputeDocuments extends FilterBase
 {
-
     /**
      * @var string
      * @see \MangoPay\DisputeDocumentStatus

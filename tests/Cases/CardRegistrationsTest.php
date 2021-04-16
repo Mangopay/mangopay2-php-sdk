@@ -2,14 +2,12 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 /**
  * Tests methods for card registrations
  */
 class CardRegistrationsTest extends Base
 {
-
-    function test_CardRegistrations_Create()
+    public function test_CardRegistrations_Create()
     {
         $cardRegistration = $this->getJohnsCardRegistration();
         $user = $this->getJohn();
@@ -23,7 +21,7 @@ class CardRegistrationsTest extends Base
         $this->assertEquals(\MangoPay\CardRegistrationStatus::Created, $cardRegistration->Status);
     }
 
-    function test_CardRegistrations_Get()
+    public function test_CardRegistrations_Get()
     {
         $cardRegistration = $this->getJohnsCardRegistration();
 
@@ -33,7 +31,7 @@ class CardRegistrationsTest extends Base
         $this->assertEquals($cardRegistration->Id, $getCardRegistration->Id);
     }
 
-    function test_CardRegistrations_Update()
+    public function test_CardRegistrations_Update()
     {
         $cardRegistration = $this->getJohnsCardRegistration();
         $registrationData = $this->getPaylineCorrectRegistartionData($cardRegistration);
@@ -47,7 +45,7 @@ class CardRegistrationsTest extends Base
         $this->assertSame('000000', $getCardRegistration->ResultCode);
     }
 
-    function test_CardRegistrations_UpdateError()
+    public function test_CardRegistrations_UpdateError()
     {
         $user = $this->getJohn();
         $cardRegistrationNew = new \MangoPay\CardRegistration();
@@ -63,7 +61,7 @@ class CardRegistrationsTest extends Base
         $this->assertNotNull($getCardRegistration->ResultMessage);
     }
 
-    function test_Cards_CheckCardExisting()
+    public function test_Cards_CheckCardExisting()
     {
         $cardRegistration = $this->getJohnsCardRegistration();
         $cardRegistration = $this->_api->CardRegistrations->Get($cardRegistration->Id);
@@ -74,7 +72,7 @@ class CardRegistrationsTest extends Base
         $this->assertEquals($card->Validity, \MangoPay\CardValidity::Unknown);
     }
 
-    function test_Cards_Update()
+    public function test_Cards_Update()
     {
         $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
         $card = $this->_api->Cards->Get($cardPreAuthorization->CardId);
@@ -88,5 +86,4 @@ class CardRegistrationsTest extends Base
         $this->assertEquals($updatedCard->Validity, \MangoPay\CardValidity::Valid);
         $this->assertFalse($updatedCard->Active);
     }
-
 }

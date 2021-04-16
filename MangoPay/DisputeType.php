@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,7 +7,7 @@ namespace MangoPay;
  */
 class DisputeType
 {
-    const Contestable = "CONTESTABLE";
-    const NotContestable = "NOT_CONTESTABLE";
-    const Retrieval = "RETRIEVAL";
+    public const Contestable = "CONTESTABLE";
+    public const NotContestable = "NOT_CONTESTABLE";
+    public const Retrieval = "RETRIEVAL";
 }

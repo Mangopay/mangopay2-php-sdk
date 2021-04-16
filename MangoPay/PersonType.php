@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,6 +7,6 @@ namespace MangoPay;
  */
 class PersonType
 {
-    const Natural = 'NATURAL';
-    const Legal = 'LEGAL';
+    public const Natural = 'NATURAL';
+    public const Legal = 'LEGAL';
 }

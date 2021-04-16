@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -42,8 +43,8 @@ class PayIn extends Transaction
      */
     public function GetDependsObjects()
     {
-        return array(
-            'PaymentType' => array(
+        return [
+            'PaymentType' => [
                 '_property_name' => 'PaymentDetails',
                 PayInPaymentType::Card => '\MangoPay\PayInPaymentDetailsCard',
                 PayInPaymentType::Preauthorized => '\MangoPay\PayInPaymentDetailsPreAuthorized',
@@ -54,15 +55,15 @@ class PayIn extends Transaction
                 PayInPaymentType::ApplePay => 'MangoPay\PayInPaymentDetailsApplePay',
                 PayInPaymentType::GooglePay => 'MangoPay\PayInPaymentDetailsGooglePay',
                 // ...and more in future...
-            ),
-            'ExecutionType' => array(
+            ],
+            'ExecutionType' => [
                 '_property_name' => 'ExecutionDetails',
                 PayInExecutionType::Web => '\MangoPay\PayInExecutionDetailsWeb',
                 PayInExecutionType::Direct => '\MangoPay\PayInExecutionDetailsDirect',
-                PayInExecutionType::ExternalInstruction => '\MangoPay\PayInExecutionDetailsExternalInstruction',                
+                PayInExecutionType::ExternalInstruction => '\MangoPay\PayInExecutionDetailsExternalInstruction',
                 // ...and more in future...
-            )
-        );
+            ]
+        ];
     }
 
     /**

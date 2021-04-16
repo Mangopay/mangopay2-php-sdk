@@ -1,6 +1,6 @@
 <?php
-namespace MangoPay;
 
+namespace MangoPay;
 
 /**
  * Holds document page viewing data.

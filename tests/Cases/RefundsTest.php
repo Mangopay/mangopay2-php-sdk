@@ -2,13 +2,11 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 /**
  * Tests basic methods for refunds
  */
 class RefundsTest extends Base
 {
-
     public function test_Refund_GetForTransfer()
     {
         $transfer = $this->getNewTransfer();

@@ -7,15 +7,14 @@ namespace MangoPay\Tests\Cases;
  */
 class BankingAliasTest extends Base
 {
-
-    function test_BankingAlias_Create()
+    public function test_BankingAlias_Create()
     {
         $bankingAliasIBAN = $this->getJohnsBankingAliasIBAN();
 
         $this->assertTrue($bankingAliasIBAN->Id > 0);
     }
 
-    function test_BankingAlias_Get()
+    public function test_BankingAlias_Get()
     {
         $bankingAliasIBAN = $this->getJohnsBankingAliasIBAN();
 
@@ -24,7 +23,7 @@ class BankingAliasTest extends Base
         $this->assertSame($bankingAliasIBAN->Id, $getBankingAliasIBAN->Id);
     }
 
-    function test_BankingAlias_Update()
+    public function test_BankingAlias_Update()
     {
         $bankingAliasIBAN = $this->getJohnsBankingAliasIBAN();
         $bankingAliasIBAN->Active = false;
@@ -35,7 +34,7 @@ class BankingAliasTest extends Base
         $this->assertSame(false, $saveBankingAliasIBAN->Active);
     }
 
-    function test_BankingAlias_All()
+    public function test_BankingAlias_All()
     {
         $bankingAliasIBAN = $this->getJohnsBankingAliasIBAN();
         $pagination = new \MangoPay\Pagination(1, 1);

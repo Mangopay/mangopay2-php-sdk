@@ -1,11 +1,14 @@
 <?php
+
 namespace MangoPay;
 
 final class HookValidity
 {
-    const Unknown = 'UNKNOWN';
-    const Valid = 'VALID';
-    const Invalid = 'INVALID';
+    public const Unknown = 'UNKNOWN';
+    public const Valid = 'VALID';
+    public const Invalid = 'INVALID';
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 }

@@ -15,14 +15,12 @@ use MangoPay\PayInPaymentType;
 use MangoPay\PayInStatus;
 use MangoPay\TransactionStatus;
 
-
 /**
  * Tests methods for pay-ins
  */
 class PayInsTest extends Base
 {
-
-    function test_PayIns_Create_CardWeb()
+    public function test_PayIns_Create_CardWeb()
     {
         $payIn = $this->getJohnsPayInCardWeb();
 
@@ -34,7 +32,7 @@ class PayInsTest extends Base
         $this->assertNotNull($payIn->ExecutionDetails->Billing);
     }
 
-    function test_PayIns_Get_CardWeb()
+    public function test_PayIns_Get_CardWeb()
     {
         $payIn = $this->getJohnsPayInCardWeb();
 
@@ -52,7 +50,7 @@ class PayInsTest extends Base
         $this->assertNotNull($getPayIn->ExecutionDetails->ReturnURL);
     }
 
-    function test_PayIns_Create_CardDirect()
+    public function test_PayIns_Create_CardDirect()
     {
         $johnWallet = $this->getJohnsWalletWithMoney();
         $beforeWallet = $this->_api->Wallets->Get($johnWallet->Id);
@@ -76,7 +74,7 @@ class PayInsTest extends Base
         $this->assertEquals('PAYIN', $payIn->Type);
     }
 
-    function test_PayIns_Get_CardDirect()
+    public function test_PayIns_Get_CardDirect()
     {
         $payIn = $this->getNewPayInCardDirect();
 
@@ -93,7 +91,7 @@ class PayInsTest extends Base
         //$this->assertEquals(AVSResult::NO_CHECK, $getPayIn->ExecutionDetails->SecurityInfo->AVSResult);
     }
 
-    function test_PayIns_CreateRefund_CardDirect()
+    public function test_PayIns_CreateRefund_CardDirect()
     {
         $payIn = $this->getNewPayInCardDirect();
         $wallet = $this->getJohnsWalletWithMoney();
@@ -110,7 +108,7 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\RefundReasonDetails', $refund->RefundReason);
     }
 
-    function test_PayIns_PreAuthorizedDirect()
+    public function test_PayIns_PreAuthorizedDirect()
     {
         $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
         $wallet = $this->getJohnsWalletWithMoney();
@@ -152,7 +150,7 @@ class PayInsTest extends Base
         $this->assertEquals($transactions[0]->Status, TransactionStatus::Succeeded);
     }
 
-    function test_PayIns_BankWireDirect_Create()
+    public function test_PayIns_BankWireDirect_Create()
     {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
@@ -191,7 +189,7 @@ class PayInsTest extends Base
         $this->assertNotNull($createPayIn->PaymentDetails->BankAccount->Details->BIC);
     }
 
-    function test_PayIns_BankWireDirect_Get()
+    public function test_PayIns_BankWireDirect_Get()
     {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
@@ -228,7 +226,7 @@ class PayInsTest extends Base
         $this->assertNotNull($getPayIn->PaymentDetails->BankAccount->Details->BIC);
     }
 
-    function test_PayIns_DirectDeDirectDebitWeb_Create()
+    public function test_PayIns_DirectDeDirectDebitWeb_Create()
     {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
@@ -278,7 +276,7 @@ class PayInsTest extends Base
         $this->assertNotNull($createPayIn->ExecutionDetails->TemplateURL);
     }
 
-    function test_PayIns_Create_DirectDebitDirect()
+    public function test_PayIns_Create_DirectDebitDirect()
     {
         $johnWallet = $this->getJohnsWalletWithMoney();
 
@@ -300,7 +298,7 @@ class PayInsTest extends Base
         $this->assertEquals('PAYIN', $payIn->Type);
     }
 
-    function test_PayIns_Create_PaypalWeb()
+    public function test_PayIns_Create_PaypalWeb()
     {
         $payIn = $this->getJohnsPayInPaypalWeb();
 
@@ -312,7 +310,7 @@ class PayInsTest extends Base
         $this->assertSame('FR', $payIn->ExecutionDetails->Culture);
     }
 
-    function test_PayIns_Get_PaypalWeb()
+    public function test_PayIns_Get_PaypalWeb()
     {
         $payIn = $this->getJohnsPayInPaypalWeb();
 
@@ -330,7 +328,7 @@ class PayInsTest extends Base
         $this->assertSame('FR', $getPayIn->ExecutionDetails->Culture);
     }
 
-    function test_PayPal_BuyerAccountEmail()
+    public function test_PayPal_BuyerAccountEmail()
     {
         $payInId = "54088959";
         $buyerEmail = "paypal-buyer-user@mangopay.com";
@@ -346,7 +344,7 @@ class PayInsTest extends Base
         $this->assertSame($paymentDetails->PaypalBuyerAccountEmail, $buyerEmail);
     }
 
-    function test_PayIns_Get_ExtendedCardView()
+    public function test_PayIns_Get_ExtendedCardView()
     {
         $payIn = $this->getJohnsPayInCardWeb();
 
@@ -363,7 +361,7 @@ class PayInsTest extends Base
         $this->assertTrue(strpos($message, 'Not found') !== false);
     }
 
-    function test_PayIn_GetRefunds()
+    public function test_PayIn_GetRefunds()
     {
         $payIn = $this->getJohnsPayInCardWeb();
         $pagination = new \MangoPay\Pagination();
@@ -375,7 +373,7 @@ class PayInsTest extends Base
         $this->assertInternalType('array', $refunds);
     }
 
-    function test_PayIns_Culture_Code()
+    public function test_PayIns_Culture_Code()
     {
         $payin = $this->getNewPayInCardDirect();
 
@@ -384,7 +382,8 @@ class PayInsTest extends Base
         $this->assertNotNull($payin->ExecutionDetails->Culture);
     }
 
-    function test_get_bank_wire_external_instructions_iban(){
+    public function test_get_bank_wire_external_instructions_iban()
+    {
         $payIn = $this->_api->PayIns->Get("74980101");
 
         $this->assertTrue($payIn->PaymentType == PayInPaymentType::BankWire);
@@ -397,7 +396,7 @@ class PayInsTest extends Base
         $this->assertNull($payIn->ExecutionDetails->DebitedBankAccount->AccountNumber);
     }
 
-    function test_get_bank_wire_external_instructions_account_number()
+    public function test_get_bank_wire_external_instructions_account_number()
     {
         $payIn = $this->_api->PayIns->Get("74981216");
 
@@ -411,7 +410,7 @@ class PayInsTest extends Base
         $this->assertNotNull($payIn->ExecutionDetails->DebitedBankAccount->AccountNumber);
     }
 
-    function test_PayIns_Apple_Pay_Create()
+    public function test_PayIns_Apple_Pay_Create()
     {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
@@ -451,7 +450,7 @@ class PayInsTest extends Base
     }
 
 
-    function test_PayIns_Google_Pay_Create()
+    public function test_PayIns_Google_Pay_Create()
     {
         $this->markTestIncomplete(
             "Cannot test Google Pay"
@@ -494,4 +493,3 @@ class PayInsTest extends Base
         $this->assertEquals("EUR", $createPayIn->Fees->Currency);
     }
 }
-

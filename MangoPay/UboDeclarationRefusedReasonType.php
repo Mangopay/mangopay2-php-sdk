@@ -10,11 +10,10 @@ class UboDeclarationRefusedReasonType
     /**
      * When at least one natural user is missing on the declaration
      */
-    const MissingUbo = 'MISSING_UBO';
+    public const MissingUbo = 'MISSING_UBO';
 
     /**
      * When at least one natural user should not be declared as UBO
      */
-    const DeclarationDoNotMatchUboInformation = 'DECLARATION_DO_NOT_MATCH_UBO_INFORMATION';
-
+    public const DeclarationDoNotMatchUboInformation = 'DECLARATION_DO_NOT_MATCH_UBO_INFORMATION';
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,7 +7,7 @@ namespace MangoPay;
  */
 class CardRegistrationStatus
 {
-    const Created = 'CREATED';
-    const Validated = 'VALIDATED';
-    const Error = 'ERROR';
+    public const Created = 'CREATED';
+    public const Validated = 'VALIDATED';
+    public const Error = 'ERROR';
 }

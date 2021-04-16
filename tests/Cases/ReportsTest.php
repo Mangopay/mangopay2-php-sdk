@@ -2,14 +2,12 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 /**
  * Tests basic methods for report requests
  */
 class ReportsTest extends Base
 {
-
-    function test_ReportRequestTransactions_Create()
+    public function test_ReportRequestTransactions_Create()
     {
         $reportRequest = new \MangoPay\ReportRequest();
         $reportRequest->ReportType = \MangoPay\ReportType::Transactions;
@@ -21,7 +19,7 @@ class ReportsTest extends Base
         $this->assertSame($createReportRequest->ReportType, \MangoPay\ReportType::Transactions);
     }
 
-    function test_ReportRequestWallets_Create()
+    public function test_ReportRequestWallets_Create()
     {
         $reportRequest = new \MangoPay\ReportRequest();
         $reportRequest->ReportType = \MangoPay\ReportType::Wallets;
@@ -33,7 +31,7 @@ class ReportsTest extends Base
         $this->assertSame($createReportRequest->ReportType, \MangoPay\ReportType::Wallets);
     }
 
-    function test_ReportRequest_Get()
+    public function test_ReportRequest_Get()
     {
         $reportRequest = new \MangoPay\ReportRequest();
         $reportRequest->ReportType = \MangoPay\ReportType::Transactions;
@@ -46,7 +44,7 @@ class ReportsTest extends Base
         $this->assertSame($getReportRequest->ReportType, $createReportRequest->ReportType);
     }
 
-    function test_ReportRequest_All()
+    public function test_ReportRequest_All()
     {
         $pagination = new \MangoPay\Pagination(1, 1);
 
@@ -56,7 +54,7 @@ class ReportsTest extends Base
         $this->assertInstanceOf('\MangoPay\ReportRequest', $getAllReportRequests[0]);
     }
 
-    function test_ReportRequest_All_SortByCreationDate()
+    public function test_ReportRequest_All_SortByCreationDate()
     {
         $pagination = new \MangoPay\Pagination(1, 1);
         $sorting = new \MangoPay\Sorting();

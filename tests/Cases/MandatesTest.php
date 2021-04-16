@@ -2,7 +2,6 @@
 
 namespace MangoPay\Tests\Cases;
 
-
 use MangoPay\MandateStatus;
 
 /**
@@ -10,8 +9,7 @@ use MangoPay\MandateStatus;
  */
 class MandatesTest extends Base
 {
-
-    function test_Mandates_Create()
+    public function test_Mandates_Create()
     {
         $john = $this->getJohn();
 
@@ -22,7 +20,7 @@ class MandatesTest extends Base
         $this->assertSame(MandateStatus::Created, $mandate->Status);
     }
 
-    function test_Mandates_Get()
+    public function test_Mandates_Get()
     {
         $john = $this->getJohn();
         $mandate = $this->getJohnsMandate();
@@ -33,7 +31,7 @@ class MandatesTest extends Base
         $this->assertEquals($john->Id, $getMandate->UserId);
     }
 
-    function test_Mandates_Cancel()
+    public function test_Mandates_Cancel()
     {
         $mandate = $this->getJohnsMandate();
 
@@ -46,7 +44,7 @@ class MandatesTest extends Base
         }
     }
 
-    function test_Mandates_GetAll()
+    public function test_Mandates_GetAll()
     {
         $this->getJohnsMandate();
 
@@ -56,7 +54,7 @@ class MandatesTest extends Base
         $this->assertTrue(count($mandates) > 0);
     }
 
-    function test_Mandate_GetTransactions()
+    public function test_Mandate_GetTransactions()
     {
         $mandate = $this->getJohnsMandate();
         $pagination = new \MangoPay\Pagination();
