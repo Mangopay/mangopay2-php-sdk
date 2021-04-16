@@ -10,10 +10,10 @@ class NaturalUserCapacity
     /**
      * Real customer
      */
-    public const Normal = 'NORMAL';
+    const Normal = 'NORMAL';
 
     /**
      * User used only for declaration purpose.
      */
-    public const Declarative = 'DECLARATIVE';
+    const Declarative = 'DECLARATIVE';
 }

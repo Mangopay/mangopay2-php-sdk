@@ -5,9 +5,11 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\BankAccount;
 use MangoPay\BankAccountDetailsIBAN;
 use MangoPay\Birthplace;
+use MangoPay\Libraries\Logs;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 
 set_time_limit(0);
 

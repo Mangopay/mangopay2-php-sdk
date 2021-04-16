@@ -4,6 +4,6 @@ namespace MangoPay;
 
 class ReportType
 {
-    public const Transactions = 'TRANSACTIONS';
-    public const Wallets = 'WALLETS';
+    const Transactions = 'TRANSACTIONS';
+    const Wallets = 'WALLETS';
 }

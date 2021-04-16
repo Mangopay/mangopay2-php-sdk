@@ -10,50 +10,50 @@ class CurrencyIso
     /**
     * Canadian dollar
     */
-    public const CAD = "CAD";
+    const CAD = "CAD";
 
     /**
     * Swiss franc
     */
-    public const CHF = "CHF";
+    const CHF = "CHF";
 
     /**
     * Danish krone
     */
-    public const DKK = "DKK";
+    const DKK = "DKK";
 
     /**
     * Euro
     */
-    public const EUR = "EUR";
+    const EUR = "EUR";
 
     /**
     * Pound sterling
     */
-    public const GBP = "GBP";
+    const GBP = "GBP";
 
     /**
     * Norwegian krone
     */
-    public const NOK = "NOK";
+    const NOK = "NOK";
 
     /**
     * Polish złoty
     */
-    public const PLN = "PLN";
+    const PLN = "PLN";
 
     /**
     * Swedish krona/kronor
     */
-    public const SEK = "SEK";
+    const SEK = "SEK";
 
     /**
     * United States dollar
     */
-    public const USD = "USD";
+    const USD = "USD";
 
     /**
     * South African rand
     */
-    public const ZAR = "ZAR";
+    const ZAR = "ZAR";
 }

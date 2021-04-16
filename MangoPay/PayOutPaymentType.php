@@ -7,5 +7,5 @@ namespace MangoPay;
  */
 class PayOutPaymentType
 {
-    public const BankWire = 'BANK_WIRE';
+    const BankWire = 'BANK_WIRE';
 }

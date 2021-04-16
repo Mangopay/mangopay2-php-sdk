@@ -10,10 +10,10 @@ class FundsType
     /**
     * Fees type
     */
-    public const FEES = "FEES";
+    const FEES = "FEES";
 
     /**
      * Credit type
      */
-    public const CREDIT = "CREDIT";
+    const CREDIT = "CREDIT";
 }

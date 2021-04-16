@@ -21,8 +21,7 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8.36 || ^5.7.27 || 7.3",
-    "simpletest/simpletest": "^1.2",
+    "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^7.3",
     "friendsofphp/php-cs-fixer": "^2.18"
   }
 }

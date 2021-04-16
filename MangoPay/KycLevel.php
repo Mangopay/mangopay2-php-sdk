@@ -7,6 +7,6 @@ namespace MangoPay;
  */
 class KycLevel
 {
-    public const Light = 'LIGHT';
-    public const Regular = 'REGULAR';
+    const Light = 'LIGHT';
+    const Regular = 'REGULAR';
 }

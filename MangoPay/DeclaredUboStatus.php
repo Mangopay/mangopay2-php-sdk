@@ -10,15 +10,15 @@ class DeclaredUboStatus
     /**
      * When declaration of a UBO was created
      */
-    public const Created = 'CREATED';
+    const Created = 'CREATED';
 
     /**
      * When declaration of a UBO was validated
      */
-    public const Validated = 'VALIDATED';
+    const Validated = 'VALIDATED';
 
     /**
      * When declaration of a UBO was refused
      */
-    public const Refused = 'REFUSED';
+    const Refused = 'REFUSED';
 }

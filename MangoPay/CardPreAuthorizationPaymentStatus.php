@@ -7,8 +7,8 @@ namespace MangoPay;
  */
 class CardPreAuthorizationPaymentStatus
 {
-    public const Canceled = 'CANCELED';
-    public const Expired = 'EXPIRED';
-    public const Validated = 'VALIDATED';
-    public const Waiting = 'WAITING';
+    const Canceled = 'CANCELED';
+    const Expired = 'EXPIRED';
+    const Validated = 'VALIDATED';
+    const Waiting = 'WAITING';
 }

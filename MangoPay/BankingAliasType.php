@@ -7,5 +7,5 @@ namespace MangoPay;
  */
 class BankingAliasType
 {
-    public const IBAN = "IBAN";
+    const IBAN = "IBAN";
 }

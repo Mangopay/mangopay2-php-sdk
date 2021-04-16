@@ -7,7 +7,7 @@ namespace MangoPay;
  */
 class CardRegistrationStatus
 {
-    public const Created = 'CREATED';
-    public const Validated = 'VALIDATED';
-    public const Error = 'ERROR';
+    const Created = 'CREATED';
+    const Validated = 'VALIDATED';
+    const Error = 'ERROR';
 }

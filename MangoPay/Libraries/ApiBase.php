@@ -190,7 +190,6 @@ abstract class ApiBase
         'ubo_create' => ['/users/%s/kyc/ubodeclarations/%s/ubos', RequestType::POST],
         'ubo_update' => ['/users/%s/kyc/ubodeclarations/%s/ubos/%s', RequestType::PUT],
         'ubo_get' => ['/users/%s/kyc/ubodeclarations/%s/ubos/%s', RequestType::GET],
-        'ubo_declaration_get_by_id' => ['/kyc/ubodeclarations/%s', RequestType::GET],
 
         'transactions_get_for_mandate' => ['/mandates/%s/transactions', RequestType::GET],
         'transactions_get_for_card' => ['/cards/%s/transactions', RequestType::GET],

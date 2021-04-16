@@ -7,8 +7,8 @@ namespace MangoPay;
  */
 class BusinessType
 {
-    public const MARKETPLACE = "MARKETPLACE";
-    public const CROWDFUNDING = "CROWDFUNDING";
-    public const FRANCHISE = "FRANCHISE";
-    public const OTHER = "OTHER";
+    const MARKETPLACE = "MARKETPLACE";
+    const CROWDFUNDING = "CROWDFUNDING";
+    const FRANCHISE = "FRANCHISE";
+    const OTHER = "OTHER";
 }

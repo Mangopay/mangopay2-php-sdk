@@ -3,6 +3,7 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\Libraries\Exception;
+use MangoPay\Libraries\Logs;
 use MangoPay\Libraries\ResponseException;
 
 /**
@@ -109,27 +110,20 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($user1, $john);
     }
 
-    /**
-     *
-     * @expectedException ResponseException
-     */
     public function test_Users_GetNatural_FailsForLegalUser()
     {
         $matrix = $this->getMatrix();
-//        $this->expectException(Exception::class);
+        $this->expectException(ResponseException::class);
 
         $user = $this->_api->Users->GetNatural($matrix->Id);
 
         $this->fail("GetNatural should fail when called with legal user id");
     }
 
-    /**
-     * @expectedException ResponseException
-     */
     public function test_Users_GetLegal_FailsForNaturalUser()
     {
         $john = $this->getJohn();
-//        $this->expectException(Exception::class);
+        $this->expectException(ResponseException::class);
 
         $user = $this->_api->Users->GetLegal($john->Id);
 
@@ -808,7 +802,7 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
             $naturalUser->Nationality = "FR";
             $naturalUser->CountryOfResidence = "ZA";
             $naturalUserResult = $this->_api->Users->Create($naturalUser); // display result
-            \MangoPay\Libraries\Logs::Debug('CREATED NATURAL USER', $naturalUserResult);
+            Logs::Debug('CREATED NATURAL USER', $naturalUserResult);
             // CREATE LEGAL USER
             $legalUser = new \MangoPay\UserLegal();
             $legalUser->Name = 'Name Legal Test';
@@ -821,15 +815,15 @@ MiIQCIRtVCmYKgZSCAQCgbAdkIJPDGdJiMEnBIohEAgEwnZACoifCcXghhDCB0khEAgEQnxkR2i9rxFq
             $legalUser->LegalRepresentativeCountryOfResidence = "ZA";
             $legalUserResult = $this->_api->Users->Create($legalUser);
             // display result
-            \MangoPay\Libraries\Logs::Debug('CREATED LEGAL USER', $legalUserResult);
+            Logs::Debug('CREATED LEGAL USER', $legalUserResult);
 
             $this->assertEquals($naturalUserResult->Email, $naturalUser->Email);
         } catch (ResponseException $e) {
-            \MangoPay\Libraries\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
-            \MangoPay\Libraries\Logs::Debug('Message', $e->GetMessage());
-            \MangoPay\Libraries\Logs::Debug('Details', $e->GetErrorDetails());
+            Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
+            Logs::Debug('Message', $e->GetMessage());
+            Logs::Debug('Details', $e->GetErrorDetails());
         } catch (\MangoPay\Libraries\Exception $e) {
-            \MangoPay\Libraries\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
+            Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
         }
     }
 

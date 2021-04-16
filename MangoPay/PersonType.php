@@ -7,6 +7,6 @@ namespace MangoPay;
  */
 class PersonType
 {
-    public const Natural = 'NATURAL';
-    public const Legal = 'LEGAL';
+    const Natural = 'NATURAL';
+    const Legal = 'LEGAL';
 }

@@ -7,7 +7,7 @@ namespace MangoPay;
  */
 class DisputeType
 {
-    public const Contestable = "CONTESTABLE";
-    public const NotContestable = "NOT_CONTESTABLE";
-    public const Retrieval = "RETRIEVAL";
+    const Contestable = "CONTESTABLE";
+    const NotContestable = "NOT_CONTESTABLE";
+    const Retrieval = "RETRIEVAL";
 }

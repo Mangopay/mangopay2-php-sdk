@@ -2,6 +2,7 @@
 
 namespace MangoPay\Libraries;
 
+use MangoPay\MangoPayApi;
 use MangoPay\RateLimit;
 use Psr\Log\LoggerInterface;
 
@@ -10,11 +11,11 @@ use Psr\Log\LoggerInterface;
  */
 class RestTool
 {
-    public const VERSION = '3.3.0';
+    const VERSION = '3.3.0';
 
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance
-     * @var \MangoPay\MangoPayApi
+     * @var MangoPayApi
      */
     private $_root;
     /**
@@ -94,7 +95,7 @@ class RestTool
 
     /**
      * Constructor
-     * @param \MangoPay\MangoPayApi $root Root/parent instance that holds the OAuthToken and Configuration instance
+     * @param MangoPayApi $root Root/parent instance that holds the OAuthToken and Configuration instance
      * @param bool $authRequired Variable to flag that in request the authentication data are required
      */
     public function __construct($root, $authRequired = true)

@@ -4,10 +4,10 @@ namespace MangoPay;
 
 final class TransactionNature
 {
-    public const Regular = 'REGULAR';
-    public const Refund = 'REFUND';
-    public const Repudiation = 'REPUDIATION';
-    public const Settlement = 'SETTLEMENT';
+    const Regular = 'REGULAR';
+    const Refund = 'REFUND';
+    const Repudiation = 'REPUDIATION';
+    const Settlement = 'SETTLEMENT';
 
     private function __construct()
     {

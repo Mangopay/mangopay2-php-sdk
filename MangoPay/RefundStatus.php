@@ -4,9 +4,9 @@ namespace MangoPay;
 
 final class RefundStatus
 {
-    public const Created = 'CREATED';
-    public const Succeeded = 'SUCCEEDED';
-    public const Failed = 'FAILED';
+    const Created = 'CREATED';
+    const Succeeded = 'SUCCEEDED';
+    const Failed = 'FAILED';
 
     private function __construct()
     {
