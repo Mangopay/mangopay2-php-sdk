@@ -1,6 +1,6 @@
 <?php
 
-namespace MangoPay\Tests\cases;
+namespace MangoPay\Tests\Cases;
 
 
 class RateLimitTest extends Base

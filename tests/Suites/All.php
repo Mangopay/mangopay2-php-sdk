@@ -1,9 +1,9 @@
 <?php
 
-namespace MangoPay\Tests;
+namespace MangoPay\Tests\Suites;
 
-require_once '../../vendor/autoload.php';
-require_once '../../vendor/simpletest/simpletest/autorun.php';
+require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__.'/../../vendor/simpletest/simpletest/autorun.php';
 
 /**
  * Runs all test cases
@@ -12,7 +12,7 @@ class All extends \TestSuite {
 
     function __construct() {
         parent::__construct();
-        $this->collect('../cases', new TestCasesCollector());
+        $this->collect(__DIR__.'/../Cases', new TestCasesCollector());
     }
 }
 

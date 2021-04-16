@@ -4,10 +4,10 @@ namespace MangoPay\Tests\Mocks;
 /**
  * Storage strategy implementation for tests
  */
-class MockStorageStrategy implements \MangoPay\Libraries\IStorageStrategy {
-    
+class MockStorageStrategy implements IStorageStrategy {
+
     private static $_oAuthToken = null;
-    
+
     /**
      * Gets the current authorization token.
      * @return \MangoPay\Libraries\OAuthToken Currently stored token instance or null.
