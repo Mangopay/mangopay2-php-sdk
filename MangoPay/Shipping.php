@@ -28,7 +28,6 @@ class Shipping
      */
     public function GetSubObjects()
     {
-        $subObjects = parent::GetSubObjects();
         $subObjects['Address'] = '\MangoPay\Address';
 
         return $subObjects;
