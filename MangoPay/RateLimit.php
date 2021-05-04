@@ -23,9 +23,9 @@ class RateLimit
     public $CallsRemaining;
 
     /**
-     * @var integer the time in millis when the number of allowed calls in this time interval will be reset.
+     * @var integer the time in unix timestamp when the number of allowed calls in this time interval will be reset.
      */
-    public $ResetTimeMillis;
+    public $ResetTimeTimestamp;
 
     /**
      * RateLimit constructor.
