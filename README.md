@@ -251,6 +251,7 @@ So there are 4 groups of rate limits available:
 4. Last 24 hours
 
 This information is available from the MangoPayApi instance, like in the following example:
+
 ```php
 <?php
 
@@ -282,10 +283,10 @@ class MangoPayService
         $rateLimits = $this->mangoPayApi->RateLimits;
         print "There were " . $rateLimits[0]->CallsMade . " calls made in the last 15 minutes\n";
         print "You can do " . $rateLimits[0]->CallsRemaining . " more calls in the next 15 minutes\n";
-        print "The 15 minutes counter will reset in " . $rateLimits[0]->ResetTimeMillis . " ms\n\n";
+        print "The 15 minutes counter will reset in " . $rateLimits[0]->ResetTimeTimestamp . " ms\n\n";
         print "There were " . $rateLimits[2]->CallsMade . " calls made in the last 60 minutes\n";
         print "You can do " . $rateLimits[2]->CallsRemaining . " more calls in the next 60 minutes\n";
-        print "The 60 minutes counter will reset in " . $rateLimits[1]->ResetTimeMillis . " ms\n\n";
+        print "The 60 minutes counter will reset in " . $rateLimits[1]->ResetTimeTimestamp . " ms\n\n";
     }
 }
 
