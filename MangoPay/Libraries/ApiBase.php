@@ -27,7 +27,7 @@ abstract class ApiBase
      */
     private $_methods = array(
         'authentication_base' => array('/clients/', RequestType::POST),
-        'authentication_oauth' => array('/oauth/token', RequestType::POST),
+        'authentication_oauth' => array('/oauth/token/', RequestType::POST),
 
         'responses_get' => array('/responses/%s', RequestType::GET),
 
