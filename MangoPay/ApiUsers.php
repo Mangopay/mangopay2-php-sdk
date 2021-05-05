@@ -288,31 +288,28 @@ class ApiUsers extends Libraries\ApiBase
      * @param string $userId User Id
      * @param string $kycDocumentId KYC Document Id
      * @param \MangoPay\KycPage $kycPage KYC Page
-     * @return bool `true` if the upload was successful, `false` otherwise
+     * @return true always true. If an error occurred, a \MangoPay\Libraries\Exception is thrown
      * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey = null)
     {
-        $uploaded = false;
         try {
-            $response = $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId, $idempotencyKey);
-            $uploaded = true;
+            $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId, $idempotencyKey);
         } catch (\MangoPay\Libraries\ResponseException $exc) {
             if ($exc->getCode() != 204) {
                 throw $exc;
-            } else {
-                $uploaded = true;
             }
         }
-        return $uploaded;
+
+        return true;
     }
 
     /**
      * Create page for Kyc document from file
      * @param string $userId User Id
-     * @param int $kycDocumentId KYC Document Id
+     * @param string $kycDocumentId KYC Document Id
      * @param string $filePath File path
-     * @return bool `true` if the upload was successful, `false` otherwise
+     * @return true always true. If an error occurred, a \MangoPay\Libraries\Exception is thrown
      * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPageFromFile($userId, $kycDocumentId, $filePath, $idempotencyKey = null)
