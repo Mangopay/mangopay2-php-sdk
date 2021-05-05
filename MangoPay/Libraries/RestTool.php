@@ -269,9 +269,9 @@ class RestTool
                     $updatedRateLimits = $this->initRateLimits();
                 }
                 $rateLimit = $this->findFirstRateLimitMatchingPredicate($updatedRateLimits, function ($rate) {
-                    return $rate->ResetTimeMillis == null;
+                    return $rate->ResetTimeTimestamp == null;
                 });
-                $rateLimit->ResetTimeMillis = (int)trim(str_replace('x-ratelimit-reset:', '', $lowercaseHeader));
+                $rateLimit->ResetTimeTimestamp = (int)trim(str_replace('x-ratelimit-reset:', '', $lowercaseHeader));
             }
         }
 

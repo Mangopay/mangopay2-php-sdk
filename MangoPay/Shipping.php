@@ -2,7 +2,7 @@
 
 namespace MangoPay;
 
-class Shipping
+class Shipping extends Libraries\Dto
 {
     /**
      * The First Name for Billing Address
@@ -28,6 +28,7 @@ class Shipping
      */
     public function GetSubObjects()
     {
+        $subObjects = parent::GetSubObjects();
         $subObjects['Address'] = '\MangoPay\Address';
 
         return $subObjects;

@@ -25,9 +25,9 @@ abstract class ApiBase
      * Array with REST url and request type
      * @var array
      */
-    private $_methods = [
-        'authentication_base' => ['/clients/', RequestType::POST],
-        'authentication_oauth' => ['/oauth/token', RequestType::POST],
+    private $_methods = array(
+        'authentication_base' => array('/clients/', RequestType::POST),
+        'authentication_oauth' => array('/oauth/token/', RequestType::POST),
 
         'responses_get' => ['/responses/%s', RequestType::GET],
 
