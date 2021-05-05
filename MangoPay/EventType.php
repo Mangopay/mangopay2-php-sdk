@@ -67,4 +67,7 @@ class EventType
     const UserInflowsUnblocked = "USER_INFLOWS_UNBLOCKED";
     const UserOutflowsBlocked = "USER_OUTFLOWS_BLOCKED";
     const UserOutflowsUnblocked = "USER_OUTFLOWS_UNBLOCKED";
+    const PreAuthorizationCreated = "PREAUTHORIZATION_CREATED";
+    const PreAuthorizationSucceeded = "PREAUTHORIZATION_SUCCEEDED";
+    const PreAuthorizationFailed = "PREAUTHORIZATION_FAILED";
 }
