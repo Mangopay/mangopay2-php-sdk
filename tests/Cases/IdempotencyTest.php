@@ -29,7 +29,6 @@ class IdempotencyTest extends Base
         $user = $this->buildJohn();
         $user1 = $this->_api->Users->Create($user);
         $user1 = $this->_api->Users->Create($user, $idempotencyKey);
-//        $this->expectException('MangoPay\Libraries\ResponseException');
         $user2 = $this->_api->Users->Create($user, $idempotencyKey);
         $this->assertTrue($user2 = null);
     }
