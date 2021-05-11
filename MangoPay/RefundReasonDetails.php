@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,7 +12,7 @@ class RefundReasonDetails extends Libraries\Dto
      * @var string
      */
     public $RefundReasonMessage;
-    
+
     /**
      * Type of refund reason
      * @var string

@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -28,7 +29,7 @@ class EventType
     const PayoutRefundFailed = "PAYOUT_REFUND_FAILED";
     const TransferRefundCreated = "TRANSFER_REFUND_CREATED";
     const TransferRefundSucceeded = "TRANSFER_REFUND_SUCCEEDED";
-    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";    
+    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
     const PayinRepudiationCreated = "PAYIN_REPUDIATION_CREATED";
     const PayinRepudiationSucceeded = "PAYIN_REPUDIATION_SUCCEEDED";
     const PayinRepudiationFailed = "PAYIN_REPUDIATION_FAILED";

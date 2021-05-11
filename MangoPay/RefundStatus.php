@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 final class RefundStatus
@@ -7,5 +8,7 @@ final class RefundStatus
     const Succeeded = 'SUCCEEDED';
     const Failed = 'FAILED';
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 }

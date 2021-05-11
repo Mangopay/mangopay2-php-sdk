@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -12,12 +13,11 @@ class PayInCardTemplateURLOptions extends Libraries\Dto
      * @var string
      */
     public $PAYLINE;
-    
+
     /**
      * PAYLINEV2 options
      *
      * @var string
      */
     public $PAYLINEV2;
-    
 }

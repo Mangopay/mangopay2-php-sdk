@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -24,4 +25,3 @@ class DisputeReasonType
     const RefundNotProcessed = "REFUND_NOT_PROCESSED";
     const CounterfeitProduct = "COUNTERFEIT_PRODUCT";
 }
-

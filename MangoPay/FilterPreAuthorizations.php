@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,7 +7,6 @@ namespace MangoPay;
  */
 class FilterPreAuthorizations extends Libraries\Dto
 {
-
     /**
      * @var string
      */

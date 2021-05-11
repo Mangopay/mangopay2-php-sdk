@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 use Psr\Log\LoggerInterface;
@@ -239,7 +240,7 @@ class MangoPayApi
     {
         return $this->logger;
     }
-    
+
     /**
      * @return Libraries\Configuration
      */
@@ -259,7 +260,7 @@ class MangoPayApi
     /**
      * @param \MangoPay\Libraries\HttpBase $httpClient
      */
-    public function setHttpClient(\MangoPay\Libraries\HttpBase $httpClient)
+    public function setHttpClient(Libraries\HttpBase $httpClient)
     {
         $this->httpClient = $httpClient;
     }

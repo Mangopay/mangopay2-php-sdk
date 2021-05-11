@@ -13,17 +13,17 @@ abstract class EntityBase extends Dto
      * At this moment, identifier is a numeric string - in the future, will be GUID.
      */
     public $Id;
-    
+
     /**
      * @var string Custom data
      */
     public $Tag;
-    
+
     /**
      * @var int Unix timestamp, Date of creation
      */
     public $CreationDate;
-    
+
     /**
      * Construct
      * @param string $id Entity identifier
@@ -32,13 +32,13 @@ abstract class EntityBase extends Dto
     {
         $this->Id = $id;
     }
-    
+
     /**
      * Get array with read-only properties
      * @return array
      */
     public function GetReadOnlyProperties()
     {
-        return array( 'Id', 'CreationDate' );
+        return [ 'Id', 'CreationDate' ];
     }
 }

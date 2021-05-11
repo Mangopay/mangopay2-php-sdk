@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -12,9 +13,9 @@ class PayInPaymentDetailsDirectDebitDirect extends Libraries\Dto implements PayI
      */
     public $MandateId;
 
-	 /**
-     * StatementDescriptor
-     * @var string
-     */
-     public $StatementDescriptor;
+    /**
+    * StatementDescriptor
+    * @var string
+    */
+    public $StatementDescriptor;
 }

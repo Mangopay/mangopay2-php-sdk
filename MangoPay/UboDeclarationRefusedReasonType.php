@@ -16,5 +16,4 @@ class UboDeclarationRefusedReasonType
      * When at least one natural user should not be declared as UBO
      */
     const DeclarationDoNotMatchUboInformation = 'DECLARATION_DO_NOT_MATCH_UBO_INFORMATION';
-
 }

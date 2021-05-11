@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -8,9 +9,9 @@ class FundsType
 {
     /**
     * Fees type
-    */ 
+    */
     const FEES = "FEES";
-    
+
     /**
      * Credit type
      */

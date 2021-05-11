@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay\Libraries;
 
 /**
@@ -9,12 +10,12 @@ class DefaultStorageStrategy implements IStorageStrategy
     private $_prefixContent = '<?php exit(); ?>';
     private $_fileName = 'MangoPaySdkStorage.tmp.php';
     private $_config;
-    
+
     public function __construct($config)
     {
         $this->_config = $config;
     }
-    
+
     /**
      * Gets the current authorization token.
      * @return \MangoPay\Libraries\OAuthToken Currently stored token instance or null.
@@ -25,12 +26,12 @@ class DefaultStorageStrategy implements IStorageStrategy
         if (!file_exists($filename)) {
             return null;
         }
-        
+
         $data = file_get_contents($filename);
         if ($data === false) {
             return null;
         }
-        
+
         $serialized = str_replace($this->_prefixContent, '', $data);
         return unserialize($serialized);
     }
@@ -44,14 +45,14 @@ class DefaultStorageStrategy implements IStorageStrategy
         if (!is_writable($this->GetPathToTemporaryFolder())) {
             throw new \MangoPay\Libraries\Exception('Cannot create or write to file ' . $this->GetPathToTemporaryFolder());
         }
-        
+
         $serialized = serialize($token);
         $result = file_put_contents($this->GetPathToFile(), $this->_prefixContent . $serialized, LOCK_EX);
         if ($result === false) {
             throw new \MangoPay\Libraries\Exception('Cannot put token to file');
         }
     }
-    
+
     /**
      * Get path to storage file
      * @return string
@@ -60,7 +61,7 @@ class DefaultStorageStrategy implements IStorageStrategy
     {
         return $this->GetPathToTemporaryFolder() . DIRECTORY_SEPARATOR . $this->_fileName;
     }
-    
+
     /**
      * Get path to temporary folder
      * @return string
@@ -70,7 +71,7 @@ class DefaultStorageStrategy implements IStorageStrategy
         if (is_null($this->_config->TemporaryFolder)) {
             throw new \MangoPay\Libraries\Exception('Path to temporary folder is not defined');
         }
-        
+
         return $this->_config->TemporaryFolder;
     }
 }

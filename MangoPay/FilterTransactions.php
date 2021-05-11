@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,13 +12,13 @@ class FilterTransactions extends FilterBase
      * @see \MangoPay\TransactionStatus
      */
     public $Status;
-    
+
     /**
      * @var string
      * @see \MangoPay\TransactionType
      */
     public $Type;
-    
+
     /**
      * @var string
      * @see \MangoPay\TransactionNature

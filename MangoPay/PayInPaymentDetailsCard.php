@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,13 +12,13 @@ class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetai
      * @var string
      */
     public $CardType;
-    
+
     /**
      * CardId
      * @var string
      */
     public $CardId;
-    
+
     /**
      * StatementDescriptor
      * @var string

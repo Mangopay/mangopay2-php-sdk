@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,19 +12,19 @@ class BankAccountDetailsCA extends Libraries\Dto implements BankAccountDetails
      * @var string
      */
     public $BankName;
-    
+
     /**
      * Institution number
      * @var string
      */
     public $InstitutionNumber;
-    
+
     /**
      * Branch code
      * @var string
      */
     public $BranchCode;
-    
+
     /**
      * Account number
      * @var string

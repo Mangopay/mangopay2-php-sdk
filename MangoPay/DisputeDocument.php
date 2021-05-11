@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,14 +12,14 @@ class DisputeDocument extends Libraries\Document
      * @var string
      */
     public $DisputeId;
-	
+
     /**
      * Type of dispute document
      * @var string
      * @see \MangoPay\DisputeDocumentType
      */
     public $Type;
-    
+
     /**
      * Status of dispute document
      * @var string

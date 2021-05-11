@@ -7,14 +7,13 @@ namespace MangoPay;
  */
 class DisputeReason extends Libraries\Dto
 {
-    
     /**
      * Dispute's reason type
      * @var string
      * @see \MangoPay\DisputeReasonType
      */
     public $DisputeReasonType;
-    
+
     /**
      * Dispute's reason message
      * @var string

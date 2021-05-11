@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 class CardValidity

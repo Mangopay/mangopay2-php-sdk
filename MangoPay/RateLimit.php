@@ -2,11 +2,8 @@
 
 namespace MangoPay;
 
-
 class RateLimit
 {
-
-
     /**
      * @var integer the number of minutes in this time interval.
      */
