@@ -1,4 +1,40 @@
-# [3.3.0] - 2021-03-25
+## [3.4.0] - 2021-05-11
+## Fixed
+
+### IBAN for testing purposes
+
+⚠️ **IBAN provided for testing purpose should never be used outside of a testing environement!**
+
+More information about how to test payments, click [here](https://docs.mangopay.com/guide/testing-payments).
+
+### Others
+
+- Fix Shipping was missing Libraries\Dto thank you @ericabouaf
+- Fix `BankAccount` IBAN reference for tests
+- FIX path oauth/token erreur 404 url not found. Thank you @rachedbelhadj
+
+## Added
+
+### New events for PreAuthorization
+
+Some of you use a lot the [PreAuthorization](https://docs.mangopay.com/endpoints/v2.01/preauthorizations#e183_the-preauthorization-object) feature of our API. To make your life easier, we have added three new events :
+
+- PREAUTHORIZATION_CREATED
+- PREAUTHORIZATION_SUCCEEDED
+- PREAUTHORIZATION_FAILED
+
+The goal is to help you monitor a PreAuthorization with a [webhook](https://docs.mangopay.com/endpoints/v2.01/hooks#e246_the-hook-object).
+
+*Example: If a PreAuthorization is desynchronized, when the status is updated, you will be able to know it.*
+
+### PSR4 / PSR12 compliance
+
+- Thanks to @MockingMagician, the SDK is PSR4 / PSR12 compliant. That help your IDE and make sure you can run tests on case-sensitive system. Plus, docker environments has been added to run tests locally in all PHP major versions.
+
+## Changed
+- To better illustrate the fact that Rate Limiting Reset is a timestamp, we have change $rateLimits[0]->ResetTimeMillis to $rateLimits[0]->ResetTimeTimestamp
+
+## [3.3.0] - 2021-03-25
 ## Added
 
 ### On demand feature for 3DSv2
