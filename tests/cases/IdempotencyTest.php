@@ -5,7 +5,7 @@ namespace MangoPay\Tests\Cases;
 
 /**
  * Tests methods for idempotency support
- * See https://docs.mangopay.com/api-references/idempotency-support/
+ * See https://docs.mangopay.com/guide/idempotency-support/
  */
 class IdempotencyTest extends Base
 {
@@ -88,9 +88,9 @@ class IdempotencyTest extends Base
         $hook->EventType = \MangoPay\EventType::PayinRefundFailed;
         $hook->Url = "http://test.com";
         $this->_api->Hooks->Create($hook, $key);
-        
+
         $resp = $this->_api->Responses->Get($key);
-        
+
         $this->assertInstanceOf($resp->Resource, '\MangoPay\Hook');
     }*/
 

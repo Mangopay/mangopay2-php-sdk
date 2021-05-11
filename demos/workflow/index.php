@@ -7,24 +7,24 @@ require_once("inc/config.php");
 $stepId = isset($_GET["stepId"]) ? (int) $_GET["stepId"] : 0;
 $steps = array();
 $steps[] = array("step"=>"Welcome", "file"=>"intro.php", "docsLink"=>"");
-$steps[] = array("step"=>"Setup Client credentials", "file"=>"client.php", "docsLink"=>"sandbox-credentials/");
-$steps[] = array("step"=>"Create Natural User", "file"=>"user-create-natural.php", "docsLink"=>"users/natural-users/");
+$steps[] = array("step"=>"Setup Client credentials", "file"=>"client.php", "docsLink"=>"#");
+$steps[] = array("step"=>"Create Natural User", "file"=>"user-create-natural.php", "docsLink"=>"users#e255_create-a-natural-user");
 $steps[] = array("step"=>"Create Wallet for Natural User", "file"=>"wallet-create.php", "docsLink"=>"wallets/");
-$steps[] = array("step"=>"Create Legal User", "file"=>"user-create-legal.php", "docsLink"=>"users/legal-users/");
+$steps[] = array("step"=>"Create Legal User", "file"=>"user-create-legal.php", "docsLink"=>"users#e259_create-a-legal-user");
 $steps[] = array("step"=>"Create Wallet for Legal User", "file"=>"wallet-create2.php", "docsLink"=>"wallets/");
-$steps[] = array("step"=>"Create PayIn Card Web", "file"=>"payin-card-web.php", "docsLink"=>"payins/payins-card-web/");
+$steps[] = array("step"=>"Create PayIn Card Web", "file"=>"payin-card-web.php", "docsLink"=>"payins#e269_create-a-card-web-payin");
 $steps[] = array("step"=>"Review PayIn Card Web", "file"=>"payin-card-web-review.php", "checkResult"=>true, "docsLink"=>"payins/");
-$steps[] = array("step"=>"Create Card Registration", "file"=>"card-reg.php", "docsLink"=>"card-registration/");
-$steps[] = array("step"=>"Finish Card Registration", "file"=>"card-reg-put.php", "checkResult"=>true, "docsLink"=>"card-registration/");
-$steps[] = array("step"=>"Do PayIn Card Direct", "file"=>"payin-card-direct.php", "checkResult"=>true, "docsLink"=>"payins/payindirectcard/");
-$steps[] = array("step"=>"Setup a PreAuth", "file"=>"preauth.php", "checkResult"=>true, "docsLink"=>"card/pre-authorization/");
-$steps[] = array("step"=>"Do a PayIn PreAuth", "file"=>"payin-card-preauth.php", "checkResult"=>true, "docsLink"=>"payins/preauthorized-payin/");
-$steps[] = array("step"=>"Do a PayIn Refund", "file"=>"refund-payin.php", "checkResult"=>true, "docsLink"=>"refund/%e2%80%a2-refund-a-pay-in/");
+$steps[] = array("step"=>"Create Card Registration", "file"=>"card-reg.php", "docsLink"=>"cards#e177_the-card-registration-object");
+$steps[] = array("step"=>"Finish Card Registration", "file"=>"card-reg-put.php", "checkResult"=>true, "docsLink"=>"cards#e179_update-a-card-registration");
+$steps[] = array("step"=>"Do PayIn Card Direct", "file"=>"payin-card-direct.php", "checkResult"=>true, "docsLink"=>"payins#e278_create-a-card-direct-payin");
+$steps[] = array("step"=>"Setup a PreAuth", "file"=>"preauth.php", "checkResult"=>true, "docsLink"=>"preauthorizations#e183_the-preauthorization-object");
+$steps[] = array("step"=>"Do a PayIn PreAuth", "file"=>"payin-card-preauth.php", "checkResult"=>true, "docsLink"=>"payins#e279_create-a-card-preauthorized-payin");
+$steps[] = array("step"=>"Do a PayIn Refund", "file"=>"refund-payin.php", "checkResult"=>true, "docsLink"=>"refunds#e191_create-a-payin-refund");
 $steps[] = array("step"=>"Do a Transfer", "file"=>"transfer.php", "checkResult"=>true, "docsLink"=>"transfers/");
 $steps[] = array("step"=>"Create a Bank Account (of IBAN type)", "file"=>"bankaccount.php", "docsLink"=>"bank-accounts/");
-$steps[] = array("step"=>"Do a PayOut", "file"=>"payout.php", "docsLink"=>"pay-out-bank-wire/");
-$steps[] = array("step"=>"Submit a KYC Document", "file"=>"kyc.php", "docsLink"=>"kyc/");
-$steps[] = array("step"=>"Do a Transfer Refund", "file"=>"refund-transfer.php", "checkResult"=>true, "docsLink"=>"refund/%e2%80%a2-refund-a-transfer/");
+$steps[] = array("step"=>"Do a PayOut", "file"=>"payout.php", "docsLink"=>"payouts/");
+$steps[] = array("step"=>"Submit a KYC Document", "file"=>"kyc.php", "docsLink"=>"kyc-documents/");
+$steps[] = array("step"=>"Do a Transfer Refund", "file"=>"refund-transfer.php", "checkResult"=>true, "docsLink"=>"refunds#e189_create-a-transfer-refund");
 $steps[] = array("step"=>"Finished", "file"=>"end.php", "docsLink"=>"");
 
 $totalStepsIndex = count($steps)-1;
@@ -32,7 +32,7 @@ $totalStepsIndex = count($steps)-1;
 if (isset($_POST["SetUpClientCreds"])) {
 	$_SESSION["MangoPayDemoConfig"]["ClientId"] = $_POST["ClientId"];
 	$_SESSION["MangoPayDemoConfig"]["Password"] = $_POST["Password"];
-	header("Location: index.php?stepId=".($stepId+1));	
+	header("Location: index.php?stepId=".($stepId+1));
 	die();
 }
 
@@ -54,8 +54,8 @@ function getDemoScript($stepId) {
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <title>MANGOPAY Demo workflow</title>
-        <link href="//fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css"> 
-        <link href="style.css" rel="stylesheet" type="text/css"> 
+        <link href="//fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" type="text/css">
+        <link href="style.css" rel="stylesheet" type="text/css">
 		<link href="syntaxhighlighter/shThemeDefault.css" rel="stylesheet" type="text/css" />
         <style>
             .flyer span {
@@ -79,21 +79,23 @@ function getDemoScript($stepId) {
     	<div id="loading"><div></div></div>
     	<div id="main">
     		<div class="header"></div>
-    		<div class="container">    			
+    		<div class="container">
 <?php
 if (empty($_SESSION["MangoPayDemo"]) && $stepId>2) {
 	echo "<br><div class='notice'>The demo has either been finished or has timed out - please <a href='index.php'>start again</a></div><br>";
-	
+
 }elseif (in_array($stepId, array_keys($steps))) {
 	?>
 	<div class="flyer"><span></span></div>
-	
-	<a href="https://docs.mangopay.com/api-references/<?php echo $steps[$stepId]["docsLink"]; ?>" class="next docs" target="_blank"><?php echo $steps[$stepId]["docsLink"] ? "View docs for this method" : "View full docs"; ?></a>
-	
+
+	<?php if ($stepId != 1): ?>
+		<a href="https://docs.mangopay.com/endpoints/v2.01/<?php echo $steps[$stepId]["docsLink"]; ?>" class="next docs" target="_blank"><?php echo $steps[$stepId]["docsLink"] ? "View docs for this method" : "View full docs"; ?></a>
+	<?php endif; ?>
+
 	<h1><?php echo $steps[$stepId]["step"]; ?></h1>
-	
+
 	<div class="containerInner">
-	<?php 
+	<?php
 	$apiError = false;
 	try {
 		if ($stepId>1 && $stepId<$totalStepsIndex) {
@@ -103,21 +105,21 @@ if (empty($_SESSION["MangoPayDemo"]) && $stepId>2) {
 			echo "<br>";
 			echo "<h2>Returned object</h2>";
 		}
-		include("scripts/".$steps[$stepId]["file"]); 
-		
+		include("scripts/".$steps[$stepId]["file"]);
+
 	} catch (MangoPay\Libraries\ResponseException $e) {
     	$apiError = true;
 	    MangoPay\Libraries\Logs::Debug('MangoPay\ResponseException Code', $e->GetCode());
 	    MangoPay\Libraries\Logs::Debug('Message', $e->GetMessage());
 	    MangoPay\Libraries\Logs::Debug('Details', $e->GetErrorDetails());
-	    
+
 	} catch (MangoPay\Libraries\Exception $e) {
 	    $apiError = true;
 	    MangoPay\Libraries\Logs::Debug('MangoPay\Exception Message', $e->GetMessage());
 	}
 	?>
-	
-	<?php 
+
+	<?php
 	if ($apiError) {
 		echo "<div class='notice'>The API call failed :-(</div>";
 	}else{
@@ -128,10 +130,10 @@ if (empty($_SESSION["MangoPayDemo"]) && $stepId>2) {
 			if (isset($nextButton["url"])) echo "<a href='".$nextButton["url"]."' class='next customButton' onclick='addActive(this)'>".$nextButton["text"]."</a>";
 		}elseif (isset($steps[$stepId]["checkResult"]) && !in_array($result->Status, array("VALIDATED", "SUCCEEDED"))) {
 			echo "<div class='notice'>The previous call is <i>".$result->Status."</i> beacuse of <i>".$result->ResultMessage."</i> so you can not carry on with the demo</div>";
-		}elseif ($stepId<$totalStepsIndex) { 
+		}elseif ($stepId<$totalStepsIndex) {
 			echo "<a href='index.php?stepId=".($stepId+1)."' class='next' onclick='addActive(this)'>Next: ".$steps[$stepId+1]["step"]."</a>";
 		}
-	}		
+	}
 	?>
 	<div class="clear"></div>
 	</div>

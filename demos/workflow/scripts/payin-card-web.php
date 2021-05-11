@@ -21,5 +21,5 @@ $result = $mangoPayApi->PayIns->Create($PayIn);
 pre_dump($result);
 $_SESSION["MangoPayDemo"]["PayInCardWeb"] = $result->Id;
 
-$extraInfo = "You can use the test card 4970101122334414 with any expiry date in the future and a CVV of 123 (or any of <a href='http://docs.mangopay.com/api-references/test-payment/' target='_blank'>these other cards</a>)";
+$extraInfo = "You can use the test card 4970101122334414 with any expiry date in the future and a CVV of 123 (or any of <a href='https://docs.mangopay.com/guide/testing-payments' target='_blank'>these other cards</a>)";
 $nextButton = array("url"=>$result->ExecutionDetails->RedirectURL, "text"=>"Go to Payment page");
