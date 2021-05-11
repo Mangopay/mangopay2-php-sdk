@@ -178,12 +178,12 @@ class CardPreAuthorization extends Libraries\EntityBase
      */
     public function GetSubObjects()
     {
-        return array(
+        return [
             'DebitedFunds' => '\MangoPay\Money',
             'Billing' => '\MangoPay\Billing',
             'SecurityInfo' => '\MangoPay\SecurityInfo',
             'RemainingFunds' => '\MangoPay\Money',
-        );
+        ];
     }
 
     /**

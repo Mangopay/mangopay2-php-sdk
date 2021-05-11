@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 final class TransactionNature
@@ -8,5 +9,7 @@ final class TransactionNature
     const Repudiation = 'REPUDIATION';
     const Settlement = 'SETTLEMENT';
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 }

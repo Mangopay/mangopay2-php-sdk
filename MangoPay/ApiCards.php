@@ -73,7 +73,8 @@ class ApiCards extends Libraries\ApiBase
      * @return \MangoPay\Card
      * @throws Libraries\Exception
      */
-    public function ValidateCard($cardId){
+    public function ValidateCard($cardId)
+    {
         return $this->GetObject('card_validate', '\MangoPay\Card', $cardId);
     }
 }

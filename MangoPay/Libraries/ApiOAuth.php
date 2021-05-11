@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay\Libraries;
 
 /**
@@ -14,13 +15,13 @@ class ApiOAuth extends ApiBase
     {
         $urlMethod = $this->GetRequestUrl('authentication_oauth');
         $requestType = $this->GetRequestType('authentication_oauth');
-        $requestData = array(
+        $requestData = [
             'grant_type' => 'client_credentials'
-        );
-        
+        ];
+
         $rest = new RestTool($this->_root, false);
         $authHlp = new AuthenticationHelper($this->_root);
-        
+
         $urlDetails = parse_url($this->_root->Config->BaseUrl);
         $rest->AddRequestHttpHeader('Host: ' . @$urlDetails['host']);
         $rest->AddRequestHttpHeader('Authorization: Basic ' . $authHlp->GetHttpHeaderBasicKey());
@@ -28,7 +29,7 @@ class ApiOAuth extends ApiBase
         $response = $rest->Request($urlMethod, $requestType, $requestData);
         $token = $this->CastResponseToEntity($response, '\MangoPay\Libraries\OAuthToken');
         $token->autentication_key = $authHlp->GetAutenticationKey();
-        
+
         return $token;
     }
 }

@@ -65,6 +65,4 @@ class UboDeclaration extends Libraries\EntityBase
         $subObjects['Ubos'] = '\MangoPay\Ubo';
         return $subObjects;
     }
-
-
 }

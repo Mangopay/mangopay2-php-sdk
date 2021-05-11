@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,35 +12,35 @@ class PayOut extends Transaction
      * @var string
      */
     public $DebitedWalletId;
-    
+
     /**
      * PaymentType (BANK_WIRE, MERCHANT_EXPENSE, AMAZON_GIFTCARD)
      * @var string
      */
     public $PaymentType;
-    
+
     /**
      * One of PayOutPaymentDetails implementations, depending on $PaymentType
      * @var object
      */
     public $MeanOfPaymentDetails;
-    
-    
+
+
     /**
      * Get array with mapping which property depends on other property
      * @return array
      */
     public function GetDependsObjects()
     {
-        return array(
-            'PaymentType' => array(
+        return [
+            'PaymentType' => [
                 '_property_name' => 'MeanOfPaymentDetails',
                 PayOutPaymentType::BankWire => '\MangoPay\PayOutPaymentDetailsBankWire',
                 // ...and more in future...
-            )
-        );
+            ]
+        ];
     }
-    
+
     /**
      * Get array with read-only properties
      * @return array
@@ -48,7 +49,7 @@ class PayOut extends Transaction
     {
         $properties = parent::GetReadOnlyProperties();
         array_push($properties, 'PaymentType');
-        
+
         return $properties;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,19 +12,19 @@ class Hook extends Libraries\EntityBase
      * @var string
      */
     public $Url;
-        
+
     /**
      * @var string
      * @see \MangoPay\HookStatus
      */
     public $Status;
-    
+
     /**
      * @var string
      * @see \MangoPay\HookValidity
      */
     public $Validity;
-    
+
     /**
      * @var string
      * @see \MangoPay\EventType

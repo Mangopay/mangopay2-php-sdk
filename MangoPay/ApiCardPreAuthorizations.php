@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -15,7 +16,7 @@ class ApiCardPreAuthorizations extends Libraries\ApiBase
     {
         return $this->CreateObject('preauthorization_create', $cardPreAuthorization, '\MangoPay\CardPreAuthorization', null, null, $idempotencyKey);
     }
-    
+
     /**
      * Get pre-authorization object
      * @param string $cardPreAuthorizationId PreAuthorization identifier
@@ -25,7 +26,7 @@ class ApiCardPreAuthorizations extends Libraries\ApiBase
     {
         return $this->GetObject('preauthorization_get', '\MangoPay\CardPreAuthorization', $cardPreAuthorizationId);
     }
-    
+
     /**
      * Update pre-authorization object
      * @param \MangoPay\CardPreAuthorization $cardPreAuthorization PreAuthorization object to save

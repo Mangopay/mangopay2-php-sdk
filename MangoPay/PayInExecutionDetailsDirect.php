@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -24,10 +25,10 @@ class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutio
      */
     public $SecureModeRedirectURL;
 
-     /**
-     * SecureModeNeeded
-     * @var bool
-     */
+    /**
+    * SecureModeNeeded
+    * @var bool
+    */
     public $SecureModeNeeded;
 
     /**

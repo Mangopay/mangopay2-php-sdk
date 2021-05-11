@@ -12,15 +12,16 @@
   },
   "autoload": {
     "psr-4": {
-      "MangoPay\\": "MangoPay/"
+      "MangoPay\\": "MangoPay"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "MangoPay\\Tests\\": "tests/"
+      "MangoPay\\Tests\\": "tests"
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8.36 || ^5.7.27 || 7.3"
+    "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^7.3",
+    "friendsofphp/php-cs-fixer": "^2.18"
   }
 }

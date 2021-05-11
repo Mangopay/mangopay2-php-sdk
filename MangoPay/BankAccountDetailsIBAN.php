@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,7 +12,7 @@ class BankAccountDetailsIBAN extends Libraries\Dto implements BankAccountDetails
      * @var string
      */
     public $IBAN;
-    
+
     /**
      * BIC
      * @var string

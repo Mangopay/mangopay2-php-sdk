@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -23,23 +24,23 @@ class PayInPaymentDetailsBankWire extends Libraries\Dto implements PayInPaymentD
      * @var \MangoPay\BankAccount
      */
     public $BankAccount;
-    
+
     /**
      * Wire reference
      * @var string
      */
     public $WireReference;
-    
+
     /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */
     public function GetSubObjects()
     {
-        return array(
+        return [
             'DeclaredDebitedFunds' => '\MangoPay\Money' ,
             'DeclaredFees' => '\MangoPay\Money' ,
             'BankAccount' => '\MangoPay\BankAccount'
-        );
+        ];
     }
 }

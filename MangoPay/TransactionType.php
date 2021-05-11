@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 final class TransactionType
@@ -7,5 +8,7 @@ final class TransactionType
     const Transfer = 'TRANSFER';
     const PayOut = 'PAYOUT';
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 }

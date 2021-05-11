@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,7 +7,6 @@ namespace MangoPay;
  */
 class AVSResult
 {
-
     const FULL_MATCH = "FULL_MATCH";
 
     const ADDRESS_MATCH_ONLY = "ADDRESS_MATCH_ONLY";

@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,7 +12,7 @@ class Transfer extends Transaction
      * @var string
      */
     public $DebitedWalletId;
-    
+
     /**
      * Credited wallet Id
      * @var string
