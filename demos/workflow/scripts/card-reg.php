@@ -8,7 +8,7 @@ $result = $mangoPayApi->CardRegistrations->Create($cardRegister);
 pre_dump($result);
 		?>
 		<br>
-		<form action="<?php echo $result->CardRegistrationURL; ?>" method="post">	
+		<form action="<?php echo $result->CardRegistrationURL; ?>" method="post">
 			<input type="hidden" name="data" value="<?php echo $result->PreregistrationData; ?>" />
    			<input type="hidden" name="accessKeyRef" value="<?php echo $result->AccessKey; ?>" />
     		<input type="hidden" name="returnURL" value="<?php echo "http".(isset($_SERVER['HTTPS']) ? "s" : null)."://".$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]."?stepId=".($stepId+1); ?>" />
@@ -19,7 +19,7 @@ pre_dump($result);
     			</tr>
     			<tr>
     				<th>Expiry date:</th>
-    				<td><input type="text" name="cardExpirationDate" maxlength="4" size="4" placeholder="MMYY" value="1217"></td>
+    				<td><input type="text" name="cardExpirationDate" maxlength="4" size="4" placeholder="MMYY" value="1229"></td>
     			</tr>
     			<tr>
     				<th>CVV:</th>
@@ -28,7 +28,7 @@ pre_dump($result);
     		</table>
  	<input type="submit" value="Next: <?php echo $steps[$stepId+1]["step"]; ?>" class="next" onclick="addActive(this)">
 		</form>
-		
+
 <?php
 	$_SESSION["MangoPayDemo"]["CardReg"] = $result->Id;
 	$nextButton=array();

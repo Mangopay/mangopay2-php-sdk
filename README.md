@@ -1,7 +1,7 @@
 MANGOPAY PHP SDK  [![Build Status](https://travis-ci.org/Mangopay/mangopay2-php-sdk.svg?branch=master)](https://travis-ci.org/Mangopay/mangopay2-php-sdk) [![Latest Stable Version](https://poser.pugx.org/mangopay/php-sdk-v2/v/stable)](https://packagist.org/packages/mangopay/php-sdk-v2) [![Total Downloads](https://poser.pugx.org/mangopay/php-sdk-v2/downloads)](https://packagist.org/packages/mangopay/php-sdk-v2) [![License](https://poser.pugx.org/mangopay/php-sdk-v2/license)](https://packagist.org/packages/mangopay/php-sdk-v2)
 =================================================
 
-MangopaySDK is a PHP client library to work with [Mangopay REST API](http://docs.mangopay.com/api-references/).
+MangopaySDK is a PHP client library to work with [Mangopay REST API](https://docs.mangopay.com/endpoints/v2.01).
 
 
 Compatibility Notes
@@ -21,18 +21,18 @@ To use this SDK, you will need (as a minimum):
 Installation with Composer
 -------------------------------------------------
 You can use Mangopay SDK library as a dependency in your project with [Composer](https://getcomposer.org/) (which is the preferred technique). Follow [these installation instructions](https://getcomposer.org/doc/00-intro.md) if you do not already have Composer installed.
-A composer.json file is available in the repository and it has been referenced from [Packagist](https://packagist.org/packages/mangopay/php-sdk-v2). 
+A composer.json file is available in the repository and it has been referenced from [Packagist](https://packagist.org/packages/mangopay/php-sdk-v2).
 
-The installation with Composer is easy and reliable: 
+The installation with Composer is easy and reliable:
 
 Step 1 - Add the Mangopay SDK as a dependency by executing the following command:
 
     you@yourhost:/path/to/your-project$ composer require mangopay/php-sdk-v2
-    
+
 Step 2 - Update your dependencies with Composer
 
     you@yourhost:/path/to/your-project$ composer update
-    
+
 Step 3 - Finally, be sure to include the autoloader in your project
 
     require_once '/path/to/your-project/vendor/autoload.php';
@@ -83,9 +83,9 @@ Configuration
 -------------------------------------------------
 Using the credential info from the signup process above, you should then set `$api->Config->ClientId` to your Mangopay ClientId and `$api->Config->ClientPassword` to your Mangopay APIKey.
 
-You also need to set a folder path in `$api->Config->TemporaryFolder` that SDK needs 
+You also need to set a folder path in `$api->Config->TemporaryFolder` that SDK needs
 to store temporary files. This path should be outside your www folder.
-It could be `/tmp/` or `/var/tmp/` or any other location that PHP can write to. 
+It could be `/tmp/` or `/var/tmp/` or any other location that PHP can write to.
 **You must use different folders for your sandbox and production environments.**
 
 `$api->Config->BaseUrl` is set to sandbox environment by default. To enable production
@@ -108,7 +108,7 @@ $api->Config->TemporaryFolder = '/some/path/';
 
 // call some API methods...
 try {
-    $users = $api->Users->GetAll(); 
+    $users = $api->Users->GetAll();
 } catch(MangoPay\Libraries\ResponseException $e) {
     // handle/log the response exception with code $e->GetCode(), message $e->GetMessage() and error(s) $e->GetErrorDetails()
 } catch(MangoPay\Libraries\Exception $e) {
@@ -171,9 +171,9 @@ try {
 
 Sample usage with Composer in a Symfony project
 -------------------------------------------------
-You can integrate Mangopay features in a Service in your Symfony project. 
+You can integrate Mangopay features in a Service in your Symfony project.
 
-MangoPayService.php : 
+MangoPayService.php :
 ```php
 
 <?php
@@ -196,14 +196,14 @@ class MangoPayService
         $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';    
         //$this->mangoPayApi->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
     }
-    
+
     /**
      * Create Mangopay User
      * @return MangopPayUser $mangoUser
      */
     public function getMangoUser()
     {
-        
+
         $mangoUser = new \MangoPay\UserNatural();
         $mangoUser->PersonType = "NATURAL";
         $mangoUser->FirstName = 'John';
@@ -242,8 +242,8 @@ $this->mangoPayApi->setLogger($logger);
 
 Verifying rate limits status
 ---------------------------
-According to API docs (https://docs.mangopay.com/guide/rate-limiting), MangoPay is providing a way of 
-verifying how many API calls were made, how many are left and when the counter will be reset. 
+According to API docs (https://docs.mangopay.com/guide/rate-limiting), MangoPay is providing a way of
+verifying how many API calls were made, how many are left and when the counter will be reset.
 So there are 4 groups of rate limits available:
 1. Last 15 minutes:
 2. Last 30 minutes
@@ -264,7 +264,7 @@ class MangoPayService
 {
 
     /**
-    * @var MangoPay\MangoPayApi 
+    * @var MangoPay\MangoPayApi
     */
     private $mangoPayApi;
 
@@ -276,7 +276,7 @@ class MangoPayService
         $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';    
         //$this->mangoPayApi->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
     }
-    
+
     public function verifyRateLimits()
     {
         // This is an arary of 4 RateLimit objects.
@@ -291,6 +291,3 @@ class MangoPayService
 }
 
 ```
-
-
-
