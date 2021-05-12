@@ -195,7 +195,7 @@ abstract class ApiBase
         'transactions_get_for_card' => ['/cards/%s/transactions', RequestType::GET],
         'transactions_get_for_bank_account' => ['/bankaccounts/%s/transactions', RequestType::GET]
 
-    ];
+    );
 
     /**
      * Constructor
