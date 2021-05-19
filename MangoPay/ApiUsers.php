@@ -38,7 +38,7 @@ class ApiUsers extends Libraries\ApiBase
     {
         $usersList = $this->GetList('users_all', $pagination, null, null, null, $sorting);
 
-        $users = array();
+        $users = [];
         if (is_array($usersList)) {
             foreach ($usersList as $user) {
                 array_push($users, $this->GetUserResponse($user));
@@ -288,31 +288,28 @@ class ApiUsers extends Libraries\ApiBase
      * @param string $userId User Id
      * @param string $kycDocumentId KYC Document Id
      * @param \MangoPay\KycPage $kycPage KYC Page
-     * @return bool `true` if the upload was successful, `false` otherwise
+     * @return true always true. If an error occurred, a \MangoPay\Libraries\Exception is thrown
      * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey = null)
     {
-        $uploaded = false;
         try {
-            $response = $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId, $idempotencyKey);
-            $uploaded = true;
+            $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId, $idempotencyKey);
         } catch (\MangoPay\Libraries\ResponseException $exc) {
             if ($exc->getCode() != 204) {
                 throw $exc;
-            } else {
-                $uploaded = true;
             }
         }
-        return $uploaded;
+
+        return true;
     }
 
     /**
      * Create page for Kyc document from file
      * @param string $userId User Id
-     * @param int $kycDocumentId KYC Document Id
+     * @param string $kycDocumentId KYC Document Id
      * @param string $filePath File path
-     * @return bool `true` if the upload was successful, `false` otherwise
+     * @return true always true. If an error occurred, a \MangoPay\Libraries\Exception is thrown
      * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPageFromFile($userId, $kycDocumentId, $filePath, $idempotencyKey = null)
@@ -345,8 +342,7 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function GetEMoney($userId, $year = null, $month = null)
     {
-        if ($year == null)
-        {
+        if ($year == null) {
             $year = $this->GetCurrentYear();
         }
 
@@ -407,5 +403,25 @@ class ApiUsers extends Libraries\ApiBase
 
         $className = str_replace('MangoPay\\BankAccountDetails', '', get_class($bankAccount->Details));
         return strtolower($className);
+    }
+
+    /**
+     * Get the Block Status of a User
+     * @param string $userId User identifier
+     * @return UserBlockStatus User object returned from API
+     */
+    public function GetBlockStatus($userId)
+    {
+        return $this->GetObject('users_block_status', 'MangoPay\UserBlockStatus', $userId);
+    }
+
+    /**
+     * Get the Block Status Regulatory  of a User
+     * @param string $userId User identifier
+     * @return UserBlockStatus User object returned from API
+     */
+    public function GetRegulatory($userId)
+    {
+        return $this->GetObject('users_block_status_regulatory', 'MangoPay\UserBlockStatus', $userId);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,7 +7,6 @@ namespace MangoPay;
  */
 class Repudiation extends Libraries\EntityBase
 {
-    
     /**
      * The Id of the origin payin author
      * @var string
@@ -19,14 +19,14 @@ class Repudiation extends Libraries\EntityBase
      */
     public $DebitedFunds;
 
-     /**
-     * The fees taken on the repudiation – will always be 0 at this stage
-     * @var \MangoPay\Money
-     */
+    /**
+    * The fees taken on the repudiation – will always be 0 at this stage
+    * @var \MangoPay\Money
+    */
     public $Fees;
 
     /**
-     * The amount of credited funds – since there are currently no fees, 
+     * The amount of credited funds – since there are currently no fees,
      * this will be equal to the DebitedFunds
      * @var \MangoPay\Money
      */
@@ -64,8 +64,8 @@ class Repudiation extends Libraries\EntityBase
     public $ExecutionDate;
 
     /**
-     * The Id of the dispute to which this repudation corresponds. 
-     * Note that this value may be null (if it was created before the Dispute 
+     * The Id of the dispute to which this repudation corresponds.
+     * Note that this value may be null (if it was created before the Dispute
      * objects started to be used – October 2015)
      * @var string
      */
@@ -83,17 +83,17 @@ class Repudiation extends Libraries\EntityBase
      * @see \MangoPay\TransactionType
      */
     public $InitialTransactionType;
-    
+
     /**
-     * Get array with mapping which property is object and what type of object 
+     * Get array with mapping which property is object and what type of object
      * @return array
      */
     public function GetSubObjects()
     {
-        return array(
+        return [
             'DebitedFunds' => '\MangoPay\Money',
             'Fees' => '\MangoPay\Money',
             'CreditedFunds' => '\MangoPay\Money',
-        );
+        ];
     }
 }

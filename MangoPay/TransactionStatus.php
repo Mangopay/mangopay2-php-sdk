@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 final class TransactionStatus
@@ -7,5 +8,7 @@ final class TransactionStatus
     const Succeeded = 'SUCCEEDED';
     const Failed = 'FAILED';
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 }

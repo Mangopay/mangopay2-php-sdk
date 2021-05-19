@@ -2,6 +2,7 @@
 
 namespace MangoPay\Libraries;
 
+use MangoPay\MangoPayApi;
 use MangoPay\RateLimit;
 use Psr\Log\LoggerInterface;
 
@@ -10,11 +11,11 @@ use Psr\Log\LoggerInterface;
  */
 class RestTool
 {
-    const VERSION = '3.1.4';
+    const VERSION = '3.4.0';
 
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance
-     * @var \MangoPay\MangoPayApi
+     * @var MangoPayApi
      */
     private $_root;
     /**
@@ -94,10 +95,10 @@ class RestTool
 
     /**
      * Constructor
+     * @param MangoPayApi $root Root/parent instance that holds the OAuthToken and Configuration instance
      * @param bool $authRequired Variable to flag that in request the authentication data are required
-     * @param \MangoPay\MangoPayApi $root Root/parent instance that holds the OAuthToken and Configuration instance
      */
-    public function __construct($authRequired = true, $root)
+    public function __construct($root, $authRequired = true)
     {
         $this->_authRequired = $authRequired;
         $this->_root = $root;
@@ -107,7 +108,7 @@ class RestTool
     public function AddRequestHttpHeader($httpHeader)
     {
         if (is_null($this->_requestHttpHeaders)) {
-            $this->_requestHttpHeaders = array();
+            $this->_requestHttpHeaders = [];
         }
         array_push($this->_requestHttpHeaders, $httpHeader);
     }
@@ -194,7 +195,7 @@ class RestTool
             }
             // encode to json if needed
             if (in_array(self::$_JSON_HEADER, $httpHeaders)) {
-                if(!is_null($this->_requestData)){
+                if (!is_null($this->_requestData)) {
                     $this->_requestData = json_encode($this->_requestData);
                     $this->logger->debug('RequestData JSON :' . print_r($this->_requestData, true));
                     if ($this->_root->Config->DebugMode) {
@@ -232,9 +233,9 @@ class RestTool
                 $strLinks = trim(str_replace('Link:', '', $header));
                 $arrayLinks = explode(',', $strLinks);
                 if ($arrayLinks !== false) {
-                    $this->_pagination->Links = array();
+                    $this->_pagination->Links = [];
                     foreach ($arrayLinks as $link) {
-                        $tmp = str_replace(array('<"', '">', ' rel="', '"'), '', $link);
+                        $tmp = str_replace(['<"', '">', ' rel="', '"'], '', $link);
                         $oneLink = explode(';', $tmp);
                         if (is_array($oneLink) && isset($oneLink[0]) && isset($oneLink[1])) {
                             $this->_pagination->Links[$oneLink[1]] = $oneLink[0];
@@ -268,9 +269,9 @@ class RestTool
                     $updatedRateLimits = $this->initRateLimits();
                 }
                 $rateLimit = $this->findFirstRateLimitMatchingPredicate($updatedRateLimits, function ($rate) {
-                    return $rate->ResetTimeMillis == null;
+                    return $rate->ResetTimeTimestamp == null;
                 });
-                $rateLimit->ResetTimeMillis = (int)trim(str_replace('x-ratelimit-reset:', '', $lowercaseHeader));
+                $rateLimit->ResetTimeTimestamp = (int)trim(str_replace('x-ratelimit-reset:', '', $lowercaseHeader));
             }
         }
 
@@ -322,11 +323,11 @@ class RestTool
             return $this->_requestHttpHeaders;
         }
         // ...or initialize with default headers
-        $this->_requestHttpHeaders = array();
+        $this->_requestHttpHeaders = [];
         // content type
         array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
         // Add User-Agent Header
-      
+
         array_push($this->_requestHttpHeaders, 'User-Agent: MangoPay V2 SDK PHP ' . self::VERSION);
         // Authentication http header
         if ($this->_authRequired) {

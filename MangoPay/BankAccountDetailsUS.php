@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,13 +12,13 @@ class BankAccountDetailsUS extends Libraries\Dto implements BankAccountDetails
      * @var string
      */
     public $AccountNumber;
-    
+
     /**
      * ABA
      * @var string
      */
     public $ABA;
-    
+
     /**
      * DepositAccountType { CHECKING, SAVINGS }
      * @var string

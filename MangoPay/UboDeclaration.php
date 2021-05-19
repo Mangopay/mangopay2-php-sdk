@@ -33,6 +33,12 @@ class UboDeclaration extends Libraries\EntityBase
     public $Message;
 
     /**
+     * The id of the user
+     * @var string
+     */
+    public $UserId;
+
+    /**
      * Listed representations of natural users declared as UBOs.
      * When transmitting a UBO declaration (POST / PUT), must be an array of
      * IDs (string) of the users to be declared as UBOs.
@@ -59,6 +65,4 @@ class UboDeclaration extends Libraries\EntityBase
         $subObjects['Ubos'] = '\MangoPay\Ubo';
         return $subObjects;
     }
-
-
 }

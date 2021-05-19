@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,7 +12,7 @@ class BankAccountDetailsGB extends Libraries\Dto implements BankAccountDetails
      * @var string
      */
     public $AccountNumber;
-    
+
     /**
      * Sort code
      * @var string

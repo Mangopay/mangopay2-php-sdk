@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -6,6 +7,17 @@ namespace MangoPay;
  */
 class Billing extends Libraries\Dto
 {
+    /**
+     * The First Name for Billing Address
+     * @var string
+     */
+    public $FirstName;
+
+    /**
+     * The Last Name for Billing Address
+     * @var string
+     */
+    public $LastName;
 
     /**
      * The billing address

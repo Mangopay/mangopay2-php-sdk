@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -57,7 +58,7 @@ class ApiBankingAliases extends Libraries\ApiBase
     public function GetAll($walletId, & $pagination = null, $sorting = null)
     {
         $bankingAliases = $this->GetList('banking_aliases_all', $pagination, null, $walletId, null, $sorting);
-        return array_map(array($this, "GetBankingAliasResponse"), $bankingAliases);
+        return array_map([$this, "GetBankingAliasResponse"], $bankingAliases);
     }
 
     /**
@@ -79,5 +80,4 @@ class ApiBankingAliases extends Libraries\ApiBase
             throw new Libraries\Exception('Unexpected response. Missing BankingAlias Type property');
         }
     }
-
 }

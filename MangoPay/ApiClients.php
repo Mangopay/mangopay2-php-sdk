@@ -97,9 +97,9 @@ class ApiClients extends Libraries\ApiBase
 
         if (is_null($fundsType)) {
             return $this->GetList('client_wallets', $pagination, '\MangoPay\Wallet', null, null, $sorting);
-        } else if ($fundsType == FundsType::FEES) {
+        } elseif ($fundsType == FundsType::FEES) {
             return $this->GetList('client_wallets_fees', $pagination, '\MangoPay\Wallet', null, null, $sorting);
-        } else if ($fundsType == FundsType::CREDIT) {
+        } elseif ($fundsType == FundsType::CREDIT) {
             return $this->GetList('client_wallets_credit', $pagination, '\MangoPay\Wallet', null, null, $sorting);
         }
 
@@ -118,18 +118,20 @@ class ApiClients extends Libraries\ApiBase
     {
         if (is_null($fundsType)) {
             throw new \MangoPay\Libraries\Exception(
-                'First parameter in function GetWallet in class ApiClients is required.');
+                'First parameter in function GetWallet in class ApiClients is required.'
+            );
         }
 
         if (is_null($currencyIso)) {
             throw new \MangoPay\Libraries\Exception(
-                'Second parameter in function GetWallet in class ApiClients is required.');
+                'Second parameter in function GetWallet in class ApiClients is required.'
+            );
         }
 
         $methodKey = null;
         if ($fundsType == FundsType::FEES) {
             $methodKey = 'client_wallets_fees_currency';
-        } else if ($fundsType == FundsType::CREDIT) {
+        } elseif ($fundsType == FundsType::CREDIT) {
             $methodKey = 'client_wallets_credit_currency';
         } else {
             throw new \MangoPay\Libraries\Exception('\MangoPay\FundsType object has wrong value and cannot get wallets');
@@ -152,20 +154,32 @@ class ApiClients extends Libraries\ApiBase
     {
         if (is_null($fundsType)) {
             $methodKey = 'client_wallets_transactions';
-        } else if ($fundsType == FundsType::FEES) {
+        } elseif ($fundsType == FundsType::FEES) {
             $methodKey = 'client_wallets_transactions_fees_currency';
-        } else if ($fundsType == FundsType::CREDIT) {
+        } elseif ($fundsType == FundsType::CREDIT) {
             $methodKey = 'client_wallets_transactions_credit_currency';
         } else {
             throw new \MangoPay\Libraries\Exception(
-                '\MangoPay\FundsType object has wrong value.');
+                '\MangoPay\FundsType object has wrong value.'
+            );
         }
 
         if (!is_null($fundsType) && is_null($currencyIso)) {
             throw new \MangoPay\Libraries\Exception(
-                'If FundsType is defined the second parameter (currency) is required.');
+                'If FundsType is defined the second parameter (currency) is required.'
+            );
         }
 
         return $this->GetList($methodKey, $pagination, '\MangoPay\Transaction', $currencyIso, $filter, null);
+    }
+
+    public function CreateBankAccount($bankAccount, $idempotencyKey = null)
+    {
+        return $this->CreateObject('client_create_bank_account_iban', $bankAccount, '\MangoPay\BankAccount', null, null, $idempotencyKey);
+    }
+
+    public function CreatePayOut($payOut, $idempotencyKey = null)
+    {
+        return $this->CreateObject('client_create_payout', $payOut, '\MangoPay\PayOut', null, null, $idempotencyKey);
     }
 }

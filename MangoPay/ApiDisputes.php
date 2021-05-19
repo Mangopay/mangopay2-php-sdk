@@ -12,7 +12,6 @@ namespace MangoPay;
  */
 class ApiDisputes extends Libraries\ApiBase
 {
-
     /**
      * Gets dispute
      * @param string $disputeId Dispute identifier

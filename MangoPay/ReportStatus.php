@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 final class ReportStatus
@@ -8,5 +9,7 @@ final class ReportStatus
     const Failed = 'FAILED';
     const ReadyForDownload = 'READY_FOR_DOWNLOAD';
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 }

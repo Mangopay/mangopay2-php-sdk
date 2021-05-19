@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,10 +12,16 @@ class PayOutPaymentDetailsBankWire extends Libraries\Dto implements PayOutPaymen
      * @var string
      */
     public $BankAccountId;
-    
+
     /**
      * A custom reference you wish to appear on the user’s bank statement
      * @var string
      */
     public $BankWireRef;
+
+    /**
+     * The new parameter "PayoutModeRequested" can take two different values : "INSTANT_PAYMENT" or "STANDARD"
+     * @var string
+     */
+    public $PayoutModeRequested;
 }

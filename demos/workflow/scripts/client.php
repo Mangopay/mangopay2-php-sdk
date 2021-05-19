@@ -1,4 +1,4 @@
-To run these examples, we need a ClientId and Password. You can either provide your own below (that you created for the Sandbox environment or <a href="https://docs.mangopay.com/api-references/sandbox-credentials/" target="_blank">get one here</a>), or you can just use the demo ones below if you prefer.<br><br>
+To run these examples, we need a ClientId and Password. You can either provide your own below (that you created for the Sandbox environment or <a href="https://hub.mangopay.com/" target="_blank">get one here</a>), or you can just use the demo ones below if you prefer.<br><br>
 
 <form method="post">
 	<input type="hidden" name="SetUpClientCreds" />

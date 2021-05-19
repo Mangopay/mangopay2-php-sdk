@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -10,18 +11,18 @@ class Sorting
      * Fields separator in sort parameters in URL
      */
     const SortFieldSeparator = "_";
-    
+
     /**
      * Fields separator in sort parameters in URL
      */
     const SortUrlParameterName = "Sort";
-    
+
     /**
      * Array with fields to sort
      * @var array
      */
     private $_sortFields = [];
-    
+
     /**
      * Add filed to sort
      * @param string $fieldName Property name to sort
@@ -46,9 +47,9 @@ class Sorting
      */
     public function GetSortParameter()
     {
-        return array(self::SortUrlParameterName => $this->_getFields());
+        return [self::SortUrlParameterName => $this->_getFields()];
     }
-    
+
     private function _getFields()
     {
         $sortValues = "";
@@ -56,10 +57,10 @@ class Sorting
             if (!empty($sortValues)) {
                 $sortValues .= self::SortFieldSeparator;
             }
-            
+
             $sortValues .= $key . ":" . $value;
         }
-        
+
         return $sortValues;
     }
 }

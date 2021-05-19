@@ -13,7 +13,7 @@ class KeyValueArray
      * @access public
      */
     public $Key;
-    
+
     /**
      * Value for tabular variable
      * @var string

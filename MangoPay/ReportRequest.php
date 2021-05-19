@@ -1,10 +1,11 @@
 <?php
+
 namespace MangoPay;
 
 /**
  * Report request entity
  */
-class ReportRequest extends Libraries\EntityBase 
+class ReportRequest extends Libraries\EntityBase
 {
     /**
      * Date of when the report was requested.
@@ -63,10 +64,10 @@ class ReportRequest extends Libraries\EntityBase
     public $Filters;
 
     /**
-     * Allowed values: "Alias", "BankAccountId", "BankWireRef", "CardId", 
-     * "CardType", "Country", "Culture", "Currency", "DeclaredDebitedFundsAmount", 
-     * "DeclaredDebitedFundsCurrency", "DeclaredFeesAmount", 
-     * "DeclaredFeesCurrency", "ExecutionType", "ExpirationDate", "PaymentType", 
+     * Allowed values: "Alias", "BankAccountId", "BankWireRef", "CardId",
+     * "CardType", "Country", "Culture", "Currency", "DeclaredDebitedFundsAmount",
+     * "DeclaredDebitedFundsCurrency", "DeclaredFeesAmount",
+     * "DeclaredFeesCurrency", "ExecutionType", "ExpirationDate", "PaymentType",
      * "PreauthorizationId", "WireReference".
      * @var array
      */
@@ -83,7 +84,7 @@ class ReportRequest extends Libraries\EntityBase
      * @var string
      */
     public $ResultMessage;
-    
+
     /**
      * Get array with read-only properties
      * @return array
@@ -96,7 +97,7 @@ class ReportRequest extends Libraries\EntityBase
         array_push($properties, 'Status');
         array_push($properties, 'ResultCode');
         array_push($properties, 'ResultMessage');
-        
+
         return $properties;
     }
 }

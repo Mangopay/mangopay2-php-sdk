@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -28,7 +29,7 @@ class EventType
     const PayoutRefundFailed = "PAYOUT_REFUND_FAILED";
     const TransferRefundCreated = "TRANSFER_REFUND_CREATED";
     const TransferRefundSucceeded = "TRANSFER_REFUND_SUCCEEDED";
-    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";    
+    const TransferRefundFailed = "TRANSFER_REFUND_FAILED";
     const PayinRepudiationCreated = "PAYIN_REPUDIATION_CREATED";
     const PayinRepudiationSucceeded = "PAYIN_REPUDIATION_SUCCEEDED";
     const PayinRepudiationFailed = "PAYIN_REPUDIATION_FAILED";
@@ -63,4 +64,11 @@ class EventType
     const UboDeclarationIncomplete = "UBO_DECLARATION_INCOMPLETE";
     const UserKycRegular = "USER_KYC_REGULAR";
     const UserKycLight = "USER_KYC_LIGHT";
+    const UserInflowsBlocked = "USER_INFLOWS_BLOCKED";
+    const UserInflowsUnblocked = "USER_INFLOWS_UNBLOCKED";
+    const UserOutflowsBlocked = "USER_OUTFLOWS_BLOCKED";
+    const UserOutflowsUnblocked = "USER_OUTFLOWS_UNBLOCKED";
+    const PreAuthorizationCreated = "PREAUTHORIZATION_CREATED";
+    const PreAuthorizationSucceeded = "PREAUTHORIZATION_SUCCEEDED";
+    const PreAuthorizationFailed = "PREAUTHORIZATION_FAILED";
 }

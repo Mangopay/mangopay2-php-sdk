@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,68 +12,68 @@ class CardRegistration extends Libraries\EntityBase
      * @var string
      */
     public $UserId;
-    
+
     /**
      * CardType
      * @var string
      */
     public $CardType;
-    
+
     /**
      * Access key
      * @var string
      */
     public $AccessKey;
-        
+
     /**
      * Preregistration data
      * @var string
      */
     public $PreregistrationData;
-        
+
     /**
      * Card registration URL
      * @var string
      */
     public $CardRegistrationURL;
-        
+
     /**
      * Card Id
      * @var string
      */
     public $CardId;
-        
+
     /**
      * Card registration data
      * @var string
      */
     public $RegistrationData;
-        
+
     /**
      * The result code of the object
      * @var string
      */
     public $ResultCode;
-    
+
     /**
      * The message explaining the result code
      * @var string
      */
     public $ResultMessage;
-        
+
     /**
      * Currency
      * @var string
      */
     public $Currency;
-        
+
     /**
      * Status
      * @var string
      * @see \MangoPay\CardRegistrationStatus
      */
     public $Status;
-        
+
     /**
      * Get array with read-only properties
      * @return array

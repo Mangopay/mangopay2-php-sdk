@@ -7,13 +7,12 @@ namespace MangoPay\Libraries;
  */
 abstract class Document extends EntityBase
 {
-    
     /**
      * Refused reason type
      * @var string
      */
     public $RefusedReasonType;
-    
+
     /**
      * Refused reason message
      * @var string
@@ -25,7 +24,7 @@ abstract class Document extends EntityBase
      * @var int Unix timestamp
      */
     public $ProcessedDate;
-    
+
     /**
      * Get array with read-only properties
      * @return array
@@ -36,7 +35,7 @@ abstract class Document extends EntityBase
         array_push($properties, 'RefusedReasonType');
         array_push($properties, 'RefusedReasonMessage');
         array_push($properties, 'UserId');
-        
+
         return $properties;
     }
 }

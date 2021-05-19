@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -11,13 +12,13 @@ class KycDocument extends Libraries\Document
      * @see \MangoPay\KycDocumentType
      */
     public $Type;
-    
+
     /**
      * @var string
      * @see \MangoPay\KycDocumentStatus
      */
     public $Status;
-    
+
     /**
      * @var string
      */

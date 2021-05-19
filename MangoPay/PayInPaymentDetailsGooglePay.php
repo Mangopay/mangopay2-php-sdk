@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MangoPay;
-
 
 class PayInPaymentDetailsGooglePay extends Libraries\Dto implements PayInPaymentDetails
 {

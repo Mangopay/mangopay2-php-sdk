@@ -1,4 +1,5 @@
 <?php
+
 namespace MangoPay;
 
 /**
@@ -12,7 +13,7 @@ class FilterBase extends Libraries\Dto
      * @var int Unix timestamp
      */
     public $BeforeDate;
-    
+
     /**
      * End date in unix format:
      * return only records that have CreationDate AFTER this date

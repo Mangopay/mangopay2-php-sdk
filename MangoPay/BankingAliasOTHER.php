@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MangoPay;
-
 
 class BankingAliasOTHER extends BankingAlias
 {
@@ -25,5 +23,4 @@ class BankingAliasOTHER extends BankingAlias
      * Country
      */
     public $Country;
-
 }

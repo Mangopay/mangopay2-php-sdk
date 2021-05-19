@@ -136,7 +136,41 @@ class CardPreAuthorization extends Libraries\EntityBase
      */
     public $MultiCapture;
 
+    /**
+     * RemainingFunds
+     * @var string
+     */
     public $RemainingFunds;
+
+    /**
+     * IpAddress
+     * @var string
+     */
+    public $IpAddress;
+
+    /**
+     * BrowserInfo
+     * @var BrowserInfo
+     */
+    public $BrowserInfo;
+
+    /**
+     * Shipping
+     * @var Shipping
+     */
+    public $Shipping;
+
+    /**
+     * Requested3DSVersion
+     * @var string
+     */
+    public $Requested3DSVersion;
+
+    /**
+     * Applied3DSVersion
+     * @var string
+     */
+    public $Applied3DSVersion;
 
     /**
      * Get array with mapping which property is object and what type of object
@@ -144,12 +178,12 @@ class CardPreAuthorization extends Libraries\EntityBase
      */
     public function GetSubObjects()
     {
-        return array(
+        return [
             'DebitedFunds' => '\MangoPay\Money',
             'Billing' => '\MangoPay\Billing',
             'SecurityInfo' => '\MangoPay\SecurityInfo',
             'RemainingFunds' => '\MangoPay\Money',
-        );
+        ];
     }
 
     /**
