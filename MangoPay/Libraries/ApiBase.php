@@ -73,6 +73,7 @@ abstract class ApiBase
         'get_extended_card_view' => ['/payins/card/web/%s/extended', RequestType::GET],
 
         'payouts_bankwire_create' => ['/payouts/bankwire/', RequestType::POST],
+        'payouts_bankwire_get' => ['/payouts/bankwire/%s', RequestType::GET],
         'payouts_get' => ['/payouts/%s', RequestType::GET],
 
         'refunds_get' => ['/refunds/%s', RequestType::GET],
@@ -537,6 +538,7 @@ abstract class ApiBase
             'payins_directdebit-direct_create' => '\MangoPay\PayIn',
             'payins_createrefunds' => '\MangoPay\Refund',
             'payouts_bankwire_create' => '\MangoPay\PayOut',
+            'payouts_bankwire_get' => '\MangoPay\Payout',
             'reports_transactions_create' => '\MangoPay\ReportRequest',
             'reports_wallets_create' => '\MangoPay\ReportRequest',
             'transfers_createrefunds' => '\MangoPay\Refund',

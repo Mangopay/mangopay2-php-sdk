@@ -29,6 +29,17 @@ class ApiPayOuts extends Libraries\ApiBase
     }
 
     /**
+     * Get bankwire pay-out object
+     * @param string $payOutId PayOut identifier
+     * @return \MangoPay\PayOut Object returned from API
+     * @throws Libraries\Exception
+     */
+    public function GetBankwire($payOutId)
+    {
+        return $this->GetObject('payouts_bankwire_get', '\MangoPay\PayOut', $payOutId);
+    }
+
+    /**
      * Returns a list of Refunds pertaining to a certain PayOut.
      * @param string $payOutId ID of the PayOut for which to retrieve Refunds
      * @param \MangoPay\Pagination $pagination Pagination object
