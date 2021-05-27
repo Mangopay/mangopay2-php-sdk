@@ -24,4 +24,28 @@ class PayOutPaymentDetailsBankWire extends Libraries\Dto implements PayOutPaymen
      * @var string
      */
     public $PayoutModeRequested;
+
+    /**
+     * Returned ModeRequested.
+     * @var string
+     */
+    public $ModeRequested;
+
+    /**
+     * The new parameter is the current status of the mode above.
+     * @var string
+     */
+    public $ModeApplied;
+
+    /**
+     * The fallback reason.
+     * @var string
+     */
+    public $FallbackReason;
+
+    /**
+     * The status.
+     * @var string
+     */
+    public $Status;
 }
