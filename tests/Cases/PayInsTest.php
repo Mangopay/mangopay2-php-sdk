@@ -4,6 +4,7 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\AVSResult;
 use MangoPay\BankingAlias;
+use MangoPay\BrowserInfo;
 use MangoPay\DebitedBankAccount;
 use MangoPay\Libraries\Exception;
 use MangoPay\Money;
@@ -13,6 +14,7 @@ use MangoPay\PayInPaymentDetails;
 use MangoPay\PayInPaymentDetailsBankWire;
 use MangoPay\PayInPaymentType;
 use MangoPay\PayInStatus;
+use MangoPay\RecurringPayInCIT;
 use MangoPay\Shipping;
 use MangoPay\TransactionStatus;
 
@@ -450,7 +452,7 @@ class PayInsTest extends Base
         $this->assertEquals("EUR", $createPayIn->Fees->Currency);
     }
 
-    public function test_Create_Recurring_Payment()
+    private function getRecurringPayin()
     {
         $values = $this->getJohnsWalletWithMoneyAndCardId(1000);
         $wallet = $values["wallet"];
@@ -479,9 +481,40 @@ class PayInsTest extends Base
         $payIn->Shipping = $shipping;
         $payIn->Billing = $billing;
 
-        $result = $this->_api->PayIns->CreateRecurringRegistration($payIn);
+        return $this->_api->PayIns->CreateRecurringRegistration($payIn);
+    }
 
-        $this->assertNotNull($wallet);
+    public function test_Create_Recurring_Payment()
+    {
+        $result = $this->getRecurringPayin();
+
+        $this->assertNotNull($result);
+    }
+
+    public function test_Create_Recurring_PayIn_CIT()
+    {
+        $registration = $this->getRecurringPayin();
+
+        $cit = new RecurringPayInCIT();
+        $cit->RecurringPayinRegistrationId = $registration->Id;
+        $cit->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $cit->SecureModeReturnURL = "http://www.my-site.com/returnurl";
+        $cit->StatementDescriptor = "lorem";
+        $cit->Tag = "custom meta";
+        $browserInfo = new BrowserInfo();
+        $browserInfo->AcceptHeader = "text/html, application/xhtml+xml, application/xml;q=0.9, /;q=0.8";
+        $browserInfo->JavaEnabled = true;
+        $browserInfo->Language = "FR-FR";
+        $browserInfo->ColorDepth = 4;
+        $browserInfo->ScreenHeight = 1800;
+        $browserInfo->ScreenWidth = 400;
+        $browserInfo->JavascriptEnabled = true;
+        $browserInfo->TimeZoneOffset = "+60";
+        $browserInfo->UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148";
+        $cit->BrowserInfo = $browserInfo;
+
+        $result = $this->_api->PayIns->CreateRecurringPayInRegistrationCIT($cit);
+
         $this->assertNotNull($result);
     }
 
