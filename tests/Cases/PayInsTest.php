@@ -13,6 +13,7 @@ use MangoPay\PayInPaymentDetails;
 use MangoPay\PayInPaymentDetailsBankWire;
 use MangoPay\PayInPaymentType;
 use MangoPay\PayInStatus;
+use MangoPay\Shipping;
 use MangoPay\TransactionStatus;
 
 /**
@@ -449,6 +450,40 @@ class PayInsTest extends Base
         $this->assertEquals("EUR", $createPayIn->Fees->Currency);
     }
 
+    public function test_Create_Recurring_Payment()
+    {
+        $values = $this->getJohnsWalletWithMoneyAndCardId(1000);
+        $wallet = $values["wallet"];
+        $cardId = $values["cardId"];
+        $user = $this->getJohn();
+
+        $payIn = new \MangoPay\PayInRecurringRegistration();
+        $payIn->AuthorId = $user->Id;
+        $payIn->CardId = $cardId;
+        $payIn->CreditedUserId = $user->Id;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->FirstTransactionDebitedFunds = new \MangoPay\Money();
+        $payIn->FirstTransactionDebitedFunds->Amount = 12;
+        $payIn->FirstTransactionDebitedFunds->Currency = 'EUR';
+        $payIn->FirstTransactionFees = new \MangoPay\Money();
+        $payIn->FirstTransactionFees->Amount = 1;
+        $payIn->FirstTransactionFees->Currency = 'EUR';
+        $billing = new \MangoPay\Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
+        $billing->Address = $this->getNewAddress();
+        $shipping = new \MangoPay\Shipping();
+        $shipping->FirstName = 'John';
+        $shipping->LastName = 'Doe';
+        $shipping->Address = $this->getNewAddress();
+        $payIn->Shipping = $shipping;
+        $payIn->Billing = $billing;
+
+        $result = $this->_api->PayIns->CreateRecurringRegistration($payIn);
+
+        $this->assertNotNull($wallet);
+        $this->assertNotNull($result);
+    }
 
     public function test_PayIns_Google_Pay_Create()
     {
