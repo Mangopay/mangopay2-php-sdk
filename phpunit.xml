@@ -1,7 +1,7 @@
 <phpunit bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="mangopay_tests">
-            <directory>tests/cases/</directory>
+            <directory>tests/Cases/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
