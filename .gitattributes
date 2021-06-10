@@ -1,0 +1,11 @@
+.gitattributes export-ignore
+.gitignore export-ignore
+
+.github export-ignore
+.editorconfig export-ignore
+
+# Dev & test files
+Makefile export-ignore
+/php_env export-ignore
+phpunit.xml export-ignore
+.php_cs export-ignore
