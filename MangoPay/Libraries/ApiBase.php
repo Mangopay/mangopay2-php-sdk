@@ -68,6 +68,9 @@ abstract class ApiBase
         'payins_applepay-direct_create' => ['/payins/applepay/direct', RequestType::POST],
         'payins_googlepay-direct_create' => ['/payins/googlepay/direct', RequestType::POST],
 
+        'payins_recurring_registration' => ['/recurringpayinregistrations', RequestType::POST],
+        'payins_recurring_card_direct' => ['/payins/recurring/card/direct', RequestType::POST],
+
         'repudiation_get' => ['/repudiations/%s', RequestType::GET],
 
         'get_extended_card_view' => ['/payins/card/web/%s/extended', RequestType::GET],

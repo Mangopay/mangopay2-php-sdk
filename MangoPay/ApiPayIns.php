@@ -41,6 +41,34 @@ class ApiPayIns extends Libraries\ApiBase
     }
 
     /**
+     * Create a recurring payment
+     * @param \MangoPay\PayInRecurringRegistration $recurringRegistration
+     * @return \MangoPay\PayInRecurringRegistration
+     */
+    public function CreateRecurringRegistration($recurringRegistration, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_recurring_registration', $recurringRegistration, '\MangoPay\PayInRecurringRegistrationRequestResponse', null, $idempotencyKey);
+    }
+
+    /**
+     * Create a Recurring PayIn CIT
+     * @param \MangoPay\RecurringPayInCIT $recurringPayInRegistrationCIT
+     */
+    public function CreateRecurringPayInRegistrationCIT($recurringPayInRegistrationCIT, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_recurring_card_direct', $recurringPayInRegistrationCIT, '\MangoPay\PayInRecurring', null, $idempotencyKey);
+    }
+
+    /**
+     * Create a Recurring PayIn MIT
+     * @param \MangoPay\RecurringPayInMIT $recurringPayInRegistrationMIT
+     */
+    public function CreateRecurringPayInRegistrationMIT($recurringPayInRegistrationMIT, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_recurring_card_direct', $recurringPayInRegistrationMIT, '\MangoPay\PayInRecurring', null, $idempotencyKey);
+    }
+
+    /**
      * Retrieves a list of Refunds pertaining to a certain PayIn
      * @param string $payInId ID of PayIn for which to retrieve Refunds
      * @param \MangoPay\Pagination $pagination Pagination object

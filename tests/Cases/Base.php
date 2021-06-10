@@ -331,6 +331,62 @@ abstract class Base extends TestCase
     }
 
     /**
+     * Creates self::$JohnsWalletWithMoney (wallets belonging to John) if not created yet (3DSecure)
+     * @return \MangoPay\Wallet
+     */
+    protected function getJohnsWalletWithMoneyAndCardId($amount = 1000)
+    {
+        $arr = array();
+        if (self::$JohnsWalletWithMoney === null) {
+            $john = $this->getJohn();
+            // create wallet with money
+            $wallet = new \MangoPay\Wallet();
+            $wallet->Owners = [$john->Id];
+            $wallet->Currency = 'EUR';
+            $wallet->Description = 'WALLET IN EUR WITH MONEY';
+
+            self::$JohnsWalletWithMoney = $this->_api->Wallets->Create($wallet);
+
+            $cardRegistration = new \MangoPay\CardRegistration();
+            $cardRegistration->UserId = self::$JohnsWalletWithMoney->Owners[0];
+            $cardRegistration->Currency = 'EUR';
+            $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
+
+            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistartionData3DSecure($cardRegistration);
+            $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
+
+            $card = $this->_api->Cards->Get($cardRegistration->CardId);
+
+            // create pay-in CARD DIRECT
+            $payIn = new \MangoPay\PayIn();
+            $payIn->CreditedWalletId = self::$JohnsWalletWithMoney->Id;
+            $payIn->AuthorId = $cardRegistration->UserId;
+            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds->Amount = $amount;
+            $payIn->DebitedFunds->Currency = 'EUR';
+            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees->Amount = 0;
+            $payIn->Fees->Currency = 'EUR';
+
+            // payment type as CARD
+            $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+            $payIn->PaymentDetails->CardId = $card->Id;
+
+            // execution type as DIRECT
+            $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+            $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+            // create Pay-In
+            $this->_api->PayIns->Create($payIn);
+            $arr["cardId"] = $card->Id;
+        }
+
+        $wall = $this->_api->Wallets->Get(self::$JohnsWalletWithMoney->Id);
+        $arr["wallet"] = $wall;
+
+        return $arr;
+    }
+
+    /**
      * Creates self::$JohnsWalletWithMoney (wallets belonging to John) if not created yet
      * @return \MangoPay\Wallet
      */
@@ -379,6 +435,38 @@ abstract class Base extends TestCase
         }
 
         return $this->_api->Wallets->Get(self::$JohnsWalletWithMoney->Id);
+    }
+
+    /**
+     * Get registration data from Payline service with 3DSecure card
+     * @param \MangoPay\CardRegistration $cardRegistration
+     * @return string
+     */
+    protected function getPaylineCorrectRegistartionData3DSecure($cardRegistration)
+    {
+
+        /*
+         ****** DO NOT use this code in a production environment - it is just for unit tests. In production you are not allowed to have the user's card details pass via your server (which is what is required to use this code here) *******
+         */
+        $data = 'data=' . $cardRegistration->PreregistrationData .
+            '&accessKeyRef=' . $cardRegistration->AccessKey .
+            '&cardNumber=4970105191923460' .
+            '&cardExpirationDate=1224' .
+            '&cardCvx=123';
+
+        $curlHandle = curl_init($cardRegistration->CardRegistrationURL);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curlHandle, CURLOPT_POST, true);
+        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $data);
+        $response = curl_exec($curlHandle);
+        if ($response === false && curl_errno($curlHandle) != 0) {
+            throw new \Exception('cURL error: ' . curl_error($curlHandle));
+        }
+
+        curl_close($curlHandle);
+
+        return $response;
     }
 
     /**
