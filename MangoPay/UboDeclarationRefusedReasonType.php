@@ -8,5 +8,4 @@ namespace MangoPay;
  */
 class UboDeclarationRefusedReasonType extends UboDeclarationRefusedOrIncompleteReasonType
 {
-
 }

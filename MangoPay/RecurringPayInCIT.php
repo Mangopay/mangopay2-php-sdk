@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MangoPay;
-
 
 class RecurringPayInCIT extends Libraries\Dto
 {
