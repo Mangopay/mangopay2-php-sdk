@@ -7,12 +7,12 @@ MangopaySDK is a PHP client library to work with [Mangopay REST API](https://doc
 Compatibility Notes
 -------------------------------------------------
 * Since v2.1 of this SDK, you must be using at least v2.01 of the API ([more information about the changes required](https://docs.mangopay.com/api-v2-01-overview/))
-* If you experience problems with authentification and/or the temporary token file following an SDK update (particuarly updating to v2.0 of the SDK), you may need to just delete your temporary file (that you specify with `$api->Config->TemporaryFolder`) - which allows it to be regenerated correctly the next time it's needed
+* If you experience problems with authentification and/or the temporary token file following an SDK update (particularly updating to v2.0 of the SDK), you may need to just delete your temporary file (that you specify with `$api->Config->TemporaryFolder`) - which allows it to be regenerated correctly the next time it's needed
 
 Requirements
 -------------------------------------------------
 To use this SDK, you will need (as a minimum):
-* PHP v5.4 (at least 5.6 is recommended)
+* PHP 5.6 or newer
 * cURL (included and enabled in a standard PHP distribution)
 * OpenSSL (included and enabled in a standard PHP distribution)
 * [psr/log](https://github.com/php-fig/log) v1.0
@@ -193,7 +193,7 @@ class MangoPayService
         $this->mangoPayApi = new MangoPay\MangoPayApi();
         $this->mangoPayApi->Config->ClientId = 'your-client-id';
         $this->mangoPayApi->Config->ClientPassword = 'your-client-password';
-        $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';    
+        $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';
         //$this->mangoPayApi->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
     }
 
@@ -273,13 +273,13 @@ class MangoPayService
         $this->mangoPayApi = new MangoPay\MangoPayApi();
         $this->mangoPayApi->Config->ClientId = 'your-client-id';
         $this->mangoPayApi->Config->ClientPassword = 'your-client-password';
-        $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';    
+        $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';
         //$this->mangoPayApi->Config->BaseUrl = 'https://api.sandbox.mangopay.com';
     }
 
     public function verifyRateLimits()
     {
-        // This is an arary of 4 RateLimit objects.
+        // This is an array of 4 RateLimit objects.
         $rateLimits = $this->mangoPayApi->RateLimits;
         print "There were " . $rateLimits[0]->CallsMade . " calls made in the last 15 minutes\n";
         print "You can do " . $rateLimits[0]->CallsRemaining . " more calls in the next 15 minutes\n";
