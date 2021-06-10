@@ -350,20 +350,36 @@ class RestTool
      */
     private function CheckResponseCode($responseCode, $response)
     {
-        if ($responseCode < 200 || $responseCode > 299) {
-            if (isset($response) && is_object($response) && isset($response->Message)) {
-                $error = new Error();
-                $error->Message = $response->Message;
-                $error->Errors = property_exists($response, 'Errors')
-                    ? $response->Errors
-                    : (property_exists($response, 'errors') ? $response->errors : null);
-                $error->Id = property_exists($response, 'Id') ? $response->Id : null;
-                $error->Type = property_exists($response, 'Type') ? $response->Type : null;
-                $error->Date = property_exists($response, 'Date') ? $response->Date : null;
-                throw new ResponseException($this->_requestUrl, $responseCode, $error);
-            } else {
-                throw new ResponseException($this->_requestUrl, $responseCode);
-            }
+        if ($responseCode >= 200 && $responseCode <= 299) {
+            return;
         }
+
+        if (!is_object($response) || !isset($response->Message)) {
+            throw new ResponseException($this->_requestUrl, $responseCode);
+        }
+
+        $error = new Error();
+
+        $map = [
+            'Message',
+            'Id',
+            'Type',
+            'Date',
+            'Errors',
+        ];
+
+        foreach ($map as $val) {
+            $error->{$val} = property_exists($response, $val) ? $response->{$val} : null;
+        }
+
+        if (property_exists($response, 'errors')) {
+            $error->Errors = $response->errors;
+        }
+
+        foreach ($error->Errors as $key => $val) {
+            $error->Message .= sprintf(' %s error: %s', $key, $val);
+        }
+
+        throw new ResponseException($this->_requestUrl, $responseCode, $error);
     }
 }
