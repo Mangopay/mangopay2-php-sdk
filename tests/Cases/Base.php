@@ -336,7 +336,7 @@ abstract class Base extends TestCase
      */
     protected function getJohnsWalletWithMoneyAndCardId($amount = 1000)
     {
-        $arr = array();
+        $arr = [];
         if (self::$JohnsWalletWithMoney === null) {
             $john = $this->getJohn();
             // create wallet with money
