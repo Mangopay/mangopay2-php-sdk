@@ -376,8 +376,10 @@ class RestTool
             $error->Errors = $response->errors;
         }
 
-        foreach ((array) $error->Errors as $key => $val) {
-            $error->Message .= sprintf(' %s error: %s', $key, $val);
+        if (is_array($error->Errors)) {
+            foreach ($error->Errors as $key => $val) {
+                $error->Message .= sprintf(' %s error: %s', $key, $val);
+            }
         }
 
         throw new ResponseException($this->_requestUrl, $responseCode, $error);

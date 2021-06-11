@@ -332,7 +332,8 @@ abstract class Base extends TestCase
 
     /**
      * Creates self::$JohnsWalletWithMoney (wallets belonging to John) if not created yet (3DSecure)
-     * @return \MangoPay\Wallet
+     * @return array<int,string>
+     * @phpstan-return {walletId: string, cardId?: string }
      */
     protected function getJohnsWalletWithMoneyAndCardId($amount = 1000)
     {
@@ -381,7 +382,7 @@ abstract class Base extends TestCase
         }
 
         $wall = $this->_api->Wallets->Get(self::$JohnsWalletWithMoney->Id);
-        $arr["wallet"] = $wall;
+        $arr["walletId"] = $wall->Id;
 
         return $arr;
     }

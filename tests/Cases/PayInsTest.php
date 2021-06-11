@@ -457,7 +457,7 @@ class PayInsTest extends Base
     private function getRecurringPayin()
     {
         $values = $this->getJohnsWalletWithMoneyAndCardId(1000);
-        $wallet = $values["wallet"];
+        $walletId = $values["walletId"];
         $cardId = $values["cardId"];
         $user = $this->getJohn();
 
@@ -465,7 +465,7 @@ class PayInsTest extends Base
         $payIn->AuthorId = $user->Id;
         $payIn->CardId = $cardId;
         $payIn->CreditedUserId = $user->Id;
-        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->CreditedWalletId = $walletId;
         $payIn->FirstTransactionDebitedFunds = new \MangoPay\Money();
         $payIn->FirstTransactionDebitedFunds->Amount = 12;
         $payIn->FirstTransactionDebitedFunds->Currency = 'EUR';
