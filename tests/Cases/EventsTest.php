@@ -45,7 +45,7 @@ class EventsTest extends Base
         $result = $this->_api->Events->GetAll($pagination, $filter);
 
         $this->assertTrue(count($result) > 0);
-        $this->assertTrue($this->ExistEventById($result, $payIn->Id));
+        $this->assertTrue($this->ExistEventById($result, $payIn->Id), 'Not found in result: ' . json_encode($result));
     }
 
     public function test_GetEventList_PayoutNormalCreated()
