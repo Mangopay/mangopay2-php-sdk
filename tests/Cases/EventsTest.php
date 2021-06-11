@@ -41,6 +41,7 @@ class EventsTest extends Base
         $filter->AfterDate = $payIn->CreationDate - 10;
         $filter->EventType = \MangoPay\EventType::PayinNormalSucceeded;
         $pagination = new \MangoPay\Pagination();
+        $pagination->ItemsPerPage = 100;// Increase the chance to find a result
 
         $result = $this->_api->Events->GetAll($pagination, $filter);
 
