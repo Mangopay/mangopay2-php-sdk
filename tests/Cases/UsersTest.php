@@ -52,13 +52,12 @@ class UsersTest extends Base
     }
 
     /**
-     * @expectedException MangoPay\Libraries\ResponseException
      * @throws Exception
      */
     public function test_Users_CreateLegal_FailsIfRequiredPropsNotProvided()
     {
         $user = new \MangoPay\UserLegal();
-//        $this->expectException(Exception::class);
+        $this->expectException(ResponseException::class);
 
         $ret = $this->_api->Users->Create($user);
 
