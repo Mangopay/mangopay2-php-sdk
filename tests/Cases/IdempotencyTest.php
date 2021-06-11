@@ -2,6 +2,8 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\Libraries\ResponseException;
+
 /**
  * Tests methods for idempotency support
  * See https://docs.mangopay.com/guide/idempotency-support/
@@ -20,13 +22,13 @@ class IdempotencyTest extends Base
     // if post request called twice with same idempotency key, 2nd call is blocked
 
     /**
-     * @expectedException MangoPay\Libraries\ResponseException
      * @throws \MangoPay\Libraries\Exception
      */
     public function test_SameIdempotencyKey_Blocks2ndCall()
     {
         $idempotencyKey = md5(uniqid());
         $user = $this->buildJohn();
+        $this->expectException(ResponseException::class);
         $user1 = $this->_api->Users->Create($user);
         $user1 = $this->_api->Users->Create($user, $idempotencyKey);
         $user2 = $this->_api->Users->Create($user, $idempotencyKey);
