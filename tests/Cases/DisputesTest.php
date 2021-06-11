@@ -185,7 +185,7 @@ class DisputesTest extends Base
         $documentConsults = $this->_api->DisputeDocuments->CreateDisputeDocumentConsult($documentCreated->Id);
 
         $this->assertNotNull($documentConsults);
-        $this->assertInternalType('array', $documentConsults);
+        $this->assertTrue(is_array($documentConsults), 'Expected an array');
     }
 
     function test_Disputes_ResubmitDispute()
@@ -463,7 +463,7 @@ class DisputesTest extends Base
         $refunds = $this->_api->Repudiations->GetRefunds($repudiation->Id, $pagination, $filter);
 
         $this->assertNotNull($refunds);
-        $this->assertInternalType('array', $refunds);
+        $this->assertTrue(is_array($refunds), 'Expected an array');
     }
 
     protected function setUp()

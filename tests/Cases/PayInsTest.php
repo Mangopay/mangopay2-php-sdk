@@ -375,7 +375,7 @@ class PayInsTest extends Base
         $refunds = $this->_api->PayIns->GetRefunds($payIn->Id, $pagination, $filter);
 
         $this->assertNotNull($refunds);
-        $this->assertInternalType('array', $refunds);
+        $this->assertTrue(is_array($refunds), 'Expected an array');
     }
 
     public function test_PayIns_Culture_Code()

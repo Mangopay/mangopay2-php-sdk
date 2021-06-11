@@ -19,7 +19,7 @@ class BankAccountsTest extends Base
         $transactions = $this->_api->BankAccounts->GetTransactions($bankAccount->Id, $pagination, $filter);
 
         $this->assertNotNull($transactions);
-        $this->assertInternalType('array', $transactions);
+        $this->assertTrue(is_array($transactions), 'Expected an array');
     }
 
     public function test_create_bank_account_other()

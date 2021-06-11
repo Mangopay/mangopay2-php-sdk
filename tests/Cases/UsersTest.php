@@ -703,7 +703,7 @@ class UsersTest extends Base
         $preauthorizations = $this->_api->Users->GetPreAuthorizations($john->Id);
 
         $this->assertNotNull($preauthorizations);
-        $this->assertInternalType('array', $preauthorizations);
+        $this->assertTrue(is_array($preauthorizations), 'Expected an array');
     }
 
     public function test_395()
