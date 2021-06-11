@@ -57,6 +57,6 @@ class KycDocumentsTest extends Base
         $consults = $this->_api->KycDocuments->CreateKycDocumentConsult($kycDocument->Id);
 
         $this->assertNotNull($consults);
-        $this->assertInternalType('array', $consults);
+        $this->assertTrue(is_array($consults), 'Expected an array');
     }
 }
