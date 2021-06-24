@@ -33,6 +33,7 @@ class ApiCards extends Libraries\ApiBase
 
     /**
      * Update card
+     * @deprecated
      * @param \MangoPay\Card $card Card object to save
      * @return \MangoPay\Card Card object returned from API
      */
@@ -76,5 +77,16 @@ class ApiCards extends Libraries\ApiBase
     public function ValidateCard($cardId)
     {
         return $this->GetObject('card_validate', '\MangoPay\Card', $cardId);
+    }
+
+    /**
+     * Deactivate a card
+     * @param \MangoPay\Card $card Card object to deactivate
+     * @return \MangoPay\Card Card object returned from API
+     * @throws Libraries\Exception
+     */
+    public function Deactivate($card)
+    {
+        return $this->SaveObject('card_save', $card, '\MangoPay\Card');
     }
 }

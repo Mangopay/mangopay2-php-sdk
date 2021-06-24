@@ -86,4 +86,21 @@ class CardRegistrationsTest extends Base
         $this->assertEquals($updatedCard->Validity, \MangoPay\CardValidity::Valid);
         $this->assertFalse($updatedCard->Active);
     }
+
+    public function test_Cards_Deactivate()
+    {
+        $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
+        $card = $this->_api->Cards->Get($cardPreAuthorization->CardId);
+        $cardToDeactivate = new \MangoPay\Card();
+        $cardToDeactivate->Id = $card->Id;
+        $cardToDeactivate->Active = $card->Active;
+
+        $this->assertTrue($cardToDeactivate->Active);
+
+        $deactivatedCard = $this->_api->Cards->Deactivate($cardToDeactivate);
+
+        $this->assertFalse($deactivatedCard->Active);
+    }
+
+
 }
