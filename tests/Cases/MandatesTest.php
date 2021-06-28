@@ -63,6 +63,6 @@ class MandatesTest extends Base
         $transactions = $this->_api->Mandates->GetTransactions($mandate->Id, $pagination, $filter);
 
         $this->assertNotNull($transactions);
-        $this->assertInternalType('array', $transactions);
+        $this->assertTrue(is_array($transactions), 'Expected an array');
     }
 }
