@@ -12,47 +12,34 @@ use MangoPay\Sorting;
  */
 class DisputesTest extends Base
 {
-    /* IMPORTANT NOTE!
-    *
-    * Due to the fact the disputes CANNOT be created on user's side,
-    * a special approach in testing is needed.
-    * In order to get the tests below pass, a bunch of disputes have
-    * to be prepared on the API's side - if they're not, you can
-    * just skip these tests, as they won't pass.
-    *
-    */
+    /**
+     * IMPORTANT NOTE!
+     *
+     * Due to the fact the disputes CANNOT be created on user's side,
+     * a special approach in testing is needed.
+     * In order to get the tests below pass, a bunch of disputes have
+     * to be prepared on the API's side - if they're not, you can
+     * just skip these tests, as they won't pass.
+     *
+     */
 
     private $_clientDisputes = null;
 
-    public function skip()
-    {
-        $pagination = new \MangoPay\Pagination(1, 100);
-        $sorting = new Sorting();
-        $sorting->AddField("CreationDate", SortDirection::DESC);
-        $this->_clientDisputes = $this->_api->Disputes->GetAll($pagination, $sorting);
-        echo 'CLIENT DISPUTES';
-        echo empty($this->_clientDisputes);
-        if (empty($this->_clientDisputes)) {
-            $this->markTestSkipped('INITIALIZATION FAILURE - cannot test disputes. Not exist any dispute.');
-        }
-    }
-
-
-    /*
-    * TO BE FIXED - DISPUTES TESTS KO - DATA ON ACCOUNT HAVE TO BE FIXED
-    */
     public function test_Disputes_Get()
     {
-        $this->assertEquals("0", "0");
-//         $dispute = $this->_api->Disputes->Get($this->_clientDisputes[0]->Id);
+        $this->init();
 
-//         $this->assertNotNull($dispute);
-//         $this->assertEquals($dispute->Id, $this->_clientDisputes[0]->Id);
+        $this->assertEquals("0", "0");
+        $dispute = $this->_api->Disputes->Get($this->_clientDisputes[0]->Id);
+
+        $this->assertNotNull($dispute);
+        $this->assertEquals($dispute->Id, $this->_clientDisputes[0]->Id);
     }
 
-    /**
-    function test_Disputes_GetTransactions()
+    public function test_Disputes_GetTransactions()
     {
+        $this->init();
+
         $disputeToTest = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->DisputeType == \MangoPay\DisputeType::NotContestable) {
@@ -72,8 +59,10 @@ class DisputesTest extends Base
         $this->assertTrue(count($result) > 0);
     }
 
-    function test_Disputes_GetDisputesForWallet()
+    public function test_Disputes_GetDisputesForWallet()
     {
+        $this->init();
+
         $disputeWallet = null;
         foreach ($this->_clientDisputes as $dispute) {
             if (!is_null($dispute->InitialTransactionId)) {
@@ -94,8 +83,10 @@ class DisputesTest extends Base
         $this->assertTrue(count($result) > 0);
     }
 
-    function test_Disputes_GetDisputesForUser()
+    public function test_Disputes_GetDisputesForUser()
     {
+        $this->init();
+
         $disputeToTest = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->DisputeType == \MangoPay\DisputeType::NotContestable) {
@@ -116,8 +107,10 @@ class DisputesTest extends Base
         $this->assertTrue(count($result) > 0);
     }
 
-    function test_Disputes_CreateDisputeDocument()
+    public function test_Disputes_CreateDisputeDocument()
     {
+        $this->init();
+
         $disputeForDoc = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
@@ -140,8 +133,10 @@ class DisputesTest extends Base
         $this->assertEquals($result->DisputeId, $disputeForDoc->Id);
     }
 
-    function test_Disputes_CreateDisputePage()
+    public function test_Disputes_CreateDisputePage()
     {
+        $this->init();
+
         $disputeForDoc = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
@@ -162,8 +157,10 @@ class DisputesTest extends Base
         $this->assertTrue(true);
     }
 
-    function test_Disputes_CreateDisputeDocumentConsult()
+    public function test_Disputes_CreateDisputeDocumentConsult()
     {
+        $this->init();
+
         $disputeForDoc = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
@@ -188,8 +185,10 @@ class DisputesTest extends Base
         $this->assertTrue(is_array($documentConsults), 'Expected an array');
     }
 
-    function test_Disputes_ResubmitDispute()
+    public function test_Disputes_ResubmitDispute()
     {
+        $this->init();
+
         $toTestDispute = null;
         foreach ($this->_clientDisputes as $dispute) {
             if (($dispute->DisputeType == \MangoPay\DisputeType::Contestable
@@ -212,8 +211,10 @@ class DisputesTest extends Base
         $this->assertEquals(\MangoPay\DisputeStatus::Submitted, $result->Status);
     }
 
-    function test_Disputes_Update()
+    public function test_Disputes_Update()
     {
+        $this->init();
+
         $newTag = "New tag " . time();
         $dispute = new \MangoPay\Dispute();
         $dispute->Id = $this->_clientDisputes[0]->Id;
@@ -225,8 +226,10 @@ class DisputesTest extends Base
         $this->assertEquals($newTag, $result->Tag);
     }
 
-    function test_Disputes_CloseDispute()
+    public function test_Disputes_CloseDispute()
     {
+        $this->init();
+
         $disputeForTest = null;
         foreach ($this->_clientDisputes as $dispute) {
             if (($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
@@ -248,8 +251,10 @@ class DisputesTest extends Base
         $this->assertEquals(\MangoPay\DisputeStatus::Closed, $result->Status);
     }
 
-    function test_Disputes_GetDocument()
+    public function test_Disputes_GetDocument()
     {
+        $this->init();
+
         $disputeForTest = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
@@ -279,8 +284,10 @@ class DisputesTest extends Base
         $this->assertEquals($disputeForTest->Id, $result->DisputeId);
     }
 
-    function test_Disputes_GetDocumentsForDispute()
+    public function test_Disputes_GetDocumentsForDispute()
     {
+        $this->init();
+
         $disputeForTest = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->Status == \MangoPay\DisputeStatus::Submitted) {
@@ -301,8 +308,10 @@ class DisputesTest extends Base
         $this->assertNotNull($result);
     }
 
-    function test_Disputes_ContestDispute()
+    public function test_Disputes_ContestDispute()
     {
+        $this->init();
+
         $notContestedDispute = null;
         foreach ($this->_clientDisputes as $dispute) {
             if (($dispute->DisputeType == \MangoPay\DisputeType::Contestable
@@ -335,8 +344,10 @@ class DisputesTest extends Base
         return $result; // used in test_Disputes_GetDocumentsForDispute()
     }
 
-    function test_Disputes_GetAllDocuments()
+    public function test_Disputes_GetAllDocuments()
     {
+        $this->init();
+
         $pagination = new \MangoPay\Pagination();
         $sorting = new Sorting();
         $sorting->AddField("CreationDate", SortDirection::DESC);
@@ -347,8 +358,12 @@ class DisputesTest extends Base
         $this->assertNotNull($result);
     }
 
-    function test_Disputes_UpdateDisputeDocument()
+    public function test_Disputes_UpdateDisputeDocument()
     {
+        $this->markTestSkipped('Disputes need to be fixed, the data on the account needs to be fixed, ref: https://github.com/Mangopay/mangopay2-php-sdk/issues/85');
+
+        $this->init();
+
         $disputeForTest = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->Status == \MangoPay\DisputeStatus::PendingClientAction
@@ -376,8 +391,10 @@ class DisputesTest extends Base
         $this->assertTrue($result->Status == \MangoPay\DisputeDocumentStatus::ValidationAsked);
     }
 
-    function test_Disputes_GetRepudiation()
+    public function test_Disputes_GetRepudiation()
     {
+        $this->init();
+
         $disputeForTest = null;
         foreach ($this->_clientDisputes as $dispute) {
             if (!is_null($dispute->InitialTransactionId && $dispute->DisputeType == \MangoPay\DisputeType::NotContestable)) {
@@ -405,8 +422,10 @@ class DisputesTest extends Base
         $this->assertEquals($repudiationId, $result->Id);
     }
 
-    function test_Disputes_CreateSettlementTransfer()
+    public function test_Disputes_CreateSettlementTransfer()
     {
+        $this->init();
+
         $disputeForTest = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->Status == \MangoPay\DisputeStatus::Closed && $dispute->DisputeType == \MangoPay\DisputeType::NotContestable) {
@@ -443,6 +462,8 @@ class DisputesTest extends Base
 
     public function test_Repudiations_GetRefunds()
     {
+        $this->init();
+
         $disputeForTest = null;
         foreach ($this->_clientDisputes as $dispute) {
             if ($dispute->Status == \MangoPay\DisputeStatus::Closed && $dispute->DisputeType == \MangoPay\DisputeType::NotContestable) {
@@ -467,9 +488,9 @@ class DisputesTest extends Base
     }
 
     /**
-     * This signature is not compatible with old phpunit versions
+     * This function is like setUp but needs to be called on each tests
      */
-    protected function setUp(): void
+    public function init()
     {
         $pagination = new \MangoPay\Pagination(1, 100);
         $sorting = new Sorting();
@@ -480,5 +501,4 @@ class DisputesTest extends Base
             $this->markTestSkipped('INITIALIZATION FAILURE - cannot test disputes. Not exist any dispute.');
         }
     }
-    */
 }
