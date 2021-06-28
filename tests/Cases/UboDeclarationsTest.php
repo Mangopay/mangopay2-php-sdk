@@ -11,17 +11,6 @@ use MangoPay\UboDeclarationStatus;
  */
 class UboDeclarationsTest extends Base
 {
-    public function setUp()
-    {
-        $this->_api->Config->DebugMode = true;
-    }
-
-    protected function tearDown()
-    {
-        $this->_api->Config->DebugMode = false;
-    }
-
-
     public function test_CreateUboDeclaration()
     {
         $declaration = $this->getMatrixUboDeclaration();

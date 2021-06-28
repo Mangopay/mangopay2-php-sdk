@@ -466,7 +466,10 @@ class DisputesTest extends Base
         $this->assertTrue(is_array($refunds), 'Expected an array');
     }
 
-    protected function setUp()
+    /**
+     * This signature is not compatible with old phpunit versions
+     */
+    protected function setUp(): void
     {
         $pagination = new \MangoPay\Pagination(1, 100);
         $sorting = new Sorting();
