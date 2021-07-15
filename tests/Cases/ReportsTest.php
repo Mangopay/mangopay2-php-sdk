@@ -65,4 +65,22 @@ class ReportsTest extends Base
         $this->assertEquals(1, count($getAllReportRequests));
         $this->assertInstanceOf('\MangoPay\ReportRequest', $getAllReportRequests[0]);
     }
+
+    public function test_Issue467()
+    {
+        $reportRequest = new \MangoPay\ReportRequest();
+        $reportRequest->ReportType = \MangoPay\ReportType::Wallets;
+        $reportRequest->CallbackURL = "/MangopayUsersExportUpdate.php";
+        $reportRequest->DownloadFormat = "CSV";
+        $reportRequest->Sort = "CreationDate:DESC";
+        $reportRequest->Preview = false;
+        $reportRequest->Filters = new \MangoPay\FilterReports();
+        $reportRequest->Filters->MinBalanceAmount = 10;
+
+        $createReportRequest = $this->_api->Reports->Create($reportRequest);
+
+        $getReportRequest = $this->_api->Reports->Get($createReportRequest->Id);
+
+        $this->assertNotNull($getReportRequest);
+    }
 }
