@@ -19,21 +19,26 @@ class DefaultStorageStrategy implements IStorageStrategy
     /**
      * Gets the current authorization token.
      * @return \MangoPay\Libraries\OAuthToken Currently stored token instance or null.
+     * @throws Exception
      */
     public function Get()
     {
-        $filename = $this->GetPathToFile();
-        if (!file_exists($filename)) {
-            return null;
-        }
+        try {
+            $filename = $this->GetPathToFile();
+            if (!file_exists($filename)) {
+                return null;
+            }
 
-        $data = file_get_contents($filename);
-        if ($data === false) {
-            return null;
-        }
+            $data = file_get_contents($filename);
+            if ($data === false) {
+                return null;
+            }
 
-        $serialized = str_replace($this->_prefixContent, '', $data);
-        return unserialize($serialized);
+            $serialized = str_replace($this->_prefixContent, '', $data);
+            return unserialize($serialized);
+        } catch (Exception $e) {
+            throw new \MangoPay\Libraries\Exception('Cannot get token from file, or:' . $e->getMessage());
+        }
     }
 
     /**
