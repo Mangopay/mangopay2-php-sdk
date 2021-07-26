@@ -492,6 +492,15 @@ class PayInsTest extends Base
         $this->assertNotNull($result);
     }
 
+    public function test_Get_Recurring_Payment()
+    {
+        $result = $this->getRecurringPayin();
+        $this->assertNotNull($result);
+
+        $get = $this->_api->PayIns->GetRecurringRegistration($result->Id);
+        $this->assertNotNull($get);
+    }
+
     public function test_Create_Recurring_PayIn_CIT()
     {
         $registration = $this->getRecurringPayin();
