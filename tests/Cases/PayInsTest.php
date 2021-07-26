@@ -14,6 +14,7 @@ use MangoPay\PayInExecutionType;
 use MangoPay\PayInPaymentDetails;
 use MangoPay\PayInPaymentDetailsBankWire;
 use MangoPay\PayInPaymentType;
+use MangoPay\PayInRecurringRegistrationUpdate;
 use MangoPay\PayInStatus;
 use MangoPay\RecurringPayInCIT;
 use MangoPay\Shipping;
@@ -499,6 +500,25 @@ class PayInsTest extends Base
 
         $get = $this->_api->PayIns->GetRecurringRegistration($result->Id);
         $this->assertNotNull($get);
+    }
+
+    public function test_Update_Recurring_Payment()
+    {
+        $result = $this->getRecurringPayin();
+        $this->assertNotNull($result);
+
+        $get = $this->_api->PayIns->GetRecurringRegistration($result->Id);
+        $this->assertNotNull($get);
+
+        $update = new PayInRecurringRegistrationUpdate();
+        $update->Id = $result->Id;
+        $update->Shipping = $result->Shipping;
+        $update->Shipping->FirstName = "TEST";
+        $update->Billing = $result->Billing;
+        $update->Billing->FirstName = "TEST AGAIN";
+
+        $updatedResult = $this->_api->PayIns->UpdateRecurringRegistration($update);
+        $this->assertNotNull($updatedResult);
     }
 
     public function test_Create_Recurring_PayIn_CIT()
