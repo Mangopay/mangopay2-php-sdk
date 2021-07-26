@@ -5,6 +5,7 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\AVSResult;
 use MangoPay\BankingAlias;
 use MangoPay\BrowserInfo;
+use MangoPay\CurrencyIso;
 use MangoPay\DebitedBankAccount;
 use MangoPay\Libraries\Exception;
 use MangoPay\Money;
@@ -512,6 +513,14 @@ class PayInsTest extends Base
         $browserInfo->TimeZoneOffset = "+60";
         $browserInfo->UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148";
         $cit->BrowserInfo = $browserInfo;
+        $funds = new Money();
+        $funds->Amount = 10;
+        $funds->Currency = CurrencyIso::EUR;
+        $fees = new Money();
+        $fees->Amount = 1;
+        $fees->Currency = CurrencyIso::EUR;
+        $cit->DebitedFunds = $funds;
+        $cit->Fees = $fees;
 
         $result = $this->_api->PayIns->CreateRecurringPayInRegistrationCIT($cit);
 

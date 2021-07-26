@@ -53,6 +53,7 @@ class ApiPayIns extends Libraries\ApiBase
     /**
      * Create a Recurring PayIn CIT
      * @param \MangoPay\RecurringPayInCIT $recurringPayInRegistrationCIT
+     * @return \MangoPay\PayInRecurringRegistration
      */
     public function CreateRecurringPayInRegistrationCIT($recurringPayInRegistrationCIT, $idempotencyKey = null)
     {
