@@ -35,4 +35,14 @@ class RecurringPayInCIT extends Libraries\Dto
      * @var string
      */
     public $Tag;
+
+    /**
+     * @var Money
+     */
+    public $DebitedFunds;
+
+    /**
+     * @var Money
+     */
+    public $Fees;
 }

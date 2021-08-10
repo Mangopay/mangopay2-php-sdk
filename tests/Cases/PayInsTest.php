@@ -5,6 +5,7 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\AVSResult;
 use MangoPay\BankingAlias;
 use MangoPay\BrowserInfo;
+use MangoPay\CurrencyIso;
 use MangoPay\DebitedBankAccount;
 use MangoPay\Libraries\Exception;
 use MangoPay\Money;
@@ -13,6 +14,7 @@ use MangoPay\PayInExecutionType;
 use MangoPay\PayInPaymentDetails;
 use MangoPay\PayInPaymentDetailsBankWire;
 use MangoPay\PayInPaymentType;
+use MangoPay\PayInRecurringRegistrationUpdate;
 use MangoPay\PayInStatus;
 use MangoPay\RecurringPayInCIT;
 use MangoPay\Shipping;
@@ -491,6 +493,34 @@ class PayInsTest extends Base
         $this->assertNotNull($result);
     }
 
+    public function test_Get_Recurring_Payment()
+    {
+        $result = $this->getRecurringPayin();
+        $this->assertNotNull($result);
+
+        $get = $this->_api->PayIns->GetRecurringRegistration($result->Id);
+        $this->assertNotNull($get);
+    }
+
+    public function test_Update_Recurring_Payment()
+    {
+        $result = $this->getRecurringPayin();
+        $this->assertNotNull($result);
+
+        $get = $this->_api->PayIns->GetRecurringRegistration($result->Id);
+        $this->assertNotNull($get);
+
+        $update = new PayInRecurringRegistrationUpdate();
+        $update->Id = $result->Id;
+        $update->Shipping = $result->Shipping;
+        $update->Shipping->FirstName = "TEST";
+        $update->Billing = $result->Billing;
+        $update->Billing->FirstName = "TEST AGAIN";
+
+        $updatedResult = $this->_api->PayIns->UpdateRecurringRegistration($update);
+        $this->assertNotNull($updatedResult);
+    }
+
     public function test_Create_Recurring_PayIn_CIT()
     {
         $registration = $this->getRecurringPayin();
@@ -512,6 +542,14 @@ class PayInsTest extends Base
         $browserInfo->TimeZoneOffset = "+60";
         $browserInfo->UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148";
         $cit->BrowserInfo = $browserInfo;
+        $funds = new Money();
+        $funds->Amount = 10;
+        $funds->Currency = CurrencyIso::EUR;
+        $fees = new Money();
+        $fees->Amount = 1;
+        $fees->Currency = CurrencyIso::EUR;
+        $cit->DebitedFunds = $funds;
+        $cit->Fees = $fees;
 
         $result = $this->_api->PayIns->CreateRecurringPayInRegistrationCIT($cit);
 
