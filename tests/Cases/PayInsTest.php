@@ -497,6 +497,8 @@ class PayInsTest extends Base
 
     public function test_Get_Recurring_Payment()
     {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
         $result = $this->getRecurringPayin();
         $this->assertNotNull($result);
 
@@ -506,6 +508,8 @@ class PayInsTest extends Base
 
     public function test_Update_Recurring_Payment()
     {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
         $result = $this->getRecurringPayin();
         $this->assertNotNull($result);
 
