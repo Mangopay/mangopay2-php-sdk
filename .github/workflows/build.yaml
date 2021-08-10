@@ -2,10 +2,16 @@ name: mangopay2-php-sdk-cd
 
 on:
   push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-      # It pushes any tags that contain a v. ex: 1.16.1
-      - '*'
+    branches:
+      # push on master branch
+      - master
+      # push on a feature branch
+      - feature/*
+      # push on a bugfix branch
+      - bugfix/*
+  pull_request:
+    branches: [ master ]
+
 
 jobs:
   test-php:
