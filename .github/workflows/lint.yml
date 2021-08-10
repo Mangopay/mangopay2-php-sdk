@@ -1,4 +1,4 @@
-name: Lint and analyse files
+name: Lint files
 
 on: [push]
 
