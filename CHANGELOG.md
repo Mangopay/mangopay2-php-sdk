@@ -1,7 +1,14 @@
+## [3.7.1] - 2021-08-10
+## Fixed
+
+- Better support of more PHPUnit versions
+- Cleanup the vendor bundle, to reduce the size of the SDK
+
+Thanks williamdes for your help
+
 ## [3.7.0] - 2021-08-10
 ## Fixed
 
-- Cleanup the vendor bundle, to reduce the size of the SDK
 - ChargeDate has been added for PayInPaymentDetailsDirectDebit
 - Change `FallbackReason` parameter's type to object in PayOutPaymentDetailsBankWire
 
