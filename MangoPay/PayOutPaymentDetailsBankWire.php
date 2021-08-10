@@ -39,7 +39,7 @@ class PayOutPaymentDetailsBankWire extends Libraries\Dto implements PayOutPaymen
 
     /**
      * The fallback reason.
-     * @var string
+     * @var FallbackReason
      */
     public $FallbackReason;
 
