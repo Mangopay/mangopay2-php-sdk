@@ -9,15 +9,12 @@ use MangoPay\Libraries\ResponseException;
  */
 class ConfigurationTest extends Base
 {
-    /**
-     * @expectedException MangoPay\Libraries\ResponseException
-     */
     public function test_confInConstruct()
     {
         $this->_api->Config->ClientId = "test_asd";
         $this->_api->Config->ClientPassword = "00000";
 
-//        $this->excpectException('MangoPay\Libraries\ResponseException');
+        $this->expectException(ResponseException::class);
         $this->_api->Users->GetAll();
     }
 }

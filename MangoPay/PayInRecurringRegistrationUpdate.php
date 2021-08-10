@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MangoPay;
-
 
 use MangoPay\Libraries\Dto;
 

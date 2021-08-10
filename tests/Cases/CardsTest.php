@@ -36,7 +36,7 @@ class CardsTest extends Base
         $preauthorizations = $this->_api->Cards->GetPreAuthorizations($card->Id);
 
         $this->assertNotNull($preauthorizations);
-        $this->assertInternalType('array', $preauthorizations);
+        $this->assertTrue(is_array($preauthorizations), 'Expected an array');
     }
 
     public function test_Card_GetTransactions()
@@ -50,7 +50,7 @@ class CardsTest extends Base
         $transactions = $this->_api->Cards->GetTransactions($card->Id, $pagination, $filter);
 
         $this->assertNotNull($transactions);
-        $this->assertInternalType('array', $transactions);
+        $this->assertTrue(is_array($transactions), 'Expected an array');
     }
 
     public function test_Card_Validate()

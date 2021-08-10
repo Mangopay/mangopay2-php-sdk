@@ -375,7 +375,7 @@ class PayInsTest extends Base
         $refunds = $this->_api->PayIns->GetRefunds($payIn->Id, $pagination, $filter);
 
         $this->assertNotNull($refunds);
-        $this->assertInternalType('array', $refunds);
+        $this->assertTrue(is_array($refunds), 'Expected an array');
     }
 
     public function test_PayIns_Culture_Code()
@@ -457,7 +457,7 @@ class PayInsTest extends Base
     private function getRecurringPayin()
     {
         $values = $this->getJohnsWalletWithMoneyAndCardId(1000);
-        $wallet = $values["wallet"];
+        $walletId = $values["walletId"];
         $cardId = $values["cardId"];
         $user = $this->getJohn();
 
@@ -465,7 +465,7 @@ class PayInsTest extends Base
         $payIn->AuthorId = $user->Id;
         $payIn->CardId = $cardId;
         $payIn->CreditedUserId = $user->Id;
-        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->CreditedWalletId = $walletId;
         $payIn->FirstTransactionDebitedFunds = new \MangoPay\Money();
         $payIn->FirstTransactionDebitedFunds->Amount = 12;
         $payIn->FirstTransactionDebitedFunds->Currency = 'EUR';
@@ -488,6 +488,8 @@ class PayInsTest extends Base
 
     public function test_Create_Recurring_Payment()
     {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
         $result = $this->getRecurringPayin();
 
         $this->assertNotNull($result);
@@ -495,6 +497,8 @@ class PayInsTest extends Base
 
     public function test_Get_Recurring_Payment()
     {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
         $result = $this->getRecurringPayin();
         $this->assertNotNull($result);
 
@@ -504,6 +508,8 @@ class PayInsTest extends Base
 
     public function test_Update_Recurring_Payment()
     {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
         $result = $this->getRecurringPayin();
         $this->assertNotNull($result);
 
@@ -523,6 +529,8 @@ class PayInsTest extends Base
 
     public function test_Create_Recurring_PayIn_CIT()
     {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
         $registration = $this->getRecurringPayin();
 
         $cit = new RecurringPayInCIT();

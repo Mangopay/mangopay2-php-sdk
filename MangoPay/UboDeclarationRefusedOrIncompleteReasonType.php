@@ -47,5 +47,4 @@ class UboDeclarationRefusedOrIncompleteReasonType
      * @see UboDeclaration::$Message
      */
     const SpecificCase = 'SPECIFIC_CASE';
-
 }

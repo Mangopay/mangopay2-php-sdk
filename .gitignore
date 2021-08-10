@@ -10,6 +10,7 @@ demos/paymentDirect/MangoPaySdkStorage.tmp.php
 composer.lock
 
 .*
+!.github
 !.php_cs
 !.gitignore
 !.gitattributes

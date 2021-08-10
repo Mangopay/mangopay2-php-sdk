@@ -60,11 +60,11 @@ class ApiPayIns extends Libraries\ApiBase
         return $this->GetObject('payins_recurring_registration_get', '\MangoPay\PayInRecurringRegistrationGet', $recurringRegistrationId);
     }
 
-     /**
-     * Update recurring payment
-     * @param PayInRecurringRegistrationUpdate $recurringUpdate
-     * @return \MangoPay\PayInRecurringRegistrationGet
-     */
+    /**
+    * Update recurring payment
+    * @param PayInRecurringRegistrationUpdate $recurringUpdate
+    * @return \MangoPay\PayInRecurringRegistrationGet
+    */
     public function UpdateRecurringRegistration($recurringUpdate, $idempotencyKey = null)
     {
         return $this->SaveObject('payins_recurring_registration_put', $recurringUpdate, '\MangoPay\PayInRecurringRegistrationGet');

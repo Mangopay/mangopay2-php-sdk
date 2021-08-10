@@ -41,11 +41,12 @@ class EventsTest extends Base
         $filter->AfterDate = $payIn->CreationDate - 10;
         $filter->EventType = \MangoPay\EventType::PayinNormalSucceeded;
         $pagination = new \MangoPay\Pagination();
+        $pagination->ItemsPerPage = 100;// Increase the chance to find a result
 
         $result = $this->_api->Events->GetAll($pagination, $filter);
 
         $this->assertTrue(count($result) > 0);
-        $this->assertTrue($this->ExistEventById($result, $payIn->Id));
+        $this->assertTrue($this->ExistEventById($result, $payIn->Id), 'Not found in result: ' . json_encode($result));
     }
 
     public function test_GetEventList_PayoutNormalCreated()

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MangoPay;
-
 
 class PayInRecurringRegistration extends Libraries\Dto
 {

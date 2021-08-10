@@ -61,6 +61,6 @@ class PayOutsTest extends Base
         $refunds = $this->_api->PayOuts->GetRefunds($payOut->Id, $pagination, $filter);
 
         $this->assertNotNull($refunds);
-        $this->assertInternalType('array', $refunds);
+        $this->assertTrue(is_array($refunds), 'Expected an array');
     }
 }
