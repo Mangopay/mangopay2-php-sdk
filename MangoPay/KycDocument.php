@@ -23,4 +23,10 @@ class KycDocument extends Libraries\Document
      * @var string
      */
     public $UserId;
+
+    /**
+     * More information regarding why the document has been rejected.
+     * @var array
+     */
+    public $Flags;
 }
