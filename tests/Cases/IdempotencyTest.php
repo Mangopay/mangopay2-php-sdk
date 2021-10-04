@@ -183,7 +183,7 @@ class IdempotencyTest extends Base
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $user->Id;
         $payIn->DebitedFunds = new \MangoPay\Money();
-        $payIn->DebitedFunds->Amount = 10000;
+        $payIn->DebitedFunds->Amount = 100;
         $payIn->DebitedFunds->Currency = 'EUR';
         $payIn->Fees = new \MangoPay\Money();
         $payIn->Fees->Amount = 0;
