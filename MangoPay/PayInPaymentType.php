@@ -15,4 +15,5 @@ class PayInPaymentType
     const PayPal = 'PAYPAL';
     const ApplePay = 'APPLEPAY';
     const GooglePay = 'GOOGLEPAY';
+    const Payconiq = 'PAYCONIQ';
 }

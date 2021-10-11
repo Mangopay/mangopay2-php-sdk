@@ -315,6 +315,13 @@ class PayInsTest extends Base
         $this->assertSame('FR', $payIn->ExecutionDetails->Culture);
     }
 
+    public function test_PayIns_Create_PayconiqWeb()
+    {
+        $payIn = $this->getJohnsPayInPayconiqWeb();
+
+        $this->assertTrue($payIn->Id > 0);
+    }
+
     public function test_PayIns_Get_PaypalWeb()
     {
         $payIn = $this->getJohnsPayInPaypalWeb();

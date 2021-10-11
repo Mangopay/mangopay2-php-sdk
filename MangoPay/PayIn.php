@@ -14,7 +14,7 @@ class PayIn extends Transaction
     public $CreditedWalletId;
 
     /**
-     * PaymentType {CARD, BANK_WIRE, DIRECT_DEBIT, PAYPAL }
+     * PaymentType {CARD, BANK_WIRE, DIRECT_DEBIT, PAYPAL, PAYCONIQ }
      * @var string
      */
     public $PaymentType;
@@ -54,6 +54,7 @@ class PayIn extends Transaction
                 PayInPaymentType::PayPal => '\MangoPay\PayInPaymentDetailsPaypal',
                 PayInPaymentType::ApplePay => 'MangoPay\PayInPaymentDetailsApplePay',
                 PayInPaymentType::GooglePay => 'MangoPay\PayInPaymentDetailsGooglePay',
+                PayInPaymentType::Payconiq => 'MangoPay\PayInPaymentDetailsPayconiq'
                 // ...and more in future...
             ],
             'ExecutionType' => [
