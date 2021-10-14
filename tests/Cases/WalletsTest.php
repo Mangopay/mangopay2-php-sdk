@@ -62,6 +62,25 @@ class WalletsTest extends Base
 //        $this->assertIdenticalInputProps($transactions[0], $payIn);
     }
 
+    public function test_Wallets_Transactions_Filter()
+    {
+        $john = $this->getJohn();
+        $wallet = $this->getJohnsWallet();
+        self::$JohnsPayInCardWeb = null;
+        $payIn = $this->getJohnsPayInCardWeb();
+
+        $pagination = new \MangoPay\Pagination(1, 1);
+        $filter = new \MangoPay\FilterTransactions();
+        $filter->BeforeDate = time();
+        $filter->AfterDate = strtotime("-1 day");
+        $transactions = $this->_api->Wallets->GetTransactions($wallet->Id, $pagination, $filter);
+
+        $this->assertEquals(1, count($transactions));
+        $this->assertInstanceOf('\MangoPay\Transaction', $transactions[0]);
+        $this->assertEquals($john->Id, $transactions[0]->AuthorId);
+    }
+
+
     public function test_Wallets_Transactions_SortByCreationDate()
     {
         $wallet = $this->getJohnsWallet();
