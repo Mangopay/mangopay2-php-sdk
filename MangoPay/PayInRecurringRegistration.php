@@ -78,4 +78,9 @@ class PayInRecurringRegistration extends Libraries\Dto
      * @var \MangoPay\Money
      */
     public $NextTransactionFees;
+
+    /**
+     * @var string
+     */
+    public $Status;
 }

@@ -529,6 +529,7 @@ class PayInsTest extends Base
         $update->Shipping->FirstName = "TEST";
         $update->Billing = $result->Billing;
         $update->Billing->FirstName = "TEST AGAIN";
+        $update->Status = "ENDED";
 
         $updatedResult = $this->_api->PayIns->UpdateRecurringRegistration($update);
         $this->assertNotNull($updatedResult);
