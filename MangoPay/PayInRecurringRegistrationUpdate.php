@@ -26,4 +26,9 @@ class PayInRecurringRegistrationUpdate extends Dto
      * @var Billing
      */
     public $Billing;
+
+    /**
+     * @var string
+     */
+    public $Status;
 }
