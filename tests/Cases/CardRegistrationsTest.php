@@ -34,7 +34,7 @@ class CardRegistrationsTest extends Base
     public function test_CardRegistrations_Update()
     {
         $cardRegistration = $this->getJohnsCardRegistration();
-        $registrationData = $this->getPaylineCorrectRegistartionData($cardRegistration);
+        $registrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
         $cardRegistration->RegistrationData = $registrationData;
 
         $getCardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);

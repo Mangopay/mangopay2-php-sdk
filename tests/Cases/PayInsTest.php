@@ -606,4 +606,31 @@ class PayInsTest extends Base
         $this->assertEquals(1, $createPayIn->Fees->Amount);
         $this->assertEquals("EUR", $createPayIn->Fees->Currency);
     }
+
+
+    public function test_ExampleOf3DSecureV2_1()
+    {
+        $johnWallet = $this->getJohnsWalletWithMoney();
+        $beforeWallet = $this->_api->Wallets->Get($johnWallet->Id);
+
+        $payIn = $this->getNewPayInCardDirect3DSecure();
+        $wallet = $this->_api->Wallets->Get($johnWallet->Id);
+        $user = $this->getJohn();
+
+        $this->assertTrue($payIn->Id > 0);
+        $this->assertEquals($wallet->Id, $payIn->CreditedWalletId);
+        $this->assertEquals(\MangoPay\PayInPaymentType::Card, $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsCard', $payIn->PaymentDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Direct, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $payIn->ExecutionDetails);
+        $this->assertInstanceOf('\MangoPay\Money', $payIn->DebitedFunds);
+        $this->assertInstanceOf('\MangoPay\Money', $payIn->CreditedFunds);
+        $this->assertInstanceOf('\MangoPay\Money', $payIn->Fees);
+        $this->assertEquals($user->Id, $payIn->AuthorId);
+        $this->assertEquals($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
+        $this->assertEquals(PayInStatus::Succeeded, $payIn->Status);
+        $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertEquals($payIn->ExecutionDetails->Requested3DSVersion, "V2_1");
+        $this->assertEquals($payIn->ExecutionDetails->Applied3DSVersion, "V2_1");
+    }
 }

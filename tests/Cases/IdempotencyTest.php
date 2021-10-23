@@ -150,7 +150,7 @@ class IdempotencyTest extends Base
         $cardRegistration->UserId = $userId;
         $cardRegistration->Currency = 'EUR';
         $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
-        $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistartionData($cardRegistration);
+        $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
         $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
         $card = $this->_api->Cards->Get($cardRegistration->CardId);
         $payIn = new \MangoPay\PayIn();

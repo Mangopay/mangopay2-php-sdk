@@ -5,6 +5,7 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\BankAccount;
 use MangoPay\BankAccountDetailsIBAN;
 use MangoPay\Birthplace;
+use MangoPay\BrowserInfo;
 use MangoPay\Libraries\Logs;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
@@ -359,7 +360,7 @@ abstract class Base extends TestCase
             $cardRegistration->Currency = 'EUR';
             $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
 
-            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistartionData3DSecure($cardRegistration);
+            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData3DSecure($cardRegistration);
             $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
 
             $card = $this->_api->Cards->Get($cardRegistration->CardId);
@@ -414,7 +415,7 @@ abstract class Base extends TestCase
             $cardRegistration->Currency = 'EUR';
             $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
 
-            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistartionData($cardRegistration);
+            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
             $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
 
             $card = $this->_api->Cards->Get($cardRegistration->CardId);
@@ -449,7 +450,7 @@ abstract class Base extends TestCase
      * @param \MangoPay\CardRegistration $cardRegistration
      * @return string
      */
-    protected function getPaylineCorrectRegistartionData3DSecure($cardRegistration)
+    protected function getPaylineCorrectRegistrationData3DSecure($cardRegistration)
     {
 
         /*
@@ -481,7 +482,7 @@ abstract class Base extends TestCase
      * @param \MangoPay\CardRegistration $cardRegistration
      * @return string
      */
-    protected function getPaylineCorrectRegistartionData($cardRegistration)
+    protected function getPaylineCorrectRegistrationData($cardRegistration)
     {
 
         /*
@@ -627,7 +628,7 @@ abstract class Base extends TestCase
         $cardRegistration->UserId = $userId;
         $cardRegistration->Currency = 'EUR';
         $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
-        $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistartionData($cardRegistration);
+        $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
         $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
 
         $card = $this->_api->Cards->Get($cardRegistration->CardId);
@@ -663,6 +664,73 @@ abstract class Base extends TestCase
         $billing->Address = $address;
         $payIn->ExecutionDetails->Billing = $billing;
         $payIn->ExecutionDetails->Requested3DSVersion = "V1";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    /**
+     * Creates Pay-In Card Direct object
+     * @return \MangoPay\PayIn
+     */
+    protected function getNewPayInCardDirect3DSecure($userId = null)
+    {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $cardRegistration = new \MangoPay\CardRegistration();
+        $cardRegistration->UserId = $userId;
+        $cardRegistration->Currency = 'EUR';
+        $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
+        $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData3DSecure($cardRegistration);
+        $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
+
+        $card = $this->_api->Cards->Get($cardRegistration->CardId);
+
+        // create pay-in CARD DIRECT
+        $payIn = new \MangoPay\PayIn();
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->AuthorId = $userId;
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'EUR';
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+        $payIn->PaymentDetails->CardId = $card->Id;
+        $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $browserInfo = new BrowserInfo();
+        $browserInfo->AcceptHeader = "text/html, application/xhtml+xml, application/xml;q=0.9, /;q=0.8";
+        $browserInfo->JavaEnabled = true;
+        $browserInfo->Language = "FR-FR";
+        $browserInfo->ColorDepth = 4;
+        $browserInfo->ScreenHeight = 1800;
+        $browserInfo->ScreenWidth = 400;
+        $browserInfo->JavascriptEnabled = true;
+        $browserInfo->TimeZoneOffset = "+60";
+        $browserInfo->UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148";
+        $payIn->PaymentDetails->BrowserInfo = $browserInfo;
+        // execution type as DIRECT
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+        $payIn->ExecutionDetails->Culture = 'FR';
+
+        $address = new \MangoPay\Address();
+        $address->AddressLine1 = 'Main Street no 5';
+        $address->City = 'Paris';
+        $address->Country = 'FR';
+        $address->PostalCode = '68400';
+        $address->Region = 'Europe';
+        $billing = new \MangoPay\Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
+        $billing->Address = $address;
+        $payIn->ExecutionDetails->Billing = $billing;
+        $payIn->ExecutionDetails->Requested3DSVersion = "V2_1";
 
         return $this->_api->PayIns->Create($payIn);
     }
@@ -772,7 +840,7 @@ abstract class Base extends TestCase
         $cardRegistration->Currency = 'EUR';
         $newCardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
 
-        $registrationData = $this->getPaylineCorrectRegistartionData($newCardRegistration);
+        $registrationData = $this->getPaylineCorrectRegistrationData($newCardRegistration);
         $newCardRegistration->RegistrationData = $registrationData;
         $getCardRegistration = $this->_api->CardRegistrations->Update($newCardRegistration);
 
