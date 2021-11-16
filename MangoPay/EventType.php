@@ -71,4 +71,7 @@ class EventType
     const PreAuthorizationCreated = "PREAUTHORIZATION_CREATED";
     const PreAuthorizationSucceeded = "PREAUTHORIZATION_SUCCEEDED";
     const PreAuthorizationFailed = "PREAUTHORIZATION_FAILED";
+
+    const InstantPayoutSucceeded = "INSTANT_PAYOUT_SUCCEEDED";
+    const InstantPayoutFallbacked = "INSTANT_PAYOUT_FALLBACKED";
 }
