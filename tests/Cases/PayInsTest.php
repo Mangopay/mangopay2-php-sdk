@@ -564,6 +564,79 @@ class PayInsTest extends Base
         $this->assertNotNull($result);
     }
 
+    public function test_Create_Recurring_PayIn_CIT_With_Debited_Funds_And_Fees()
+    {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
+        $values = $this->getJohnsWalletWithMoneyAndCardId(1000);
+        $walletId = $values["walletId"];
+        $cardId = $values["cardId"];
+        $user = $this->getJohn();
+
+        $payIn = new \MangoPay\PayInRecurringRegistration();
+        $payIn->AuthorId = $user->Id;
+        $payIn->CardId = $cardId;
+        $payIn->CreditedUserId = $user->Id;
+        $payIn->CreditedWalletId = $walletId;
+        $payIn->FirstTransactionDebitedFunds = new \MangoPay\Money();
+        $payIn->FirstTransactionDebitedFunds->Amount = 10;
+        $payIn->FirstTransactionDebitedFunds->Currency = 'EUR';
+        $payIn->FirstTransactionFees = new \MangoPay\Money();
+        $payIn->FirstTransactionFees->Amount = 1;
+        $payIn->FirstTransactionFees->Currency = 'EUR';
+        $billing = new \MangoPay\Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
+        $billing->Address = $this->getNewAddress();
+        $shipping = new \MangoPay\Shipping();
+        $shipping->FirstName = 'John';
+        $shipping->LastName = 'Doe';
+        $shipping->Address = $this->getNewAddress();
+        $payIn->Shipping = $shipping;
+        $payIn->Billing = $billing;
+        $payIn->EndDate = 1833377810;
+        $payIn->Migration = true;
+        $payIn->NextTransactionDebitedFunds = new \MangoPay\Money();
+        $payIn->NextTransactionDebitedFunds->Amount = 12;
+        $payIn->NextTransactionDebitedFunds->Currency = 'EUR';
+        $payIn->NextTransactionFees = new \MangoPay\Money();
+        $payIn->NextTransactionFees->Amount = 1;
+        $payIn->NextTransactionFees->Currency = 'EUR';
+        $payIn->Frequency = "Daily";
+        $payIn->FixedNextAmount = true;
+        $payIn->FractionedPayment = false;
+
+        $registration = $this->_api->PayIns->CreateRecurringRegistration($payIn);
+
+        $cit = new RecurringPayInCIT();
+        $cit->RecurringPayinRegistrationId = $registration->Id;
+        $cit->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $cit->SecureModeReturnURL = "http://www.my-site.com/returnurl";
+        $cit->StatementDescriptor = "lorem";
+        $cit->Tag = "custom meta";
+        $browserInfo = new BrowserInfo();
+        $browserInfo->AcceptHeader = "text/html, application/xhtml+xml, application/xml;q=0.9, /;q=0.8";
+        $browserInfo->JavaEnabled = true;
+        $browserInfo->Language = "FR-FR";
+        $browserInfo->ColorDepth = 4;
+        $browserInfo->ScreenHeight = 1800;
+        $browserInfo->ScreenWidth = 400;
+        $browserInfo->JavascriptEnabled = true;
+        $browserInfo->TimeZoneOffset = "+60";
+        $browserInfo->UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148";
+        $cit->BrowserInfo = $browserInfo;
+        $cit->DebitedFunds = new Money();
+        $cit->DebitedFunds->Amount = 10;
+        $cit->DebitedFunds->Currency = 'EUR';
+        $cit->Fees = new Money();
+        $cit->Fees->Amount = 1;
+        $cit->Fees->Currency = 'EUR';
+
+        $result = $this->_api->PayIns->CreateRecurringPayInRegistrationCIT($cit);
+
+        $this->assertNotNull($result);
+    }
+
     public function test_PayIns_Google_Pay_Create()
     {
         $this->markTestIncomplete(
