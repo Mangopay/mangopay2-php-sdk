@@ -1,3 +1,8 @@
+## [3.11.0] - 2022-03-18
+## Fixed
+
+We are now compatible with psr/log 1 to psr/log 3.
+
 ## [3.10.0] - 2021-11-19
 ## Added
 
