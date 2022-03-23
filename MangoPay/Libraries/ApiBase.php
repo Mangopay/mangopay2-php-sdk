@@ -81,6 +81,7 @@ abstract class ApiBase
         'payouts_bankwire_create' => ['/payouts/bankwire/', RequestType::POST],
         'payouts_bankwire_get' => ['/payouts/bankwire/%s', RequestType::GET],
         'payouts_get' => ['/payouts/%s', RequestType::GET],
+        'payouts_check_eligibility' => ['/payouts/reachability/', RequestType::POST],
 
         'refunds_get' => ['/refunds/%s', RequestType::GET],
         'refunds_get_for_repudiation' => ['/repudiations/%s/refunds', RequestType::GET],
