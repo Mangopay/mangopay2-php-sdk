@@ -2,6 +2,10 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\CurrencyIso;
+use MangoPay\Money;
+use MangoPay\PayOutEligibilityRequest;
+
 /**
  * Tests methods for pay-outs
  */
@@ -14,6 +18,29 @@ class PayOutsTest extends Base
         $this->assertTrue($payOut->Id > 0);
         $this->assertSame(\MangoPay\PayOutPaymentType::BankWire, $payOut->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayOutPaymentDetailsBankWire', $payOut->MeanOfPaymentDetails);
+    }
+
+    public function test_PayOut_CheckEligibility()
+    {
+        $payOut = $this->getJohnsPayOutForCardDirect();
+
+        $eligibility = new PayOutEligibilityRequest();
+        $eligibility->AuthorId = $payOut->AuthorId;
+        $eligibility->DebitedFunds = new Money();
+        $eligibility->DebitedFunds->Amount = 10;
+        $eligibility->DebitedFunds->Currency = CurrencyIso::EUR;
+        $eligibility->PayoutModeRequested = "INSTANT_PAYMENT";
+        $eligibility->BankAccountId = $payOut->MeanOfPaymentDetails->BankAccountId;
+        $eligibility->DebitedWalletId = $payOut->DebitedWalletId;
+
+        $result = $this->_api->PayOuts->CheckInstantPayoutEligibility($eligibility);
+
+        $this->assertTrue($payOut->Id > 0);
+        $this->assertSame(\MangoPay\PayOutPaymentType::BankWire, $payOut->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayOutPaymentDetailsBankWire', $payOut->MeanOfPaymentDetails);
+
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('\MangoPay\PayOutEligibilityResponse', $result);
     }
 
     public function test_PayOut_Get()
