@@ -19,6 +19,18 @@ class ApiPayOuts extends Libraries\ApiBase
     }
 
     /**
+     * This method is used to check whether or not the destination bank is eligible for instant payout.
+     * @param PayOutEligibilityRequest $payOutEligibility
+     * @param $idempotencyKey
+     * @return \MangoPay\PayOutEligibilityResponse Object returned for the API
+     */
+    public function CheckInstantPayoutEligibility($payOutEligibility, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payouts_check_eligibility', $payOutEligibility,
+            '\MangoPay\PayOutEligibilityResponse', null, null, $idempotencyKey);
+    }
+
+    /**
      * Get pay-out object
      * @param string $payOutId PayOut identifier
      * @return \MangoPay\PayOut Object returned from API
