@@ -747,22 +747,26 @@ class UsersTest extends Base
         }
     }
 
-    //the endpoint isn't on the API yet
-    /*
-    function test_get_user_block_status()
-    {
-        $user = $this->getJohn();
-        $blockStatus = $this->_api->Users->GetBlockStatus($user->Id);
-
-        $this->assertNotNull($blockStatus);
-    }*/
-
-
     public function test_get_user_block_regulatory()
     {
         $user = $this->getJohn();
         $regulatory = $this->_api->Users->GetRegulatory($user->Id);
 
         $this->assertNotNull($regulatory);
+    }
+
+    public function test_user_natural_terms_and_conditions()
+    {
+        $user = $this->getJohn();
+        $this->assertFalse($user->TermsAndConditionsAccepted);
+
+        $user->TermsAndConditionsAccepted = true;
+        $updatedUser = $this->_api->Users->Update($user);
+        $this->assertTrue($updatedUser->TermsAndConditionsAccepted);
+        $this->assertNotNull($updatedUser->TermsAndConditionsAcceptedDate);
+
+        $accepted = $this->getJohnWithTermsAccepted();
+        $this->assertTrue($accepted->TermsAndConditionsAccepted);
+        $this->assertNotNull($accepted->TermsAndConditionsAcceptedDate);
     }
 }
