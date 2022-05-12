@@ -424,6 +424,7 @@ class PayInsTest extends Base
 
     public function test_PayIns_Apple_Pay_Create()
     {
+        $this->markTestSkipped('Problems with Apple Pay');
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
         // create Apple Pay direct pay-in
