@@ -26,6 +26,18 @@ abstract class User extends Libraries\EntityBase
     public $KYCLevel;
 
     /**
+     * Whether the user has accepted the MANGOPAY Terms and Conditions.
+     * @var bool
+     */
+    public $TermsAndConditionsAccepted;
+
+    /**
+     * The date on which the user has accepted the MANGOPAY Terms and Conditions.
+     * @var int
+     */
+    public $TermsAndConditionsAcceptedDate;
+
+    /**
      * Construct
      * @param string $personType string with type of person
      */
@@ -41,7 +53,7 @@ abstract class User extends Libraries\EntityBase
     public function GetReadOnlyProperties()
     {
         $properties = parent::GetReadOnlyProperties();
-        array_push($properties, 'PersonType');
+        array_push($properties, 'PersonType', 'TermsAndConditionsAcceptedDate');
 
         return $properties;
     }

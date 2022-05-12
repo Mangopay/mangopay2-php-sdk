@@ -200,6 +200,17 @@ abstract class Base extends TestCase
     }
 
     /**
+     * @return \MangoPay\UserLegal|\MangoPay\UserNatural
+     * @throws \MangoPay\Libraries\Exception
+     */
+    protected function getJohnWithTermsAccepted()
+    {
+        $user = $this->buildJohn();
+        $user->TermsAndConditionsAccepted = true;
+        return $this->_api->Users->Create($user);
+    }
+
+    /**
      * Creates self::$JohnsBankingAliasIBAN (Banking alias belonging to John) if not created yet
      * @return \MangoPay\BankingAliasIBAN
      */
