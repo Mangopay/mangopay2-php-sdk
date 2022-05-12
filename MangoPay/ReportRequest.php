@@ -28,7 +28,7 @@ class ReportRequest extends Libraries\EntityBase
 
     /**
      * Download URL.
-     * @var string
+     * @var ?string
      */
     public $DownloadURL;
 

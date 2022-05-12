@@ -38,6 +38,12 @@ class PayIn extends Transaction
     public $ExecutionDetails;
 
     /**
+     * Recurring PayIn Registration Id
+     * @var string
+     */
+    public $RecurringPayinRegistrationId;
+
+    /**
      * Get array with mapping which property depends on other property
      * @return array
      */
