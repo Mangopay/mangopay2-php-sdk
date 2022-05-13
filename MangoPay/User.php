@@ -38,6 +38,12 @@ abstract class User extends Libraries\EntityBase
     public $TermsAndConditionsAcceptedDate;
 
     /**
+     * Category of user
+     * @var string
+     */
+    public $UserCategory;
+
+    /**
      * Construct
      * @param string $personType string with type of person
      */
