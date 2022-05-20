@@ -15,7 +15,7 @@ class UsersTest extends Base
     {
         $john = $this->getJohn();
         $this->assertTrue($john->Id > 0);
-        $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
+        $this->assertSame("OWNER", $john->UserCategory);
     }
 
     public function test_Users_CreateLegal()
@@ -56,7 +56,7 @@ class UsersTest extends Base
      */
     public function test_Users_CreateLegal_FailsIfRequiredPropsNotProvided()
     {
-        $user = new \MangoPay\UserLegal();
+        $user = new \MangoPay\UserLegalOwner();
         $this->expectException(ResponseException::class);
 
         $ret = $this->_api->Users->Create($user);
@@ -66,7 +66,7 @@ class UsersTest extends Base
 
     public function test_Users_CreateLegal_PassesIfRequiredPropsProvided()
     {
-        $user = new \MangoPay\UserLegal();
+        $user = new \MangoPay\UserLegalOwner();
         $user->HeadquartersAddress = new \MangoPay\Address();
         $user->HeadquartersAddress->AddressLine1 = 'AddressLine1';
         $user->HeadquartersAddress->AddressLine2 = 'AddressLine2';
@@ -90,6 +90,7 @@ class UsersTest extends Base
         $user->LegalRepresentativeNationality = "FR";
         $user->LegalRepresentativeCountryOfResidence = "FR";
         $user->CompanyNumber = "LU12345678";
+        $user->UserCategory = "OWNER";
 
         $ret = $this->_api->Users->Create($user);
 
@@ -138,13 +139,13 @@ class UsersTest extends Base
 
         $this->assertEquals($matrix, $user1);
         $this->assertEquals($matrix, $user2);
-        $this->assertIdenticalInputProps($user1, $matrix);
     }
 
     public function test_Users_Save_Natural()
     {
         $john = $this->getJohn();
         $john->LastName .= " - CHANGED";
+        $john->TermsAccepted = true;
 
         $userSaved = $this->_api->Users->Update($john);
         $userFetched = $this->_api->Users->Get($john->Id);
@@ -155,13 +156,11 @@ class UsersTest extends Base
 
     public function test_Users_Save_NaturalAndClearAddresIfNeeded()
     {
-        $user = new \MangoPay\UserNatural();
+        $user = new \MangoPay\UserNaturalPayer();
         $user->FirstName = "John";
         $user->LastName = "Doe";
         $user->Email = "john.doe@sample.org";
-        $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
-        $user->Nationality = "FR";
-        $user->CountryOfResidence = "FR";
+        $user->UserCategory = "PAYER";
         $newUser = $this->_api->Users->Create($user);
 
         $userSaved = $this->_api->Users->Update($newUser);
@@ -179,24 +178,6 @@ class UsersTest extends Base
 
         $this->assertIdenticalInputProps($userSaved, $matrix);
         $this->assertIdenticalInputProps($userFetched, $matrix);
-    }
-
-    public function test_Users_Save_LegalAndClearAddresIfNeeded()
-    {
-        $user = new \MangoPay\UserLegal();
-        $user->Name = "MartixSampleOrg";
-        $user->Email = "mail@test.com";
-        $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
-        $user->LegalRepresentativeFirstName = "FirstName";
-        $user->LegalRepresentativeLastName = "LastName";
-        $user->LegalRepresentativeBirthday = mktime(0, 0, 0, 12, 21, 1975);
-        $user->LegalRepresentativeNationality = "FR";
-        $user->LegalRepresentativeCountryOfResidence = "FR";
-        $newUser = $this->_api->Users->Create($user);
-
-        $userSaved = $this->_api->Users->Update($newUser);
-
-        $this->assertTrue($userSaved->Id > 0);
     }
 
     public function test_Users_CreateBankAccount_IBAN()
@@ -359,9 +340,6 @@ class UsersTest extends Base
 
         $filter = new \MangoPay\FilterBankAccounts();
         $filter->Active = 'true';
-
-        $activeList = $this->_api->Users->GetBankAccounts($john->Id, $pagination, null, $filter);
-        $this->assertCount(12, $activeList);
     }
 
     public function test_Users_UpdateBankAccount()
@@ -714,25 +692,21 @@ class UsersTest extends Base
             $this->_api->Config->TemporaryFolder = 'temp/xxx/';
             $this->_api->Config->BaseUrl = 'https://api.sandbox.mangopay.com'; */
             // CREATE NATURAL USER
-            $naturalUser = new \MangoPay\UserNatural();
+            $naturalUser = new \MangoPay\UserNaturalPayer();
             $naturalUser->Email = 'test_natural_user@testmangopay.com';
             $naturalUser->FirstName = "Bob";
             $naturalUser->LastName = "Briant";
-            $naturalUser->Birthday = 121271;
-            $naturalUser->Nationality = "FR";
-            $naturalUser->CountryOfResidence = "ZA";
+            $naturalUser->UserCategory = "PAYER";
             $naturalUserResult = $this->_api->Users->Create($naturalUser); // display result
             Logs::Debug('CREATED NATURAL USER', $naturalUserResult);
             // CREATE LEGAL USER
-            $legalUser = new \MangoPay\UserLegal();
+            $legalUser = new \MangoPay\UserLegalPayer();
             $legalUser->Name = 'Name Legal Test';
             $legalUser->LegalPersonType = 'BUSINESS';
             $legalUser->Email = 'legal@testmangopay.com';
             $legalUser->LegalRepresentativeFirstName = "Bob";
             $legalUser->LegalRepresentativeLastName = "Briant";
-            $legalUser->LegalRepresentativeBirthday = 121271;
-            $legalUser->LegalRepresentativeNationality = "FR";
-            $legalUser->LegalRepresentativeCountryOfResidence = "ZA";
+            $legalUser->UserCategory = "PAYER";
             $legalUserResult = $this->_api->Users->Create($legalUser);
             // display result
             Logs::Debug('CREATED LEGAL USER', $legalUserResult);

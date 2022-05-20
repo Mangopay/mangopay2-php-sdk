@@ -9,23 +9,22 @@ class ApiUsers extends Libraries\ApiBase
 {
     /**
      * Create a new user
-     * @param UserLegal|UserNatural $user
-     * @return UserLegal|UserNatural User object returned from API
+     * @param UserLegalOwner|UserLegalPayer|UserNaturalOwner|UserNaturalPayer $user
+     * @return UserLegalOwner|UserLegalPayer|UserNaturalOwner|UserNaturalPayer User object returned from API
      * @throws Libraries\Exception If occur Wrong entity class for user
      */
     public function Create($user, $idempotencyKey = null)
     {
         $className = get_class($user);
-        if ($className == 'MangoPay\UserNatural') {
+        if ($className == 'MangoPay\UserNaturalOwner' || $className == 'MangoPay\UserNaturalPayer') {
             $methodKey = 'users_createnaturals';
-        } elseif ($className == 'MangoPay\UserLegal') {
+        } elseif ($className == 'MangoPay\UserLegalOwner' || $className == 'MangoPay\UserLegalPayer') {
             $methodKey = 'users_createlegals';
         } else {
             throw new Libraries\Exception('Wrong entity class for user');
         }
 
-        $response = $this->CreateObject($methodKey, $user, null, null, null, $idempotencyKey);
-        return $this->GetUserResponse($response);
+        return $response = $this->CreateObject($methodKey, $user, $className, null, null, $idempotencyKey);
     }
 
     /**
@@ -82,21 +81,21 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Save user
-     * @param UserLegal|UserNatural $user
-     * @return UserLegal|UserNatural User object returned from API
+     * @param UserLegalPayer|UserLegalOwner|UserNaturalOwner|UserNaturalPayer $user
+     * @return UserLegalPayer|UserLegalOwner|UserNaturalOwner|UserNaturalPayer User object returned from API
      * @throws Libraries\Exception If occur Wrong entity class for user
      */
     public function Update($user)
     {
         $className = get_class($user);
-        if ($className == 'MangoPay\UserNatural') {
+        if ($className == 'MangoPay\UserNaturalOwner' || $className == 'MangoPay\UserNaturalPayer') {
             $methodKey = 'users_savenaturals';
             if (!is_null($user->Address)
                 && is_a($user->Address, "MangoPay\Address")
                 && $user->Address->CanBeNull()) {
                 $user->Address = null;
             }
-        } elseif ($className == 'MangoPay\UserLegal') {
+        } elseif ($className == 'MangoPay\UserLegalOwner' || $className == 'MangoPay\UserLegalPayer') {
             $methodKey = 'users_savelegals';
             if (!is_null($user->HeadquartersAddress)
                 && is_a($user->HeadquartersAddress, "MangoPay\Address")
@@ -376,22 +375,30 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get correct user object
      * @param object $response Response from API
-     * @return UserLegal|UserNatural User object returned from API
+     * @return UserLegalOwner|UserLegalPayer|UserNaturalPayer|UserNaturalOwner User object returned from API
      * @throws \MangoPay\Libraries\Exception If occur unexpected response from API
      */
     private function GetUserResponse($response)
     {
-        if (isset($response->PersonType)) {
+        if (isset($response->PersonType) && isset($response->UserCategory)) {
             switch ($response->PersonType) {
                 case PersonType::Natural:
-                    return $this->CastResponseToEntity($response, '\MangoPay\UserNatural');
+                    if (strtolower($response->UserCategory) == "buyer") {
+                        return $this->CastResponseToEntity($response, '\MangoPay\UserNaturalBuyer');
+                    } else {
+                        return $this->CastResponseToEntity($response, '\MangoPay\UserNaturalOwner');
+                    }
                 case PersonType::Legal:
-                    return $this->CastResponseToEntity($response, '\MangoPay\UserLegal');
+                    if (strtolower($response->UserCategory) == "buyer") {
+                        return $this->CastResponseToEntity($response, '\MangoPay\UserLegalBuyer');
+                    } else {
+                        return $this->CastResponseToEntity($response, '\MangoPay\UserLegalOwner');
+                    }
                 default:
-                    throw new Libraries\Exception('Unexpected response. Wrong PersonType value');
+                    throw new Libraries\Exception('Unexpected response. Wrong PersonType|UserCategory value');
             }
         } else {
-            throw new Libraries\Exception('Unexpected response. Missing PersonType property');
+            throw new Libraries\Exception('Unexpected response. Missing PersonType|UserCategory property');
         }
     }
 

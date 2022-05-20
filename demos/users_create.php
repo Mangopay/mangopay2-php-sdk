@@ -23,7 +23,7 @@ try {
     MangoPay\Libraries\Logs::Debug('CREATED NATURAL USER', $naturalUserResult);
     
     // CREATE LEGAL USER
-    $legalUser = new MangoPay\UserLegal();
+    $legalUser = new MangoPay\UserLegalOwner();
     $legalUser->Name = 'Name Legal Test';
     $legalUser->LegalPersonType = \MangoPay\LegalPersonType::Business;
     $legalUser->Email = 'legal@testmangopay.com';
