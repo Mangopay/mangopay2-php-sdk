@@ -1,3 +1,45 @@
+## [3.14.0] - 2022-05-20
+### Added
+
+#### UserCategory management
+
+Users can now be differentiated depending on their MANGOPAY usage.
+
+This is possible with the new UserCategory parameter, whose value can be set to:
+
+- Payer – For users who are only using MANGOPAY to give money to other users (i.e., only pay).
+- Owner – For users who are using MANGOPAY to receive funds (and who are therefore required to accept MANGOPAY’s terms and conditions).
+
+Please note that the following parameters become required as soon as the UserCategory is set to “Owner”:
+- HeadquartersAddress
+- CompanyNumber (if the LegalPersonType is “Business”)
+- TermsAndConditionsAccepted.
+
+The documentation of user-related endpoints has been updated and reorganised to take into account the new parameter:
+
+[Create a Natural User (Payer)](https://docs.mangopay.com/endpoints/v2.01/users#e255_create-a-natural-user)
+[Create a Natural User (Owner)](https://docs.mangopay.com/endpoints/v2.01/users#e1059_create-natural-user-owner)
+[Update a Natural User](https://docs.mangopay.com/endpoints/v2.01/users#e260_update-a-natural-user)
+[Create a Legal User (Payer)](https://docs.mangopay.com/endpoints/v2.01/users#e259_create-a-legal-user)
+[Create a Legal User (Owner)](https://docs.mangopay.com/endpoints/v2.01/users#e1060_create-a-legal-user-owner)
+[Update a Legal User](https://docs.mangopay.com/endpoints/v2.01/users#e261_update-a-legal-user)
+[View a User](https://docs.mangopay.com/endpoints/v2.01/users#e256_view-a-user)
+[List all Users](https://docs.mangopay.com/endpoints/v2.01/users#e257_list-all-users)
+
+Differentiating the platform users results in a smoother user experience for “Payers” as they will have less declarative data to provide.
+
+#### RecurringPayinRegistrationId in all PayIn GET calls
+
+A PR to add the missing RecurringPayinRegistrationId to all PayIn get calls to match the MangoPay API calls. Thanks @H4wKs
+
+#552
+
+### Fix in ReportRequest Entity
+
+#551
+
+Thanks @Asenar
+
 ## [3.13.0] - 2022-05-12
 ### Added
 
