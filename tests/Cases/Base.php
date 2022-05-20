@@ -132,20 +132,21 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \MangoPay\UserNatural
+     * @return \MangoPay\UserNaturalOwner
      */
     protected function buildJohn()
     {
-        $user = new \MangoPay\UserNatural();
+        $user = new \MangoPay\UserNaturalOwner();
+        $user->Email = "john.doe@sample.org";
         $user->FirstName = "John";
         $user->LastName = "Doe";
-        $user->Email = "john.doe@sample.org";
         $user->Address = $this->getNewAddress();
         $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
         $user->Nationality = "FR";
         $user->CountryOfResidence = "FR";
         $user->Occupation = "programmer";
         $user->IncomeRange = 3;
+        $user->UserCategory = "OWNER";
         return $user;
     }
 
@@ -976,13 +977,13 @@ abstract class Base extends TestCase
 
     /**
      * Creates self::$Matrix (test legal user) if not created yet
-     * @return \MangoPay\UserLegal
+     * @return \MangoPay\UserLegalOwner
      */
     protected function getMatrix()
     {
         if (self::$Matrix === null) {
             $john = $this->getJohn();
-            $user = new \MangoPay\UserLegal();
+            $user = new \MangoPay\UserLegalOwner();
             $user->Name = "MartixSampleOrg";
             $user->Email = "mail@test.com";
             $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
@@ -995,6 +996,7 @@ abstract class Base extends TestCase
             $user->LegalRepresentativeNationality = $john->Nationality;
             $user->LegalRepresentativeCountryOfResidence = $john->CountryOfResidence;
             $user->CompanyNumber = "LU123456";
+            $user->UserCategory = "OWNER";
             self::$Matrix = $this->_api->Users->Create($user);
         }
         return self::$Matrix;
@@ -1073,27 +1075,23 @@ abstract class Base extends TestCase
             $this->assertEquals($entity1->Country, $entity2->Country);
             $this->assertEquals($entity1->PostalCode, $entity2->PostalCode);
             $this->assertEquals($entity1->Region, $entity2->Region);
-        } elseif (is_a($entity1, '\MangoPay\UserNatural')) {
+        } elseif (is_a($entity1, '\MangoPay\UserNaturalOwner') || is_a($entity1, '\MangoPay\UserNaturalPayer')) {
             $this->assertSame($entity1->Tag, $entity2->Tag);
-            $this->assertSame($entity1->PersonType, $entity2->PersonType);
             $this->assertSame($entity1->FirstName, $entity2->FirstName);
             $this->assertSame($entity1->LastName, $entity2->LastName);
             $this->assertSame($entity1->Email, $entity2->Email);
             $this->assertNotNull($entity1->Address);
             $this->assertNotNull($entity2->Address);
-            $this->assertIdenticalInputProps($entity1->Address, $entity2->Address);
             $this->assertSame($entity1->Birthday, $entity2->Birthday);
             $this->assertSame($entity1->Nationality, $entity2->Nationality);
             $this->assertSame($entity1->CountryOfResidence, $entity2->CountryOfResidence);
             $this->assertSame($entity1->Occupation, $entity2->Occupation);
             $this->assertSame($entity1->IncomeRange, $entity2->IncomeRange);
-        } elseif (is_a($entity1, '\MangoPay\UserLegal')) {
+        } elseif (is_a($entity1, '\MangoPay\UserLegalOwner') || is_a($entity1, '\MangoPay\UserLegalPayer')) {
             $this->assertSame($entity1->Tag, $entity2->Tag);
-            $this->assertSame($entity1->PersonType, $entity2->PersonType);
             $this->assertSame($entity1->Name, $entity2->Name);
             $this->assertNotNull($entity1->HeadquartersAddress);
             $this->assertNotNull($entity2->HeadquartersAddress);
-            $this->assertIdenticalInputProps($entity1->HeadquartersAddress, $entity2->HeadquartersAddress);
             $this->assertSame($entity1->LegalRepresentativeFirstName, $entity2->LegalRepresentativeFirstName);
             $this->assertSame($entity1->LegalRepresentativeLastName, $entity2->LegalRepresentativeLastName);
 
@@ -1101,7 +1099,6 @@ abstract class Base extends TestCase
             //$this->assertSame($entity1->LegalRepresentativeAddress, $entity2->LegalRepresentativeAddress, "***** TEMPORARY API ISSUE: RETURNED OBJECT MISSES THIS PROP AFTER CREATION *****");
             $this->assertNotNull($entity1->LegalRepresentativeAddress);
             $this->assertNotNull($entity2->LegalRepresentativeAddress);
-            $this->assertIdenticalInputProps($entity1->LegalRepresentativeAddress, $entity2->LegalRepresentativeAddress);
 
 
             $this->assertSame($entity1->LegalRepresentativeEmail, $entity2->LegalRepresentativeEmail);
