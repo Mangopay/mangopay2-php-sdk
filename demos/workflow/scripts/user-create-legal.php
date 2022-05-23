@@ -1,5 +1,5 @@
 <?php
-$User = new MangoPay\UserLegalOwner();
+$User = new MangoPay\UserLegal();
 $User->Name = "Name Legal Test";
 $User->LegalPersonType = \MangoPay\LegalPersonType::Business;
 $User->Email = "legal@testmangopay.com";
