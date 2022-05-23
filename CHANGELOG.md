@@ -1,3 +1,9 @@
+## [3.14.1] - 2022-05-23
+### Fixed
+
+Implementation of UserCategory has been simplified
+
+
 ## [3.14.0] - 2022-05-20
 ### Added
 
