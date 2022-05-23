@@ -395,14 +395,14 @@ class IdempotencyTest extends Base
 
         $resp = $this->_api->Responses->Get($key);
 
-        $this->assertInstanceOf('\MangoPay\UserNaturalOwner', $resp->Resource);
+        $this->assertInstanceOf('\MangoPay\UserNatural', $resp->Resource);
     }
 
     public function test_GetIdempotencyKey_UsersCreateLegals()
     {
         $key = md5(uniqid());
         $john = $this->getJohn();
-        $user = new \MangoPay\UserLegalOwner();
+        $user = new \MangoPay\UserLegal();
         $user->Name = "MartixSampleOrg";
         $user->Email = "mail@test.com";
         $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
@@ -414,12 +414,11 @@ class IdempotencyTest extends Base
         $user->LegalRepresentativeBirthday = $john->Birthday;
         $user->LegalRepresentativeNationality = $john->Nationality;
         $user->LegalRepresentativeCountryOfResidence = $john->CountryOfResidence;
-        $user->UserCategory = "OWNER";
         $this->_api->Users->Create($user, $key);
 
         $resp = $this->_api->Responses->Get($key);
 
-        $this->assertInstanceOf('\MangoPay\UserLegalOwher', $resp->Resource);
+        $this->assertInstanceOf('\MangoPay\UserLegal', $resp->Resource);
     }
 
     public function test_GetIdempotencyKey_UsersCreateBankAccountsIban()

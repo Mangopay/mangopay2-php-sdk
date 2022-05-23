@@ -3,15 +3,45 @@
 namespace MangoPay;
 
 /**
- * UserLegalOwner entity
+ * UserLegal entity
  */
-class UserLegalOwner extends UserLegalPayer
+class UserLegal extends User
 {
+    /**
+     * Name of user
+     * @var string
+     */
+    public $Name;
+
+    /**
+     * Type for legal user. Possible: ‘BUSINESS’, ’ORGANIZATION’
+     * @var string
+     */
+    public $LegalPersonType;
+
     /**
      *
      * @var Address
      */
     public $HeadquartersAddress;
+
+    /**
+     *
+     * @var string
+     */
+    public $LegalRepresentativeFirstName;
+
+    /**
+     *
+     * @var string
+     */
+    public $LegalRepresentativeLastName;
+
+    /**
+     *
+     * @var Address
+     */
+    public $LegalRepresentativeAddress;
 
     /**
      *
@@ -67,6 +97,15 @@ class UserLegalOwner extends UserLegalPayer
     public $CompanyNumber;
 
     /**
+     * Construct
+     */
+    public function __construct($id = null)
+    {
+        parent::__construct($id);
+        $this->SetPersonType(PersonType::Legal);
+    }
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */
@@ -74,6 +113,7 @@ class UserLegalOwner extends UserLegalPayer
     {
         $subObjects = parent::GetSubObjects();
 
+        $subObjects['HeadquartersAddress'] = '\MangoPay\Address';
         $subObjects['LegalRepresentativeAddress'] = '\MangoPay\Address';
 
         return $subObjects;

@@ -550,8 +550,8 @@ abstract class ApiBase
             'reports_wallets_create' => '\MangoPay\ReportRequest',
             'transfers_createrefunds' => '\MangoPay\Refund',
             'transfers_create' => '\MangoPay\Transfer',
-            'users_createnaturals' => '\MangoPay\UserNaturalOwner', // done
-            'users_createlegals' => '\MangoPay\UserLegalOwner',
+            'users_createnaturals' => '\MangoPay\UserNatural', // done
+            'users_createlegals' => '\MangoPay\UserLegal',
             'users_createbankaccounts_iban' => '\MangoPay\BankAccount',
             'users_createbankaccounts_gb' => '\MangoPay\BankAccount',
             'users_createbankaccounts_us' => '\MangoPay\BankAccount',
