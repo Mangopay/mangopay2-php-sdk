@@ -490,6 +490,7 @@ class PayInsTest extends Base
         $shipping->Address = $this->getNewAddress();
         $payIn->Shipping = $shipping;
         $payIn->Billing = $billing;
+        $payIn->FreeCycles = 0;
 
         return $this->_api->PayIns->CreateRecurringRegistration($payIn);
     }
@@ -501,6 +502,7 @@ class PayInsTest extends Base
         $result = $this->getRecurringPayin();
 
         $this->assertNotNull($result);
+        $this->assertNotNull($result->FreeCycles);
     }
 
     public function test_Get_Recurring_Payment()
@@ -512,6 +514,8 @@ class PayInsTest extends Base
 
         $get = $this->_api->PayIns->GetRecurringRegistration($result->Id);
         $this->assertNotNull($get);
+
+        $this->assertNotNull($get->FreeCycles);
     }
 
     public function test_Update_Recurring_Payment()

@@ -83,4 +83,9 @@ class PayInRecurringRegistration extends Libraries\Dto
      * @var string
      */
     public $Status;
+
+    /**
+     * @var int
+     */
+    public $FreeCycles;
 }
