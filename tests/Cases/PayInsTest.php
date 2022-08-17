@@ -502,6 +502,7 @@ class PayInsTest extends Base
         $result = $this->getRecurringPayin();
 
         $this->assertNotNull($result);
+        $this->assertTrue($result->Id > 0);
         $this->assertNotNull($result->FreeCycles);
     }
 
@@ -513,6 +514,7 @@ class PayInsTest extends Base
         $this->assertNotNull($result);
 
         $get = $this->_api->PayIns->GetRecurringRegistration($result->Id);
+        $this->assertSame($result->Id, $get->Id);
         $this->assertNotNull($get);
 
         $this->assertNotNull($get->FreeCycles);
