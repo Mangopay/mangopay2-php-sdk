@@ -186,6 +186,12 @@ class MangoPayApi
     public $RateLimits;
 
     /**
+     * Provides Regulatory methods
+     * @var ApiRegulatory
+     */
+    public $Regulatory;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -219,6 +225,7 @@ class MangoPayApi
         $this->UboDeclarations = new ApiUboDeclarations($this);
         $this->BankAccounts = new ApiBankAccounts($this);
         $this->Repudiations = new ApiRepudiations($this);
+        $this->Regulatory = new ApiRegulatory($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();
