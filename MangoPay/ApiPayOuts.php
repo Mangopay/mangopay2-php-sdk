@@ -26,8 +26,14 @@ class ApiPayOuts extends Libraries\ApiBase
      */
     public function CheckInstantPayoutEligibility($payOutEligibility, $idempotencyKey = null)
     {
-        return $this->CreateObject('payouts_check_eligibility', $payOutEligibility,
-            '\MangoPay\PayOutEligibilityResponse', null, null, $idempotencyKey);
+        return $this->CreateObject(
+            'payouts_check_eligibility',
+            $payOutEligibility,
+            '\MangoPay\PayOutEligibilityResponse',
+            null,
+            null,
+            $idempotencyKey
+        );
     }
 
     /**
