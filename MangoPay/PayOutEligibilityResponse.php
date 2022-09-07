@@ -11,4 +11,3 @@ class PayOutEligibilityResponse extends Dto
      */
     public $InstantPayout;
 }
-
