@@ -296,6 +296,7 @@ abstract class Base extends TestCase
             self::$PayInPaymentDetailsCard = new \MangoPay\PayInPaymentDetailsCard();
             self::$PayInPaymentDetailsCard->CardType = 'CB_VISA_MASTERCARD';
             self::$PayInPaymentDetailsCard->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+            self::$PayInPaymentDetailsCard->BrowserInfo = $this->getBrowserInfo();
         }
 
         return self::$PayInPaymentDetailsCard;
@@ -390,6 +391,8 @@ abstract class Base extends TestCase
             // payment type as CARD
             $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
             $payIn->PaymentDetails->CardId = $card->Id;
+            $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+            $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
 
             // execution type as DIRECT
             $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
@@ -445,6 +448,8 @@ abstract class Base extends TestCase
             // payment type as CARD
             $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
             $payIn->PaymentDetails->CardId = $card->Id;
+            $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+            $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
 
             // execution type as DIRECT
             $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
@@ -501,7 +506,7 @@ abstract class Base extends TestCase
          */
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
-            '&cardNumber=4972485830400064' .
+            '&cardNumber=4970105191923460' .
             '&cardExpirationDate=1224' .
             '&cardCvx=123';
 
@@ -658,6 +663,7 @@ abstract class Base extends TestCase
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $payIn->PaymentDetails->CardId = $card->Id;
         $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
@@ -714,17 +720,7 @@ abstract class Base extends TestCase
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $payIn->PaymentDetails->CardId = $card->Id;
         $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
-        $browserInfo = new BrowserInfo();
-        $browserInfo->AcceptHeader = "text/html, application/xhtml+xml, application/xml;q=0.9, /;q=0.8";
-        $browserInfo->JavaEnabled = true;
-        $browserInfo->Language = "FR-FR";
-        $browserInfo->ColorDepth = 4;
-        $browserInfo->ScreenHeight = 1800;
-        $browserInfo->ScreenWidth = 400;
-        $browserInfo->JavascriptEnabled = true;
-        $browserInfo->TimeZoneOffset = "+60";
-        $browserInfo->UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148";
-        $payIn->PaymentDetails->BrowserInfo = $browserInfo;
+        $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
@@ -863,6 +859,7 @@ abstract class Base extends TestCase
         $cardPreAuthorization->CardId = $getCardRegistration->CardId;
         $cardPreAuthorization->SecureModeReturnURL = 'http://test.com';
         $cardPreAuthorization->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $cardPreAuthorization->BrowserInfo = $this->getBrowserInfo();
 
         $address = new \MangoPay\Address();
         $address->AddressLine1 = 'Main Street no 5';
@@ -1224,5 +1221,21 @@ abstract class Base extends TestCase
         $account->Tag = "custom meta";
 
         return $account;
+    }
+
+    protected function getBrowserInfo()
+    {
+        $browserInfo = new BrowserInfo();
+        $browserInfo->AcceptHeader = "text/html, application/xhtml+xml, application/xml;q=0.9, /;q=0.8";
+        $browserInfo->JavaEnabled = true;
+        $browserInfo->Language = "FR-FR";
+        $browserInfo->ColorDepth = 4;
+        $browserInfo->ScreenHeight = 1800;
+        $browserInfo->ScreenWidth = 400;
+        $browserInfo->JavascriptEnabled = true;
+        $browserInfo->TimeZoneOffset = "+60";
+        $browserInfo->UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148";
+
+        return $browserInfo;
     }
 }

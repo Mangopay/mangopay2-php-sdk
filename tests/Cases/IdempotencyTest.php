@@ -162,10 +162,15 @@ class IdempotencyTest extends Base
         $payIn->Fees = new \MangoPay\Money();
         $payIn->Fees->Amount = 0;
         $payIn->Fees->Currency = 'EUR';
+
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $payIn->PaymentDetails->CardId = $card->Id;
+        $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
+
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+
         $this->_api->PayIns->Create($payIn, $key);
 
         $resp = $this->_api->Responses->Get($key);
