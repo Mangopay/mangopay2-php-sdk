@@ -1,3 +1,8 @@
+## [3.16.1] - 2022-10-18
+### Fixed
+
+Tests have been fixed due to API updates
+
 ## [3.16.0] - 2022-09-07
 ##Added
 **New country authorizations endpoints**
