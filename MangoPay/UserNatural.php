@@ -34,12 +34,14 @@ class UserNatural extends User
     /**
     * User's country
     * @var string
+    * @see \MangoPay\CountryIso
     */
     public $Nationality;
 
     /**
     * Country of residence
     * @var string
+    * @see \MangoPay\CountryIso
     */
     public $CountryOfResidence;
 

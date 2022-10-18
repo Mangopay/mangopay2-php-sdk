@@ -8,8 +8,9 @@ namespace MangoPay;
 class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetails
 {
     /**
-     * CardType { CB_VISA_MASTERCARD, AMEX }
+     * CardType
      * @var string
+     * @see \MangoPay\CardType
      */
     public $CardType;
 

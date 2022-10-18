@@ -40,6 +40,7 @@ abstract class User extends Libraries\EntityBase
     /**
      * Category of user
      * @var string
+     * @see \MangoPay\UserCategory
      */
     public $UserCategory;
 

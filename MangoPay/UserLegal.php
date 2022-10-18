@@ -56,14 +56,14 @@ class UserLegal extends User
     public $LegalRepresentativeBirthday;
 
     /**
-     *
      * @var string
+     * @see \MangoPay\CountryIso
      */
     public $LegalRepresentativeNationality;
 
     /**
-     *
      * @var string
+     * @see \MangoPay\CountryIso
      */
     public $LegalRepresentativeCountryOfResidence;
 

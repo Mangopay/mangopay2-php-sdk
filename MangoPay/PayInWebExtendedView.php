@@ -20,8 +20,9 @@ class PayInWebExtendedView extends Libraries\Dto
     public $PaymentType;
 
     /**
-     * ExecutionType { WEB, TOKEN, DIRECT, PREAUTHORIZED, RECURRING_ORDER_EXECUTION }
+     * ExecutionType
      * @var string
+     * @see \MangoPay\PayInExecutionType
      */
     public $ExecutionType;
 

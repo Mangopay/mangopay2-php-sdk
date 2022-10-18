@@ -28,6 +28,7 @@ class BankingAliasIBAN extends BankingAlias
     /**
      * The country
      * @var string
+     * @see \MangoPay\CountryIso
      */
     public $Country;
 }

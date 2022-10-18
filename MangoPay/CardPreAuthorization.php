@@ -163,12 +163,14 @@ class CardPreAuthorization extends Libraries\EntityBase
     /**
      * Requested3DSVersion
      * @var string
+     * @see \MangoPay\Supported3DSVersion
      */
     public $Requested3DSVersion;
 
     /**
      * Applied3DSVersion
      * @var string
+     * @see \MangoPay\Supported3DSVersion
      */
     public $Applied3DSVersion;
 

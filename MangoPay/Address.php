@@ -40,6 +40,7 @@ class Address extends Libraries\Dto
     /**
      * Country.
      * @var string
+     * @see \MangoPay\CountryIso
      */
     public $Country;
 

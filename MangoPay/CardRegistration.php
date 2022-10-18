@@ -16,6 +16,7 @@ class CardRegistration extends Libraries\EntityBase
     /**
      * CardType
      * @var string
+     * @see \MangoPay\CardType
      */
     public $CardType;
 
