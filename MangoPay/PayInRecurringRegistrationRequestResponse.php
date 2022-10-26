@@ -7,16 +7,6 @@ class PayInRecurringRegistrationRequestResponse extends PayInRecurringRegistrati
     /**
      * @var string
      */
-    public $Id;
-
-    /**
-     * @var string
-     */
-    public $Status;
-
-    /**
-     * @var string
-     */
     public $RecurringType;
 
     /**
