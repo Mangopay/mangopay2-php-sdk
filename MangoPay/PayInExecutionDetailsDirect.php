@@ -61,6 +61,12 @@ class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutio
      */
     public $Applied3DSVersion;
 
+    /**
+     * Card Id
+     * @var string
+     */
+    public $CardId;
+
     public function GetSubObjects()
     {
         $subObjects = parent::GetSubObjects();

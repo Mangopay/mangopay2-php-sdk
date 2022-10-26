@@ -9,7 +9,7 @@ class PayIn extends Transaction
 {
     /**
      * Credited wallet Id
-     * @var int
+     * @var string
      */
     public $CreditedWalletId;
 
