@@ -1,3 +1,12 @@
+## [3.16.2] - 2022-10-26
+### Fixed 
+
+- 565 : Add Id on PayInRecurringRegistration
+- 564 : Fix type hint for RemainingFunds
+- 563 : Added CardId property to PayInExecutionDetailsDirect and used “int” as types for identifiers
+
+Thanks @AntoineLemaire & @garsaud 
+
 ## [3.16.1] - 2022-10-18
 ### Fixed
 
