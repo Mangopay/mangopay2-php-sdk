@@ -138,7 +138,7 @@ class CardPreAuthorization extends Libraries\EntityBase
 
     /**
      * RemainingFunds
-     * @var string
+     * @var \MangoPay\Money
      */
     public $RemainingFunds;
 
