@@ -98,12 +98,12 @@ class Deposit extends Libraries\EntityBase
     public $BrowserInfo;
 
     /**
-     * @var Address
+     * @var Billing
      */
     public $Billing;
 
     /**
-     * @var Address
+     * @var Shipping
      */
     public $Shipping;
 
@@ -127,8 +127,8 @@ class Deposit extends Libraries\EntityBase
         $subObjects['PayinsLinked'] = '\MangoPay\PayinsLinked';
         $subObjects['DebitedFunds'] = '\MangoPay\Money';
         $subObjects['BrowserInfo'] = '\MangoPay\BrowserInfo';
-        $subObjects['Billing'] = '\MangoPay\Address';
-        $subObjects['Shipping'] = '\MangoPay\Address';
+        $subObjects['Billing'] = '\MangoPay\Billing';
+        $subObjects['Shipping'] = '\MangoPay\Shipping';
 
         return $subObjects;
     }

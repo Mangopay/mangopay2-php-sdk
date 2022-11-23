@@ -46,12 +46,12 @@ class CreateDeposit extends Libraries\Dto
     public $BrowserInfo;
 
     /**
-     * @var Address
+     * @var Billing
      */
     public $Billing;
 
     /**
-     * @var Address
+     * @var Shipping
      */
     public $Shipping;
 
@@ -64,8 +64,8 @@ class CreateDeposit extends Libraries\Dto
         $subObjects = parent::GetSubObjects();
         $subObjects['DebitedFunds'] = '\MangoPay\Money';
         $subObjects['BrowserInfo'] = '\MangoPay\BrowserInfo';
-        $subObjects['Billing'] = '\MangoPay\Address';
-        $subObjects['Shipping'] = '\MangoPay\Address';
+        $subObjects['Billing'] = '\MangoPay\Billing';
+        $subObjects['Shipping'] = '\MangoPay\Shipping';
 
         return $subObjects;
     }
