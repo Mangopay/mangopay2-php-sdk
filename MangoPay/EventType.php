@@ -82,5 +82,4 @@ class EventType
     const DepositPreAuthorizationPaymentCancelRequest = "DEPOSIT_PREAUTHORIZATION_PAYMENT_CANCEL_REQUEST";
     const DepositPreAuthorizationPaymentCanceled = "DEPOSIT_PREAUTHORIZATION_PAYMENT_CANCELED";
     const DepositPreAuthorizationPaymentValidated = "DEPOSIT_PREAUTHORIZATION_PAYMENT_VALIDATED";
-
 }

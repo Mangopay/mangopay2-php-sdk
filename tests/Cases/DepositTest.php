@@ -2,14 +2,11 @@
 
 namespace MangoPay\Tests\Cases;
 
-use MangoPay\CancelDeposit;
-
 /**
  * Tests basic methods for disputes
  */
 class DepositTest extends Base
 {
-
     /**
      * @throws \Exception
      */
@@ -36,7 +33,6 @@ class DepositTest extends Base
 
         $this->assertEquals($deposit->Id, $fetchedDeposit->Id);
     }
-
 //    /**
 //     * @throws \Exception
 //     */
