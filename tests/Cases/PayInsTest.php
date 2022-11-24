@@ -5,6 +5,7 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\AVSResult;
 use MangoPay\BankingAlias;
 use MangoPay\BrowserInfo;
+use MangoPay\CreateCardPreAuthorizedDepositPayIn;
 use MangoPay\CurrencyIso;
 use MangoPay\DebitedBankAccount;
 use MangoPay\Libraries\Exception;
@@ -693,4 +694,37 @@ class PayInsTest extends Base
         $this->assertEquals($payIn->ExecutionDetails->Requested3DSVersion, "V2_1");
         $this->assertEquals($payIn->ExecutionDetails->Applied3DSVersion, "V2_1");
     }
+
+//    /**
+//     * @throws \Exception
+//     */
+//    public function test_CreateCardPreAuthorizedDepositPayIn() {
+//        $cardRegistration = $this->getCardRegistrationForDeposit();
+//        $user = $this->getJohn();
+//        $wallet = $this->getJohnsWallet();
+//
+//        $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
+//
+//        $dto = new CreateCardPreAuthorizedDepositPayIn();
+//        $dto->DepositId = $deposit->Id;
+//        $dto->AuthorId = $user->Id;
+//        $dto->CreditedWalletId = $wallet->Id;
+//
+//        $debitedFunds = new Money();
+//        $debitedFunds->Amount = 500;
+//        $debitedFunds->Currency = "EUR";
+//
+//        $fees = new Money();
+//        $fees->Amount = 0;
+//        $fees->Currency = "EUR";
+//
+//        $dto->DebitedFunds = $debitedFunds;
+//        $dto->Fees = $fees;
+//
+//        $payIn = $this->_api->PayIns->CreateCardPreAuthorizedDepositPayIn($dto);
+//        print_r($payIn);
+//
+//        $this->assertNotNull($payIn);
+//        $this->assertEquals("SUCCEEDED", $payIn->Status);
+//    }
 }
