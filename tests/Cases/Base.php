@@ -527,9 +527,13 @@ abstract class Base extends TestCase
         return $response;
     }
 
-    protected function getCardRegistrationForDeposit()
+    protected function getCardRegistrationForDeposit($userId)
     {
-        $cardRegistration = $this->getJohnsCardRegistration();
+        $cardRegistration = new \MangoPay\CardRegistration();
+        $cardRegistration->UserId = $userId;
+        $cardRegistration->Currency = 'EUR';
+
+        $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
 
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
