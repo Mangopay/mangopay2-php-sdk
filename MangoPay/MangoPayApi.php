@@ -192,6 +192,12 @@ class MangoPayApi
     public $Regulatory;
 
     /**
+     * Provides Deposit methods
+     * @var ApiDeposits
+     */
+    public $Deposits;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -226,6 +232,7 @@ class MangoPayApi
         $this->BankAccounts = new ApiBankAccounts($this);
         $this->Repudiations = new ApiRepudiations($this);
         $this->Regulatory = new ApiRegulatory($this);
+        $this->Deposits = new ApiDeposits($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();

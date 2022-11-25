@@ -73,6 +73,7 @@ abstract class ApiBase
         'payins_recurring_registration_get' => ['/recurringpayinregistrations/%s', RequestType::GET],
         'payins_recurring_registration_put' => ['/recurringpayinregistrations/%s', RequestType::PUT],
         'payins_recurring_card_direct' => ['/payins/recurring/card/direct', RequestType::POST],
+        'payins_create_card_pre_authorized_deposit' => ['/payins/deposit-preauthorized/direct/full-capture', RequestType::POST],
 
         'repudiation_get' => ['/repudiations/%s', RequestType::GET],
 
@@ -204,8 +205,11 @@ abstract class ApiBase
         'transactions_get_for_bank_account' => ['/bankaccounts/%s/transactions', RequestType::GET],
 
         'country_authorization_get' => ['/countries/%s/authorizations', RequestType::GET],
-        'country_authorization_all' => ['/countries/authorizations', RequestType::GET]
+        'country_authorization_all' => ['/countries/authorizations', RequestType::GET],
 
+        'deposits_create' => ['/deposit-preauthorizations/card/direct', RequestType::POST],
+        'deposits_get' => ['/deposit-preauthorizations/%s', RequestType::GET],
+        'deposits_cancel' => ['/deposit-preauthorizations/%s', RequestType::PUT]
     ];
 
     /**

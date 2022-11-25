@@ -133,4 +133,14 @@ class ApiPayIns extends Libraries\ApiBase
     {
         return $this->GetObject('get_extended_card_view', '\MangoPay\PayInWebExtendedView', $payInId);
     }
+
+    /**
+     * Create Card PreAuthorized Deposit PayIn
+     * @param CreateCardPreAuthorizedDepositPayIn $payIn PayIn object to create
+     * @return PayIn Deposit object returned from API
+     */
+    public function CreateCardPreAuthorizedDepositPayIn(CreateCardPreAuthorizedDepositPayIn $payIn)
+    {
+        return $this->CreateObject('payins_create_card_pre_authorized_deposit', $payIn, '\MangoPay\PayIn');
+    }
 }

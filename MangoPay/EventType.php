@@ -74,4 +74,12 @@ class EventType
 
     const InstantPayoutSucceeded = "INSTANT_PAYOUT_SUCCEEDED";
     const InstantPayoutFallbacked = "INSTANT_PAYOUT_FALLBACKED";
+
+    const DepositPreAuthorizationCreated = "DEPOSIT_PREAUTHORIZATION_CREATED";
+    const DepositPreAuthorizationFailed = "DEPOSIT_PREAUTHORIZATION_FAILED";
+    const DepositPreAuthorizationPaymentWaiting = "DEPOSIT_PREAUTHORIZATION_PAYMENT_WAITING";
+    const DepositPreAuthorizationPaymentExpired = "DEPOSIT_PREAUTHORIZATION_PAYMENT_EXPIRED";
+    const DepositPreAuthorizationPaymentCancelRequest = "DEPOSIT_PREAUTHORIZATION_PAYMENT_CANCEL_REQUEST";
+    const DepositPreAuthorizationPaymentCanceled = "DEPOSIT_PREAUTHORIZATION_PAYMENT_CANCELED";
+    const DepositPreAuthorizationPaymentValidated = "DEPOSIT_PREAUTHORIZATION_PAYMENT_VALIDATED";
 }

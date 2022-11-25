@@ -2,15 +2,17 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\Address;
 use MangoPay\BankAccount;
 use MangoPay\BankAccountDetailsIBAN;
+use MangoPay\Billing;
 use MangoPay\Birthplace;
 use MangoPay\BrowserInfo;
-use MangoPay\Libraries\Logs;
+use MangoPay\CreateDeposit;
+use MangoPay\Money;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\NullLogger;
 
 set_time_limit(0);
 
@@ -151,11 +153,11 @@ abstract class Base extends TestCase
 
     /**
      * Creates new address
-     * @return \MangoPay\Address
+     * @return Address
      */
     protected function getNewAddress()
     {
-        $result = new \MangoPay\Address();
+        $result = new Address();
 
         $result->AddressLine1 = 'Address line 1';
         $result->AddressLine2 = 'Address line 2';
@@ -525,6 +527,37 @@ abstract class Base extends TestCase
         return $response;
     }
 
+    protected function getCardRegistrationForDeposit($userId)
+    {
+        $cardRegistration = new \MangoPay\CardRegistration();
+        $cardRegistration->UserId = $userId;
+        $cardRegistration->Currency = 'EUR';
+
+        $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
+
+        $data = 'data=' . $cardRegistration->PreregistrationData .
+            '&accessKeyRef=' . $cardRegistration->AccessKey .
+            '&cardNumber=4970105181818183' .
+            '&cardExpirationDate=1224' .
+            '&cardCvx=123';
+
+        $curlHandle = curl_init($cardRegistration->CardRegistrationURL);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curlHandle, CURLOPT_POST, true);
+        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $data);
+        $response = curl_exec($curlHandle);
+        if ($response === false && curl_errno($curlHandle) != 0) {
+            throw new \Exception('cURL error: ' . curl_error($curlHandle));
+        }
+
+        curl_close($curlHandle);
+
+        $cardRegistration->RegistrationData = $response;
+
+        return $this->_api->CardRegistrations->Update($cardRegistration);
+    }
+
     /**
      * Creates mandate belonging to John
      * @return \MangoPay\Mandate
@@ -669,13 +702,13 @@ abstract class Base extends TestCase
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
         $payIn->ExecutionDetails->Culture = 'FR';
 
-        $address = new \MangoPay\Address();
+        $address = new Address();
         $address->AddressLine1 = 'Main Street no 5';
         $address->City = 'Paris';
         $address->Country = 'FR';
         $address->PostalCode = '68400';
         $address->Region = 'Europe';
-        $billing = new \MangoPay\Billing();
+        $billing = new Billing();
         $billing->FirstName = 'John';
         $billing->LastName = 'Doe';
         $billing->Address = $address;
@@ -726,13 +759,13 @@ abstract class Base extends TestCase
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
         $payIn->ExecutionDetails->Culture = 'FR';
 
-        $address = new \MangoPay\Address();
+        $address = new Address();
         $address->AddressLine1 = 'Main Street no 5';
         $address->City = 'Paris';
         $address->Country = 'FR';
         $address->PostalCode = '68400';
         $address->Region = 'Europe';
-        $billing = new \MangoPay\Billing();
+        $billing = new Billing();
         $billing->FirstName = 'John';
         $billing->LastName = 'Doe';
         $billing->Address = $address;
@@ -861,13 +894,13 @@ abstract class Base extends TestCase
         $cardPreAuthorization->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
         $cardPreAuthorization->BrowserInfo = $this->getBrowserInfo();
 
-        $address = new \MangoPay\Address();
+        $address = new Address();
         $address->AddressLine1 = 'Main Street no 5';
         $address->City = 'Paris';
         $address->Country = 'FR';
         $address->PostalCode = '68400';
         $address->Region = 'Europe';
-        $billing = new \MangoPay\Billing();
+        $billing = new Billing();
         $billing->FirstName = 'John';
         $billing->LastName = 'Doe';
         $billing->Address = $address;
@@ -1237,5 +1270,40 @@ abstract class Base extends TestCase
         $browserInfo->UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148";
 
         return $browserInfo;
+    }
+
+    protected function getNewDeposit($cardId, $authorId)
+    {
+        $deposit = new CreateDeposit();
+
+        $deposit->AuthorId = $authorId;
+        $deposit->CardId = $cardId;
+
+        $deposit->DebitedFunds = new Money();
+        $deposit->DebitedFunds->Currency = 'EUR';
+        $deposit->DebitedFunds->Amount = 1000;
+
+        $deposit->SecureModeReturnURL = "http://mangopay-sandbox-test.com";
+        $deposit->StatementDescriptor = "lorem";
+        $deposit->Culture = "FR";
+        $deposit->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $deposit->BrowserInfo = $this->getBrowserInfo();
+
+        $address = new Address();
+        $address->AddressLine1 = 'Main Street no 5';
+        $address->City = 'Paris';
+        $address->Country = 'FR';
+        $address->PostalCode = '68400';
+        $address->Region = 'Europe';
+
+        $billing = new Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
+        $billing->Address = $address;
+
+        $deposit->Billing = $billing;
+        $deposit->Shipping = $billing;
+
+        return $deposit;
     }
 }
