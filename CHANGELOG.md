@@ -1,3 +1,15 @@
+## [3.17.0] - 2022-11-15
+### Added
+
+#### New 30-day preauthorization feature
+
+Preauthorizations can now hold funds for up to 30 days, therefore ensuring the solvency of a registered card for the same amount of time.
+
+- The **ApiDeposits** class has been added with methods for creating, fetching and canceling a deposit
+- The **CreateCardPreAuthorizedDepositPayIn()** method has been added to the ApiPayIns class
+
+Thanks to 30-day preauthorizations, MANGOPAY can provide a simpler and more flexible payment experience for a wide range of use cases, especially for rentals.
+
 ## [3.16.2] - 2022-10-26
 ### Fixed 
 
