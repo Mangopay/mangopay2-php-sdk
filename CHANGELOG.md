@@ -1,3 +1,8 @@
+## [3.18.1] - 2023-01-26
+### Fixed
+
+- Fix bug preventing access to authentication endpoint
+
 ## [3.18.0] - 2023-01-12
 ### Added
 
