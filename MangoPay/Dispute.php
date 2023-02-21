@@ -83,6 +83,12 @@ class Dispute extends Libraries\EntityBase
     public $RepudiationId;
 
     /**
+     * The date and time the dispute was closed
+     * @var int Unix timestamp
+     */
+    public $ClosedDate;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */
@@ -112,6 +118,7 @@ class Dispute extends Libraries\EntityBase
         array_push($properties, 'StatusMessage');
         array_push($properties, 'ResultCode');
         array_push($properties, 'ResultMessage');
+        array_push($properties, 'ClosedDate');
 
         return $properties;
     }
