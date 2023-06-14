@@ -718,6 +718,36 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
+    protected function getNewPayInMbwayDirect($userId = null)
+    {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        // create pay-in MBWAY DIRECT
+        $payIn = new \MangoPay\PayIn();
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->AuthorId = $userId;
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'EUR';
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsMbway();
+        $payIn->PaymentDetails->StatementDescriptor = "test";
+        $payIn->PaymentDetails->PhoneNumber = "351#269458236";
+        // execution type as DIRECT
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+
+        $payIn->Tag = "test tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
     /**
      * Creates Pay-In Card Direct object
      * @return \MangoPay\PayIn
