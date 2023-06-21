@@ -1,3 +1,7 @@
+## [3.20.1] - 2023-06-21
+### Fixed
+- linter issue for the new Mbway PayIn model
+
 ## [3.20.0] - 2023-06-21
 ### Added
 
