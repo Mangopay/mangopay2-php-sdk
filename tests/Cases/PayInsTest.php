@@ -695,6 +695,23 @@ class PayInsTest extends Base
         $this->assertEquals($payIn->ExecutionDetails->Applied3DSVersion, "V2_1");
     }
 
+    public function test_PayIns_Create_MbwayDirect()
+    {
+        $payIn = $this->getNewPayInMbwayDirect();
+
+        $this->assertNotNull($payIn->Id > 0);
+        $this->assertEquals(\MangoPay\PayInPaymentType::Mbway, $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsMbway', $payIn->PaymentDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Direct, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $payIn->ExecutionDetails);
+        $this->assertEquals(PayInStatus::Created, $payIn->Status);
+        $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertEquals('REGULAR', $payIn->Nature);
+
+        $fetchedPayIn = $this->_api->PayIns->Get($payIn->Id);
+        $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
+    }
+
 //    /**
 //     * @throws \Exception
 //     */

@@ -16,4 +16,5 @@ class PayInPaymentType
     const ApplePay = 'APPLEPAY';
     const GooglePay = 'GOOGLEPAY';
     const Payconiq = 'PAYCONIQ';
+    const Mbway = 'MBWAY';
 }
