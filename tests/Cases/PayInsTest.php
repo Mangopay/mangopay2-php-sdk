@@ -316,6 +316,21 @@ class PayInsTest extends Base
         $this->assertSame('FR', $payIn->ExecutionDetails->Culture);
     }
 
+    public function test_PayIns_Create_PaypalDirect()
+    {
+        $payIn = $this->getJohnsPayInPaypalDirect();
+
+        $this->assertTrue($payIn->Id > 0);
+        $this->assertSame('CREATED', $payIn->Status);
+        $this->assertSame('PAYPAL', $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsPaypal', $payIn->PaymentDetails);
+        $this->assertSame('DIRECT', $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $payIn->ExecutionDetails);
+        $this->assertNotNull($payIn->PaymentDetails->StatementDescriptor);
+        $this->assertNotNull($payIn->PaymentDetails->LineItems);
+        $this->assertNotNull($payIn->PaymentDetails->RedirectUrl);
+    }
+
     public function test_PayIns_Create_PayconiqWeb()
     {
         $payIn = $this->getJohnsPayInPayconiqWeb();

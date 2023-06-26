@@ -9,6 +9,7 @@ use MangoPay\Billing;
 use MangoPay\Birthplace;
 use MangoPay\BrowserInfo;
 use MangoPay\CreateDeposit;
+use MangoPay\LineItem;
 use MangoPay\Money;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
@@ -74,6 +75,8 @@ abstract class Base extends TestCase
      * @var \MangoPay\PayIn
      */
     public static $JohnsPayInPaypalWeb;
+
+    public static $JohnsPayInPaypalDirect;
 
     /**
      * Test pay-ins Card Web object Payconiq
@@ -978,6 +981,58 @@ abstract class Base extends TestCase
         }
 
         return self::$JohnsPayInPaypalWeb;
+    }
+
+    protected function getJohnsPayInPaypalDirect()
+    {
+        if (self::$JohnsPayInPaypalDirect === null) {
+            $wallet = $this->getJohnsWallet();
+            $user = $this->getJohn();
+
+            $payIn = new \MangoPay\PayIn();
+            $payIn->AuthorId = $user->Id;
+
+            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds->Currency = 'EUR';
+            $payIn->DebitedFunds->Amount = 500;
+
+            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees->Currency = 'EUR';
+            $payIn->Fees->Amount = 0;
+
+            $payIn->CreditedWalletId = $wallet->Id;
+            $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsPaypal();
+            $address = new Address();
+            $address->AddressLine1 = 'Main Street no 5';
+            $address->City = 'Paris';
+            $address->Country = 'FR';
+            $address->PostalCode = '68400';
+            $address->Region = 'Europe';
+
+            $shipping = new \MangoPay\Shipping();
+            $shipping->FirstName = 'JohnS';
+            $shipping->LastName = 'DoeS';
+            $shipping->Address = $address;
+
+            $payIn->PaymentDetails->Shipping = $shipping;
+            $payIn->PaymentDetails->ReturnURL = "http://example.com";
+            $payIn->PaymentDetails->StatementDescriptor = "test";
+            $payIn->Tag = "test tag";
+            $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+
+            $lineItem = new LineItem();
+            $lineItem->Name = 'running shoes';
+            $lineItem->Quantity = 1;
+            $lineItem->UnitAmount = 500;
+            $lineItem->TaxAmount = 0;
+            $lineItem->Description = "seller1 ID";
+
+            $payIn->PaymentDetails->LineItems = [$lineItem];
+
+            self::$JohnsPayInPaypalDirect = $this->_api->PayIns->Create($payIn);
+        }
+
+        return self::$JohnsPayInPaypalDirect;
     }
 
     /**
