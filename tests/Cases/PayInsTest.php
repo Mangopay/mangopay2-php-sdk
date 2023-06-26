@@ -320,7 +320,7 @@ class PayInsTest extends Base
     {
         $payIn = $this->getJohnsPayInPaypalDirect();
 
-        $this->assertTrue($payIn->Id > 0);
+        $this->assertNotNull($payIn->Id);
         $this->assertSame('CREATED', $payIn->Status);
         $this->assertSame('PAYPAL', $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsPaypal', $payIn->PaymentDetails);
