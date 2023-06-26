@@ -329,6 +329,9 @@ class PayInsTest extends Base
         $this->assertNotNull($payIn->PaymentDetails->StatementDescriptor);
         $this->assertNotNull($payIn->PaymentDetails->LineItems);
         $this->assertNotNull($payIn->PaymentDetails->RedirectUrl);
+
+        $fetched = $this->_api->PayIns->Get($payIn->Id);
+        $this->assertSame($fetched->Id, $payIn->Id);
     }
 
     public function test_PayIns_Create_PayconiqWeb()
