@@ -14,6 +14,12 @@ abstract class HttpBase
     protected $_root;
 
     /**
+     * Root/parent instance logger
+     * @var \Psr\Log\LoggerInterface|\Psr\Log\NullLogger
+     */
+    protected $logger;
+
+    /**
      * Constructor
      * @param \MangoPay\MangoPayApi $root Root/parent instance that holds the OAuthToken and Configuration instance
      */
