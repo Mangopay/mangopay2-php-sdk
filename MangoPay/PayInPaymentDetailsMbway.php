@@ -16,5 +16,5 @@ class PayInPaymentDetailsMbway extends Libraries\Dto implements PayInPaymentDeta
      * Country code followed by hash symbol (#) followed by the rest of the number. Only digits and hash allowed
      * @var string
      */
-    public $PhoneNumber;
+    public $Phone;
 }
