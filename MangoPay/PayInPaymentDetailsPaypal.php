@@ -35,7 +35,7 @@ class PayInPaymentDetailsPaypal extends Libraries\Dto implements PayInPaymentDet
      * The URL to which the user is redirected to complete the payment
      * @var string
      */
-    public $RedirectUrl;
+    public $RedirectURL;
 
     /**
      * Custom description of the payment shown to the consumer when making payments and on the bank statement

@@ -328,7 +328,7 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $payIn->ExecutionDetails);
         $this->assertNotNull($payIn->PaymentDetails->StatementDescriptor);
         $this->assertNotNull($payIn->PaymentDetails->LineItems);
-        $this->assertNotNull($payIn->PaymentDetails->RedirectUrl);
+        $this->assertNotNull($payIn->PaymentDetails->RedirectURL);
 
         $fetched = $this->_api->PayIns->Get($payIn->Id);
         $this->assertSame($fetched->Id, $payIn->Id);
