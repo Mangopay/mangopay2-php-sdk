@@ -742,7 +742,7 @@ abstract class Base extends TestCase
         // payment type as CARD
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsMbway();
         $payIn->PaymentDetails->StatementDescriptor = "test";
-        $payIn->PaymentDetails->PhoneNumber = "351#269458236";
+        $payIn->PaymentDetails->Phone = "351#269458236";
         // execution type as DIRECT
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
 
