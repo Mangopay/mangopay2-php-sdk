@@ -2,6 +2,7 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\CardValidation;
 use MangoPay\Libraries\Exception;
 use MangoPay\SortDirection;
 use MangoPay\Sorting;
@@ -55,17 +56,21 @@ class CardsTest extends Base
 
     public function test_Card_Validate()
     {
-        $new_api = $this->buildNewMangoPayApi();
-
         $john = $this->getNewJohn();
-        $payIn = $this->getNewPayInCardDirect($john->Id);
-        $card = $new_api->Cards->Get($payIn->PaymentDetails->CardId);
+        $cardRegistration = $this->getUpdatedCardRegistration($john->Id);
 
-        $this->assertNotNull($card);
+        $cardValidation = new \MangoPay\CardValidation();
+        $cardValidation->Id = $cardRegistration->CardId;
+        $cardValidation->Tag = "Test card validate";
+        $cardValidation->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $cardValidation->AuthorId = $john->Id;
+        $cardValidation->SecureModeReturnUrl = "http://www.example.com/";
+        $cardValidation->BrowserInfo = $this->getBrowserInfo();
 
         try {
-            $validatedCard = $new_api->Cards->ValidateCard($card->Id);
+            $validatedCard = $this->_api->Cards->ValidateCard($cardRegistration->CardId, $cardValidation);
             $this->assertNotNull($validatedCard);
+            $this->assertNotNull($validatedCard->Id);
         } catch (Exception $e) {
             print_r("can't test due to client issues");
         }
