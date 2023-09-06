@@ -76,7 +76,7 @@ abstract class Base extends TestCase
      */
     public static $JohnsPayInPaypalWeb;
 
-    public static $JohnsPayInPaypalDirect;
+    public static $JohnsPayInPaypalWebV2;
 
     /**
      * Test pay-ins Card Web object Payconiq
@@ -721,7 +721,7 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
-    protected function getNewPayInMbwayDirect($userId = null)
+    protected function getNewPayInMbwayWeb($userId = null)
     {
         $wallet = $this->getJohnsWalletWithMoney();
         if (is_null($userId)) {
@@ -729,7 +729,7 @@ abstract class Base extends TestCase
             $userId = $user->Id;
         }
 
-        // create pay-in MBWAY DIRECT
+        // create pay-in MBWAY WEB
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $userId;
@@ -744,7 +744,7 @@ abstract class Base extends TestCase
         $payIn->PaymentDetails->StatementDescriptor = "test";
         $payIn->PaymentDetails->Phone = "351#269458236";
         // execution type as DIRECT
-        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
 
         $payIn->Tag = "test tag";
 
@@ -983,9 +983,9 @@ abstract class Base extends TestCase
         return self::$JohnsPayInPaypalWeb;
     }
 
-    protected function getJohnsPayInPaypalDirect()
+    protected function getJohnsPayInPaypalWebV2()
     {
-        if (self::$JohnsPayInPaypalDirect === null) {
+        if (self::$JohnsPayInPaypalWebV2 === null) {
             $wallet = $this->getJohnsWallet();
             $user = $this->getJohn();
 
@@ -1015,10 +1015,12 @@ abstract class Base extends TestCase
             $shipping->Address = $address;
 
             $payIn->PaymentDetails->Shipping = $shipping;
-            $payIn->PaymentDetails->ReturnURL = "http://example.com";
             $payIn->PaymentDetails->StatementDescriptor = "test";
             $payIn->Tag = "test tag";
-            $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+
+            $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+            $payIn->ExecutionDetails->ReturnURL = "http://example.com";
+            $payIn->ExecutionDetails->Culture = "FR";
 
             $lineItem = new LineItem();
             $lineItem->Name = 'running shoes';
@@ -1029,10 +1031,10 @@ abstract class Base extends TestCase
 
             $payIn->PaymentDetails->LineItems = [$lineItem];
 
-            self::$JohnsPayInPaypalDirect = $this->_api->PayIns->Create($payIn);
+            self::$JohnsPayInPaypalWebV2 = $this->_api->PayIns->CreatePayPal($payIn);
         }
 
-        return self::$JohnsPayInPaypalDirect;
+        return self::$JohnsPayInPaypalWebV2;
     }
 
     /**
