@@ -70,6 +70,9 @@ abstract class ApiBase
         'payins_googlepay-direct_create' => ['/payins/googlepay/direct', RequestType::POST],
         'payins_mbway-direct_create' => ['/payins/payment-methods/mbway', RequestType::POST],
         'payins_paypal-direct_create' => ['/payins/payment-methods/paypal', RequestType::POST],
+        'payins_multibanco-web_create' => ['/payins/payment-methods/multibanco', RequestType::POST],
+        'payins_satispay-web_create' => ['/payins/payment-methods/satispay', RequestType::POST],
+        'payins_blik-web_create' => ['/payins/payment-methods/blik', RequestType::POST],
 
         'payins_recurring_registration' => ['/recurringpayinregistrations', RequestType::POST],
         'payins_recurring_registration_get' => ['/recurringpayinregistrations/%s', RequestType::GET],

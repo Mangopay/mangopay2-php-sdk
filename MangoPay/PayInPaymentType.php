@@ -17,4 +17,7 @@ class PayInPaymentType
     const GooglePay = 'GOOGLEPAY';
     const Payconiq = 'PAYCONIQ';
     const Mbway = 'MBWAY';
+    const Multibanco = 'MULTIBANCO';
+    const Satispay = 'SATISPAY';
+    const Blik = 'BLIK';
 }

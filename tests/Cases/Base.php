@@ -751,6 +751,110 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
+    protected function getNewPayInMultibancoWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 10;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsMultibanco();
+        $payIn->PaymentDetails->StatementDescriptor = "Multibanco";
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_8362acb9-6dbc-4660-b826-b9acb9b850b1";
+        $payIn->ExecutionDetails->RedirectURL = "https://r3.girogate.de/ti/multibanco?tx=140066339483&rs=XOj6bbIqBxdIHjdDmb1o90RoCiKp8iwj&cs=162f500c5754acdebc8379df496cc6c5ababe4dbe15e3ccda1d691de5e87af26";
+
+        $payIn->Tag = "Multibanco tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    protected function getNewPayInSatispayWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 20;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 2000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsSatispay();
+        $payIn->PaymentDetails->StatementDescriptor = "Satispay";
+        $payIn->PaymentDetails->Country = "IT";
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
+        $payIn->ExecutionDetails->RedirectURL = "https://r3.girogate.de/ti/satispay?tx=2085817274&rs=9SdVQk52tdbjXlFGI8xkpIR4QtpWzEFy&cs=8490cfaf68932558fd710926439b1cffa446bdbd346c42fdd63ad7fa2c56d841";
+
+        $payIn->Tag = "Satispay tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    protected function getNewPayInBlikWeb($userId = null)
+    {
+        $john = $this->getJohn();
+        $wallet = new \MangoPay\Wallet();
+        $wallet->Owners = [$john->Id];
+        $wallet->Currency = 'PLN';
+        $wallet->Description = 'WALLET In PLN WITH MONEY';
+
+        $wallet = $this->_api->Wallets->Create($wallet);
+
+        if (is_null($userId)) {
+            $user = $john;
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 30;
+        $payIn->Fees->Currency = 'PLN';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 3000;
+        $payIn->DebitedFunds->Currency = 'PLN';
+
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsBlik();
+        $payIn->PaymentDetails->StatementDescriptor = "Blik";
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "https://example.com?transactionId=wt_57b8f69d-cbcc-4202-9a4f-9a3f3668240b";
+        $payIn->ExecutionDetails->RedirectURL = "https://r3.girogate.de/ti/dumbdummy?tx=140079495229&rs=oHkl4WvsgwtWpMptWpqWlFa90j0EzzO9&cs=e43baf1ae4a556dfb823fd304acc408580c193e04c1a9bcb26699b4185393b05";
+
+        $payIn->Tag = "Blik tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
     /**
      * Creates Pay-In Card Direct object
      * @return \MangoPay\PayIn
