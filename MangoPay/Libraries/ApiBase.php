@@ -67,7 +67,7 @@ abstract class ApiBase
         'payins_get' => [ '/payins/%s', RequestType::GET ],
         'payins_createrefunds' => [ '/payins/%s/refunds', RequestType::POST ],
         'payins_applepay-direct_create' => ['/payins/applepay/direct', RequestType::POST],
-        'payins_googlepay-direct_create' => ['/payins/googlepay/direct', RequestType::POST],
+        'payins_googlepay-direct_create' => ['/payins/payment-methods/googlepay', RequestType::POST],
         'payins_mbway-direct_create' => ['/payins/payment-methods/mbway', RequestType::POST],
         'payins_paypal-direct_create' => ['/payins/payment-methods/paypal', RequestType::POST],
 
