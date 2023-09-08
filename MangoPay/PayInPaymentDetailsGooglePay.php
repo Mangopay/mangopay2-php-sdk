@@ -11,6 +11,15 @@ class PayInPaymentDetailsGooglePay extends Libraries\Dto implements PayInPayment
     public $PaymentData;
 
     /**
+     * Custom description to show on the user's bank statement.
+     * It can be up to 10 char alpha-numeric and space.
+     * @var string
+     */
+    public $StatementDescriptor;
+
+    /// V2 ///
+
+    /**
      * Information about the browser used by the end user (author)
      * to perform the payment.
      * @return string
@@ -29,13 +38,6 @@ class PayInPaymentDetailsGooglePay extends Libraries\Dto implements PayInPayment
      * @var Shipping
      */
     public $Shipping;
-
-    /**
-     * Custom description to show on the user's bank statement.
-     * It can be up to 10 char alpha-numeric and space.
-     * @var string
-     */
-    public $StatementDescriptor;
 
     public function GetSubObjects()
     {

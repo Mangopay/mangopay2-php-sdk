@@ -803,7 +803,7 @@ abstract class Base extends TestCase
 
         $payIn->Tag = "GooglePay tag";
 
-        return $this->_api->PayIns->Create($payIn);
+        return $this->_api->PayIns->CreateGooglePay($payIn);
     }
 
     /**

@@ -730,7 +730,7 @@ class PayInsTest extends Base
         $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
     }
 
-    public function test_PayIns_Create_GooglePayDirect()
+    public function test_PayIns_Create_GooglePayDirectV2()
     {
         $payIn = $this->getNewPayInGooglePayDirect();
 
