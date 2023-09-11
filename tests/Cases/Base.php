@@ -776,7 +776,6 @@ abstract class Base extends TestCase
         // execution type as WEB
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
         $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_8362acb9-6dbc-4660-b826-b9acb9b850b1";
-        $payIn->ExecutionDetails->RedirectURL = "https://r3.girogate.de/ti/multibanco?tx=140066339483&rs=XOj6bbIqBxdIHjdDmb1o90RoCiKp8iwj&cs=162f500c5754acdebc8379df496cc6c5ababe4dbe15e3ccda1d691de5e87af26";
 
         $payIn->Tag = "Multibanco tag";
 
