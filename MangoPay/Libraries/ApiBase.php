@@ -73,6 +73,7 @@ abstract class ApiBase
         'payins_multibanco-web_create' => ['/payins/payment-methods/multibanco', RequestType::POST],
         'payins_satispay-web_create' => ['/payins/payment-methods/satispay', RequestType::POST],
         'payins_blik-web_create' => ['/payins/payment-methods/blik', RequestType::POST],
+        'payins_klarna-web_create' => ['/payins/payment-methods/klarna', RequestType::POST],
 
         'payins_recurring_registration' => ['/recurringpayinregistrations', RequestType::POST],
         'payins_recurring_registration_get' => ['/recurringpayinregistrations/%s', RequestType::GET],

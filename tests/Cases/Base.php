@@ -854,6 +854,62 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
+
+    protected function getNewPayInKlarnaWeb($userId = null){
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 10;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsKlarna();
+        $payIn->PaymentDetails->Country = "FR";
+        $payIn->PaymentDetails->Culture = "FR";
+        $payIn->PaymentDetails->Phone = "33#607080900";
+        $payIn->PaymentDetails->Email = "mango@mangopay.com";
+        $payIn->PaymentDetails->AdditionalData = "{}";
+        $payIn->PaymentDetails->MerchantOrderId = "afd48-879d-48fg";
+
+        $lineItem = new LineItem();
+        $lineItem->Name = 'test item';
+        $lineItem->Quantity = 1;
+        $lineItem->UnitAmount = 1000;
+        $lineItem->TaxAmount = 0;
+
+        $payIn->PaymentDetails->LineItems = [$lineItem];
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
+
+        $address = new Address();
+        $address->AddressLine1 = 'Main Street no 5';
+        $address->City = 'Paris';
+        $address->Country = 'FR';
+        $address->PostalCode = '68400';
+        $address->Region = 'Europe';
+        $billing = new Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
+        $billing->Address = $address;
+        $payIn->ExecutionDetails->Billing = $billing;
+
+        $payIn->Tag = "Klarna tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
     /**
      * Creates Pay-In Card Direct object
      * @return \MangoPay\PayIn

@@ -20,4 +20,5 @@ class PayInPaymentType
     const Multibanco = 'MULTIBANCO';
     const Satispay = 'SATISPAY';
     const Blik = 'BLIK';
+    const Klarna = 'KLARNA';
 }
