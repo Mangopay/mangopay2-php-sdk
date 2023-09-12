@@ -11,6 +11,7 @@ use MangoPay\BrowserInfo;
 use MangoPay\CreateDeposit;
 use MangoPay\LineItem;
 use MangoPay\Money;
+use MangoPay\ShippingPreference;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
 use PHPUnit\Framework\TestCase;
@@ -1030,6 +1031,7 @@ abstract class Base extends TestCase
             $lineItem->Description = "seller1 ID";
 
             $payIn->PaymentDetails->LineItems = [$lineItem];
+            $payIn->PaymentDetails->ShippingPreference = ShippingPreference::NO_SHIPPING;
 
             self::$JohnsPayInPaypalWebV2 = $this->_api->PayIns->CreatePayPal($payIn);
         }

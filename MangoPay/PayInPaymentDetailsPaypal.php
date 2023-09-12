@@ -43,6 +43,12 @@ class PayInPaymentDetailsPaypal extends Libraries\Dto implements PayInPaymentDet
      */
     public $LineItems;
 
+    /**
+     * User’s shipping preference
+     * @var ShippingPreference
+     */
+    public $ShippingPreference;
+
     public function GetSubObjects()
     {
         $subObjects = parent::GetSubObjects();
