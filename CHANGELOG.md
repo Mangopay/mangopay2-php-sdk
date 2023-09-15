@@ -1,3 +1,8 @@
+## [3.22.1] - 2023-09-15
+### Fixed
+
+- Formatting issues (linter)
+
 ## [3.22.0] - 2023-09-15
 ### Added
 
