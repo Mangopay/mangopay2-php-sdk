@@ -58,7 +58,7 @@ class Configuration
     /**
      * Set the cURL response timeout limit (in seconds)
      */
-    public $CurlResponseTimeout = 80;
+    public $CurlResponseTimeout = 30;
 
     /**
      * Set the proxy host

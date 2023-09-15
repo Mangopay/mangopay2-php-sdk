@@ -316,19 +316,20 @@ class PayInsTest extends Base
         $this->assertSame('FR', $payIn->ExecutionDetails->Culture);
     }
 
-    public function test_PayIns_Create_PaypalDirect()
+    public function test_PayIns_Create_PaypalWebV2()
     {
-        $payIn = $this->getJohnsPayInPaypalDirect();
+        $payIn = $this->getJohnsPayInPaypalWebV2();
 
         $this->assertNotNull($payIn->Id);
         $this->assertSame('CREATED', $payIn->Status);
         $this->assertSame('PAYPAL', $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsPaypal', $payIn->PaymentDetails);
-        $this->assertSame('DIRECT', $payIn->ExecutionType);
-        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $payIn->ExecutionDetails);
+        $this->assertSame('WEB', $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
         $this->assertNotNull($payIn->PaymentDetails->StatementDescriptor);
         $this->assertNotNull($payIn->PaymentDetails->LineItems);
-        $this->assertNotNull($payIn->PaymentDetails->RedirectURL);
+        $this->assertNotNull($payIn->ExecutionDetails->RedirectURL);
+        $this->assertNotNull($payIn->ExecutionDetails->ReturnURL);
 
         $fetched = $this->_api->PayIns->Get($payIn->Id);
         $this->assertSame($fetched->Id, $payIn->Id);
@@ -713,15 +714,15 @@ class PayInsTest extends Base
         $this->assertEquals($payIn->ExecutionDetails->Applied3DSVersion, "V2_1");
     }
 
-    public function test_PayIns_Create_MbwayDirect()
+    public function test_PayIns_Create_MbwayWeb()
     {
-        $payIn = $this->getNewPayInMbwayDirect();
+        $payIn = $this->getNewPayInMbwayWeb();
 
         $this->assertNotNull($payIn->Id > 0);
         $this->assertEquals(\MangoPay\PayInPaymentType::Mbway, $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsMbway', $payIn->PaymentDetails);
-        $this->assertEquals(\MangoPay\PayInExecutionType::Direct, $payIn->ExecutionType);
-        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $payIn->ExecutionDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
         $this->assertEquals(PayInStatus::Created, $payIn->Status);
         $this->assertEquals('PAYIN', $payIn->Type);
         $this->assertEquals('REGULAR', $payIn->Nature);

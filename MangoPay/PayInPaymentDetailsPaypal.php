@@ -26,18 +26,6 @@ class PayInPaymentDetailsPaypal extends Libraries\Dto implements PayInPaymentDet
     /// V2 ///
 
     /**
-     * The URL where users are automatically redirected after the payment is validated
-     * @var string
-     */
-    public $ReturnURL;
-
-    /**
-     * The URL to which the user is redirected to complete the payment
-     * @var string
-     */
-    public $RedirectURL;
-
-    /**
      * Custom description of the payment shown to the consumer when making payments and on the bank statement
      * @var string
      */
@@ -54,6 +42,12 @@ class PayInPaymentDetailsPaypal extends Libraries\Dto implements PayInPaymentDet
      * @var array
      */
     public $LineItems;
+
+    /**
+     * User’s shipping preference
+     * @var ShippingPreference
+     */
+    public $ShippingPreference;
 
     public function GetSubObjects()
     {
