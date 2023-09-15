@@ -13,7 +13,7 @@ class DepositTest extends Base
     public function test_Deposits_Create()
     {
         $user = $this->getJohn();
-        $cardRegistration = $this->getCardRegistrationForDeposit($user->Id);
+        $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
 
         $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
 
@@ -26,7 +26,7 @@ class DepositTest extends Base
     public function test_Deposits_Get()
     {
         $user = $this->getJohn();
-        $cardRegistration = $this->getCardRegistrationForDeposit($user->Id);
+        $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
 
         $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
         $fetchedDeposit = $this->_api->Deposits->Get($deposit->Id);

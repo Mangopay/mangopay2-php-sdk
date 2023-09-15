@@ -82,4 +82,8 @@ class EventType
     const DepositPreAuthorizationPaymentCancelRequest = "DEPOSIT_PREAUTHORIZATION_PAYMENT_CANCEL_REQUEST";
     const DepositPreAuthorizationPaymentCanceled = "DEPOSIT_PREAUTHORIZATION_PAYMENT_CANCELED";
     const DepositPreAuthorizationPaymentValidated = "DEPOSIT_PREAUTHORIZATION_PAYMENT_VALIDATED";
+    const CardValidationCreated = "CARD_VALIDATION_CREATED";
+    const CardValidationFailed= "CARD_VALIDATION_FAILED";
+    const CardValidationSucceeded = "CARD_VALIDATION_SUCCEEDED";
+
 }

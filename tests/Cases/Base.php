@@ -531,7 +531,7 @@ abstract class Base extends TestCase
         return $response;
     }
 
-    protected function getCardRegistrationForDeposit($userId)
+    protected function getUpdatedCardRegistration($userId, $cardNumber = '4970105181818183')
     {
         $cardRegistration = new \MangoPay\CardRegistration();
         $cardRegistration->UserId = $userId;
@@ -541,7 +541,7 @@ abstract class Base extends TestCase
 
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
-            '&cardNumber=4970105181818183' .
+            '&cardNumber=' . $cardNumber .
             '&cardExpirationDate=1224' .
             '&cardCvx=123';
 
