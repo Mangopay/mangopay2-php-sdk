@@ -85,5 +85,4 @@ class EventType
     const CardValidationCreated = "CARD_VALIDATION_CREATED";
     const CardValidationFailed= "CARD_VALIDATION_FAILED";
     const CardValidationSucceeded = "CARD_VALIDATION_SUCCEEDED";
-
 }

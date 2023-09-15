@@ -752,7 +752,8 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
-    protected function getNewPayInGooglePayDirect($userId = null){
+    protected function getNewPayInGooglePayDirect($userId = null)
+    {
         $wallet = $this->getJohnsWalletWithMoney();
         if (is_null($userId)) {
             $user = $this->getJohn();
@@ -911,7 +912,8 @@ abstract class Base extends TestCase
     }
 
 
-    protected function getNewPayInKlarnaWeb($userId = null){
+    protected function getNewPayInKlarnaWeb($userId = null)
+    {
         $wallet = $this->getJohnsWalletWithMoney();
         if (is_null($userId)) {
             $user = $this->getJohn();

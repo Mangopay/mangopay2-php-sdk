@@ -7,7 +7,6 @@ namespace MangoPay;
  */
 class PayInPaymentDetailsKlarna extends Libraries\Dto implements PayInPaymentDetails
 {
-
     /**
      * Information about the order items (basket)
      * Note : The LineItems total amount must match the declared DebitedFunds
