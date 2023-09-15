@@ -402,7 +402,7 @@ abstract class ApiBase
         $rest = new RestTool($this->_root, true);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData, null);
 
-        if(!is_null($responseClassName)){
+        if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
         }
 
