@@ -63,13 +63,13 @@ abstract class ApiBase
         'payins_directdebit-direct_create' => ['/payins/directdebit/direct', RequestType::POST],
         'payins_directdebitdirect-direct_create' => ['/payins/directdebit/direct', RequestType::POST],
         'payins_paypal-web_create' => ['/payins/paypal/web', RequestType::POST],
+        'payins_paypal-web_create_v2' => ['/payins/payment-methods/paypal', RequestType::POST],
         'payins_payconiq-web_create' => ['/payins/payconiq/web', RequestType::POST],
         'payins_get' => ['/payins/%s', RequestType::GET],
         'payins_createrefunds' => ['/payins/%s/refunds', RequestType::POST],
         'payins_applepay-direct_create' => ['/payins/applepay/direct', RequestType::POST],
         'payins_googlepay-direct_create' => ['/payins/googlepay/direct', RequestType::POST],
-        'payins_mbway-direct_create' => ['/payins/payment-methods/mbway', RequestType::POST],
-        'payins_paypal-direct_create' => ['/payins/payment-methods/paypal', RequestType::POST],
+        'payins_mbway-web_create' => ['/payins/payment-methods/mbway', RequestType::POST],
 
         'payins_recurring_registration' => ['/recurringpayinregistrations', RequestType::POST],
         'payins_recurring_registration_get' => ['/recurringpayinregistrations/%s', RequestType::GET],
@@ -317,7 +317,7 @@ abstract class ApiBase
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return object[] Response data
      */
-    protected function GetList($methodKey, &$pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null, $secondEntityId = null, $clientIdRequired = true)
+    protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null, $secondEntityId = null, $clientIdRequired = true)
     {
         $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId);
 
