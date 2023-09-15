@@ -153,4 +153,14 @@ class ApiPayIns extends Libraries\ApiBase
     {
         return $this->CreateObject('payins_paypal-web_create_v2', $payIn, '\MangoPay\PayIn', null, null, $idempotencyKey);
     }
+
+    /**
+     * Create new GooglePay Direct pay-in object
+     * @param \MangoPay\PayIn $payIn \MangoPay\PayIn object
+     * @return \MangoPay\PayIn Object returned from API
+     */
+    public function CreateGooglePay($payIn, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_googlepay-direct_create_v2', $payIn, '\MangoPay\PayIn', null, null, $idempotencyKey);
+    }
 }

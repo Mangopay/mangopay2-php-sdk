@@ -731,6 +731,22 @@ class PayInsTest extends Base
         $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
     }
 
+    public function test_PayIns_Create_GooglePayDirectV2()
+    {
+        $payIn = $this->getNewPayInGooglePayDirect();
+
+        $this->assertNotNull($payIn->Id > 0);
+        $this->assertEquals(\MangoPay\PayInPaymentType::GooglePayV2, $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsGooglePay', $payIn->PaymentDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Direct, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $payIn->ExecutionDetails);
+        $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertEquals('REGULAR', $payIn->Nature);
+
+        $fetchedPayIn = $this->_api->PayIns->Get($payIn->Id);
+        $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
+    }
+
 //    /**
 //     * @throws \Exception
 //     */
