@@ -6,7 +6,7 @@ class PayInPaymentDetailsGooglePay extends Libraries\Dto implements PayInPayment
 {
     /**
      * Payment information returned by Google Pay payment
-     * @var \MangoPay\PaymentData
+     * @var string
      */
     public $PaymentData;
 
@@ -17,11 +17,40 @@ class PayInPaymentDetailsGooglePay extends Libraries\Dto implements PayInPayment
      */
     public $StatementDescriptor;
 
+    /// V2 ///
+
+    /**
+     * Information about the browser used by the end user (author)
+     * to perform the payment.
+     * @return string
+     */
+    public $IpAddress;
+
+    /**
+     * The IP address of the end user initiating the transaction,
+     * in IPV4 or IPV6 format.
+     * @var BrowserInfo
+     */
+    public $BrowserInfo;
+
+    /**
+     * Information about the end user shipping address.
+     * @var Shipping
+     */
+    public $Shipping;
+
+    /**
+     * Return URL
+     * @var string
+     */
+    public $ReturnURL;
+
     public function GetSubObjects()
     {
         $subObjects = parent::GetSubObjects();
 
-        $subObjects['PaymentData'] = '\Mangopay\PaymentData';
+        $subObjects['BrowserInfo'] = '\MangoPay\BrowserInfo';
+        $subObjects['Shipping'] = '\MangoPay\Shipping';
 
         return $subObjects;
     }

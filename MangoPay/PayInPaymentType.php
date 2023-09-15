@@ -15,6 +15,11 @@ class PayInPaymentType
     const PayPal = 'PAYPAL';
     const ApplePay = 'APPLEPAY';
     const GooglePay = 'GOOGLEPAY';
+    const GooglePayV2 = 'GOOGLE_PAY';
     const Payconiq = 'PAYCONIQ';
     const Mbway = 'MBWAY';
+    const Multibanco = 'MULTIBANCO';
+    const Satispay = 'SATISPAY';
+    const Blik = 'BLIK';
+    const Klarna = 'KLARNA';
 }

@@ -11,6 +11,7 @@ use MangoPay\BrowserInfo;
 use MangoPay\CreateDeposit;
 use MangoPay\LineItem;
 use MangoPay\Money;
+use MangoPay\ShippingPreference;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
 use PHPUnit\Framework\TestCase;
@@ -76,7 +77,7 @@ abstract class Base extends TestCase
      */
     public static $JohnsPayInPaypalWeb;
 
-    public static $JohnsPayInPaypalDirect;
+    public static $JohnsPayInPaypalWebV2;
 
     /**
      * Test pay-ins Card Web object Payconiq
@@ -530,7 +531,7 @@ abstract class Base extends TestCase
         return $response;
     }
 
-    protected function getCardRegistrationForDeposit($userId)
+    protected function getUpdatedCardRegistration($userId, $cardNumber = '4970105181818183')
     {
         $cardRegistration = new \MangoPay\CardRegistration();
         $cardRegistration->UserId = $userId;
@@ -540,7 +541,7 @@ abstract class Base extends TestCase
 
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
-            '&cardNumber=4970105181818183' .
+            '&cardNumber=' . $cardNumber .
             '&cardExpirationDate=1224' .
             '&cardCvx=123';
 
@@ -721,7 +722,7 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
-    protected function getNewPayInMbwayDirect($userId = null)
+    protected function getNewPayInMbwayWeb($userId = null)
     {
         $wallet = $this->getJohnsWalletWithMoney();
         if (is_null($userId)) {
@@ -729,7 +730,7 @@ abstract class Base extends TestCase
             $userId = $user->Id;
         }
 
-        // create pay-in MBWAY DIRECT
+        // create pay-in MBWAY WEB
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $userId;
@@ -744,9 +745,223 @@ abstract class Base extends TestCase
         $payIn->PaymentDetails->StatementDescriptor = "test";
         $payIn->PaymentDetails->Phone = "351#269458236";
         // execution type as DIRECT
-        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
 
         $payIn->Tag = "test tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    protected function getNewPayInGooglePayDirect($userId = null){
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->AuthorId = $userId;
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 100;
+        $payIn->Fees->Currency = 'EUR';
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsGooglePay();
+        $payIn->PaymentDetails->StatementDescriptor = "GooglePay";
+        $payIn->PaymentDetails->IpAddress = "159.180.248.187";
+        $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
+        $payIn->PaymentDetails->PaymentData = "{\"signature\":\"MEUCIQCLXOan2Y9DobLVSOeD5V64Peayvz0ZAWisdz/1iTdthAIgVFb4Hve4EhtW81k46SiMlnXLIiCn1h2+vVQGjHe+sSo\\u003d\",\"intermediateSigningKey\":{\"signedKey\":\"{\\\"keyValue\\\":\\\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEDGRER6R6PH6K39YTIYX+CpDNej6gQgvi/Wx19SOPtiDnkjAl4/LF9pXlvZYe+aJH0Dy095I6BlfY8bNBB5gjPg\\\\u003d\\\\u003d\\\",\\\"keyExpiration\\\":\\\"1688521049102\\\"}\",\"signatures\":[\"MEYCIQDup1B+rkiPAWmpg7RmqY0NfgdGhmdyL8wvAX+6C1aOU2QIhAIZACSDQ/ZexIyEia5KrRlG2B+y3AnKNlhRzumRcnNOR\"]},\"protocolVersion\":\"ECv2\",\"signedMessage\":\"{\\\"encryptedMessage\\\":\\\"YSSGK9yFdKP+mJB5+wAjnOujnThPM1E/KbbJxd3MDzPVI66ip1DBESldvQXYjjeLq6Rf1tKE9oLwwaj6u0/gU7Z9t3g1MoW+9YoEE1bs1IxImif7IQGAosfYjjbBBfDkOaqEs2JJC5qt6xjKO9lQ/E6JPkPFGqF7+OJ1vzmD83Pi3sHWkVge5MhxXQ3yBNhrjus3kV7zUoYA+uqNrciWcWypc1NndF/tiwSkvUTzM6n4dS8X84fkJiSO7PZ65C0yw0mdybRRnyL2fFdWGssve1zZFAvYfzcpNamyuZGGlu/SCoayitojmMsqe5Cu0efD9+WvvDr9PA+Vo1gzuz7LmiZe81SGvdFhRoq62FBAUiwSsi2A3pWinZxM2XbYNph+HJ5FCNspWhz4ur9JG4ZMLemCXuaybvL++W6PWywAtoiE0mQcBIX3vhOq5itv0RkaKVe6nbcAS2UryRz2u/nDCJLKpIv2Wi11NtCUT2mgD8F6qfcXhvVZHyeLqZ1OLgCudTTSdKirzezbgPTg4tQpW++KufeD7bgG+01XhCWt+7/ftqcSf8n//gSRINne8j2G6w+2\\\",\\\"ephemeralPublicKey\\\":\\\"BLY2+R8C0T+BSf/W3HEq305qH63IGmJxMVmbfJ6+x1V7GQg9W9v7eHc3j+8TeypVn+nRlPu98tivuMXECg+rWZs\\\\u003d\\\",\\\"tag\\\":\\\"MmEjNdLfsDNfYd/FRUjoJ4/IfLypNRqx8zgHfa6Ftmo\\\\u003d\\\"}\"}";
+
+        $address = new Address();
+        $address->AddressLine1 = 'Main Street no 5';
+        $address->City = 'Paris';
+        $address->Country = 'FR';
+        $address->PostalCode = '68400';
+        $address->Region = 'Europe';
+
+        $shipping = new \MangoPay\Shipping();
+        $shipping->FirstName = 'JohnS';
+        $shipping->LastName = 'DoeS';
+        $shipping->Address = $address;
+
+        $payIn->PaymentDetails->Shipping = $shipping;
+
+        // execution type as DIRECT
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        $payIn->ExecutionDetails->SecureModeReturnURL = "https://mangopay.com/docs/please-ignore";
+        $payIn->ExecutionDetails->SecureMode = "DEFAULT";
+
+        $billing = new Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
+        $billing->Address = $address;
+
+        $payIn->ExecutionDetails->Billing = $billing;
+
+
+        $payIn->Tag = "GooglePay tag";
+
+        return $this->_api->PayIns->CreateGooglePay($payIn);
+    }
+
+    protected function getNewPayInMultibancoWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 10;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsMultibanco();
+        $payIn->PaymentDetails->StatementDescriptor = "Multibanco";
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_8362acb9-6dbc-4660-b826-b9acb9b850b1";
+
+        $payIn->Tag = "Multibanco tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    protected function getNewPayInSatispayWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 20;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 2000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsSatispay();
+        $payIn->PaymentDetails->StatementDescriptor = "Satispay";
+        $payIn->PaymentDetails->Country = "IT";
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
+        $payIn->ExecutionDetails->RedirectURL = "https://r3.girogate.de/ti/satispay?tx=2085817274&rs=9SdVQk52tdbjXlFGI8xkpIR4QtpWzEFy&cs=8490cfaf68932558fd710926439b1cffa446bdbd346c42fdd63ad7fa2c56d841";
+
+        $payIn->Tag = "Satispay tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    protected function getNewPayInBlikWeb($userId = null)
+    {
+        $john = $this->getJohn();
+        $wallet = new \MangoPay\Wallet();
+        $wallet->Owners = [$john->Id];
+        $wallet->Currency = 'PLN';
+        $wallet->Description = 'WALLET In PLN WITH MONEY';
+
+        $wallet = $this->_api->Wallets->Create($wallet);
+
+        if (is_null($userId)) {
+            $user = $john;
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 30;
+        $payIn->Fees->Currency = 'PLN';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 3000;
+        $payIn->DebitedFunds->Currency = 'PLN';
+
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsBlik();
+        $payIn->PaymentDetails->StatementDescriptor = "Blik";
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "https://example.com?transactionId=wt_57b8f69d-cbcc-4202-9a4f-9a3f3668240b";
+        $payIn->ExecutionDetails->RedirectURL = "https://r3.girogate.de/ti/dumbdummy?tx=140079495229&rs=oHkl4WvsgwtWpMptWpqWlFa90j0EzzO9&cs=e43baf1ae4a556dfb823fd304acc408580c193e04c1a9bcb26699b4185393b05";
+
+        $payIn->Tag = "Blik tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+
+    protected function getNewPayInKlarnaWeb($userId = null){
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 10;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsKlarna();
+        $payIn->PaymentDetails->Country = "FR";
+        $payIn->PaymentDetails->Culture = "FR";
+        $payIn->PaymentDetails->Phone = "33#607080900";
+        $payIn->PaymentDetails->Email = "mango@mangopay.com";
+        $payIn->PaymentDetails->AdditionalData = "{}";
+        $payIn->PaymentDetails->MerchantOrderId = "afd48-879d-48fg";
+
+        $lineItem = new LineItem();
+        $lineItem->Name = 'test item';
+        $lineItem->Quantity = 1;
+        $lineItem->UnitAmount = 1000;
+        $lineItem->TaxAmount = 0;
+
+        $payIn->PaymentDetails->LineItems = [$lineItem];
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
+
+        $address = new Address();
+        $address->AddressLine1 = 'Main Street no 5';
+        $address->City = 'Paris';
+        $address->Country = 'FR';
+        $address->PostalCode = '68400';
+        $address->Region = 'Europe';
+        $billing = new Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
+        $billing->Address = $address;
+        $payIn->ExecutionDetails->Billing = $billing;
+
+        $payIn->Tag = "Klarna tag";
 
         return $this->_api->PayIns->Create($payIn);
     }
@@ -983,9 +1198,9 @@ abstract class Base extends TestCase
         return self::$JohnsPayInPaypalWeb;
     }
 
-    protected function getJohnsPayInPaypalDirect()
+    protected function getJohnsPayInPaypalWebV2()
     {
-        if (self::$JohnsPayInPaypalDirect === null) {
+        if (self::$JohnsPayInPaypalWebV2 === null) {
             $wallet = $this->getJohnsWallet();
             $user = $this->getJohn();
 
@@ -1015,10 +1230,12 @@ abstract class Base extends TestCase
             $shipping->Address = $address;
 
             $payIn->PaymentDetails->Shipping = $shipping;
-            $payIn->PaymentDetails->ReturnURL = "http://example.com";
             $payIn->PaymentDetails->StatementDescriptor = "test";
             $payIn->Tag = "test tag";
-            $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+
+            $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+            $payIn->ExecutionDetails->ReturnURL = "http://example.com";
+            $payIn->ExecutionDetails->Culture = "FR";
 
             $lineItem = new LineItem();
             $lineItem->Name = 'running shoes';
@@ -1028,11 +1245,12 @@ abstract class Base extends TestCase
             $lineItem->Description = "seller1 ID";
 
             $payIn->PaymentDetails->LineItems = [$lineItem];
+            $payIn->PaymentDetails->ShippingPreference = ShippingPreference::NO_SHIPPING;
 
-            self::$JohnsPayInPaypalDirect = $this->_api->PayIns->Create($payIn);
+            self::$JohnsPayInPaypalWebV2 = $this->_api->PayIns->CreatePayPal($payIn);
         }
 
-        return self::$JohnsPayInPaypalDirect;
+        return self::$JohnsPayInPaypalWebV2;
     }
 
     /**
