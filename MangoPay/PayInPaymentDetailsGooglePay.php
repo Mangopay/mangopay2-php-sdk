@@ -39,6 +39,12 @@ class PayInPaymentDetailsGooglePay extends Libraries\Dto implements PayInPayment
      */
     public $Shipping;
 
+    /**
+     * Return URL
+     * @var string
+     */
+    public $ReturnURL;
+
     public function GetSubObjects()
     {
         $subObjects = parent::GetSubObjects();
