@@ -60,6 +60,7 @@ class PayIn extends Transaction
                 PayInPaymentType::PayPal => '\MangoPay\PayInPaymentDetailsPaypal',
                 PayInPaymentType::ApplePay => 'MangoPay\PayInPaymentDetailsApplePay',
                 PayInPaymentType::GooglePay => 'MangoPay\PayInPaymentDetailsGooglePay',
+                PayInPaymentType::GooglePayV2 => 'MangoPay\PayInPaymentDetailsGooglePay',
                 PayInPaymentType::Payconiq => 'MangoPay\PayInPaymentDetailsPayconiq',
                 PayInPaymentType::Mbway => 'MangoPay\PayInPaymentDetailsMbway',
                 PayInPaymentType::Multibanco => 'MangoPay\PayInPaymentDetailsMultibanco',
