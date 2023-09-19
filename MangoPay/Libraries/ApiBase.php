@@ -216,7 +216,11 @@ abstract class ApiBase
 
         'deposits_create' => ['/deposit-preauthorizations/card/direct', RequestType::POST],
         'deposits_get' => ['/deposit-preauthorizations/%s', RequestType::GET],
-        'deposits_cancel' => ['/deposit-preauthorizations/%s', RequestType::PUT]
+        'deposits_cancel' => ['/deposit-preauthorizations/%s', RequestType::PUT],
+
+        'get_conversion_rate' => ['/conversion/rate/%s/%s', RequestType::GET],
+        'create_instant_conversion' => ['/instant-conversion', RequestType::POST],
+        'get_instant_conversion' => ['/instant-conversion/%s', RequestType::GET]
     ];
 
     /**
