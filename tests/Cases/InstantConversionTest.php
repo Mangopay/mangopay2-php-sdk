@@ -4,6 +4,7 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\InstantConversion;
 use MangoPay\Money;
+use MangoPay\TransactionType;
 
 class InstantConversionTest extends Base
 {
@@ -24,6 +25,7 @@ class InstantConversionTest extends Base
         $this->assertNotNull($response->DebitedFunds->Amount);
         $this->assertNotNull($response->CreditedFunds->Amount);
         $this->assertSame('SUCCEEDED', $response->Status);
+        $this->assertSame(TransactionType::Conversion, $response->Type);
     }
 
     public function test_getInstantConversion()
@@ -35,6 +37,7 @@ class InstantConversionTest extends Base
         $this->assertNotNull($returnedInstantConversion->DebitedFunds->Amount);
         $this->assertNotNull($returnedInstantConversion->CreditedFunds->Amount);
         $this->assertSame('SUCCEEDED', $returnedInstantConversion->Status);
+        $this->assertSame(TransactionType::Conversion, $returnedInstantConversion->Type);
     }
 
     private function createInstantConversion() {
