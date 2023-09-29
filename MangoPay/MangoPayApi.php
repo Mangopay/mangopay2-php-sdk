@@ -198,6 +198,12 @@ class MangoPayApi
     public $Deposits;
 
     /**
+     * Provides Instant conversion API methods
+     * @var ApiInstantConversion
+     */
+    public $InstantConversion;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -233,6 +239,7 @@ class MangoPayApi
         $this->Repudiations = new ApiRepudiations($this);
         $this->Regulatory = new ApiRegulatory($this);
         $this->Deposits = new ApiDeposits($this);
+        $this->InstantConversion = new ApiInstantConversion($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();
