@@ -22,4 +22,6 @@ class PayInPaymentType
     const Satispay = 'SATISPAY';
     const Blik = 'BLIK';
     const Klarna = 'KLARNA';
+    const Ideal = 'IDEAL';
+    const Giropay = 'GIROPAY';
 }
