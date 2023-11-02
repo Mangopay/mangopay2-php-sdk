@@ -60,7 +60,7 @@ class PayInPaymentDetailsKlarna extends Libraries\Dto implements PayInPaymentDet
      * The merchant order reference
      * @var string
      */
-    public $MerchantOrderId;
+    public $Reference;
 
     public function GetSubObjects()
     {

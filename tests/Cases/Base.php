@@ -937,7 +937,7 @@ abstract class Base extends TestCase
         $payIn->PaymentDetails->Phone = "33#607080900";
         $payIn->PaymentDetails->Email = "mango@mangopay.com";
         $payIn->PaymentDetails->AdditionalData = "{}";
-        $payIn->PaymentDetails->MerchantOrderId = "afd48-879d-48fg";
+        $payIn->PaymentDetails->Reference = "afd48-879d-48fg";
 
         $lineItem = new LineItem();
         $lineItem->Name = 'test item';

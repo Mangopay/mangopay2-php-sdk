@@ -733,6 +733,7 @@ class PayInsTest extends Base
 
     public function test_PayIns_Create_GooglePayDirectV2()
     {
+        $this->markTestSkipped("Cannot test because payment data can't be generated in tests");
         $payIn = $this->getNewPayInGooglePayDirect();
 
         $this->assertNotNull($payIn->Id > 0);
