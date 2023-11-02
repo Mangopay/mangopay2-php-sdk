@@ -38,6 +38,11 @@ class Refund extends Transaction
     public $RefundReason;
 
     /**
+     * @var string
+     */
+    public $Reference;
+
+    /**
      * Get array with mapping which property is object and what type of object
      *
      * @return array
