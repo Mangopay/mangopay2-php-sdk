@@ -424,4 +424,15 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->GetObject('users_block_status_regulatory', 'MangoPay\UserBlockStatus', $userId);
     }
+
+    /**
+     * This call allows you to check the validity of the format
+     * of a piece of user data, and to retrieve the validation rules applied to it.
+     * @param $companyNumber
+     * @return \MangoPay\CompanyNumber
+     */
+    public function ValidateTheFormatOfUserData($companyNumber)
+    {
+        return $this->ExecutePostRequest('validate_the_format_of_user_data', $companyNumber, '\MangoPay\CompanyNumber');
+    }
 }

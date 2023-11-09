@@ -769,4 +769,18 @@ class UsersTest extends Base
         $this->assertTrue($accepted->TermsAndConditionsAccepted);
         $this->assertNotNull($accepted->TermsAndConditionsAcceptedDate);
     }
+
+    public function test_validate_the_format_of_user_data(){
+        $companyNumber = new \MangoPay\CompanyNumber();
+        $companyNumber->CompanyNumber = 'LU12345678';
+        $companyNumber->CountryCode = 'FR';
+
+        $validatedCompanyNumber = $this->_api-> Users->ValidateTheFormatOfUserData($companyNumber);
+
+        $this->assertNotNull($validatedCompanyNumber);
+        $this->assertNotNull($validatedCompanyNumber->CompanyNumber);
+        $this->assertNotNull($validatedCompanyNumber->CountryCode);
+        $this->assertSame('true', $validatedCompanyNumber->IsValid);
+        $this->assertNotEmpty($validatedCompanyNumber->ValidationRules);
+    }
 }
