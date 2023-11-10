@@ -114,6 +114,22 @@ class PayInsTest extends Base
         $this->assertInstanceOf('\MangoPay\RefundReasonDetails', $refund->RefundReason);
     }
 
+    public function test_PayIns_CreatePartialRefund_CardDirect()
+    {
+        $payIn = $this->getNewPayInCardDirect();
+        $wallet = $this->getJohnsWalletWithMoney();
+        $walletBefore = $this->_api->Wallets->Get($wallet->Id);
+
+        $refund = $this->getPartialRefundForPayIn($payIn);
+        $walletAfter = $this->_api->Wallets->Get($wallet->Id);
+
+        $this->assertTrue($refund->Id > 0);
+        $this->assertEquals($walletAfter->Balance->Amount, $walletBefore->Balance->Amount - $refund->DebitedFunds->Amount);
+        $this->assertEquals('PAYOUT', $refund->Type);
+        $this->assertEquals('REFUND', $refund->Nature);
+        $this->assertInstanceOf('\MangoPay\RefundReasonDetails', $refund->RefundReason);
+    }
+
     public function test_PayIns_PreAuthorizedDirect()
     {
         $cardPreAuthorization = $this->getJohnsCardPreAuthorization();

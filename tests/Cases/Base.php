@@ -1161,6 +1161,26 @@ abstract class Base extends TestCase
     }
 
     /**
+     * Creates refund object for PayIn
+     * @return \MangoPay\Refund
+     */
+    protected function getPartialRefundForPayIn($payIn)
+    {
+        $user = $this->getJohn();
+
+        $refund = new \MangoPay\Refund();
+        $refund->AuthorId = $user->Id;
+        $refund->DebitedFunds = new \MangoPay\Money();
+        $refund->DebitedFunds->Amount = 100;
+        $refund->DebitedFunds->Currency = $payIn->DebitedFunds->Currency;
+        $refund->Fees = new \MangoPay\Money();
+        $refund->Fees->Amount = 10;
+        $refund->Fees->Currency = $payIn->Fees->Currency;
+
+        return $this->_api->PayIns->CreateRefund($payIn->Id, $refund);
+    }
+
+    /**
      * Creates card registration object
      * @return \MangoPay\CardRegistration
      */
