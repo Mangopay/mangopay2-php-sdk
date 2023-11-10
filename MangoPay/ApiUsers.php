@@ -428,11 +428,11 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * This call allows you to check the validity of the format
      * of a piece of user data, and to retrieve the validation rules applied to it.
-     * @param $companyNumber
-     * @return \MangoPay\CompanyNumber
+     * @param $companyNumberDetails
+     * @return \MangoPay\CompanyNumberDetails
      */
-    public function ValidateTheFormatOfUserData($companyNumber)
+    public function ValidateTheFormatOfUserData($companyNumberDetails)
     {
-        return $this->ExecutePostRequest('validate_the_format_of_user_data', $companyNumber, '\MangoPay\CompanyNumber');
+        return $this->ExecutePostRequest('validate_the_format_of_user_data', $companyNumberDetails, '\MangoPay\CompanyNumberDetails');
     }
 }
