@@ -14,6 +14,7 @@ use MangoPay\PayIn;
 use MangoPay\PayInExecutionType;
 use MangoPay\PayInPaymentDetails;
 use MangoPay\PayInPaymentDetailsBankWire;
+use MangoPay\PayInPaymentDetailsCard;
 use MangoPay\PayInPaymentType;
 use MangoPay\PayInRecurringRegistrationUpdate;
 use MangoPay\PayInStatus;
@@ -830,6 +831,20 @@ class PayInsTest extends Base
 
         $fetchedPayIn = $this->_api->PayIns->Get($payIn->Id);
         $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
+    }
+
+    public function test_PayIns_Create_Legacy_IdealWeb()
+    {
+        $payIn = $this->getLegacyPayInIdealWeb();
+
+        $this->assertNotNull($payIn->Id > 0);
+        $this->assertEquals(\MangoPay\PayInPaymentType::Card, $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsCard', $payIn->PaymentDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
+        $this->assertEquals(PayInStatus::Created, $payIn->Status);
+        $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertEquals('REGULAR', $payIn->Nature);
     }
 
     public function test_PayIns_Create_IdealWeb()
