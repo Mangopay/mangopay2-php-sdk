@@ -15,16 +15,18 @@ class ApiInstantConversion extends Libraries\ApiBase
      * @param string $creditedCurrency The buy currency – the currency of the wallet to be credited.
      * @return \MangoPay\ConversionRate object returned from API
      */
-     public function GetConversionRate($debitedCurrency, $creditedCurrency){
-         return $this->GetObject('get_conversion_rate', '\MangoPay\ConversionRate', $debitedCurrency, $creditedCurrency);
-     }
+    public function GetConversionRate($debitedCurrency, $creditedCurrency)
+    {
+        return $this->GetObject('get_conversion_rate', '\MangoPay\ConversionRate', $debitedCurrency, $creditedCurrency);
+    }
 
     /**
      * This endpoint allows the platform to move funds between two
      * wallets of different currencies instantaneously.
      * @return \MangoPay\InstantConversion object returned from API
      */
-    public function CreateInstantConversion($instantConversion){
+    public function CreateInstantConversion($instantConversion)
+    {
         return $this->CreateObject('create_instant_conversion', $instantConversion, '\MangoPay\InstantConversion');
     }
 
@@ -34,7 +36,8 @@ class ApiInstantConversion extends Libraries\ApiBase
      * @param string $id The unique identifier of the conversion.
      * @return \MangoPay\InstantConversion object returned from API
      */
-    public function GetInstantConversion($id){
+    public function GetInstantConversion($id)
+    {
         return $this->GetObject('get_instant_conversion', '\MangoPay\InstantConversion', $id);
     }
 }
