@@ -845,6 +845,7 @@ class PayInsTest extends Base
         $this->assertEquals(PayInStatus::Created, $payIn->Status);
         $this->assertEquals('PAYIN', $payIn->Type);
         $this->assertEquals('REGULAR', $payIn->Nature);
+        $this->assertNotNull($payIn->PaymentDetails->BankName);
     }
 
     public function test_PayIns_Create_IdealWeb()
