@@ -968,6 +968,41 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
+    protected function getLegacyPayInIdealWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->PaymentType = "CARD";
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 10;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+        $payIn->PaymentDetails->Bic = 'REVOLT21';
+        $payIn->PaymentDetails->CardType = 'IDEAL';
+        $payIn->PaymentDetails->StatementDescriptor = 'test';
+
+        $payIn->ExecutionType = \MangoPay\PayInExecutionType::Web;
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
+        $payIn->ExecutionDetails->Culture = "EN";
+
+        $payIn->Tag = "Ideal tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
     protected function getNewPayInIdealWeb($userId = null)
     {
         $wallet = $this->getJohnsWalletWithMoney();

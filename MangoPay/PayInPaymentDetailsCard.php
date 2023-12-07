@@ -47,4 +47,14 @@ class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetai
      * @var string
      */
     public $Reference;
+
+    /**
+     * @var string
+     */
+    public $Bic;
+
+    /**
+     * @var string
+     */
+    public $BankName;
 }
