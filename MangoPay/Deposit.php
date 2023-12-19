@@ -118,6 +118,12 @@ class Deposit extends Libraries\EntityBase
     public $Applied3DSVersion;
 
     /**
+     * Information of the card
+     * @var object
+     */
+    public $CardInfo;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */

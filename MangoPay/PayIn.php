@@ -44,6 +44,12 @@ class PayIn extends Transaction
     public $RecurringPayinRegistrationId;
 
     /**
+     * Information of the card
+     * @var object
+     */
+    public $CardInfo;
+
+    /**
      * Get array with mapping which property depends on other property
      * @return array
      */

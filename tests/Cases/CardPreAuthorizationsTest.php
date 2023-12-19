@@ -35,6 +35,18 @@ class CardPreAuthorizationsTest extends Base
         $this->assertNotNull($getCardPreAuthorization->RemainingFunds);
     }
 
+    public function test_CardPreAuthorization_CheckCardInfo()
+    {
+        $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
+
+        $getCardPreAuthorization = $this->_api->CardPreAuthorizations->Get($cardPreAuthorization->Id);
+
+        $this->assertNotNull($getCardPreAuthorization->CardInfo);
+        $this->assertNotNull($getCardPreAuthorization->CardInfo->Type);
+        $this->assertNotNull($getCardPreAuthorization->CardInfo->Brand);
+        $this->assertNotNull($getCardPreAuthorization->CardInfo->IssuingBank);
+    }
+
 
 //    function test_CardPreAuthorization_Update()
 //    {
