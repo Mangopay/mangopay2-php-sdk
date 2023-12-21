@@ -2,9 +2,8 @@
 
 namespace MangoPay;
 
-class CardInfo extends Libraries\EntityBase
+class CardInfo extends Libraries\Dto
 {
-
     /**
      * The 6-digit bank identification number (BIN) of the card issuer.
      * @var string
