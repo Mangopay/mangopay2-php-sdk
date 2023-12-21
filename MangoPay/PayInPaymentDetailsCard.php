@@ -57,4 +57,10 @@ class PayInPaymentDetailsCard extends Libraries\Dto implements PayInPaymentDetai
      * @var string
      */
     public $BankName;
+
+    /**
+     * Information of the card
+     * @var object
+     */
+    public $CardInfo;
 }

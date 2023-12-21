@@ -69,6 +69,10 @@ class PayInsTest extends Base
         $this->assertEquals($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
         $this->assertEquals(PayInStatus::Succeeded, $payIn->Status);
         $this->assertEquals('PAYIN', $payIn->Type);
+
+        $this->assertNotNull($payIn->PaymentDetails->CardInfo);
+        $this->assertNotNull($payIn->PaymentDetails->CardInfo->BIN);
+        $this->assertNotNull($payIn->PaymentDetails->CardInfo->Type);
     }
 
     public function test_PayIns_Get_CardDirect()
@@ -605,7 +609,7 @@ class PayInsTest extends Base
         $result = $this->_api->PayIns->CreateRecurringPayInRegistrationCIT($cit);
 
         $this->assertNotNull($result);
-        $card_info = $result->CardInfo;
+        $card_info = $result->PaymentDetails->CardInfo;
         $this->assertNotEmpty($card_info);
         $this->assertNotEmpty($card_info->Brand);
         $this->assertNotEmpty($card_info->Type);
