@@ -2,24 +2,14 @@
 
 namespace MangoPay\Tests\Cases;
 
-use MangoPay\AVSResult;
-use MangoPay\BankingAlias;
-use MangoPay\BrowserInfo;
-use MangoPay\CreateCardPreAuthorizedDepositPayIn;
-use MangoPay\CurrencyIso;
-use MangoPay\DebitedBankAccount;
 use MangoPay\Libraries\Exception;
 use MangoPay\Money;
-use MangoPay\PayIn;
 use MangoPay\PayInExecutionType;
-use MangoPay\PayInPaymentDetails;
 use MangoPay\PayInPaymentDetailsBankWire;
-use MangoPay\PayInPaymentDetailsCard;
 use MangoPay\PayInPaymentType;
 use MangoPay\PayInRecurringRegistrationUpdate;
 use MangoPay\PayInStatus;
 use MangoPay\RecurringPayInCIT;
-use MangoPay\Shipping;
 use MangoPay\TransactionStatus;
 
 /**
@@ -79,6 +69,10 @@ class PayInsTest extends Base
         $this->assertEquals($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
         $this->assertEquals(PayInStatus::Succeeded, $payIn->Status);
         $this->assertEquals('PAYIN', $payIn->Type);
+
+        $this->assertNotNull($payIn->PaymentDetails->CardInfo);
+        $this->assertNotNull($payIn->PaymentDetails->CardInfo->BIN);
+        $this->assertNotNull($payIn->PaymentDetails->CardInfo->Type);
     }
 
     public function test_PayIns_Get_CardDirect()
@@ -596,6 +590,30 @@ class PayInsTest extends Base
         $result = $this->_api->PayIns->CreateRecurringPayInRegistrationCIT($cit);
 
         $this->assertNotNull($result);
+    }
+
+    public function test_Create_Recurring_PayIn_CIT_Check_CardInfo()
+    {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
+        $registration = $this->getRecurringPayin();
+
+        $cit = new RecurringPayInCIT();
+        $cit->RecurringPayinRegistrationId = $registration->Id;
+        $cit->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $cit->SecureModeReturnURL = "http://www.my-site.com/returnurl";
+        $cit->StatementDescriptor = "lorem";
+        $cit->Tag = "custom meta";
+        $cit->BrowserInfo = $this->getBrowserInfo();
+
+        $result = $this->_api->PayIns->CreateRecurringPayInRegistrationCIT($cit);
+
+        $this->assertNotNull($result);
+        $card_info = $result->PaymentDetails->CardInfo;
+        $this->assertNotEmpty($card_info);
+        $this->assertNotEmpty($card_info->Brand);
+        $this->assertNotEmpty($card_info->Type);
+        $this->assertNotEmpty($card_info->IssuingBank);
     }
 
     public function test_Create_Recurring_PayIn_CIT_With_Debited_Funds_And_Fees()

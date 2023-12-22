@@ -23,6 +23,23 @@ class DepositTest extends Base
     /**
      * @throws \Exception
      */
+    public function test_Deposits_CheckCardInfo()
+    {
+        $user = $this->getJohn();
+        $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
+
+        $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
+
+        $this->assertNotNull($deposit);
+        $this->assertNotNull($deposit->CardInfo);
+        $this->assertNotNull($deposit->CardInfo->Type);
+        $this->assertNotNull($deposit->CardInfo->Brand);
+        $this->assertNotNull($deposit->CardInfo->IssuingBank);
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function test_Deposits_Get()
     {
         $user = $this->getJohn();
