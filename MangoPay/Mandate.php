@@ -14,9 +14,10 @@ class Mandate extends Libraries\EntityBase
     public $BankAccountId;
 
     /**
-     * The type of mandate – it will be « SEPA » or « BACS »
-     * but will only be completed once the mandate has been submitted
+     * The type of mandate
+     * It will only be completed once the mandate has been submitted
      * @var string
+     * @see \MangoPay\MandateScheme
      */
     public $Scheme;
 

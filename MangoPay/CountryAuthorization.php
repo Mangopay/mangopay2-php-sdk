@@ -10,6 +10,7 @@ class CountryAuthorization extends Libraries\EntityBase
     /**
      * The code of the country in the ISO 3166-1 alpha-2 format.
      * @var string
+     * @see \MangoPay\CountryIso
      */
     public $CountryCode;
 

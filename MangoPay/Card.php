@@ -34,6 +34,7 @@ class Card extends Libraries\EntityBase
     /**
      * Card type
      * @var string
+     * @see \MangoPay\CardType
      */
     public $CardType;
 
@@ -52,6 +53,7 @@ class Card extends Libraries\EntityBase
     /**
      * Country
      * @var string
+     * @see \MangoPay\CountryIso
      */
     public $Country;
 

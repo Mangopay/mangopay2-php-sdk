@@ -21,6 +21,7 @@ class Ubo extends Libraries\EntityBase
 
     /**
      * @var string
+     * @see \MangoPay\CountryIso
      */
     public $Nationality;
 

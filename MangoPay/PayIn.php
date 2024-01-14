@@ -26,8 +26,9 @@ class PayIn extends Transaction
     public $PaymentDetails;
 
     /**
-     * ExecutionType { WEB, TOKEN, DIRECT, PREAUTHORIZED, RECURRING_ORDER_EXECUTION }
+     * ExecutionType
      * @var string
+     * @see \MangoPay\PayInExecutionType
      */
     public $ExecutionType;
 

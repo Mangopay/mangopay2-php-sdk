@@ -17,6 +17,7 @@ class BankAccountDetailsOTHER extends Libraries\Dto implements BankAccountDetail
      * The Country associate to the BankAccount,
      * ISO 3166-1 alpha-2 format is expected
      * @var string
+     * @see \MangoPay\CountryIso
      */
     public $Country;
 

@@ -21,6 +21,7 @@ class BankingAliasOTHER extends BankingAlias
 
     /**
      * Country
+     * @see \MangoPay\CountryIso
      */
     public $Country;
 }
