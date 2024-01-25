@@ -78,6 +78,27 @@ class CardValidation extends Libraries\EntityBase
      */
     public $ResultMessage;
 
+
+    /**
+     * Allowed values: VISA, MASTERCARD, CB, MAESTRO
+     *
+     * The card network to use, as chosen by the cardholder, in case of co-branded card products.
+     * @var string
+     */
+    public $PreferredCardNetwork;
+
+    /**
+     * The date and time at which successful authorization occurred. If authorization failed, the value is null.
+     * @var int
+     */
+    public $AuthorizationDate;
+
+    /**
+     * Information of the card
+     * @var object
+     */
+    public $CardInfo;
+
     /**
      * Get array with mapping which property is object and what type of object
      * @return array

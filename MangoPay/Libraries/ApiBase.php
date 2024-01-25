@@ -53,6 +53,7 @@ abstract class ApiBase
         'cards_get_by_fingerprint' => ['/cards/fingerprints/%s', RequestType::GET],
         'card_save' => ['/cards/%s', RequestType::PUT],
         'card_validate' => ['/cards/%s/validation', RequestType::POST],
+        'get_card_validation' => ['/cards/%s/validation/%s', RequestType::GET],
 
         // pay ins URLs
         'payins_card-web_create' => ['/payins/card/web/', RequestType::POST],
