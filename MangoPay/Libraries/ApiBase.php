@@ -78,6 +78,8 @@ abstract class ApiBase
         'payins_ideal-web_create' => ['/payins/payment-methods/ideal', RequestType::POST],
         'payins_giropay-web_create' => ['/payins/payment-methods/giropay', RequestType::POST],
 
+        'payment_method-metadata' => ['/payment-methods/metadata', RequestType::POST],
+
         'payins_recurring_registration' => ['/recurringpayinregistrations', RequestType::POST],
         'payins_recurring_registration_get' => ['/recurringpayinregistrations/%s', RequestType::GET],
         'payins_recurring_registration_put' => ['/recurringpayinregistrations/%s', RequestType::PUT],
