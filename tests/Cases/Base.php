@@ -480,7 +480,7 @@ abstract class Base extends TestCase
          */
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
-            '&cardNumber=4970105191923460' .
+            '&cardNumber=' . Constants::CARD_FRICTIONLESS .
             '&cardExpirationDate=1224' .
             '&cardCvx=123';
 
@@ -512,7 +512,7 @@ abstract class Base extends TestCase
          */
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
-            '&cardNumber=4970105191923460' .
+            '&cardNumber=' . Constants::CARD_FRICTIONLESS .
             '&cardExpirationDate=1224' .
             '&cardCvx=123';
 
@@ -531,7 +531,7 @@ abstract class Base extends TestCase
         return $response;
     }
 
-    protected function getUpdatedCardRegistration($userId, $cardNumber = '4970105181818183')
+    protected function getUpdatedCardRegistration($userId, $cardNumber = Constants::CARD_FRICTIONLESS)
     {
         $cardRegistration = new \MangoPay\CardRegistration();
         $cardRegistration->UserId = $userId;
