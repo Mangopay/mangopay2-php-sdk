@@ -95,7 +95,7 @@ class CardValidation extends Libraries\EntityBase
 
     /**
      * Information of the card
-     * @var object
+     * @var CardInfo
      */
     public $CardInfo;
 
