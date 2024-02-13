@@ -33,6 +33,12 @@ class ResponseException extends Exception
     private $_errorInfo;
 
     /**
+     * Error code
+     * @var int
+     */
+    private $_code;
+
+    /**
      * Request URL
      * @var string
      */
