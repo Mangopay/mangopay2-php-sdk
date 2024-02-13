@@ -134,6 +134,8 @@ abstract class ApiBase
         'users_block_status' => ['/users/%s/blockStatus', RequestType::GET],
         'users_block_status_regulatory' => ['/users/%s/Regulatory', RequestType::GET],
 
+        'validate_the_format_of_user_data' => ['/users/data-formats/validation', RequestType::POST],
+
         'bankaccounts_save' => ['/users/%s/bankaccounts/%s', RequestType::PUT],
 
         'wallets_create' => ['/wallets', RequestType::POST],
@@ -331,7 +333,7 @@ abstract class ApiBase
      * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return object[] Response data
      */
-    protected function GetList($methodKey, & $pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null, $secondEntityId = null, $clientIdRequired = true)
+    protected function GetList($methodKey, &$pagination, $responseClassName = null, $entityId = null, $filter = null, $sorting = null, $secondEntityId = null, $clientIdRequired = true)
     {
         $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId, $secondEntityId);
 
@@ -403,9 +405,14 @@ abstract class ApiBase
      * @param $entityId Entity identifier
      * @return object Response data
      */
-    protected function ExecutePostRequest($methodKey, $entity, $responseClassName, $entityId)
+    protected function ExecutePostRequest($methodKey, $entity, $responseClassName, $entityId = null)
     {
-        $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
+        if ($entityId != null) {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
+        } else {
+            $urlMethod = $this->GetRequestUrl($methodKey);
+        }
+
         $requestData = $this->BuildRequestData($entity);
 
         $rest = new RestTool($this->_root, true);
