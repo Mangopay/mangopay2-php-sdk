@@ -26,5 +26,4 @@ class CompanyNumber extends Libraries\EntityBase
      * @var array
      */
     public $ValidationRules;
-
 }

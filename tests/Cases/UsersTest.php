@@ -770,7 +770,8 @@ class UsersTest extends Base
         $this->assertNotNull($accepted->TermsAndConditionsAcceptedDate);
     }
 
-    public function test_validate_the_format_of_user_data(){
+    public function test_validate_the_format_of_user_data()
+    {
         $companyNumberDetails = new \MangoPay\CompanyNumberDetails();
         $companyNumber = new \MangoPay\CompanyNumber();
         $companyNumber->CompanyNumber = 'AB123456';

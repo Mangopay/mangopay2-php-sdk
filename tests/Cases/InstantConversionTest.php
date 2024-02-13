@@ -40,7 +40,8 @@ class InstantConversionTest extends Base
         $this->assertSame(TransactionType::Conversion, $returnedInstantConversion->Type);
     }
 
-    private function createInstantConversion() {
+    private function createInstantConversion()
+    {
         $john = $this->getJohn();
         $creditedWallet = new \MangoPay\Wallet();
         $creditedWallet->Owners = [$john->Id];
