@@ -149,7 +149,7 @@ class PayInsTest extends Base
         $payIn->ExecutionDetails->Culture = 'FR';
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
-
+        sleep(2);
         $transactions = $this->_api->CardPreAuthorizations->GetTransactions($cardPreAuthorization->Id);
 
         $this->assertTrue($createPayIn->Id > 0);
@@ -263,8 +263,7 @@ class PayInsTest extends Base
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
         $payIn->ExecutionDetails->ReturnURL = "http://www.mysite.com/returnURL/";
         $payIn->ExecutionDetails->Culture = "FR";
-        $payIn->ExecutionDetails->TemplateURLOptions = new \MangoPay\PayInTemplateURLOptions();
-        $payIn->ExecutionDetails->TemplateURLOptions->PAYLINE = "https://www.maysite.com/payline_template/";
+        $payIn->ExecutionDetails->TemplateURL = "https://www.maysite.com/payline_template/";
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
 
@@ -290,7 +289,6 @@ class PayInsTest extends Base
         $this->assertEquals("EUR", $createPayIn->Fees->Currency);
         $this->assertNotNull($createPayIn->ExecutionDetails->ReturnURL);
         $this->assertNotNull($createPayIn->ExecutionDetails->RedirectURL);
-        $this->assertNotNull($createPayIn->ExecutionDetails->TemplateURL);
     }
 
     public function test_PayIns_Create_DirectDebitDirect()

@@ -378,7 +378,7 @@ abstract class Base extends TestCase
             $cardRegistration->Currency = 'EUR';
             $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
 
-            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData3DSecure($cardRegistration);
+            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
             $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
 
             $card = $this->_api->Cards->Get($cardRegistration->CardId);
@@ -468,38 +468,6 @@ abstract class Base extends TestCase
     }
 
     /**
-     * Get registration data from Payline service with 3DSecure card
-     * @param \MangoPay\CardRegistration $cardRegistration
-     * @return string
-     */
-    protected function getPaylineCorrectRegistrationData3DSecure($cardRegistration)
-    {
-
-        /*
-         ****** DO NOT use this code in a production environment - it is just for unit tests. In production you are not allowed to have the user's card details pass via your server (which is what is required to use this code here) *******
-         */
-        $data = 'data=' . $cardRegistration->PreregistrationData .
-            '&accessKeyRef=' . $cardRegistration->AccessKey .
-            '&cardNumber=4970105191923460' .
-            '&cardExpirationDate=1224' .
-            '&cardCvx=123';
-
-        $curlHandle = curl_init($cardRegistration->CardRegistrationURL);
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlHandle, CURLOPT_POST, true);
-        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $data);
-        $response = curl_exec($curlHandle);
-        if ($response === false && curl_errno($curlHandle) != 0) {
-            throw new \Exception('cURL error: ' . curl_error($curlHandle));
-        }
-
-        curl_close($curlHandle);
-
-        return $response;
-    }
-
-    /**
      * Get registration data from Payline service
      * @param \MangoPay\CardRegistration $cardRegistration
      * @return string
@@ -512,7 +480,7 @@ abstract class Base extends TestCase
          */
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
-            '&cardNumber=4970105191923460' .
+            '&cardNumber=' . Constants::CARD_FRICTIONLESS .
             '&cardExpirationDate=1224' .
             '&cardCvx=123';
 
@@ -531,33 +499,14 @@ abstract class Base extends TestCase
         return $response;
     }
 
-    protected function getUpdatedCardRegistration($userId, $cardNumber = '4970105181818183')
+    protected function getUpdatedCardRegistration($userId)
     {
         $cardRegistration = new \MangoPay\CardRegistration();
         $cardRegistration->UserId = $userId;
         $cardRegistration->Currency = 'EUR';
-
         $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
 
-        $data = 'data=' . $cardRegistration->PreregistrationData .
-            '&accessKeyRef=' . $cardRegistration->AccessKey .
-            '&cardNumber=' . $cardNumber .
-            '&cardExpirationDate=1224' .
-            '&cardCvx=123';
-
-        $curlHandle = curl_init($cardRegistration->CardRegistrationURL);
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlHandle, CURLOPT_POST, true);
-        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $data);
-        $response = curl_exec($curlHandle);
-        if ($response === false && curl_errno($curlHandle) != 0) {
-            throw new \Exception('cURL error: ' . curl_error($curlHandle));
-        }
-
-        curl_close($curlHandle);
-
-        $cardRegistration->RegistrationData = $response;
+        $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
 
         return $this->_api->CardRegistrations->Update($cardRegistration);
     }
@@ -1080,7 +1029,7 @@ abstract class Base extends TestCase
         $cardRegistration->UserId = $userId;
         $cardRegistration->Currency = 'EUR';
         $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
-        $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData3DSecure($cardRegistration);
+        $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
         $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
 
         $card = $this->_api->Cards->Get($cardRegistration->CardId);

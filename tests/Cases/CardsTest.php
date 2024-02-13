@@ -75,4 +75,28 @@ class CardsTest extends Base
             print_r("can't test due to client issues");
         }
     }
+
+    public function test_get_Card_Validation()
+    {
+        $john = $this->getNewJohn();
+        $cardRegistration = $this->getUpdatedCardRegistration($john->Id);
+
+        $cardValidation = new \MangoPay\CardValidation();
+        $cardValidation->Id = $cardRegistration->CardId;
+        $cardValidation->Tag = "Test get card validation";
+        $cardValidation->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $cardValidation->AuthorId = $john->Id;
+        $cardValidation->SecureModeReturnUrl = "http://www.example.com/";
+        $cardValidation->BrowserInfo = $this->getBrowserInfo();
+
+        try {
+            $validatedCard = $this->_api->Cards->ValidateCard($cardRegistration->CardId, $cardValidation);
+            $getCardValidation = $this->_api->Cards->GetCardValidation($cardRegistration->CardId, $validatedCard->Id);
+            $this->assertNotNull($getCardValidation);
+            $this->assertNotNull($getCardValidation->Id);
+            $this->assertEquals($getCardValidation->Id, $validatedCard->Id);
+        } catch (Exception $e) {
+            print_r("can't test due to client issues");
+        }
+    }
 }

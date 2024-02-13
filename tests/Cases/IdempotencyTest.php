@@ -32,7 +32,7 @@ class IdempotencyTest extends Base
         $user1 = $this->_api->Users->Create($user);
         $user1 = $this->_api->Users->Create($user, $idempotencyKey);
         $user2 = $this->_api->Users->Create($user, $idempotencyKey);
-        $this->assertTrue($user2 = null);
+        $this->assertNull($user2);
     }
 
     // if post request called twice with different idempotency key, act independently and responses may be retreived later
