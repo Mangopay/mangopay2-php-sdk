@@ -898,6 +898,23 @@ class PayInsTest extends Base
         $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
     }
 
+    public function test_CardDirect_getPaymentMethodMetadata()
+    {
+        $payin = $this->getNewPayInCardDirect();
+
+        $payment_method_metadata = new \MangoPay\PaymentMethodMetadata();
+        $payment_method_metadata->Type = "BIN";
+        $payment_method_metadata->Bin = ($payin->PaymentDetails->CardInfo->BIN);
+
+        $result_metadata = $this->_api->PayIns->GetPaymentMethodMetadata($payment_method_metadata);
+
+        $this->assertNotNull($result_metadata);
+        $this->assertNotNull($result_metadata->IssuerCountryCode);
+        $this->assertNotNull($result_metadata->IssuingBank);
+        $this->assertNotNull($result_metadata->BinData);
+        $this->assertNotNull($result_metadata->CardType);
+    }
+
 //    /**
 //     * @throws \Exception
 //     */

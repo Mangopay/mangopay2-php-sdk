@@ -163,4 +163,14 @@ class ApiPayIns extends Libraries\ApiBase
     {
         return $this->CreateObject('payins_googlepay-direct_create_v2', $payIn, '\MangoPay\PayIn', null, null, $idempotencyKey);
     }
+
+    /**
+     * Look up metadata from BIN or Google Pay token
+     * @param \MangoPay\PaymentMethodMetadata $paymentMethodMetadata \MangoPay\PaymentMethodMetadata object
+     * @return \MangoPay\PaymentMethodMetadata Object returned from API
+     */
+    public function GetPaymentMethodMetadata(PaymentMethodMetadata $paymentMethodMetadata, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payment_method-metadata', $paymentMethodMetadata, '\MangoPay\PaymentMethodMetadata', null, null, $idempotencyKey);
+    }
 }
