@@ -4,7 +4,6 @@ namespace MangoPay;
 
 class PaymentMethodMetadata extends Libraries\EntityBase
 {
-
     /**
      * The type of metadata. Allowed values: BIN, GOOGLE_PAY
      * @var string
@@ -61,5 +60,4 @@ class PaymentMethodMetadata extends Libraries\EntityBase
      * @var array
      */
     public $BinData;
-
 }
