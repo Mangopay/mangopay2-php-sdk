@@ -227,7 +227,9 @@ abstract class ApiBase
 
         'get_conversion_rate' => ['/conversion/rate/%s/%s', RequestType::GET],
         'create_instant_conversion' => ['/instant-conversion', RequestType::POST],
-        'get_instant_conversion' => ['/instant-conversion/%s', RequestType::GET]
+        'get_instant_conversion' => ['/instant-conversion/%s', RequestType::GET],
+        'create_conversion_quote' => ['/conversions/quote', RequestType::POST],
+        'get_conversion_quote' => ['/conversions/quote/%s', RequestType::GET]
     ];
 
     /**
