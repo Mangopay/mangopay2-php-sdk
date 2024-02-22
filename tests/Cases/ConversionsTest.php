@@ -2,9 +2,9 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\ConversionQuote;
 use MangoPay\InstantConversion;
 use MangoPay\Money;
-use MangoPay\Quote;
 use MangoPay\TransactionType;
 
 class ConversionsTest extends Base
@@ -41,8 +41,8 @@ class ConversionsTest extends Base
         $this->assertSame(TransactionType::Conversion, $returnedInstantConversion->Type);
     }
 
-    public function test_createQuote(){
-        $response = $this->createQuote();
+    public function test_createConversionQuote(){
+        $response = $this->createConversionQuote();
 
         $this->assertNotNull($response);
         $this->assertNotNull($response->DebitedFunds->Amount);
@@ -51,9 +51,9 @@ class ConversionsTest extends Base
         $this->assertSame('ACTIVE', $response->Status);
     }
 
-    public function test_getQuote(){
-        $quote = $this->createQuote();
-        $response = $this->_api->Conversions->GetQuote($quote->Id);
+    public function test_getConversionQuote(){
+        $quote = $this->createConversionQuote();
+        $response = $this->_api->Conversions->GetConversionQuote($quote->Id);
 
         $this->assertNotNull($response);
         $this->assertNotNull($response->DebitedFunds->Amount);
@@ -93,10 +93,10 @@ class ConversionsTest extends Base
         return $this->_api->Conversions->CreateInstantConversion($instantConversion);
     }
 
-    private function createQuote()
+    private function createConversionQuote()
     {
 
-        $quote = new Quote();
+        $quote = new ConversionQuote();
         $creditedFunds = new Money();
         $creditedFunds->Currency = 'USD';
         $quote->CreditedFunds = $creditedFunds;
@@ -109,7 +109,7 @@ class ConversionsTest extends Base
         $quote->Duration = 90;
         $quote->Tag = "Created using the Mangopay PHP SDK";
 
-        return $this->_api->Conversions->CreateQuote($quote);
+        return $this->_api->Conversions->CreateConversionQuote($quote);
 
     }
 }

@@ -4,7 +4,7 @@ namespace MangoPay;
 
 use MangoPay\Libraries\EntityBase;
 
-class Quote extends EntityBase
+class ConversionQuote extends EntityBase
 {
     /**
      * Expiration date
