@@ -69,4 +69,9 @@ class Configuration
      * Set the user:password proxy
      */
     public $UserPasswordProxy = null;
+
+    /**
+     * Set to true for uk traffic
+     */
+    public $UKHeaderFlag = true;
 }
