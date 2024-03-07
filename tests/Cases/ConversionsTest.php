@@ -88,6 +88,11 @@ class ConversionsTest extends Base
         $debitedFunds->Amount = 79;
         $instantConversion->DebitedFunds = $debitedFunds;
 
+        $fees = new Money();
+        $fees->Currency = 'EUR';
+        $fees->Amount = 9;
+        $instantConversion->Fees = $fees;
+
         $instantConversion->Tag = "create instant conversion";
 
         return $this->_api->Conversions->CreateInstantConversion($instantConversion);

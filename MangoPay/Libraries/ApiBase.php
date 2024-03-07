@@ -225,11 +225,11 @@ abstract class ApiBase
         'deposits_get' => ['/deposit-preauthorizations/%s', RequestType::GET],
         'deposits_cancel' => ['/deposit-preauthorizations/%s', RequestType::PUT],
 
-        'get_conversion_rate' => ['/conversion/rate/%s/%s', RequestType::GET],
-        'create_instant_conversion' => ['/instant-conversion', RequestType::POST],
-        'get_instant_conversion' => ['/instant-conversion/%s', RequestType::GET],
+        'get_conversion_rate' => ['/conversions/rate/%s/%s', RequestType::GET],
+        'create_instant_conversion' => ['/conversions/instant-conversion', RequestType::POST],
+        'get_instant_conversion' => ['/conversions/%s', RequestType::GET],
         'create_conversion_quote' => ['/conversions/quote', RequestType::POST],
-        'get_conversion_quote' => ['/conversions/quote/%s', RequestType::GET]
+        'get_conversion_quote' => ['/conversions/quote/%s', RequestType::GET],
     ];
 
     /**
