@@ -73,5 +73,5 @@ class Configuration
     /**
      * Set to true for uk traffic
      */
-    public $UKHeaderFlag = true;
+    public $UKHeaderFlag = false;
 }
