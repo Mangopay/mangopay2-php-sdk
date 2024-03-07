@@ -23,22 +23,34 @@ class ApiConversions extends Libraries\ApiBase
     /**
      * This endpoint allows the platform to move funds between two
      * wallets of different currencies instantaneously.
-     * @return \MangoPay\InstantConversion object returned from API
+     * @param CreateInstantConversion $instantConversion
+     * @return \MangoPay\Conversion object returned from API
      */
     public function CreateInstantConversion($instantConversion)
     {
-        return $this->CreateObject('create_instant_conversion', $instantConversion, '\MangoPay\InstantConversion');
+        return $this->CreateObject('create_instant_conversion', $instantConversion, '\MangoPay\Conversion');
+    }
+
+    /**
+     * This call triggers a conversion, at the rate guaranteed by its quote, of the debited funds to the credited wallet.
+     *
+     * @param CreateQuotedConversion $quotedConversion
+     * @return Conversion
+     */
+    public function CreateQuotedConversion($quotedConversion)
+    {
+        return $this->CreateObject('create_quoted_conversion', $quotedConversion, '\MangoPay\Conversion');
     }
 
     /**
      * This endpoint allows the platform to get
      * the details of a conversion which has been carried out.
      * @param string $id The unique identifier of the conversion.
-     * @return \MangoPay\InstantConversion object returned from API
+     * @return \MangoPay\Conversion object returned from API
      */
-    public function GetInstantConversion($id)
+    public function GetConversion($id)
     {
-        return $this->GetObject('get_instant_conversion', '\MangoPay\InstantConversion', $id);
+        return $this->GetObject('get_conversion', '\MangoPay\Conversion', $id);
     }
 
     /**
@@ -60,16 +72,4 @@ class ApiConversions extends Libraries\ApiBase
     {
         return $this->GetObject('get_conversion_quote', '\MangoPay\ConversionQuote', $quoteId);
     }
-
-    /**
-     * This call triggers a conversion, at the rate guaranteed by its quote, of the debited funds to the credited wallet.
-     *
-     * @param QuotedConversion $quotedConversion
-     * @return QuotedConversion
-     */
-    public function CreateQuotedConversion($quotedConversion)
-    {
-        return $this->CreateObject('create_quoted_conversion', $quotedConversion, '\MangoPay\QuotedConversion');
-    }
-
 }

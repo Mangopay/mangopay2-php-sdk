@@ -42,7 +42,7 @@ class Configuration
      * [INTERNAL USAGE ONLY]
      * Switch debug mode: log all request and response data
      */
-    public $DebugMode = false;
+    public $DebugMode = true;
 
     /**
      * Set the logging class if DebugMode is enabled

@@ -3,10 +3,9 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\ConversionQuote;
-use MangoPay\InstantConversion;
+use MangoPay\CreateInstantConversion;
+use MangoPay\CreateQuotedConversion;
 use MangoPay\Money;
-use MangoPay\Quote;
-use MangoPay\QuotedConversion;
 use MangoPay\TransactionType;
 use function PHPUnit\Framework\assertNotNull;
 
@@ -28,6 +27,7 @@ class ConversionsTest extends Base
         $this->assertNotNull($response);
         $this->assertNotNull($response->DebitedFunds->Amount);
         $this->assertNotNull($response->CreditedFunds->Amount);
+        $this->assertNotNull($response->Fees);
         $this->assertSame('SUCCEEDED', $response->Status);
         $this->assertSame(TransactionType::Conversion, $response->Type);
     }
@@ -35,11 +35,12 @@ class ConversionsTest extends Base
     public function test_getInstantConversion()
     {
         $instantConversion = $this->createInstantConversion();
-        $returnedInstantConversion = $this->_api->Conversions->GetInstantConversion($instantConversion->Id);
+        $returnedInstantConversion = $this->_api->Conversions->GetConversion($instantConversion->Id);
 
         $this->assertNotNull($returnedInstantConversion);
         $this->assertNotNull($returnedInstantConversion->DebitedFunds->Amount);
         $this->assertNotNull($returnedInstantConversion->CreditedFunds->Amount);
+        $this->assertNotNull($returnedInstantConversion->Fees);
         $this->assertSame('SUCCEEDED', $returnedInstantConversion->Status);
         $this->assertSame(TransactionType::Conversion, $returnedInstantConversion->Type);
     }
@@ -69,6 +70,20 @@ class ConversionsTest extends Base
 
     public function test_createQuotedConversion()
     {
+        $response = $this->createQuotedConversion();
+        assertNotNull($response);
+        assertNotNull($response->QuoteId);
+    }
+
+    public function test_getQuotedConversion(){
+        $createdQuotedConversion = $this->createQuotedConversion();
+        $response = $this->_api->Conversions->GetConversion($createdQuotedConversion->Id);
+        assertNotNull($response);
+        assertNotNull($response->QuoteId);
+    }
+
+    private function createQuotedConversion()
+    {
         $john = $this->getJohn();
         $creditedWallet = new \MangoPay\Wallet();
         $creditedWallet->Owners = [$john->Id];
@@ -79,17 +94,15 @@ class ConversionsTest extends Base
 
         $debitedWallet = $this->getJohnsWalletWithMoney();
 
-        $quote = $this->createQuote();
+        $quote = $this->createConversionQuote();
 
-        $quotedConversion = new QuotedConversion();
+        $quotedConversion = new CreateQuotedConversion();
         $quotedConversion->QuoteId = $quote->Id;
         $quotedConversion->AuthorId = $debitedWallet->Owners[0];
         $quotedConversion->CreditedWalletId = $creditedWallet->Id;
         $quotedConversion->DebitedWalletId = $debitedWallet->Id;
 
-        $response = $this->_api->Conversions->CreateQuotedConversion($quotedConversion);
-
-        assertNotNull($response);
+        return $this->_api->Conversions->CreateQuotedConversion($quotedConversion);
     }
 
     private function createInstantConversion()
@@ -104,7 +117,7 @@ class ConversionsTest extends Base
 
         $debitedWallet = $this->getJohnsWalletWithMoney();
 
-        $instantConversion = new InstantConversion();
+        $instantConversion = new CreateInstantConversion();
         $instantConversion->AuthorId = $debitedWallet->Owners[0];
         $instantConversion->CreditedWalletId = $creditedWallet->Id;
         $instantConversion->DebitedWalletId = $debitedWallet->Id;
