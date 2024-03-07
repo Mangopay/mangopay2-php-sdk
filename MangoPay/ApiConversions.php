@@ -61,4 +61,15 @@ class ApiConversions extends Libraries\ApiBase
         return $this->GetObject('get_conversion_quote', '\MangoPay\ConversionQuote', $quoteId);
     }
 
+    /**
+     * This call triggers a conversion, at the rate guaranteed by its quote, of the debited funds to the credited wallet.
+     *
+     * @param QuotedConversion $quotedConversion
+     * @return QuotedConversion
+     */
+    public function CreateQuotedConversion($quotedConversion)
+    {
+        return $this->CreateObject('create_quoted_conversion', $quotedConversion, '\MangoPay\QuotedConversion');
+    }
+
 }

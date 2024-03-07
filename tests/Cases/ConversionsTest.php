@@ -5,7 +5,10 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\ConversionQuote;
 use MangoPay\InstantConversion;
 use MangoPay\Money;
+use MangoPay\Quote;
+use MangoPay\QuotedConversion;
 use MangoPay\TransactionType;
+use function PHPUnit\Framework\assertNotNull;
 
 class ConversionsTest extends Base
 {
@@ -41,7 +44,8 @@ class ConversionsTest extends Base
         $this->assertSame(TransactionType::Conversion, $returnedInstantConversion->Type);
     }
 
-    public function test_createConversionQuote(){
+    public function test_createConversionQuote()
+    {
         $response = $this->createConversionQuote();
 
         $this->assertNotNull($response);
@@ -51,7 +55,8 @@ class ConversionsTest extends Base
         $this->assertSame('ACTIVE', $response->Status);
     }
 
-    public function test_getConversionQuote(){
+    public function test_getConversionQuote()
+    {
         $quote = $this->createConversionQuote();
         $response = $this->_api->Conversions->GetConversionQuote($quote->Id);
 
@@ -60,6 +65,31 @@ class ConversionsTest extends Base
         $this->assertNotNull($response->CreditedFunds->Amount);
         $this->assertNotNull($response->ConversionRateResponse->ClientRate);
         $this->assertSame('ACTIVE', $response->Status);
+    }
+
+    public function test_createQuotedConversion()
+    {
+        $john = $this->getJohn();
+        $creditedWallet = new \MangoPay\Wallet();
+        $creditedWallet->Owners = [$john->Id];
+        $creditedWallet->Currency = 'GBP';
+        $creditedWallet->Description = 'WALLET IN EUR WITH MONEY';
+
+        $creditedWallet = $this->_api->Wallets->Create($creditedWallet);
+
+        $debitedWallet = $this->getJohnsWalletWithMoney();
+
+        $quote = $this->createQuote();
+
+        $quotedConversion = new QuotedConversion();
+        $quotedConversion->QuoteId = $quote->Id;
+        $quotedConversion->AuthorId = $debitedWallet->Owners[0];
+        $quotedConversion->CreditedWalletId = $creditedWallet->Id;
+        $quotedConversion->DebitedWalletId = $debitedWallet->Id;
+
+        $response = $this->_api->Conversions->CreateQuotedConversion($quotedConversion);
+
+        assertNotNull($response);
     }
 
     private function createInstantConversion()
@@ -103,18 +133,17 @@ class ConversionsTest extends Base
 
         $quote = new ConversionQuote();
         $creditedFunds = new Money();
-        $creditedFunds->Currency = 'USD';
+        $creditedFunds->Currency = 'GBP';
         $quote->CreditedFunds = $creditedFunds;
 
         $debitedFunds = new Money();
-        $debitedFunds->Currency = 'GBP';
-        $debitedFunds->Amount = 1000;
+        $debitedFunds->Currency = 'EUR';
+        $debitedFunds->Amount = 50;
         $quote->DebitedFunds = $debitedFunds;
 
         $quote->Duration = 90;
         $quote->Tag = "Created using the Mangopay PHP SDK";
 
         return $this->_api->Conversions->CreateConversionQuote($quote);
-
     }
 }
