@@ -5,7 +5,7 @@ namespace MangoPay;
 /**
  * Class to management MangoPay API for instant conversions
  */
-class ApiInstantConversion extends Libraries\ApiBase
+class ApiConversions extends Libraries\ApiBase
 {
     /**
      * This endpoint allows the platform to get a real
@@ -40,4 +40,25 @@ class ApiInstantConversion extends Libraries\ApiBase
     {
         return $this->GetObject('get_instant_conversion', '\MangoPay\InstantConversion', $id);
     }
+
+    /**
+     * This call guarantees a conversion rate to let you Create a Quoted Conversion.
+     * @param ConversionQuote $quote
+     * @return ConversionQuote
+     */
+    public function CreateConversionQuote($quote)
+    {
+        return $this->CreateObject('create_conversion_quote', $quote, '\MangoPay\ConversionQuote');
+    }
+
+    /**
+     * This endpoint allows the platform to get the details of a quote
+     * @param string $quoteId
+     * @return ConversionQuote
+     */
+    public function GetConversionQuote($quoteId)
+    {
+        return $this->GetObject('get_conversion_quote', '\MangoPay\ConversionQuote', $quoteId);
+    }
+
 }

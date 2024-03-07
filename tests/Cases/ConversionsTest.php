@@ -2,15 +2,16 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\ConversionQuote;
 use MangoPay\InstantConversion;
 use MangoPay\Money;
 use MangoPay\TransactionType;
 
-class InstantConversionTest extends Base
+class ConversionsTest extends Base
 {
     public function test_getConversionRate()
     {
-        $response = $this->_api->InstantConversion->GetConversionRate('EUR', 'GBP');
+        $response = $this->_api->Conversions->GetConversionRate('EUR', 'GBP');
 
         $this->assertNotNull($response);
         $this->assertNotNull($response->ClientRate);
@@ -31,13 +32,34 @@ class InstantConversionTest extends Base
     public function test_getInstantConversion()
     {
         $instantConversion = $this->createInstantConversion();
-        $returnedInstantConversion = $this->_api->InstantConversion->GetInstantConversion($instantConversion->Id);
+        $returnedInstantConversion = $this->_api->Conversions->GetInstantConversion($instantConversion->Id);
 
         $this->assertNotNull($returnedInstantConversion);
         $this->assertNotNull($returnedInstantConversion->DebitedFunds->Amount);
         $this->assertNotNull($returnedInstantConversion->CreditedFunds->Amount);
         $this->assertSame('SUCCEEDED', $returnedInstantConversion->Status);
         $this->assertSame(TransactionType::Conversion, $returnedInstantConversion->Type);
+    }
+
+    public function test_createConversionQuote(){
+        $response = $this->createConversionQuote();
+
+        $this->assertNotNull($response);
+        $this->assertNotNull($response->DebitedFunds->Amount);
+        $this->assertNotNull($response->CreditedFunds->Amount);
+        $this->assertNotNull($response->ConversionRateResponse->ClientRate);
+        $this->assertSame('ACTIVE', $response->Status);
+    }
+
+    public function test_getConversionQuote(){
+        $quote = $this->createConversionQuote();
+        $response = $this->_api->Conversions->GetConversionQuote($quote->Id);
+
+        $this->assertNotNull($response);
+        $this->assertNotNull($response->DebitedFunds->Amount);
+        $this->assertNotNull($response->CreditedFunds->Amount);
+        $this->assertNotNull($response->ConversionRateResponse->ClientRate);
+        $this->assertSame('ACTIVE', $response->Status);
     }
 
     private function createInstantConversion()
@@ -73,6 +95,26 @@ class InstantConversionTest extends Base
 
         $instantConversion->Tag = "create instant conversion";
 
-        return $this->_api->InstantConversion->CreateInstantConversion($instantConversion);
+        return $this->_api->Conversions->CreateInstantConversion($instantConversion);
+    }
+
+    private function createConversionQuote()
+    {
+
+        $quote = new ConversionQuote();
+        $creditedFunds = new Money();
+        $creditedFunds->Currency = 'USD';
+        $quote->CreditedFunds = $creditedFunds;
+
+        $debitedFunds = new Money();
+        $debitedFunds->Currency = 'GBP';
+        $debitedFunds->Amount = 1000;
+        $quote->DebitedFunds = $debitedFunds;
+
+        $quote->Duration = 90;
+        $quote->Tag = "Created using the Mangopay PHP SDK";
+
+        return $this->_api->Conversions->CreateConversionQuote($quote);
+
     }
 }
