@@ -2,6 +2,7 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\ConversionQuote;
 use MangoPay\InstantConversion;
 use MangoPay\Money;
 use MangoPay\Quote;
@@ -43,9 +44,9 @@ class ConversionsTest extends Base
         $this->assertSame(TransactionType::Conversion, $returnedInstantConversion->Type);
     }
 
-    public function test_createQuote()
+    public function test_createConversionQuote()
     {
-        $response = $this->createQuote();
+        $response = $this->createConversionQuote();
 
         $this->assertNotNull($response);
         $this->assertNotNull($response->DebitedFunds->Amount);
@@ -54,10 +55,10 @@ class ConversionsTest extends Base
         $this->assertSame('ACTIVE', $response->Status);
     }
 
-    public function test_getQuote()
+    public function test_getConversionQuote()
     {
-        $quote = $this->createQuote();
-        $response = $this->_api->Conversions->GetQuote($quote->Id);
+        $quote = $this->createConversionQuote();
+        $response = $this->_api->Conversions->GetConversionQuote($quote->Id);
 
         $this->assertNotNull($response);
         $this->assertNotNull($response->DebitedFunds->Amount);
@@ -117,15 +118,20 @@ class ConversionsTest extends Base
         $debitedFunds->Amount = 79;
         $instantConversion->DebitedFunds = $debitedFunds;
 
+        $fees = new Money();
+        $fees->Currency = 'EUR';
+        $fees->Amount = 9;
+        $instantConversion->Fees = $fees;
+
         $instantConversion->Tag = "create instant conversion";
 
         return $this->_api->Conversions->CreateInstantConversion($instantConversion);
     }
 
-    private function createQuote()
+    private function createConversionQuote()
     {
 
-        $quote = new Quote();
+        $quote = new ConversionQuote();
         $creditedFunds = new Money();
         $creditedFunds->Currency = 'GBP';
         $quote->CreditedFunds = $creditedFunds;
@@ -138,6 +144,6 @@ class ConversionsTest extends Base
         $quote->Duration = 90;
         $quote->Tag = "Created using the Mangopay PHP SDK";
 
-        return $this->_api->Conversions->CreateQuote($quote);
+        return $this->_api->Conversions->CreateConversionQuote($quote);
     }
 }

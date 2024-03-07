@@ -43,22 +43,22 @@ class ApiConversions extends Libraries\ApiBase
 
     /**
      * This call guarantees a conversion rate to let you Create a Quoted Conversion.
-     * @param Quote $quote
-     * @return Quote
+     * @param ConversionQuote $quote
+     * @return ConversionQuote
      */
-    public function CreateQuote($quote)
+    public function CreateConversionQuote($quote)
     {
-        return $this->CreateObject('create_conversion_quote', $quote, '\MangoPay\Quote');
+        return $this->CreateObject('create_conversion_quote', $quote, '\MangoPay\ConversionQuote');
     }
 
     /**
      * This endpoint allows the platform to get the details of a quote
      * @param string $quoteId
-     * @return Quote
+     * @return ConversionQuote
      */
-    public function GetQuote($quoteId)
+    public function GetConversionQuote($quoteId)
     {
-        return $this->GetObject('get_conversion_quote', '\MangoPay\Quote', $quoteId);
+        return $this->GetObject('get_conversion_quote', '\MangoPay\ConversionQuote', $quoteId);
     }
 
     /**

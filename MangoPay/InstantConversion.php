@@ -83,4 +83,11 @@ class InstantConversion extends Libraries\EntityBase
      * @var int
      */
     public $ExecutionDate;
+
+    /**
+     * Information about the fees taken by the platform for
+     * this transaction (and hence transferred to the Fees Wallet).
+     * @var Money
+     */
+    public $Fees;
 }
