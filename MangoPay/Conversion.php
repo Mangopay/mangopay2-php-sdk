@@ -2,8 +2,36 @@
 
 namespace MangoPay;
 
-class InstantConversion extends Libraries\EntityBase
+class Conversion extends Libraries\EntityBase
 {
+    /**
+     * The unique identifier of the active quote which guaranteed the rate for the conversion.
+     * @var string
+     */
+    public $QuoteId;
+
+    /**
+     * The type of transaction
+     * @var string
+     * @see \MangoPay\TransactionType
+     */
+    public $Type;
+
+    /**
+     * The nature of the transaction, providing more
+     * information about the context in which the transaction occurred:
+     * @var string
+     * @see \MangoPay\TransactionNature
+     */
+    public $Nature;
+
+    /**
+     * The status of the transaction.
+     * @var string
+     * @see \MangoPay\TransactionStatus
+     */
+    public $Status;
+
     /**
      * The unique identifier of the user at the source of the transaction.
      * @var string
@@ -36,32 +64,11 @@ class InstantConversion extends Libraries\EntityBase
     public $CreditedFunds;
 
     /**
-     * Real time indicative market rate of a specific currency pair
-     * @var ConversionRate
+     * Information about the fees taken by the platform for
+     * this transaction (and hence transferred to the Fees Wallet).
+     * @var Money
      */
-    public $ConversionRate;
-
-    /**
-     * The status of the transaction.
-     * @var string
-     * @see \MangoPay\TransactionStatus
-     */
-    public $Status;
-
-    /**
-     * The type of transaction
-     * @var string
-     * @see \MangoPay\TransactionType
-     */
-    public $Type;
-
-    /**
-     * The nature of the transaction, providing more
-     * information about the context in which the transaction occurred:
-     * @var string
-     * @see \MangoPay\TransactionNature
-     */
-    public $Nature;
+    public $Fees;
 
     /**
      * The code indicates the result of the operation.
@@ -83,4 +90,11 @@ class InstantConversion extends Libraries\EntityBase
      * @var int
      */
     public $ExecutionDate;
+
+    /**
+     * Real time indicative market rate of a specific currency pair
+     * @var ConversionRate
+     */
+    public $ConversionRateResponse;
+
 }
