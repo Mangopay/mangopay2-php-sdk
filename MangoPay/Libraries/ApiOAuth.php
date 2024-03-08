@@ -26,7 +26,7 @@ class ApiOAuth extends ApiBase
         $rest->AddRequestHttpHeader('Host: ' . @$urlDetails['host']);
         $rest->AddRequestHttpHeader('Authorization: Basic ' . $authHlp->GetHttpHeaderBasicKey());
         $rest->AddRequestHttpHeader('Content-Type: application/x-www-form-urlencoded');
-        if($this->_root->Config->UKHeaderFlag){
+        if ($this->_root->Config->UKHeaderFlag) {
             $rest->AddRequestHttpHeader('x-tenant-id: uk');
         }
         $response = $rest->Request($urlMethod, $requestType, $requestData);

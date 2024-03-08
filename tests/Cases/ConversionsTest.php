@@ -75,7 +75,8 @@ class ConversionsTest extends Base
         assertNotNull($response->QuoteId);
     }
 
-    public function test_getQuotedConversion(){
+    public function test_getQuotedConversion()
+    {
         $createdQuotedConversion = $this->createQuotedConversion();
         $response = $this->_api->Conversions->GetConversion($createdQuotedConversion->Id);
         assertNotNull($response);
@@ -143,7 +144,6 @@ class ConversionsTest extends Base
 
     private function createConversionQuote()
     {
-
         $quote = new ConversionQuote();
         $creditedFunds = new Money();
         $creditedFunds->Currency = 'GBP';

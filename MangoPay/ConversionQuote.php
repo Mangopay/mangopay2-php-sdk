@@ -39,5 +39,5 @@ class ConversionQuote extends EntityBase
     /**
      * @var ConversionRate
      */
-    var $ConversionRateResponse;
+    public $ConversionRateResponse;
 }

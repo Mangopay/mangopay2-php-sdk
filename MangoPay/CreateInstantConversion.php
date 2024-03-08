@@ -6,48 +6,46 @@ use MangoPay\Libraries\Dto;
 
 class CreateInstantConversion extends Dto
 {
-
     /**
      * The unique identifier of the user at the source of the transaction.
      * @var string
      */
-    var $AuthorId;
+    public $AuthorId;
 
     /**
      * The unique identifier of the debited wallet
      *
      * @var string
      */
-    var $DebitedWalletId;
+    public $DebitedWalletId;
 
     /**
      * The unique identifier of the credited wallet
      * @var string
      */
-    var $CreditedWalletId;
+    public $CreditedWalletId;
 
     /**
      * The sell funds
      * @var Money
      */
-    var $DebitedFunds;
+    public $DebitedFunds;
 
     /**
      * The buy funds
      * @var Money
      */
-    var $CreditedFunds;
+    public $CreditedFunds;
 
     /**
      * Information about the fees taken by the platform for this transaction (and hence transferred to the Fees Wallet).
      * @var Money
      */
-    var $Fees;
+    public $Fees;
 
     /**
      * Custom data.
      * @var string
      */
-    var $Tag;
-
+    public $Tag;
 }

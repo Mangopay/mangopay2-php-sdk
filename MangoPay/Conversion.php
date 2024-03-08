@@ -96,5 +96,4 @@ class Conversion extends Libraries\EntityBase
      * @var ConversionRate
      */
     public $ConversionRateResponse;
-
 }
