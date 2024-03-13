@@ -6,6 +6,7 @@ $User->LastName = "Briant";
 $User->Birthday = 121271;
 $User->Nationality = "FR";
 $User->CountryOfResidence = "ZA";
+$User->UserCategory = 'Payer';
 $result = $mangoPayApi->Users->Create($User);
 
 //Display result
