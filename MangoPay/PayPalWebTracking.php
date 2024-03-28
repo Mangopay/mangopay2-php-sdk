@@ -2,7 +2,6 @@
 
 namespace MangoPay;
 
-
 class PayPalWebTracking extends Libraries\Dto
 {
     /**
@@ -22,5 +21,4 @@ class PayPalWebTracking extends Libraries\Dto
      * @var bool
      */
     public $NotifyBuyer;
-
 }
