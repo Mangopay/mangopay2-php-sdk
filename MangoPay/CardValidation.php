@@ -30,6 +30,12 @@ class CardValidation extends Libraries\EntityBase
     public $SecureModeNeeded;
 
     /**
+     * The mode applied for the 3DS2 protocol for CB, Visa, and Mastercard
+     * @var string
+     */
+    public $SecureMode;
+
+    /**
      * Ip Address
      * @var string
      */
