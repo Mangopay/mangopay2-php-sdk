@@ -173,4 +173,9 @@ class ApiPayIns extends Libraries\ApiBase
     {
         return $this->CreateObject('payment_method-metadata', $paymentMethodMetadata, '\MangoPay\PaymentMethodMetadata', null, null, $idempotencyKey);
     }
+
+    public function AddPayPalTrackingInformation($payId, PayPalWebTracking $palWebTracking)
+    {
+        return $this->SaveObject('add_tracking_info', $palWebTracking, '\MangoPay\PayIn', $payId);
+    }
 }
