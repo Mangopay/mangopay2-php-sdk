@@ -76,4 +76,13 @@ class ResponseException extends Exception
     {
         return $this->_errorInfo;
     }
+
+    /**
+     * Get Error code returned by REST API
+     * @return int
+     */
+    public function GetErrorCode()
+    {
+        return $this->_code;
+    }
 }

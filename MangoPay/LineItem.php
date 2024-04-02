@@ -38,4 +38,9 @@ class LineItem extends Libraries\Dto
      * @var string
      */
     public $Description;
+
+    /**
+     * @var string
+     */
+    public $Category;
 }

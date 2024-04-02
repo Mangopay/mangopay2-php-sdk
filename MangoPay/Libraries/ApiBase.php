@@ -78,6 +78,7 @@ abstract class ApiBase
         'payins_klarna-web_create' => ['/payins/payment-methods/klarna', RequestType::POST],
         'payins_ideal-web_create' => ['/payins/payment-methods/ideal', RequestType::POST],
         'payins_giropay-web_create' => ['/payins/payment-methods/giropay', RequestType::POST],
+        'add_tracking_info' => ['/payins/%s/trackings', RequestType::PUT],
 
         'payment_method-metadata' => ['/payment-methods/metadata', RequestType::POST],
 

@@ -66,11 +66,13 @@ class CardsTest extends Base
         $cardValidation->AuthorId = $john->Id;
         $cardValidation->SecureModeReturnUrl = "http://www.example.com/";
         $cardValidation->BrowserInfo = $this->getBrowserInfo();
+        $cardValidation->SecureMode = "NO_CHOICE";
 
         try {
             $validatedCard = $this->_api->Cards->ValidateCard($cardRegistration->CardId, $cardValidation);
             $this->assertNotNull($validatedCard);
             $this->assertNotNull($validatedCard->Id);
+            $this->assertNotNull($validatedCard->SecureMode);
         } catch (Exception $e) {
             print_r("can't test due to client issues");
         }

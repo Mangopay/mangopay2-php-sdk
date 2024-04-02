@@ -14,16 +14,14 @@ class PayInPaymentDetailsPaypal extends Libraries\Dto implements PayInPaymentDet
      */
     public $ShippingAddress;
 
+
+    /// V2 ///
+
     /**
      * PayPal buyer's email account
      * @var string
-     * @deprecated This property will be removed in the future due to the introduction of a new way to create PayPal PayIns
      */
     public $PaypalBuyerAccountEmail;
-
-
-
-    /// V2 ///
 
     /**
      * Custom description of the payment shown to the consumer when making payments and on the bank statement
@@ -53,6 +51,47 @@ class PayInPaymentDetailsPaypal extends Libraries\Dto implements PayInPaymentDet
      * @var string
      */
     public $Reference;
+
+    /**
+     * @var string
+     */
+    public $CancelURL;
+
+    /**
+     * @var string
+     */
+    public $PaypalPayerID;
+
+    /**
+     * @var string
+     */
+    public $BuyerCountry;
+
+    /**
+     * @var string
+     */
+    public $BuyerFirstname;
+
+    /**
+     * @var string
+     */
+    public $BuyerLastname;
+
+    /**
+     * @var string
+     */
+    public $BuyerPhone;
+
+    /**
+     * @var string
+     */
+    public $PaypalOrderID;
+
+    /**
+     * @var array
+     */
+    public $Trackings;
+
 
     public function GetSubObjects()
     {
