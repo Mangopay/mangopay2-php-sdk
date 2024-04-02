@@ -79,7 +79,7 @@ class UboDeclarationsTest extends Base
         try {
             $this->_api->UboDeclarations->CreateUbo($matrix->Id, null, $ubo);
         } catch (ResponseException $e) {
-            log($e->_code);
+            log($e->GetErrorCode());
         }
     }
 
