@@ -1,3 +1,8 @@
+## [3.29.1] - 2024-04-12
+### Fixed
+
+- #637 Reset DebugMode to false by default
+
 ## [3.29.0] - 2024-04-02
 ### Added
 
