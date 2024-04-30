@@ -48,7 +48,7 @@ class PayOut extends Transaction
 	 * 'STANDARD', 'INSTANT_PAYMENT', 'INSTANT_PAYMENT_ONLY'
 	 * @var string
 	 */
-	public $PayoutModeRequested = 'STANDARD';
+	public $PayoutModeRequested;
 
     /**
      * Get array with mapping which property depends on other property
