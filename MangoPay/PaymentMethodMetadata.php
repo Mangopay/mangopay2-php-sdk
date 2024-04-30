@@ -31,12 +31,6 @@ class PaymentMethodMetadata extends Libraries\EntityBase
     public $TokenFormat;
 
     /**
-     * The type of the card. Allowed / Returned / Default values: CREDIT, DEBIT, CHARGE CARD
-     * @var string
-     */
-    public $CardType;
-
-    /**
      * The country where the card was issued. Format: ISO-3166 alpha-2 two-letter country code
      * @var string
      *
@@ -48,12 +42,6 @@ class PaymentMethodMetadata extends Libraries\EntityBase
      * @var string
      */
     public $IssuingBank;
-
-    /**
-     * Whether the card is held in a personal or commercial capacity.
-     * @var string
-     */
-    public $CommercialIndicator;
 
     /**
      * Additional data about the card based on the BIN. In the case of co-branded card products, two objects are returned.
