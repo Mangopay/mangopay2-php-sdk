@@ -124,7 +124,7 @@ class RestTool
     /**
      * Call request to MangoPay API
      * @param string $urlMethod Type of method in REST API
-     * @param RequestType $requestType Type of request
+     * @param \MangoPay\Libraries\RequestType $requestType Type of request
      * @param array $requestData Data to send in request
      * @param string $idempotencyKey
      * @param \MangoPay\Pagination $pagination Pagination object

@@ -9,7 +9,7 @@ class ApiOAuth extends ApiBase
 {
     /**
      * Get token information to OAuth Authentication
-     * @return OAuthToken OAuthToken object with token information
+     * @return \MangoPay\Libraries\OAuthToken OAuthToken object with token information
      */
     public function CreateToken()
     {

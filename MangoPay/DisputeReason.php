@@ -10,7 +10,7 @@ class DisputeReason extends Libraries\Dto
     /**
      * Dispute's reason type
      * @var string
-     * @see DisputeReasonType
+     * @see \MangoPay\DisputeReasonType
      */
     public $DisputeReasonType;
 

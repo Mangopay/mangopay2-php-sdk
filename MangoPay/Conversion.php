@@ -13,7 +13,7 @@ class Conversion extends Libraries\EntityBase
     /**
      * The type of transaction
      * @var string
-     * @see TransactionType
+     * @see \MangoPay\TransactionType
      */
     public $Type;
 
@@ -21,14 +21,14 @@ class Conversion extends Libraries\EntityBase
      * The nature of the transaction, providing more
      * information about the context in which the transaction occurred:
      * @var string
-     * @see TransactionNature
+     * @see \MangoPay\TransactionNature
      */
     public $Nature;
 
     /**
      * The status of the transaction.
      * @var string
-     * @see TransactionStatus
+     * @see \MangoPay\TransactionStatus
      */
     public $Status;
 

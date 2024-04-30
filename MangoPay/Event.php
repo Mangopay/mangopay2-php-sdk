@@ -15,7 +15,7 @@ class Event extends Libraries\Dto
 
     /**
      * Event type
-     * @var EventType
+     * @var \MangoPay\EventType
      */
     public $EventType;
 

@@ -30,8 +30,8 @@ class ApiUsers extends Libraries\ApiBase
 
     /**
      * Get all users
-     * @param Pagination $pagination Pagination object
-     * @param Sorting $sorting Object to sorting data
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return UserLegal[]|UserNatural[] Array with users
      */
     public function GetAll(& $pagination = null, $sorting = null)
@@ -119,8 +119,8 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Create bank account for user
      * @param string $userId User Id
-     * @param BankAccount $bankAccount Entity of bank account object
-     * @return BankAccount Create bank account object
+     * @param \MangoPay\BankAccount $bankAccount Entity of bank account object
+     * @return \MangoPay\BankAccount Create bank account object
      */
     public function CreateBankAccount($userId, $bankAccount, $idempotencyKey = null)
     {
@@ -131,9 +131,9 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get all bank accounts for user
      * @param string $userId User Id
-     * @param Pagination $pagination Pagination object
-     * @param Sorting $sorting Object to sorting data
-     * @param FilterBankAccounts $filter Filtering object
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
+     * @param \MangoPay\FilterBankAccounts $filter Filtering object
      *
      * @return \MangoPay\BankAccount[] Array with bank account entities
      */
@@ -147,7 +147,7 @@ class ApiUsers extends Libraries\ApiBase
      * @param string $userId User Id
      * @param int $bankAccountId Bank account Id
      *
-     * @return BankAccount Entity of bank account object
+     * @return \MangoPay\BankAccount Entity of bank account object
      */
     public function GetBankAccount($userId, $bankAccountId)
     {
@@ -157,8 +157,8 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Save a bank account
      * @param string $userId
-     * @param BankAccount $bankAccount
-     * @return BankAccount Entity of bank account object
+     * @param \MangoPay\BankAccount $bankAccount
+     * @return \MangoPay\BankAccount Entity of bank account object
      */
     public function UpdateBankAccount($userId, $bankAccount)
     {
@@ -168,8 +168,8 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get all wallets for user
      * @param string $userId User Id
-     * @param Pagination $pagination Pagination object
-     * @param Sorting $sorting Object to sorting data
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      *
      * @return \MangoPay\Wallet[] Array with objects returned from API
      */
@@ -181,9 +181,9 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get all transactions for user
      * @param string $userId User Id
-     * @param Pagination $pagination Pagination object
-     * @param FilterTransactions $filter Object to filter data
-     * @param Sorting $sorting Object to sorting data
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterTransactions $filter Object to filter data
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      *
      * @return \MangoPay\Transaction[] Transactions for user returned from API
      */
@@ -195,9 +195,9 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get all cards for user
      * @param string $userId User Id
-     * @param Pagination $pagination Pagination object
-     * @param FilterCards $filter Object to filter data
-     * @param Sorting $sorting Object to sorting data
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterCards $filter Object to filter data
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      *
      * @return \MangoPay\Card[] Cards for user returned from API
      */
@@ -209,9 +209,9 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Create new KYC document
      * @param string $userId User Id
-     * @param KycDocument $kycDocument
+     * @param \MangoPay\KycDocument $kycDocument
      * @param string $idempotencyKey Key for response replication
-     * @return KycDocument Document returned from API
+     * @return \MangoPay\KycDocument Document returned from API
      */
     public function CreateKycDocument($userId, $kycDocument, $idempotencyKey = null)
     {
@@ -221,9 +221,9 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get all KYC documents for user
      * @param string $userId User Id
-     * @param Pagination $pagination Pagination object
-     * @param Sorting $sorting Object to sorting data
-     * @param FilterKycDocuments $filter Object to filter data
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
+     * @param \MangoPay\FilterKycDocuments $filter Object to filter data
      *
      * @return \MangoPay\KycDocument[] Array with KYC documents entities
      */
@@ -236,7 +236,7 @@ class ApiUsers extends Libraries\ApiBase
      * Get KYC document
      * @param string $userId User Id
      * @param string $kycDocumentId Document identifier
-     * @return KycDocument Document returned from API
+     * @return \MangoPay\KycDocument Document returned from API
      */
     public function GetKycDocument($userId, $kycDocumentId)
     {
@@ -246,9 +246,9 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get all mandates for user
      * @param string $userId User Id
-     * @param Pagination $pagination Pagination object
-     * @param FilterTransactions $filter Object to filter data
-     * @param Sorting $sorting Object to sorting data
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterTransactions $filter Object to filter data
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      *
      * @return \MangoPay\Mandate[] Array with mandate entities
      */
@@ -261,9 +261,9 @@ class ApiUsers extends Libraries\ApiBase
      * Get mandates for user and bank account
      * @param string $userId User Id
      * @param string $bankAccountId Bank account Id
-     * @param Pagination $pagination Pagination object
-     * @param FilterTransactions $filter Object to filter data
-     * @param Sorting $sorting Object to sorting data
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterTransactions $filter Object to filter data
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      *
      * @return \MangoPay\Mandate[] Array with mandate entities
      */
@@ -275,8 +275,8 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Save KYC document
      * @param string $userId User Id
-     * @param KycDocument $kycDocument Document to save
-     * @return KycDocument Document returned from API
+     * @param \MangoPay\KycDocument $kycDocument Document to save
+     * @return \MangoPay\KycDocument Document returned from API
      */
     public function UpdateKycDocument($userId, $kycDocument)
     {
@@ -287,15 +287,15 @@ class ApiUsers extends Libraries\ApiBase
      * Create page for Kyc document
      * @param string $userId User Id
      * @param string $kycDocumentId KYC Document Id
-     * @param KycPage $kycPage KYC Page
+     * @param \MangoPay\KycPage $kycPage KYC Page
      * @return true always true. If an error occurred, a \MangoPay\Libraries\Exception is thrown
-     * @throws Libraries\Exception
+     * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey = null)
     {
         try {
             $this->CreateObject('kyc_page_create', $kycPage, null, $userId, $kycDocumentId, $idempotencyKey);
-        } catch (Libraries\ResponseException $exc) {
+        } catch (\MangoPay\Libraries\ResponseException $exc) {
             if ($exc->getCode() != 204) {
                 throw $exc;
             }
@@ -310,23 +310,23 @@ class ApiUsers extends Libraries\ApiBase
      * @param string $kycDocumentId KYC Document Id
      * @param string $filePath File path
      * @return true always true. If an error occurred, a \MangoPay\Libraries\Exception is thrown
-     * @throws Libraries\Exception
+     * @throws \MangoPay\Libraries\Exception
      */
     public function CreateKycPageFromFile($userId, $kycDocumentId, $filePath, $idempotencyKey = null)
     {
         if (empty($filePath)) {
-            throw new Libraries\Exception('Path of file cannot be empty');
+            throw new \MangoPay\Libraries\Exception('Path of file cannot be empty');
         }
 
         if (!file_exists($filePath)) {
-            throw new Libraries\Exception('File not exist');
+            throw new \MangoPay\Libraries\Exception('File not exist');
         }
 
-        $kycPage = new KycPage();
+        $kycPage = new \MangoPay\KycPage();
         $kycPage->File = base64_encode(file_get_contents($filePath));
 
         if (empty($kycPage->File)) {
-            throw new Libraries\Exception('Content of the file cannot be empty');
+            throw new \MangoPay\Libraries\Exception('Content of the file cannot be empty');
         }
 
         return $this->CreateKycPage($userId, $kycDocumentId, $kycPage, $idempotencyKey);
@@ -337,7 +337,7 @@ class ApiUsers extends Libraries\ApiBase
      * @param string $userId User Id
      * @param $year
      * @param $month
-     * @return EMoney EMoney obhect returned from API
+     * @return \MangoPay\EMoney EMoney obhect returned from API
      * @throws Libraries\Exception
      */
     public function GetEMoney($userId, $year = null, $month = null)
@@ -362,9 +362,9 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Gets a list with PreAuthorizations belonging to a specific user
      * @param string $userId ID of the user whose PreAuthorizations to retrieve
-     * @param Pagination $pagination Pagination object
-     * @param FilterPreAuthorizations $filter Filtering object
-     * @param Sorting $sorting Sorting object
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterPreAuthorizations $filter Filtering object
+     * @param \MangoPay\Sorting $sorting Sorting object
      * @return \MangoPay\CardPreAuthorization[] The user's PreAuthorizations
      */
 
@@ -377,7 +377,7 @@ class ApiUsers extends Libraries\ApiBase
      * Get correct user object
      * @param object $response Response from API
      * @return UserLegal|UserNatural User object returned from API
-     * @throws Libraries\Exception If occur unexpected response from API
+     * @throws \MangoPay\Libraries\Exception If occur unexpected response from API
      */
     private function GetUserResponse($response)
     {
@@ -429,7 +429,7 @@ class ApiUsers extends Libraries\ApiBase
      * This call allows you to check the validity of the format
      * of a piece of user data, and to retrieve the validation rules applied to it.
      * @param $companyNumberDetails
-     * @return CompanyNumberDetails
+     * @return \MangoPay\CompanyNumberDetails
      */
     public function ValidateTheFormatOfUserData($companyNumberDetails)
     {

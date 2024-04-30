@@ -21,7 +21,7 @@ class Billing extends Libraries\Dto
 
     /**
      * The billing address
-     * @var Address
+     * @var \MangoPay\Address
      */
     public $Address;
 

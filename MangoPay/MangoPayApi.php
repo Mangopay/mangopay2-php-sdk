@@ -18,13 +18,13 @@ class MangoPayApi
 
     /**
      * Authorization token methods
-     * @var Libraries\AuthorizationTokenManager
+     * @var \MangoPay\Libraries\AuthorizationTokenManager
      */
     public $OAuthTokenManager;
 
     /**
      * Configuration instance
-     * @var Libraries\Configuration
+     * @var \MangoPay\Libraries\Configuration
      */
     public $Config;
 
@@ -34,7 +34,7 @@ class MangoPayApi
 
     /**
      * OAuth methods
-     * @var Libraries\ApiOAuth
+     * @var \MangoPay\Libraries\ApiOAuth
      */
     public $AuthenticationManager;
 
@@ -176,7 +176,7 @@ class MangoPayApi
     public $logger;
 
     /**
-     * @var Libraries\HttpBase
+     * @var \MangoPay\Libraries\HttpBase
      */
     public $httpClient;
 
@@ -243,7 +243,7 @@ class MangoPayApi
 
         // Setting default NullLogger
         $this->logger = new NullLogger();
-        $this->httpClient = new Libraries\HttpCurl($this);
+        $this->httpClient = new \MangoPay\Libraries\HttpCurl($this);
     }
 
     /**
@@ -279,7 +279,7 @@ class MangoPayApi
     }
 
     /**
-     * @param Libraries\HttpBase $httpClient
+     * @param \MangoPay\Libraries\HttpBase $httpClient
      */
     public function setHttpClient(Libraries\HttpBase $httpClient)
     {
@@ -287,7 +287,7 @@ class MangoPayApi
     }
 
     /**
-     * @return Libraries\HttpBase
+     * @return \MangoPay\Libraries\HttpBase
      */
     public function getHttpClient()
     {

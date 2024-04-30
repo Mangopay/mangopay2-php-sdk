@@ -9,13 +9,13 @@ class FilterKycDocuments extends FilterBase
 {
     /**
      * @var string
-     * @see KycDocumentStatus
+     * @see \MangoPay\KycDocumentStatus
      */
     public $Status;
 
     /**
      * @var string
-     * @see KycDocumentType
+     * @see \MangoPay\KycDocumentType
      */
     public $Type;
 }

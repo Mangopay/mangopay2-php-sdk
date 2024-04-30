@@ -22,25 +22,25 @@ class Transaction extends Libraries\EntityBase
 
     /**
      * Debited funds
-     * @var Money
+     * @var \MangoPay\Money
      */
     public $DebitedFunds;
 
     /**
      * Credited funds
-     * @var Money
+     * @var \MangoPay\Money
      */
     public $CreditedFunds;
 
     /**
      * Fees
-     * @var Money
+     * @var \MangoPay\Money
      */
     public $Fees;
 
     /**
      * @var string
-     * @see TransactionStatus
+     * @see \MangoPay\TransactionStatus
      */
     public $Status;
 
@@ -64,13 +64,13 @@ class Transaction extends Libraries\EntityBase
 
     /**
      * @var string
-     * @see TransactionType
+     * @see \MangoPay\TransactionType
      */
     public $Type;
 
     /**
      * @var string
-     * @see TransactionNature
+     * @see \MangoPay\TransactionNature
      */
     public $Nature;
 

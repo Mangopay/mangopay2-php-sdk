@@ -70,7 +70,7 @@ class CardRegistration extends Libraries\EntityBase
     /**
      * Status
      * @var string
-     * @see CardRegistrationStatus
+     * @see \MangoPay\CardRegistrationStatus
      */
     public $Status;
 

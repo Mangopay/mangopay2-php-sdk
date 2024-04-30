@@ -9,8 +9,8 @@ class ApiPayIns extends Libraries\ApiBase
 {
     /**
      * Create new pay-in object
-     * @param PayIn $payIn \MangoPay\PayIn object
-     * @return PayIn Object returned from API
+     * @param \MangoPay\PayIn $payIn \MangoPay\PayIn object
+     * @return \MangoPay\PayIn Object returned from API
      */
     public function Create($payIn, $idempotencyKey = null)
     {
@@ -22,7 +22,7 @@ class ApiPayIns extends Libraries\ApiBase
     /**
      * Get pay-in object
      * @param string $payInId Pay-in identifier
-     * @return PayIn Object returned from API
+     * @return \MangoPay\PayIn Object returned from API
      */
     public function Get($payInId)
     {
@@ -32,8 +32,8 @@ class ApiPayIns extends Libraries\ApiBase
     /**
      * Create refund for pay-in object
      * @param string $payInId Pay-in identifier
-     * @param Refund $refund Refund object to create
-     * @return Refund Object returned by REST API
+     * @param \MangoPay\Refund $refund Refund object to create
+     * @return \MangoPay\Refund Object returned by REST API
      */
     public function CreateRefund($payInId, $refund, $idempotencyKey = null)
     {
@@ -42,8 +42,8 @@ class ApiPayIns extends Libraries\ApiBase
 
     /**
      * Create a recurring payment
-     * @param PayInRecurringRegistration $recurringRegistration
-     * @return PayInRecurringRegistrationRequestResponse
+     * @param \MangoPay\PayInRecurringRegistration $recurringRegistration
+     * @return \MangoPay\PayInRecurringRegistrationRequestResponse
      */
     public function CreateRecurringRegistration($recurringRegistration, $idempotencyKey = null)
     {
@@ -53,7 +53,7 @@ class ApiPayIns extends Libraries\ApiBase
     /**
      * Get recurring payment
      * @param string $recurringRegistrationId
-     * @return PayInRecurringRegistrationGet
+     * @return \MangoPay\PayInRecurringRegistrationGet
      */
     public function GetRecurringRegistration($recurringRegistrationId, $idempotencyKey = null)
     {
@@ -63,7 +63,7 @@ class ApiPayIns extends Libraries\ApiBase
     /**
     * Update recurring payment
     * @param PayInRecurringRegistrationUpdate $recurringUpdate
-    * @return PayInRecurringRegistrationGet
+    * @return \MangoPay\PayInRecurringRegistrationGet
     */
     public function UpdateRecurringRegistration($recurringUpdate, $idempotencyKey = null)
     {
@@ -72,8 +72,8 @@ class ApiPayIns extends Libraries\ApiBase
 
     /**
      * Create a Recurring PayIn CIT
-     * @param RecurringPayInCIT $recurringPayInRegistrationCIT
-     * @return PayInRecurring
+     * @param \MangoPay\RecurringPayInCIT $recurringPayInRegistrationCIT
+     * @return \MangoPay\PayInRecurring
      */
     public function CreateRecurringPayInRegistrationCIT($recurringPayInRegistrationCIT, $idempotencyKey = null)
     {
@@ -82,8 +82,8 @@ class ApiPayIns extends Libraries\ApiBase
 
     /**
      * Create a Recurring PayIn MIT
-     * @param RecurringPayInMIT $recurringPayInRegistrationMIT
-     * @return PayInRecurring
+     * @param \MangoPay\RecurringPayInMIT $recurringPayInRegistrationMIT
+     * @return \MangoPay\PayInRecurring
      */
     public function CreateRecurringPayInRegistrationMIT($recurringPayInRegistrationMIT, $idempotencyKey = null)
     {
@@ -93,9 +93,9 @@ class ApiPayIns extends Libraries\ApiBase
     /**
      * Retrieves a list of Refunds pertaining to a certain PayIn
      * @param string $payInId ID of PayIn for which to retrieve Refunds
-     * @param Pagination $pagination Pagination object
-     * @param FilterRefunds $filter Filtering object
-     * @param Sorting $sorting Sorting object
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterRefunds $filter Filtering object
+     * @param \MangoPay\Sorting $sorting Sorting object
      * @return \MangoPay\Refund[] List of the PayIn's Refunds
      */
     public function GetRefunds($payInId, & $pagination = null, $filter = null, $sorting = null)
@@ -127,7 +127,7 @@ class ApiPayIns extends Libraries\ApiBase
      * Retrieves a more detailed view of details concerning
      * the card used to process a Web payment.
      * @param string $payInId ID of the PayIn to retrieve card details for
-     * @return PayInWebExtendedView Object returned from API
+     * @return \MangoPay\PayInWebExtendedView Object returned from API
      */
     public function GetExtendedCardView($payInId)
     {
@@ -146,8 +146,8 @@ class ApiPayIns extends Libraries\ApiBase
 
     /**
      * Create new PayPal Web pay-in object
-     * @param PayIn $payIn \MangoPay\PayIn object
-     * @return PayIn Object returned from API
+     * @param \MangoPay\PayIn $payIn \MangoPay\PayIn object
+     * @return \MangoPay\PayIn Object returned from API
      */
     public function CreatePayPal($payIn, $idempotencyKey = null)
     {
@@ -156,8 +156,8 @@ class ApiPayIns extends Libraries\ApiBase
 
     /**
      * Create new GooglePay Direct pay-in object
-     * @param PayIn $payIn \MangoPay\PayIn object
-     * @return PayIn Object returned from API
+     * @param \MangoPay\PayIn $payIn \MangoPay\PayIn object
+     * @return \MangoPay\PayIn Object returned from API
      */
     public function CreateGooglePay($payIn, $idempotencyKey = null)
     {
@@ -166,8 +166,8 @@ class ApiPayIns extends Libraries\ApiBase
 
     /**
      * Look up metadata from BIN or Google Pay token
-     * @param PaymentMethodMetadata $paymentMethodMetadata \MangoPay\PaymentMethodMetadata object
-     * @return PaymentMethodMetadata Object returned from API
+     * @param \MangoPay\PaymentMethodMetadata $paymentMethodMetadata \MangoPay\PaymentMethodMetadata object
+     * @return \MangoPay\PaymentMethodMetadata Object returned from API
      */
     public function GetPaymentMethodMetadata(PaymentMethodMetadata $paymentMethodMetadata, $idempotencyKey = null)
     {

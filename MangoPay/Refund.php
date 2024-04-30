@@ -33,7 +33,7 @@ class Refund extends Transaction
 
     /**
      * Contains info about the reason for refund
-     * @var RefundReasonDetails
+     * @var \MangoPay\RefundReasonDetails
      */
     public $RefundReason;
 

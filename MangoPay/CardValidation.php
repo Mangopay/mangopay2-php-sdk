@@ -55,7 +55,7 @@ class CardValidation extends Libraries\EntityBase
 
     /**
      * @var string
-     * @see TransactionType
+     * @see \MangoPay\TransactionType
      */
     public $Type;
 
@@ -68,7 +68,7 @@ class CardValidation extends Libraries\EntityBase
     /**
      * The current status of the card validation
      * @var string
-     * @see CardValidationStatus
+     * @see \MangoPay\CardValidationStatus
      */
     public $Status;
 

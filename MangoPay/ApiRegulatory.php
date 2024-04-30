@@ -10,7 +10,7 @@ class ApiRegulatory extends Libraries\ApiBase
     /**
      * Get country authorizations by country code
      * @param string $countryCode
-     * @return CountryAuthorization
+     * @return \MangoPay\CountryAuthorization
      * @throws Libraries\Exception
      */
     public function GetCountryAuthorizations($countryCode)
@@ -20,8 +20,8 @@ class ApiRegulatory extends Libraries\ApiBase
 
     /**
      * Get all countries authorizations
-     * @param Pagination $pagination
-     * @param Sorting $sorting
+     * @param \MangoPay\Pagination $pagination
+     * @param \MangoPay\Sorting $sorting
      * @return \MangoPay\CountryAuthorization[]
      * @throws Libraries\Exception
      */

@@ -18,7 +18,7 @@ class DefaultStorageStrategy implements IStorageStrategy
 
     /**
      * Gets the current authorization token.
-     * @return OAuthToken Currently stored token instance or null.
+     * @return \MangoPay\Libraries\OAuthToken Currently stored token instance or null.
      * @throws Exception
      */
     public function Get()
@@ -37,24 +37,24 @@ class DefaultStorageStrategy implements IStorageStrategy
             $serialized = str_replace($this->_prefixContent, '', $data);
             return unserialize($serialized);
         } catch (Exception $e) {
-            throw new Exception('Cannot get token from file, or:' . $e->getMessage());
+            throw new \MangoPay\Libraries\Exception('Cannot get token from file, or:' . $e->getMessage());
         }
     }
 
     /**
      * Stores authorization token passed as an argument.
-     * @param OAuthToken $token Token instance to be stored.
+     * @param \MangoPay\Libraries\OAuthToken $token Token instance to be stored.
      */
     public function Store($token)
     {
         if (!is_writable($this->GetPathToTemporaryFolder())) {
-            throw new Exception('Cannot create or write to file ' . $this->GetPathToTemporaryFolder());
+            throw new \MangoPay\Libraries\Exception('Cannot create or write to file ' . $this->GetPathToTemporaryFolder());
         }
 
         $serialized = serialize($token);
         $result = file_put_contents($this->GetPathToFile(), $this->_prefixContent . $serialized, LOCK_EX);
         if ($result === false) {
-            throw new Exception('Cannot put token to file');
+            throw new \MangoPay\Libraries\Exception('Cannot put token to file');
         }
     }
 
@@ -74,7 +74,7 @@ class DefaultStorageStrategy implements IStorageStrategy
     private function GetPathToTemporaryFolder()
     {
         if (is_null($this->_config->TemporaryFolder)) {
-            throw new Exception('Path to temporary folder is not defined');
+            throw new \MangoPay\Libraries\Exception('Path to temporary folder is not defined');
         }
 
         return $this->_config->TemporaryFolder;

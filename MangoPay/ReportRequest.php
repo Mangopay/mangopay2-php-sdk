@@ -16,7 +16,7 @@ class ReportRequest extends Libraries\EntityBase
     /**
      * Status of the report.
      * @var string
-     * @see ReportStatus
+     * @see \MangoPay\ReportStatus
      */
     public $Status;
 
@@ -41,7 +41,7 @@ class ReportRequest extends Libraries\EntityBase
     /**
      * Type of the report.
      * @var string
-     * @see ReportType
+     * @see \MangoPay\ReportType
      */
     public $ReportType;
 
@@ -59,7 +59,7 @@ class ReportRequest extends Libraries\EntityBase
 
     /**
      * Filters for the report list.
-     * @var FilterReports
+     * @var \MangoPay\FilterReports
      */
     public $Filters;
 

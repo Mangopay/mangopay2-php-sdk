@@ -33,13 +33,13 @@ class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutio
 
     /**
      * Billing information
-     * @var Billing
+     * @var \MangoPay\Billing
      */
     public $Billing;
 
     /**
      * Security & validation information
-     * @var SecurityInfo
+     * @var \MangoPay\SecurityInfo
      */
     public $SecurityInfo;
 

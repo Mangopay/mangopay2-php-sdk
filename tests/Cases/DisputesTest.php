@@ -382,13 +382,13 @@ class DisputesTest extends Base
 
         $this->_api->Disputes->CreateDisputeDocumentPageFromFile($disputeForTest->Id, $disputeDocument->Id, __DIR__ . "/../TestKycPageFile.png");
 
-        $disputeDocument->Status = DisputeDocumentStatus::ValidationAsked;
+        $disputeDocument->Status = \MangoPay\DisputeDocumentStatus::ValidationAsked;
 
         $result = $this->_api->Disputes->UpdateDisputeDocument($disputeForTest->Id, $disputeDocument);
 
         $this->assertNotNull($result);
         $this->assertEquals($disputeDocument->Type, $result->Type);
-        $this->assertTrue($result->Status == DisputeDocumentStatus::ValidationAsked);
+        $this->assertTrue($result->Status == \MangoPay\DisputeDocumentStatus::ValidationAsked);
     }
 
     public function test_Disputes_GetRepudiation()

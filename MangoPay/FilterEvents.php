@@ -9,7 +9,7 @@ class FilterEvents extends FilterBase
 {
     /**
      * Event type
-     * @var EventType
+     * @var \MangoPay\EventType
      */
     public $EventType;
 }

@@ -14,7 +14,7 @@ class ConversionQuote extends EntityBase
 
     /**
      * @var string
-     * @see TransactionStatus
+     * @see \MangoPay\TransactionStatus
      */
     public $Status;
 
@@ -26,13 +26,13 @@ class ConversionQuote extends EntityBase
 
     /**
      * Debited funds
-     * @var Money
+     * @var \MangoPay\Money
      */
     public $DebitedFunds;
 
     /**
      * Credited funds
-     * @var Money
+     * @var \MangoPay\Money
      */
     public $CreditedFunds;
 

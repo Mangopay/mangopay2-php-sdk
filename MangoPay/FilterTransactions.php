@@ -9,19 +9,19 @@ class FilterTransactions extends FilterBase
 {
     /**
      * @var string
-     * @see TransactionStatus
+     * @see \MangoPay\TransactionStatus
      */
     public $Status;
 
     /**
      * @var string
-     * @see TransactionType
+     * @see \MangoPay\TransactionType
      */
     public $Type;
 
     /**
      * @var string
-     * @see TransactionNature
+     * @see \MangoPay\TransactionNature
      */
     public $Nature;
 

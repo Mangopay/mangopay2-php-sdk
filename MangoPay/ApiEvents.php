@@ -9,9 +9,9 @@ class ApiEvents extends Libraries\ApiBase
 {
     /**
      * Get events
-     * @param Pagination $pagination Pagination object
-     * @param FilterEvents $filter Object to filter data
-     * @param Sorting $sorting Object to sorting data
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterEvents $filter Object to filter data
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      *
      * @return \MangoPay\Event[] Events list
      */

@@ -21,7 +21,7 @@ class PayInExecutionDetailsExternalInstruction extends Libraries\Dto implements 
 
     /**
      * Information about the account that was debited.
-     * @var DebitedBankAccount
+     * @var \MangoPay\DebitedBankAccount
      */
     public $DebitedBankAccount;
 }

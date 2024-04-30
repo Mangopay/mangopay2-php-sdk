@@ -18,9 +18,9 @@ class ApiRepudiations extends Libraries\ApiBase
     /**
      * Retrieves a list of Refunds pertaining to a certain Repudiation
      * @param string $repudiationId Repudiation identifier
-     * @param Pagination $pagination Pagination object
-     * @param FilterRefunds $filter Filtering object
-     * @param Sorting $sorting Sorting object
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterRefunds $filter Filtering object
+     * @param \MangoPay\Sorting $sorting Sorting object
      * @return \MangoPay\Refund[]
      */
     public function GetRefunds($repudiationId, & $pagination = null, $filter = null, $sorting = null)

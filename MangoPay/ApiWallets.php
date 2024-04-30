@@ -10,7 +10,7 @@ class ApiWallets extends Libraries\ApiBase
     /**
      * Create new wallet
      * @param Wallet $wallet
-     * @return Wallet Wallet object returned from API
+     * @return \MangoPay\Wallet Wallet object returned from API
      */
     public function Create($wallet, $idempotencyKey = null)
     {
@@ -20,7 +20,7 @@ class ApiWallets extends Libraries\ApiBase
     /**
      * Get wallet
      * @param string $walletId Wallet identifier
-     * @return Wallet Wallet object returned from API
+     * @return \MangoPay\Wallet Wallet object returned from API
      */
     public function Get($walletId)
     {
@@ -30,7 +30,7 @@ class ApiWallets extends Libraries\ApiBase
     /**
      * Save wallet
      * @param Wallet $wallet Wallet object to save
-     * @return Wallet Wallet object returned from API
+     * @return \MangoPay\Wallet Wallet object returned from API
      */
     public function Update($wallet)
     {
@@ -40,9 +40,9 @@ class ApiWallets extends Libraries\ApiBase
     /**
      * Get transactions for the wallet
      * @param string $walletId Wallet identifier
-     * @param Pagination $pagination Pagination object
-     * @param FilterTransactions $filter Object to filter data
-     * @param Sorting $sorting Object to sorting data
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterTransactions $filter Object to filter data
+     * @param \MangoPay\Sorting $sorting Object to sorting data
      * @return \MangoPay\Transaction[] Transactions for wallet returned from API
      */
     public function GetTransactions($walletId, & $pagination = null, $filter = null, $sorting = null)
