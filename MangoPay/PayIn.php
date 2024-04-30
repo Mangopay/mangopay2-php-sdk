@@ -61,6 +61,32 @@ class PayIn extends Transaction
     public $RecurringPayinRegistrationId;
 
     /**
+     * The IP address of the end user initiating the transaction, in IPV4 or IPV6 format.
+     * @var string
+     */
+    public $IpAddress;
+
+    /**
+     * Information about the browser used by the end user (author) to perform the payment.
+     * @var BrowserInfo
+     */
+    public $BrowserInfo;
+
+    /**
+     * Information about the end user billing address. If left empty, the default values will be automatically taken into account.
+     * Default values: FirstName, LastName, and Address information of the Shipping object if any, otherwise the user (author).
+     * @var Billing
+     */
+    public $Billing;
+
+    /**
+     * Information about the end user’s shipping address. If left empty, the default values will be automatically taken into account.
+     * Default values: FirstName, LastName, and Address information of the Billing object, if supplied, otherwise of the user (author).
+     * @var Shipping
+     */
+    public $Shipping;
+
+    /**
      * Get array with mapping which property depends on other property
      * @return array
      */
