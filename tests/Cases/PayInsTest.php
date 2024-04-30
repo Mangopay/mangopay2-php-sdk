@@ -912,7 +912,7 @@ class PayInsTest extends Base
         $this->assertNotNull($result_metadata->IssuerCountryCode);
         $this->assertNotNull($result_metadata->IssuingBank);
         $this->assertNotNull($result_metadata->BinData);
-        $this->assertNotNull($result_metadata->CardType);
+        $this->assertNotNull($result_metadata->BinData[0]->CardType);
     }
 
 //    /**
