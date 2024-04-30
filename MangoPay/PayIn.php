@@ -14,6 +14,23 @@ class PayIn extends Transaction
     public $CreditedWalletId;
 
     /**
+     * The mode applied for the 3DS protocol for CB, Visa, and Mastercard.
+     * Default values: DEFAULT. Allowed values: DEFAULT, FORCE, NO_CHOICE
+     *
+     * @var string
+     */
+    public $SecureMode;
+
+    /**
+     * The 3DS protocol version to be applied to the transaction. Allowing values: V1, V2_1
+     *
+     * @see https://mangopay.com/docs/concepts/payments/payment-methods/card/3ds
+     * @see https://mangopay.com/docs/endpoints/direct-card-payins#direct-card-payin-object
+     * @var string
+     */
+    public $Requested3DSVersion;
+
+    /**
      * PaymentType {CARD, BANK_WIRE, DIRECT_DEBIT, PAYPAL, PAYCONIQ }
      * @var string
      */
