@@ -72,5 +72,7 @@ class PayInExecutionDetailsDirect extends Libraries\Dto implements PayInExecutio
         $subObjects = parent::GetSubObjects();
         $subObjects['Billing'] = '\MangoPay\Billing';
         $subObjects['SecurityInfo'] = '\MangoPay\SecurityInfo';
+
+        return $subObjects;
     }
 }
