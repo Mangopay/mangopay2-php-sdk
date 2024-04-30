@@ -9,9 +9,9 @@ class ApiKycDocuments extends Libraries\ApiBase
 {
     /**
      * Get all KYC documents
-     * @param \MangoPay\Pagination $pagination Pagination object
-     * @param \MangoPay\Sorting $sorting Object to sorting data
-     * @param \MangoPay\FilterKycDocuments $filter Object to filter data
+     * @param Pagination $pagination Pagination object
+     * @param Sorting $sorting Object to sorting data
+     * @param FilterKycDocuments $filter Object to filter data
      * @return \MangoPay\KycDocument[] Array with objects returned from API
      */
     public function GetAll(& $pagination = null, $sorting = null, $filter = null)
@@ -22,7 +22,7 @@ class ApiKycDocuments extends Libraries\ApiBase
     /**
      * Get KYC document
      * @param string $kycDocumentId Document identifier
-     * @return \MangoPay\KycDocument Document returned from API
+     * @return KycDocument Document returned from API
      */
     public function Get($kycDocumentId)
     {
@@ -34,7 +34,7 @@ class ApiKycDocuments extends Libraries\ApiBase
      * Creates temporary URLs where each page of a KYC document can be viewed.
      *
      * @param string $kycDocumentId Identification of the document whose pages to view
-     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param Pagination $pagination Pagination object
      * @return \MangoPay\DocumentPageConsult[] Array of consults for viewing the KYC document's pages
      * @throws Libraries\Exception
      */

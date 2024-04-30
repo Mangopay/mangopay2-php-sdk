@@ -7,6 +7,7 @@ use MangoPay\CreateInstantConversion;
 use MangoPay\CreateQuotedConversion;
 use MangoPay\Money;
 use MangoPay\TransactionType;
+
 use function PHPUnit\Framework\assertNotNull;
 
 class ConversionsTest extends Base

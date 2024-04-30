@@ -39,12 +39,12 @@ abstract class Base extends TestCase
      */
     public static $MatrixUboDeclaration;
     /**
-     * @var \MangoPay\Ubo
+     * @var Ubo
      */
     public static $MatrixUbo;
     /**
      * Test bank account belonging to John - access by getJohnsAccount()
-     * @var \MangoPay\BankAccount
+     * @var BankAccount
      */
     public static $JohnsAccount;
     /**
@@ -272,10 +272,10 @@ abstract class Base extends TestCase
             $payIn = new \MangoPay\PayIn();
             $payIn->AuthorId = $user->Id;
             $payIn->CreditedUserId = $user->Id;
-            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds = new Money();
             $payIn->DebitedFunds->Currency = 'EUR';
             $payIn->DebitedFunds->Amount = 1000;
-            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees = new Money();
             $payIn->Fees->Currency = 'EUR';
             $payIn->Fees->Amount = 5;
             $payIn->CreditedWalletId = $wallet->Id;
@@ -341,10 +341,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $userId;
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 10000;
         $payIn->DebitedFunds->Currency = 'EUR';
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 0;
         $payIn->Fees->Currency = 'EUR';
         // payment type as CARD
@@ -387,10 +387,10 @@ abstract class Base extends TestCase
             $payIn = new \MangoPay\PayIn();
             $payIn->CreditedWalletId = self::$JohnsWalletWithMoney->Id;
             $payIn->AuthorId = $cardRegistration->UserId;
-            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds = new Money();
             $payIn->DebitedFunds->Amount = $amount;
             $payIn->DebitedFunds->Currency = 'EUR';
-            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees = new Money();
             $payIn->Fees->Amount = 0;
             $payIn->Fees->Currency = 'EUR';
 
@@ -444,10 +444,10 @@ abstract class Base extends TestCase
             $payIn = new \MangoPay\PayIn();
             $payIn->CreditedWalletId = self::$JohnsWalletWithMoney->Id;
             $payIn->AuthorId = $cardRegistration->UserId;
-            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds = new Money();
             $payIn->DebitedFunds->Amount = $amount;
             $payIn->DebitedFunds->Currency = 'EUR';
-            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees = new Money();
             $payIn->Fees->Amount = 0;
             $payIn->Fees->Currency = 'EUR';
 
@@ -530,16 +530,16 @@ abstract class Base extends TestCase
 
     /**
      * Creates self::$JohnsAccount (bank account belonging to John) if not created yet
-     * @return \MangoPay\BankAccount
+     * @return BankAccount
      */
     protected function getJohnsAccount()
     {
         if (self::$JohnsAccount === null || self::$JohnsAccount->Active == false) {
             $john = $this->getJohn();
-            $account = new \MangoPay\BankAccount();
+            $account = new BankAccount();
             $account->OwnerName = $john->FirstName . ' ' . $john->LastName;
             $account->OwnerAddress = $john->Address;
-            $account->Details = new \MangoPay\BankAccountDetailsIBAN();
+            $account->Details = new BankAccountDetailsIBAN();
             $account->Details->IBAN = 'FR7630004000031234567890143';
             $account->Details->BIC = 'BNPAFRPP';
             self::$JohnsAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
@@ -562,10 +562,10 @@ abstract class Base extends TestCase
             $payOut->Tag = 'DefaultTag';
             $payOut->AuthorId = $user->Id;
             $payOut->CreditedUserId = $user->Id;
-            $payOut->DebitedFunds = new \MangoPay\Money();
+            $payOut->DebitedFunds = new Money();
             $payOut->DebitedFunds->Currency = 'EUR';
             $payOut->DebitedFunds->Amount = 10;
-            $payOut->Fees = new \MangoPay\Money();
+            $payOut->Fees = new Money();
             $payOut->Fees->Currency = 'EUR';
             $payOut->Fees->Amount = 5;
 
@@ -595,10 +595,10 @@ abstract class Base extends TestCase
             $payOut->Tag = 'DefaultTag';
             $payOut->AuthorId = $payIn->AuthorId;
             $payOut->CreditedUserId = $payIn->AuthorId;
-            $payOut->DebitedFunds = new \MangoPay\Money();
+            $payOut->DebitedFunds = new Money();
             $payOut->DebitedFunds->Currency = 'EUR';
             $payOut->DebitedFunds->Amount = 10;
-            $payOut->Fees = new \MangoPay\Money();
+            $payOut->Fees = new Money();
             $payOut->Fees->Currency = 'EUR';
             $payOut->Fees->Amount = 5;
 
@@ -639,10 +639,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $userId;
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 0;
         $payIn->Fees->Currency = 'EUR';
         // payment type as CARD
@@ -683,10 +683,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $userId;
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 0;
         $payIn->Fees->Currency = 'EUR';
         // payment type as CARD
@@ -712,10 +712,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $userId;
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 100;
         $payIn->Fees->Currency = 'EUR';
         // payment type as CARD
@@ -768,10 +768,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->AuthorId = $userId;
         $payIn->CreditedWalletId = $wallet->Id;
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 10;
         $payIn->Fees->Currency = 'EUR';
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
 
@@ -799,10 +799,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->AuthorId = $userId;
         $payIn->CreditedWalletId = $wallet->Id;
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 20;
         $payIn->Fees->Currency = 'EUR';
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 2000;
         $payIn->DebitedFunds->Currency = 'EUR';
 
@@ -839,10 +839,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->AuthorId = $userId;
         $payIn->CreditedWalletId = $wallet->Id;
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 30;
         $payIn->Fees->Currency = 'PLN';
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 3000;
         $payIn->DebitedFunds->Currency = 'PLN';
 
@@ -872,10 +872,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->AuthorId = $userId;
         $payIn->CreditedWalletId = $wallet->Id;
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 10;
         $payIn->Fees->Currency = 'EUR';
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
 
@@ -929,10 +929,10 @@ abstract class Base extends TestCase
         $payIn->PaymentType = "CARD";
         $payIn->AuthorId = $userId;
         $payIn->CreditedWalletId = $wallet->Id;
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 10;
         $payIn->Fees->Currency = 'EUR';
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
 
@@ -963,10 +963,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->AuthorId = $userId;
         $payIn->CreditedWalletId = $wallet->Id;
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 10;
         $payIn->Fees->Currency = 'EUR';
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
 
@@ -994,10 +994,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->AuthorId = $userId;
         $payIn->CreditedWalletId = $wallet->Id;
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 10;
         $payIn->Fees->Currency = 'EUR';
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
 
@@ -1038,10 +1038,10 @@ abstract class Base extends TestCase
         $payIn = new \MangoPay\PayIn();
         $payIn->CreditedWalletId = $wallet->Id;
         $payIn->AuthorId = $userId;
-        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds = new Money();
         $payIn->DebitedFunds->Amount = 1000;
         $payIn->DebitedFunds->Currency = 'EUR';
-        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees = new Money();
         $payIn->Fees->Amount = 0;
         $payIn->Fees->Currency = 'EUR';
         // payment type as CARD
@@ -1088,10 +1088,10 @@ abstract class Base extends TestCase
         $transfer->Tag = 'DefaultTag';
         $transfer->AuthorId = $user->Id;
         $transfer->CreditedUserId = $user->Id;
-        $transfer->DebitedFunds = new \MangoPay\Money();
+        $transfer->DebitedFunds = new Money();
         $transfer->DebitedFunds->Currency = 'EUR';
         $transfer->DebitedFunds->Amount = 100;
-        $transfer->Fees = new \MangoPay\Money();
+        $transfer->Fees = new Money();
         $transfer->Fees->Currency = 'EUR';
         $transfer->Fees->Amount = 0;
 
@@ -1113,10 +1113,10 @@ abstract class Base extends TestCase
         $refund->DebitedWalletId = $transfer->DebitedWalletId;
         $refund->CreditedWalletId = $transfer->CreditedWalletId;
         $refund->AuthorId = $user->Id;
-        $refund->DebitedFunds = new \MangoPay\Money();
+        $refund->DebitedFunds = new Money();
         $refund->DebitedFunds->Amount = $transfer->DebitedFunds->Amount;
         $refund->DebitedFunds->Currency = $transfer->DebitedFunds->Currency;
-        $refund->Fees = new \MangoPay\Money();
+        $refund->Fees = new Money();
         $refund->Fees->Amount = $transfer->Fees->Amount;
         $refund->Fees->Currency = $transfer->Fees->Currency;
 
@@ -1134,10 +1134,10 @@ abstract class Base extends TestCase
         $refund = new \MangoPay\Refund();
         $refund->CreditedWalletId = $payIn->CreditedWalletId;
         $refund->AuthorId = $user->Id;
-        $refund->DebitedFunds = new \MangoPay\Money();
+        $refund->DebitedFunds = new Money();
         $refund->DebitedFunds->Amount = $payIn->DebitedFunds->Amount;
         $refund->DebitedFunds->Currency = $payIn->DebitedFunds->Currency;
-        $refund->Fees = new \MangoPay\Money();
+        $refund->Fees = new Money();
         $refund->Fees->Amount = $payIn->Fees->Amount;
         $refund->Fees->Currency = $payIn->Fees->Currency;
 
@@ -1154,10 +1154,10 @@ abstract class Base extends TestCase
 
         $refund = new \MangoPay\Refund();
         $refund->AuthorId = $user->Id;
-        $refund->DebitedFunds = new \MangoPay\Money();
+        $refund->DebitedFunds = new Money();
         $refund->DebitedFunds->Amount = 100;
         $refund->DebitedFunds->Currency = $payIn->DebitedFunds->Currency;
-        $refund->Fees = new \MangoPay\Money();
+        $refund->Fees = new Money();
         $refund->Fees->Amount = 10;
         $refund->Fees->Currency = $payIn->Fees->Currency;
 
@@ -1201,7 +1201,7 @@ abstract class Base extends TestCase
 
         $cardPreAuthorization = new \MangoPay\CardPreAuthorization();
         $cardPreAuthorization->AuthorId = $user->Id;
-        $cardPreAuthorization->DebitedFunds = new \MangoPay\Money();
+        $cardPreAuthorization->DebitedFunds = new Money();
         $cardPreAuthorization->DebitedFunds->Currency = "EUR";
         $cardPreAuthorization->DebitedFunds->Amount = 1000;
         $cardPreAuthorization->CardId = $getCardRegistration->CardId;
@@ -1243,10 +1243,10 @@ abstract class Base extends TestCase
             $payIn = new \MangoPay\PayIn();
             $payIn->AuthorId = $user->Id;
             $payIn->CreditedUserId = $user->Id;
-            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds = new Money();
             $payIn->DebitedFunds->Currency = 'EUR';
             $payIn->DebitedFunds->Amount = 1000;
-            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees = new Money();
             $payIn->Fees->Currency = 'EUR';
             $payIn->Fees->Amount = 5;
             $payIn->CreditedWalletId = $wallet->Id;
@@ -1274,11 +1274,11 @@ abstract class Base extends TestCase
             $payIn = new \MangoPay\PayIn();
             $payIn->AuthorId = $user->Id;
 
-            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds = new Money();
             $payIn->DebitedFunds->Currency = 'EUR';
             $payIn->DebitedFunds->Amount = 500;
 
-            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees = new Money();
             $payIn->Fees->Currency = 'EUR';
             $payIn->Fees->Amount = 0;
 
@@ -1333,10 +1333,10 @@ abstract class Base extends TestCase
             $payIn = new \MangoPay\PayIn();
             $payIn->AuthorId = $user->Id;
             $payIn->CreditedUserId = $user->Id;
-            $payIn->DebitedFunds = new \MangoPay\Money();
+            $payIn->DebitedFunds = new Money();
             $payIn->DebitedFunds->Currency = 'EUR';
             $payIn->DebitedFunds->Amount = 1000;
-            $payIn->Fees = new \MangoPay\Money();
+            $payIn->Fees = new Money();
             $payIn->Fees->Currency = 'EUR';
             $payIn->Fees->Amount = 5;
             $payIn->CreditedWalletId = $wallet->Id;

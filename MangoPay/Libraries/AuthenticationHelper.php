@@ -31,7 +31,7 @@ class AuthenticationHelper
     /**
      * Get basic key for HTTP header
      * @return string
-     * @throws \MangoPay\Libraries\Exception If MangoPay_ClientId or MangoPay_ClientPassword is not defined
+     * @throws Exception If MangoPay_ClientId or MangoPay_ClientPassword is not defined
      */
     public function GetHttpHeaderBasicKey()
     {
@@ -66,7 +66,7 @@ class AuthenticationHelper
      * Get HTTP header value with authorization string for basic authentication
      *
      * @return string Value for HTTP header with authentication string
-     * @throws \MangoPay\Libraries\Exception If required constants are not defined.
+     * @throws Exception If required constants are not defined.
      */
     private function GetHttpHeaderBasic()
     {
@@ -77,7 +77,7 @@ class AuthenticationHelper
      * Get HTTP header value with authorization string for strong authentication
      *
      * @return string Value for HTTP header with authentication string
-     * @throws \MangoPay\Libraries\Exception If OAuth token is not created (or is invalid) for strong authentication.
+     * @throws Exception If OAuth token is not created (or is invalid) for strong authentication.
      */
     private function GetHttpHeaderStrong()
     {
