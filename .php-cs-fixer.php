@@ -1,7 +1,5 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
-
 $finder = (new PhpCsFixer\Finder())
 	->in(__DIR__.'/MangoPay')
 	->in(__DIR__.'/tests')
