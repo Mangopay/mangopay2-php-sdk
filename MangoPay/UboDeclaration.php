@@ -8,6 +8,7 @@ namespace MangoPay;
 class UboDeclaration extends Libraries\EntityBase
 {
     /**
+     *
      * @var int Unix timestamp, Date of process
      */
     public $ProcessedDate;
