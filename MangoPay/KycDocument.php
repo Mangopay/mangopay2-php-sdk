@@ -34,7 +34,7 @@ class KycDocument extends Libraries\Document
 	public $StatusLabel;
 
     /**
-     * Refused reason type
+     * The user Id
      * @var string
      */
     public $UserId;
