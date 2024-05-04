@@ -39,7 +39,7 @@ class PayOut extends Transaction
 
     /**
      * One of PayOutPaymentDetails implementations, depending on $PaymentType
-     * @var \MangoPay\PayOutPaymentDetailsBankWire
+     * @var PayOutPaymentDetailsBankWire
      */
     public $MeanOfPaymentDetails;
 
