@@ -44,7 +44,8 @@ class KycDocument extends Libraries\Document
      * The series of codes providing more precision regarding the reason why the identity proof document was refused.
      * You can review the explanations for each code in the Flags list
      * @var array
-     * @see https://mangopay.com/docs/concepts/users/verification/document-process#flags-list
+     * @see \MangoPay\KycDocumentRefusedReasonType
+     * @link https://mangopay.com/docs/concepts/users/verification/document-process#flags-list
      */
     public $Flags;
 }
