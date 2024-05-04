@@ -8,9 +8,10 @@ namespace MangoPay;
 class KycDocument extends Libraries\Document
 {
     /**
-     * The user ID who owns this document
+     * The type of the document for the user verification
      * @var string
      * @see \MangoPay\KycDocumentType
+     * @link https://mangopay.com/docs/endpoints/kyc-documents#kyc-document-object
      */
     public $Type;
 
@@ -34,14 +35,16 @@ class KycDocument extends Libraries\Document
 	public $StatusLabel;
 
     /**
-     * The user Id
+     * The unique identifier of the user.
      * @var string
      */
     public $UserId;
 
     /**
-     * More information regarding why the document has been rejected.
+     * The series of codes providing more precision regarding the reason why the identity proof document was refused.
+     * You can review the explanations for each code in the Flags list
      * @var array
+     * @see https://mangopay.com/docs/concepts/users/verification/document-process#flags-list
      */
     public $Flags;
 }
