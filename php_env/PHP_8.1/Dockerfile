@@ -21,8 +21,4 @@ RUN docker-php-ext-install pcntl
 RUN docker-php-source delete
 
 # Install composer
-COPY composer.sh /
-RUN chmod +x composer.sh
-RUN /composer.sh
-RUN mv composer.phar /usr/local/bin/composer
-RUN mkdir /.composer && chmod o+rwx /.composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
