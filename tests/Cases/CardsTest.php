@@ -25,6 +25,7 @@ class CardsTest extends Base
 
         foreach ($cardsByFingerprint as $cardByFingerprint) {
             $this->assertSame($card->Fingerprint, $cardByFingerprint->Fingerprint);
+            $this->assertNotNull($card->CardHolderName);
         }
     }
 

@@ -75,6 +75,12 @@ class CardRegistration extends Libraries\EntityBase
     public $Status;
 
     /**
+     * The cardholder’s name shown on the payment card.
+     * @var string
+     */
+    public $CardHolderName;
+
+    /**
      * Get array with read-only properties
      * @return array
      */
