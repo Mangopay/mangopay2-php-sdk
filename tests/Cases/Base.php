@@ -631,6 +631,7 @@ abstract class Base extends TestCase
         $cardRegistration->Currency = 'EUR';
         $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
         $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
+        $cardRegistration->CardHolderName = "John Silver";
         $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
 
         $card = $this->_api->Cards->Get($cardRegistration->CardId);

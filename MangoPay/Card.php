@@ -78,4 +78,10 @@ class Card extends Libraries\EntityBase
      * @var string
      */
     public $Fingerprint;
+
+    /**
+     * The cardholder’s name shown on the payment card.
+     * @var string
+     */
+    public $CardHolderName;
 }
