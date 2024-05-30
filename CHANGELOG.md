@@ -1,3 +1,8 @@
+## [3.29.3] - 2024-05-24
+### Added
+
+- New parameter `CardHolderName` for [Update Card registration](https://mangopay.com/docs/endpoints/card-validations#update-card-registration)
+
 ## [3.29.2] - 2024-04-30
 ### Fixed
 
