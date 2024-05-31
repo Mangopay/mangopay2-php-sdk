@@ -1,3 +1,13 @@
+## [3.30.0] - 2024-05-31
+### Added
+
+New parameter `StatementDescriptor` for the following endpoints :
+
+- [Create a refund for a payin](https://mangopay.com/docs/endpoints/refunds#create-refund-payin)
+- [View a refund](https://mangopay.com/docs/endpoints/refunds#view-refund)
+
+Thanks @williamdes
+
 ## [3.29.3] - 2024-05-24
 ### Added
 
