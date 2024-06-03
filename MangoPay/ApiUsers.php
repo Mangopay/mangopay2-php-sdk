@@ -145,7 +145,7 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get bank account for user
      * @param string $userId User Id
-     * @param int $bankAccountId Bank account Id
+     * @param string $bankAccountId Bank account Id
      *
      * @return \MangoPay\BankAccount Entity of bank account object
      */
