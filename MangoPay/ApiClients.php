@@ -37,7 +37,8 @@ class ApiClients extends Libraries\ApiBase
      * Upload a logo for client.
      * Only GIF, PNG, JPG, JPEG, BMP, PDF and DOC formats are accepted,
      * and file must be less than about 7MB
-     * @param \MangoPay\ClientLogoUpload $logo ClientLogoUpload object
+     * @param \MangoPay\ClientLogoUpload $logoUpload ClientLogoUpload object
+     * @param string|null $idempotencyKey
      */
     public function UploadLogo($logoUpload, $idempotencyKey = null)
     {

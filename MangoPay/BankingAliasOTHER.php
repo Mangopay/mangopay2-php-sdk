@@ -5,22 +5,26 @@ namespace MangoPay;
 class BankingAliasOTHER extends BankingAlias
 {
     /**
-     * @var Type
+     * Type
+     * @var string
      */
     public $Type;
 
     /**
      * Account Number
+     * @var string
      */
     public $AccountNumber;
 
     /**
      * BIC
+     * @var string
      */
     public $BIC;
 
     /**
      * Country
+     * @var string
      */
     public $Country;
 }

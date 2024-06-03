@@ -9,7 +9,7 @@ class PayInPaymentDetailsPayconiq extends Libraries\Dto implements PayInPaymentD
 {
     /**
      * The country of your user (should be BE, NL or LU)
-     * @var $Country
+     * @var string
      */
     public $Country;
 

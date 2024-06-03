@@ -236,7 +236,8 @@ abstract class ApiBase
 
     /**
      * Constructor
-     * @param \MangoPay\MangoPayApi Root/parent instance that holds the OAuthToken and Configuration instance
+     * Root/parent instance that holds the OAuthToken and Configuration instance
+     * @param \MangoPay\MangoPayApi $root
      */
     public function __construct($root)
     {
@@ -303,7 +304,6 @@ abstract class ApiBase
      * Get entity object from API
      * @param string $methodKey Key with request data
      * @param object $responseClassName Name of entity class from response
-     * @param array $params path variable in urls
      * @return object Response data
      * @throws Exception
      */
