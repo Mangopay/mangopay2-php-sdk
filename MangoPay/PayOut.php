@@ -35,7 +35,7 @@ class PayOut extends Transaction
 
     /**
      * One of PayOutPaymentDetails implementations, depending on $PaymentType
-     * @var PayOutPaymentDetailsBankWire
+     * @var object
      */
     public $PayoutPaymentDetails;
 
