@@ -30,6 +30,7 @@ class KycDocument extends Libraries\Document
      * @var string
      *
      * @see KycDocumentStatus
+     * @phpstan-var \MangoPay\KycDocumentStatus::*
      */
     public $Status;
 
