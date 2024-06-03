@@ -7,18 +7,20 @@ namespace MangoPay;
  */
 class PayOut extends Transaction
 {
-	/**
-	 * The unique identifier of the bank account.
-	 * @var string
-	 */
-	public $BankAccountId;
+    /**
+     * The unique identifier of the bank account.
+     *
+     * @var string
+     */
+    public $BankAccountId;
 
-	/**
-	 * Custom description to appear on the user’s bank statement along with the platform name.
-	 * The recommended length is 12 characters – strings longer than this may be truncated depending on the bank.
-	 * @var string
-	 */
-	public $BankWireRef;
+    /**
+     * Custom description to appear on the user’s bank statement along with the platform name.
+     * The recommended length is 12 characters – strings longer than this may be truncated depending on the bank.
+     *
+     * @var string
+     */
+    public $BankWireRef;
 
     /**
      * Debited wallet Id
