@@ -30,7 +30,6 @@ class ApiOAuth extends ApiBase
             $rest->AddRequestHttpHeader('x-tenant-id: uk');
         }
         $response = $rest->Request($urlMethod, $requestType, $requestData);
-        /** @var \MangoPay\Libraries\OAuthToken $token */
         $token = $this->CastResponseToEntity($response, '\MangoPay\Libraries\OAuthToken');
         $token->autentication_key = $authHlp->GetAutenticationKey();
 
