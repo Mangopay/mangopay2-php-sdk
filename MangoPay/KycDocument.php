@@ -12,7 +12,7 @@ class KycDocument extends Libraries\Document
      *
      * @var string
      *
-     * @see KycDocumentType
+     * @see \MangoPay\KycDocumentType
      * @see https://mangopay.com/docs/endpoints/kyc-documents#kyc-document-object
      */
     public $Type;
