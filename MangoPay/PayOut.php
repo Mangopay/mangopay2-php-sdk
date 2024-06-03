@@ -33,11 +33,11 @@ class PayOut extends Transaction
      */
     public $PaymentType;
 
-	/**
-	 * One of PayOutPaymentDetails implementations, depending on $PaymentType
-	 * @var PayOutPaymentDetailsBankWire
-	 */
-	public $PayoutPaymentDetails;
+    /**
+     * One of PayOutPaymentDetails implementations, depending on $PaymentType
+     * @var PayOutPaymentDetailsBankWire
+     */
+    public $PayoutPaymentDetails;
 
     /**
      * One of PayOutPaymentDetails implementations, depending on $PaymentType
@@ -45,12 +45,12 @@ class PayOut extends Transaction
      */
     public $MeanOfPaymentDetails;
 
-	/**
-	 * Payout mode requested, default is 'STANDARD', Allowed values are
-	 * 'STANDARD', 'INSTANT_PAYMENT', 'INSTANT_PAYMENT_ONLY'
-	 * @var string
-	 */
-	public $PayoutModeRequested;
+    /**
+     * Payout mode requested, default is 'STANDARD', Allowed values are
+     * 'STANDARD', 'INSTANT_PAYMENT', 'INSTANT_PAYMENT_ONLY'
+     * @var string
+     */
+    public $PayoutModeRequested;
 
     /**
      * Get array with mapping which property depends on other property
