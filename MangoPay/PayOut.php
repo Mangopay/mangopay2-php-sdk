@@ -17,7 +17,6 @@ class PayOut extends Transaction
     /**
      * Custom description to appear on the user’s bank statement along with the platform name.
      * The recommended length is 12 characters – strings longer than this may be truncated depending on the bank.
-     *
      * @var string
      */
     public $BankWireRef;
