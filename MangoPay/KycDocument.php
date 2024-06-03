@@ -21,6 +21,7 @@ class KycDocument extends Libraries\Document
      * The label of KYC document type.
      *
      * @var string
+     * @phpstan-var \MangoPay\KycDocumentStatus::*
      */
     public $TypeLabel;
 
@@ -30,7 +31,6 @@ class KycDocument extends Libraries\Document
      * @var string
      *
      * @see KycDocumentStatus
-     * @phpstan-var \MangoPay\KycDocumentStatus::*
      */
     public $Status;
 
