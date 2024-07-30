@@ -44,6 +44,14 @@ class PayIn extends Transaction
     public $RecurringPayinRegistrationId;
 
     /**
+     * Allowed values: ECommerce (default), TelephoneOrder
+     *
+     * The channel through which the user provided their card details, used to indicate mail-order and telephone-order (MOTO) payments.
+     * @var string
+     */
+    public $PaymentCategory;
+
+    /**
      * Get array with mapping which property depends on other property
      * @return array
      */

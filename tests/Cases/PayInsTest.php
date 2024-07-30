@@ -69,6 +69,7 @@ class PayInsTest extends Base
         $this->assertEquals($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
         $this->assertEquals(PayInStatus::Succeeded, $payIn->Status);
         $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertEquals('TelephoneOrder', $payIn->PaymentCategory);
 
         $this->assertNotNull($payIn->PaymentDetails->CardInfo);
         $this->assertNotNull($payIn->PaymentDetails->CardInfo->BIN);
