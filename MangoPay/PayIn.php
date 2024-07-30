@@ -69,6 +69,7 @@ class PayIn extends Transaction
                 PayInPaymentType::Klarna => 'MangoPay\PayInPaymentDetailsKlarna',
                 PayInPaymentType::Ideal => 'MangoPay\PayInPaymentDetailsIdeal',
                 PayInPaymentType::Giropay => 'MangoPay\PayInPaymentDetailsGiropay',
+                PayInPaymentType::Bancontact => 'MangoPay\PayInPaymentDetailsBancontact',
 
                 // ...and more in future...
             ],
