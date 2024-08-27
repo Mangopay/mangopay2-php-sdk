@@ -52,6 +52,24 @@ class IdempotencyTest extends Base
         $this->assertTrue($resp2->Resource->Id == $user2->Id);
     }
 
+    public function test_SameIdempotencyKey_ErrorAndGetBackError()
+    {
+        $idempotencyKey = md5(uniqid());
+        $user = $this->buildJohn();
+        $user->FirstName = null;// Trigger an error: The FirstName field is required
+        try {
+            $user1 = $this->_api->Users->Create($user, $idempotencyKey);
+        } catch (ResponseException $exception) {
+            // Check it is what we expect
+            self::assertStringContainsString('The FirstName field is required', $exception->GetErrorDetails()->Errors->FirstName);
+        }
+        // Use case: the user lost the above exception and wants to get it back
+        $response = $this->_api->Responses->Get($idempotencyKey);
+        self::assertInstanceOf('MangoPay\Response', $response);
+        self::assertInstanceOf('MangoPay\Libraries\Error', $response->Resource);
+        self::assertStringContainsString('The FirstName field is required', $response->Resource->Errors->FirstName);
+    }
+
     public function test_GetIdempotencyKey_PreauthorizationCreate()
     {
         $key = md5(uniqid());
