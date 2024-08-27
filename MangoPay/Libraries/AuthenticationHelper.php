@@ -12,7 +12,8 @@ class AuthenticationHelper
 
     /**
      * Constructor
-     * @param \MangoPay\MangoPayApi Root/parent instance that holds the OAuth token and Configuration instance
+     * Root/parent instance that holds the OAuthToken and Configuration instance
+     * @param \MangoPay\MangoPayApi $root
      */
     public function __construct($root)
     {
