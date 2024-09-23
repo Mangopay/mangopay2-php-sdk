@@ -1,3 +1,13 @@
+## [3.31.0] - 2024-07-30
+### Added
+
+1. New endpoint: [Create a Bancontact PayIn](https://mangopay.com/docs/endpoints/bancontact#create-bancontact-payin)
+
+2. New parameter `PaymentCategory` for the following endpoints :
+- [Create a Card Validation](https://mangopay.com/docs/endpoints/card-validations#create-card-validation)
+- [Create a Direct Card PayIn](https://mangopay.com/docs/endpoints/direct-card-payins#create-direct-card-payin)
+- [Create a Preauthorization](https://mangopay.com/docs/endpoints/preauthorizations#create-preauthorization)
+
 ## [3.30.0] - 2024-05-31
 ### Added
 

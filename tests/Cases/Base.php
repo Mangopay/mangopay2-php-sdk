@@ -655,6 +655,7 @@ abstract class Base extends TestCase
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
         $payIn->ExecutionDetails->Culture = 'FR';
+        $payIn->PaymentCategory = 'TelephoneOrder';
 
         $address = new Address();
         $address->AddressLine1 = 'Main Street no 5';
@@ -1010,6 +1011,38 @@ abstract class Base extends TestCase
         $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
 
         $payIn->Tag = "Giropay tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    protected function getNewPayInBancontactWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 10;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsBancontact();
+        $payIn->PaymentDetails->StatementDescriptor = 'test';
+        $payIn->PaymentDetails->Recurring = true;
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
+        $payIn->ExecutionDetails->Culture = 'FR';
+
+        $payIn->Tag = "Bancontact tag";
 
         return $this->_api->PayIns->Create($payIn);
     }

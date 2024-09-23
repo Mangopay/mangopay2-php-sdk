@@ -69,6 +69,7 @@ class PayInsTest extends Base
         $this->assertEquals($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
         $this->assertEquals(PayInStatus::Succeeded, $payIn->Status);
         $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertEquals('TelephoneOrder', $payIn->PaymentCategory);
 
         $this->assertNotNull($payIn->PaymentDetails->CardInfo);
         $this->assertNotNull($payIn->PaymentDetails->CardInfo->BIN);
@@ -888,6 +889,23 @@ class PayInsTest extends Base
         $this->assertNotNull($payIn->Id > 0);
         $this->assertEquals(\MangoPay\PayInPaymentType::Giropay, $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsGiropay', $payIn->PaymentDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
+        $this->assertEquals(PayInStatus::Created, $payIn->Status);
+        $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertEquals('REGULAR', $payIn->Nature);
+
+        $fetchedPayIn = $this->_api->PayIns->Get($payIn->Id);
+        $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
+    }
+
+    public function test_PayIns_Create_Bancontact_Web()
+    {
+        $payIn = $this->getNewPayInBancontactWeb();
+
+        $this->assertNotNull($payIn->Id > 0);
+        $this->assertEquals(\MangoPay\PayInPaymentType::Bancontact, $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsBancontact', $payIn->PaymentDetails);
         $this->assertEquals(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
         $this->assertEquals(PayInStatus::Created, $payIn->Status);

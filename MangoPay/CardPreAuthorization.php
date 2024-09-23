@@ -179,6 +179,14 @@ class CardPreAuthorization extends Libraries\EntityBase
     public $CardInfo;
 
     /**
+     * Allowed values: ECommerce (default), TelephoneOrder
+     *
+     * The channel through which the user provided their card details, used to indicate mail-order and telephone-order (MOTO) payments.
+     * @var string
+     */
+    public $PaymentCategory;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */

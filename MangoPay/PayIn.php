@@ -87,6 +87,14 @@ class PayIn extends Transaction
     public $Shipping;
 
     /**
+     * Allowed values: ECommerce (default), TelephoneOrder
+     *
+     * The channel through which the user provided their card details, used to indicate mail-order and telephone-order (MOTO) payments.
+     * @var string
+     */
+    public $PaymentCategory;
+
+    /**
      * Get array with mapping which property depends on other property
      * @return array
      */
@@ -112,6 +120,7 @@ class PayIn extends Transaction
                 PayInPaymentType::Klarna => 'MangoPay\PayInPaymentDetailsKlarna',
                 PayInPaymentType::Ideal => 'MangoPay\PayInPaymentDetailsIdeal',
                 PayInPaymentType::Giropay => 'MangoPay\PayInPaymentDetailsGiropay',
+                PayInPaymentType::Bancontact => 'MangoPay\PayInPaymentDetailsBancontact',
 
                 // ...and more in future...
             ],
