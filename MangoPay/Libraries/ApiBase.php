@@ -233,6 +233,12 @@ abstract class ApiBase
         'get_conversion' => ['/conversions/%s', RequestType::GET],
         'create_conversion_quote' => ['/conversions/quote', RequestType::POST],
         'get_conversion_quote' => ['/conversions/quote/%s', RequestType::GET],
+
+        'virtual_account_create' => ['/wallets/%s/virtual-accounts', RequestType::POST],
+        'virtual_account_deactivate' => ['/wallets/%s/virtual-accounts/%s', RequestType::PUT],
+        'virtual_account_get' => ['/wallets/%s/virtual-accounts/%s', RequestType::GET],
+        'virtual_account_get_all' => ['/wallets/%s/virtual-accounts', RequestType::GET],
+        'virtual_account_get_availabilities' => ['/virtual-accounts/availability', RequestType::GET]
     ];
 
     /**
@@ -615,6 +621,7 @@ abstract class ApiBase
             'users_createbankaccounts_us' => '\MangoPay\BankAccount',
             'users_createbankaccounts_ca' => '\MangoPay\BankAccount',
             'users_createbankaccounts_other' => '\MangoPay\BankAccount',
+            'virtual_accounts_create' => '\MangoPay\VirtualAccount',
             'kyc_documents_create' => '\MangoPay\KycDocument',
             'kyc_page_create' => '',
             'wallets_create' => '\MangoPay\Wallet',
