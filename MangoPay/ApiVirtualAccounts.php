@@ -7,11 +7,12 @@ class ApiVirtualAccounts extends Libraries\ApiBase
     /**
      * Create new Virtual Account
      * @param String $walletId
-     * @return \MangoPay\VirtualAccount Wallet object returned from API
+     * @param VirtualAccount $virtualAccount
+     * @return \MangoPay\VirtualAccount Virtual Account object returned from API
      */
-    public function Create($walletId, $idempotencyKey = null)
+    public function Create($virtualAccount, $walletId, $idempotencyKey = null)
     {
-        return $this->CreateObject('virtual_account_create', $walletId, '\MangoPay\VirtualAccount', null, null, $idempotencyKey);
+        return $this->CreateObject('virtual_account_create', $virtualAccount, '\MangoPay\VirtualAccount', $walletId, $idempotencyKey);
     }
 
     /**
@@ -29,16 +30,26 @@ class ApiVirtualAccounts extends Libraries\ApiBase
      * @param string $walletId
      * @return \MangoPay\VirtualAccount[]
      */
-    public function GetAll($walletId)
+    public function GetAll($walletId, $pagination = null, $sorting = null)
     {
-        return $this->GetList('virtual_account_get_all', $pagination, '\MangoPay\VirtualAccount', $walletId);
+        return $this->GetList('virtual_account_get_all', $pagination, '\MangoPay\VirtualAccount', $walletId, $sorting);
     }
 
-    public function Deactivate($walletId, $idempotencyKey = null)
+    /**
+     * @param string $walletId
+     * @param string $virtualAccountId
+     * @return \MangoPay\VirtualAccount
+     */
+    public function Deactivate($virtualAccount, $walletId, $virtualAccountId)
     {
+        return $this->SaveObject('virtual_account_deactivate', $virtualAccount, '\MangoPay\VirtualAccount', $walletId, $virtualAccountId);
     }
 
-    public function GetAvailabilities($walletId, $idempotencyKey = null)
+    /**
+     * @return \MangoPay\VirtualAccountAvailabilities
+     */
+    public function GetAvailabilities()
     {
+        return $this->GetObject('virtual_account_get_availabilities','\MangoPay\VirtualAccountAvailabilities');
     }
 }

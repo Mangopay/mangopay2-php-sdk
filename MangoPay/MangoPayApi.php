@@ -169,6 +169,11 @@ class MangoPayApi
      */
     public $Repudiations;
 
+    /**
+     * Provides VirtualAccount methods
+     * @var ApiVirtualAccounts
+     */
+    public $VirtualAccounts;
 
     /**
      * @var LoggerInterface
@@ -240,6 +245,7 @@ class MangoPayApi
         $this->Regulatory = new ApiRegulatory($this);
         $this->Deposits = new ApiDeposits($this);
         $this->Conversions = new ApiConversions($this);
+        $this->VirtualAccounts = new ApiVirtualAccounts($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();

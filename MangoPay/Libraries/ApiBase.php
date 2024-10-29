@@ -621,7 +621,7 @@ abstract class ApiBase
             'users_createbankaccounts_us' => '\MangoPay\BankAccount',
             'users_createbankaccounts_ca' => '\MangoPay\BankAccount',
             'users_createbankaccounts_other' => '\MangoPay\BankAccount',
-            'virtual_accounts_create' => '\MangoPay\VirtualAccount',
+            'virtual_account_create' => '\MangoPay\VirtualAccount',
             'kyc_documents_create' => '\MangoPay\KycDocument',
             'kyc_page_create' => '',
             'wallets_create' => '\MangoPay\Wallet',

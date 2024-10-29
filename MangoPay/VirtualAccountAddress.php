@@ -2,7 +2,7 @@
 
 namespace MangoPay;
 
-class VirtualAccountAddress
+class VirtualAccountAddress extends Libraries\Dto
 {
     /**
      * @var string
