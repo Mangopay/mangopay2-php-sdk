@@ -2,7 +2,7 @@
 
 namespace MangoPay;
 
-class VirtualAccountAvailability
+class VirtualAccountAvailability extends Libraries\EntityBase
 {
     /**
      * ISO 3166-1 alpha-2 format is expected
@@ -21,4 +21,17 @@ class VirtualAccountAvailability
      * @var CurrencyIso[]
      * */
     public $Currencies;
+
+    /**
+     * Get array with mapping which property is object and what type of object
+     * @return array
+     */
+    public function GetSubObjects()
+    {
+        $subObjects = parent::GetSubObjects();
+
+        $subObjects['Currencies'] = '\MangoPay\CurrencyIso';
+
+        return $subObjects;
+    }
 }
