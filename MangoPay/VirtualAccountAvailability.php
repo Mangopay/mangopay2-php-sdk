@@ -21,17 +21,4 @@ class VirtualAccountAvailability extends Libraries\EntityBase
      * @var CurrencyIso[]
      * */
     public $Currencies;
-
-    /**
-     * Get array with mapping which property is object and what type of object
-     * @return array
-     */
-    public function GetSubObjects()
-    {
-        $subObjects = parent::GetSubObjects();
-
-        $subObjects['Currencies'] = '\MangoPay\CurrencyIso';
-
-        return $subObjects;
-    }
 }

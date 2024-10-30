@@ -40,9 +40,10 @@ class ApiVirtualAccounts extends Libraries\ApiBase
      * @param string $virtualAccountId
      * @return \MangoPay\VirtualAccount
      */
-    public function Deactivate($virtualAccount, $walletId, $virtualAccountId)
+    public function Deactivate($walletId, $virtualAccountId)
     {
-        return $this->SaveObject('virtual_account_deactivate', $virtualAccount, '\MangoPay\VirtualAccount', $walletId, $virtualAccountId);
+        $empty_object = "";
+        return $this->SaveObject('virtual_account_deactivate', $empty_object, '\MangoPay\VirtualAccount', $walletId, $virtualAccountId);
     }
 
     /**
@@ -50,6 +51,6 @@ class ApiVirtualAccounts extends Libraries\ApiBase
      */
     public function GetAvailabilities()
     {
-        return $this->GetObject('virtual_account_get_availabilities','\MangoPay\VirtualAccountAvailabilities');
+        return $this->GetObject('virtual_account_get_availabilities', '\MangoPay\VirtualAccountAvailabilities');
     }
 }

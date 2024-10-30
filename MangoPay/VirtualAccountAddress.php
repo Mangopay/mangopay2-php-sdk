@@ -28,5 +28,4 @@ class VirtualAccountAddress extends Libraries\Dto
      * @var string
      */
     public $Country;
-
 }

@@ -2,7 +2,7 @@
 
 namespace MangoPay;
 
-class InternationalAccount
+class InternationalAccount extends Libraries\Dto
 {
     /**
      * @var string

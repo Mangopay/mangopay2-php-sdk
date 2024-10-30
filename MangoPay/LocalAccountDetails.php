@@ -2,7 +2,7 @@
 
 namespace MangoPay;
 
-class LocalAccountDetails
+class LocalAccountDetails extends Libraries\Dto
 {
     /**
      * Information about the address associated with the local IBAN account.

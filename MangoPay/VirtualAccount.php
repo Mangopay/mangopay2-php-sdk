@@ -73,6 +73,4 @@ class VirtualAccount extends Libraries\EntityBase
      * @var \MangoPay\VirtualAccountCapabilities
      */
     public $Capabilities;
-
-
 }

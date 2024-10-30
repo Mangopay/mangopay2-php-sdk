@@ -17,36 +17,33 @@ class VirtualAccountsTest extends Base
     public static $johnsVirtualAccount;
     public function test_VirtualAccount_Create()
     {
-        $wallet = $this->getJohnsWallet();
-        $virtualAccount = new VirtualAccount();
-        $virtualAccount->Country = "FR";
-        $virtualAccount->VirtualAccountPurpose = "Collection";
-        $virtualAccount->Tag = "create virtual account tag";
+        $virtualAccount = $this->getNewVirtualAccount();
+        $wallet = $this -> getJohnsWallet();
 
-        self::$johnsVirtualAccount = $this->_api->VirtualAccounts->Create($virtualAccount, $wallet->Id);
-
-        $this->assertNotNull(self::$johnsVirtualAccount);
-        $this->assertEquals(self::$johnsVirtualAccount->WalletId, $wallet->Id);
+        $this->assertNotNull($virtualAccount);
+        $this->assertEquals($virtualAccount->WalletId, $wallet->Id);
     }
 
     public function test_VirtualAccount_Get()
     {
-        $wallet = $this->getJohnsWallet();
+        $virtualAccount = $this->getNewVirtualAccount();
+        $wallet = $this -> getJohnsWallet();
+        $fetchedVirtualAccount = $this->_api->VirtualAccounts->Get($wallet->Id, $virtualAccount->Id);
 
-        $virtualAccounts = $this->_api->VirtualAccounts->GetAll($wallet->Id);
-
-        $this->assertNotNull($virtualAccounts);
-        $this->assertTrue(is_array($virtualAccounts), 'Expected an array');
+        $this->assertNotNull($fetchedVirtualAccount);
+        $this->assertEquals($fetchedVirtualAccount->Id, $virtualAccount->Id);
     }
 
     public function test_VirtualAccount_GetAll()
     {
+        $this->getNewVirtualAccount();
         $wallet = $this->getJohnsWallet();
 
         $virtualAccounts = $this->_api->VirtualAccounts->GetAll($wallet->Id);
 
         $this->assertNotNull($virtualAccounts);
         $this->assertTrue(is_array($virtualAccounts), 'Expected an array');
+        $this->assertEquals(1, sizeof($virtualAccounts));
     }
 
     public function test_VirtualAccount_Get_Availabilities()
@@ -60,10 +57,11 @@ class VirtualAccountsTest extends Base
 
     public function test_VirtualAccount_Deactivate()
     {
+        $virtualAccount = $this->getNewVirtualAccount();
         $wallet = $this->getJohnsWallet();
-        self::$johnsVirtualAccount->Active = false;
-        $deactivatedVirtualAccount = $this->_api->VirtualAccounts->Deactivate(self::$johnsVirtualAccount, $wallet->Id, self::$johnsVirtualAccount->Id);
+        $deactivatedVirtualAccount = $this->_api->VirtualAccounts->Deactivate($wallet->Id, $virtualAccount->Id);
 
         $this->assertNotTrue($deactivatedVirtualAccount->Active);
+        $this->assertEquals('CLOSED', $deactivatedVirtualAccount->Status);
     }
 }
