@@ -42,7 +42,7 @@ class ApiVirtualAccounts extends Libraries\ApiBase
      */
     public function Deactivate($walletId, $virtualAccountId)
     {
-        $empty_object = "";
+        $empty_object = new VirtualAccount();
         return $this->SaveObject('virtual_account_deactivate', $empty_object, '\MangoPay\VirtualAccount', $walletId, $virtualAccountId);
     }
 
