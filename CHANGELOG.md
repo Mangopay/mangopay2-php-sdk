@@ -1,3 +1,12 @@
+## [3.32.1] - 2024-11-12
+### Fixed
+
+- https://github.com/Mangopay/mangopay2-php-sdk/pull/643 Fixed PHP doc blocks.
+- https://github.com/Mangopay/mangopay2-php-sdk/pull/654 Fixed idempotency response to return the error object.
+- #656 Update `bankAccountId` parameter to accept alphanumerical IDs.
+
+Thanks for you contribution [@williamdes](https://github.com/williamdes)
+
 ## [3.32.0] - 2024-10-30
 ### Added
 
