@@ -47,7 +47,7 @@ class ApiDisputes extends Libraries\ApiBase
 
     /**
      * Updates dispute's tag
-     * @param \MangoPay\Dispute Dispute object to update
+     * @param \MangoPay\Dispute $dispute Dispute object to update
      * @return \MangoPay\Dispute Transfer instance returned from API
      */
     public function Update($dispute)

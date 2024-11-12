@@ -45,7 +45,7 @@ class ApiCards extends Libraries\ApiBase
      * Gets a Card's PreAuthorizations
      * @param int $cardId ID of the Card for which to retrieve PreAuthorizations
      * @param \MangoPay\Pagination $pagination Pagination object
-     * @param \MangoPay\FilterPreAuthorizations filter Filtering object
+     * @param \MangoPay\FilterPreAuthorizations $filter Filtering object
      * @param \MangoPay\Sorting $sorting Sorting object
      * @return \MangoPay\CardPreAuthorization[] List of the Card's PreAuthorizations
      */
