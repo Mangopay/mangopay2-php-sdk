@@ -85,4 +85,8 @@ class EventType
     const CardValidationCreated = "CARD_VALIDATION_CREATED";
     const CardValidationFailed= "CARD_VALIDATION_FAILED";
     const CardValidationSucceeded = "CARD_VALIDATION_SUCCEEDED";
+    const VirtualAccountActive = "VIRTUAL_ACCOUNT_ACTIVE";
+    const VirtualAccountBlocked = "VIRTUAL_ACCOUNT_BLOCKED";
+    const VirtualAccountClosed = "VIRTUAL_ACCOUNT_CLOSED";
+    const VirtualAccountFailed = "VIRTUAL_ACCOUNT_FAILED";
 }
