@@ -1,3 +1,13 @@
+## [3.32.2] - 2024-11-28
+### Updated
+
+Added all relevant `EVENT_TYPE_CHOICES` for virtual accounts:
+
+- `VIRTUAL_ACCOUNT_ACTIVE`
+- `VIRTUAL_ACCOUNT_BLOCKED`
+- `VIRTUAL_ACCOUNT_CLOSED`
+- `VIRTUAL_ACCOUNT_FAILED`
+
 ## [3.32.1] - 2024-11-12
 ### Fixed
 
