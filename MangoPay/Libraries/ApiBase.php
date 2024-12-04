@@ -233,11 +233,18 @@ abstract class ApiBase
         'get_conversion' => ['/conversions/%s', RequestType::GET],
         'create_conversion_quote' => ['/conversions/quote', RequestType::POST],
         'get_conversion_quote' => ['/conversions/quote/%s', RequestType::GET],
+
+        'virtual_account_create' => ['/wallets/%s/virtual-accounts', RequestType::POST],
+        'virtual_account_deactivate' => ['/wallets/%s/virtual-accounts/%s', RequestType::PUT],
+        'virtual_account_get' => ['/wallets/%s/virtual-accounts/%s', RequestType::GET],
+        'virtual_account_get_all' => ['/wallets/%s/virtual-accounts', RequestType::GET],
+        'virtual_account_get_availabilities' => ['/virtual-accounts/availability', RequestType::GET]
     ];
 
     /**
      * Constructor
-     * @param \MangoPay\MangoPayApi Root/parent instance that holds the OAuthToken and Configuration instance
+     * Root/parent instance that holds the OAuthToken and Configuration instance
+     * @param \MangoPay\MangoPayApi $root
      */
     public function __construct($root)
     {
@@ -431,6 +438,41 @@ abstract class ApiBase
     }
 
     /**
+     * Cast response object to an error object
+     * @param object $response Object from API response
+     * @return Error The error
+     */
+    protected function CastResponseToError($response)
+    {
+        // This logic is similar to RestTool::CheckResponseCode
+        $error = new Error();
+
+        $map = [
+            'Message',
+            'Id',
+            'Type',
+            'Date',
+            'Errors',
+        ];
+
+        foreach ($map as $val) {
+            $error->{$val} = property_exists($response, $val) ? $response->{$val} : null;
+        }
+
+        if (property_exists($response, 'errors')) {
+            $error->Errors = $response->errors;
+        }
+
+        if (is_array($error->Errors)) {
+            foreach ($error->Errors as $key => $val) {
+                $error->Message .= sprintf(' %s error: %s', $key, $val);
+            }
+        }
+
+        return $error;
+    }
+
+    /**
      * Cast response object to entity object
      * @param object $response Object from API response
      * @param string $entityClassName Name of entity class to cast
@@ -615,6 +657,7 @@ abstract class ApiBase
             'users_createbankaccounts_us' => '\MangoPay\BankAccount',
             'users_createbankaccounts_ca' => '\MangoPay\BankAccount',
             'users_createbankaccounts_other' => '\MangoPay\BankAccount',
+            'virtual_account_create' => '\MangoPay\VirtualAccount',
             'kyc_documents_create' => '\MangoPay\KycDocument',
             'kyc_page_create' => '',
             'wallets_create' => '\MangoPay\Wallet',

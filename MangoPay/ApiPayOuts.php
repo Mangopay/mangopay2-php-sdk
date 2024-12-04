@@ -61,7 +61,7 @@ class ApiPayOuts extends Libraries\ApiBase
      * Returns a list of Refunds pertaining to a certain PayOut.
      * @param string $payOutId ID of the PayOut for which to retrieve Refunds
      * @param \MangoPay\Pagination $pagination Pagination object
-     * @param \MangoPay\FilterRefunds filter Filtering object
+     * @param \MangoPay\FilterRefunds $filter Filtering object
      * @param \MangoPay\Sorting $sorting Sorting object
      * @return \MangoPay\Refund[] List of Refunds for the PayOut
      */

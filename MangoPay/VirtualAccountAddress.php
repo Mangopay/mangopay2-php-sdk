@@ -2,28 +2,29 @@
 
 namespace MangoPay;
 
-class BankingAliasOTHER extends BankingAlias
+class VirtualAccountAddress extends Libraries\Dto
 {
     /**
-     * Type
      * @var string
      */
-    public $Type;
+    public $StreetName;
 
     /**
-     * Account Number
      * @var string
      */
-    public $AccountNumber;
+    public $PostCode;
 
     /**
-     * BIC
      * @var string
      */
-    public $BIC;
+    public $TownName;
 
     /**
-     * Country
+     * @var string
+     */
+    public $CountrySubDivision;
+
+    /**
      * @var string
      */
     public $Country;

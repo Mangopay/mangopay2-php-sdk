@@ -14,6 +14,7 @@ use MangoPay\Money;
 use MangoPay\ShippingPreference;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
+use MangoPay\VirtualAccount;
 use PHPUnit\Framework\TestCase;
 
 set_time_limit(0);
@@ -52,6 +53,7 @@ abstract class Base extends TestCase
      * @var \MangoPay\Wallet
      */
     public static $JohnsWallet;
+    public static $johnsVirtualAccount;
     /**
      * Test Kyc Document belonging to John
      * @var \MangoPay\KycDocument
@@ -257,6 +259,21 @@ abstract class Base extends TestCase
         }
 
         return self::$JohnsWallet;
+    }
+
+    protected function getNewVirtualAccount()
+    {
+        if (self::$johnsVirtualAccount === null) {
+            $wallet = $this->getJohnsWallet();
+            $virtualAccount = new VirtualAccount();
+            $virtualAccount->Country = "FR";
+            $virtualAccount->VirtualAccountPurpose = "Collection";
+            $virtualAccount->Tag = "create virtual account tag";
+
+            self::$johnsVirtualAccount = $this->_api->VirtualAccounts->Create($virtualAccount, $wallet->Id);
+        }
+
+        return self::$johnsVirtualAccount;
     }
 
     /**

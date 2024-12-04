@@ -145,7 +145,7 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get bank account for user
      * @param string $userId User Id
-     * @param int $bankAccountId Bank account Id
+     * @param string $bankAccountId Bank account Id
      *
      * @return \MangoPay\BankAccount Entity of bank account object
      */
@@ -337,7 +337,7 @@ class ApiUsers extends Libraries\ApiBase
      * @param string $userId User Id
      * @param $year
      * @param $month
-     * @return \MangoPay\EMoney EMoney obhect returned from API
+     * @return \MangoPay\EMoney EMoney object returned from API
      * @throws Libraries\Exception
      */
     public function GetEMoney($userId, $year = null, $month = null)

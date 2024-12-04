@@ -1,3 +1,32 @@
+## [3.32.2] - 2024-11-28
+### Updated
+
+Added all relevant `EVENT_TYPE_CHOICES` for virtual accounts:
+
+- `VIRTUAL_ACCOUNT_ACTIVE`
+- `VIRTUAL_ACCOUNT_BLOCKED`
+- `VIRTUAL_ACCOUNT_CLOSED`
+- `VIRTUAL_ACCOUNT_FAILED`
+
+## [3.32.1] - 2024-11-12
+### Fixed
+
+- https://github.com/Mangopay/mangopay2-php-sdk/pull/643 Fixed PHP doc blocks.
+- https://github.com/Mangopay/mangopay2-php-sdk/pull/654 Fixed idempotency response to return the error object.
+- #656 Update `bankAccountId` parameter to accept alphanumerical IDs.
+
+Thanks for you contribution [@williamdes](https://github.com/williamdes)
+
+## [3.32.0] - 2024-10-30
+### Added
+
+New endpoints for The Virtual Account object:
+- [Create a Virtual Account]()
+- [Deactivate a Virtual Account]()
+- [View a Virtual Account]()
+- [List Virtual Accounts for a Wallet]()
+- [View Client Availabilities]()
+
 ## [3.31.0] - 2024-07-30
 ### Added
 
