@@ -15,11 +15,3 @@ class PayOutPaymentRef extends Libraries\Dto
      */
     public $referenceId;
 }
-
-/**
- * Reason for PayOut
- */
-class PayoutReasonType
-{
-    const PayInRefund = 'PAYIN_REFUND';
-}
