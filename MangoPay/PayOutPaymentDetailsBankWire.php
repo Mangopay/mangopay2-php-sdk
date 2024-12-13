@@ -20,6 +20,12 @@ class PayOutPaymentDetailsBankWire extends Libraries\Dto implements PayOutPaymen
     public $BankWireRef;
 
     /**
+     * The PaymentRef must be sent on payouts that are reimbursing bank wire pay-ins and pay-ins to virtual IBANs,
+     * @var PayOutPaymentRef
+     */
+    public $PaymentRef;
+
+    /**
      * The parameter "PayoutModeRequested" can take 3 different values : "STANDARD", "INSTANT_PAYMENT", "INSTANT_PAYMENT_ONLY"
      *
      * @var string
