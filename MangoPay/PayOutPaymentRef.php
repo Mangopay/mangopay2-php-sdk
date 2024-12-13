@@ -13,5 +13,5 @@ class PayOutPaymentRef extends Libraries\Dto
     /**
      * @var string
      */
-    public $referenceId;
+    public $ReferenceId;
 }
