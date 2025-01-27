@@ -5,6 +5,7 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\Address;
 use MangoPay\BankAccount;
 use MangoPay\BankAccountDetailsIBAN;
+use MangoPay\BankingAliasType;
 use MangoPay\Billing;
 use MangoPay\Birthplace;
 use MangoPay\BrowserInfo;
@@ -104,6 +105,11 @@ abstract class Base extends TestCase
      * @var \MangoPay\BankingAliasIBAN
      */
     public static $JohnsBankingAliasIBAN;
+    /**
+     * Test Banking Alias IBAN
+     * @var \MangoPay\BankingAliasIBAN
+     */
+    public static $JohnsBankingAliasGB;
     /** @var \MangoPay\MangoPayApi */
     protected $_api;
 
@@ -242,6 +248,37 @@ abstract class Base extends TestCase
     }
 
     /**
+     * Creates self::$JohnsBankingAliasIBAN of type GB (Banking alias belonging to John) if not created yet
+     * @return \MangoPay\BankingAliasIBAN
+     */
+    protected function getJohnsBankingAliasGB()
+    {
+        if (self::$JohnsBankingAliasGB === null) {
+            $john = $this->getJohn();
+            $wallet = $this->getJohnsWallet();
+
+            $localAccountDetails = new \MangoPay\LocalAccountDetailsBankingAlias();
+            $localAccountDetails->SortCode = "608382";
+            $localAccountDetails->AccountNumber = "21394585";
+
+
+            $bankingAliasGB = new \MangoPay\BankingAliasIBAN();
+            $bankingAliasGB->CreditedUserId = $john->Id;
+            $bankingAliasGB->WalletId = $wallet->Id;
+            $bankingAliasGB->OwnerName = $john->FirstName;
+            $bankingAliasGB->Type = BankingAliasType::GB;
+            $bankingAliasGB->Country = "GB";
+            $bankingAliasGB->Active = "true";
+            $bankingAliasGB->LocalAccountDetails->AccountNumber = $localAccountDetails->AccountNumber;
+            $bankingAliasGB->LocalAccountDetails->SortCode = $localAccountDetails->SortCode;
+
+            self::$JohnsBankingAliasGB = $this->_api->BankingAliases->Create($bankingAliasGB, $wallet->Id);
+        }
+
+        return self::$JohnsBankingAliasGB;
+    }
+
+    /**
      * Creates self::$JohnsWallet (wallets belonging to John) if not created yet
      * @return \MangoPay\Wallet
      */
@@ -252,7 +289,7 @@ abstract class Base extends TestCase
 
             $wallet = new \MangoPay\Wallet();
             $wallet->Owners = [$john->Id];
-            $wallet->Currency = 'EUR';
+            $wallet->Currency = 'GB';
             $wallet->Description = 'WALLET IN EUR';
 
             self::$JohnsWallet = $this->_api->Wallets->Create($wallet);
