@@ -5,10 +5,12 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\Address;
 use MangoPay\BankAccount;
 use MangoPay\BankAccountDetailsIBAN;
+use MangoPay\BankingAliasType;
 use MangoPay\Billing;
 use MangoPay\Birthplace;
 use MangoPay\BrowserInfo;
 use MangoPay\CreateDeposit;
+use MangoPay\CurrencyIso;
 use MangoPay\LineItem;
 use MangoPay\Money;
 use MangoPay\ShippingPreference;
@@ -104,6 +106,11 @@ abstract class Base extends TestCase
      * @var \MangoPay\BankingAliasIBAN
      */
     public static $JohnsBankingAliasIBAN;
+    /**
+     * Test Banking Alias IBAN
+     * @var \MangoPay\BankingAliasIBAN
+     */
+    public static $JohnsBankingAliasGB;
     /** @var \MangoPay\MangoPayApi */
     protected $_api;
 
@@ -239,6 +246,40 @@ abstract class Base extends TestCase
         }
 
         return self::$JohnsBankingAliasIBAN;
+    }
+
+    /**
+     * Creates self::$JohnsBankingAliasIBAN of type GB (Banking alias belonging to John) if not created yet
+     * @return \MangoPay\BankingAliasIBAN
+     */
+    protected function getJohnsBankingAliasGB()
+    {
+        if (self::$JohnsBankingAliasGB === null) {
+            $john = $this->getJohn();
+            $wallet = new \MangoPay\Wallet();
+            $wallet->Owners = [$john->Id];
+            $wallet->Currency = CurrencyIso::GBP;
+            $wallet->Description = 'WALLET IN GBP';
+            $wallet = $this->_api->Wallets->Create($wallet);
+
+            $localAccountDetails = new \MangoPay\LocalAccountDetailsBankingAlias();
+            $localAccountDetails->SortCode = "608382";
+            $localAccountDetails->AccountNumber = "21394585";
+
+
+            $bankingAliasGB = new \MangoPay\BankingAliasIBAN();
+            $bankingAliasGB->CreditedUserId = $john->Id;
+            $bankingAliasGB->WalletId = $wallet->Id;
+            $bankingAliasGB->OwnerName = $john->FirstName;
+            $bankingAliasGB->Type = BankingAliasType::GB;
+            $bankingAliasGB->Country = "GB";
+            $bankingAliasGB->Active = "true";
+            $bankingAliasGB->LocalAccountDetails = $localAccountDetails;
+
+            self::$JohnsBankingAliasGB = $this->_api->BankingAliases->Create($bankingAliasGB, $wallet->Id);
+        }
+
+        return self::$JohnsBankingAliasGB;
     }
 
     /**
@@ -498,7 +539,7 @@ abstract class Base extends TestCase
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
             '&cardNumber=' . Constants::CARD_FRICTIONLESS .
-            '&cardExpirationDate=1224' .
+            '&cardExpirationDate=1229' .
             '&cardCvx=123';
 
         $curlHandle = curl_init($cardRegistration->CardRegistrationURL);
