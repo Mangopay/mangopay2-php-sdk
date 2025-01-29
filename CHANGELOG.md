@@ -1,3 +1,8 @@
+## [3.33.1] - 2025-01-29
+### Updated
+
+Added option to create a [GB Banking Alias](https://docs.mangopay.com/api-reference/banking-aliases/create-iban-banking-alias#200-gb).
+
 ## [3.33.0] - 2024-12-13
 ### Added
 
