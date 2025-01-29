@@ -256,7 +256,7 @@ abstract class Base extends TestCase
     {
         if (self::$JohnsBankingAliasGB === null) {
             $john = $this->getJohn();
-            $wallet = $this->getJohnsWalletForCurrency(CurrencyIso::GBP);
+            $wallet = $this->getJohnsWalletForCurrency(true, CurrencyIso::GBP);
 
             $localAccountDetails = new \MangoPay\LocalAccountDetailsBankingAlias();
             $localAccountDetails->SortCode = "608382";
@@ -284,17 +284,18 @@ abstract class Base extends TestCase
      */
     protected function getJohnsWallet()
     {
-        return $this->getJohnsWalletForCurrency(CurrencyIso::EUR);
+        return $this->getJohnsWalletForCurrency(false, CurrencyIso::EUR);
     }
 
     /**
      * Creates self::$JohnsWallet (wallets belonging to John) if not created yet
+     * @param boolean $recreate
      * @param string $currency
      * @return \MangoPay\Wallet
      */
-    protected function getJohnsWalletForCurrency($currency)
+    protected function getJohnsWalletForCurrency($recreate, $currency)
     {
-        if (self::$JohnsWallet === null) {
+        if (self::$JohnsWallet === null || $recreate === true) {
             $john = $this->getJohn();
 
             $wallet = new \MangoPay\Wallet();
