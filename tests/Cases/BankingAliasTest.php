@@ -2,6 +2,8 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\BankingAliasType;
+
 /**
  * Tests basic methods for Banking Aliases
  */
@@ -12,6 +14,14 @@ class BankingAliasTest extends Base
         $bankingAliasIBAN = $this->getJohnsBankingAliasIBAN();
 
         $this->assertTrue($bankingAliasIBAN->Id > 0);
+    }
+
+    public function test_BankingAliasGB_Create()
+    {
+        $bankingAliasGB = $this->getJohnsBankingAliasGB();
+
+        $this->assertTrue($bankingAliasGB->Id > 0);
+        $this->assertTrue($bankingAliasGB->Type==BankingAliasType::GB);
     }
 
     public function test_BankingAlias_Get()

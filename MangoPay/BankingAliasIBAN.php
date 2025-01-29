@@ -8,7 +8,7 @@ namespace MangoPay;
 class BankingAliasIBAN extends BankingAlias
 {
     /**
-     * The type of banking alias (note that only IBAN is available at present)
+     * The type of banking alias (note that only IBAN and GB is available at present)
      * @var \MangoPay\BankingAliasType
      */
     public $Type = BankingAliasType::IBAN;
@@ -30,4 +30,10 @@ class BankingAliasIBAN extends BankingAlias
      * @var string
      */
     public $Country;
+
+    /**
+     * LocalAccount details used for GB
+     * @var \MangoPay\LocalAccountDetailsBankingAlias
+     */
+    public $LocalAccountDetails;
 }
