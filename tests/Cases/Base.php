@@ -256,7 +256,11 @@ abstract class Base extends TestCase
     {
         if (self::$JohnsBankingAliasGB === null) {
             $john = $this->getJohn();
-            $wallet = $this->getJohnsWalletForCurrency(true, CurrencyIso::GBP);
+            $wallet = new \MangoPay\Wallet();
+            $wallet->Owners = [$john->Id];
+            $wallet->Currency = CurrencyIso::GBP;
+            $wallet->Description = 'WALLET IN GBP';
+            $wallet = $this->_api->Wallets->Create($wallet);
 
             $localAccountDetails = new \MangoPay\LocalAccountDetailsBankingAlias();
             $localAccountDetails->SortCode = "608382";
@@ -284,24 +288,13 @@ abstract class Base extends TestCase
      */
     protected function getJohnsWallet()
     {
-        return $this->getJohnsWalletForCurrency(false, CurrencyIso::EUR);
-    }
-
-    /**
-     * Creates self::$JohnsWallet (wallets belonging to John) if not created yet
-     * @param boolean $recreate
-     * @param string $currency
-     * @return \MangoPay\Wallet
-     */
-    protected function getJohnsWalletForCurrency($recreate, $currency)
-    {
-        if (self::$JohnsWallet === null || $recreate === true) {
+        if (self::$JohnsWallet === null) {
             $john = $this->getJohn();
 
             $wallet = new \MangoPay\Wallet();
             $wallet->Owners = [$john->Id];
-            $wallet->Currency = $currency;
-            $wallet->Description = "WALLET IN " . $currency;
+            $wallet->Currency = 'EUR';
+            $wallet->Description = 'WALLET IN EUR';
 
             self::$JohnsWallet = $this->_api->Wallets->Create($wallet);
         }
@@ -546,7 +539,7 @@ abstract class Base extends TestCase
         $data = 'data=' . $cardRegistration->PreregistrationData .
             '&accessKeyRef=' . $cardRegistration->AccessKey .
             '&cardNumber=' . Constants::CARD_FRICTIONLESS .
-            '&cardExpirationDate=1224' .
+            '&cardExpirationDate=1229' .
             '&cardCvx=123';
 
         $curlHandle = curl_init($cardRegistration->CardRegistrationURL);
