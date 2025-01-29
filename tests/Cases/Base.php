@@ -10,6 +10,7 @@ use MangoPay\Billing;
 use MangoPay\Birthplace;
 use MangoPay\BrowserInfo;
 use MangoPay\CreateDeposit;
+use MangoPay\CurrencyIso;
 use MangoPay\LineItem;
 use MangoPay\Money;
 use MangoPay\ShippingPreference;
@@ -255,7 +256,7 @@ abstract class Base extends TestCase
     {
         if (self::$JohnsBankingAliasGB === null) {
             $john = $this->getJohn();
-            $wallet = $this->getJohnsWallet();
+            $wallet = $this->getJohnsWalletForCurrency(CurrencyIso::GBP);
 
             $localAccountDetails = new \MangoPay\LocalAccountDetailsBankingAlias();
             $localAccountDetails->SortCode = "608382";
@@ -269,8 +270,7 @@ abstract class Base extends TestCase
             $bankingAliasGB->Type = BankingAliasType::GB;
             $bankingAliasGB->Country = "GB";
             $bankingAliasGB->Active = "true";
-            $bankingAliasGB->LocalAccountDetails->AccountNumber = $localAccountDetails->AccountNumber;
-            $bankingAliasGB->LocalAccountDetails->SortCode = $localAccountDetails->SortCode;
+            $bankingAliasGB->LocalAccountDetails = $localAccountDetails;
 
             self::$JohnsBankingAliasGB = $this->_api->BankingAliases->Create($bankingAliasGB, $wallet->Id);
         }
@@ -284,13 +284,23 @@ abstract class Base extends TestCase
      */
     protected function getJohnsWallet()
     {
+        return $this->getJohnsWalletForCurrency(CurrencyIso::EUR);
+    }
+
+    /**
+     * Creates self::$JohnsWallet (wallets belonging to John) if not created yet
+     * @param string $currency
+     * @return \MangoPay\Wallet
+     */
+    protected function getJohnsWalletForCurrency($currency)
+    {
         if (self::$JohnsWallet === null) {
             $john = $this->getJohn();
 
             $wallet = new \MangoPay\Wallet();
             $wallet->Owners = [$john->Id];
-            $wallet->Currency = 'GB';
-            $wallet->Description = 'WALLET IN EUR';
+            $wallet->Currency = $currency;
+            $wallet->Description = "WALLET IN " . $currency;
 
             self::$JohnsWallet = $this->_api->Wallets->Create($wallet);
         }
