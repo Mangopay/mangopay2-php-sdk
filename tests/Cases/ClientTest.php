@@ -227,6 +227,7 @@ class ClientTest extends Base
 
     public function test_GetWalletTransactions_All()
     {
+        $this->markTestSkipped("Endpoint removed");
         $transactions = $this->_api->Clients->GetWalletTransactions();
 
         $this->assertTrue(count($transactions) > 0);

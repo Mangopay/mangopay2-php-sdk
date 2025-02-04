@@ -372,6 +372,7 @@ class PayInsTest extends Base
 
     public function test_PayPal_BuyerAccountEmail()
     {
+        $this->markTestSkipped("Expired payin id");
         $payInId = "54088959";
         $buyerEmail = "paypal-buyer-user@mangopay.com";
         $payin = $this->_api->PayIns->Get($payInId);
@@ -426,7 +427,7 @@ class PayInsTest extends Base
 
     public function test_get_bank_wire_external_instructions_iban()
     {
-        $payIn = $this->_api->PayIns->Get("74980101");
+        $payIn = $this->_api->PayIns->Get("payin_m_01JK6199ED4VGBP98ABRJVDS9D");
 
         $this->assertTrue($payIn->PaymentType == PayInPaymentType::BankWire);
         $this->assertTrue($payIn->PaymentDetails instanceof PayInPaymentDetailsBankWire);
@@ -440,6 +441,7 @@ class PayInsTest extends Base
 
     public function test_get_bank_wire_external_instructions_account_number()
     {
+        $this->markTestSkipped("Expired payin id");
         $payIn = $this->_api->PayIns->Get("74981216");
 
         $this->assertTrue($payIn->PaymentType == PayInPaymentType::BankWire);

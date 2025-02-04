@@ -660,12 +660,13 @@ abstract class ApiBase
             'kyc_documents_create' => '\MangoPay\KycDocument',
             'kyc_page_create' => '',
             'wallets_create' => '\MangoPay\Wallet',
-            'users_getemoney' => '\MangoPay\EMoney',
+            'users_getemoney_year' => '\MangoPay\EMoney',
+            'users_getemoney_month' => '\MangoPay\EMoney'
         ];
 
         foreach ($map as $key => $className) {
             $sourceUrl = $this->GetRequestUrl($key);
-            $sourceUrl = str_replace("%s", "[0-9a-zA-Z]*", $sourceUrl);
+            $sourceUrl = str_replace("%s", "[0-9a-zA-Z_]*", $sourceUrl);
             $sourceUrl = str_replace("/", "\/", $sourceUrl);
             $pattern = '/' . $sourceUrl . '/';
             if (preg_match($pattern, $url) > 0) {

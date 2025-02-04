@@ -79,6 +79,8 @@ class CardRegistrationsTest extends Base
         $cardToUpdate = new \MangoPay\Card();
         $cardToUpdate->Id = $card->Id;
         $cardToUpdate->Validity = \MangoPay\CardValidity::Invalid;
+        $cardToUpdate->CardHolderName = "placeholder";
+        $cardToUpdate->Active = false;
 
         $updatedCard = $this->_api->Cards->Update($cardToUpdate);
 
