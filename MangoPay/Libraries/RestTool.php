@@ -395,8 +395,6 @@ class RestTool
             }
         }
 
-        print_r($error);
-
         throw new ResponseException($this->_requestUrl, $responseCode, $error);
     }
 }
