@@ -15,7 +15,7 @@ class ReportsTest extends Base
         $createReportRequest = $this->_api->Reports->Create($reportRequest);
 
         $this->assertNotNull($createReportRequest);
-        $this->assertTrue($createReportRequest->Id > 0);
+        $this->assertNotNull($createReportRequest->Id);
         $this->assertSame($createReportRequest->ReportType, \MangoPay\ReportType::Transactions);
     }
 
@@ -27,7 +27,7 @@ class ReportsTest extends Base
         $createReportRequest = $this->_api->Reports->Create($reportRequest);
 
         $this->assertNotNull($createReportRequest);
-        $this->assertTrue($createReportRequest->Id > 0);
+        $this->assertNotNull($createReportRequest->Id);
         $this->assertSame($createReportRequest->ReportType, \MangoPay\ReportType::Wallets);
     }
 

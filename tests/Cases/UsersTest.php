@@ -14,14 +14,14 @@ class UsersTest extends Base
     public function test_Users_CreateNatural()
     {
         $john = $this->getJohn();
-        $this->assertTrue($john->Id > 0);
+        $this->assertNotNull($john->Id);
         $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
     }
 
     public function test_Users_CreateLegal()
     {
         $matrix = $this->getMatrix();
-        $this->assertTrue($matrix->Id > 0);
+        $this->assertNotNull($matrix->Id);
         $this->assertSame(\MangoPay\PersonType::Legal, $matrix->PersonType);
     }
 
@@ -93,7 +93,7 @@ class UsersTest extends Base
 
         $ret = $this->_api->Users->Create($user);
 
-        $this->assertTrue($ret->Id > 0, "Created successfully after required props set");
+        $this->assertNotNull($ret->Id, "Created successfully after required props set");
         $this->assertIdenticalInputProps($user, $ret);
     }
 
@@ -166,7 +166,7 @@ class UsersTest extends Base
 
         $userSaved = $this->_api->Users->Update($newUser);
 
-        $this->assertTrue($userSaved->Id > 0);
+        $this->assertNotNull($userSaved->Id);
     }
 
     public function test_Users_Save_Legal()
@@ -196,7 +196,7 @@ class UsersTest extends Base
 
         $userSaved = $this->_api->Users->Update($newUser);
 
-        $this->assertTrue($userSaved->Id > 0);
+        $this->assertNotNull($userSaved->Id);
     }
 
     public function test_Users_CreateBankAccount_IBAN()
@@ -204,7 +204,7 @@ class UsersTest extends Base
         $john = $this->getJohn();
         $account = $this->getJohnsAccount();
 
-        $this->assertTrue($account->Id > 0);
+        $this->assertNotNull($account->Id);
         $this->assertSame($john->Id, $account->UserId);
     }
 
@@ -220,7 +220,7 @@ class UsersTest extends Base
 
         $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
 
-        $this->assertTrue($createAccount->Id > 0);
+        $this->assertNotNull($createAccount->Id);
         $this->assertSame($john->Id, $createAccount->UserId);
         $this->assertSame('GB', $createAccount->Type);
         $this->assertSame('63956474', $createAccount->Details->AccountNumber);
@@ -239,7 +239,7 @@ class UsersTest extends Base
 
         $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
 
-        $this->assertTrue($createAccount->Id > 0);
+        $this->assertNotNull($createAccount->Id);
         $this->assertSame($john->Id, $createAccount->UserId);
         $this->assertSame('US', $createAccount->Type);
         $this->assertSame('234234234234', $createAccount->Details->AccountNumber);
@@ -260,7 +260,7 @@ class UsersTest extends Base
 
         $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
 
-        $this->assertTrue($createAccount->Id > 0);
+        $this->assertNotNull($createAccount->Id);
         $this->assertSame($john->Id, $createAccount->UserId);
         $this->assertSame('CA', $createAccount->Type);
         $this->assertSame('234234234234', $createAccount->Details->AccountNumber);
@@ -283,7 +283,7 @@ class UsersTest extends Base
 
         $createAccount = $this->_api->Users->CreateBankAccount($john->Id, $account);
 
-        $this->assertTrue($createAccount->Id > 0);
+        $this->assertNotNull($createAccount->Id);
         $this->assertSame($john->Id, $createAccount->UserId);
         $this->assertSame('OTHER', $createAccount->Type);
         $this->assertSame('OTHER', $createAccount->Details->Type);
@@ -381,7 +381,7 @@ class UsersTest extends Base
         $kycDocument = $this->getJohnsKycDocument();
 
         $user = $this->getJohn();
-        $this->assertTrue($kycDocument->Id > 0);
+        $this->assertNotNull($kycDocument->Id);
         $this->assertSame(\MangoPay\KycDocumentStatus::Created, $kycDocument->Status);
         $this->assertSame(\MangoPay\KycDocumentType::IdentityProof, $kycDocument->Type);
         $this->assertSame($kycDocument->UserId, $user->Id);
@@ -467,7 +467,7 @@ class UsersTest extends Base
         $createdKycDocument = $this->_api->Users->CreateKycDocument($userId, $kycDocument);
         $getKycDocument = $this->_api->Users->GetKycDocument($userId, $createdKycDocument->Id);
 
-        $this->assertTrue($createdKycDocument->Id > 0);
+        $this->assertNotNull($createdKycDocument->Id);
         $this->assertSame(\MangoPay\KycDocumentStatus::Created, $createdKycDocument->Status);
         $this->assertSame($kycDocType, $createdKycDocument->Type);
         $this->assertSame($getKycDocument->Id, $createdKycDocument->Id);

@@ -48,6 +48,10 @@ class VirtualAccountsTest extends Base
 
     public function test_VirtualAccount_Get_Availabilities()
     {
+//        TODO
+        $this->markTestIncomplete(
+            "API issue. To be re-enabled once fixed"
+        );
         $virtualAccountAvailabilities = $this->_api->VirtualAccounts->GetAvailabilities();
 
         $this->assertNotNull($virtualAccountAvailabilities);

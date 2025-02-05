@@ -15,7 +15,7 @@ class MandatesTest extends Base
 
         $mandate = $this->getJohnsMandate();
 
-        $this->assertTrue($mandate->Id > 0);
+        $this->assertNotNull($mandate->Id);
         $this->assertEquals($john->Id, $mandate->UserId);
         $this->assertSame(MandateStatus::Created, $mandate->Status);
     }

@@ -17,7 +17,7 @@ class TransfersTest extends Base
         $transfer = $this->getNewTransfer();
         $creditedWallet = $this->_api->Wallets->Get($transfer->CreditedWalletId);
 
-        $this->assertTrue($transfer->Id > 0);
+        $this->assertNotNull($transfer->Id);
         $this->assertEquals($john->Id, $transfer->AuthorId);
         $this->assertEquals($john->Id, $transfer->CreditedUserId);
         $this->assertEquals(100, $creditedWallet->Balance->Amount);
@@ -45,7 +45,7 @@ class TransfersTest extends Base
         $refund = $this->getNewRefundForTransfer($transfer);
         $walletAfter = $this->_api->Wallets->Get($wallet->Id);
 
-        $this->assertTrue($refund->Id > 0);
+        $this->assertNotNull($refund->Id);
         $this->assertSame($refund->DebitedFunds->Amount, $transfer->DebitedFunds->Amount);
         $this->assertEquals($walletBefore->Balance->Amount, $walletAfter->Balance->Amount - $transfer->DebitedFunds->Amount);
         $this->assertEquals('TRANSFER', $refund->Type);

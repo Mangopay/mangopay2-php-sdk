@@ -154,7 +154,7 @@ class ConversionsTest extends Base
         $debitedFunds->Amount = 50;
         $quote->DebitedFunds = $debitedFunds;
 
-        $quote->Duration = 90;
+        $quote->Duration = 300;
         $quote->Tag = "Created using the Mangopay PHP SDK";
 
         return $this->_api->Conversions->CreateConversionQuote($quote);

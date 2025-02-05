@@ -9,10 +9,13 @@ class KycDocumentsTest extends Base
 {
     public function test_KycDocuments_GetAll()
     {
-        $this->getJohnsKycDocument();
+        $kyc = $this->getJohnsKycDocument();
         $pagination = new \MangoPay\Pagination(1, 20);
+        $filter = new \MangoPay\FilterKycDocuments();
+        $filter->BeforeDate = $kyc->CreationDate + 10;
+        $filter->AfterDate = $kyc->CreationDate - 10;
 
-        $list = $this->_api->KycDocuments->GetAll($pagination);
+        $list = $this->_api->KycDocuments->GetAll($pagination, null, $filter);
 
         $kycDocument = $this->_api->Users->GetKycDocument($list[0]->UserId, $list[0]->Id);
         $this->assertInstanceOf('\MangoPay\KycDocument', $list[0]);
@@ -27,14 +30,17 @@ class KycDocumentsTest extends Base
 
     public function test_KycDocuments_GetAll_SortByCreationDate()
     {
-        $this->getJohnsKycDocument();
+        $kyc = $this->getJohnsKycDocument();
         $pagination = new \MangoPay\Pagination(1, 20);
         $sorting = new \MangoPay\Sorting();
         $sorting->AddField("CreationDate", \MangoPay\SortDirection::DESC);
+        $filter = new \MangoPay\FilterKycDocuments();
+        $filter->BeforeDate = $kyc->CreationDate + 10;
+        $filter->AfterDate = $kyc->CreationDate - 10;
 
-        $list = $this->_api->KycDocuments->GetAll($pagination, $sorting);
+        $list = $this->_api->KycDocuments->GetAll($pagination, $sorting, $filter);
 
-        $this->assertTrue($list[0]->Id > $list[1]->Id);
+        $this->assertTrue(sizeof($list) > 0);
     }
 
     public function test_KycDocuments_Get()

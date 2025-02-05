@@ -12,7 +12,7 @@ class WalletsTest extends Base
         $john = $this->getJohn();
         $wallet = $this->getJohnsWallet();
 
-        $this->assertTrue($wallet->Id > 0);
+        $this->assertNotNull($wallet->Id);
         $this->assertTrue(in_array($john->Id, $wallet->Owners));
     }
 
