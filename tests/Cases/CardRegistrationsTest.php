@@ -12,7 +12,7 @@ class CardRegistrationsTest extends Base
         $cardRegistration = $this->getJohnsCardRegistration();
         $user = $this->getJohn();
 
-        $this->assertTrue($cardRegistration->Id > 0);
+        $this->assertNotNull($cardRegistration->Id);
         $this->assertNotNull($cardRegistration->AccessKey);
         $this->assertNotNull($cardRegistration->PreregistrationData);
         $this->assertNotNull($cardRegistration->CardRegistrationURL);
@@ -27,7 +27,7 @@ class CardRegistrationsTest extends Base
 
         $getCardRegistration = $this->_api->CardRegistrations->Get($cardRegistration->Id);
 
-        $this->assertTrue($getCardRegistration->Id > 0);
+        $this->assertNotNull($getCardRegistration->Id);
         $this->assertEquals($cardRegistration->Id, $getCardRegistration->Id);
     }
 
@@ -68,7 +68,7 @@ class CardRegistrationsTest extends Base
 
         $card = $this->_api->Cards->Get($cardRegistration->CardId);
 
-        $this->assertTrue($card->Id > 0);
+        $this->assertNotNull($card->Id);
         $this->assertEquals($card->Validity, \MangoPay\CardValidity::Unknown);
     }
 

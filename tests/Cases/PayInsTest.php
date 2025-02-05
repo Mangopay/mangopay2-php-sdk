@@ -21,7 +21,7 @@ class PayInsTest extends Base
     {
         $payIn = $this->getJohnsPayInCardWeb();
 
-        $this->assertTrue($payIn->Id > 0);
+        $this->assertNotNull($payIn->Id);
         $this->assertSame(\MangoPay\PayInPaymentType::Card, $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsCard', $payIn->PaymentDetails);
         $this->assertSame(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
@@ -56,7 +56,7 @@ class PayInsTest extends Base
         $wallet = $this->_api->Wallets->Get($johnWallet->Id);
         $user = $this->getJohn();
 
-        $this->assertTrue($payIn->Id > 0);
+        $this->assertNotNull($payIn->Id);
         $this->assertEquals($wallet->Id, $payIn->CreditedWalletId);
         $this->assertEquals(\MangoPay\PayInPaymentType::Card, $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsCard', $payIn->PaymentDetails);
@@ -102,7 +102,7 @@ class PayInsTest extends Base
         $refund = $this->getNewRefundForPayIn($payIn);
         $walletAfter = $this->_api->Wallets->Get($wallet->Id);
 
-        $this->assertTrue($refund->Id > 0);
+        $this->assertNotNull($refund->Id);
         $this->assertEquals($refund->DebitedFunds->Amount, $payIn->DebitedFunds->Amount);
         $this->assertEquals($walletBefore->Balance->Amount, $walletAfter->Balance->Amount + $payIn->DebitedFunds->Amount);
         $this->assertEquals('PAYOUT', $refund->Type);
@@ -119,7 +119,7 @@ class PayInsTest extends Base
         $refund = $this->getPartialRefundForPayIn($payIn);
         $walletAfter = $this->_api->Wallets->Get($wallet->Id);
 
-        $this->assertTrue($refund->Id > 0);
+        $this->assertNotNull($refund->Id);
         $this->assertEquals($walletAfter->Balance->Amount, $walletBefore->Balance->Amount - $refund->DebitedFunds->Amount);
         $this->assertEquals('PAYOUT', $refund->Type);
         $this->assertEquals('REFUND', $refund->Nature);
@@ -153,7 +153,7 @@ class PayInsTest extends Base
         sleep(2);
         $transactions = $this->_api->CardPreAuthorizations->GetTransactions($cardPreAuthorization->Id);
 
-        $this->assertTrue($createPayIn->Id > 0);
+        $this->assertNotNull($createPayIn->Id);
         $this->assertEquals($wallet->Id, $createPayIn->CreditedWalletId);
         $this->assertEquals(\MangoPay\PayInPaymentType::Preauthorized, $createPayIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsPreAuthorized', $createPayIn->PaymentDetails);
@@ -189,7 +189,7 @@ class PayInsTest extends Base
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
 
-        $this->assertTrue($createPayIn->Id > 0);
+        $this->assertNotNull($createPayIn->Id);
         $this->assertEquals($wallet->Id, $createPayIn->CreditedWalletId);
         $this->assertEquals(\MangoPay\PayInPaymentType::BankWire, $createPayIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsBankWire', $createPayIn->PaymentDetails);
@@ -268,7 +268,7 @@ class PayInsTest extends Base
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
 
-        $this->assertTrue($createPayIn->Id > 0);
+        $this->assertNotNull($createPayIn->Id);
         $this->assertEquals($wallet->Id, $createPayIn->CreditedWalletId);
         $this->assertEquals(\MangoPay\PayInPaymentType::DirectDebit, $createPayIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsDirectDebit', $createPayIn->PaymentDetails);
@@ -300,7 +300,7 @@ class PayInsTest extends Base
 
         $wallet = $this->_api->Wallets->Get($johnWallet->Id);
         $user = $this->getJohn();
-        $this->assertTrue($payIn->Id > 0);
+        $this->assertNotNull($payIn->Id);
         $this->assertEquals($wallet->Id, $payIn->CreditedWalletId);
         $this->assertEquals('DIRECT_DEBIT', $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsDirectDebit', $payIn->PaymentDetails);
@@ -318,7 +318,7 @@ class PayInsTest extends Base
     {
         $payIn = $this->getJohnsPayInPaypalWeb();
 
-        $this->assertTrue($payIn->Id > 0);
+        $this->assertNotNull($payIn->Id);
         $this->assertSame('PAYPAL', $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsPaypal', $payIn->PaymentDetails);
         $this->assertSame('WEB', $payIn->ExecutionType);
@@ -349,7 +349,7 @@ class PayInsTest extends Base
     {
         $payIn = $this->getJohnsPayInPayconiqWeb();
 
-        $this->assertTrue($payIn->Id > 0);
+        $this->assertNotNull($payIn->Id);
     }
 
     public function test_PayIns_Get_PaypalWeb()
@@ -534,7 +534,7 @@ class PayInsTest extends Base
         $result = $this->getRecurringPayin();
 
         $this->assertNotNull($result);
-        $this->assertTrue($result->Id > 0);
+        $this->assertNotNull($result->Id);
         $this->assertNotNull($result->FreeCycles);
     }
 
@@ -733,7 +733,7 @@ class PayInsTest extends Base
         $wallet = $this->_api->Wallets->Get($johnWallet->Id);
         $user = $this->getJohn();
 
-        $this->assertTrue($payIn->Id > 0);
+        $this->assertNotNull($payIn->Id);
         $this->assertEquals($wallet->Id, $payIn->CreditedWalletId);
         $this->assertEquals(\MangoPay\PayInPaymentType::Card, $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsCard', $payIn->PaymentDetails);

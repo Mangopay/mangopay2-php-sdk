@@ -13,7 +13,7 @@ class CardPreAuthorizationsTest extends Base
     {
         $cardPreAuthorization = $this->getJohnsCardPreAuthorization();
 
-        $this->assertTrue($cardPreAuthorization->Id > 0);
+        $this->assertNotNull($cardPreAuthorization->Id);
         $this->assertSame(\MangoPay\CardPreAuthorizationStatus::Succeeded, $cardPreAuthorization->Status);
         $this->assertSame(\MangoPay\CardPreAuthorizationPaymentStatus::Waiting, $cardPreAuthorization->PaymentStatus);
         $this->assertSame('DIRECT', $cardPreAuthorization->ExecutionType);

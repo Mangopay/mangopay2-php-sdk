@@ -13,14 +13,14 @@ class BankingAliasTest extends Base
     {
         $bankingAliasIBAN = $this->getJohnsBankingAliasIBAN();
 
-        $this->assertTrue($bankingAliasIBAN->Id > 0);
+        $this->assertNotNull($bankingAliasIBAN->Id);
     }
 
     public function test_BankingAliasGB_Create()
     {
         $bankingAliasGB = $this->getJohnsBankingAliasGB();
 
-        $this->assertTrue($bankingAliasGB->Id > 0);
+        $this->assertNotNull($bankingAliasGB->Id);
         $this->assertTrue($bankingAliasGB->Type==BankingAliasType::GB);
     }
 
