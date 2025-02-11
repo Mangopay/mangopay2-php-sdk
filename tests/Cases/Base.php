@@ -302,6 +302,18 @@ abstract class Base extends TestCase
         return self::$JohnsWallet;
     }
 
+    protected function getJohnsWalletForCurrency($currency)
+    {
+        $john = $this->getJohn();
+
+        $wallet = new \MangoPay\Wallet();
+        $wallet->Owners = [$john->Id];
+        $wallet->Currency = $currency;
+        $wallet->Description = 'WALLET IN ' . $currency;
+
+        return $this->_api->Wallets->Create($wallet);
+    }
+
     protected function getNewVirtualAccount()
     {
         if (self::$johnsVirtualAccount === null) {
@@ -1069,6 +1081,36 @@ abstract class Base extends TestCase
         $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
 
         $payIn->Tag = "Giropay tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    protected function getNewPayInSwishWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletForCurrency("SEK");
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'SEK';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 100;
+        $payIn->DebitedFunds->Currency = 'SEK';
+
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsSwish();
+        $payIn->PaymentDetails->StatementDescriptor = 'test';
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
+
+        $payIn->Tag = "Swish tag";
 
         return $this->_api->PayIns->Create($payIn);
     }
