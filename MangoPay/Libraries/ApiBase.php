@@ -228,6 +228,7 @@ abstract class ApiBase
         'deposits_cancel' => ['/deposit-preauthorizations/%s', RequestType::PUT],
 
         'get_conversion_rate' => ['/conversions/rate/%s/%s', RequestType::GET],
+        'create_client_wallets_instant_conversion' => ['/clients/conversions/instant-conversion', RequestType::POST],
         'create_instant_conversion' => ['/conversions/instant-conversion', RequestType::POST],
         'create_quoted_conversion' => ['/conversions/quoted-conversion', RequestType::POST],
         'get_conversion' => ['/conversions/%s', RequestType::GET],

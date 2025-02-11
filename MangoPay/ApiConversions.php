@@ -32,6 +32,17 @@ class ApiConversions extends Libraries\ApiBase
     }
 
     /**
+     * This call triggers an immediate conversion at the market rate, of the debited funds to the credited wallet at
+     * the market rate. A quote is not required for an instant conversion.
+     * @param CreateClientWalletsInstantConversion $instantConversion
+     * @return \MangoPay\Conversion object returned from API
+     */
+    public function CreateClientWalletsInstantConversion($instantConversion)
+    {
+        return $this->CreateObject('create_client_wallets_instant_conversion', $instantConversion, '\MangoPay\Conversion');
+    }
+
+    /**
      * This call triggers a conversion, at the rate guaranteed by its quote, of the debited funds to the credited wallet.
      *
      * @param CreateQuotedConversion $quotedConversion

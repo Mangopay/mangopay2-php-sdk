@@ -3,6 +3,7 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\ConversionQuote;
+use MangoPay\CreateClientWalletsInstantConversion;
 use MangoPay\CreateInstantConversion;
 use MangoPay\CreateQuotedConversion;
 use MangoPay\Money;
@@ -83,6 +84,17 @@ class ConversionsTest extends Base
         assertNotNull($response->QuoteId);
     }
 
+    public function test_createClientWalletsInstantConversion()
+    {
+        $response = $this->createClientWalletsInstantConversion();
+
+        $this->assertNotNull($response);
+        $this->assertNotNull($response->DebitedFunds->Amount);
+        $this->assertNotNull($response->CreditedFunds->Amount);
+        $this->assertSame('SUCCEEDED', $response->Status);
+        $this->assertSame(TransactionType::Conversion, $response->Type);
+    }
+
     private function createQuotedConversion()
     {
         $john = $this->getJohn();
@@ -140,6 +152,26 @@ class ConversionsTest extends Base
         $instantConversion->Tag = "create instant conversion";
 
         return $this->_api->Conversions->CreateInstantConversion($instantConversion);
+    }
+
+    private function createClientWalletsInstantConversion()
+    {
+        $creditedFunds = new Money();
+        $creditedFunds->Currency = 'USD';
+
+        $debitedFunds = new Money();
+        $debitedFunds->Currency = 'EUR';
+        $debitedFunds->Amount = 100;
+
+        $instantConversion = new CreateClientWalletsInstantConversion();
+        $instantConversion->DebitedWalletType = 'FEES';
+        $instantConversion->DebitedFunds = $debitedFunds;
+        $instantConversion->CreditedWalletType = 'FEES';
+        $instantConversion->CreditedFunds = $creditedFunds;
+
+        $instantConversion->Tag = "Client wallets instant conversion via the PHP SDK";
+
+        return $this->_api->Conversions->CreateClientWalletsInstantConversion($instantConversion);
     }
 
     private function createConversionQuote()
