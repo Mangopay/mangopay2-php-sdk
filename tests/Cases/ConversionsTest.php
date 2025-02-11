@@ -4,6 +4,7 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\ConversionQuote;
 use MangoPay\CreateClientWalletsInstantConversion;
+use MangoPay\CreateClientWalletsQuotedConversion;
 use MangoPay\CreateInstantConversion;
 use MangoPay\CreateQuotedConversion;
 use MangoPay\Money;
@@ -76,6 +77,13 @@ class ConversionsTest extends Base
         assertNotNull($response->QuoteId);
     }
 
+    public function test_createClientWalletsQuotedConversion()
+    {
+        $response = $this->createClientWalletsQuotedConversion();
+        assertNotNull($response);
+        assertNotNull($response->QuoteId);
+    }
+
     public function test_getQuotedConversion()
     {
         $createdQuotedConversion = $this->createQuotedConversion();
@@ -116,6 +124,19 @@ class ConversionsTest extends Base
         $quotedConversion->DebitedWalletId = $debitedWallet->Id;
 
         return $this->_api->Conversions->CreateQuotedConversion($quotedConversion);
+    }
+
+    private function createClientWalletsQuotedConversion()
+    {
+        $quote = $this->createConversionQuote();
+
+        $quotedConversion = new CreateClientWalletsQuotedConversion();
+        $quotedConversion->QuoteId = $quote->Id;
+        $quotedConversion->DebitedWalletType = 'FEES';
+        $quotedConversion->CreditedWalletType = 'CREDIT';
+        $quotedConversion->Tag = 'Created via the PHP SDK';
+
+        return $this->_api->Conversions->CreateClientWalletsQuotedConversion($quotedConversion);
     }
 
     private function createInstantConversion()
