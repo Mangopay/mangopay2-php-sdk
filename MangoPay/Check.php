@@ -40,7 +40,7 @@ class Check extends Dto
     public $LastUpdate;
 
     /**
-     * The date and time at which the check was last updated.
+     * The data points collected and verified during the check.
      * @var list<CheckData>
      */
     public $Data;
