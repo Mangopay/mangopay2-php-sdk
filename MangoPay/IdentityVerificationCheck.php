@@ -2,7 +2,6 @@
 
 namespace MangoPay;
 
-
 use MangoPay\Libraries\Dto;
 
 class IdentityVerificationCheck extends Dto
