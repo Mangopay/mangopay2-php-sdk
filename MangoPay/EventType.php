@@ -89,4 +89,10 @@ class EventType
     const VirtualAccountBlocked = "VIRTUAL_ACCOUNT_BLOCKED";
     const VirtualAccountClosed = "VIRTUAL_ACCOUNT_CLOSED";
     const VirtualAccountFailed = "VIRTUAL_ACCOUNT_FAILED";
+
+    const IdentityVerificationValidated = "IDENTITY_VERIFICATION_VALIDATED";
+    const IdentityVerificationFailed = "IDENTITY_VERIFICATION_FAILED";
+    const IdentityVerificationInconclusive = "IDENTITY_VERIFICATION_INCONCLUSIVE";
+    const IdentityVerificationOutdated = "IDENTITY_VERIFICATION_OUTDATED";
+    const IdentityVerificationTimeout = "IDENTITY_VERIFICATION_TIMEOUT";
 }
