@@ -40,7 +40,7 @@ class IdentityVerificationCheck extends Dto
 
     /**
      * The details of the individual verification checks performed during the session.
-     * @var list<Check>
+     * @var Check[]
      */
     public $Checks;
 }

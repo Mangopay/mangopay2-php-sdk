@@ -41,7 +41,7 @@ class Check extends Dto
 
     /**
      * The data points collected and verified during the check.
-     * @var list<CheckData>
+     * @var CheckData[]
      */
     public $Data;
 }
