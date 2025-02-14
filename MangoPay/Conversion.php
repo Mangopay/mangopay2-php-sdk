@@ -6,6 +6,7 @@ class Conversion extends Libraries\EntityBase
 {
     /**
      * The unique identifier of the active quote which guaranteed the rate for the conversion.
+     * Null for Instant Conversions.
      * @var string
      */
     public $QuoteId;
@@ -66,6 +67,7 @@ class Conversion extends Libraries\EntityBase
     /**
      * Information about the fees taken by the platform for
      * this transaction (and hence transferred to the Fees Wallet).
+     * Null for Instant Conversions between client wallets.
      * @var Money
      */
     public $Fees;
