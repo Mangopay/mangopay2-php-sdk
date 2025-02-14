@@ -238,7 +238,11 @@ abstract class ApiBase
         'virtual_account_deactivate' => ['/wallets/%s/virtual-accounts/%s', RequestType::PUT],
         'virtual_account_get' => ['/wallets/%s/virtual-accounts/%s', RequestType::GET],
         'virtual_account_get_all' => ['/wallets/%s/virtual-accounts', RequestType::GET],
-        'virtual_account_get_availabilities' => ['/virtual-accounts/availability', RequestType::GET]
+        'virtual_account_get_availabilities' => ['/virtual-accounts/availability', RequestType::GET],
+
+        'identify_verification_create' => ['/users/%s/identity-verifications', RequestType::POST],
+        'identify_verification_get' => ['/identity-verifications/%s', RequestType::GET],
+        'identify_verification_checks_get' => ['/identity-verifications/%s/checks', RequestType::GET]
     ];
 
     /**
