@@ -1,3 +1,22 @@
+## [3.34.0] - 2025-02-14
+### Added
+
+New endpoints for [hosted Identity Verification](https://docs.mangopay.com/guides/users/verification/hosted#guide-to-hosted-identity-verification) and relevant webhooks:
+
+- [Create a hosted Identity Verification Session](https://docs.mangopay.com/guides/users/verification/hosted#post-create-a-hosted-identity-verification-session)
+- [View an Identity Verification Session](https://docs.mangopay.com/guides/users/verification/hosted#get-view-an-identity-verification-session)
+- [View an Identity Verification Checks](https://docs.mangopay.com/guides/users/verification/hosted#get-view-identity-verification-checks)
+
+New endpoint for The Swish PayIn object:
+
+- [Create a Swish PayIn](https://docs.mangopay.com/api-reference/swish/create-swish-payin)
+- [View a PayIn (Swish)](https://docs.mangopay.com/api-reference/swish/view-payin-swish)
+
+New endpoints for client wallet conversations:
+
+- [Create an Instant Conversion between Client Wallets](https://docs.mangopay.com/api-reference/conversions/create-instant-conversion-client-wallets)
+- [Create a Quoted Conversion between Client Wallets](https://docs.mangopay.com/api-reference/conversions/create-quoted-conversion-client-wallets)
+
 ## [3.33.2] - 2025-02-05
 ### Updated
 
