@@ -24,6 +24,6 @@ class PayInPaymentType
     const Klarna = 'KLARNA';
     const Ideal = 'IDEAL';
     const Giropay = 'GIROPAY';
-
     const Bancontact = 'BCMC';
+    const Swish = 'SWISH';
 }
