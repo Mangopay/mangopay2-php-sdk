@@ -303,37 +303,6 @@ class RestTool
         }
     }
 
-
-    /**
-     * @param RateLimit[] $updatedRateLimits
-     * @param callable $predicate
-     * @return RateLimit
-     */
-    private function findFirstRateLimitMatchingPredicate($updatedRateLimits, $predicate)
-    {
-        for ($i = 0; $i < sizeof($updatedRateLimits); $i++) {
-            if ($predicate($updatedRateLimits[$i])) {
-                return $updatedRateLimits[$i];
-            }
-        }
-        return new RateLimit();
-    }
-
-
-    /**
-     * Initializes the list of rate limits.
-     * @return RateLimit[]
-     */
-    private function initRateLimits()
-    {
-        return [
-            new RateLimit(15),
-            new RateLimit(30),
-            new RateLimit(60),
-            new RateLimit(24 * 60),
-        ];
-    }
-
     /**
      * Get HTTP header to use in request
      * @param string $idempotencyKey Key for response replication
