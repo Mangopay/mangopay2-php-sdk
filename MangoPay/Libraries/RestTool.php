@@ -227,7 +227,9 @@ class RestTool
             $logClass::Debug('Response headers', print_r($headers, true));
         }
 
-        $updatedRateLimits = null;
+        $rateLimitReset = [];
+        $rateLimitRemaining = [];
+        $rateLimitMade = [];
 
         foreach ($headers as $header) {
             $lowercaseHeader = strtolower($header);
@@ -253,38 +255,51 @@ class RestTool
             }
 
             if (strpos($lowercaseHeader, 'x-ratelimit-remaining:') !== false) {
-                if ($updatedRateLimits == null) {
-                    $updatedRateLimits = $this->initRateLimits();
-                }
-                $rateLimit = $this->findFirstRateLimitMatchingPredicate($updatedRateLimits, function ($rate) {
-                    return $rate->CallsRemaining == null;
-                });
-                $rateLimit->CallsRemaining = (int)trim(str_replace('x-ratelimit-remaining:', '', $lowercaseHeader));
+                $value = (int)trim(str_replace('x-ratelimit-remaining:', '', $lowercaseHeader));
+                $rateLimitRemaining[] = $value;
             }
 
             if (strpos($lowercaseHeader, 'x-ratelimit:') !== false) {
-                if ($updatedRateLimits == null) {
-                    $updatedRateLimits = $this->initRateLimits();
-                }
-                $rateLimit = $this->findFirstRateLimitMatchingPredicate($updatedRateLimits, function ($rate) {
-                    return $rate->CallsMade == null;
-                });
-                $rateLimit->CallsMade = (int)trim(str_replace('x-ratelimit:', '', $lowercaseHeader));
+                $value = (int)trim(str_replace('x-ratelimit:', '', $lowercaseHeader));
+                $rateLimitMade[] = $value;
             }
 
             if (strpos($lowercaseHeader, 'x-ratelimit-reset:') !== false) {
-                if ($updatedRateLimits == null) {
-                    $updatedRateLimits = $this->initRateLimits();
-                }
-                $rateLimit = $this->findFirstRateLimitMatchingPredicate($updatedRateLimits, function ($rate) {
-                    return $rate->ResetTimeTimestamp == null;
-                });
-                $rateLimit->ResetTimeTimestamp = (int)trim(str_replace('x-ratelimit-reset:', '', $lowercaseHeader));
+                $value = (int)trim(str_replace('x-ratelimit-reset:', '', $lowercaseHeader));
+                $rateLimitReset[] = $value;
             }
         }
 
-        if ($updatedRateLimits != null) {
-            $this->_root->RateLimits = $updatedRateLimits;
+        if (sizeof($rateLimitReset) == sizeof($rateLimitRemaining) && sizeof($rateLimitReset) == sizeof($rateLimitMade)) {
+            $rateLimits = [];
+            $currentTime = time();
+
+            for ($i = 0; $i < sizeof($rateLimitReset); $i++) {
+                $rateLimit = new RateLimit();
+                $numberOfMinutes = ($rateLimitReset[$i] - $currentTime) / 60;
+
+                if ($numberOfMinutes <= 15) {
+                    $rateLimit->IntervalMinutes = 15;
+                } elseif ($numberOfMinutes <= 30) {
+                    $rateLimit->IntervalMinutes = 30;
+                } elseif ($numberOfMinutes <= 60) {
+                    $rateLimit->IntervalMinutes = 60;
+                } elseif ($numberOfMinutes <= 60 * 24) {
+                    $rateLimit->IntervalMinutes = 60 * 24;
+                }
+
+                $rateLimit->CallsMade = $rateLimitMade[$i];
+                $rateLimit->CallsRemaining = $rateLimitRemaining[$i];
+                $rateLimit->ResetTimeTimestamp = $rateLimitReset[$i];
+
+                $rateLimits[] = $rateLimit;
+            }
+
+            if (sizeof($rateLimits) > 0) {
+                $this->_root->RateLimits = $rateLimits;
+            }
+        } else {
+            $logClass::Debug("Could not set rate limits. Headers length should be the same");
         }
     }
 
