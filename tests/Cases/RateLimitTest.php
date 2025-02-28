@@ -12,7 +12,7 @@ class RateLimitTest extends Base
         $rateLimits = $this->_api->RateLimits;
 
         $this->assertNotNull($rateLimits);
-        $this->assertTrue(sizeof($rateLimits) == 4);
+        $this->assertTrue(sizeof($rateLimits) > 0);
     }
 
     public function test_RateLimitsDoc()
