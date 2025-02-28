@@ -18,4 +18,8 @@ class PayInPaymentDetailsPayconiq extends Libraries\Dto implements PayInPaymentD
     public $DeepLinkURL;
 
     public $ExpirationDate;
+
+    public $StatementDescriptor;
+
+    public $QRCodeURL;
 }
