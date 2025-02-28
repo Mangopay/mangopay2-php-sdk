@@ -23,13 +23,4 @@ class RateLimit
      * @var integer the time in unix timestamp when the number of allowed calls in this time interval will be reset.
      */
     public $ResetTimeTimestamp;
-
-    /**
-     * RateLimit constructor.
-     * @param int $IntervalMinutes
-     */
-    public function __construct($IntervalMinutes = null)
-    {
-        $this->IntervalMinutes = $IntervalMinutes;
-    }
 }
