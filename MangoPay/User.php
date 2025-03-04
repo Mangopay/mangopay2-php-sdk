@@ -44,6 +44,12 @@ abstract class User extends Libraries\EntityBase
     public $UserCategory;
 
     /**
+     * Status of user
+     * @var string
+     */
+    public $UserStatus;
+
+    /**
      * Construct
      * @param string $personType string with type of person
      */

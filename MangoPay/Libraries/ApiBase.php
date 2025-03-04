@@ -110,6 +110,7 @@ abstract class ApiBase
         'transfers_createrefunds' => ['/transfers/%s/refunds', RequestType::POST],
 
         'users_createnaturals' => ['/users/natural', RequestType::POST],
+        'users_createnaturals_sca' => ['/sca/users/natural', RequestType::POST],
         'users_createlegals' => ['/users/legal', RequestType::POST],
 
         'users_createbankaccounts_iban' => ['/users/%s/bankaccounts/iban', RequestType::POST],
@@ -656,7 +657,8 @@ abstract class ApiBase
             'reports_wallets_create' => '\MangoPay\ReportRequest',
             'transfers_createrefunds' => '\MangoPay\Refund',
             'transfers_create' => '\MangoPay\Transfer',
-            'users_createnaturals' => '\MangoPay\UserNatural', // done
+            'users_createnaturals' => '\MangoPay\UserNatural',
+            'users_createnaturals_sca' => '\MangoPay\UserNaturalSca',
             'users_createlegals' => '\MangoPay\UserLegal',
             'users_createbankaccounts_iban' => '\MangoPay\BankAccount',
             'users_createbankaccounts_gb' => '\MangoPay\BankAccount',

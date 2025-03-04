@@ -11,11 +11,15 @@ use MangoPay\Birthplace;
 use MangoPay\BrowserInfo;
 use MangoPay\CreateDeposit;
 use MangoPay\CurrencyIso;
+use MangoPay\Libraries\Exception;
 use MangoPay\LineItem;
 use MangoPay\Money;
 use MangoPay\ShippingPreference;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
+use MangoPay\UserCategory;
+use MangoPay\UserNatural;
+use MangoPay\UserNaturalSca;
 use MangoPay\VirtualAccount;
 use PHPUnit\Framework\TestCase;
 
@@ -28,9 +32,22 @@ abstract class Base extends TestCase
 {
     /**
      * Test user (natural) - access by getJohn()
-     * @var \MangoPay\UserNatural
+     * @var UserNatural
      */
     public static $John;
+
+    /**
+     * Test user (natural) - access by getJohn()
+     * @var UserNaturalSca
+     */
+    public static $JohnScaPayer;
+
+    /**
+     * Test user (natural) - access by getJohn()
+     * @var UserNaturalSca
+     */
+    public static $JohnScaOwner;
+
     /**
      * Test user (legal) - access by getMatrix()
      * @var \MangoPay\UserLegal
@@ -138,7 +155,7 @@ abstract class Base extends TestCase
 
     /**
      * Creates new user
-     * @return \MangoPay\UserNatural
+     * @return UserNatural
      */
     protected function getNewJohn()
     {
@@ -147,11 +164,11 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \MangoPay\UserNatural
+     * @return UserNatural
      */
     protected function buildJohn()
     {
-        $user = new \MangoPay\UserNatural();
+        $user = new UserNatural();
         $user->FirstName = "John";
         $user->LastName = "Doe";
         $user->Email = "john.doe@sample.org";
@@ -203,7 +220,7 @@ abstract class Base extends TestCase
 
     /**
      * Creates self::$John (test natural user) if not created yet
-     * @return \MangoPay\UserNatural
+     * @return UserNatural
      */
     protected function getJohn()
     {
@@ -215,7 +232,69 @@ abstract class Base extends TestCase
     }
 
     /**
-     * @return \MangoPay\UserLegal|\MangoPay\UserNatural
+     * @param $userCategory string
+     * @param $recreate boolean
+     * @return UserNaturalSca
+     * @throws Exception
+     */
+    protected function getJohnSca($userCategory, $recreate)
+    {
+        switch ($userCategory) {
+            case UserCategory::Payer:
+                return $this->getJohnScaPayer($recreate);
+            case UserCategory::Owner:
+                return $this->getJohnScaOwner($recreate);
+            default:
+                throw new Exception('Unexpected user category');
+        }
+    }
+
+    /**
+     * @param $recreate boolean
+     * @return UserNaturalSca
+     * @throws Exception
+     */
+    private function getJohnScaPayer($recreate) {
+        if (self::$JohnScaPayer === null || $recreate) {
+            $user = new UserNaturalSca();
+            $user->FirstName = "John SCA";
+            $user->LastName = "Doe SCA Review";
+            $user->Email = "john.doe.sca@sample.org";
+            $user->TermsAndConditionsAccepted = true;
+            $user->UserCategory = UserCategory::Payer;
+            self::$JohnScaPayer = $this->_api->Users->Create($user);
+        }
+        return self::$JohnScaPayer;
+    }
+
+    /**
+     * @param $recreate boolean
+     * @return UserNaturalSca
+     * @throws Exception
+     */
+    private function getJohnScaOwner($recreate) {
+        if (self::$JohnScaOwner === null || $recreate) {
+            $user = new UserNaturalSca();
+            $user->FirstName = "John SCA";
+            $user->LastName = "Doe SCA Review";
+            $user->Email = "john.doe.sca@sample.org";
+            $user->Address = $this->getNewAddress();
+            $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+            $user->Nationality = "FR";
+            $user->CountryOfResidence = "FR";
+            $user->Occupation = "programmer";
+            $user->IncomeRange = 3;
+            $user->UserCategory = UserCategory::Owner;
+            $user->TermsAndConditionsAccepted = true;
+            $user->PhoneNumber = "+33611111111";
+            $user->PhoneNumberCountry = "FR";
+            self::$JohnScaOwner = $this->_api->Users->Create($user);
+        }
+        return self::$JohnScaOwner;
+    }
+
+    /**
+     * @return \MangoPay\UserLegal|UserNatural
      * @throws \MangoPay\Libraries\Exception
      */
     protected function getJohnWithTermsAccepted()
@@ -1581,7 +1660,7 @@ abstract class Base extends TestCase
 
     /**
      * Creates new user to be used for declarative purposes.
-     * @return \MangoPay\UserNatural
+     * @return UserNatural
      */
     protected function getDeclarativeJohn()
     {

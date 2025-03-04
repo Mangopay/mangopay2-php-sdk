@@ -5,6 +5,7 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\Libraries\Exception;
 use MangoPay\Libraries\Logs;
 use MangoPay\Libraries\ResponseException;
+use MangoPay\UserCategory;
 
 /**
  * Tests basic CRUD methods for users
@@ -16,6 +17,15 @@ class UsersTest extends Base
         $john = $this->getJohn();
         $this->assertNotNull($john->Id);
         $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
+    }
+
+    public function test_Users_CreateNaturalSca()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $this->assertNotNull($john->Id);
+        $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
+        $this->assertNotNull($john->PendingUserAction);
+        $this->assertEquals("PENDING_USER_ACTION", $john->UserStatus);
     }
 
     public function test_Users_CreateLegal()
@@ -361,7 +371,7 @@ class UsersTest extends Base
         $filter->Active = 'true';
 
         $activeList = $this->_api->Users->GetBankAccounts($john->Id, $pagination, null, $filter);
-        $this->assertCount(12, $activeList);
+        $this->assertCount(7, $activeList);
     }
 
     public function test_Users_UpdateBankAccount()

@@ -9,8 +9,8 @@ class ApiUsers extends Libraries\ApiBase
 {
     /**
      * Create a new user
-     * @param UserLegal|UserNatural $user
-     * @return UserLegal|UserNatural User object returned from API
+     * @param UserLegal|UserNatural|UserNaturalSca $user
+     * @return UserLegal|UserNatural|UserNaturalSca User object returned from API
      * @throws Libraries\Exception If occur Wrong entity class for user
      */
     public function Create($user, $idempotencyKey = null)
@@ -18,6 +18,8 @@ class ApiUsers extends Libraries\ApiBase
         $className = get_class($user);
         if ($className == 'MangoPay\UserNatural') {
             $methodKey = 'users_createnaturals';
+        } elseif ($className == 'MangoPay\UserNaturalSca') {
+            $methodKey = 'users_createnaturals_sca';
         } elseif ($className == 'MangoPay\UserLegal') {
             $methodKey = 'users_createlegals';
         } else {
@@ -376,7 +378,7 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get correct user object
      * @param object $response Response from API
-     * @return UserLegal|UserNatural User object returned from API
+     * @return UserLegal|UserNatural|UserNaturalSca User object returned from API
      * @throws \MangoPay\Libraries\Exception If occur unexpected response from API
      */
     private function GetUserResponse($response)
@@ -384,6 +386,11 @@ class ApiUsers extends Libraries\ApiBase
         if (isset($response->PersonType)) {
             switch ($response->PersonType) {
                 case PersonType::Natural:
+                    // if the json has SCA related properties -> deserialize to UserNaturalSca
+                    // !!! THIS LOGIC SHOULD NOT BE CHANGED ON API SIDE !!!
+                    if (property_exists($response, "PendingUserAction")) {
+                        return $this->CastResponseToEntity($response, '\MangoPay\UserNaturalSca');
+                    }
                     return $this->CastResponseToEntity($response, '\MangoPay\UserNatural');
                 case PersonType::Legal:
                     return $this->CastResponseToEntity($response, '\MangoPay\UserLegal');
