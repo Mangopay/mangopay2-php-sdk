@@ -124,4 +124,18 @@ class UserNaturalSca extends User
         parent::__construct($id);
         $this->SetPersonType(PersonType::Natural);
     }
+
+    /**
+     * Get array with mapping which property is object and what type of object
+     * @return array
+     */
+    public function GetSubObjects()
+    {
+        $subObjects = parent::GetSubObjects();
+
+        $subObjects['Address'] = '\MangoPay\Address';
+        $subObjects['PendingUserAction'] = '\MangoPay\PendingUserAction';
+
+        return $subObjects;
+    }
 }

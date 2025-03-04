@@ -11,6 +11,8 @@ use MangoPay\Birthplace;
 use MangoPay\BrowserInfo;
 use MangoPay\CreateDeposit;
 use MangoPay\CurrencyIso;
+use MangoPay\LegalPersonType;
+use MangoPay\LegalRepresentative;
 use MangoPay\Libraries\Exception;
 use MangoPay\LineItem;
 use MangoPay\Money;
@@ -18,6 +20,7 @@ use MangoPay\ShippingPreference;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
 use MangoPay\UserCategory;
+use MangoPay\UserLegalSca;
 use MangoPay\UserNatural;
 use MangoPay\UserNaturalSca;
 use MangoPay\VirtualAccount;
@@ -53,6 +56,18 @@ abstract class Base extends TestCase
      * @var \MangoPay\UserLegal
      */
     public static $Matrix;
+
+    /**
+     * Test user (legal) - access by getJohn()
+     * @var UserLegalSca
+     */
+    public static $MatrixScaPayer;
+
+    /**
+     * Test user (legal) - access by getJohn()
+     * @var UserLegalSca
+     */
+    public static $MatrixScaOwner;
 
     /**
      * @var \MangoPay\UboDeclaration
@@ -1598,7 +1613,7 @@ abstract class Base extends TestCase
             $user = new \MangoPay\UserLegal();
             $user->Name = "MartixSampleOrg";
             $user->Email = "mail@test.com";
-            $user->LegalPersonType = \MangoPay\LegalPersonType::Business;
+            $user->LegalPersonType = LegalPersonType::Business;
             $user->HeadquartersAddress = $this->getNewAddress();
             $user->LegalRepresentativeFirstName = $john->FirstName;
             $user->LegalRepresentativeLastName = $john->LastName;
@@ -1611,6 +1626,92 @@ abstract class Base extends TestCase
             self::$Matrix = $this->_api->Users->Create($user);
         }
         return self::$Matrix;
+    }
+
+    /**
+     * @param $userCategory string
+     * @param $recreate boolean
+     * @return UserLegalSca
+     * @throws Exception
+     */
+    protected function getMatrixSca($userCategory, $recreate)
+    {
+        switch ($userCategory) {
+            case UserCategory::Payer:
+                return $this->getMatrixScaPayer($recreate);
+            case UserCategory::Owner:
+                return $this->getMatrixScaOwner($recreate);
+            default:
+                throw new Exception('Unexpected user category');
+        }
+    }
+
+    /**
+     * @param $recreate boolean
+     * @return UserLegalSca
+     * @throws Exception
+     */
+    private function getMatrixScaPayer($recreate) {
+        if (self::$MatrixScaPayer === null || $recreate) {
+            $john = $this->getJohn();
+
+            $legalRepresentative = new LegalRepresentative();
+            $legalRepresentative->FirstName = $john->FirstName;
+            $legalRepresentative->LastName = "SCA Review";
+            $legalRepresentative->Email = $john->Email;
+            $legalRepresentative->Birthday = $john->Birthday;
+            $legalRepresentative->Nationality = $john->Nationality;
+            $legalRepresentative->CountryOfResidence = $john->CountryOfResidence;
+            $legalRepresentative->PhoneNumber = "+33611111111";
+            $legalRepresentative->PhoneNumberCountry = "FR";
+
+            $user = new UserLegalSca();
+            $user->Name = "MartixSampleOrg";
+            $user->Email = $john->Email;
+            $user->LegalPersonType = LegalPersonType::Business;
+            $user->UserCategory = UserCategory::Owner;
+            $user->LegalRepresentativeAddress = $john->Address;
+            $user->TermsAndConditionsAccepted = true;
+            $user->LegalRepresentative = $legalRepresentative;
+
+            self::$MatrixScaPayer = $this->_api->Users->Create($user);
+        }
+        return self::$MatrixScaPayer;
+    }
+
+    /**
+     * @param $recreate boolean
+     * @return UserLegalSca
+     * @throws Exception
+     */
+    private function getMatrixScaOwner($recreate) {
+        if (self::$MatrixScaOwner === null || $recreate) {
+            $john = $this->getJohn();
+
+            $legalRepresentative = new LegalRepresentative();
+            $legalRepresentative->FirstName = $john->FirstName;
+            $legalRepresentative->LastName = "SCA Review";
+            $legalRepresentative->Email = $john->Email;
+            $legalRepresentative->Birthday = $john->Birthday;
+            $legalRepresentative->Nationality = $john->Nationality;
+            $legalRepresentative->CountryOfResidence = $john->CountryOfResidence;
+            $legalRepresentative->PhoneNumber = "+33611111111";
+            $legalRepresentative->PhoneNumberCountry = "FR";
+
+            $user = new UserLegalSca();
+            $user->Name = "MartixSampleOrg";
+            $user->Email = $john->Email;
+            $user->LegalPersonType = LegalPersonType::Business;
+            $user->HeadquartersAddress = $this->getNewAddress();
+            $user->UserCategory = UserCategory::Owner;
+            $user->LegalRepresentativeAddress = $john->Address;
+            $user->CompanyNumber = "LU123456";
+            $user->TermsAndConditionsAccepted = true;
+            $user->LegalRepresentative = $legalRepresentative;
+
+            self::$MatrixScaOwner = $this->_api->Users->Create($user);
+        }
+        return self::$MatrixScaOwner;
     }
 
     /**
@@ -1700,6 +1801,22 @@ abstract class Base extends TestCase
             $this->assertSame($entity1->CountryOfResidence, $entity2->CountryOfResidence);
             $this->assertSame($entity1->Occupation, $entity2->Occupation);
             $this->assertSame($entity1->IncomeRange, $entity2->IncomeRange);
+        } elseif (is_a($entity1, '\MangoPay\UserNaturalSca')) {
+            $this->assertSame($entity1->Tag, $entity2->Tag);
+            $this->assertSame($entity1->PersonType, $entity2->PersonType);
+            $this->assertSame($entity1->FirstName, $entity2->FirstName);
+            $this->assertSame($entity1->LastName, $entity2->LastName);
+            $this->assertSame($entity1->Email, $entity2->Email);
+            $this->assertNotNull($entity1->Address);
+            $this->assertNotNull($entity2->Address);
+            $this->assertIdenticalInputProps($entity1->Address, $entity2->Address);
+            $this->assertSame($entity1->Birthday, $entity2->Birthday);
+            $this->assertSame($entity1->Nationality, $entity2->Nationality);
+            $this->assertSame($entity1->CountryOfResidence, $entity2->CountryOfResidence);
+            $this->assertSame($entity1->Occupation, $entity2->Occupation);
+            $this->assertSame($entity1->IncomeRange, $entity2->IncomeRange);
+            $this->assertSame($entity1->PhoneNumber, $entity2->PhoneNumber);
+            $this->assertSame($entity1->PhoneNumberCountry, $entity2->PhoneNumberCountry);
         } elseif (is_a($entity1, '\MangoPay\UserLegal')) {
             $this->assertSame($entity1->Tag, $entity2->Tag);
             $this->assertSame($entity1->PersonType, $entity2->PersonType);
@@ -1721,6 +1838,21 @@ abstract class Base extends TestCase
             $this->assertSame($entity1->LegalRepresentativeBirthday, $entity2->LegalRepresentativeBirthday, "***** TEMPORARY API ISSUE: RETURNED OBJECT HAS THIS PROP CHANGED FROM TIMESTAMP INTO ISO STRING AFTER CREATION *****");
             $this->assertSame($entity1->LegalRepresentativeNationality, $entity2->LegalRepresentativeNationality);
             $this->assertSame($entity1->LegalRepresentativeCountryOfResidence, $entity2->LegalRepresentativeCountryOfResidence);
+        } elseif (is_a($entity1, '\MangoPay\UserLegalSca')) {
+            $this->assertSame($entity1->Tag, $entity2->Tag);
+            $this->assertSame($entity1->PersonType, $entity2->PersonType);
+            $this->assertSame($entity1->Name, $entity2->Name);
+            $this->assertNotNull($entity1->HeadquartersAddress);
+            $this->assertNotNull($entity2->HeadquartersAddress);
+            $this->assertIdenticalInputProps($entity1->HeadquartersAddress, $entity2->HeadquartersAddress);
+
+            $this->assertNotNull($entity1->LegalRepresentativeAddress);
+            $this->assertNotNull($entity2->LegalRepresentativeAddress);
+            $this->assertIdenticalInputProps($entity1->LegalRepresentativeAddress, $entity2->LegalRepresentativeAddress);
+
+            $this->assertNotNull($entity1->LegalRepresentative);
+            $this->assertNotNull($entity2->LegalRepresentative);
+            $this->assertIdenticalInputProps($entity1->LegalRepresentative, $entity2->LegalRepresentative);
         } elseif (is_a($entity1, '\MangoPay\BankAccount')) {
             $this->assertSame($entity1->Tag, $entity2->Tag);
             $this->assertSame($entity1->UserId, $entity2->UserId);
@@ -1812,6 +1944,16 @@ abstract class Base extends TestCase
         } elseif (is_a($entity1, '\MangoPay\ShippingAddress')) {
             $this->assertSame($entity1->RecipientName, $entity2->RecipientName);
             $this->assertIdenticalInputProps($entity1->Address, $entity2->Address);
+        } elseif (is_a($entity1, '\MangoPay\LegalRepresentative')) {
+            $this->assertSame($entity1->PhoneNumber, $entity2->PhoneNumber);
+            $this->assertSame($entity1->PhoneNumberCountry, $entity2->PhoneNumberCountry);
+            $this->assertSame($entity1->ProofOfIdentity, $entity2->ProofOfIdentity);
+            $this->assertSame($entity1->FirstName, $entity2->FirstName);
+            $this->assertSame($entity1->LastName, $entity2->LastName);
+            $this->assertSame($entity1->Email, $entity2->Email);
+            $this->assertSame($entity1->Birthday, $entity2->Birthday);
+            $this->assertSame($entity1->Nationality, $entity2->Nationality);
+            $this->assertSame($entity1->CountryOfResidence, $entity2->CountryOfResidence);
         } else {
             throw new \Exception("Unsupported type " . get_class($entity1));
         }

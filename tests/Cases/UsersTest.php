@@ -24,7 +24,7 @@ class UsersTest extends Base
         $john = $this->getJohnSca(UserCategory::Owner, false);
         $this->assertNotNull($john->Id);
         $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
-        $this->assertNotNull($john->PendingUserAction);
+        $this->assertNotNull($john->PendingUserAction->RedirectUrl);
         $this->assertEquals("PENDING_USER_ACTION", $john->UserStatus);
     }
 
@@ -33,6 +33,15 @@ class UsersTest extends Base
         $matrix = $this->getMatrix();
         $this->assertNotNull($matrix->Id);
         $this->assertSame(\MangoPay\PersonType::Legal, $matrix->PersonType);
+    }
+
+    public function test_Users_CreateLegalSca()
+    {
+        $matrix = $this->getMatrixSca(UserCategory::Owner, false);
+        $this->assertNotNull($matrix->Id);
+        $this->assertSame(\MangoPay\PersonType::Legal, $matrix->PersonType);
+        $this->assertNotNull($matrix->PendingUserAction->RedirectUrl);
+        $this->assertEquals("PENDING_USER_ACTION", $matrix->UserStatus);
     }
 
     public function test_Users_GetEMoney()
@@ -119,6 +128,17 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($user1, $john);
     }
 
+    public function test_Users_GetNaturalSca()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+
+        $user1 = $this->_api->Users->GetSca($john->Id);
+        $user2 = $this->_api->Users->GetNaturalSca($john->Id);
+
+        $this->assertIdenticalInputProps($user1, $john);
+        $this->assertIdenticalInputProps($user2, $john);
+    }
+
     public function test_Users_GetNatural_FailsForLegalUser()
     {
         $matrix = $this->getMatrix();
@@ -149,6 +169,17 @@ class UsersTest extends Base
         $this->assertEquals($matrix, $user1);
         $this->assertEquals($matrix, $user2);
         $this->assertIdenticalInputProps($user1, $matrix);
+    }
+
+    public function test_Users_GetLegalSca()
+    {
+        $matrix = $this->getMatrixSca(UserCategory::Owner, false);
+
+        $user1 = $this->_api->Users->GetSca($matrix->Id);
+        $user2 = $this->_api->Users->GetLegalSca($matrix->Id);
+
+        $this->assertIdenticalInputProps($user1, $matrix);
+        $this->assertIdenticalInputProps($user2, $matrix);
     }
 
     public function test_Users_Save_Natural()

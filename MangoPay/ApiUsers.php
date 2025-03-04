@@ -9,8 +9,8 @@ class ApiUsers extends Libraries\ApiBase
 {
     /**
      * Create a new user
-     * @param UserLegal|UserNatural|UserNaturalSca $user
-     * @return UserLegal|UserNatural|UserNaturalSca User object returned from API
+     * @param UserLegal|UserNatural|UserNaturalSca|UserLegalSca $user
+     * @return UserLegal|UserNatural|UserNaturalSca|UserLegalSca User object returned from API
      * @throws Libraries\Exception If occur Wrong entity class for user
      */
     public function Create($user, $idempotencyKey = null)
@@ -22,6 +22,8 @@ class ApiUsers extends Libraries\ApiBase
             $methodKey = 'users_createnaturals_sca';
         } elseif ($className == 'MangoPay\UserLegal') {
             $methodKey = 'users_createlegals';
+        } elseif ($className == 'MangoPay\UserLegalSca') {
+            $methodKey = 'users_createlegals_sca';
         } else {
             throw new Libraries\Exception('Wrong entity class for user');
         }
@@ -61,6 +63,17 @@ class ApiUsers extends Libraries\ApiBase
     }
 
     /**
+     * Get SCA natural or legal user by ID
+     * @param string $userId User identifier
+     * @return UserNaturalSca|UserLegalSca User object returned from API
+     */
+    public function GetSca($userId)
+    {
+        $response = $this->GetObject('users_get_sca', null, $userId);
+        return $this->GetUserResponse($response);
+    }
+
+    /**
      * Get natural user by ID
      * @param string $userId User identifier
      * @return UserNatural User object returned from API
@@ -72,6 +85,17 @@ class ApiUsers extends Libraries\ApiBase
     }
 
     /**
+     * Get SCA natural user by ID
+     * @param string $userId User identifier
+     * @return UserNaturalSca User object returned from API
+     */
+    public function GetNaturalSca($userId)
+    {
+        $response = $this->GetObject('users_getnaturals_sca', null, $userId);
+        return $this->GetUserResponse($response);
+    }
+
+    /**
      * Get legal user by ID
      * @param string $userId User identifier
      * @return UserLegal User object returned from API
@@ -79,6 +103,17 @@ class ApiUsers extends Libraries\ApiBase
     public function GetLegal($userId)
     {
         $response = $this->GetObject('users_getlegals', null, $userId);
+        return $this->GetUserResponse($response);
+    }
+
+    /**
+     * Get SCA legal user by ID
+     * @param string $userId User identifier
+     * @return UserLegalSca User object returned from API
+     */
+    public function GetLegalSca($userId)
+    {
+        $response = $this->GetObject('users_getlegals_sca', null, $userId);
         return $this->GetUserResponse($response);
     }
 
@@ -378,7 +413,7 @@ class ApiUsers extends Libraries\ApiBase
     /**
      * Get correct user object
      * @param object $response Response from API
-     * @return UserLegal|UserNatural|UserNaturalSca User object returned from API
+     * @return UserLegal|UserNatural|UserNaturalSca|UserLegalSca User object returned from API
      * @throws \MangoPay\Libraries\Exception If occur unexpected response from API
      */
     private function GetUserResponse($response)
@@ -393,6 +428,11 @@ class ApiUsers extends Libraries\ApiBase
                     }
                     return $this->CastResponseToEntity($response, '\MangoPay\UserNatural');
                 case PersonType::Legal:
+                    // if the json has SCA related properties -> deserialize to UserNaturalSca
+                    // !!! THIS LOGIC SHOULD NOT BE CHANGED ON API SIDE !!!
+                    if (property_exists($response, "PendingUserAction")) {
+                        return $this->CastResponseToEntity($response, '\MangoPay\UserLegalSca');
+                    }
                     return $this->CastResponseToEntity($response, '\MangoPay\UserLegal');
                 default:
                     throw new Libraries\Exception('Unexpected response. Wrong PersonType value');
