@@ -415,7 +415,6 @@ abstract class ApiBase
         $requestData = $this->BuildRequestData($entity);
 
         $rest = new RestTool($this->_root, true);
-        print_r($urlMethod);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
 
         if (!is_null($responseClassName)) {
