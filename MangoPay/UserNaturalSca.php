@@ -32,12 +32,6 @@ class UserNaturalSca extends User
     public $Birthday;
 
     /**
-     * Place of birth
-     * @var string
-     */
-    public $BirthPlace;
-
-    /**
     * User's country
     * @var string
     */
@@ -72,13 +66,6 @@ class UserNaturalSca extends User
      * @var string
      */
     public $ProofOfAddress;
-
-    /**
-     * Capacity of the user within MangoPay
-     * Takes values from \MangoPay\NaturalUserCapacity
-     * @var string
-     */
-    public $Capacity;
 
     /**
      * Format: International telephone numbering plan E.164 (+ then country code then the number) or local format
