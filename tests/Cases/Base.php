@@ -295,7 +295,8 @@ abstract class Base extends TestCase
      * @return UserNaturalSca
      * @throws Exception
      */
-    private function getJohnScaPayer($recreate) {
+    private function getJohnScaPayer($recreate)
+    {
         if (self::$JohnScaPayer === null || $recreate) {
             $user = new UserNaturalSca();
             $user->FirstName = "John SCA";
@@ -313,7 +314,8 @@ abstract class Base extends TestCase
      * @return UserNaturalSca
      * @throws Exception
      */
-    private function getJohnScaOwner($recreate) {
+    private function getJohnScaOwner($recreate)
+    {
         if (self::$JohnScaOwner === null || $recreate) {
             $user = new UserNaturalSca();
             $user->FirstName = "John SCA";
@@ -1677,7 +1679,8 @@ abstract class Base extends TestCase
      * @return UserLegalSca
      * @throws Exception
      */
-    private function getMatrixScaPayer($recreate) {
+    private function getMatrixScaPayer($recreate)
+    {
         if (self::$MatrixScaPayer === null || $recreate) {
             $john = $this->getJohn();
 
@@ -1710,7 +1713,8 @@ abstract class Base extends TestCase
      * @return UserLegalSca
      * @throws Exception
      */
-    private function getMatrixScaOwner($recreate) {
+    private function getMatrixScaOwner($recreate)
+    {
         if (self::$MatrixScaOwner === null || $recreate) {
             $john = $this->getJohn();
 
