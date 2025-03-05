@@ -491,7 +491,7 @@ class ApiUsers extends Libraries\ApiBase
                     }
                     return $this->CastResponseToEntity($response, '\MangoPay\UserNatural');
                 case PersonType::Legal:
-                    // if the json has SCA related properties -> deserialize to UserNaturalSca
+                    // if the json has SCA related properties -> deserialize to UserLegalSca
                     // !!! THIS LOGIC SHOULD NOT BE CHANGED ON API SIDE !!!
                     if (property_exists($response, "PendingUserAction")) {
                         return $this->CastResponseToEntity($response, '\MangoPay\UserLegalSca');
