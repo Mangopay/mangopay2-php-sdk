@@ -143,6 +143,8 @@ abstract class ApiBase
         'users_getemoney_month' => ['/users/%s/emoney/%s/%s', RequestType::GET],
         'users_block_status' => ['/users/%s/blockStatus', RequestType::GET],
         'users_block_status_regulatory' => ['/users/%s/Regulatory', RequestType::GET],
+        'users_categorizenaturals_sca' => ['/sca/users/natural/%s/category', RequestType::PUT],
+        'users_categorizelegals_sca' => ['/sca/users/legal/%s/category', RequestType::PUT],
 
         'validate_the_format_of_user_data' => ['/users/data-formats/validation', RequestType::POST],
 
@@ -413,6 +415,7 @@ abstract class ApiBase
         $requestData = $this->BuildRequestData($entity);
 
         $rest = new RestTool($this->_root, true);
+        print_r($urlMethod);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
 
         if (!is_null($responseClassName)) {

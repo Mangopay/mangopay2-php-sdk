@@ -222,6 +222,26 @@ class UsersTest extends Base
         $this->assertEquals($updatedLastName, $userFetched->LegalRepresentative->LastName);
     }
 
+    public function test_Users_CategorizeNaturalSca()
+    {
+        $this->markTestSkipped("Can't be tested at this moment");
+        $johnPayer = $this->getJohnPayer();
+
+        $johnPayer->UserCategory = UserCategory::Owner;
+        $johnPayer->TermsAndConditionsAccepted = true;
+        $johnPayer->PhoneNumber = "+33611111111";
+        $johnPayer->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+        $johnPayer->Nationality = "FR";
+        $johnPayer->CountryOfResidence = "FR";
+        $johnPayer->Address = $this->getNewAddress();
+        $johnPayer->PhoneNumber = "+33611111111";
+        $johnPayer->PhoneNumberCountry = "FR";
+
+        // transition from Payer to Owner
+        $johnOwner = $this->_api->Users->Categorize($johnPayer);
+        $this->assertEquals(UserCategory::Owner, $johnOwner->UserCategory);
+    }
+
     public function test_Users_Save_NaturalAndClearAddresIfNeeded()
     {
         $user = new \MangoPay\UserNatural();

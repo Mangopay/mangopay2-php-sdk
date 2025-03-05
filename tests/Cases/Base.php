@@ -41,6 +41,12 @@ abstract class Base extends TestCase
 
     /**
      * Test user (natural) - access by getJohn()
+     * @var UserNatural
+     */
+    public static $JohnPayer;
+
+    /**
+     * Test user (natural) - access by getJohn()
      * @var UserNaturalSca
      */
     public static $JohnScaPayer;
@@ -196,6 +202,17 @@ abstract class Base extends TestCase
         return $user;
     }
 
+    protected function buildJohnPayer()
+    {
+        $user = new UserNatural();
+        $user->FirstName = "John";
+        $user->LastName = "Doe";
+        $user->Email = "john.doe@sample.org";
+        $user->TermsAndConditionsAccepted = true;
+        $user->UserCategory = UserCategory::Payer;
+        return $user;
+    }
+
     /**
      * Creates new address
      * @return Address
@@ -244,6 +261,15 @@ abstract class Base extends TestCase
             self::$John = $this->_api->Users->Create($user);
         }
         return self::$John;
+    }
+
+    protected function getJohnPayer()
+    {
+        if (self::$JohnPayer === null) {
+            $user = $this->buildJohnPayer();
+            self::$JohnPayer = $this->_api->Users->Create($user);
+        }
+        return self::$JohnPayer;
     }
 
     /**

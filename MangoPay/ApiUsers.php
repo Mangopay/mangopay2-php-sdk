@@ -195,6 +195,28 @@ class ApiUsers extends Libraries\ApiBase
     }
 
     /**
+     * Transition a Natural/Legal Payer to Owner (SCA).
+     * Some parameters may be required based on the kind of transition you do.
+     * @param UserLegalSca|UserNaturalSca|UserLegal|UserNatural $user
+     * @return UserLegalSca|UserNaturalSca|UserLegal|UserNatural User object returned from API
+     * @throws Libraries\Exception If occur Wrong entity class for user
+     */
+    public function Categorize($user)
+    {
+        $className = get_class($user);
+        if ($className == 'MangoPay\UserNaturalSca' || $className == 'MangoPay\UserNatural') {
+            $methodKey = 'users_categorizenaturals_sca';
+        } elseif ($className == 'MangoPay\UserLegalSca' || $className == 'MangoPay\UserLegal') {
+            $methodKey = 'users_categorizelegals_sca';
+        } else {
+            throw new Libraries\Exception('Wrong entity class for user');
+        }
+
+        $response = $this->SaveObject($methodKey, $user);
+        return $this->GetUserResponse($response);
+    }
+
+    /**
      * Create bank account for user
      * @param string $userId User Id
      * @param \MangoPay\BankAccount $bankAccount Entity of bank account object
