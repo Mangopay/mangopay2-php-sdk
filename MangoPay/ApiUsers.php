@@ -154,6 +154,47 @@ class ApiUsers extends Libraries\ApiBase
     }
 
     /**
+     * Update SCA user
+     * @param UserLegalSca|UserNaturalSca $user
+     * @return UserLegalSca|UserNaturalSca User object returned from API
+     * @throws Libraries\Exception If occur Wrong entity class for user
+     */
+    public function UpdateSca($user)
+    {
+        $className = get_class($user);
+        if ($className == 'MangoPay\UserNaturalSca') {
+            $methodKey = 'users_savenaturals_sca';
+            if (!is_null($user->Address)
+                && is_a($user->Address, "MangoPay\Address")
+                && $user->Address->CanBeNull()) {
+                $user->Address = null;
+            }
+        } elseif ($className == 'MangoPay\UserLegalSca') {
+            $methodKey = 'users_savelegals_sca';
+            if (!is_null($user->HeadquartersAddress)
+                && is_a($user->HeadquartersAddress, "MangoPay\Address")
+                && $user->HeadquartersAddress->CanBeNull()) {
+                $user->HeadquartersAddress = null;
+            }
+            if (!is_null($user->LegalRepresentativeAddress)
+                && is_a($user->LegalRepresentativeAddress, "MangoPay\Address")
+                && $user->LegalRepresentativeAddress->CanBeNull()) {
+                $user->LegalRepresentativeAddress = null;
+            }
+            if (!is_null($user->LegalRepresentative)
+                && is_a($user->LegalRepresentative, "MangoPay\LegalRepresentative")
+                && $user->LegalRepresentative->CanBeNull()) {
+                $user->LegalRepresentative = null;
+            }
+        } else {
+            throw new Libraries\Exception('Wrong entity class for user');
+        }
+
+        $response = $this->SaveObject($methodKey, $user);
+        return $this->GetUserResponse($response);
+    }
+
+    /**
      * Create bank account for user
      * @param string $userId User Id
      * @param \MangoPay\BankAccount $bankAccount Entity of bank account object

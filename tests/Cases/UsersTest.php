@@ -194,6 +194,34 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($userFetched, $john);
     }
 
+    public function test_Users_Update_NaturalSca()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $updatedLastName = $john->LastName . " - CHANGED";
+        $john->LastName = $updatedLastName;
+
+        $userSaved = $this->_api->Users->UpdateSca($john);
+        $userFetched = $this->_api->Users->GetSca($john->Id);
+
+        $this->assertIdenticalInputProps($userSaved, $john);
+        $this->assertIdenticalInputProps($userFetched, $john);
+        $this->assertEquals($updatedLastName, $userFetched->LastName);
+    }
+
+    public function test_Users_Update_LegalSca()
+    {
+        $matrix = $this->getMatrixSca(UserCategory::Owner, false);
+        $updatedLastName = $matrix->LegalRepresentative->LastName . " - CHANGED";
+        $matrix->LegalRepresentative->LastName = $updatedLastName;
+
+        $userSaved = $this->_api->Users->UpdateSca($matrix);
+        $userFetched = $this->_api->Users->GetSca($matrix->Id);
+
+        $this->assertIdenticalInputProps($userSaved, $matrix);
+        $this->assertIdenticalInputProps($userFetched, $matrix);
+        $this->assertEquals($updatedLastName, $userFetched->LegalRepresentative->LastName);
+    }
+
     public function test_Users_Save_NaturalAndClearAddresIfNeeded()
     {
         $user = new \MangoPay\UserNatural();
