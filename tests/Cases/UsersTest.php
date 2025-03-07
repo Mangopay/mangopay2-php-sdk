@@ -5,6 +5,7 @@ namespace MangoPay\Tests\Cases;
 use MangoPay\Libraries\Exception;
 use MangoPay\Libraries\Logs;
 use MangoPay\Libraries\ResponseException;
+use MangoPay\UserCategory;
 
 /**
  * Tests basic CRUD methods for users
@@ -18,11 +19,29 @@ class UsersTest extends Base
         $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
     }
 
+    public function test_Users_CreateNaturalSca()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $this->assertNotNull($john->Id);
+        $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
+        $this->assertNotNull($john->PendingUserAction->RedirectUrl);
+        $this->assertEquals("PENDING_USER_ACTION", $john->UserStatus);
+    }
+
     public function test_Users_CreateLegal()
     {
         $matrix = $this->getMatrix();
         $this->assertNotNull($matrix->Id);
         $this->assertSame(\MangoPay\PersonType::Legal, $matrix->PersonType);
+    }
+
+    public function test_Users_CreateLegalSca()
+    {
+        $matrix = $this->getMatrixSca(UserCategory::Owner, false);
+        $this->assertNotNull($matrix->Id);
+        $this->assertSame(\MangoPay\PersonType::Legal, $matrix->PersonType);
+        $this->assertNotNull($matrix->PendingUserAction->RedirectUrl);
+        $this->assertEquals("PENDING_USER_ACTION", $matrix->UserStatus);
     }
 
     public function test_Users_GetEMoney()
@@ -109,6 +128,17 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($user1, $john);
     }
 
+    public function test_Users_GetNaturalSca()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+
+        $user1 = $this->_api->Users->GetSca($john->Id);
+        $user2 = $this->_api->Users->GetNaturalSca($john->Id);
+
+        $this->assertIdenticalInputProps($user1, $john);
+        $this->assertIdenticalInputProps($user2, $john);
+    }
+
     public function test_Users_GetNatural_FailsForLegalUser()
     {
         $matrix = $this->getMatrix();
@@ -141,6 +171,17 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($user1, $matrix);
     }
 
+    public function test_Users_GetLegalSca()
+    {
+        $matrix = $this->getMatrixSca(UserCategory::Owner, false);
+
+        $user1 = $this->_api->Users->GetSca($matrix->Id);
+        $user2 = $this->_api->Users->GetLegalSca($matrix->Id);
+
+        $this->assertIdenticalInputProps($user1, $matrix);
+        $this->assertIdenticalInputProps($user2, $matrix);
+    }
+
     public function test_Users_Save_Natural()
     {
         $john = $this->getJohn();
@@ -151,6 +192,54 @@ class UsersTest extends Base
 
         $this->assertIdenticalInputProps($userSaved, $john);
         $this->assertIdenticalInputProps($userFetched, $john);
+    }
+
+    public function test_Users_Update_NaturalSca()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $updatedLastName = $john->LastName . " - CHANGED";
+        $john->LastName = $updatedLastName;
+
+        $userSaved = $this->_api->Users->UpdateSca($john);
+        $userFetched = $this->_api->Users->GetSca($john->Id);
+
+        $this->assertIdenticalInputProps($userSaved, $john);
+        $this->assertIdenticalInputProps($userFetched, $john);
+        $this->assertEquals($updatedLastName, $userFetched->LastName);
+    }
+
+    public function test_Users_Update_LegalSca()
+    {
+        $matrix = $this->getMatrixSca(UserCategory::Owner, false);
+        $updatedLastName = $matrix->LegalRepresentative->LastName . " - CHANGED";
+        $matrix->LegalRepresentative->LastName = $updatedLastName;
+
+        $userSaved = $this->_api->Users->UpdateSca($matrix);
+        $userFetched = $this->_api->Users->GetSca($matrix->Id);
+
+        $this->assertIdenticalInputProps($userSaved, $matrix);
+        $this->assertIdenticalInputProps($userFetched, $matrix);
+        $this->assertEquals($updatedLastName, $userFetched->LegalRepresentative->LastName);
+    }
+
+    public function test_Users_CategorizeNaturalSca()
+    {
+        $this->markTestSkipped("Can't be tested at this moment");
+        $johnPayer = $this->getJohnPayer();
+
+        $johnPayer->UserCategory = UserCategory::Owner;
+        $johnPayer->TermsAndConditionsAccepted = true;
+        $johnPayer->PhoneNumber = "+33611111111";
+        $johnPayer->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+        $johnPayer->Nationality = "FR";
+        $johnPayer->CountryOfResidence = "FR";
+        $johnPayer->Address = $this->getNewAddress();
+        $johnPayer->PhoneNumber = "+33611111111";
+        $johnPayer->PhoneNumberCountry = "FR";
+
+        // transition from Payer to Owner
+        $johnOwner = $this->_api->Users->Categorize($johnPayer);
+        $this->assertEquals(UserCategory::Owner, $johnOwner->UserCategory);
     }
 
     public function test_Users_Save_NaturalAndClearAddresIfNeeded()
@@ -785,5 +874,12 @@ class UsersTest extends Base
         $this->assertNotNull($validatedCompanyNumber->CompanyNumber->CountryCode);
         $this->assertTrue($validatedCompanyNumber->CompanyNumber->IsValid);
         $this->assertNotEmpty($validatedCompanyNumber->CompanyNumber->ValidationRules);
+    }
+
+    public function test_enroll_in_sca()
+    {
+        $user = $this->getJohn();
+        $enrollmentResult = $this->_api->Users->Enroll($user->Id);
+        $this->assertNotNull($enrollmentResult->PendingUserAction->RedirectUrl);
     }
 }
