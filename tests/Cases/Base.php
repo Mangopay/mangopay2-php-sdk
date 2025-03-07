@@ -1477,7 +1477,8 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->CreatePayconiq(self::newPayconiqWebPayIn());
     }
 
-    private function newPayconiqWebPayIn() {
+    private function newPayconiqWebPayIn()
+    {
         $wallet = $this->getJohnsWallet();
         $user = $this->getJohn();
 
