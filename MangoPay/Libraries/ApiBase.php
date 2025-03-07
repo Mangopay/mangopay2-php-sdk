@@ -113,6 +113,7 @@ abstract class ApiBase
         'users_createnaturals_sca' => ['/sca/users/natural', RequestType::POST],
         'users_createlegals' => ['/users/legal', RequestType::POST],
         'users_createlegals_sca' => ['/sca/users/legal', RequestType::POST],
+        'users_enroll_sca' => ['/sca/users/%s/enrollment', RequestType::POST],
 
         'users_createbankaccounts_iban' => ['/users/%s/bankaccounts/iban', RequestType::POST],
         'users_createbankaccounts_gb' => ['/users/%s/bankaccounts/gb', RequestType::POST],

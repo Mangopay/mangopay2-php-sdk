@@ -545,4 +545,17 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->ExecutePostRequest('validate_the_format_of_user_data', $companyNumberDetails, '\MangoPay\CompanyNumberDetails');
     }
+
+    /**
+     * If UserCategory is OWNER, this endpoint allows you to enroll a user in SCA.
+     * Your platform needs to retrieve the returned PendingUserAction.RedirectUrl,
+     * add an encoded returnUrl query parameter for them to be returned to after the SCA session, and redirect the user.
+     * @param string $userId
+     * @return UserEnrollmentResult User object returned from API
+     * @throws Libraries\Exception If occur Wrong entity class for user
+     */
+    public function Enroll($userId, $idempotencyKey = null)
+    {
+        return $this->ExecutePostRequest('users_enroll_sca', new UserNatural(), '\MangoPay\UserEnrollmentResult', $userId);
+    }
 }

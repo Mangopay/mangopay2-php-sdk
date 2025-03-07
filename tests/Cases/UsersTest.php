@@ -875,4 +875,11 @@ class UsersTest extends Base
         $this->assertTrue($validatedCompanyNumber->CompanyNumber->IsValid);
         $this->assertNotEmpty($validatedCompanyNumber->CompanyNumber->ValidationRules);
     }
+
+    public function test_enroll_in_sca()
+    {
+        $user = $this->getJohn();
+        $enrollmentResult = $this->_api->Users->Enroll($user->Id);
+        $this->assertNotNull($enrollmentResult->PendingUserAction->RedirectUrl);
+    }
 }
