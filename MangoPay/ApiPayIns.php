@@ -178,4 +178,14 @@ class ApiPayIns extends Libraries\ApiBase
     {
         return $this->SaveObject('add_tracking_info', $palWebTracking, '\MangoPay\PayIn', $payId);
     }
+
+    /**
+     * Create a Payconiq Web PayIn using the latest API url (payins/payment-methods/payconiq)
+     * @param \MangoPay\PayIn $payIn \MangoPay\PayIn object
+     * @return \MangoPay\PayIn Object returned from API
+     */
+    public function CreatePayconiq($payIn, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_payconiqv2-web_create', $payIn, '\MangoPay\PayIn', null, null, $idempotencyKey);
+    }
 }

@@ -66,6 +66,7 @@ abstract class ApiBase
         'payins_paypal-web_create' => ['/payins/paypal/web', RequestType::POST],
         'payins_paypal-web_create_v2' => ['/payins/payment-methods/paypal', RequestType::POST],
         'payins_payconiq-web_create' => ['/payins/payconiq/web', RequestType::POST],
+        'payins_payconiqv2-web_create' => ['/payins/payment-methods/payconiq', RequestType::POST],
         'payins_get' => ['/payins/%s', RequestType::GET],
         'payins_createrefunds' => ['/payins/%s/refunds', RequestType::POST],
         'payins_applepay-direct_create' => ['/payins/applepay/direct', RequestType::POST],

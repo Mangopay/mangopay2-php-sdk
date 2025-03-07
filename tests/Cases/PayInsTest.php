@@ -352,6 +352,14 @@ class PayInsTest extends Base
         $this->assertNotNull($payIn->Id);
     }
 
+    public function test_PayIns_Create_PayconiqWebV2()
+    {
+        $payIn = $this->getJohnsPayInPayconiqWebV2();
+        $this->assertNotNull($payIn->Id);
+        $this->assertNotNull($payIn->PaymentDetails->QRCodeURL);
+        $this->assertNotNull($payIn->PaymentDetails->DeepLinkURL);
+    }
+
     public function test_PayIns_Get_PaypalWeb()
     {
         $payIn = $this->getJohnsPayInPaypalWeb();
