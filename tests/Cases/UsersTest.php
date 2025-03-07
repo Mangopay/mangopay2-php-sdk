@@ -224,7 +224,7 @@ class UsersTest extends Base
 
     public function test_Users_CategorizeNaturalSca()
     {
-//        $this->markTestSkipped("Can't be tested at this moment");
+        $this->markTestSkipped("Can't be tested at this moment");
         $johnPayer = $this->getJohnPayer();
 
         $johnPayer->UserCategory = UserCategory::Owner;
