@@ -2,10 +2,13 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\LegalPersonType;
+use MangoPay\LegalRepresentative;
 use MangoPay\Libraries\Exception;
 use MangoPay\Libraries\Logs;
 use MangoPay\Libraries\ResponseException;
 use MangoPay\UserCategory;
+use MangoPay\UserLegalSca;
 
 /**
  * Tests basic CRUD methods for users
@@ -224,8 +227,7 @@ class UsersTest extends Base
 
     public function test_Users_CategorizeNaturalSca()
     {
-        $this->markTestSkipped("Can't be tested at this moment");
-        $johnPayer = $this->getJohnPayer();
+        $johnPayer = $this->getJohnSca(UserCategory::Payer, false);
 
         $johnPayer->UserCategory = UserCategory::Owner;
         $johnPayer->TermsAndConditionsAccepted = true;
@@ -240,6 +242,31 @@ class UsersTest extends Base
         // transition from Payer to Owner
         $johnOwner = $this->_api->Users->Categorize($johnPayer);
         $this->assertEquals(UserCategory::Owner, $johnOwner->UserCategory);
+    }
+
+    public function test_Users_CategorizeLegalSca()
+    {
+        $matrix = $this->getMatrixSca(UserCategory::Payer, false);
+
+        $legalRepresentative = new LegalRepresentative();
+        $legalRepresentative->FirstName = "John SCA";
+        $legalRepresentative->LastName = "Doe SCA Review";
+        $legalRepresentative->PhoneNumber = "+33611111111";
+        $legalRepresentative->PhoneNumberCountry = "FR";
+        $legalRepresentative->Email = "john.doe.sca@sample.org";
+        $legalRepresentative->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+        $legalRepresentative->Nationality = "FR";
+        $legalRepresentative->CountryOfResidence = "FR";
+
+        $matrix->UserCategory = UserCategory::Owner;
+        $matrix->HeadquartersAddress = $this->getNewAddress();
+        $matrix->TermsAndConditionsAccepted = true;
+        $matrix->LegalRepresentative = $legalRepresentative;
+        $matrix->CompanyNumber = "12345678";
+
+        // transition from Payer to Owner
+        $matrixOwner = $this->_api->Users->Categorize($matrix);
+        $this->assertEquals(UserCategory::Owner, $matrixOwner->UserCategory);
     }
 
     public function test_Users_Save_NaturalAndClearAddresIfNeeded()

@@ -304,6 +304,7 @@ abstract class Base extends TestCase
             $user->Email = "john.doe.sca@sample.org";
             $user->TermsAndConditionsAccepted = true;
             $user->UserCategory = UserCategory::Payer;
+            $user->Address = $this->getNewAddress();
             self::$JohnScaPayer = $this->_api->Users->Create($user);
         }
         return self::$JohnScaPayer;
@@ -1697,24 +1698,22 @@ abstract class Base extends TestCase
     private function getMatrixScaPayer($recreate)
     {
         if (self::$MatrixScaPayer === null || $recreate) {
-            $john = $this->getJohn();
-
             $legalRepresentative = new LegalRepresentative();
-            $legalRepresentative->FirstName = $john->FirstName;
-            $legalRepresentative->LastName = "SCA Review";
-            $legalRepresentative->Email = $john->Email;
-            $legalRepresentative->Birthday = $john->Birthday;
-            $legalRepresentative->Nationality = $john->Nationality;
-            $legalRepresentative->CountryOfResidence = $john->CountryOfResidence;
+            $legalRepresentative->FirstName = "John SCA";
+            $legalRepresentative->LastName = "Doe SCA Review";
+            $legalRepresentative->Email = "john.doe.sca@sample.org";
+            $legalRepresentative->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+            $legalRepresentative->Nationality = "FR";
+            $legalRepresentative->CountryOfResidence = "FR";
             $legalRepresentative->PhoneNumber = "+33611111111";
             $legalRepresentative->PhoneNumberCountry = "FR";
 
             $user = new UserLegalSca();
             $user->Name = "MartixSampleOrg";
-            $user->Email = $john->Email;
+            $user->Email = "john.doe@sample.org";
             $user->LegalPersonType = LegalPersonType::Business;
-            $user->UserCategory = UserCategory::Owner;
-            $user->LegalRepresentativeAddress = $john->Address;
+            $user->UserCategory = UserCategory::Payer;
+            $user->LegalRepresentativeAddress = $this->getNewAddress();
             $user->TermsAndConditionsAccepted = true;
             $user->LegalRepresentative = $legalRepresentative;
 
