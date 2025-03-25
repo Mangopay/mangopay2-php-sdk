@@ -254,9 +254,11 @@ abstract class ApiBase
         'virtual_account_get_all' => ['/wallets/%s/virtual-accounts', RequestType::GET],
         'virtual_account_get_availabilities' => ['/virtual-accounts/availability', RequestType::GET],
 
-        'identify_verification_create' => ['/users/%s/identity-verifications', RequestType::POST],
-        'identify_verification_get' => ['/identity-verifications/%s', RequestType::GET],
-        'identify_verification_checks_get' => ['/identity-verifications/%s/checks', RequestType::GET]
+        'identity_verification_create' => ['/users/%s/identity-verifications', RequestType::POST],
+        'identity_verification_get' => ['/identity-verifications/%s', RequestType::GET],
+        'identity_verification_checks_get' => ['/identity-verifications/%s/checks', RequestType::GET],
+
+        'recipients_create' => ['/users/%s/recipients', RequestType::POST]
     ];
 
     /**
@@ -681,7 +683,9 @@ abstract class ApiBase
             'kyc_page_create' => '',
             'wallets_create' => '\MangoPay\Wallet',
             'users_getemoney_year' => '\MangoPay\EMoney',
-            'users_getemoney_month' => '\MangoPay\EMoney'
+            'users_getemoney_month' => '\MangoPay\EMoney',
+            'identity_verification_create' => '\MangoPay\IdentityVerification',
+            'recipients_create' => '\MangoPay\Recipient'
         ];
 
         foreach ($map as $key => $className) {
