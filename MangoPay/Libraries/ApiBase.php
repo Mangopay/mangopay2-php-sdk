@@ -258,7 +258,9 @@ abstract class ApiBase
         'identity_verification_get' => ['/identity-verifications/%s', RequestType::GET],
         'identity_verification_checks_get' => ['/identity-verifications/%s/checks', RequestType::GET],
 
-        'recipients_create' => ['/users/%s/recipients', RequestType::POST]
+        'recipients_create' => ['/users/%s/recipients', RequestType::POST],
+        'recipients_get' => ['/recipients/%s', RequestType::GET],
+        'recipients_get_all' => ['/users/%s/recipients', RequestType::GET]
     ];
 
     /**

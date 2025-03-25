@@ -18,6 +18,28 @@ class RecipientsTest extends Base
     public function test_Recipient_Create()
     {
         $recipient = $this->getNewRecipient();
+        $this->assertRecipient($recipient);
+        self::assertNotNull($recipient->PendingUserAction);
+    }
+
+    public function test_Recipient_Get()
+    {
+        $recipient = $this->getNewRecipient();
+        $fetched = $this->_api->Recipients->Get($recipient->Id);
+        $this->assertRecipient($fetched);
+        self::assertEquals($recipient->Id, $fetched->Id);
+    }
+
+    public function test_Recipient_GetUserRecipients()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $this->getNewRecipient();
+        $userRecipients = $this->_api->Recipients->GetUserRecipients($john->Id);
+        self::assertTrue(sizeof($userRecipients) > 0);
+    }
+
+    private function assertRecipient($recipient)
+    {
         self::assertNotNull($recipient);
         self::assertNotNull($recipient->Status);
         self::assertNotNull($recipient->DisplayName);
@@ -28,7 +50,6 @@ class RecipientsTest extends Base
         self::assertNotNull($recipient->LocalBankTransfer->GBP);
         self::assertNotNull($recipient->LocalBankTransfer->GBP->SortCode);
         self::assertNotNull($recipient->LocalBankTransfer->GBP->AccountNumber);
-        self::assertNotNull($recipient->PendingUserAction);
     }
 
     private function getNewRecipient()
