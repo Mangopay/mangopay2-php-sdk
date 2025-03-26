@@ -77,4 +77,14 @@ class ApiRecipients extends Libraries\ApiBase
     {
         return $this->CreateObject('recipients_validate', $recipient, null, $userId, null, $idempotencyKey);
     }
+
+    /**
+     * Validate recipient data
+     * @param string $recipientId
+     * @return Recipient Recipient object returned from API
+     */
+    public function Deactivate($recipientId)
+    {
+        return $this->SaveObject('recipients_deactivate', new Recipient(), '\MangoPay\Recipient', $recipientId);
+    }
 }

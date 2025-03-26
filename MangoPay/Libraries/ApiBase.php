@@ -264,6 +264,7 @@ abstract class ApiBase
         'recipients_get_payout_methods' => ['/recipients/payout-methods?country=%s&currency=%s', RequestType::GET],
         'recipients_get_schema' => ['/recipients/schema?payoutMethodType=%s&recipientType=%s&currency=%s', RequestType::GET],
         'recipients_validate' => ['/users/%s/recipients/validate', RequestType::POST],
+        'recipients_deactivate' => ['/recipients/%s', RequestType::PUT]
     ];
 
     /**

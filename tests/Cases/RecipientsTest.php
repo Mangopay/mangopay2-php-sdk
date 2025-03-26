@@ -92,6 +92,16 @@ class RecipientsTest extends Base
         }
     }
 
+    public function test_Recipient_Deactivate()
+    {
+        $this->markTestSkipped("A recipient needs to be manually activated before running the test");
+        $recipientId = "rec_01JQ9F3FD5CR00WKBKATEGBZV9";
+        $deactivated = $this->_api->Recipients->Deactivate($recipientId);
+        $afterDeactivation = $this->_api->Recipients->Get($deactivated->Id);
+        self::assertEquals("DEACTIVATED", $deactivated->Status);
+        self::assertEquals("DEACTIVATED", $afterDeactivation->Status);
+    }
+
     private function assertRecipient($recipient)
     {
         self::assertNotNull($recipient);
