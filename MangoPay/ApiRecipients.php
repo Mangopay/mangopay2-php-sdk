@@ -54,4 +54,17 @@ class ApiRecipients extends Libraries\ApiBase
     {
         return $this->GetObject('recipient_get_payout_methods', '\MangoPay\PayoutMethods', $country, $currency);
     }
+
+    /**
+     * Get a Recipient schema
+     * @param string $payoutMethodType Defines the payout method (e.g., LocalBankTransfer, InternationalBankTransfer).
+     * @param string $recipientType Specifies whether the recipient is an Individual or a Business.
+     * @param string $currency 3-letter ISO 4217 destination currency code (e.g. EUR, USD, GBP, AUD, CAD,HKD, SGD, MXN).
+     * @return RecipientSchema
+     * @throws Exception
+     */
+    public function GetSchema($payoutMethodType, $recipientType, $currency)
+    {
+        return $this->GetObject('recipient_get_schema', '\MangoPay\RecipientSchema', $payoutMethodType, $recipientType, $currency);
+    }
 }
