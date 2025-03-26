@@ -38,6 +38,13 @@ class RecipientsTest extends Base
         self::assertTrue(sizeof($userRecipients) > 0);
     }
 
+    public function test_Recipient_GetPayoutMethods()
+    {
+        $payoutMethods = $this->_api->Recipients->GetPayoutMethods("DE", "EUR");
+        self::assertNotNull($payoutMethods);
+        self::assertTrue(sizeof($payoutMethods->AvailablePayoutMethods) > 0);
+    }
+
     private function assertRecipient($recipient)
     {
         self::assertNotNull($recipient);

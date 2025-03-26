@@ -95,4 +95,7 @@ class EventType
     const IdentityVerificationInconclusive = "IDENTITY_VERIFICATION_INCONCLUSIVE";
     const IdentityVerificationOutdated = "IDENTITY_VERIFICATION_OUTDATED";
     const IdentityVerificationTimeout = "IDENTITY_VERIFICATION_TIMEOUT";
+    const RecipientActive = "RECIPIENT_ACTIVE";
+    const RecipientCanceled = "RECIPIENT_CANCELED";
+    const RecipientDeactivated = "RECIPIENT_DEACTIVATED";
 }

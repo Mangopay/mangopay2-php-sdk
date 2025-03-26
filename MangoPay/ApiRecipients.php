@@ -42,4 +42,16 @@ class ApiRecipients extends Libraries\ApiBase
     {
         return $this->GetList('recipients_get_all', $pagination,  '\MangoPay\Recipient', $userId);
     }
+
+    /**
+     * See payout methods available to your platform by currency and country
+     * @param string $country The destination country of the payout method.
+     * @param string $currency The currency of the payout method.
+     * @return PayoutMethods
+     * @throws Exception
+     */
+    public function GetPayoutMethods($country, $currency)
+    {
+        return $this->GetObject('recipient_get_payout_methods', '\MangoPay\PayoutMethods', $country, $currency);
+    }
 }
