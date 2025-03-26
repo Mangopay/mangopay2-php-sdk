@@ -48,8 +48,11 @@ class RecipientsTest extends Base
 
     public function test_Recipient_GetSchemaIndividual()
     {
-        $schema = $this->_api->Recipients->GetSchema("LocalBankTransfer",
-            "Individual", "GBP");
+        $schema = $this->_api->Recipients->GetSchema(
+            "LocalBankTransfer",
+            "Individual",
+            "GBP"
+        );
         self::assertNotNull($schema);
         self::assertNotNull($schema->DisplayName);
         self::assertNotNull($schema->Currency);
@@ -62,8 +65,11 @@ class RecipientsTest extends Base
 
     public function test_Recipient_GetSchemaBusiness()
     {
-        $schema = $this->_api->Recipients->GetSchema("LocalBankTransfer",
-            "Business", "GBP");
+        $schema = $this->_api->Recipients->GetSchema(
+            "LocalBankTransfer",
+            "Business",
+            "GBP"
+        );
         self::assertNotNull($schema);
         self::assertNotNull($schema->DisplayName);
         self::assertNotNull($schema->Currency);

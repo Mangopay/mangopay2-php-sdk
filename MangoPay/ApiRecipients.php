@@ -40,7 +40,7 @@ class ApiRecipients extends Libraries\ApiBase
      */
     public function GetUserRecipients($userId, $pagination = null)
     {
-        return $this->GetList('recipients_get_all', $pagination,  '\MangoPay\Recipient', $userId);
+        return $this->GetList('recipients_get_all', $pagination, '\MangoPay\Recipient', $userId);
     }
 
     /**
@@ -79,7 +79,7 @@ class ApiRecipients extends Libraries\ApiBase
     }
 
     /**
-     * Validate recipient data
+     * Deactivate a Recipient
      * @param string $recipientId
      * @return Recipient Recipient object returned from API
      */
