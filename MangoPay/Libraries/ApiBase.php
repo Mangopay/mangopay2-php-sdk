@@ -261,8 +261,9 @@ abstract class ApiBase
         'recipients_create' => ['/users/%s/recipients', RequestType::POST],
         'recipients_get' => ['/recipients/%s', RequestType::GET],
         'recipients_get_all' => ['/users/%s/recipients', RequestType::GET],
-        'recipient_get_payout_methods' => ['/recipients/payout-methods?country=%s&currency=%s', RequestType::GET],
-        'recipient_get_schema' => ['/recipients/schema?payoutMethodType=%s&recipientType=%s&currency=%s', RequestType::GET],
+        'recipients_get_payout_methods' => ['/recipients/payout-methods?country=%s&currency=%s', RequestType::GET],
+        'recipients_get_schema' => ['/recipients/schema?payoutMethodType=%s&recipientType=%s&currency=%s', RequestType::GET],
+        'recipients_validate' => ['/users/%s/recipients/validate', RequestType::POST],
     ];
 
     /**

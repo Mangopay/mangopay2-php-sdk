@@ -2,6 +2,7 @@
 
 namespace Cases;
 
+use Exception;
 use MangoPay\CurrencyIso;
 use MangoPay\IndividualRecipient;
 use MangoPay\Recipient;
@@ -71,6 +72,24 @@ class RecipientsTest extends Base
         self::assertNotNull($schema->LocalBankTransfer);
         self::assertNotNull($schema->BusinessRecipient);
         self::assertNull($schema->IndividualRecipient);
+    }
+
+    public function test_Recipient_Validate()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $recipient = $this->getNewRecipient();
+
+        // should pass
+        $this->_api->Recipients->Validate($recipient, $john->Id);
+
+        $recipient->Currency = null;
+        try {
+            // should fail
+            $this->_api->Recipients->Validate($recipient, $john->Id);
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            self::assertTrue(str_contains($message, "One or several required parameters are missing or incorrect"));
+        }
     }
 
     private function assertRecipient($recipient)

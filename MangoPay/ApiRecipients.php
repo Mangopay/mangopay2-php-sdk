@@ -52,7 +52,7 @@ class ApiRecipients extends Libraries\ApiBase
      */
     public function GetPayoutMethods($country, $currency)
     {
-        return $this->GetObject('recipient_get_payout_methods', '\MangoPay\PayoutMethods', $country, $currency);
+        return $this->GetObject('recipients_get_payout_methods', '\MangoPay\PayoutMethods', $country, $currency);
     }
 
     /**
@@ -65,6 +65,16 @@ class ApiRecipients extends Libraries\ApiBase
      */
     public function GetSchema($payoutMethodType, $recipientType, $currency)
     {
-        return $this->GetObject('recipient_get_schema', '\MangoPay\RecipientSchema', $payoutMethodType, $recipientType, $currency);
+        return $this->GetObject('recipients_get_schema', '\MangoPay\RecipientSchema', $payoutMethodType, $recipientType, $currency);
+    }
+
+    /**
+     * Validate recipient data
+     * @param Recipient $recipient
+     * @param string $userId
+     */
+    public function Validate($recipient, $userId, $idempotencyKey = null)
+    {
+        return $this->CreateObject('recipients_validate', $recipient, null, $userId, null, $idempotencyKey);
     }
 }
