@@ -38,9 +38,9 @@ class ApiRecipients extends Libraries\ApiBase
      * @return Recipient[] Array of Recipient
      * @throws Exception
      */
-    public function GetUserRecipients($userId, $pagination = null)
+    public function GetUserRecipients($userId, $pagination = null, $sorting = null)
     {
-        return $this->GetList('recipients_get_all', $pagination, '\MangoPay\Recipient', $userId);
+        return $this->GetList('recipients_get_all', $pagination, '\MangoPay\Recipient', $userId, null, $sorting);
     }
 
     /**
