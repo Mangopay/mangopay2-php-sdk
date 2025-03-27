@@ -56,6 +56,12 @@ class Recipient extends Libraries\EntityBase
     public $LocalBankTransfer;
 
     /**
+     * The account details if PayoutMethodType is InternationalBankTransfer.
+     * @var array<string, mixed>
+     */
+    public $InternationalBankTransfer;
+
+    /**
      * Information about the action required from the user
      * @var PendingUserAction
      */
