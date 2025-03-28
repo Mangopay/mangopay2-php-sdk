@@ -215,6 +215,12 @@ class MangoPayApi
     public $IdentityVerifications;
 
     /**
+     * Recipients methods
+     * @var ApiRecipients
+     */
+    public $Recipients;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -253,6 +259,7 @@ class MangoPayApi
         $this->Conversions = new ApiConversions($this);
         $this->VirtualAccounts = new ApiVirtualAccounts($this);
         $this->IdentityVerifications = new ApiIdentityVerification($this);
+        $this->Recipients = new ApiRecipients($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();
