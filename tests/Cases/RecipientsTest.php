@@ -46,7 +46,7 @@ class RecipientsTest extends Base
         self::assertTrue(sizeof($payoutMethods->AvailablePayoutMethods) > 0);
     }
 
-    public function test_Recipient_GetSchemaIndividual()
+    public function test_Recipient_GetSchema_LocalBankTransferIndividual()
     {
         $schema = $this->_api->Recipients->GetSchema(
             "LocalBankTransfer",
@@ -61,12 +61,13 @@ class RecipientsTest extends Base
         self::assertNotNull($schema->LocalBankTransfer);
         self::assertNotNull($schema->IndividualRecipient);
         self::assertNull($schema->BusinessRecipient);
+        self::assertNull($schema->InternationalBankTransfer);
     }
 
-    public function test_Recipient_GetSchemaBusiness()
+    public function test_Recipient_GetSchema_InternationalBankTransferBusiness()
     {
         $schema = $this->_api->Recipients->GetSchema(
-            "LocalBankTransfer",
+            "InternationalBankTransfer",
             "Business",
             "GBP"
         );
@@ -75,8 +76,9 @@ class RecipientsTest extends Base
         self::assertNotNull($schema->Currency);
         self::assertNotNull($schema->RecipientType);
         self::assertNotNull($schema->PayoutMethodType);
-        self::assertNotNull($schema->LocalBankTransfer);
         self::assertNotNull($schema->BusinessRecipient);
+        self::assertNotNull($schema->InternationalBankTransfer);
+        self::assertNull($schema->LocalBankTransfer);
         self::assertNull($schema->IndividualRecipient);
     }
 
