@@ -30,6 +30,11 @@ class RecipientSchema extends Libraries\Dto
     public $LocalBankTransfer;
 
     /**
+     * @var array<string, array<string, RecipientPropertySchema>>
+     */
+    public $InternationalBankTransfer;
+
+    /**
      * @var IndividualRecipientPropertySchema
      */
     public $IndividualRecipient;
