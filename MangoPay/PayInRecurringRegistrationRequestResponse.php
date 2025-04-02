@@ -10,7 +10,7 @@ class PayInRecurringRegistrationRequestResponse extends PayInRecurringRegistrati
     public $RecurringType;
 
     /**
-     * @var int
+     * @var Money
      */
     public $TotalAmount;
 
