@@ -320,7 +320,7 @@ class RestTool
         array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
         // Add User-Agent Header
 
-        array_push($this->_requestHttpHeaders, 'User-Agent: MangoPay V2 SDK PHP ' . self::VERSION);
+        array_push($this->_requestHttpHeaders, 'User-Agent: Mangopay-SDK/' . self::VERSION . ' (PHP/' . phpversion() . ')');
 
         if ($this->_root->Config->UKHeaderFlag) {
             array_push($this->_requestHttpHeaders, 'x-tenant-id: uk');
