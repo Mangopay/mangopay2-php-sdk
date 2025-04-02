@@ -1,3 +1,11 @@
+## [3.35.1] - 2025-04-02
+### Changed
+- User-Agent Header value standardized on format: User-Agent: Mangopay-SDK/`SDKVersion` (`Language`/`LanguageVersion`)
+
+### Fixed
+- Replaced int property with Money property for recurring payin registration `TotalAmount`
+- Fixed tests for categorize SCA users endpoint
+
 ## [3.35.0] - 2025-03-07
 ### Added
 
