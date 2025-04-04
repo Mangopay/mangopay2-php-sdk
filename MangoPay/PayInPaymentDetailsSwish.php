@@ -3,7 +3,7 @@
 namespace MangoPay;
 
 /**
- * Class represents Giropay type for mean of payment in Giropay entity
+ * Class represents Swish type for mean of payment in Swish entity
  */
 class PayInPaymentDetailsSwish extends Libraries\Dto implements PayInPaymentDetails
 {
