@@ -1270,6 +1270,44 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
+    protected function getNewPayInPayByBankWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletForCurrency("EUR");
+
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 100;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsPayByBank();
+        $payIn->PaymentDetails->StatementDescriptor = 'test';
+        $payIn->PaymentDetails->Country = 'DE';
+        $payIn->PaymentDetails->IBAN = 'DE03500105177564668331';
+        $payIn->PaymentDetails->BIC = 'AACSDE33';
+        $payIn->PaymentDetails->Scheme = 'SEPA_INSTANT_CREDIT_TRANSFER';
+        $payIn->PaymentDetails->BankName = 'de-demobank-open-banking-embedded-templates';
+        $payIn->PaymentDetails->PaymentFlow = 'WEB';
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = 'https://www.example.com';
+        $payIn->ExecutionDetails->Culture = 'EN';
+
+        $payIn->Tag = "PayByBank PHP";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
     /**
      * Creates Pay-In Card Direct object
      * @return \MangoPay\PayIn

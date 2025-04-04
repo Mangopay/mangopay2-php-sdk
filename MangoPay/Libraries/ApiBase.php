@@ -81,6 +81,7 @@ abstract class ApiBase
         'payins_giropay-web_create' => ['/payins/payment-methods/giropay', RequestType::POST],
         'payins_bancontact-web_create' => ['/payins/payment-methods/bancontact', RequestType::POST],
         'payins_swish-web_create' => ['/payins/payment-methods/swish', RequestType::POST],
+        'payins_paybybank-web_create' => ['/payins/payment-methods/openbanking', RequestType::POST],
         'add_tracking_info' => ['/payins/%s/trackings', RequestType::PUT],
 
         'payment_method-metadata' => ['/payment-methods/metadata', RequestType::POST],
