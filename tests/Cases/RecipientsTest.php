@@ -58,6 +58,8 @@ class RecipientsTest extends Base
         self::assertNotNull($schema->Currency);
         self::assertNotNull($schema->RecipientType);
         self::assertNotNull($schema->PayoutMethodType);
+        self::assertNotNull($schema->RecipientScope);
+        self::assertNotNull($schema->Tag);
         self::assertNotNull($schema->LocalBankTransfer);
         self::assertNotNull($schema->IndividualRecipient);
         self::assertNull($schema->BusinessRecipient);
@@ -76,6 +78,8 @@ class RecipientsTest extends Base
         self::assertNotNull($schema->Currency);
         self::assertNotNull($schema->RecipientType);
         self::assertNotNull($schema->PayoutMethodType);
+        self::assertNotNull($schema->RecipientScope);
+        self::assertNotNull($schema->Tag);
         self::assertNotNull($schema->BusinessRecipient);
         self::assertNotNull($schema->InternationalBankTransfer);
         self::assertNull($schema->LocalBankTransfer);
