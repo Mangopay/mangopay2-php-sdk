@@ -683,7 +683,6 @@ abstract class ApiBase
             'wallets_create' => '\MangoPay\Wallet',
             'users_getemoney_year' => '\MangoPay\EMoney',
             'users_getemoney_month' => '\MangoPay\EMoney',
-            'payins_recurring_card_direct' => '\MangoPay\PayInRecurring',
             'payins_recurring_paypal' => '\MangoPay\PayInRecurring'
         ];
 

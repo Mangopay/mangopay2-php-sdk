@@ -92,22 +92,22 @@ class ApiPayIns extends Libraries\ApiBase
 
     /**
      * Create a Recurring PayPal PayIn CIT
-     * @param \MangoPay\RecurringPaypalPayInCIT $recurringPaypalPayInCIT
+     * @param \MangoPay\RecurringPayPalPayInCIT $recurringPayPalPayInCIT
      * @return \MangoPay\PayInRecurring
      */
-    public function CreateRecurringPaypalPayInCIT($recurringPaypalPayInCIT, $idempotencyKey = null)
+    public function CreateRecurringPayPalPayInCIT($recurringPayPalPayInCIT, $idempotencyKey = null)
     {
-        return $this->CreateObject('payins_recurring_paypal', $recurringPaypalPayInCIT, '\MangoPay\PayInRecurring', null, $idempotencyKey);
+        return $this->CreateObject('payins_recurring_paypal', $recurringPayPalPayInCIT, '\MangoPay\PayInRecurring', null, $idempotencyKey);
     }
 
     /**
      * Create a Recurring PayPal PayIn MIT
-     * @param \MangoPay\RecurringPaypalPayInMIT $recurringPaypalPayInMIT
+     * @param \MangoPay\RecurringPayPalPayInMIT $recurringPayPalPayInMIT
      * @return \MangoPay\PayInRecurring
      */
-    public function CreateRecurringPaypalPayInMIT($recurringPaypalPayInMIT, $idempotencyKey = null)
+    public function CreateRecurringPayPalPayInMIT($recurringPayPalPayInMIT, $idempotencyKey = null)
     {
-        return $this->CreateObject('payins_recurring_paypal', $recurringPaypalPayInMIT, '\MangoPay\PayInRecurring', null, $idempotencyKey);
+        return $this->CreateObject('payins_recurring_paypal', $recurringPayPalPayInMIT, '\MangoPay\PayInRecurring', null, $idempotencyKey);
     }
 
     /**

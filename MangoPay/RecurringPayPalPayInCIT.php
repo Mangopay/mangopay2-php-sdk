@@ -2,31 +2,13 @@
 
 namespace MangoPay;
 
-class RecurringPaypalPayInMIT extends Libraries\Dto
+class RecurringPayPalPayInCIT extends Libraries\Dto
 {
     /**
      * The unique identifier of the recurring pay-in registration.
      * @var string
      */
     public $RecurringPayinRegistrationId;
-
-    /**
-     * The amount of the subsequent recurring pay-in. If this field is empty, the amount entered in
-     * the NextTransactionDebitedFunds of the Recurring PayIn Registration is taken into account.
-     *
-     * Required if the registration’s NextTransactionDebitedFunds is empty.
-     * @var Money
-     */
-    public $DebitedFunds;
-
-    /**
-     * The amount of the subsequent fees. If this field is empty, the amount entered in
-     * the NextTransactionFees of the Recurring PayIn Registration is taken into account.
-     *
-     * Required if the registration’s NextTransactionFees is empty.
-     * @var Money
-     */
-    public $Fees;
 
     /**
      * Custom data that you can add to this object.

@@ -11,8 +11,8 @@ use MangoPay\PayInPaymentType;
 use MangoPay\PayInRecurringRegistrationUpdate;
 use MangoPay\PayInStatus;
 use MangoPay\RecurringPayInCIT;
-use MangoPay\RecurringPaypalPayInCIT;
-use MangoPay\RecurringPaypalPayInMIT;
+use MangoPay\RecurringPayPalPayInCIT;
+use MangoPay\RecurringPayPalPayInMIT;
 use MangoPay\TransactionStatus;
 
 /**
@@ -727,7 +727,7 @@ class PayInsTest extends Base
 
         $registration = $this->getRecurringPayinRegistrationPaypal();
 
-        $cit = new RecurringPaypalPayInCIT();
+        $cit = new RecurringPayPalPayInCIT();
         $cit->RecurringPayinRegistrationId = $registration->Id;
         $cit->ReturnURL = "http://example.com";
         $cit->CancelURL = "http://example.net";
@@ -744,7 +744,7 @@ class PayInsTest extends Base
         $cit->Reference = "abcd-efgh-ijkl";
         $cit->StatementDescriptor = "Example123";
 
-        $result = $this->_api->PayIns->CreateRecurringPaypalPayInCIT($cit);
+        $result = $this->_api->PayIns->CreateRecurringPayPalPayInCIT($cit);
 
         $this->assertNotNull($result);
         $this->assertNotNull($result->RecurringPayinRegistrationId);
@@ -761,7 +761,7 @@ class PayInsTest extends Base
 
         $registration = $this->getRecurringPayinRegistrationPaypal();
 
-        $mit = new RecurringPaypalPayInMIT();
+        $mit = new RecurringPayPalPayInMIT();
         $mit->RecurringPayinRegistrationId = $registration->Id;
         $mit->ReturnURL = "http://example.com";
         $mit->CancelURL = "http://example.net";
@@ -785,7 +785,7 @@ class PayInsTest extends Base
         $mit->Reference = "abcd-efgh-ijkl";
         $mit->StatementDescriptor = "Example123";
 
-        $result = $this->_api->PayIns->CreateRecurringPaypalPayInMIT($mit);
+        $result = $this->_api->PayIns->CreateRecurringPayPalPayInMIT($mit);
 
         $this->assertNotNull($result);
         $this->assertNotNull($result->RecurringPayinRegistrationId);
