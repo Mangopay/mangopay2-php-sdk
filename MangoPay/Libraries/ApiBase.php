@@ -89,6 +89,7 @@ abstract class ApiBase
         'payins_recurring_registration_get' => ['/recurringpayinregistrations/%s', RequestType::GET],
         'payins_recurring_registration_put' => ['/recurringpayinregistrations/%s', RequestType::PUT],
         'payins_recurring_card_direct' => ['/payins/recurring/card/direct', RequestType::POST],
+        'payins_recurring_paypal' => ['/payins/payment-methods/paypal/recurring', RequestType::POST],
         'payins_create_card_pre_authorized_deposit' => ['/payins/deposit-preauthorized/direct/full-capture', RequestType::POST],
 
         'repudiation_get' => ['/repudiations/%s', RequestType::GET],
@@ -681,7 +682,9 @@ abstract class ApiBase
             'kyc_page_create' => '',
             'wallets_create' => '\MangoPay\Wallet',
             'users_getemoney_year' => '\MangoPay\EMoney',
-            'users_getemoney_month' => '\MangoPay\EMoney'
+            'users_getemoney_month' => '\MangoPay\EMoney',
+            'payins_recurring_card_direct' => '\MangoPay\PayInRecurring',
+            'payins_recurring_paypal' => '\MangoPay\PayInRecurring'
         ];
 
         foreach ($map as $key => $className) {

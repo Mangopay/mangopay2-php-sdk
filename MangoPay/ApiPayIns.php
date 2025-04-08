@@ -91,6 +91,26 @@ class ApiPayIns extends Libraries\ApiBase
     }
 
     /**
+     * Create a Recurring PayPal PayIn CIT
+     * @param \MangoPay\RecurringPaypalPayInCIT $recurringPaypalPayInCIT
+     * @return \MangoPay\PayInRecurring
+     */
+    public function CreateRecurringPaypalPayInCIT($recurringPaypalPayInCIT, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_recurring_paypal', $recurringPaypalPayInCIT, '\MangoPay\PayInRecurring', null, $idempotencyKey);
+    }
+
+    /**
+     * Create a Recurring PayPal PayIn MIT
+     * @param \MangoPay\RecurringPaypalPayInMIT $recurringPaypalPayInMIT
+     * @return \MangoPay\PayInRecurring
+     */
+    public function CreateRecurringPaypalPayInMIT($recurringPaypalPayInMIT, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_recurring_paypal', $recurringPaypalPayInMIT, '\MangoPay\PayInRecurring', null, $idempotencyKey);
+    }
+
+    /**
      * Retrieves a list of Refunds pertaining to a certain PayIn
      * @param string $payInId ID of PayIn for which to retrieve Refunds
      * @param \MangoPay\Pagination $pagination Pagination object
