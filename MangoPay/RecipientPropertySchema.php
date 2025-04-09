@@ -28,4 +28,14 @@ class RecipientPropertySchema extends Libraries\Dto
      * @var array
      */
     public $AllowedValues;
+
+    /**
+     * @var string
+     */
+    public $Label;
+
+    /**
+     * @var string
+     */
+    public $EndUserDisplay;
 }
