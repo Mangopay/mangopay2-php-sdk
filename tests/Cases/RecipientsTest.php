@@ -114,6 +114,10 @@ class RecipientsTest extends Base
         self::assertEquals("DEACTIVATED", $afterDeactivation->Status);
     }
 
+    /**
+     * @param $recipient Recipient
+     * @return void
+     */
     private function assertRecipient($recipient)
     {
         self::assertNotNull($recipient);
@@ -121,6 +125,8 @@ class RecipientsTest extends Base
         self::assertNotNull($recipient->DisplayName);
         self::assertNotNull($recipient->PayoutMethodType);
         self::assertNotNull($recipient->RecipientType);
+        self::assertNotNull($recipient->RecipientScope);
+        self::assertNotNull($recipient->UserId);
         self::assertNotNull($recipient->IndividualRecipient);
         self::assertNotNull($recipient->LocalBankTransfer);
         self::assertNotNull($recipient->LocalBankTransfer->GBP);
