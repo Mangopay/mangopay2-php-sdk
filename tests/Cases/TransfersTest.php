@@ -3,6 +3,7 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\Money;
+use MangoPay\TransactionStatus;
 use MangoPay\Transfer;
 
 /**
@@ -21,6 +22,24 @@ class TransfersTest extends Base
         $this->assertEquals($john->Id, $transfer->AuthorId);
         $this->assertEquals($john->Id, $transfer->CreditedUserId);
         $this->assertEquals(100, $creditedWallet->Balance->Amount);
+    }
+
+    public function test_Transfers_Create_Sca()
+    {
+        $validNaturalUserScaId = 'user_m_01JRFJJN9BR864A4KG7MH1WCZG';
+        $walletWithMoney = $this->getNewWalletWithMoney($validNaturalUserScaId, 10000);
+        $transferUserPresent = $this->getNewTransferSca($validNaturalUserScaId, 3001, 'USER_PRESENT', $walletWithMoney->Id);
+        $transferUserPresentLowAmount = $this->getNewTransferSca($validNaturalUserScaId, 20, 'USER_PRESENT', $walletWithMoney->Id);
+        $transferUserNotPresent = $this->getNewTransferSca($validNaturalUserScaId, 3001, 'USER_NOT_PRESENT', $walletWithMoney->Id);
+
+        $this->assertEquals(TransactionStatus::Created, $transferUserPresent->Status);
+        $this->assertNotNull($transferUserPresent->PendingUserAction);
+
+        $this->assertEquals(TransactionStatus::Succeeded, $transferUserPresentLowAmount->Status);
+        $this->assertNull($transferUserPresentLowAmount->PendingUserAction);
+
+        $this->assertEquals(TransactionStatus::Succeeded, $transferUserNotPresent->Status);
+        $this->assertNull($transferUserNotPresent->PendingUserAction);
     }
 
     public function test_Transfers_Get()
