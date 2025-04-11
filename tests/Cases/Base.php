@@ -630,7 +630,8 @@ abstract class Base extends TestCase
         return $this->_api->Wallets->Get($wallet->Id);
     }
 
-    private function createNewWallet($userId) {
+    private function createNewWallet($userId)
+    {
         $wallet = new \MangoPay\Wallet();
         $wallet->Owners = [$userId];
         $wallet->Currency = 'EUR';
