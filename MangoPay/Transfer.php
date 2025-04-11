@@ -31,8 +31,8 @@ class Transfer extends Transaction
 
     public function GetSubObjects()
     {
-        return [
-            'PendingUserAction' => '\MangoPay\PendingUserAction' ,
-        ];
+        $subObjects = parent::GetSubObjects();
+        $subObjects['PendingUserAction'] = '\MangoPay\PendingUserAction';
+        return $subObjects;
     }
 }
