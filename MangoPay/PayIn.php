@@ -79,6 +79,7 @@ class PayIn extends Transaction
                 PayInPaymentType::Giropay => 'MangoPay\PayInPaymentDetailsGiropay',
                 PayInPaymentType::Bancontact => 'MangoPay\PayInPaymentDetailsBancontact',
                 PayInPaymentType::Swish => 'MangoPay\PayInPaymentDetailsSwish',
+                PayInPaymentType::Twint => 'MangoPay\PayInPaymentDetailsTwint',
                 // ...and more in future...
             ],
             'ExecutionType' => [
