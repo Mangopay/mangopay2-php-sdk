@@ -26,7 +26,8 @@ class PayOutPaymentDetailsBankWire extends Libraries\Dto implements PayOutPaymen
     public $PaymentRef;
 
     /**
-     * The parameter "PayoutModeRequested" can take 3 different values : "STANDARD", "INSTANT_PAYMENT", "INSTANT_PAYMENT_ONLY"
+     * The parameter "PayoutModeRequested" can have different values : "STANDARD", "INSTANT_PAYMENT",
+     * "INSTANT_PAYMENT_ONLY", "RTGS_PAYMENT
      *
      * @var string
      */
