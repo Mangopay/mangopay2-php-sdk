@@ -27,4 +27,5 @@ class PayInPaymentType
     const Bancontact = 'BCMC';
     const Swish = 'SWISH';
     const Twint = 'TWINT';
+    const PayByBank = 'PAY_BY_BANK';
 }

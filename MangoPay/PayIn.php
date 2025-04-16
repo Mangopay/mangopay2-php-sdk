@@ -80,6 +80,7 @@ class PayIn extends Transaction
                 PayInPaymentType::Bancontact => 'MangoPay\PayInPaymentDetailsBancontact',
                 PayInPaymentType::Swish => 'MangoPay\PayInPaymentDetailsSwish',
                 PayInPaymentType::Twint => 'MangoPay\PayInPaymentDetailsTwint',
+                PayInPaymentType::PayByBank => 'MangoPay\PayInPaymentDetailsPayByBank',
                 // ...and more in future...
             ],
             'ExecutionType' => [
