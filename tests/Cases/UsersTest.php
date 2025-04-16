@@ -28,7 +28,7 @@ class UsersTest extends Base
         $this->assertNotNull($john->Id);
         $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
 //        $this->assertNotNull($john->PendingUserAction->RedirectUrl);
-        $this->assertEquals("PENDING_USER_ACTION", $john->UserStatus);
+        $this->assertEquals(UserCategory::Owner, $john->UserCategory);
     }
 
     public function test_Users_CreateLegal()
