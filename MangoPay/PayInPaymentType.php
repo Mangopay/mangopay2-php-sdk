@@ -26,4 +26,5 @@ class PayInPaymentType
     const Giropay = 'GIROPAY';
     const Bancontact = 'BCMC';
     const Swish = 'SWISH';
+    const Twint = 'TWINT';
 }

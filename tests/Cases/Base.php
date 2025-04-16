@@ -1244,6 +1244,36 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
+    protected function getNewPayInTwintWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletForCurrency("CHF");
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'CHF';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 100;
+        $payIn->DebitedFunds->Currency = 'CHF';
+
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsTwint();
+        $payIn->PaymentDetails->StatementDescriptor = 'test twint';
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?test.com";
+
+        $payIn->Tag = "Twint tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
     protected function getNewPayInBancontactWeb($userId = null)
     {
         $wallet = $this->getJohnsWalletWithMoney();
