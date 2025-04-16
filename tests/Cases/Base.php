@@ -1016,7 +1016,7 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
-    protected function getNewPayInBlikWeb($userId = null)
+    protected function getNewPayInBlikWeb($userId = null, $withCode = false)
     {
         $john = $this->getJohn();
         $wallet = new \MangoPay\Wallet();
@@ -1044,6 +1044,12 @@ abstract class Base extends TestCase
         // payment type as CARD
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsBlik();
         $payIn->PaymentDetails->StatementDescriptor = "Blik";
+
+        if ($withCode) {
+            $payIn->PaymentDetails->Code = "777365";
+            $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
+            $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        }
 
         // execution type as WEB
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
