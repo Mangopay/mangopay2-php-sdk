@@ -1016,7 +1016,7 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
-    protected function getNewPayInBlikWeb($userId = null)
+    protected function getNewPayInBlikWeb($userId = null, $withCode = false)
     {
         $john = $this->getJohn();
         $wallet = new \MangoPay\Wallet();
@@ -1044,6 +1044,12 @@ abstract class Base extends TestCase
         // payment type as CARD
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsBlik();
         $payIn->PaymentDetails->StatementDescriptor = "Blik";
+
+        if ($withCode) {
+            $payIn->PaymentDetails->Code = "777365";
+            $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
+            $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        }
 
         // execution type as WEB
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
@@ -1234,6 +1240,36 @@ abstract class Base extends TestCase
         $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?transactionId=wt_71a08458-b0cc-468d-98f7-1302591fc238";
 
         $payIn->Tag = "Swish tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    protected function getNewPayInTwintWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletForCurrency("CHF");
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'CHF';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 100;
+        $payIn->DebitedFunds->Currency = 'CHF';
+
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsTwint();
+        $payIn->PaymentDetails->StatementDescriptor = 'test twint';
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?test.com";
+
+        $payIn->Tag = "Twint tag";
 
         return $this->_api->PayIns->Create($payIn);
     }

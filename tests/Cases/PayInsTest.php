@@ -843,6 +843,24 @@ class PayInsTest extends Base
         $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
     }
 
+    public function test_PayIns_Create_BlikWebWithCode()
+    {
+        $payIn = $this->getNewPayInBlikWeb(null, true);
+
+        $this->assertNotNull($payIn->Id > 0);
+        $this->assertNotNull($payIn->PaymentDetails->Code);
+        $this->assertNotNull($payIn->PaymentDetails->IpAddress);
+        $this->assertNotNull($payIn->PaymentDetails->BrowserInfo);
+        $this->assertEquals(\MangoPay\PayInPaymentType::Blik, $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsBlik', $payIn->PaymentDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
+        $this->assertEquals(PayInStatus::Created, $payIn->Status);
+
+        $fetchedPayIn = $this->_api->PayIns->Get($payIn->Id);
+        $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
+    }
+
     public function test_PayIns_Create_KlarnaWeb()
     {
         $payIn = $this->getNewPayInKlarnaWeb();
@@ -916,6 +934,23 @@ class PayInsTest extends Base
         $this->assertNotNull($payIn->Id > 0);
         $this->assertEquals(\MangoPay\PayInPaymentType::Swish, $payIn->PaymentType);
         $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsSwish', $payIn->PaymentDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
+        $this->assertEquals(PayInStatus::Created, $payIn->Status);
+        $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertEquals('REGULAR', $payIn->Nature);
+
+        $fetchedPayIn = $this->_api->PayIns->Get($payIn->Id);
+        $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
+    }
+
+    public function test_PayIns_Create_Twint_Web()
+    {
+        $payIn = $this->getNewPayInTwintWeb();
+
+        $this->assertNotNull($payIn->Id > 0);
+        $this->assertEquals(\MangoPay\PayInPaymentType::Twint, $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsTwint', $payIn->PaymentDetails);
         $this->assertEquals(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
         $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
         $this->assertEquals(PayInStatus::Created, $payIn->Status);
