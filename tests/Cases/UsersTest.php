@@ -43,7 +43,8 @@ class UsersTest extends Base
         $matrix = $this->getMatrixSca(UserCategory::Owner, false);
         $this->assertNotNull($matrix->Id);
         $this->assertSame(\MangoPay\PersonType::Legal, $matrix->PersonType);
-        $this->assertEquals("PENDING_USER_ACTION", $matrix->UserStatus);
+        $this->assertEquals(UserCategory::Owner, $matrix->UserCategory);
+
     }
 
     public function test_Users_GetEMoney()
