@@ -3,6 +3,7 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\Libraries\Exception;
+use MangoPay\LineItem;
 use MangoPay\Money;
 use MangoPay\PayInExecutionType;
 use MangoPay\PayInPaymentDetailsBankWire;
@@ -10,6 +11,8 @@ use MangoPay\PayInPaymentType;
 use MangoPay\PayInRecurringRegistrationUpdate;
 use MangoPay\PayInStatus;
 use MangoPay\RecurringPayInCIT;
+use MangoPay\RecurringPayPalPayInCIT;
+use MangoPay\RecurringPayPalPayInMIT;
 use MangoPay\TransactionStatus;
 
 /**
@@ -535,6 +538,36 @@ class PayInsTest extends Base
         return $this->_api->PayIns->CreateRecurringRegistration($payIn);
     }
 
+    private function getRecurringPayinRegistrationPaypal()
+    {
+        $values = $this->getJohnsWalletWithMoneyAndCardId();
+        $walletId = $values["walletId"];
+        $user = $this->getJohn();
+
+        $payIn = new \MangoPay\PayInRecurringRegistration();
+        $payIn->AuthorId = $user->Id;
+        $payIn->CreditedWalletId = $walletId;
+        $payIn->FirstTransactionDebitedFunds = new \MangoPay\Money();
+        $payIn->FirstTransactionDebitedFunds->Amount = 100;
+        $payIn->FirstTransactionDebitedFunds->Currency = 'EUR';
+        $payIn->FirstTransactionFees = new \MangoPay\Money();
+        $payIn->FirstTransactionFees->Amount = 0;
+        $payIn->FirstTransactionFees->Currency = 'EUR';
+        $billing = new \MangoPay\Billing();
+        $billing->FirstName = 'John';
+        $billing->LastName = 'Doe';
+        $billing->Address = $this->getNewAddress();
+        $shipping = new \MangoPay\Shipping();
+        $shipping->FirstName = 'John';
+        $shipping->LastName = 'Doe';
+        $shipping->Address = $this->getNewAddress();
+        $payIn->Shipping = $shipping;
+        $payIn->Billing = $billing;
+        $payIn->PaymentType = "PAYPAL";
+
+        return $this->_api->PayIns->CreateRecurringRegistration($payIn);
+    }
+
     public function test_Create_Recurring_Payment()
     {
         self::$JohnsWalletWithMoney = null;// Reset the cache value
@@ -686,6 +719,81 @@ class PayInsTest extends Base
         $result = $this->_api->PayIns->CreateRecurringPayInRegistrationCIT($cit);
 
         $this->assertNotNull($result);
+    }
+
+    public function test_Create_Recurring_Paypal_PayIn_CIT()
+    {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
+        $registration = $this->getRecurringPayinRegistrationPaypal();
+
+        $cit = new RecurringPayPalPayInCIT();
+        $cit->RecurringPayinRegistrationId = $registration->Id;
+        $cit->ReturnURL = "http://example.com";
+        $cit->CancelURL = "http://example.net";
+
+        $lineItem = new LineItem();
+        $lineItem->Name = 'test item';
+        $lineItem->Quantity = 1;
+        $lineItem->UnitAmount = 100;
+        $lineItem->TaxAmount = 0;
+
+        $cit->LineItems = [$lineItem];
+
+        $cit->ShippingPreference = "SET_PROVIDED_ADDRESS";
+        $cit->Reference = "abcd-efgh-ijkl";
+        $cit->StatementDescriptor = "Example123";
+
+        $result = $this->_api->PayIns->CreateRecurringPayPalPayInCIT($cit);
+
+        $this->assertNotNull($result);
+        $this->assertNotNull($result->RecurringPayinRegistrationId);
+        $this->assertEquals("PAYPAL", $result->PaymentType);
+        $this->assertEquals("WEB", $result->ExecutionType);
+        $this->assertEquals("CREATED", $result->Status);
+        $this->assertEquals("PAYIN", $result->Type);
+        $this->assertEquals("REGULAR", $result->Nature);
+    }
+
+    public function test_Create_Recurring_Paypal_PayIn_MIT()
+    {
+        self::$JohnsWalletWithMoney = null;// Reset the cache value
+
+        $registration = $this->getRecurringPayinRegistrationPaypal();
+
+        $mit = new RecurringPayPalPayInMIT();
+        $mit->RecurringPayinRegistrationId = $registration->Id;
+        $mit->ReturnURL = "http://example.com";
+        $mit->CancelURL = "http://example.net";
+
+        $mit->DebitedFunds = new \MangoPay\Money();
+        $mit->DebitedFunds->Amount = 100;
+        $mit->DebitedFunds->Currency = 'EUR';
+        $mit->Fees = new \MangoPay\Money();
+        $mit->Fees->Amount = 0;
+        $mit->Fees->Currency = 'EUR';
+
+        $lineItem = new LineItem();
+        $lineItem->Name = 'test item';
+        $lineItem->Quantity = 1;
+        $lineItem->UnitAmount = 100;
+        $lineItem->TaxAmount = 0;
+
+        $mit->LineItems = [$lineItem];
+
+        $mit->ShippingPreference = "SET_PROVIDED_ADDRESS";
+        $mit->Reference = "abcd-efgh-ijkl";
+        $mit->StatementDescriptor = "Example123";
+
+        $result = $this->_api->PayIns->CreateRecurringPayPalPayInMIT($mit);
+
+        $this->assertNotNull($result);
+        $this->assertNotNull($result->RecurringPayinRegistrationId);
+        $this->assertEquals("PAYPAL", $result->PaymentType);
+        $this->assertEquals("WEB", $result->ExecutionType);
+        $this->assertEquals("CREATED", $result->Status);
+        $this->assertEquals("PAYIN", $result->Type);
+        $this->assertEquals("REGULAR", $result->Nature);
     }
 
     public function test_PayIns_Google_Pay_Create()
