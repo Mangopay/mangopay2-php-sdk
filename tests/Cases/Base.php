@@ -213,6 +213,24 @@ abstract class Base extends TestCase
         return $user;
     }
 
+    protected function buildMatrix($john)
+    {
+        $user = new \MangoPay\UserLegal();
+        $user->Name = "MartixSampleOrg";
+        $user->Email = "mail@test.com";
+        $user->LegalPersonType = LegalPersonType::Business;
+        $user->HeadquartersAddress = $this->getNewAddress();
+        $user->LegalRepresentativeFirstName = $john->FirstName;
+        $user->LegalRepresentativeLastName = $john->LastName;
+        $user->LegalRepresentativeAddress = $john->Address;
+        $user->LegalRepresentativeEmail = $john->Email;
+        $user->LegalRepresentativeBirthday = $john->Birthday;
+        $user->LegalRepresentativeNationality = $john->Nationality;
+        $user->LegalRepresentativeCountryOfResidence = $john->CountryOfResidence;
+        $user->CompanyNumber = "LU123456";
+        return $user;
+    }
+
     /**
      * Creates new address
      * @return Address
@@ -1728,19 +1746,7 @@ abstract class Base extends TestCase
     {
         if (self::$Matrix === null) {
             $john = $this->getJohn();
-            $user = new \MangoPay\UserLegal();
-            $user->Name = "MartixSampleOrg";
-            $user->Email = "mail@test.com";
-            $user->LegalPersonType = LegalPersonType::Business;
-            $user->HeadquartersAddress = $this->getNewAddress();
-            $user->LegalRepresentativeFirstName = $john->FirstName;
-            $user->LegalRepresentativeLastName = $john->LastName;
-            $user->LegalRepresentativeAddress = $john->Address;
-            $user->LegalRepresentativeEmail = $john->Email;
-            $user->LegalRepresentativeBirthday = $john->Birthday;
-            $user->LegalRepresentativeNationality = $john->Nationality;
-            $user->LegalRepresentativeCountryOfResidence = $john->CountryOfResidence;
-            $user->CompanyNumber = "LU123456";
+            $user = $this->buildMatrix($john);
             self::$Matrix = $this->_api->Users->Create($user);
         }
         return self::$Matrix;

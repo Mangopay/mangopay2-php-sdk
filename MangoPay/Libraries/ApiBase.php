@@ -150,6 +150,8 @@ abstract class ApiBase
         'users_block_status_regulatory' => ['/users/%s/Regulatory', RequestType::GET],
         'users_categorizenaturals_sca' => ['/sca/users/natural/%s/category', RequestType::PUT],
         'users_categorizelegals_sca' => ['/sca/users/legal/%s/category', RequestType::PUT],
+        'users_close_natural' => ['/users/natural/%s', RequestType::DELETE],
+        'users_close_legal' => ['/users/legal/%s', RequestType::DELETE],
 
         'validate_the_format_of_user_data' => ['/users/data-formats/validation', RequestType::POST],
 
@@ -421,6 +423,23 @@ abstract class ApiBase
 
         $rest = new RestTool($this->_root, true);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
+
+        if (!is_null($responseClassName)) {
+            return $this->CastResponseToEntity($response, $responseClassName);
+        }
+
+        return $response;
+    }
+
+    protected function DeleteObject($methodKey, $entity, $responseClassName = null)
+    {
+        if (!isset($entity->Id)) {
+            throw new Libraries\Exception('The entity must have the Id set');
+        }
+
+        $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entity->Id);
+        $rest = new RestTool($this->_root, true);
+        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
