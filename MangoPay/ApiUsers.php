@@ -558,4 +558,23 @@ class ApiUsers extends Libraries\ApiBase
     {
         return $this->ExecutePostRequest('users_enroll_sca', new UserNatural(), '\MangoPay\UserEnrollmentResult', $userId);
     }
+
+    /**
+     * Close user (change status to CLOSED). The resource remains available for historical purposes.
+     * @param UserLegal|UserNatural|UserLegalSca|UserNaturalSca $user
+     * @throws Libraries\Exception If occur Wrong entity class for user
+     */
+    public function Close($user)
+    {
+        $className = get_class($user);
+        if ($className == 'MangoPay\UserNatural' || $className == 'MangoPay\UserNaturalSca') {
+            $methodKey = 'users_close_natural';
+        } elseif ($className == 'MangoPay\UserLegal' || $className == 'MangoPay\UserLegalSca') {
+            $methodKey = 'users_close_legal';
+        } else {
+            throw new Libraries\Exception('Wrong entity class for user');
+        }
+
+        $this->DeleteObject($methodKey, $user);
+    }
 }

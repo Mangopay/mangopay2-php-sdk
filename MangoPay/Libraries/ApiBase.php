@@ -150,6 +150,8 @@ abstract class ApiBase
         'users_block_status_regulatory' => ['/users/%s/Regulatory', RequestType::GET],
         'users_categorizenaturals_sca' => ['/sca/users/natural/%s/category', RequestType::PUT],
         'users_categorizelegals_sca' => ['/sca/users/legal/%s/category', RequestType::PUT],
+        'users_close_natural' => ['/users/natural/%s', RequestType::DELETE],
+        'users_close_legal' => ['/users/legal/%s', RequestType::DELETE],
 
         'validate_the_format_of_user_data' => ['/users/data-formats/validation', RequestType::POST],
 
@@ -257,9 +259,17 @@ abstract class ApiBase
         'virtual_account_get_all' => ['/wallets/%s/virtual-accounts', RequestType::GET],
         'virtual_account_get_availabilities' => ['/virtual-accounts/availability', RequestType::GET],
 
-        'identify_verification_create' => ['/users/%s/identity-verifications', RequestType::POST],
-        'identify_verification_get' => ['/identity-verifications/%s', RequestType::GET],
-        'identify_verification_checks_get' => ['/identity-verifications/%s/checks', RequestType::GET]
+        'identity_verification_create' => ['/users/%s/identity-verifications', RequestType::POST],
+        'identity_verification_get' => ['/identity-verifications/%s', RequestType::GET],
+        'identity_verification_checks_get' => ['/identity-verifications/%s/checks', RequestType::GET],
+
+        'recipients_create' => ['/users/%s/recipients', RequestType::POST],
+        'recipients_get' => ['/recipients/%s', RequestType::GET],
+        'recipients_get_all' => ['/users/%s/recipients', RequestType::GET],
+        'recipients_get_payout_methods' => ['/recipients/payout-methods?country=%s&currency=%s', RequestType::GET],
+        'recipients_get_schema' => ['/recipients/schema?payoutMethodType=%s&recipientType=%s&currency=%s', RequestType::GET],
+        'recipients_validate' => ['/users/%s/recipients/validate', RequestType::POST],
+        'recipients_deactivate' => ['/recipients/%s', RequestType::PUT]
     ];
 
     /**
@@ -421,6 +431,23 @@ abstract class ApiBase
 
         $rest = new RestTool($this->_root, true);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
+
+        if (!is_null($responseClassName)) {
+            return $this->CastResponseToEntity($response, $responseClassName);
+        }
+
+        return $response;
+    }
+
+    protected function DeleteObject($methodKey, $entity, $responseClassName = null)
+    {
+        if (!isset($entity->Id)) {
+            throw new Libraries\Exception('The entity must have the Id set');
+        }
+
+        $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entity->Id);
+        $rest = new RestTool($this->_root, true);
+        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
@@ -685,7 +712,9 @@ abstract class ApiBase
             'wallets_create' => '\MangoPay\Wallet',
             'users_getemoney_year' => '\MangoPay\EMoney',
             'users_getemoney_month' => '\MangoPay\EMoney',
-            'payins_recurring_paypal' => '\MangoPay\PayInRecurring'
+            'payins_recurring_paypal' => '\MangoPay\PayInRecurring',
+            'identity_verification_create' => '\MangoPay\IdentityVerification',
+            'recipients_create' => '\MangoPay\Recipient'
         ];
 
         foreach ($map as $key => $className) {
