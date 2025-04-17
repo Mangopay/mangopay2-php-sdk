@@ -85,6 +85,9 @@ class ApiRecipients extends Libraries\ApiBase
      */
     public function Deactivate($recipientId)
     {
-        return $this->SaveObject('recipients_deactivate', new Recipient(), '\MangoPay\Recipient', $recipientId);
+        $dto = new Recipient();
+        $dto->Id = $recipientId;
+        $dto->Status = 'DEACTIVATED';
+        return $this->SaveObject('recipients_deactivate', $dto, '\MangoPay\Recipient');
     }
 }
