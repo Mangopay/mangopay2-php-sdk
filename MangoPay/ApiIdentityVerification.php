@@ -14,7 +14,7 @@ class ApiIdentityVerification extends Libraries\ApiBase
      */
     public function Create($identityVerification, $userId, $idempotencyKey = null)
     {
-        return $this->CreateObject('identify_verification_create', $identityVerification, '\MangoPay\IdentityVerification', $userId, null, $idempotencyKey);
+        return $this->CreateObject('identity_verification_create', $identityVerification, '\MangoPay\IdentityVerification', $userId, null, $idempotencyKey);
     }
 
     /**
@@ -24,7 +24,7 @@ class ApiIdentityVerification extends Libraries\ApiBase
      */
     public function Get($id)
     {
-        return $this->GetObject('identify_verification_get', '\MangoPay\IdentityVerification', $id);
+        return $this->GetObject('identity_verification_get', '\MangoPay\IdentityVerification', $id);
     }
 
     /**
@@ -34,6 +34,6 @@ class ApiIdentityVerification extends Libraries\ApiBase
      */
     public function GetChecks($id)
     {
-        return $this->GetObject('identify_verification_checks_get', '\MangoPay\IdentityVerificationCheck', $id);
+        return $this->GetObject('identity_verification_checks_get', '\MangoPay\IdentityVerificationCheck', $id);
     }
 }

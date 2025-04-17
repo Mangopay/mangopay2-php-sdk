@@ -257,9 +257,17 @@ abstract class ApiBase
         'virtual_account_get_all' => ['/wallets/%s/virtual-accounts', RequestType::GET],
         'virtual_account_get_availabilities' => ['/virtual-accounts/availability', RequestType::GET],
 
-        'identify_verification_create' => ['/users/%s/identity-verifications', RequestType::POST],
-        'identify_verification_get' => ['/identity-verifications/%s', RequestType::GET],
-        'identify_verification_checks_get' => ['/identity-verifications/%s/checks', RequestType::GET]
+        'identity_verification_create' => ['/users/%s/identity-verifications', RequestType::POST],
+        'identity_verification_get' => ['/identity-verifications/%s', RequestType::GET],
+        'identity_verification_checks_get' => ['/identity-verifications/%s/checks', RequestType::GET],
+
+        'recipients_create' => ['/users/%s/recipients', RequestType::POST],
+        'recipients_get' => ['/recipients/%s', RequestType::GET],
+        'recipients_get_all' => ['/users/%s/recipients', RequestType::GET],
+        'recipients_get_payout_methods' => ['/recipients/payout-methods?country=%s&currency=%s', RequestType::GET],
+        'recipients_get_schema' => ['/recipients/schema?payoutMethodType=%s&recipientType=%s&currency=%s', RequestType::GET],
+        'recipients_validate' => ['/users/%s/recipients/validate', RequestType::POST],
+        'recipients_deactivate' => ['/recipients/%s', RequestType::PUT]
     ];
 
     /**
@@ -685,7 +693,9 @@ abstract class ApiBase
             'wallets_create' => '\MangoPay\Wallet',
             'users_getemoney_year' => '\MangoPay\EMoney',
             'users_getemoney_month' => '\MangoPay\EMoney',
-            'payins_recurring_paypal' => '\MangoPay\PayInRecurring'
+            'payins_recurring_paypal' => '\MangoPay\PayInRecurring',
+            'identity_verification_create' => '\MangoPay\IdentityVerification',
+            'recipients_create' => '\MangoPay\Recipient'
         ];
 
         foreach ($map as $key => $className) {
