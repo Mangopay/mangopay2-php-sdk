@@ -16,6 +16,7 @@ class EventType
     const PayinNormalSucceeded = "PAYIN_NORMAL_SUCCEEDED";
     const PayinNormalFailed = "PAYIN_NORMAL_FAILED";
     const PayoutNormalCreated = "PAYOUT_NORMAL_CREATED";
+    const PayinNormalProcessingStatusPendingSucceeded = "PAYIN_NORMAL_PROCESSING_STATUS_PENDING_SUCCEEDED";
     const PayoutNormalSucceeded = "PAYOUT_NORMAL_SUCCEEDED";
     const PayoutNormalFailed = "PAYOUT_NORMAL_FAILED";
     const TransferNormalCreated = "TRANSFER_NORMAL_CREATED";

@@ -95,6 +95,16 @@ class PayInRecurringRegistration extends Libraries\Dto
     public $FreeCycles;
 
     /**
+     * The type of recurring pay-in registration (which must correspond to the pay-ins requested against it)
+     *
+     * Allowed values: CARD_DIRECT, PAYPAL
+     *
+     * Default value: CARD_DIRECT
+     * @var string
+     */
+    public $PaymentType;
+
+    /**
      * Get array with read-only properties
      * @return array
      */

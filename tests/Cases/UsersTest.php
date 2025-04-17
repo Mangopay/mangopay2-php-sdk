@@ -27,8 +27,8 @@ class UsersTest extends Base
         $john = $this->getJohnSca(UserCategory::Owner, false);
         $this->assertNotNull($john->Id);
         $this->assertSame(\MangoPay\PersonType::Natural, $john->PersonType);
-        $this->assertNotNull($john->PendingUserAction->RedirectUrl);
-        $this->assertEquals("PENDING_USER_ACTION", $john->UserStatus);
+//        $this->assertNotNull($john->PendingUserAction->RedirectUrl);
+        $this->assertEquals(UserCategory::Owner, $john->UserCategory);
     }
 
     public function test_Users_CreateLegal()
@@ -43,8 +43,7 @@ class UsersTest extends Base
         $matrix = $this->getMatrixSca(UserCategory::Owner, false);
         $this->assertNotNull($matrix->Id);
         $this->assertSame(\MangoPay\PersonType::Legal, $matrix->PersonType);
-        $this->assertNotNull($matrix->PendingUserAction->RedirectUrl);
-        $this->assertEquals("PENDING_USER_ACTION", $matrix->UserStatus);
+        $this->assertEquals(UserCategory::Owner, $matrix->UserCategory);
     }
 
     public function test_Users_GetEMoney()

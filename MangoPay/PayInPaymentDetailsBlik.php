@@ -10,4 +10,28 @@ class PayInPaymentDetailsBlik extends Libraries\Dto implements PayInPaymentDetai
      * @var string
      */
     public $StatementDescriptor;
+
+
+    /// Blik with code: ///
+
+    /**
+     * The 6-digit code from the user’s banking application.
+     * Required when creating a Blik PayIn with code.
+     * @var string
+     */
+    public $Code;
+
+    /**
+     * Information about the browser used by the end user (author) to perform the payment.
+     * Required when creating a Blik PayIn with code.
+     * @var BrowserInfo
+     */
+    public $BrowserInfo;
+
+    /**
+     * The IP address of the end user initiating the transaction, in IPV4 or IPV6 format.
+     * Required when creating a Blik PayIn with code.
+     * @var string
+     */
+    public $IpAddress;
 }

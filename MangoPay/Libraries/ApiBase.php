@@ -81,6 +81,8 @@ abstract class ApiBase
         'payins_giropay-web_create' => ['/payins/payment-methods/giropay', RequestType::POST],
         'payins_bancontact-web_create' => ['/payins/payment-methods/bancontact', RequestType::POST],
         'payins_swish-web_create' => ['/payins/payment-methods/swish', RequestType::POST],
+        'payins_twint-web_create' => ['/payins/payment-methods/twint', RequestType::POST],
+        'payins_paybybank-web_create' => ['/payins/payment-methods/openbanking', RequestType::POST],
         'add_tracking_info' => ['/payins/%s/trackings', RequestType::PUT],
 
         'payment_method-metadata' => ['/payment-methods/metadata', RequestType::POST],
@@ -89,6 +91,7 @@ abstract class ApiBase
         'payins_recurring_registration_get' => ['/recurringpayinregistrations/%s', RequestType::GET],
         'payins_recurring_registration_put' => ['/recurringpayinregistrations/%s', RequestType::PUT],
         'payins_recurring_card_direct' => ['/payins/recurring/card/direct', RequestType::POST],
+        'payins_recurring_paypal' => ['/payins/payment-methods/paypal/recurring', RequestType::POST],
         'payins_create_card_pre_authorized_deposit' => ['/payins/deposit-preauthorized/direct/full-capture', RequestType::POST],
 
         'repudiation_get' => ['/repudiations/%s', RequestType::GET],
@@ -681,7 +684,8 @@ abstract class ApiBase
             'kyc_page_create' => '',
             'wallets_create' => '\MangoPay\Wallet',
             'users_getemoney_year' => '\MangoPay\EMoney',
-            'users_getemoney_month' => '\MangoPay\EMoney'
+            'users_getemoney_month' => '\MangoPay\EMoney',
+            'payins_recurring_paypal' => '\MangoPay\PayInRecurring'
         ];
 
         foreach ($map as $key => $className) {
