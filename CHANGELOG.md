@@ -1,3 +1,19 @@
+## [3.36.0] - 2025-04-17
+### Added
+- [POST Create a BLIK PayIn (with code)](https://docs.mangopay.com/api-reference/blik/create-blik-payin-with-code)
+- [POST Create a TWINT PayIn](https://docs.mangopay.com/api-reference/twint/create-twint-payin)
+- [POST Create a Pay by Bank PayIn](https://docs.mangopay.com/api-reference/pay-by-bank/create-pay-by-bank-payin), including related `PAYIN_NORMAL_PROCESSING_STATUS_PENDING_SUCCEEDED` webhook event type
+- `RTGS_PAYMENT` for `PayoutModeRequested` on [POST Create a Payout](https://docs.mangopay.com/api-reference/payouts/create-payout)
+- PayPal recurring payments, thanks to the `PaymentType` value `PAYPAL` on [Recurring PayIn Registrations](https://docs.mangopay.com/api-reference/recurring-payin-registrations/create-recurring-payin-registration-paypal) and new endpoints ([POST Create a Recurring PayPal PayIn (CIT)](https://docs.mangopay.com/api-reference/paypal/create-recurring-paypal-payin-cit) and [POST Create a Recurring PayPal PayIn (MIT)](https://docs.mangopay.com/api-reference/paypal/create-recurring-paypal-payin-mit)
+
+## [3.35.1] - 2025-04-02
+### Changed
+- User-Agent Header value standardized on format: User-Agent: Mangopay-SDK/`SDKVersion` (`Language`/`LanguageVersion`)
+
+### Fixed
+- Replaced int property with Money property for recurring payin registration `TotalAmount`
+- Fixed tests for categorize SCA users endpoint
+
 ## [3.35.0] - 2025-03-07
 ### Added
 

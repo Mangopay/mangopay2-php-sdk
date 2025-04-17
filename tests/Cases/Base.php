@@ -304,6 +304,7 @@ abstract class Base extends TestCase
             $user->Email = "john.doe.sca@sample.org";
             $user->TermsAndConditionsAccepted = true;
             $user->UserCategory = UserCategory::Payer;
+            $user->Address = $this->getNewAddress();
             self::$JohnScaPayer = $this->_api->Users->Create($user);
         }
         return self::$JohnScaPayer;
@@ -1015,7 +1016,7 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
-    protected function getNewPayInBlikWeb($userId = null)
+    protected function getNewPayInBlikWeb($userId = null, $withCode = false)
     {
         $john = $this->getJohn();
         $wallet = new \MangoPay\Wallet();
@@ -1043,6 +1044,12 @@ abstract class Base extends TestCase
         // payment type as CARD
         $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsBlik();
         $payIn->PaymentDetails->StatementDescriptor = "Blik";
+
+        if ($withCode) {
+            $payIn->PaymentDetails->Code = "777365";
+            $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
+            $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        }
 
         // execution type as WEB
         $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
@@ -1237,6 +1244,36 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
+    protected function getNewPayInTwintWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletForCurrency("CHF");
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'CHF';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 100;
+        $payIn->DebitedFunds->Currency = 'CHF';
+
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsTwint();
+        $payIn->PaymentDetails->StatementDescriptor = 'test twint';
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = "http://www.my-site.com/returnURL?test.com";
+
+        $payIn->Tag = "Twint tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
     protected function getNewPayInBancontactWeb($userId = null)
     {
         $wallet = $this->getJohnsWalletWithMoney();
@@ -1265,6 +1302,44 @@ abstract class Base extends TestCase
         $payIn->ExecutionDetails->Culture = 'FR';
 
         $payIn->Tag = "Bancontact tag";
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
+    protected function getNewPayInPayByBankWeb($userId = null)
+    {
+        $wallet = $this->getJohnsWalletForCurrency("EUR");
+
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 100;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsPayByBank();
+        $payIn->PaymentDetails->StatementDescriptor = 'test';
+        $payIn->PaymentDetails->Country = 'DE';
+        $payIn->PaymentDetails->IBAN = 'DE03500105177564668331';
+        $payIn->PaymentDetails->BIC = 'AACSDE33';
+        $payIn->PaymentDetails->Scheme = 'SEPA_INSTANT_CREDIT_TRANSFER';
+        $payIn->PaymentDetails->BankName = 'de-demobank-open-banking-embedded-templates';
+        $payIn->PaymentDetails->PaymentFlow = 'WEB';
+
+        // execution type as WEB
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $payIn->ExecutionDetails->ReturnURL = 'https://www.example.com';
+        $payIn->ExecutionDetails->Culture = 'EN';
+
+        $payIn->Tag = "PayByBank PHP";
 
         return $this->_api->PayIns->Create($payIn);
     }
@@ -1697,24 +1772,22 @@ abstract class Base extends TestCase
     private function getMatrixScaPayer($recreate)
     {
         if (self::$MatrixScaPayer === null || $recreate) {
-            $john = $this->getJohn();
-
             $legalRepresentative = new LegalRepresentative();
-            $legalRepresentative->FirstName = $john->FirstName;
-            $legalRepresentative->LastName = "SCA Review";
-            $legalRepresentative->Email = $john->Email;
-            $legalRepresentative->Birthday = $john->Birthday;
-            $legalRepresentative->Nationality = $john->Nationality;
-            $legalRepresentative->CountryOfResidence = $john->CountryOfResidence;
+            $legalRepresentative->FirstName = "John SCA";
+            $legalRepresentative->LastName = "Doe SCA Review";
+            $legalRepresentative->Email = "john.doe.sca@sample.org";
+            $legalRepresentative->Birthday = mktime(0, 0, 0, 12, 21, 1975);
+            $legalRepresentative->Nationality = "FR";
+            $legalRepresentative->CountryOfResidence = "FR";
             $legalRepresentative->PhoneNumber = "+33611111111";
             $legalRepresentative->PhoneNumberCountry = "FR";
 
             $user = new UserLegalSca();
             $user->Name = "MartixSampleOrg";
-            $user->Email = $john->Email;
+            $user->Email = "john.doe@sample.org";
             $user->LegalPersonType = LegalPersonType::Business;
-            $user->UserCategory = UserCategory::Owner;
-            $user->LegalRepresentativeAddress = $john->Address;
+            $user->UserCategory = UserCategory::Payer;
+            $user->LegalRepresentativeAddress = $this->getNewAddress();
             $user->TermsAndConditionsAccepted = true;
             $user->LegalRepresentative = $legalRepresentative;
 
