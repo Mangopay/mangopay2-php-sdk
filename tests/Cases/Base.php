@@ -615,49 +615,64 @@ abstract class Base extends TestCase
     {
         if (self::$JohnsWalletWithMoney === null) {
             $john = $this->getJohn();
-            // create wallet with money
-            $wallet = new \MangoPay\Wallet();
-            $wallet->Owners = [$john->Id];
-            $wallet->Currency = 'EUR';
-            $wallet->Description = 'WALLET IN EUR WITH MONEY';
-
-            self::$JohnsWalletWithMoney = $this->_api->Wallets->Create($wallet);
-
-            $cardRegistration = new \MangoPay\CardRegistration();
-            $cardRegistration->UserId = self::$JohnsWalletWithMoney->Owners[0];
-            $cardRegistration->Currency = 'EUR';
-            $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
-
-            $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
-            $cardRegistration = $this->_api->CardRegistrations->Update($cardRegistration);
-
-            $card = $this->_api->Cards->Get($cardRegistration->CardId);
-
-            // create pay-in CARD DIRECT
-            $payIn = new \MangoPay\PayIn();
-            $payIn->CreditedWalletId = self::$JohnsWalletWithMoney->Id;
-            $payIn->AuthorId = $cardRegistration->UserId;
-            $payIn->DebitedFunds = new \MangoPay\Money();
-            $payIn->DebitedFunds->Amount = $amount;
-            $payIn->DebitedFunds->Currency = 'EUR';
-            $payIn->Fees = new \MangoPay\Money();
-            $payIn->Fees->Amount = 0;
-            $payIn->Fees->Currency = 'EUR';
-
-            // payment type as CARD
-            $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
-            $payIn->PaymentDetails->CardId = $card->Id;
-            $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
-            $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
-
-            // execution type as DIRECT
-            $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-            $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
-            // create Pay-In
-            $this->_api->PayIns->Create($payIn);
+            self::$JohnsWalletWithMoney = $this->createNewWallet($john->Id);
+            $cardRegistration = $this->createNewCardRegistration($john->Id);
+            $this->createNewPayInCardDirect($john->Id, $cardRegistration->CardId, self::$JohnsWalletWithMoney->Id, $amount);
         }
-
         return $this->_api->Wallets->Get(self::$JohnsWalletWithMoney->Id);
+    }
+
+    protected function getNewWalletWithMoney($userId, $amount = 1000)
+    {
+        $wallet = $this->createNewWallet($userId);
+        $cardRegistration = $this->createNewCardRegistration($userId);
+        $this->createNewPayInCardDirect($userId, $cardRegistration->CardId, $wallet->Id, $amount);
+        return $this->_api->Wallets->Get($wallet->Id);
+    }
+
+    private function createNewWallet($userId)
+    {
+        $wallet = new \MangoPay\Wallet();
+        $wallet->Owners = [$userId];
+        $wallet->Currency = 'EUR';
+        $wallet->Description = 'WALLET IN EUR WITH MONEY';
+        return $this->_api->Wallets->Create($wallet);
+    }
+
+    private function createNewCardRegistration($userId)
+    {
+        $cardRegistration = new \MangoPay\CardRegistration();
+        $cardRegistration->UserId = $userId;
+        $cardRegistration->Currency = 'EUR';
+        $cardRegistration = $this->_api->CardRegistrations->Create($cardRegistration);
+        $cardRegistration->RegistrationData = $this->getPaylineCorrectRegistrationData($cardRegistration);
+        return $this->_api->CardRegistrations->Update($cardRegistration);
+    }
+
+    private function createNewPayInCardDirect($userId, $cardId, $walletId, $amount)
+    {
+        // create pay-in CARD DIRECT
+        $payIn = new \MangoPay\PayIn();
+        $payIn->CreditedWalletId = $walletId;
+        $payIn->AuthorId = $userId;
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = $amount;
+        $payIn->DebitedFunds->Currency = 'EUR';
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 0;
+        $payIn->Fees->Currency = 'EUR';
+
+        // payment type as CARD
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+        $payIn->PaymentDetails->CardId = $cardId;
+        $payIn->PaymentDetails->IpAddress = "2001:0620:0000:0000:0211:24FF:FE80:C12C";
+        $payIn->PaymentDetails->BrowserInfo = $this->getBrowserInfo();
+
+        // execution type as DIRECT
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
+        $payIn->ExecutionDetails->SecureModeReturnURL = 'http://test.com';
+        // create Pay-In
+        $this->_api->PayIns->Create($payIn);
     }
 
     /**
@@ -1428,6 +1443,33 @@ abstract class Base extends TestCase
 
         $transfer->DebitedWalletId = $walletWithMoney->Id;
         $transfer->CreditedWalletId = $wallet->Id;
+
+        return $this->_api->Transfers->Create($transfer);
+    }
+
+    protected function getNewTransferSca($userId, $amount, $scaContext, $debitedWalletId)
+    {
+        $matrixSca = $this->getMatrixScaOwner(false);
+
+        $creditedWallet = new \MangoPay\Wallet();
+        $creditedWallet->Owners = [$matrixSca->Id];
+        $creditedWallet->Currency = 'EUR';
+        $creditedWallet->Description = 'WALLET IN EUR FOR TRANSFER';
+        $creditedWallet = $this->_api->Wallets->Create($creditedWallet);
+
+        $transfer = new \MangoPay\Transfer();
+        $transfer->AuthorId = $userId;
+        $transfer->CreditedUserId = $matrixSca->Id;
+        $transfer->DebitedFunds = new \MangoPay\Money();
+        $transfer->DebitedFunds->Currency = 'EUR';
+        $transfer->DebitedFunds->Amount = $amount;
+        $transfer->Fees = new \MangoPay\Money();
+        $transfer->Fees->Currency = 'EUR';
+        $transfer->Fees->Amount = 0;
+
+        $transfer->DebitedWalletId = $debitedWalletId;
+        $transfer->CreditedWalletId = $creditedWallet->Id;
+        $transfer->ScaContext = $scaContext;
 
         return $this->_api->Transfers->Create($transfer);
     }

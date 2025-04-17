@@ -18,4 +18,21 @@ class Transfer extends Transaction
      * @var string
      */
     public $CreditedWalletId;
+
+    /**
+     * @var string
+     */
+    public $ScaContext;
+
+    /**
+     * @var PendingUserAction
+     */
+    public $PendingUserAction;
+
+    public function GetSubObjects()
+    {
+        $subObjects = parent::GetSubObjects();
+        $subObjects['PendingUserAction'] = '\MangoPay\PendingUserAction';
+        return $subObjects;
+    }
 }
