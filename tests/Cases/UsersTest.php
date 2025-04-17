@@ -44,7 +44,6 @@ class UsersTest extends Base
         $this->assertNotNull($matrix->Id);
         $this->assertSame(\MangoPay\PersonType::Legal, $matrix->PersonType);
         $this->assertEquals(UserCategory::Owner, $matrix->UserCategory);
-
     }
 
     public function test_Users_GetEMoney()
