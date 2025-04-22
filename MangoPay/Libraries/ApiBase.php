@@ -160,6 +160,7 @@ abstract class ApiBase
         'wallets_create' => ['/wallets', RequestType::POST],
         'wallets_alltransactions' => ['/wallets/%s/transactions', RequestType::GET],
         'wallets_get' => ['/wallets/%s', RequestType::GET],
+        'wallets_get_sca' => ['/wallets/%s?ScaContext=%s', RequestType::GET],
         'wallets_save' => ['/wallets/%s', RequestType::PUT],
 
         'kyc_documents_create' => ['/users/%s/KYC/documents/', RequestType::POST],
