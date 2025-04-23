@@ -354,29 +354,7 @@ class RestTool
 
         // SCA context 401
         if ($responseCode == 401) {
-            foreach ($responseHeaders as $header) {
-                if (stripos($header, 'www-authenticate') === 0) {
-                    if (preg_match('/PendingUserAction RedirectUrl=([^\s]+)/', $header, $matches)) {
-                        if (sizeof($matches) == 2) {
-                            $redirectUrl = $matches[1];
-                            $error = new Error();
-                            $error->Message = "SCA required";
-                            $error->Id = $responseBody->traceId;
-                            $error->Date = time();
-                            $error->Type = "unauthorized";
-                            $error->Data = [
-                                "RedirectUrl" => $redirectUrl
-                            ];
-                            $error->Errors = [
-                                "Sca" => "SCA required to perform this action."
-                            ];
-
-                            throw new ResponseException($this->_requestUrl, $responseCode, $error);
-                        }
-                    }
-                    break;
-                }
-            }
+            self::HandleSca401($responseHeaders, $responseBody, $responseCode);
         }
 
         if (!is_object($responseBody) || !isset($responseBody->Message)) {
@@ -408,5 +386,36 @@ class RestTool
         }
 
         throw new ResponseException($this->_requestUrl, $responseCode, $error);
+    }
+
+    /**
+     * Extract the www-authenticate header and get the PendingUserAction RedirectUrl
+     * @throws ResponseException
+     */
+    private function HandleSca401($responseHeaders, $responseBody, $responseCode)
+    {
+        foreach ($responseHeaders as $header) {
+            if (stripos($header, 'www-authenticate') === 0) {
+                if (preg_match('/PendingUserAction RedirectUrl=([^\s]+)/', $header, $matches)) {
+                    if (sizeof($matches) == 2) {
+                        $redirectUrl = $matches[1];
+                        $error = new Error();
+                        $error->Message = "SCA required";
+                        $error->Id = $responseBody->traceId;
+                        $error->Date = time();
+                        $error->Type = "unauthorized";
+                        $error->Data = [
+                            "RedirectUrl" => $redirectUrl
+                        ];
+                        $error->Errors = [
+                            "Sca" => "SCA required to perform this action."
+                        ];
+
+                        throw new ResponseException($this->_requestUrl, $responseCode, $error);
+                    }
+                }
+                break;
+            }
+        }
     }
 }
