@@ -354,7 +354,7 @@ class RestTool
 
         // SCA context 401
         if ($responseCode == 401) {
-            self::HandleSca401($responseHeaders, $responseBody, $responseCode);
+            self::HandleSca401($responseHeaders, $responseCode);
         }
 
         if (!is_object($responseBody) || !isset($responseBody->Message)) {
@@ -392,7 +392,7 @@ class RestTool
      * Extract the www-authenticate header and get the PendingUserAction RedirectUrl
      * @throws ResponseException
      */
-    private function HandleSca401($responseHeaders, $responseBody, $responseCode)
+    private function HandleSca401($responseHeaders, $responseCode)
     {
         foreach ($responseHeaders as $header) {
             if (stripos($header, 'www-authenticate') === 0) {
@@ -401,7 +401,6 @@ class RestTool
                         $redirectUrl = $matches[1];
                         $error = new Error();
                         $error->Message = "SCA required";
-                        $error->Id = $responseBody->traceId;
                         $error->Date = time();
                         $error->Type = "unauthorized";
                         $error->Data = [
