@@ -2,6 +2,7 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\FilterWallets;
 use MangoPay\LegalPersonType;
 use MangoPay\LegalRepresentative;
 use MangoPay\Libraries\Exception;
@@ -714,6 +715,23 @@ class UsersTest extends Base
         $this->assertIdenticalInputProps($transactions[0], $payIn);
     }
 
+    public function test_Users_AllTransactions_Sca()
+    {
+        $john = $this->getJohn();
+        $pagination = new \MangoPay\Pagination(1, 1);
+        $filter = new \MangoPay\FilterTransactions();
+        $filter->Type = 'PAYIN';
+        $filter->ScaContext = "USER_PRESENT";
+
+        try {
+            $this->_api->Users->GetTransactions($john->Id, $pagination, $filter);
+        } catch (\Exception $exception) {
+            $this->assertSame(401, $exception->getCode());
+            $this->assertNotNull($exception->GetErrorDetails()->Errors['Sca']);
+            $this->assertNotNull($exception->GetErrorDetails()->Data['RedirectUrl']);
+        }
+    }
+
     public function test_Users_AllTransactions_SortByCreationDate()
     {
         $john = $this->getJohn();
@@ -768,6 +786,23 @@ class UsersTest extends Base
 
         $this->assertEquals(1, count($wallets));
         $this->assertInstanceOf('\MangoPay\Wallet', $wallets[0]);
+    }
+
+    public function test_Users_AllWallets_Sca()
+    {
+        $john = $this->getJohn();
+        $this->getJohnsWallet();
+        $pagination = new \MangoPay\Pagination(1, 1);
+
+        try {
+            $filter = new FilterWallets();
+            $filter->ScaContext = "USER_PRESENT";
+            $this->_api->Users->GetWallets($john->Id, $pagination, null, $filter);
+        } catch (\Exception $exception) {
+            $this->assertSame(401, $exception->getCode());
+            $this->assertNotNull($exception->GetErrorDetails()->Errors['Sca']);
+            $this->assertNotNull($exception->GetErrorDetails()->Data['RedirectUrl']);
+        }
     }
 
     public function test_Users_AllWallets_SortByCreationDate()

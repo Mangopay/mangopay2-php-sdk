@@ -273,9 +273,9 @@ class ApiUsers extends Libraries\ApiBase
      *
      * @return \MangoPay\Wallet[] Array with objects returned from API
      */
-    public function GetWallets($userId, & $pagination = null, $sorting = null)
+    public function GetWallets($userId, & $pagination = null, $sorting = null, $filter = null)
     {
-        return $this->GetList('users_allwallets', $pagination, 'MangoPay\Wallet', $userId, null, $sorting);
+        return $this->GetList('users_allwallets', $pagination, 'MangoPay\Wallet', $userId, $filter, $sorting);
     }
 
     /**

@@ -43,6 +43,13 @@ class Error
     public $Type;
 
     /**
+     * Additional data related to the error
+     * @var object
+     * @access public
+     */
+    public $Data;
+
+    /**
      * Return the stdClass error serialized as string
      * @access public
      */

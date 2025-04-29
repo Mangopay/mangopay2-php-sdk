@@ -3,6 +3,7 @@
 namespace MangoPay\Libraries;
 
 use MangoPay\MangoPayApi;
+use MangoPay\PendingUserAction;
 use MangoPay\RateLimit;
 use Psr\Log\LoggerInterface;
 
@@ -152,18 +153,18 @@ class RestTool
             $logClass::Debug('Response JSON', $responseResult->Body);
         }
         // FIXME This can fail hard.
-        $response = json_decode($responseResult->Body);
+        $responseBody = json_decode($responseResult->Body);
 
-        $this->logger->debug('Decoded object : ' . print_r($response, true));
+        $this->logger->debug('Decoded object : ' . print_r($responseBody, true));
         if ($this->_root->Config->DebugMode) {
-            $logClass::Debug('Response object', $response);
+            $logClass::Debug('Response object', $responseBody);
         }
-        $this->CheckResponseCode($responseResult->ResponseCode, $response);
+        $this->CheckResponseCode($responseResult->ResponseCode, $responseBody, $responseResult->Headers);
         $this->ReadResponseHeader($responseResult->Headers);
         if (!is_null($pagination)) {
             $pagination = $this->_pagination;
         }
-        return $response;
+        return $responseBody;
     }
 
     /**
@@ -341,17 +342,22 @@ class RestTool
      * Check response code
      *
      * @param int $responseCode
-     * @param object $response Response from REST API
+     * @param object $responseBody Response from REST API
      *
      * @throws ResponseException If response code not OK
      */
-    private function CheckResponseCode($responseCode, $response)
+    private function CheckResponseCode($responseCode, $responseBody, $responseHeaders)
     {
         if ($responseCode >= 200 && $responseCode <= 299) {
             return;
         }
 
-        if (!is_object($response) || !isset($response->Message)) {
+        // SCA context 401
+        if ($responseCode == 401) {
+            self::HandleSca401($responseHeaders, $responseCode);
+        }
+
+        if (!is_object($responseBody) || !isset($responseBody->Message)) {
             throw new ResponseException($this->_requestUrl, $responseCode);
         }
 
@@ -366,11 +372,11 @@ class RestTool
         ];
 
         foreach ($map as $val) {
-            $error->{$val} = property_exists($response, $val) ? $response->{$val} : null;
+            $error->{$val} = property_exists($responseBody, $val) ? $responseBody->{$val} : null;
         }
 
-        if (property_exists($response, 'errors')) {
-            $error->Errors = $response->errors;
+        if (property_exists($responseBody, 'errors')) {
+            $error->Errors = $responseBody->errors;
         }
 
         if (is_array($error->Errors)) {
@@ -380,5 +386,35 @@ class RestTool
         }
 
         throw new ResponseException($this->_requestUrl, $responseCode, $error);
+    }
+
+    /**
+     * Extract the www-authenticate header and get the PendingUserAction RedirectUrl
+     * @throws ResponseException
+     */
+    private function HandleSca401($responseHeaders, $responseCode)
+    {
+        foreach ($responseHeaders as $header) {
+            if (stripos($header, 'www-authenticate') === 0) {
+                if (preg_match('/PendingUserAction RedirectUrl=([^\s]+)/', $header, $matches)) {
+                    if (sizeof($matches) == 2) {
+                        $redirectUrl = $matches[1];
+                        $error = new Error();
+                        $error->Message = "SCA required";
+                        $error->Date = time();
+                        $error->Type = "unauthorized";
+                        $error->Data = [
+                            "RedirectUrl" => $redirectUrl
+                        ];
+                        $error->Errors = [
+                            "Sca" => "SCA required to perform this action."
+                        ];
+
+                        throw new ResponseException($this->_requestUrl, $responseCode, $error);
+                    }
+                }
+                break;
+            }
+        }
     }
 }
