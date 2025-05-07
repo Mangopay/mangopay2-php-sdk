@@ -28,12 +28,12 @@ class ApiIdentityVerification extends Libraries\ApiBase
     }
 
     /**
-     * Get IdentityVerificationCheck
-     * @param string $id IdentityVerification identifier
-     * @return \MangoPay\IdentityVerificationCheck IdentityVerificationCheck object returned from API
+     * Get all IdentityVerifications for a user
+     * @param string $userId User identifier
+     * @return \MangoPay\IdentityVerification[] IdentityVerification list returned from API
      */
-    public function GetChecks($id)
+    public function GetAll($userId, $pagination = null, $filter = null, $sorting = null)
     {
-        return $this->GetObject('identity_verification_checks_get', '\MangoPay\IdentityVerificationCheck', $id);
+        return $this->GetList('identity_verification_get_all', $pagination, '\MangoPay\IdentityVerification', $userId, $filter, $sorting);
     }
 }
