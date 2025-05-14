@@ -37,4 +37,30 @@ class ApiDeposits extends Libraries\ApiBase
     {
         return $this->SaveObject('deposits_cancel', $dto, '\MangoPay\Deposit', $depositId);
     }
+
+    /**
+     * Get all deposits for a user
+     * @param string $userId User identifier
+     * @param Pagination $pagination Pagination object
+     * @param FilterPreAuthorizations $filter Filtering object
+     * @param Sorting $sorting Sorting object
+     * @return Deposit[] Deposit list returned from API
+     */
+    public function GetAllForUser($userId, $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('deposits_get_all_for_user', $pagination, '\MangoPay\Deposit', $userId, $filter, $sorting);
+    }
+
+    /**
+     * Get all deposits for a user
+     * @param string $cardId Card identifier
+     * @param Pagination $pagination Pagination object
+     * @param FilterPreAuthorizations $filter Filtering object
+     * @param Sorting $sorting Sorting object
+     * @return Deposit[] Deposit list returned from API
+     */
+    public function GetAllForCard($cardId, $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('deposits_get_all_for_card', $pagination, '\MangoPay\Deposit', $cardId, $filter, $sorting);
+    }
 }
