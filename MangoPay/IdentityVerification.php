@@ -28,4 +28,19 @@ class IdentityVerification extends Libraries\EntityBase
      * @var string
      */
     public $ReturnUrl;
+
+    /**
+     * @var int
+     */
+    public $LastUpdate;
+
+    /**
+     * @var string
+     */
+    public $UserId;
+
+    /**
+     * @var Check[]
+     */
+    public $Checks;
 }
