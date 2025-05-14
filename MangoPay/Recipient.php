@@ -38,6 +38,12 @@ class Recipient extends Libraries\EntityBase
     public $Currency;
 
     /**
+     * Country ISO
+     * @var string
+     */
+    public $Country;
+
+    /**
      * The scope of the recipient:
      *
      * <p>- PAYOUT – Usable for payouts and in pay-in use cases.

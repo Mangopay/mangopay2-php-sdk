@@ -60,12 +60,14 @@ class ApiRecipients extends Libraries\ApiBase
      * @param string $payoutMethodType Defines the payout method (e.g., LocalBankTransfer, InternationalBankTransfer).
      * @param string $recipientType Specifies whether the recipient is an Individual or a Business.
      * @param string $currency 3-letter ISO 4217 destination currency code (e.g. EUR, USD, GBP, AUD, CAD,HKD, SGD, MXN).
+     * @param string $country Country ISO
      * @return RecipientSchema
      * @throws Exception
      */
-    public function GetSchema($payoutMethodType, $recipientType, $currency)
+    public function GetSchema($payoutMethodType, $recipientType, $currency, $country)
     {
-        return $this->GetObject('recipients_get_schema', '\MangoPay\RecipientSchema', $payoutMethodType, $recipientType, $currency);
+        return $this->GetObjectManyQueryParams('recipients_get_schema', '\MangoPay\RecipientSchema',
+            $payoutMethodType, $recipientType, $currency, $country);
     }
 
     /**

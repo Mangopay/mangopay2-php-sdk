@@ -51,7 +51,8 @@ class RecipientsTest extends Base
         $schema = $this->_api->Recipients->GetSchema(
             "LocalBankTransfer",
             "Individual",
-            "GBP"
+            "GBP",
+            "GB"
         );
         self::assertNotNull($schema);
         self::assertNotNull($schema->DisplayName);
@@ -64,6 +65,7 @@ class RecipientsTest extends Base
         self::assertNotNull($schema->IndividualRecipient);
         self::assertNull($schema->BusinessRecipient);
         self::assertNull($schema->InternationalBankTransfer);
+        self::assertNotNull($schema->Country);
     }
 
     public function test_Recipient_GetSchema_InternationalBankTransferBusiness()
@@ -71,7 +73,8 @@ class RecipientsTest extends Base
         $schema = $this->_api->Recipients->GetSchema(
             "InternationalBankTransfer",
             "Business",
-            "GBP"
+            "GBP",
+            "GB"
         );
         self::assertNotNull($schema);
         self::assertNotNull($schema->DisplayName);
@@ -84,6 +87,7 @@ class RecipientsTest extends Base
         self::assertNotNull($schema->InternationalBankTransfer);
         self::assertNull($schema->LocalBankTransfer);
         self::assertNull($schema->IndividualRecipient);
+        self::assertNotNull($schema->Country);
     }
 
     public function test_Recipient_Validate()
@@ -132,6 +136,7 @@ class RecipientsTest extends Base
         self::assertNotNull($recipient->LocalBankTransfer->GBP);
         self::assertNotNull($recipient->LocalBankTransfer->GBP->SortCode);
         self::assertNotNull($recipient->LocalBankTransfer->GBP->AccountNumber);
+        self::assertNotNull($recipient->Country);
     }
 
     private function getNewRecipient()
@@ -157,6 +162,7 @@ class RecipientsTest extends Base
             $recipient->Currency = CurrencyIso::GBP;
             $recipient->IndividualRecipient = $individualRecipient;
             $recipient->LocalBankTransfer = $localBankTransfer;
+            $recipient->Country = "GB";
 
             self::$recipient = $this->_api->Recipients->Create($recipient, $john->Id);
         }
