@@ -17,6 +17,11 @@ class RecipientSchema extends Libraries\Dto
     /**
      * @var RecipientPropertySchema
      */
+    public $Country;
+
+    /**
+     * @var RecipientPropertySchema
+     */
     public $RecipientType;
 
     /**
