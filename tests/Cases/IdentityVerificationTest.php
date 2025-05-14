@@ -32,18 +32,15 @@ class IdentityVerificationTest extends Base
         self::assertEquals($identityVerification->Status, $fetched->Status);
     }
 
-    public function test_IdentityVerification_Get_Checks()
+    public function test_IdentityVerification_GetAll()
     {
-        $this->markTestSkipped("endpoint returning 404");
-        $identityVerification = $this->getNewIdentityVerification();
-        $checks = $this->_api->IdentityVerifications->GetChecks($identityVerification->Id);
+        $this->getNewIdentityVerification();
+        $john = $this->getJohn();
+        $fetched = $this->_api->IdentityVerifications->GetAll($john->Id);
 
-        self::assertNotNull($checks);
-        self::assertEquals($identityVerification->Id, $checks->SessionId);
-        self::assertEquals('PENDING', $checks->Status);
-        self::assertTrue($checks->CreationDate > 0);
-        self::assertTrue($checks->LastUpdate > 0);
-        self::assertNotNull($checks->Checks);
+        self::assertNotNull($fetched);
+        self::assertTrue(is_array($fetched));
+        self::assertTrue(sizeof($fetched) > 0);
     }
 
     private function getNewIdentityVerification()

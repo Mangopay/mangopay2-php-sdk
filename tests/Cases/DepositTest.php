@@ -50,6 +50,41 @@ class DepositTest extends Base
 
         $this->assertEquals($deposit->Id, $fetchedDeposit->Id);
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function test_Deposits_GetAllForUser()
+    {
+        $user = $this->getJohn();
+        $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
+
+        $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
+        $fetched = $this->_api->Deposits->GetAllForUser($deposit->AuthorId);
+
+
+        self::assertNotNull($fetched);
+        self::assertTrue(is_array($fetched));
+        self::assertTrue(sizeof($fetched) > 0);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function test_Deposits_GetAllForCard()
+    {
+        $user = $this->getJohn();
+        $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
+
+        $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
+        $fetched = $this->_api->Deposits->GetAllForCard($deposit->CardId);
+
+
+        self::assertNotNull($fetched);
+        self::assertTrue(is_array($fetched));
+        self::assertTrue(sizeof($fetched) > 0);
+    }
+
 //    /**
 //     * @throws \Exception
 //     */

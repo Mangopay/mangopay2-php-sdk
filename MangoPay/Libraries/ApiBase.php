@@ -244,6 +244,8 @@ abstract class ApiBase
         'deposits_create' => ['/deposit-preauthorizations/card/direct', RequestType::POST],
         'deposits_get' => ['/deposit-preauthorizations/%s', RequestType::GET],
         'deposits_cancel' => ['/deposit-preauthorizations/%s', RequestType::PUT],
+        'deposits_get_all_for_user' => ['/users/%s/deposit-preauthorizations', RequestType::GET],
+        'deposits_get_all_for_card' => ['/cards/%s/deposit-preauthorizations', RequestType::GET],
 
         'get_conversion_rate' => ['/conversions/rate/%s/%s', RequestType::GET],
         'create_client_wallets_instant_conversion' => ['/clients/conversions/instant-conversion', RequestType::POST],
@@ -262,13 +264,13 @@ abstract class ApiBase
 
         'identity_verification_create' => ['/users/%s/identity-verifications', RequestType::POST],
         'identity_verification_get' => ['/identity-verifications/%s', RequestType::GET],
-        'identity_verification_checks_get' => ['/identity-verifications/%s/checks', RequestType::GET],
+        'identity_verification_get_all' => ['/users/%s/identity-verifications', RequestType::GET],
 
         'recipients_create' => ['/users/%s/recipients', RequestType::POST],
         'recipients_get' => ['/recipients/%s', RequestType::GET],
         'recipients_get_all' => ['/users/%s/recipients', RequestType::GET],
         'recipients_get_payout_methods' => ['/recipients/payout-methods?country=%s&currency=%s', RequestType::GET],
-        'recipients_get_schema' => ['/recipients/schema?payoutMethodType=%s&recipientType=%s&currency=%s', RequestType::GET],
+        'recipients_get_schema' => ['/recipients/schema?payoutMethodType=%s&recipientType=%s&currency=%s&country=%s', RequestType::GET],
         'recipients_validate' => ['/users/%s/recipients/validate', RequestType::POST],
         'recipients_deactivate' => ['/recipients/%s', RequestType::PUT]
     ];
@@ -358,6 +360,25 @@ abstract class ApiBase
             $urlMethod = $this->GetRequestUrl($methodKey);
         }
         $rest = new RestTool($this->_root, true, $clientIdRequired);
+        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
+
+        if (!is_null($responseClassName)) {
+            return $this->CastResponseToEntity($response, $responseClassName);
+        }
+        return $response;
+    }
+
+    /**
+     * Get entity object from API endpoint that has a lot of query params
+     * @param string $methodKey Key with request data
+     * @param object $responseClassName Name of entity class from response
+     * @return object Response data
+     * @throws Exception
+     */
+    protected function GetObjectManyQueryParams($methodKey, $responseClassName, ...$queryParams)
+    {
+        $urlMethod = sprintf($this->GetRequestUrl($methodKey), ...$queryParams);
+        $rest = new RestTool($this->_root, true, true);
         $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
 
         if (!is_null($responseClassName)) {
