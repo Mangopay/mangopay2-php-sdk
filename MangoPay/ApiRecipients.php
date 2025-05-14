@@ -66,8 +66,14 @@ class ApiRecipients extends Libraries\ApiBase
      */
     public function GetSchema($payoutMethodType, $recipientType, $currency, $country)
     {
-        return $this->GetObjectManyQueryParams('recipients_get_schema', '\MangoPay\RecipientSchema',
-            $payoutMethodType, $recipientType, $currency, $country);
+        return $this->GetObjectManyQueryParams(
+            'recipients_get_schema',
+            '\MangoPay\RecipientSchema',
+            $payoutMethodType,
+            $recipientType,
+            $currency,
+            $country
+        );
     }
 
     /**
