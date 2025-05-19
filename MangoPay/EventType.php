@@ -101,4 +101,6 @@ class EventType
     const RecipientActive = "RECIPIENT_ACTIVE";
     const RecipientCanceled = "RECIPIENT_CANCELED";
     const RecipientDeactivated = "RECIPIENT_DEACTIVATED";
+    const UserAccountValidationAsked = "USER_ACCOUNT_VALIDATION_ASKED";
+    const UserAccountActivated = "USER_ACCOUNT_ACTIVATED";
 }
