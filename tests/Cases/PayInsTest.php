@@ -1114,7 +1114,8 @@ class PayInsTest extends Base
     /**
      * @throws \Exception
      */
-    public function test_createDepositPreauthorizedPayInWithoutComplement() {
+    public function test_createDepositPreauthorizedPayInWithoutComplement()
+    {
         $user = $this->getJohn();
         $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
         $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
@@ -1146,7 +1147,8 @@ class PayInsTest extends Base
     /**
      * @throws \Exception
      */
-    public function test_createDepositPreauthorizedPayInPriorToComplement() {
+    public function test_createDepositPreauthorizedPayInPriorToComplement()
+    {
         $user = $this->getJohn();
         $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
         $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
@@ -1178,7 +1180,8 @@ class PayInsTest extends Base
     /**
      * @throws \Exception
      */
-    public function test_createDepositPreauthorizedPayInComplement() {
+    public function test_createDepositPreauthorizedPayInComplement()
+    {
         $user = $this->getJohn();
         $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
         $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
