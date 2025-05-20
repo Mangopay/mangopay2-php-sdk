@@ -93,6 +93,8 @@ abstract class ApiBase
         'payins_recurring_card_direct' => ['/payins/recurring/card/direct', RequestType::POST],
         'payins_recurring_paypal' => ['/payins/payment-methods/paypal/recurring', RequestType::POST],
         'payins_create_card_pre_authorized_deposit' => ['/payins/deposit-preauthorized/direct/full-capture', RequestType::POST],
+        'payins_deposit_preauthorized_prior_to_complement' => ['/payins/deposit-preauthorized/direct/capture-with-complement', RequestType::POST],
+        'payins_deposit_preauthorized_complement' => ['/payins/deposit-preauthorized/direct/complement', RequestType::POST],
 
         'repudiation_get' => ['/repudiations/%s', RequestType::GET],
 
@@ -243,7 +245,7 @@ abstract class ApiBase
 
         'deposits_create' => ['/deposit-preauthorizations/card/direct', RequestType::POST],
         'deposits_get' => ['/deposit-preauthorizations/%s', RequestType::GET],
-        'deposits_cancel' => ['/deposit-preauthorizations/%s', RequestType::PUT],
+        'deposits_update' => ['/deposit-preauthorizations/%s', RequestType::PUT],
         'deposits_get_all_for_user' => ['/users/%s/deposit-preauthorizations', RequestType::GET],
         'deposits_get_all_for_card' => ['/cards/%s/deposit-preauthorizations', RequestType::GET],
 

@@ -35,7 +35,18 @@ class ApiDeposits extends Libraries\ApiBase
      */
     public function Cancel($depositId, CancelDeposit $dto)
     {
-        return $this->SaveObject('deposits_cancel', $dto, '\MangoPay\Deposit', $depositId);
+        return $this->SaveObject('deposits_update', $dto, '\MangoPay\Deposit', $depositId);
+    }
+
+    /**
+     * Update Deposit
+     * @param string $depositId Deposit identifier
+     * @param UpdateDeposit $dto Update deposit body
+     * @return Deposit Deposit object returned from API
+     */
+    public function Update($depositId, UpdateDeposit $dto)
+    {
+        return $this->SaveObject('deposits_update', $dto, '\MangoPay\Deposit', $depositId);
     }
 
     /**
