@@ -1141,7 +1141,7 @@ class PayInsTest extends Base
 
         $this->assertNotNull($payIn);
         $this->assertEquals("SUCCEEDED", $payIn->Status);
-        $this->assertNotNull($payIn->PaymentDetails->DepositId);
+        $this->assertNotNull($payIn->DepositId);
     }
 
     /**
@@ -1174,7 +1174,7 @@ class PayInsTest extends Base
 
         $this->assertNotNull($payIn);
         $this->assertEquals("SUCCEEDED", $payIn->Status);
-        $this->assertNotNull($payIn->PaymentDetails->DepositId);
+        $this->assertNotNull($payIn->DepositId);
     }
 
     /**
@@ -1210,7 +1210,7 @@ class PayInsTest extends Base
 
         $this->assertNotNull($payIn);
         $this->assertEquals("SUCCEEDED", $payIn->Status);
-        $this->assertNotNull($payIn->PaymentDetails->DepositId);
+        $this->assertNotNull($payIn->DepositId);
     }
 
     public function test_PayIns_Create_PayByBank_Web()
