@@ -248,6 +248,7 @@ abstract class ApiBase
         'deposits_update' => ['/deposit-preauthorizations/%s', RequestType::PUT],
         'deposits_get_all_for_user' => ['/users/%s/deposit-preauthorizations', RequestType::GET],
         'deposits_get_all_for_card' => ['/cards/%s/deposit-preauthorizations', RequestType::GET],
+        'deposits_get_transactions' => ['/deposit-preauthorizations/%s/transactions', RequestType::GET],
 
         'get_conversion_rate' => ['/conversions/rate/%s/%s', RequestType::GET],
         'create_client_wallets_instant_conversion' => ['/clients/conversions/instant-conversion', RequestType::POST],

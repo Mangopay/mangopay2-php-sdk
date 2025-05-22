@@ -74,4 +74,17 @@ class ApiDeposits extends Libraries\ApiBase
     {
         return $this->GetList('deposits_get_all_for_card', $pagination, '\MangoPay\Deposit', $cardId, $filter, $sorting);
     }
+
+    /**
+     * Get all transactions for a deposit
+     * @param string $depositId Deposit identifier
+     * @param Pagination $pagination Pagination object
+     * @param FilterTransactions $filter Filtering object
+     * @param Sorting $sorting Sorting object
+     * @return Transaction[] Transaction list returned from API
+     */
+    public function GetTransactions($depositId, $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('deposits_get_transactions', $pagination, '\MangoPay\Transaction', $depositId, $filter, $sorting);
+    }
 }
