@@ -101,4 +101,14 @@ class EventType
     const RecipientActive = "RECIPIENT_ACTIVE";
     const RecipientCanceled = "RECIPIENT_CANCELED";
     const RecipientDeactivated = "RECIPIENT_DEACTIVATED";
+    const UserAccountValidationAsked = "USER_ACCOUNT_VALIDATION_ASKED";
+    const UserAccountActivated = "USER_ACCOUNT_ACTIVATED";
+    const UserAccountClosed = "USER_ACCOUNT_CLOSED";
+    const InstantConversionCreated = "INSTANT_CONVERSION_CREATED";
+    const InstantConversionSucceeded = "INSTANT_CONVERSION_SUCCEEDED";
+    const InstantConversionFailed = "INSTANT_CONVERSION_FAILED";
+    const QuotedConversionCreated = "QUOTED_CONVERSION_CREATED";
+    const QuotedConversionSucceeded = "QUOTED_CONVERSION_SUCCEEDED";
+    const QuotedConversionFailed = "QUOTED_CONVERSION_FAILED";
+
 }
