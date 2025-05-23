@@ -110,5 +110,4 @@ class EventType
     const QuotedConversionCreated = "QUOTED_CONVERSION_CREATED";
     const QuotedConversionSucceeded = "QUOTED_CONVERSION_SUCCEEDED";
     const QuotedConversionFailed = "QUOTED_CONVERSION_FAILED";
-
 }
