@@ -2,6 +2,7 @@
 
 namespace MangoPay\Tests\Cases;
 
+use MangoPay\CreateCardPreAuthorizedDepositPayIn;
 use MangoPay\Libraries\Exception;
 use MangoPay\LineItem;
 use MangoPay\Money;
@@ -14,6 +15,7 @@ use MangoPay\RecurringPayInCIT;
 use MangoPay\RecurringPayPalPayInCIT;
 use MangoPay\RecurringPayPalPayInMIT;
 use MangoPay\TransactionStatus;
+use MangoPay\UpdateDeposit;
 
 /**
  * Tests methods for pay-ins
@@ -1109,38 +1111,107 @@ class PayInsTest extends Base
         $this->assertNotNull($result_metadata->BinData[0]->CardType);
     }
 
-//    /**
-//     * @throws \Exception
-//     */
-//    public function test_CreateCardPreAuthorizedDepositPayIn() {
-//        $cardRegistration = $this->getCardRegistrationForDeposit();
-//        $user = $this->getJohn();
-//        $wallet = $this->getJohnsWallet();
-//
-//        $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
-//
-//        $dto = new CreateCardPreAuthorizedDepositPayIn();
-//        $dto->DepositId = $deposit->Id;
-//        $dto->AuthorId = $user->Id;
-//        $dto->CreditedWalletId = $wallet->Id;
-//
-//        $debitedFunds = new Money();
-//        $debitedFunds->Amount = 500;
-//        $debitedFunds->Currency = "EUR";
-//
-//        $fees = new Money();
-//        $fees->Amount = 0;
-//        $fees->Currency = "EUR";
-//
-//        $dto->DebitedFunds = $debitedFunds;
-//        $dto->Fees = $fees;
-//
-//        $payIn = $this->_api->PayIns->CreateCardPreAuthorizedDepositPayIn($dto);
-//        print_r($payIn);
-//
-//        $this->assertNotNull($payIn);
-//        $this->assertEquals("SUCCEEDED", $payIn->Status);
-//    }
+    /**
+     * @throws \Exception
+     */
+    public function test_createDepositPreauthorizedPayInWithoutComplement()
+    {
+        $user = $this->getJohn();
+        $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
+        $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
+        $wallet = $this->getJohnsWallet();
+
+        $dto = new CreateCardPreAuthorizedDepositPayIn();
+        $dto->DepositId = $deposit->Id;
+        $dto->AuthorId = $user->Id;
+        $dto->CreditedWalletId = $wallet->Id;
+
+        $debitedFunds = new Money();
+        $debitedFunds->Amount = 1000;
+        $debitedFunds->Currency = "EUR";
+
+        $fees = new Money();
+        $fees->Amount = 0;
+        $fees->Currency = "EUR";
+
+        $dto->DebitedFunds = $debitedFunds;
+        $dto->Fees = $fees;
+
+        $payIn = $this->_api->PayIns->CreateDepositPreauthorizedPayInWithoutComplement($dto);
+
+        $this->assertNotNull($payIn);
+        $this->assertEquals("SUCCEEDED", $payIn->Status);
+        $this->assertNotNull($payIn->DepositId);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function test_createDepositPreauthorizedPayInPriorToComplement()
+    {
+        $user = $this->getJohn();
+        $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
+        $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
+        $wallet = $this->getJohnsWallet();
+
+        $dto = new CreateCardPreAuthorizedDepositPayIn();
+        $dto->DepositId = $deposit->Id;
+        $dto->AuthorId = $user->Id;
+        $dto->CreditedWalletId = $wallet->Id;
+
+        $debitedFunds = new Money();
+        $debitedFunds->Amount = 1000;
+        $debitedFunds->Currency = "EUR";
+
+        $fees = new Money();
+        $fees->Amount = 0;
+        $fees->Currency = "EUR";
+
+        $dto->DebitedFunds = $debitedFunds;
+        $dto->Fees = $fees;
+
+        $payIn = $this->_api->PayIns->CreateDepositPreauthorizedPayInPriorToComplement($dto);
+
+        $this->assertNotNull($payIn);
+        $this->assertEquals("SUCCEEDED", $payIn->Status);
+        $this->assertNotNull($payIn->DepositId);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function test_createDepositPreauthorizedPayInComplement()
+    {
+        $user = $this->getJohn();
+        $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
+        $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));
+        $updateDepositDto = new UpdateDeposit();
+        $updateDepositDto->PaymentStatus = "NO_SHOW_REQUESTED";
+        $this->_api->Deposits->Update($deposit->Id, $updateDepositDto);
+        $wallet = $this->getJohnsWallet();
+
+        $dto = new CreateCardPreAuthorizedDepositPayIn();
+        $dto->DepositId = $deposit->Id;
+        $dto->AuthorId = $user->Id;
+        $dto->CreditedWalletId = $wallet->Id;
+
+        $debitedFunds = new Money();
+        $debitedFunds->Amount = 1000;
+        $debitedFunds->Currency = "EUR";
+
+        $fees = new Money();
+        $fees->Amount = 0;
+        $fees->Currency = "EUR";
+
+        $dto->DebitedFunds = $debitedFunds;
+        $dto->Fees = $fees;
+
+        $payIn = $this->_api->PayIns->CreateDepositPreauthorizedPayInComplement($dto);
+
+        $this->assertNotNull($payIn);
+        $this->assertEquals("SUCCEEDED", $payIn->Status);
+        $this->assertNotNull($payIn->DepositId);
+    }
 
     public function test_PayIns_Create_PayByBank_Web()
     {

@@ -35,7 +35,18 @@ class ApiDeposits extends Libraries\ApiBase
      */
     public function Cancel($depositId, CancelDeposit $dto)
     {
-        return $this->SaveObject('deposits_cancel', $dto, '\MangoPay\Deposit', $depositId);
+        return $this->SaveObject('deposits_update', $dto, '\MangoPay\Deposit', $depositId);
+    }
+
+    /**
+     * Update Deposit
+     * @param string $depositId Deposit identifier
+     * @param UpdateDeposit $dto Update deposit body
+     * @return Deposit Deposit object returned from API
+     */
+    public function Update($depositId, UpdateDeposit $dto)
+    {
+        return $this->SaveObject('deposits_update', $dto, '\MangoPay\Deposit', $depositId);
     }
 
     /**
@@ -62,5 +73,18 @@ class ApiDeposits extends Libraries\ApiBase
     public function GetAllForCard($cardId, $pagination = null, $filter = null, $sorting = null)
     {
         return $this->GetList('deposits_get_all_for_card', $pagination, '\MangoPay\Deposit', $cardId, $filter, $sorting);
+    }
+
+    /**
+     * Get all transactions for a deposit
+     * @param string $depositId Deposit identifier
+     * @param Pagination $pagination Pagination object
+     * @param FilterTransactions $filter Filtering object
+     * @param Sorting $sorting Sorting object
+     * @return Transaction[] Transaction list returned from API
+     */
+    public function GetTransactions($depositId, $pagination = null, $filter = null, $sorting = null)
+    {
+        return $this->GetList('deposits_get_transactions', $pagination, '\MangoPay\Transaction', $depositId, $filter, $sorting);
     }
 }

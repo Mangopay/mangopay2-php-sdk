@@ -165,6 +165,36 @@ class ApiPayIns extends Libraries\ApiBase
     }
 
     /**
+     * Create a Deposit Preauthorized PayIn without complement
+     * @param CreateCardPreAuthorizedDepositPayIn $payIn PayIn object to create
+     * @return PayIn Deposit object returned from API
+     */
+    public function CreateDepositPreauthorizedPayInWithoutComplement(CreateCardPreAuthorizedDepositPayIn $payIn)
+    {
+        return $this->CreateObject('payins_create_card_pre_authorized_deposit', $payIn, '\MangoPay\PayIn');
+    }
+
+    /**
+     * Create a Deposit Preauthorized PayIn prior to complement
+     * @param CreateCardPreAuthorizedDepositPayIn $payIn PayIn object to create
+     * @return PayIn Deposit object returned from API
+     */
+    public function CreateDepositPreauthorizedPayInPriorToComplement(CreateCardPreAuthorizedDepositPayIn $payIn)
+    {
+        return $this->CreateObject('payins_deposit_preauthorized_prior_to_complement', $payIn, '\MangoPay\PayIn');
+    }
+
+    /**
+     * Create a Deposit Preauthorized PayIn complement
+     * @param CreateCardPreAuthorizedDepositPayIn $payIn PayIn object to create
+     * @return PayIn Deposit object returned from API
+     */
+    public function CreateDepositPreauthorizedPayInComplement(CreateCardPreAuthorizedDepositPayIn $payIn)
+    {
+        return $this->CreateObject('payins_deposit_preauthorized_complement', $payIn, '\MangoPay\PayIn');
+    }
+
+    /**
      * Create new PayPal Web pay-in object
      * @param \MangoPay\PayIn $payIn \MangoPay\PayIn object
      * @return \MangoPay\PayIn Object returned from API
