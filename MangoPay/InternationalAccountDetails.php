@@ -15,4 +15,9 @@ class InternationalAccountDetails extends Libraries\Dto
      * @var InternationalAccount
      */
     public $Account;
+
+    /**
+     * @var string
+     */
+    public $BankName;
 }
