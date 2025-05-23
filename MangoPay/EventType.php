@@ -103,6 +103,7 @@ class EventType
     const RecipientDeactivated = "RECIPIENT_DEACTIVATED";
     const UserAccountValidationAsked = "USER_ACCOUNT_VALIDATION_ASKED";
     const UserAccountActivated = "USER_ACCOUNT_ACTIVATED";
+    const UserAccountClosed = "USER_ACCOUNT_CLOSED";
     const InstantConversionCreated = "INSTANT_CONVERSION_CREATED";
     const InstantConversionSucceeded = "INSTANT_CONVERSION_SUCCEEDED";
     const InstantConversionFailed = "INSTANT_CONVERSION_FAILED";
