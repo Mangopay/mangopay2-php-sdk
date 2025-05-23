@@ -87,6 +87,12 @@ class Transaction extends Libraries\EntityBase
     public $CreditedWalletId;
 
     /**
+     * Deposit Id
+     * @var string
+     */
+    public $DepositId;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */
