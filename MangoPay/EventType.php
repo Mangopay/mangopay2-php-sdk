@@ -80,7 +80,7 @@ class EventType
     const DepositPreAuthorizationFailed = "DEPOSIT_PREAUTHORIZATION_FAILED";
     const DepositPreAuthorizationPaymentWaiting = "DEPOSIT_PREAUTHORIZATION_PAYMENT_WAITING";
     const DepositPreAuthorizationPaymentExpired = "DEPOSIT_PREAUTHORIZATION_PAYMENT_EXPIRED";
-    const DepositPreAuthorizationPaymentCancelRequest = "DEPOSIT_PREAUTHORIZATION_PAYMENT_CANCEL_REQUEST";
+    const DepositPreAuthorizationPaymentCancelRequested = "DEPOSIT_PREAUTHORIZATION_PAYMENT_CANCEL_REQUESTED";
     const DepositPreAuthorizationPaymentCanceled = "DEPOSIT_PREAUTHORIZATION_PAYMENT_CANCELED";
     const DepositPreAuthorizationPaymentValidated = "DEPOSIT_PREAUTHORIZATION_PAYMENT_VALIDATED";
     const CardValidationCreated = "CARD_VALIDATION_CREATED";
@@ -95,7 +95,6 @@ class EventType
     const IdentityVerificationFailed = "IDENTITY_VERIFICATION_FAILED";
     const IdentityVerificationInconclusive = "IDENTITY_VERIFICATION_INCONCLUSIVE";
     const IdentityVerificationOutdated = "IDENTITY_VERIFICATION_OUTDATED";
-    const IdentityVerificationTimeout = "IDENTITY_VERIFICATION_TIMEOUT";
     const IdentityVerificationPending = "IDENTITY_VERIFICATION_PENDING";
 
     const RecipientActive = "RECIPIENT_ACTIVE";
@@ -110,4 +109,15 @@ class EventType
     const QuotedConversionCreated = "QUOTED_CONVERSION_CREATED";
     const QuotedConversionSucceeded = "QUOTED_CONVERSION_SUCCEEDED";
     const QuotedConversionFailed = "QUOTED_CONVERSION_FAILED";
+
+    const CountryAuthorizationUpdated = "COUNTRY_AUTHORIZATION_UPDATED";
+    const DepositPreauthorizationPaymentFailed = "DEPOSIT_PREAUTHORIZATION_PAYMENT_FAILED";
+    const DepositPreauthorizationPaymentNoShow = "DEPOSIT_PREAUTHORIZATION_PAYMENT_NO_SHOW";
+    const DepositPreauthorizationPaymentNoShowRequested = "DEPOSIT_PREAUTHORIZATION_PAYMENT_NO_SHOW_REQUESTED";
+    const DepositPreauthorizationPaymentToBeCompleted = "DEPOSIT_PREAUTHORIZATION_PAYMENT_TO_BE_COMPLETED";
+    const RecurringRegistrationAuthNeeded = "RECURRING_REGISTRATION_AUTH_NEEDED";
+    const RecurringRegistrationCreated = "RECURRING_REGISTRATION_CREATED";
+    const RecurringRegistrationEnded = "RECURRING_REGISTRATION_ENDED";
+    const RecurringRegistrationInProgress = "RECURRING_REGISTRATION_IN_PROGRESS";
+    const InstantPayoutFailed = "INSTANT_PAYOUT_FAILED";
 }
