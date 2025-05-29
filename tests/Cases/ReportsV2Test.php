@@ -22,6 +22,21 @@ class ReportsV2Test extends Base
         $this->assertSame($created->Status, "PENDING");
     }
 
+    public function test_Reports_Create_UserWalletTransactions()
+    {
+        $report = new Report();
+        $report->ReportType = "USER_WALLET_TRANSACTIONS";
+        $report->DownloadFormat = "CSV";
+        $report->AfterDate = 1740787200;
+        $report->BeforeDate = 1743544740;
+        $created = $this->_api->ReportsV2->Create($report);
+
+        $this->assertNotNull($created);
+        $this->assertNotNull($created->Id);
+        $this->assertSame($created->ReportType, "USER_WALLET_TRANSACTIONS");
+        $this->assertSame($created->Status, "PENDING");
+    }
+
     public function test_Reports_Get()
     {
         $report = $this->getNewReportInstance();
