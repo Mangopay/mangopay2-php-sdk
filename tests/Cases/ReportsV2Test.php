@@ -58,7 +58,8 @@ class ReportsV2Test extends Base
         $this->assertTrue(sizeof($allResults) > sizeof($filteredResults));
     }
 
-    function getNewReportInstance() {
+    public function getNewReportInstance()
+    {
         $report = new Report();
         $report->ReportType = "COLLECTED_FEES";
         $report->DownloadFormat = "CSV";

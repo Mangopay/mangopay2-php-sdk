@@ -112,5 +112,4 @@ class EventType
     const QuotedConversionFailed = "QUOTED_CONVERSION_FAILED";
     const ReportGenerated = "REPORT_GENERATED";
     const ReportFailed = "REPORT_FAILED";
-
 }

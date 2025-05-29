@@ -14,8 +14,14 @@ class ApiReportsV2 extends Libraries\ApiBase
      */
     public function Create($report, $idempotencyKey = null)
     {
-        return $this->CreateObject('reports_create', $report, '\MangoPay\Report',
-            null, null, $idempotencyKey);
+        return $this->CreateObject(
+            'reports_create',
+            $report,
+            '\MangoPay\Report',
+            null,
+            null,
+            $idempotencyKey
+        );
     }
 
     /**
@@ -37,7 +43,13 @@ class ApiReportsV2 extends Libraries\ApiBase
      */
     public function GetAll($filter = null, $pagination = null, $sorting = null)
     {
-        return $this->GetList('reports_all_v2', $pagination, 'MangoPay\Report',
-            null, $filter, $sorting);
+        return $this->GetList(
+            'reports_all_v2',
+            $pagination,
+            'MangoPay\Report',
+            null,
+            $filter,
+            $sorting
+        );
     }
 }
