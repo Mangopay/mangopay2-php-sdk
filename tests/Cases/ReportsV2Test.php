@@ -41,12 +41,11 @@ class ReportsV2Test extends Base
     {
         $report = $this->getNewReportInstance();
         $created = $this->_api->ReportsV2->Create($report);
-//        $fetched = $this->_api->ReportsV2->Get("report_01JWBVEWK1BVK98KDF0YNBBJVH");
         $fetched = $this->_api->ReportsV2->Get($report->Id);
 
         $this->assertNotNull($fetched);
         $this->assertNotNull($fetched->Id);
-//        $this->assertSame($created->Id, $fetched->Id);
+        $this->assertSame($created->Id, $fetched->Id);
     }
 
     public function test_Reports_GetAll()

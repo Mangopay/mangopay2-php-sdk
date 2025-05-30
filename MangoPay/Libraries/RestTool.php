@@ -318,7 +318,7 @@ class RestTool
         // ...or initialize with default headers
         $this->_requestHttpHeaders = [];
         // content type
-        array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
+//        array_push($this->_requestHttpHeaders, self::$_JSON_HEADER);
         // Add User-Agent Header
 
         array_push($this->_requestHttpHeaders, 'User-Agent: Mangopay-SDK/' . self::VERSION . ' (PHP/' . phpversion() . ')');
