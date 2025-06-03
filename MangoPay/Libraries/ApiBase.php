@@ -227,6 +227,10 @@ abstract class ApiBase
         'reports_all' => ['/reports', RequestType::GET],
         'reports_get' => ['/reports/%s', RequestType::GET],
 
+        'reports_create' => ['/reporting/reports', RequestType::POST],
+        'reports_get_v2' => ['/reporting/reports/%s', RequestType::GET],
+        'reports_all_v2' => ['/reporting/reports', RequestType::GET],
+
         'ubo_declaration_create' => ['/users/%s/kyc/ubodeclarations', RequestType::POST],
         'ubo_declaration_all' => ['/users/%s/kyc/ubodeclarations', RequestType::GET],
         'ubo_declaration_submit' => ['/users/%s/kyc/ubodeclarations/%s', RequestType::PUT],
@@ -720,6 +724,7 @@ abstract class ApiBase
             'payouts_bankwire_get' => '\MangoPay\Payout',
             'reports_transactions_create' => '\MangoPay\ReportRequest',
             'reports_wallets_create' => '\MangoPay\ReportRequest',
+            'reports_create' => '\MangoPay\Report',
             'transfers_createrefunds' => '\MangoPay\Refund',
             'transfers_create' => '\MangoPay\Transfer',
             'users_createnaturals' => '\MangoPay\UserNatural',
