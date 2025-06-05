@@ -35,12 +35,13 @@ class ApiRecipients extends Libraries\ApiBase
      * Get all recipients associated with a specific user
      * @param string $userId
      * @param Pagination $pagination
+     * @param FilterRecipients $filter
      * @return Recipient[] Array of Recipient
      * @throws Exception
      */
-    public function GetUserRecipients($userId, $pagination = null, $sorting = null)
+    public function GetUserRecipients($userId, $pagination = null, $sorting = null, $filter = null)
     {
-        return $this->GetList('recipients_get_all', $pagination, '\MangoPay\Recipient', $userId, null, $sorting);
+        return $this->GetList('recipients_get_all', $pagination, '\MangoPay\Recipient', $userId, $filter, $sorting);
     }
 
     /**
