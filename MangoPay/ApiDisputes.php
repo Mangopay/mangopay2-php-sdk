@@ -146,8 +146,14 @@ class ApiDisputes extends Libraries\ApiBase
      */
     public function GetDisputesForPayIn($payInId, & $pagination = null, $sorting = null, $filter = null)
     {
-        return $this->GetList('disputes_get_for_payin', $pagination, 'MangoPay\Dispute',
-            $payInId, $filter, $sorting);
+        return $this->GetList(
+            'disputes_get_for_payin',
+            $pagination,
+            'MangoPay\Dispute',
+            $payInId,
+            $filter,
+            $sorting
+        );
     }
 
     /**
