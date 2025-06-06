@@ -4,6 +4,7 @@ namespace Cases;
 
 use Exception;
 use MangoPay\CurrencyIso;
+use MangoPay\FilterRecipients;
 use MangoPay\IndividualRecipient;
 use MangoPay\Recipient;
 use MangoPay\Tests\Cases\Base;
@@ -37,6 +38,26 @@ class RecipientsTest extends Base
         $this->getNewRecipient();
         $userRecipients = $this->_api->Recipients->GetUserRecipients($john->Id);
         self::assertTrue(sizeof($userRecipients) > 0);
+    }
+
+    public function test_Recipient_GetUserRecipients_Payout()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $this->getNewRecipient();
+        $filter = new FilterRecipients();
+        $filter->RecipientScope = "PAYOUT";
+        $userRecipients = $this->_api->Recipients->GetUserRecipients($john->Id, null, null, $filter);
+        self::assertTrue(sizeof($userRecipients) > 0);
+    }
+
+    public function test_Recipient_GetUserRecipients_PayIn()
+    {
+        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $this->getNewRecipient();
+        $filter = new FilterRecipients();
+        $filter->RecipientScope = "PAYIN";
+        $userRecipients = $this->_api->Recipients->GetUserRecipients($john->Id, null, null, $filter);
+        self::assertTrue(sizeof($userRecipients) == 0);
     }
 
     public function test_Recipient_GetPayoutMethods()
