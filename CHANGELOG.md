@@ -1,3 +1,11 @@
+## [3.40.1] - 2025-06-06
+### Added
+- Support for `RecipientScope` query parameter on [GET List Recipients for a User](https://docs.mangopay.com/api-reference/recipients/list-recipients-user)
+- Support for missing webhook event types (recurring registration, deposit preauth, etc)
+
+### Fixed
+- `Status` enum value on Identity Verification object changed from `OUTDATED` to `OUT_OF_DATE`
+
 ## [3.40.0] - 2025-05-23
 ### Added
 
