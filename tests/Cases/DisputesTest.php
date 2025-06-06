@@ -107,6 +107,30 @@ class DisputesTest extends Base
         $this->assertTrue(count($result) > 0);
     }
 
+    public function test_Disputes_GetDisputesForPayIn()
+    {
+        $this->init();
+
+        $disputeWallet = null;
+        foreach ($this->_clientDisputes as $dispute) {
+            if (!is_null($dispute->InitialTransactionId)) {
+                $disputeWallet = $dispute;
+                break;
+            }
+        }
+        if (is_null($disputeWallet)) {
+            $this->markTestSkipped("Cannot test getting disputes for wallet because there's no disputes with transaction ID in the disputes list.");
+            return;
+        }
+        $pagination = new \MangoPay\Pagination();
+        $payIn = $this->_api->PayIns->Get($disputeWallet->InitialTransactionId);
+
+        $result = $this->_api->Disputes->GetDisputesForPayIn($payIn->Id, $pagination);
+
+        $this->assertNotNull($result);
+        $this->assertTrue(count($result) > 0);
+    }
+
     public function test_Disputes_CreateDisputeDocument()
     {
         $this->init();
