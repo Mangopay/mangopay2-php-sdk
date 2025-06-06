@@ -183,6 +183,7 @@ abstract class ApiBase
         'disputes_all' => ['/disputes', RequestType::GET],
         'disputes_get_for_wallet' => ['/wallets/%s/disputes', RequestType::GET],
         'disputes_get_for_user' => ['/users/%s/disputes', RequestType::GET],
+        'disputes_get_for_payin' => ['/payins/%s/disputes', RequestType::GET],
 
         'disputes_document_create' => ['/disputes/%s/documents', RequestType::POST],
         'disputes_document_page_create' => ['/disputes/%s/documents/%s/pages', RequestType::POST],

@@ -136,6 +136,21 @@ class ApiDisputes extends Libraries\ApiBase
     }
 
     /**
+     * Gets payin's disputes
+     * @param string $payInId PayIn identifier
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\Sorting $sorting Object to sorting data
+     * @param \MangoPay\FilterDisputes $filter Filtering object
+     * @return \MangoPay\Dispute[] List of Dispute instances returned from API
+     * @throws Libraries\Exception
+     */
+    public function GetDisputesForPayIn($payInId, & $pagination = null, $sorting = null, $filter = null)
+    {
+        return $this->GetList('disputes_get_for_payin', $pagination, 'MangoPay\Dispute',
+            $payInId, $filter, $sorting);
+    }
+
+    /**
      * Gets repudiation
      * @param string $repudiationId Repudiation identifier
      * @return \MangoPay\Repudiation Repudiation instance returned from API
