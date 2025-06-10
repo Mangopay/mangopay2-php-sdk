@@ -120,4 +120,7 @@ class EventType
     const RecurringRegistrationEnded = "RECURRING_REGISTRATION_ENDED";
     const RecurringRegistrationInProgress = "RECURRING_REGISTRATION_IN_PROGRESS";
     const InstantPayoutFailed = "INSTANT_PAYOUT_FAILED";
+
+    const ReportGenerated = "REPORT_GENERATED";
+    const ReportFailed = "REPORT_FAILED";
 }
