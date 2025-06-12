@@ -22,6 +22,9 @@ class VirtualAccountsTest extends Base
 
         $this->assertNotNull($virtualAccount);
         $this->assertEquals($virtualAccount->WalletId, $wallet->Id);
+        $this->assertEquals("Success", $virtualAccount->ResultMessage);
+        $this->assertEquals("000000", $virtualAccount->ResultCode);
+        $this->assertNotNull($virtualAccount->LocalAccountDetails->BankName);
     }
 
     public function test_VirtualAccount_Get()

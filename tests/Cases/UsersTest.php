@@ -3,13 +3,12 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\FilterWallets;
-use MangoPay\LegalPersonType;
 use MangoPay\LegalRepresentative;
 use MangoPay\Libraries\Exception;
 use MangoPay\Libraries\Logs;
 use MangoPay\Libraries\ResponseException;
+use MangoPay\PendingUserAction;
 use MangoPay\UserCategory;
-use MangoPay\UserLegalSca;
 
 /**
  * Tests basic CRUD methods for users
@@ -941,6 +940,7 @@ class UsersTest extends Base
     {
         $user = $this->getJohn();
         $enrollmentResult = $this->_api->Users->Enroll($user->Id);
+        $this->assertTrue($enrollmentResult->PendingUserAction instanceof PendingUserAction);
         $this->assertNotNull($enrollmentResult->PendingUserAction->RedirectUrl);
     }
 
