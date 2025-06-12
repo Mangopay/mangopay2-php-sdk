@@ -60,7 +60,7 @@ class VirtualAccount extends Libraries\EntityBase
      * The current Status of the Virtual Account
      * @var \MangoPay\LocalAccountDetails
      */
-    public $LocalAccountsDetails;
+    public $LocalAccountDetails;
 
     /**
      * The current Status of the Virtual Account
@@ -73,4 +73,16 @@ class VirtualAccount extends Libraries\EntityBase
      * @var \MangoPay\VirtualAccountCapabilities
      */
     public $Capabilities;
+
+    /**
+     * Result code
+     * @var string
+     */
+    public $ResultCode;
+
+    /**
+     * Result message
+     * @var string
+     */
+    public $ResultMessage;
 }
