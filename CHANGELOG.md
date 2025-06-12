@@ -1,3 +1,10 @@
+## [3.41.1] - 2025-06-12
+### Added
+- [US and CA virtual accounts](https://docs.mangopay.com/release-notes/api/2025-06-12) for local pay-in collection
+
+### Fixed
+- On POST Enroll a User, `PendingUserAction` cast to `\MangoPay\PendingUserAction` instead of `stdClass` (thanks for raising @renanwingly #713)
+
 ## [3.41.0] - 2025-06-10
 ### Added
 
