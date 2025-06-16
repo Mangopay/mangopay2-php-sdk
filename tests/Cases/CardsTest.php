@@ -102,4 +102,16 @@ class CardsTest extends Base
             print_r("can't test due to client issues");
         }
     }
+
+    public function test_GetTransactionsByCardFingerprint()
+    {
+        $john = $this->getNewJohn();
+        $payIn = $this->getNewPayInCardDirect($john->Id);
+        $card = $this->_api->Cards->Get($payIn->PaymentDetails->CardId);
+        $transactionsByFingerprint = $this->_api->Cards->GetTransactionsByFingerprint($card->Fingerprint);
+
+        $this->assertNotNull($transactionsByFingerprint);
+        $this->assertTrue(is_array($transactionsByFingerprint), 'Expected an array');
+        $this->assertTrue(sizeof($transactionsByFingerprint) > 0);
+    }
 }

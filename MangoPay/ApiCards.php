@@ -88,4 +88,20 @@ class ApiCards extends Libraries\ApiBase
     {
         return $this->GetObject('get_card_validation', '\MangoPay\CardValidation', $cardId, $cardValidationId);
     }
+
+    /**
+     * Gets a list of transactions having for a card fingerprint.
+     * The fingerprint is a hash uniquely generated per 16-digit card number.
+     *
+     * @param string $fingerprint The fingerprint hash
+     * @param Pagination $pagination Pagination object
+     * @param Sorting $sorting Sorting object
+     * @param FilterTransactions $filter Filter object
+     * @return Transaction[] List of Transactions corresponding to provided fingerprint
+     */
+    public function GetTransactionsByFingerprint($fingerprint, $filter = null, $pagination = null, $sorting = null)
+    {
+        return $this->GetList('transactions_get_by_fingerprint', $pagination,
+            '\MangoPay\Transaction', $fingerprint, $filter, $sorting);
+    }
 }
