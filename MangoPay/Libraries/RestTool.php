@@ -124,7 +124,8 @@ class RestTool
 
     /**
      * Call request to MangoPay API
-     * @param string $urlMethod Type of method in REST API
+     * @param string $urlPath Part of the full path of the API URL
+     * @param string $apiVersion Version of the API
      * @param \MangoPay\Libraries\RequestType $requestType Type of request
      * @param array $requestData Data to send in request
      * @param string $idempotencyKey
@@ -132,12 +133,12 @@ class RestTool
      * @param array $additionalUrlParams with additional parameters to URL. Expected keys: "sort" and "filter"
      * @return object Response data
      */
-    public function Request($urlMethod, $requestType, $requestData = null, $idempotencyKey = null, & $pagination = null, $additionalUrlParams = null)
+    public function Request($urlPath, $apiVersion, $requestType, $requestData = null, $idempotencyKey = null, & $pagination = null, $additionalUrlParams = null)
     {
         $this->_requestType = $requestType;
         $this->_requestData = $requestData;
-        if (strpos($urlMethod, 'consult') !== false
-            && (strpos($urlMethod, 'KYC/documents') !== false || strpos($urlMethod, 'dispute-documents') !== false)) {
+        if (strpos($urlPath, 'consult') !== false
+            && (strpos($urlPath, 'KYC/documents') !== false || strpos($urlPath, 'dispute-documents') !== false)) {
             $this->_requestData = "";
         }
         $logClass = $this->_root->Config->LogClass;
@@ -145,7 +146,7 @@ class RestTool
         if ($this->_root->Config->DebugMode) {
             $logClass::Debug('++++++++++++++++++++++ New request ++++++++++++++++++++++', '');
         }
-        $this->BuildRequest($urlMethod, $pagination, $additionalUrlParams, $idempotencyKey);
+        $this->BuildRequest($urlPath, $apiVersion, $pagination, $additionalUrlParams, $idempotencyKey);
         $responseResult = $this->_root->getHttpClient()->Request($this);
         $logClass = $this->_root->Config->LogClass;
         $this->logger->debug('Response JSON : ' . print_r($responseResult->Body, true));
@@ -170,15 +171,16 @@ class RestTool
     /**
      * Prepare all parameter to request
      *
-     * @param string $urlMethod Type of method in REST API
+     * @param string $urlPath Part of the full path of the API URL
+     * @param string $apiVersion Version of the API
      * @param \MangoPay\Pagination $pagination
      * @param null $additionalUrlParams
      * @param string $idempotencyKey Key for response replication
      */
-    private function BuildRequest($urlMethod, $pagination, $additionalUrlParams = null, $idempotencyKey = null)
+    private function BuildRequest($urlPath, $apiVersion, $pagination, $additionalUrlParams = null, $idempotencyKey = null)
     {
         $urlTool = new UrlTool($this->_root);
-        $restUrl = $urlTool->GetRestUrl($urlMethod, $this->_clientIdRequired, $pagination, $additionalUrlParams);
+        $restUrl = $urlTool->GetRestUrl($urlPath, $apiVersion, $this->_clientIdRequired, $pagination, $additionalUrlParams);
         $this->_requestUrl = $urlTool->GetFullUrl($restUrl);
         $logClass = $this->_root->Config->LogClass;
         $this->logger->debug('FullUrl : ' . $this->_requestUrl);

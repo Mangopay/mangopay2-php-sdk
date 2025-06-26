@@ -34,12 +34,12 @@ class UrlTool
         return $baseUrl;
     }
 
-    public function GetRestUrl($urlKey, $addClientId = true, $pagination = null, $additionalUrlParams = null)
+    public function GetRestUrl($urlPath, $apiVersion, $addClientId = true, $pagination = null, $additionalUrlParams = null)
     {
         if (!$addClientId) {
-            $url = '/v2.01' . $urlKey;
+            $url = '/' . $apiVersion . $urlPath;
         } else {
-            $url = '/v2.01/' . $this->_root->Config->ClientId . $urlKey;
+            $url = '/' . $apiVersion . '/' . $this->_root->Config->ClientId . $urlPath;
         }
 
         $paramsAdded = false;

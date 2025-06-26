@@ -96,6 +96,9 @@ abstract class ApiBase
         'payins_deposit_preauthorized_prior_to_complement' => ['/payins/deposit-preauthorized/direct/capture-with-complement', RequestType::POST],
         'payins_deposit_preauthorized_complement' => ['/payins/deposit-preauthorized/direct/complement', RequestType::POST],
 
+        'payins_intent_create_authprization' => ['/payins/intents', RequestType::POST, 'V3.0'],
+        'payins_intent_create_capture' => ['/payins/intents/%s/captures', RequestType::POST, 'V3.0'],
+
         'repudiation_get' => ['/repudiations/%s', RequestType::GET],
 
         'get_extended_card_view' => ['/payins/card/web/%s/extended', RequestType::GET],
@@ -313,6 +316,14 @@ abstract class ApiBase
         return $this->_methods[$key][1];
     }
 
+    protected function GetApiVersion($key)
+    {
+        if (sizeof($this->_methods[$key]) == 3) {
+            return $this->_methods[$key][2];
+        }
+        return "v2.01";
+    }
+
     /**
      * Create object in API
      * @param string $methodKey Key with request data
@@ -340,8 +351,9 @@ abstract class ApiBase
             $requestData = "";
         }
 
+        $apiVersion = $this->GetApiVersion($methodKey);
         $rest = new RestTool($this->_root, true);
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData, $idempotencyKey);
+        $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey), $requestData, $idempotencyKey);
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
         }
@@ -367,8 +379,10 @@ abstract class ApiBase
         } else {
             $urlMethod = $this->GetRequestUrl($methodKey);
         }
+
+        $apiVersion = $this->GetApiVersion($methodKey);
         $rest = new RestTool($this->_root, true, $clientIdRequired);
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
+        $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey));
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
@@ -386,8 +400,9 @@ abstract class ApiBase
     protected function GetObjectManyQueryParams($methodKey, $responseClassName, ...$queryParams)
     {
         $urlMethod = sprintf($this->GetRequestUrl($methodKey), ...$queryParams);
+        $apiVersion = $this->GetApiVersion($methodKey);
         $rest = new RestTool($this->_root, true, true);
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
+        $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey));
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
@@ -426,7 +441,8 @@ abstract class ApiBase
             $additionalUrlParams["sort"] = $sorting->GetSortParameter();
         }
 
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), null, null, $pagination, $additionalUrlParams);
+        $apiVersion = $this->GetApiVersion($methodKey);
+        $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey), null, null, $pagination, $additionalUrlParams);
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
@@ -459,8 +475,9 @@ abstract class ApiBase
 
         $requestData = $this->BuildRequestData($entity);
 
+        $apiVersion = $this->GetApiVersion($methodKey);
         $rest = new RestTool($this->_root, true);
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData);
+        $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey), $requestData);
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
@@ -475,9 +492,10 @@ abstract class ApiBase
             throw new Libraries\Exception('The entity must have the Id set');
         }
 
+        $apiVersion = $this->GetApiVersion($methodKey);
         $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entity->Id);
         $rest = new RestTool($this->_root, true);
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey));
+        $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey));
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
@@ -503,9 +521,9 @@ abstract class ApiBase
         }
 
         $requestData = $this->BuildRequestData($entity);
-
+        $apiVersion = $this->GetApiVersion($methodKey);
         $rest = new RestTool($this->_root, true);
-        $response = $rest->Request($urlMethod, $this->GetRequestType($methodKey), $requestData, null);
+        $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey), $requestData, null);
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);

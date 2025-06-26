@@ -3,10 +3,14 @@
 namespace MangoPay\Tests\Cases;
 
 use MangoPay\CreateCardPreAuthorizedDepositPayIn;
+use MangoPay\CurrencyIso;
 use MangoPay\Libraries\Exception;
 use MangoPay\LineItem;
 use MangoPay\Money;
 use MangoPay\PayInExecutionType;
+use MangoPay\PayInIntent;
+use MangoPay\PayInIntentExternalData;
+use MangoPay\PayInIntentLineItem;
 use MangoPay\PayInPaymentDetailsBankWire;
 use MangoPay\PayInPaymentType;
 use MangoPay\PayInRecurringRegistrationUpdate;
@@ -1228,5 +1232,62 @@ class PayInsTest extends Base
 
         $fetchedPayIn = $this->_api->PayIns->Get($payIn->Id);
         $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
+    }
+
+    public function test_CreatePayInIntentAuthorization()
+    {
+        $intentAuthorization = $this->getNewPayInIntentAuthorization();
+        $this->assertNotNull($intentAuthorization);
+        $this->assertEquals("AUTHORIZED", $intentAuthorization->Status);
+    }
+
+    public function test_CreatePayInIntentFullCapture()
+    {
+        $intentAuthorization = $this->getNewPayInIntentAuthorization();
+
+        $externalData = new PayInIntentExternalData();
+        $externalData->ExternalProcessingDate = "01-10-2024";
+        $externalData->ExternalProviderReference = strval(rand(0, 999));
+        $externalData->ExternalMerchantReference = "Order-xyz-35e8490e-2ec9-4c82-978e-c712a3f5ba16";
+        $externalData->ExternalProviderName = "Stripe";
+        $externalData->ExternalProviderPaymentMethod = "PAYPAL";
+
+        $fullCapture = new PayInIntent();
+        $fullCapture->ExternalData = $externalData;
+
+        $result = $this->_api->PayIns->CreatePayInIntentCapture($intentAuthorization->Id, $fullCapture);
+
+        $this->assertNotNull($result);
+        $this->assertEquals("CAPTURED", $result->Status);
+    }
+
+    public function test_CreatePayInIntentPartialCapture()
+    {
+        $intentAuthorization = $this->getNewPayInIntentAuthorization();
+
+        $lineItem = new PayInIntentLineItem();
+        $lineItem->Amount = 1000;
+        $lineItem->Id = $intentAuthorization->LineItems[0]->Id;
+
+        $lineItems = [$lineItem];
+
+        $externalData = new PayInIntentExternalData();
+        $externalData->ExternalProcessingDate = "01-10-2024";
+        $externalData->ExternalProviderReference = strval(rand(0, 999));
+        $externalData->ExternalMerchantReference = "Order-xyz-35e8490e-2ec9-4c82-978e-c712a3f5ba16";
+        $externalData->ExternalProviderName = "Stripe";
+        $externalData->ExternalProviderPaymentMethod = "PAYPAL";
+
+        $partialCapture = new PayInIntent();
+        $partialCapture->ExternalData = $externalData;
+        $partialCapture->LineItems = $lineItems;
+        $partialCapture->Amount = 1000;
+        $partialCapture->Currency = CurrencyIso::EUR;
+        $partialCapture->PlatformFeesAmount = 0;
+
+        $result = $this->_api->PayIns->CreatePayInIntentCapture($intentAuthorization->Id, $partialCapture);
+
+        $this->assertNotNull($result);
+        $this->assertEquals("CAPTURED", $result->Status);
     }
 }
