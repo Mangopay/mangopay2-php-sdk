@@ -25,6 +25,7 @@ class PayInPaymentType
     const Ideal = 'IDEAL';
     const Giropay = 'GIROPAY';
     const Bancontact = 'BCMC';
+    const Bizum = 'BIZUM';
     const Swish = 'SWISH';
     const Twint = 'TWINT';
     const PayByBank = 'PAY_BY_BANK';

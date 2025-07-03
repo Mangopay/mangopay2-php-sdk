@@ -54,6 +54,7 @@ abstract class ApiBase
         'card_save' => ['/cards/%s', RequestType::PUT],
         'card_validate' => ['/cards/%s/validation', RequestType::POST],
         'get_card_validation' => ['/cards/%s/validation/%s', RequestType::GET],
+        'transactions_get_by_fingerprint' => ['/cards/fingerprints/%s/transactions', RequestType::GET],
 
         // pay ins URLs
         'payins_card-web_create' => ['/payins/card/web/', RequestType::POST],
@@ -80,6 +81,7 @@ abstract class ApiBase
         'payins_ideal-web_create' => ['/payins/payment-methods/ideal', RequestType::POST],
         'payins_giropay-web_create' => ['/payins/payment-methods/giropay', RequestType::POST],
         'payins_bancontact-web_create' => ['/payins/payment-methods/bancontact', RequestType::POST],
+        'payins_bizum-web_create' => ['/payins/payment-methods/bizum', RequestType::POST],
         'payins_swish-web_create' => ['/payins/payment-methods/swish', RequestType::POST],
         'payins_twint-web_create' => ['/payins/payment-methods/twint', RequestType::POST],
         'payins_paybybank-web_create' => ['/payins/payment-methods/openbanking', RequestType::POST],

@@ -1094,6 +1094,46 @@ class PayInsTest extends Base
         $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
     }
 
+    public function test_PayIns_Create_Bizum_Web_With_Phone()
+    {
+        $payIn = $this->getNewPayInBizumWeb();
+
+        $this->assertNotNull($payIn->Id > 0);
+        $this->assertEquals(\MangoPay\PayInPaymentType::Bizum, $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsBizum', $payIn->PaymentDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
+        $this->assertEquals(PayInStatus::Created, $payIn->Status);
+        $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertNotNull($payIn->PaymentDetails->Phone);
+
+        $fetchedPayIn = $this->_api->PayIns->Get($payIn->Id);
+        $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
+        $this->assertEquals($payIn->PaymentDetails->Phone, $fetchedPayIn->PaymentDetails->Phone);
+        $this->assertNotNull($fetchedPayIn->PaymentDetails->Phone);
+        $this->assertNull($fetchedPayIn->ExecutionDetails->ReturnURL);
+    }
+
+    public function test_PayIns_Create_Bizum_Web_With_ReturnUrl()
+    {
+        $payIn = $this->getNewPayInBizumWeb(null, false);
+
+        $this->assertNotNull($payIn->Id > 0);
+        $this->assertEquals(\MangoPay\PayInPaymentType::Bizum, $payIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsBizum', $payIn->PaymentDetails);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Web, $payIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsWeb', $payIn->ExecutionDetails);
+        $this->assertEquals(PayInStatus::Created, $payIn->Status);
+        $this->assertEquals('PAYIN', $payIn->Type);
+        $this->assertNotNull($payIn->ExecutionDetails->ReturnURL);
+
+        $fetchedPayIn = $this->_api->PayIns->Get($payIn->Id);
+        $this->assertEquals($payIn->Id, $fetchedPayIn->Id);
+        $this->assertEquals($payIn->ExecutionDetails->ReturnURL, $fetchedPayIn->ExecutionDetails->ReturnURL);
+        $this->assertNotNull($fetchedPayIn->ExecutionDetails->ReturnURL);
+        $this->assertNull($fetchedPayIn->PaymentDetails->Phone);
+    }
+
     public function test_CardDirect_getPaymentMethodMetadata()
     {
         $payin = $this->getNewPayInCardDirect();
