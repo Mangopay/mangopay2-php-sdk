@@ -9,4 +9,5 @@ class UserCategory
 {
     const Payer = 'PAYER';
     const Owner = 'OWNER';
+    const Platform = 'PLATFORM';
 }
