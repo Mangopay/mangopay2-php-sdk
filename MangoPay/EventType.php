@@ -121,6 +121,14 @@ class EventType
     const RecurringRegistrationInProgress = "RECURRING_REGISTRATION_IN_PROGRESS";
     const InstantPayoutFailed = "INSTANT_PAYOUT_FAILED";
 
+    const ScaEnrollmentSucceeded = "SCA_ENROLLMENT_SUCCEEDED";
+    const ScaEnrollmentFailed = "SCA_ENROLLMENT_FAILED";
+    const ScaEnrollmentExpired = "SCA_ENROLLMENT_EXPIRED";
+
+    const UserCategoryUpdatedToOwner = "USER_CATEGORY_UPDATED_TO_OWNER";
+    const UserCategoryUpdatedToPayer = "USER_CATEGORY_UPDATED_TO_PAYER";
+    const UserCategoryUpdatedToPlatform = "USER_CATEGORY_UPDATED_TO_PLATFORM";
+
     const ReportGenerated = "REPORT_GENERATED";
     const ReportFailed = "REPORT_FAILED";
 }
