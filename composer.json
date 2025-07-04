@@ -8,7 +8,8 @@
     "ext-curl": "*",
     "ext-openssl": "*",
     "psr/log": "^1.0|^2.0|^3.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-fileinfo": "*"
   },
   "autoload": {
     "psr-4": {

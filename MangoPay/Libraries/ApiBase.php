@@ -98,6 +98,9 @@ abstract class ApiBase
 
         'payins_intent_create_authprization' => ['/payins/intents', RequestType::POST, 'V3.0'],
         'payins_intent_create_capture' => ['/payins/intents/%s/captures', RequestType::POST, 'V3.0'],
+        'settlement_create' => ['/payins/intents/settlements', RequestType::POST, 'V3.0'],
+        'settlement_get' => ['/payins/intents/settlements/%s', RequestType::GET, 'V3.0'],
+        'settlement_update' => ['/payins/intents/settlements/%s', RequestType::PUT, 'V3.0'],
 
         'repudiation_get' => ['/repudiations/%s', RequestType::GET],
 
@@ -354,6 +357,38 @@ abstract class ApiBase
         $apiVersion = $this->GetApiVersion($methodKey);
         $rest = new RestTool($this->_root, true);
         $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey), $requestData, $idempotencyKey);
+        if (!is_null($responseClassName)) {
+            return $this->CastResponseToEntity($response, $responseClassName);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param string $methodKey Key with request data
+     * @param string $file The file content (raw binary string)
+     * @param string $fileName The file name
+     * @param string $responseClassName Name of entity class from response
+     * @param string $entityId Optional entity identifier
+     * @param string $idempotencyKey Optional idempotency key
+     * @return object Response data
+     * @throws Exception
+     */
+    protected function CreateOrUpdateMultipartObject($methodKey, $file, $fileName, $responseClassName = null, $entityId = null, $idempotencyKey = null)
+    {
+        if (is_null($entityId)) {
+            $urlMethod = $this->GetRequestUrl($methodKey);
+        } else {
+            $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
+        }
+
+        if (is_null($file)) {
+            throw new Exception('The file param must not be null');
+        }
+
+        $apiVersion = $this->GetApiVersion($methodKey);
+        $rest = new RestTool($this->_root, true);
+        $response = $rest->RequestMultipart($urlMethod, $apiVersion, $this->GetRequestType($methodKey), $file, $fileName, $idempotencyKey);
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
         }

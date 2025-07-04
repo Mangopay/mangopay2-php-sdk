@@ -227,6 +227,12 @@ class MangoPayApi
     public $ReportsV2;
 
     /**
+     * Provides settlements request methods
+     * @var ApiSettlements
+     */
+    public $Settlements;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -267,6 +273,7 @@ class MangoPayApi
         $this->IdentityVerifications = new ApiIdentityVerification($this);
         $this->Recipients = new ApiRecipients($this);
         $this->ReportsV2 = new ApiReportsV2($this);
+        $this->Settlements = new ApiSettlements($this);
 
         // Setting default NullLogger
         $this->logger = new NullLogger();

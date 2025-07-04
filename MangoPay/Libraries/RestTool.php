@@ -2,6 +2,7 @@
 
 namespace MangoPay\Libraries;
 
+use CURLFile;
 use MangoPay\MangoPayApi;
 use MangoPay\PendingUserAction;
 use MangoPay\RateLimit;
@@ -169,6 +170,50 @@ class RestTool
     }
 
     /**
+     * Perform a POST/PUT request with a multipart file
+     * @param string $urlPath Part of the full path of the API URL
+     * @param string $apiVersion Version of the API
+     * @param \MangoPay\Libraries\RequestType $requestType Type of request
+     * @param string $file The file as binary string
+     * @param string $fileName The file name
+     * @param string $idempotencyKey Optional idempotency key for post requests
+     * @return object Response data
+     * @throws ResponseException
+     */
+    public function RequestMultipart($urlPath, $apiVersion, $requestType, $file, $fileName, $idempotencyKey = null)
+    {
+        $this->_requestType = $requestType;
+        $this->_requestData = $file;
+
+        $logClass = $this->_root->Config->LogClass;
+        $this->logger->debug("New request");
+        if ($this->_root->Config->DebugMode) {
+            $logClass::Debug('++++++++++++++++++++++ New request ++++++++++++++++++++++', '');
+        }
+
+        $tempFilePath = $this->BuildMultipartRequest($urlPath, $apiVersion, $fileName, $idempotencyKey);
+        $responseResult = $this->_root->getHttpClient()->Request($this);
+        unlink($tempFilePath);
+
+        $logClass = $this->_root->Config->LogClass;
+        $this->logger->debug('Response JSON : ' . print_r($responseResult->Body, true));
+        if ($this->_root->Config->DebugMode) {
+            $logClass::Debug('Response JSON', $responseResult->Body);
+        }
+
+        $responseBody = json_decode($responseResult->Body);
+
+        $this->logger->debug('Decoded object : ' . print_r($responseBody, true));
+        if ($this->_root->Config->DebugMode) {
+            $logClass::Debug('Response object', $responseBody);
+        }
+
+        $this->CheckResponseCode($responseResult->ResponseCode, $responseBody, $responseResult->Headers);
+        $this->ReadResponseHeader($responseResult->Headers);
+        return $responseBody;
+    }
+
+    /**
      * Prepare all parameter to request
      *
      * @param string $urlPath Part of the full path of the API URL
@@ -215,6 +260,49 @@ class RestTool
                 }
             }
         }
+    }
+
+    /**
+     * @param string $urlPath Url path
+     * @param string $apiVersion Api version
+     * @param string $fileName The name of the file
+     * @param string $idempotencyKey Optional idempotency key
+     * @return string The temp file path
+     */
+    private function BuildMultipartRequest($urlPath, $apiVersion, $fileName, $idempotencyKey = null)
+    {
+        $urlTool = new UrlTool($this->_root);
+        $restUrl = $urlTool->GetRestUrl($urlPath, $apiVersion, $this->_clientIdRequired);
+        $this->_requestUrl = $urlTool->GetFullUrl($restUrl);
+        $logClass = $this->_root->Config->LogClass;
+        $this->logger->debug('FullUrl : ' . $this->_requestUrl);
+        if ($this->_root->Config->DebugMode) {
+            $logClass::Debug('FullUrl', $this->_requestUrl);
+        }
+        $this->logger->debug('RequestType : ' . $this->_requestType);
+        if ($this->_root->Config->DebugMode) {
+            $logClass::Debug('RequestType', $this->_requestType);
+        }
+
+        $httpHeaders = $this->GetHttpHeaders($idempotencyKey);
+        // remove the Content-Type: application/json header but keep the others
+        $httpHeaders = array_filter($httpHeaders, function($header) {
+            return stripos($header, 'Content-Type:') !== 0;
+        });
+        $this->_requestHttpHeaders = $httpHeaders;
+
+        $this->logger->debug('HTTP Headers : ' . print_r($httpHeaders, true));
+        if ($this->_root->Config->DebugMode) {
+            $logClass::Debug('HTTP Headers', $httpHeaders);
+        }
+
+        $tempFilePath = tempnam(sys_get_temp_dir(), 'upload_');
+        file_put_contents($tempFilePath, $this->_requestData);
+        $cfile = new CURLFile($tempFilePath, "text/csv", $fileName);
+        $postFields = ["file" => $cfile];
+        $this->_requestData = $postFields;
+
+        return $tempFilePath;
     }
 
     /**
