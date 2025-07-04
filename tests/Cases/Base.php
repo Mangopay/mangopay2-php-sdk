@@ -2220,12 +2220,12 @@ abstract class Base extends TestCase
 
         $lineItems = [$lineItem];
 
-            $externalData = new PayInIntentExternalData();
-            $externalData->ExternalProcessingDate = "01-10-2024";
-            $externalData->ExternalProviderReference = strval(rand(0, 10000));
-            $externalData->ExternalMerchantReference = "Order-xyz-35e8490e-2ec9-4c82-978e-c712a3f5ba16";
-            $externalData->ExternalProviderName = "Stripe";
-            $externalData->ExternalProviderPaymentMethod = "PAYPAL";
+        $externalData = new PayInIntentExternalData();
+        $externalData->ExternalProcessingDate = "01-10-2024";
+        $externalData->ExternalProviderReference = strval(rand(0, 10000));
+        $externalData->ExternalMerchantReference = "Order-xyz-35e8490e-2ec9-4c82-978e-c712a3f5ba16";
+        $externalData->ExternalProviderName = "Stripe";
+        $externalData->ExternalProviderPaymentMethod = "PAYPAL";
 
         $buyer = new PayInIntentBuyer();
         $buyer->Id = $user->Id;
