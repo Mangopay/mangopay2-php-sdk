@@ -286,7 +286,7 @@ class RestTool
 
         $httpHeaders = $this->GetHttpHeaders($idempotencyKey);
         // remove the Content-Type: application/json header but keep the others
-        $httpHeaders = array_filter($httpHeaders, function($header) {
+        $httpHeaders = array_filter($httpHeaders, function ($header) {
             return stripos($header, 'Content-Type:') !== 0;
         });
         $this->_requestHttpHeaders = $httpHeaders;

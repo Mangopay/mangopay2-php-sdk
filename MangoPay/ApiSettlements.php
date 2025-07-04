@@ -16,8 +16,14 @@ class ApiSettlements extends Libraries\ApiBase
      */
     public function Upload($file, $idempotencyKey = null)
     {
-        return $this->CreateOrUpdateMultipartObject('settlement_create', $file, "settlement_file.csv",
-            '\MangoPay\Settlement', null, $idempotencyKey);
+        return $this->CreateOrUpdateMultipartObject(
+            'settlement_create',
+            $file,
+            "settlement_file.csv",
+            '\MangoPay\Settlement',
+            null,
+            $idempotencyKey
+        );
     }
 
     /**
@@ -41,7 +47,13 @@ class ApiSettlements extends Libraries\ApiBase
      */
     public function Update($settlementId, $file, $idempotencyKey = null)
     {
-        return $this->CreateOrUpdateMultipartObject('settlement_update', $file, "settlement_file.csv",
-            '\MangoPay\Settlement', $settlementId, $idempotencyKey);
+        return $this->CreateOrUpdateMultipartObject(
+            'settlement_update',
+            $file,
+            "settlement_file.csv",
+            '\MangoPay\Settlement',
+            $settlementId,
+            $idempotencyKey
+        );
     }
 }

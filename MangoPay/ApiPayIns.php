@@ -246,8 +246,14 @@ class ApiPayIns extends Libraries\ApiBase
      */
     public function CreatePayInIntentAuthorization($payInIntentAuthorization, $idempotencyKey = null)
     {
-        return $this->CreateObject('payins_intent_create_authprization', $payInIntentAuthorization,
-            '\MangoPay\PayInIntent', null, null, $idempotencyKey);
+        return $this->CreateObject(
+            'payins_intent_create_authprization',
+            $payInIntentAuthorization,
+            '\MangoPay\PayInIntent',
+            null,
+            null,
+            $idempotencyKey
+        );
     }
 
     /**
@@ -258,8 +264,14 @@ class ApiPayIns extends Libraries\ApiBase
      */
     public function CreatePayInIntentCapture($intentId, $payInIntentCapture, $idempotencyKey = null)
     {
-        return $this->CreateObject('payins_intent_create_capture', $payInIntentCapture,
-            '\MangoPay\PayInIntent', $intentId, null, $idempotencyKey);
+        return $this->CreateObject(
+            'payins_intent_create_capture',
+            $payInIntentCapture,
+            '\MangoPay\PayInIntent',
+            $intentId,
+            null,
+            $idempotencyKey
+        );
     }
 
     /**
