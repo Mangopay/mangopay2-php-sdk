@@ -98,6 +98,7 @@ abstract class ApiBase
 
         'payins_intent_create_authprization' => ['/payins/intents', RequestType::POST, 'V3.0'],
         'payins_intent_create_capture' => ['/payins/intents/%s/captures', RequestType::POST, 'V3.0'],
+        'payins_intent_get' => ['/payins/intents/%s', RequestType::GET, 'V3.0'],
         'settlement_create' => ['/payins/intents/settlements', RequestType::POST, 'V3.0'],
         'settlement_get' => ['/payins/intents/settlements/%s', RequestType::GET, 'V3.0'],
         'settlement_update' => ['/payins/intents/settlements/%s', RequestType::PUT, 'V3.0'],

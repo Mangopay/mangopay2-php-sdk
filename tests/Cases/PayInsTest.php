@@ -1290,4 +1290,12 @@ class PayInsTest extends Base
         $this->assertNotNull($result);
         $this->assertEquals("CAPTURED", $result->Status);
     }
+
+    public function test_GetPayInIntent()
+    {
+        $intent = $this->getNewPayInIntentAuthorization();
+        $fetched = $this->_api->PayIns->GetPayInIntent($intent->Id);
+        $this->assertNotNull($intent->Status);
+        $this->assertEquals($intent->Status, $fetched->Status);
+    }
 }

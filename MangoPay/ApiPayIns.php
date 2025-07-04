@@ -261,4 +261,14 @@ class ApiPayIns extends Libraries\ApiBase
         return $this->CreateObject('payins_intent_create_capture', $payInIntentCapture,
             '\MangoPay\PayInIntent', $intentId, null, $idempotencyKey);
     }
+
+    /**
+     * Get a pay in intent
+     * @param string $intentId The identifier of the PayInIntent
+     * @return \MangoPay\PayInIntent Object returned from API
+     */
+    public function GetPayInIntent($intentId)
+    {
+        return $this->GetObject('payins_intent_get', '\MangoPay\PayInIntent', $intentId);
+    }
 }
