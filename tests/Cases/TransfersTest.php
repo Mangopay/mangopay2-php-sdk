@@ -32,7 +32,7 @@ class TransfersTest extends Base
         $transferUserPresentLowAmount = $this->getNewTransferSca($validNaturalUserScaId, 20, 'USER_PRESENT', $walletWithMoney->Id);
         $transferUserNotPresent = $this->getNewTransferSca($validNaturalUserScaId, 3001, 'USER_NOT_PRESENT', $walletWithMoney->Id);
 
-        $this->assertEquals(TransactionStatus::Created, $transferUserPresent->Status);
+        $this->assertEquals(TransactionStatus::Succeeded, $transferUserPresent->Status);
         $this->assertNotNull($transferUserPresent->PendingUserAction);
 
         $this->assertEquals(TransactionStatus::Succeeded, $transferUserPresentLowAmount->Status);
