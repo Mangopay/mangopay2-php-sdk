@@ -287,10 +287,11 @@ class ApiPayIns extends Libraries\ApiBase
     /**
      * Cancel a pay in intent
      * @param string $intentId The identifier of the PayInIntent
+     * @param PayInIntent $details Intent details
      * @return \MangoPay\PayInIntent Object returned from API
      */
-    public function CancelPayInIntent($intentId)
+    public function CancelPayInIntent($intentId, $details)
     {
-        return $this->SaveObject('payins_intent_cancel', new PayInIntent(), '\MangoPay\PayInIntent', $intentId);
+        return $this->SaveObject('payins_intent_cancel', $details, '\MangoPay\PayInIntent', $intentId);
     }
 }
