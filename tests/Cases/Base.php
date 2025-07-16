@@ -2210,7 +2210,7 @@ abstract class Base extends TestCase
 
         $seller = new PayInIntentSeller();
         $seller->WalletId = $wallet->Id;
-        $seller->TransferDate = "13-11-2030";
+        $seller->TransferDate = 1728133765;
 
         $lineItem = new PayInIntentLineItem();
         $lineItem->Seller = $seller;
@@ -2221,7 +2221,7 @@ abstract class Base extends TestCase
         $lineItems = [$lineItem];
 
         $externalData = new PayInIntentExternalData();
-        $externalData->ExternalProcessingDate = "01-10-2024";
+        $externalData->ExternalProcessingDate = 1728133765;
         $externalData->ExternalProviderReference = strval(rand(0, 10000));
         $externalData->ExternalMerchantReference = "Order-xyz-35e8490e-2ec9-4c82-978e-c712a3f5ba16";
         $externalData->ExternalProviderName = "Stripe";

@@ -6,7 +6,7 @@ class PayInIntentExternalData extends Libraries\Dto
 {
     /**
      * The date at which the transaction was created
-     * @var string
+     * @var int Unix Timestamp
      */
     public $ExternalProcessingDate;
 

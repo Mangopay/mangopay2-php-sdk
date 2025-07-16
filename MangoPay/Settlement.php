@@ -18,7 +18,7 @@ class Settlement extends Libraries\EntityBase
 
     /**
      * The date at which the settlement was created by the external provider
-     * @var string
+     * @var int Unix Timestamp
      */
     public $SettlementDate;
 

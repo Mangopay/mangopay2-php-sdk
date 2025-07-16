@@ -30,7 +30,7 @@ class PayInIntentSeller extends Libraries\Dto
      * Information about the date when the funds are to be transferred to the seller’s wallet
      *
      * Must be a date in the future
-     * @var string
+     * @var int Unix Timestamp
      */
     public $TransferDate;
 }

@@ -1298,4 +1298,11 @@ class PayInsTest extends Base
         $this->assertNotNull($intent->Status);
         $this->assertEquals($intent->Status, $fetched->Status);
     }
+
+    public function test_CancelPayInIntent()
+    {
+        $intent = $this->getNewPayInIntentAuthorization();
+        $canceled = $this->_api->PayIns->CancelPayInIntent($intent->Id);
+        $this->assertEquals($canceled->Status, 'CANCELED');
+    }
 }
