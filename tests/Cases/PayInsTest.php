@@ -4,6 +4,7 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\CreateCardPreAuthorizedDepositPayIn;
 use MangoPay\CurrencyIso;
+use MangoPay\IntentSplits;
 use MangoPay\Libraries\Exception;
 use MangoPay\LineItem;
 use MangoPay\Money;
@@ -11,6 +12,7 @@ use MangoPay\PayInExecutionType;
 use MangoPay\PayInIntent;
 use MangoPay\PayInIntentExternalData;
 use MangoPay\PayInIntentLineItem;
+use MangoPay\PayInIntentSplit;
 use MangoPay\PayInPaymentDetailsBankWire;
 use MangoPay\PayInPaymentType;
 use MangoPay\PayInRecurringRegistrationUpdate;
@@ -1309,5 +1311,34 @@ class PayInsTest extends Base
         $details->ExternalData = $externalData;
         $canceled = $this->_api->PayIns->CancelPayInIntent($intent->Id, $details);
         $this->assertEquals($canceled->Status, 'CANCELED');
+    }
+
+    public function test_CreatePayInIntentSplits()
+    {
+        $intent = $this->getNewPayInIntentAuthorization();
+
+        $externalData = new PayInIntentExternalData();
+        $externalData->ExternalProcessingDate = "01-10-2024";
+        $externalData->ExternalProviderReference = strval(rand(0, 999));
+        $externalData->ExternalMerchantReference = "Order-xyz-35e8490e-2ec9-4c82-978e-c712a3f5ba16";
+        $externalData->ExternalProviderName = "Stripe";
+        $externalData->ExternalProviderPaymentMethod = "PAYPAL";
+
+        $fullCapture = new PayInIntent();
+        $fullCapture->ExternalData = $externalData;
+
+        $fullCapture = $this->_api->PayIns->CreatePayInIntentCapture($intent->Id, $fullCapture);
+
+        $split = new PayInIntentSplit();
+        $split->LineItemId = $intent->LineItems[0]->Id;
+        $split->SplitAmount = 10;
+
+        $splitsArray = [$split];
+        $splitsPost = new IntentSplits();
+        $splitsPost->Splits = $splitsArray;
+
+        $createdSplits = $this->_api->PayIns->CreatePayInIntentSplits($intent->Id, $splitsPost);
+        $this->assertNotNull($createdSplits->Splits);
+        $this->assertTrue(sizeof($createdSplits->Splits) == 1);
     }
 }

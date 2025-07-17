@@ -294,4 +294,15 @@ class ApiPayIns extends Libraries\ApiBase
     {
         return $this->SaveObject('payins_intent_cancel', $details, '\MangoPay\PayInIntent', $intentId);
     }
+
+    /**
+     * Create Intent splits
+     * @param string $intentId The identifier of the PayInIntent
+     * @param IntentSplits $splits Splits
+     * @return \MangoPay\IntentSplits Object returned from API
+     */
+    public function CreatePayInIntentSplits($intentId, $splits, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_intent_create_splits', $splits, '\MangoPay\IntentSplits', $intentId, null, $idempotencyKey);
+    }
 }

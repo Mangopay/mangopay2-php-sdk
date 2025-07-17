@@ -100,6 +100,7 @@ abstract class ApiBase
         'payins_intent_create_capture' => ['/payins/intents/%s/captures', RequestType::POST, 'V3.0'],
         'payins_intent_get' => ['/payins/intents/%s', RequestType::GET, 'V3.0'],
         'payins_intent_cancel' => ['/payins/intents/%s/cancel', RequestType::PUT, 'V3.0'],
+        'payins_intent_create_splits' => ['/payins/intents/%s/splits', RequestType::POST, 'V3.0'],
         'settlement_create' => ['/payins/intents/settlements', RequestType::POST, 'V3.0'],
         'settlement_get' => ['/payins/intents/settlements/%s', RequestType::GET, 'V3.0'],
         'settlement_update' => ['/payins/intents/settlements/%s', RequestType::PUT, 'V3.0'],
@@ -800,7 +801,8 @@ abstract class ApiBase
             'users_getemoney_month' => '\MangoPay\EMoney',
             'payins_recurring_paypal' => '\MangoPay\PayInRecurring',
             'identity_verification_create' => '\MangoPay\IdentityVerification',
-            'recipients_create' => '\MangoPay\Recipient'
+            'recipients_create' => '\MangoPay\Recipient',
+            'payins_intent_create_splits' => '\MangoPay\IntentSplits'
         ];
 
         foreach ($map as $key => $className) {

@@ -5,38 +5,43 @@ namespace MangoPay;
 class PayInIntentSplit extends Libraries\Dto
 {
     /**
-     * Unique identifier.
-     * @var string
+     * @var string The unique identifier of an item in Mangopay ecosystem
      */
-    public $Id;
+    public $LineItemId;
 
     /**
-     * The date at which the object was created
-     * @var int
+     * @var string The unique identifier of the seller providing the item (userId)
      */
-    public $CreationDate;
+    public $SellerId;
 
     /**
-     * The date at which the object was successfully moved to CREATED
-     * @var int
+     * @var string The unique identifier of the wallet to credit the seller funds
      */
-    public $ExecutionDate;
+    public $WalletId;
 
     /**
-     * The split amount
-     * @var int
+     * @var int Information about the amount to be credited to the seller wallet
      */
-    public $Amount;
+    public $SplitAmount;
 
     /**
-     * The status of the split
-     * @var string
+     * @var int Information about the fees
+     */
+    public $FeesAmount;
+
+    /**
+     * @var int Information about the date when the funds are to be transferred to the seller’s wallet
+     * Must be a date in the future
+     */
+    public $TransferDate;
+
+    /**
+     * @var string The description of the split object
+     */
+    public $Description;
+
+    /**
+     * @var string The status of the split
      */
     public $Status;
-
-    /**
-     * Information about the items captured in the transaction.
-     * @var PayInIntentLineItem[]
-     */
-    public $LineItems;
 }

@@ -80,7 +80,7 @@ class PayInIntent extends Libraries\EntityBase
 
     /**
      * Information about the amounts split against the intent
-     * @var PayInIntentSplit[]
+     * @var PayInIntentSplitInfo[]
      */
     public $Splits;
 
