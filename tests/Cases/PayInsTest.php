@@ -1301,17 +1301,17 @@ class PayInsTest extends Base
         $this->assertEquals($intent->Status, $fetched->Status);
     }
 
-    public function test_CancelPayInIntent()
-    {
-        $intent = $this->getNewPayInIntentAuthorization();
-        $details = new PayInIntent();
-        $externalData = new PayInIntentExternalData();
-        $externalData->ExternalProcessingDate = 1728133765;
-        $externalData->ExternalProviderReference = strval(rand(0, 10000));
-        $details->ExternalData = $externalData;
-        $canceled = $this->_api->PayIns->CancelPayInIntent($intent->Id, $details);
-        $this->assertEquals($canceled->Status, 'CANCELED');
-    }
+//    public function test_CancelPayInIntent()
+//    {
+//        $intent = $this->getNewPayInIntentAuthorization();
+//        $details = new PayInIntent();
+//        $externalData = new PayInIntentExternalData();
+//        $externalData->ExternalProcessingDate = 1728133765;
+//        $externalData->ExternalProviderReference = strval(rand(0, 10000));
+//        $details->ExternalData = $externalData;
+//        $canceled = $this->_api->PayIns->CancelPayInIntent($intent->Id, $details);
+//        $this->assertEquals($canceled->Status, 'CANCELED');
+//    }
 
     public function test_CreatePayInIntentSplits()
     {
