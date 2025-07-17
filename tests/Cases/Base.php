@@ -2210,6 +2210,7 @@ abstract class Base extends TestCase
 
         $seller = new PayInIntentSeller();
         $seller->WalletId = $wallet->Id;
+        $seller->AuthorId = $wallet->Owners[0];
         $seller->TransferDate = 1728133765;
 
         $lineItem = new PayInIntentLineItem();
