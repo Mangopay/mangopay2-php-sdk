@@ -16,6 +16,11 @@ use MangoPay\LegalRepresentative;
 use MangoPay\Libraries\Exception;
 use MangoPay\LineItem;
 use MangoPay\Money;
+use MangoPay\PayInIntent;
+use MangoPay\PayInIntentBuyer;
+use MangoPay\PayInIntentExternalData;
+use MangoPay\PayInIntentLineItem;
+use MangoPay\PayInIntentSeller;
 use MangoPay\ShippingPreference;
 use MangoPay\Tests\Mocks\MockStorageStrategy;
 use MangoPay\Ubo;
@@ -2228,5 +2233,43 @@ abstract class Base extends TestCase
         $deposit->Shipping = $billing;
 
         return $deposit;
+    }
+
+    protected function getNewPayInIntentAuthorization()
+    {
+        $user = $this->getJohn();
+        $wallet = $this->getJohnsWallet();
+
+        $seller = new PayInIntentSeller();
+        $seller->WalletId = $wallet->Id;
+        $seller->AuthorId = $wallet->Owners[0];
+        $seller->TransferDate = 1728133765;
+
+        $lineItem = new PayInIntentLineItem();
+        $lineItem->Seller = $seller;
+        $lineItem->Sku = "item-123456";
+        $lineItem->Quantity = 1;
+        $lineItem->UnitAmount = 1000;
+
+        $lineItems = [$lineItem];
+
+        $externalData = new PayInIntentExternalData();
+        $externalData->ExternalProcessingDate = 1728133765;
+        $externalData->ExternalProviderReference = strval(rand(0, 10000));
+        $externalData->ExternalMerchantReference = "Order-xyz-35e8490e-2ec9-4c82-978e-c712a3f5ba16";
+        $externalData->ExternalProviderName = "Stripe";
+        $externalData->ExternalProviderPaymentMethod = "PAYPAL";
+
+        $buyer = new PayInIntentBuyer();
+        $buyer->Id = $user->Id;
+
+        $toCreate = new PayInIntent();
+        $toCreate->Amount = 1000;
+        $toCreate->Currency = CurrencyIso::EUR;
+        $toCreate->ExternalData = $externalData;
+        $toCreate->Buyer = $buyer;
+        $toCreate->LineItems = $lineItems;
+
+        return $this->_api->PayIns->CreatePayInIntentAuthorization($toCreate);
     }
 }

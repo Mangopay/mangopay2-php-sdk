@@ -238,4 +238,71 @@ class ApiPayIns extends Libraries\ApiBase
     {
         return $this->CreateObject('payins_payconiqv2-web_create', $payIn, '\MangoPay\PayIn', null, null, $idempotencyKey);
     }
+
+    /**
+     * Create a pay in intent authorization
+     * @param \MangoPay\PayInIntent $payInIntentAuthorization \MangoPay\PayInIntent object
+     * @return \MangoPay\PayInIntent Object returned from API
+     */
+    public function CreatePayInIntentAuthorization($payInIntentAuthorization, $idempotencyKey = null)
+    {
+        return $this->CreateObject(
+            'payins_intent_create_authprization',
+            $payInIntentAuthorization,
+            '\MangoPay\PayInIntent',
+            null,
+            null,
+            $idempotencyKey
+        );
+    }
+
+    /**
+     * Create a pay in intent authorization
+     * @param string $intentId The identifier of the PayInIntent
+     * @param \MangoPay\PayInIntent $payInIntentCapture \MangoPay\PayInIntent object
+     * @return \MangoPay\PayInIntent Object returned from API
+     */
+    public function CreatePayInIntentCapture($intentId, $payInIntentCapture, $idempotencyKey = null)
+    {
+        return $this->CreateObject(
+            'payins_intent_create_capture',
+            $payInIntentCapture,
+            '\MangoPay\PayInIntent',
+            $intentId,
+            null,
+            $idempotencyKey
+        );
+    }
+
+    /**
+     * Get a pay in intent
+     * @param string $intentId The identifier of the PayInIntent
+     * @return \MangoPay\PayInIntent Object returned from API
+     */
+    public function GetPayInIntent($intentId)
+    {
+        return $this->GetObject('payins_intent_get', '\MangoPay\PayInIntent', $intentId);
+    }
+
+//    /**
+//     * Cancel a pay in intent
+//     * @param string $intentId The identifier of the PayInIntent
+//     * @param PayInIntent $details Intent details
+//     * @return \MangoPay\PayInIntent Object returned from API
+//     */
+//    public function CancelPayInIntent($intentId, $details)
+//    {
+//        return $this->SaveObject('payins_intent_cancel', $details, '\MangoPay\PayInIntent', $intentId);
+//    }
+
+    /**
+     * Create Intent splits
+     * @param string $intentId The identifier of the PayInIntent
+     * @param IntentSplits $splits Splits
+     * @return \MangoPay\IntentSplits Object returned from API
+     */
+    public function CreatePayInIntentSplits($intentId, $splits, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_intent_create_splits', $splits, '\MangoPay\IntentSplits', $intentId, null, $idempotencyKey);
+    }
 }

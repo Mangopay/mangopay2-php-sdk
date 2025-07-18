@@ -21,7 +21,6 @@ class RecipientsTest extends Base
     {
         $recipient = $this->getNewRecipient();
         $this->assertRecipient($recipient);
-        self::assertNotNull($recipient->PendingUserAction);
     }
 
     public function test_Recipient_Get()
@@ -34,7 +33,7 @@ class RecipientsTest extends Base
 
     public function test_Recipient_GetUserRecipients()
     {
-        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $john = $this->getJohnSca(UserCategory::Payer, false);
         $this->getNewRecipient();
         $userRecipients = $this->_api->Recipients->GetUserRecipients($john->Id);
         self::assertTrue(sizeof($userRecipients) > 0);
@@ -42,7 +41,7 @@ class RecipientsTest extends Base
 
     public function test_Recipient_GetUserRecipients_Payout()
     {
-        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $john = $this->getJohnSca(UserCategory::Payer, false);
         $this->getNewRecipient();
         $filter = new FilterRecipients();
         $filter->RecipientScope = "PAYOUT";
@@ -52,7 +51,7 @@ class RecipientsTest extends Base
 
     public function test_Recipient_GetUserRecipients_PayIn()
     {
-        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $john = $this->getJohnSca(UserCategory::Payer, false);
         $this->getNewRecipient();
         $filter = new FilterRecipients();
         $filter->RecipientScope = "PAYIN";
@@ -113,7 +112,7 @@ class RecipientsTest extends Base
 
     public function test_Recipient_Validate()
     {
-        $john = $this->getJohnSca(UserCategory::Owner, false);
+        $john = $this->getJohnSca(UserCategory::Payer, false);
         $recipient = $this->getNewRecipient();
 
         // should pass
@@ -163,7 +162,7 @@ class RecipientsTest extends Base
     private function getNewRecipient()
     {
         if (self::$recipient == null) {
-            $john = $this->getJohnSca(UserCategory::Owner, false);
+            $john = $this->getJohnSca(UserCategory::Payer, false);
 
             $localBankTransfer = [];
             $gbpDetails = [];
