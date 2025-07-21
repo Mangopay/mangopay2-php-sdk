@@ -369,7 +369,11 @@ class RestTool
                 $rateLimit = new RateLimit();
                 $numberOfMinutes = ($rateLimitReset[$i] - $currentTime) / 60;
 
-                if ($numberOfMinutes <= 15) {
+                if ($numberOfMinutes <= 1) {
+                    $rateLimit->IntervalMinutes = 1;
+                } elseif ($numberOfMinutes <= 5) {
+                    $rateLimit->IntervalMinutes = 5;
+                } elseif ($numberOfMinutes <= 15) {
                     $rateLimit->IntervalMinutes = 15;
                 } elseif ($numberOfMinutes <= 30) {
                     $rateLimit->IntervalMinutes = 30;

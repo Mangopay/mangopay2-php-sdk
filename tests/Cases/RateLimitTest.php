@@ -12,7 +12,7 @@ class RateLimitTest extends Base
         $rateLimits = $this->_api->RateLimits;
 
         $this->assertNotNull($rateLimits);
-        $this->assertTrue(sizeof($rateLimits) > 0);
+        $this->assertTrue(sizeof($rateLimits) == 6);
     }
 
     public function test_RateLimitsDoc()
@@ -30,5 +30,11 @@ class RateLimitTest extends Base
         print "\nThe 60 minutes counter will reset at " . date("Y-m-d\TH:i:s\Z", $rateLimits[2]->ResetTimeTimestamp);
 
         $this->assertNotNull($rateLimits);
+        $this->assertEquals(1, $rateLimits[0]->IntervalMinutes);
+        $this->assertEquals(5, $rateLimits[1]->IntervalMinutes);
+        $this->assertEquals(15, $rateLimits[2]->IntervalMinutes);
+        $this->assertEquals(30, $rateLimits[3]->IntervalMinutes);
+        $this->assertEquals(60, $rateLimits[4]->IntervalMinutes);
+        $this->assertEquals(1440, $rateLimits[5]->IntervalMinutes);
     }
 }
