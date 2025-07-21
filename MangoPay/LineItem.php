@@ -40,7 +40,12 @@ class LineItem extends Libraries\Dto
     public $Description;
 
     /**
-     * @var string
+     * @var string The category of the item, allowing line items of different types to be distinguished
      */
     public $Category;
+
+    /**
+     * @var string The unique identifier of the line item.
+     */
+    public $Sku;
 }
