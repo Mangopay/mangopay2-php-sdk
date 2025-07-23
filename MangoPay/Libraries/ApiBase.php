@@ -291,7 +291,9 @@ abstract class ApiBase
         'recipients_get_payout_methods' => ['/recipients/payout-methods?country=%s&currency=%s', RequestType::GET],
         'recipients_get_schema' => ['/recipients/schema?payoutMethodType=%s&recipientType=%s&currency=%s&country=%s', RequestType::GET],
         'recipients_validate' => ['/users/%s/recipients/validate', RequestType::POST],
-        'recipients_deactivate' => ['/recipients/%s', RequestType::PUT]
+        'recipients_deactivate' => ['/recipients/%s', RequestType::PUT],
+
+        'pay_by_bank_get_supported_banks' => ['/payment-methods/openbanking/metadata/supported-banks', RequestType::GET]
     ];
 
     /**
@@ -443,6 +445,37 @@ abstract class ApiBase
         $apiVersion = $this->GetApiVersion($methodKey);
         $rest = new RestTool($this->_root, true, true);
         $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey));
+
+        if (!is_null($responseClassName)) {
+            return $this->CastResponseToEntity($response, $responseClassName);
+        }
+        return $response;
+    }
+
+    /**
+     * Get entity object from API on a request path that contains pagination and other query params
+     * @param string $methodKey Key with request data
+     * @param object $responseClassName Name of entity class from response
+     * @return object Response data
+     * @throws Exception
+     */
+    protected function GetObjectWithPagination($methodKey, $responseClassName, $pagination = null, $filter = null,
+                                               $clientIdRequired = true)
+    {
+        $urlPath = $this->GetRequestUrl($methodKey);
+
+        if (is_null($pagination) || !is_object($pagination) || get_class($pagination) != 'MangoPay\Pagination') {
+            $pagination = new \MangoPay\Pagination();
+        }
+
+        $additionalUrlParams = [];
+        if (!is_null($filter)) {
+            $additionalUrlParams["filter"] = $filter;
+        }
+
+        $apiVersion = $this->GetApiVersion($methodKey);
+        $rest = new RestTool($this->_root, true, $clientIdRequired);
+        $response = $rest->Request($urlPath, $apiVersion, $this->GetRequestType($methodKey), null, null, $pagination, $additionalUrlParams);
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);

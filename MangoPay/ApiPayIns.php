@@ -305,4 +305,16 @@ class ApiPayIns extends Libraries\ApiBase
     {
         return $this->CreateObject('payins_intent_create_splits', $splits, '\MangoPay\IntentSplits', $intentId, null, $idempotencyKey);
     }
+
+    /**
+     * Retrieve a paginated list of banks that you can present to the user for selection during their Pay by Bank checkout experience
+     * @param \MangoPay\Pagination $pagination Pagination object
+     * @param \MangoPay\FilterSupportedBanks $filter Filtering object
+     * @return \MangoPay\PayByBankSupportedBank Object returned by the API
+     */
+    public function GetPayByBankSupportedBanks($pagination = null, $filter = null)
+    {
+        return $this->GetObjectWithPagination('pay_by_bank_get_supported_banks',
+            '\MangoPay\PayByBankSupportedBank', $pagination, $filter);
+    }
 }

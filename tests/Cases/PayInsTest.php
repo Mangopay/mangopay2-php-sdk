@@ -4,10 +4,12 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\CreateCardPreAuthorizedDepositPayIn;
 use MangoPay\CurrencyIso;
+use MangoPay\FilterSupportedBanks;
 use MangoPay\IntentSplits;
 use MangoPay\Libraries\Exception;
 use MangoPay\LineItem;
 use MangoPay\Money;
+use MangoPay\Pagination;
 use MangoPay\PayInExecutionType;
 use MangoPay\PayInIntent;
 use MangoPay\PayInIntentExternalData;
@@ -1380,5 +1382,22 @@ class PayInsTest extends Base
         $createdSplits = $this->_api->PayIns->CreatePayInIntentSplits($intent->Id, $splitsPost);
         $this->assertNotNull($createdSplits->Splits);
         $this->assertTrue(sizeof($createdSplits->Splits) == 1);
+    }
+
+    public function test_GetPayByBankSupportedBanks()
+    {
+        $result = $this->_api->PayIns->GetPayByBankSupportedBanks();
+        $this->assertTrue(sizeof($result->SupportedBanks->Countries) > 0);
+
+        $filter = new FilterSupportedBanks();
+        $filter->CountryCodes = "DE";
+        $resultFiltered = $this->_api->PayIns->GetPayByBankSupportedBanks(null, $filter);
+        $this->assertEquals(1, sizeof($resultFiltered->SupportedBanks->Countries));
+        $this->assertTrue(sizeof($resultFiltered->SupportedBanks->Countries[0]->Banks) > 2);
+
+        $pagination = new Pagination(1, 2);
+        $resultFilteredPaginated = $this->_api->PayIns->GetPayByBankSupportedBanks($pagination, $filter);
+        $this->assertEquals(1, sizeof($resultFilteredPaginated->SupportedBanks->Countries));
+        $this->assertEquals(2, sizeof($resultFilteredPaginated->SupportedBanks->Countries[0]->Banks));
     }
 }
