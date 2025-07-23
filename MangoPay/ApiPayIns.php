@@ -314,7 +314,11 @@ class ApiPayIns extends Libraries\ApiBase
      */
     public function GetPayByBankSupportedBanks($pagination = null, $filter = null)
     {
-        return $this->GetObjectWithPagination('pay_by_bank_get_supported_banks',
-            '\MangoPay\PayByBankSupportedBank', $pagination, $filter);
+        return $this->GetObjectWithPagination(
+            'pay_by_bank_get_supported_banks',
+            '\MangoPay\PayByBankSupportedBank',
+            $pagination,
+            $filter
+        );
     }
 }

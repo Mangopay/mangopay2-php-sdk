@@ -459,8 +459,13 @@ abstract class ApiBase
      * @return object Response data
      * @throws Exception
      */
-    protected function GetObjectWithPagination($methodKey, $responseClassName, $pagination = null, $filter = null,
-                                               $clientIdRequired = true)
+    protected function GetObjectWithPagination(
+        $methodKey,
+        $responseClassName,
+        $pagination = null,
+        $filter = null,
+        $clientIdRequired = true
+    )
     {
         $urlPath = $this->GetRequestUrl($methodKey);
 
