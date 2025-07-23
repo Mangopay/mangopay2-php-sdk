@@ -101,7 +101,13 @@ class ApiCards extends Libraries\ApiBase
      */
     public function GetTransactionsByFingerprint($fingerprint, $filter = null, $pagination = null, $sorting = null)
     {
-        return $this->GetList('transactions_get_by_fingerprint', $pagination,
-            '\MangoPay\Transaction', $fingerprint, $filter, $sorting);
+        return $this->GetList(
+            'transactions_get_by_fingerprint',
+            $pagination,
+            '\MangoPay\Transaction',
+            $fingerprint,
+            $filter,
+            $sorting
+        );
     }
 }
