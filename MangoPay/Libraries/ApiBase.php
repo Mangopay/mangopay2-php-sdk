@@ -465,8 +465,7 @@ abstract class ApiBase
         $pagination = null,
         $filter = null,
         $clientIdRequired = true
-    )
-    {
+    ) {
         $urlPath = $this->GetRequestUrl($methodKey);
 
         if (is_null($pagination) || !is_object($pagination) || get_class($pagination) != 'MangoPay\Pagination') {
