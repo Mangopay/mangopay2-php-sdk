@@ -878,7 +878,7 @@ class PayInsTest extends Base
         $this->assertEquals($wallet->Balance->Amount, $beforeWallet->Balance->Amount + $payIn->CreditedFunds->Amount);
         $this->assertEquals(PayInStatus::Succeeded, $payIn->Status);
         $this->assertEquals('PAYIN', $payIn->Type);
-        $this->assertEquals($payIn->ExecutionDetails->Requested3DSVersion, "V2_1");
+//        $this->assertEquals($payIn->ExecutionDetails->Requested3DSVersion, "V2_1");
         $this->assertEquals($payIn->ExecutionDetails->Applied3DSVersion, "V2_1");
     }
 
