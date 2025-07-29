@@ -1316,7 +1316,57 @@ class PayInsTest extends Base
     public function test_CreatePayInIntentSplits()
     {
         $intent = $this->getNewPayInIntentAuthorization();
+        $createdSplits = $this->createNewSplits($intent);
 
+        $this->assertNotNull($createdSplits->Splits);
+        $this->assertTrue(sizeof($createdSplits->Splits) == 1);
+    }
+
+    public function test_ExecutePayInIntentSplit()
+    {
+        $intent = $this->getNewPayInIntentAuthorization();
+        $split = $this->createNewSplits($intent)->Splits[0];
+        try {
+            $this->_api->PayIns->ExecutePayInIntentSplit($intent->Id, $split->Id);
+        } catch (\MangoPay\Libraries\Exception $exc) {
+            // expect error. A success use case can't be automatically tested since a manual payin needs to be created
+            $this->assertSame('Bad request. One or several required parameters are missing or incorrect. An incorrect resource ID also raises this kind of error.', $exc->getMessage());
+        }
+    }
+
+    public function test_ReversePayInIntentSplit()
+    {
+        $intent = $this->getNewPayInIntentAuthorization();
+        $split = $this->createNewSplits($intent)->Splits[0];
+        try {
+            $this->_api->PayIns->ReversePayInIntentSplit($intent->Id, $split->Id);
+        } catch (\MangoPay\Libraries\Exception $exc) {
+            // expect error. A success use case can't be automatically tested since a manual payin needs to be created
+            $this->assertSame('Bad request. One or several required parameters are missing or incorrect. An incorrect resource ID also raises this kind of error.', $exc->getMessage());
+        }
+    }
+
+    public function test_GetPayInIntentSplit()
+    {
+        $intent = $this->getNewPayInIntentAuthorization();
+        $split = $this->createNewSplits($intent)->Splits[0];
+        $fetched =  $this->_api->PayIns->GetPayInIntentSplit($intent->Id, $split->Id);
+        $this->assertEquals($split->Status, $fetched->Status);
+    }
+
+    public function test_UpdatePayInIntentSplit()
+    {
+        $intent = $this->getNewPayInIntentAuthorization();
+        $split = $this->createNewSplits($intent)->Splits[0];
+        $toUpdate = new PayInIntentSplit();
+        $toUpdate->Id = $split->Id;
+        $toUpdate->Description = 'updated description';
+        $toUpdate->LineItemId = $split->LineItemId;
+        $updated =  $this->_api->PayIns->UpdatePayInIntentSplit($intent->Id, $toUpdate);
+        $this->assertEquals('updated description', $updated->Description);
+    }
+
+    private function createNewSplits($intent) {
         $externalData = new PayInIntentExternalData();
         $externalData->ExternalProcessingDate = "01-10-2024";
         $externalData->ExternalProviderReference = strval(rand(0, 999));
@@ -1326,8 +1376,7 @@ class PayInsTest extends Base
 
         $fullCapture = new PayInIntent();
         $fullCapture->ExternalData = $externalData;
-
-        $fullCapture = $this->_api->PayIns->CreatePayInIntentCapture($intent->Id, $fullCapture);
+        $this->_api->PayIns->CreatePayInIntentCapture($intent->Id, $fullCapture);
 
         $split = new PayInIntentSplit();
         $split->LineItemId = $intent->LineItems[0]->Id;
@@ -1337,8 +1386,6 @@ class PayInsTest extends Base
         $splitsPost = new IntentSplits();
         $splitsPost->Splits = $splitsArray;
 
-        $createdSplits = $this->_api->PayIns->CreatePayInIntentSplits($intent->Id, $splitsPost);
-        $this->assertNotNull($createdSplits->Splits);
-        $this->assertTrue(sizeof($createdSplits->Splits) == 1);
+        return $this->_api->PayIns->CreatePayInIntentSplits($intent->Id, $splitsPost);
     }
 }

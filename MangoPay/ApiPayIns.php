@@ -305,4 +305,73 @@ class ApiPayIns extends Libraries\ApiBase
     {
         return $this->CreateObject('payins_intent_create_splits', $splits, '\MangoPay\IntentSplits', $intentId, null, $idempotencyKey);
     }
+
+    /**
+     * Execute split
+     * @param string $intentId The identifier of the PayInIntent
+     * @param string $splitId The identifier of the Split
+     * @return PayInIntentSplit Object returned from API
+     */
+    public function ExecutePayInIntentSplit($intentId, $splitId, $idempotencyKey = null)
+    {
+        return $this->CreateObject(
+            'payins_intent_execute_split',
+            null,
+            '\MangoPay\PayInIntentSplit',
+            $intentId,
+            $splitId,
+            $idempotencyKey
+        );
+    }
+
+    /**
+     * Reverse split
+     * @param string $intentId The identifier of the PayInIntent
+     * @param string $splitId The identifier of the Split
+     * @return PayInIntentSplit Object returned from API
+     */
+    public function ReversePayInIntentSplit($intentId, $splitId, $idempotencyKey = null)
+    {
+        return $this->CreateObject(
+            'payins_intent_reverse_split',
+            null,
+            '\MangoPay\PayInIntentSplit',
+            $intentId,
+            $splitId,
+            $idempotencyKey
+        );
+    }
+
+    /**
+     * Get split
+     * @param string $intentId The identifier of the PayInIntent
+     * @param string $splitId The identifier of the Split
+     * @return PayInIntentSplit Object returned from API
+     */
+    public function GetPayInIntentSplit($intentId, $splitId)
+    {
+        return $this->GetObject(
+            'payins_intent_get_split',
+            '\MangoPay\PayInIntentSplit',
+            $intentId,
+            $splitId
+        );
+    }
+
+    /**
+     * Execute split
+     * @param string $intentId The identifier of the PayInIntent
+     * @param PayInIntentSplit $split Object containing the properties to be updated.
+     * At least the 'Id' and 'LineItemId' need to be present.
+     * @return PayInIntentSplit Object returned from API
+     */
+    public function UpdatePayInIntentSplit($intentId, $split)
+    {
+        return $this->SaveObject(
+            'payins_intent_update_split',
+            $split,
+            '\MangoPay\PayInIntentSplit',
+            $intentId
+        );
+    }
 }
