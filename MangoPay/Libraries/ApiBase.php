@@ -54,6 +54,7 @@ abstract class ApiBase
         'card_save' => ['/cards/%s', RequestType::PUT],
         'card_validate' => ['/cards/%s/validation', RequestType::POST],
         'get_card_validation' => ['/cards/%s/validation/%s', RequestType::GET],
+        'transactions_get_by_fingerprint' => ['/cards/fingerprints/%s/transactions', RequestType::GET],
 
         // pay ins URLs
         'payins_card-web_create' => ['/payins/card/web/', RequestType::POST],
@@ -80,6 +81,7 @@ abstract class ApiBase
         'payins_ideal-web_create' => ['/payins/payment-methods/ideal', RequestType::POST],
         'payins_giropay-web_create' => ['/payins/payment-methods/giropay', RequestType::POST],
         'payins_bancontact-web_create' => ['/payins/payment-methods/bancontact', RequestType::POST],
+        'payins_bizum-web_create' => ['/payins/payment-methods/bizum', RequestType::POST],
         'payins_swish-web_create' => ['/payins/payment-methods/swish', RequestType::POST],
         'payins_twint-web_create' => ['/payins/payment-methods/twint', RequestType::POST],
         'payins_paybybank-web_create' => ['/payins/payment-methods/openbanking', RequestType::POST],
@@ -293,7 +295,9 @@ abstract class ApiBase
         'recipients_get_payout_methods' => ['/recipients/payout-methods?country=%s&currency=%s', RequestType::GET],
         'recipients_get_schema' => ['/recipients/schema?payoutMethodType=%s&recipientType=%s&currency=%s&country=%s', RequestType::GET],
         'recipients_validate' => ['/users/%s/recipients/validate', RequestType::POST],
-        'recipients_deactivate' => ['/recipients/%s', RequestType::PUT]
+        'recipients_deactivate' => ['/recipients/%s', RequestType::PUT],
+
+        'pay_by_bank_get_supported_banks' => ['/payment-methods/openbanking/metadata/supported-banks', RequestType::GET]
     ];
 
     /**
@@ -453,6 +457,41 @@ abstract class ApiBase
     }
 
     /**
+     * Get entity object from API on a request path that contains pagination and other query params
+     * @param string $methodKey Key with request data
+     * @param object $responseClassName Name of entity class from response
+     * @return object Response data
+     * @throws Exception
+     */
+    protected function GetObjectWithPagination(
+        $methodKey,
+        $responseClassName,
+        $pagination = null,
+        $filter = null,
+        $clientIdRequired = true
+    ) {
+        $urlPath = $this->GetRequestUrl($methodKey);
+
+        if (is_null($pagination) || !is_object($pagination) || get_class($pagination) != 'MangoPay\Pagination') {
+            $pagination = new \MangoPay\Pagination();
+        }
+
+        $additionalUrlParams = [];
+        if (!is_null($filter)) {
+            $additionalUrlParams["filter"] = $filter;
+        }
+
+        $apiVersion = $this->GetApiVersion($methodKey);
+        $rest = new RestTool($this->_root, true, $clientIdRequired);
+        $response = $rest->Request($urlPath, $apiVersion, $this->GetRequestType($methodKey), null, null, $pagination, $additionalUrlParams);
+
+        if (!is_null($responseClassName)) {
+            return $this->CastResponseToEntity($response, $responseClassName);
+        }
+        return $response;
+    }
+
+    /**
      * Get lst with entities object from API
      * @param string $methodKey Key with request data
      * @param \MangoPay\Pagination $pagination Pagination object
@@ -527,11 +566,6 @@ abstract class ApiBase
 
         return $response;
     }
-
-//    protected function SaveObject($methodKey, $entity, $responseClassName = null, $firstEntityId, $secondEntityId = null, $thirdEntityId = null)
-//    {
-//
-//    }
 
     protected function DeleteObject($methodKey, $entity, $responseClassName = null)
     {

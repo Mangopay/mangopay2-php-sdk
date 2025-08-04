@@ -1344,6 +1344,39 @@ abstract class Base extends TestCase
         return $this->_api->PayIns->Create($payIn);
     }
 
+    protected function getNewPayInBizumWeb($userId = null, $usePhone = true)
+    {
+        $wallet = $this->getJohnsWalletWithMoney();
+        if (is_null($userId)) {
+            $user = $this->getJohn();
+            $userId = $user->Id;
+        }
+
+        $payIn = new \MangoPay\PayIn();
+        $payIn->AuthorId = $userId;
+        $payIn->CreditedWalletId = $wallet->Id;
+        $payIn->Fees = new \MangoPay\Money();
+        $payIn->Fees->Amount = 10;
+        $payIn->Fees->Currency = 'EUR';
+        $payIn->DebitedFunds = new \MangoPay\Money();
+        $payIn->DebitedFunds->Amount = 1000;
+        $payIn->DebitedFunds->Currency = 'EUR';
+
+        $payIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsBizum();
+        $payIn->PaymentDetails->StatementDescriptor = 'Example123';
+        $payIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+
+        if ($usePhone) {
+            $payIn->PaymentDetails->Phone = "+34700000000";
+            $payIn->Tag = "Bizum with phone tag";
+        } else {
+            $payIn->ExecutionDetails->ReturnURL = "https://docs.mangopay.com/please-ignore";
+            $payIn->Tag = "Bizum with return url tag";
+        }
+
+        return $this->_api->PayIns->Create($payIn);
+    }
+
     protected function getNewPayInPayByBankWeb($userId = null)
     {
         $wallet = $this->getJohnsWalletForCurrency("EUR");
