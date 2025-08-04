@@ -1408,7 +1408,8 @@ class PayInsTest extends Base
         $this->assertEquals('updated description', $updated->Description);
     }
 
-    private function createNewSplits($intent) {
+    private function createNewSplits($intent)
+    {
         $externalData = new PayInIntentExternalData();
         $externalData->ExternalProcessingDate = "01-10-2024";
         $externalData->ExternalProviderReference = strval(rand(0, 999));
