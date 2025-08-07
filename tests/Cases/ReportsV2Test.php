@@ -4,6 +4,7 @@ namespace Cases;
 
 use MangoPay\FilterReportsV2;
 use MangoPay\Report;
+use MangoPay\ReportFilters;
 use MangoPay\Tests\Cases\Base;
 
 /**
@@ -80,5 +81,77 @@ class ReportsV2Test extends Base
         $report->AfterDate = 1740787200;
         $report->BeforeDate = 1743544740;
         return $report;
+    }
+
+    public function test_Create_Intent_Report()
+    {
+        $report = new Report();
+        $report->ReportType = "ECHO_INTENT";
+        $report->DownloadFormat = "CSV";
+        $report->AfterDate = 1740787200;
+        $report->BeforeDate = 1743544740;
+        $filters = new ReportFilters();
+        $filters->Status = "CAPTURED";
+        $filters->PaymentMethod = "PAYPAL";
+        $filters->Type = "PAYIN";
+        $report->Filters = $filters;
+        $result = $this->_api->ReportsV2->Create($report);
+        $this->assertSame($result->ReportType, "ECHO_INTENT");
+        $this->assertSame($result->Status, "PENDING");
+        $this->assertSame($result->Filters->Status, "CAPTURED");
+    }
+
+    public function test_Create_Intent_Action_Report()
+    {
+        $report = new Report();
+        $report->ReportType = "ECHO_INTENT_ACTION";
+        $report->DownloadFormat = "CSV";
+        $report->AfterDate = 1740787200;
+        $report->BeforeDate = 1743544740;
+        $filters = new ReportFilters();
+        $filters->Status = "CAPTURED";
+        $filters->PaymentMethod = "PAYPAL";
+        $filters->Type = "PAYIN";
+        $report->Filters = $filters;
+        $result = $this->_api->ReportsV2->Create($report);
+        $this->assertSame($result->ReportType, "ECHO_INTENT_ACTION");
+        $this->assertSame($result->Status, "PENDING");
+        $this->assertSame($result->Filters->Status, "CAPTURED");
+    }
+
+    public function test_Create_Settlement_Report()
+    {
+        $report = new Report();
+        $report->ReportType = "ECHO_SETTLEMENT";
+        $report->DownloadFormat = "CSV";
+        $report->AfterDate = 1740787200;
+        $report->BeforeDate = 1743544740;
+        $filters = new ReportFilters();
+        $filters->Status = "RECONCILED";
+        $filters->ExternalProviderName = "PAYPAL";
+        $report->Filters = $filters;
+        $result = $this->_api->ReportsV2->Create($report);
+        $this->assertSame($result->ReportType, "ECHO_SETTLEMENT");
+        $this->assertSame($result->Status, "PENDING");
+        $this->assertSame($result->Filters->Status, "RECONCILED");
+    }
+
+    public function test_Create_Split_Report()
+    {
+        $report = new Report();
+        $report->ReportType = "ECHO_SPLIT";
+        $report->DownloadFormat = "CSV";
+        $report->AfterDate = 1740787200;
+        $report->BeforeDate = 1743544740;
+        $filters = new ReportFilters();
+        $filters->Status = "COMPLETED";
+        $filters->IntentId = "int_0197f975-63f6-714e-8fc6-4451e128170f";
+        $filters->Scheduled = false;
+        $report->Filters = $filters;
+        $result = $this->_api->ReportsV2->Create($report);
+        $this->assertSame($result->ReportType, "ECHO_SPLIT");
+        $this->assertSame($result->Status, "PENDING");
+        $this->assertSame($result->Filters->Status, "COMPLETED");
+        $this->assertSame($result->Filters->IntentId, "int_0197f975-63f6-714e-8fc6-4451e128170f");
     }
 }
