@@ -106,6 +106,10 @@ abstract class ApiBase
         'settlement_create' => ['/payins/intents/settlements', RequestType::POST, 'V3.0'],
         'settlement_get' => ['/payins/intents/settlements/%s', RequestType::GET, 'V3.0'],
         'settlement_update' => ['/payins/intents/settlements/%s', RequestType::PUT, 'V3.0'],
+        'payins_intent_execute_split' => ['/payins/intents/%s/splits/%s/execute', RequestType::POST, 'V3.0'],
+        'payins_intent_reverse_split' => ['/payins/intents/%s/splits/%s/reverse', RequestType::POST, 'V3.0'],
+        'payins_intent_get_split' => ['/payins/intents/%s/splits/%s', RequestType::GET, 'V3.0'],
+        'payins_intent_update_split' => ['/payins/intents/%s/splits/%s', RequestType::PUT, 'V3.0'],
 
         'repudiation_get' => ['/repudiations/%s', RequestType::GET],
 
@@ -841,7 +845,12 @@ abstract class ApiBase
             'payins_recurring_paypal' => '\MangoPay\PayInRecurring',
             'identity_verification_create' => '\MangoPay\IdentityVerification',
             'recipients_create' => '\MangoPay\Recipient',
-            'payins_intent_create_splits' => '\MangoPay\IntentSplits'
+            'payins_intent_create_splits' => '\MangoPay\IntentSplits',
+            'payins_intent_create_authprization' => '\MangoPay\PayInIntent',
+            'payins_intent_create_capture' => '\MangoPay\PayInIntent',
+            'settlement_create' => '\MangoPay\Settlement',
+            'payins_intent_execute_split' => '\MangoPay\PayInIntentSplit',
+            'payins_intent_reverse_split' => '\MangoPay\PayInIntentSplit'
         ];
 
         foreach ($map as $key => $className) {

@@ -24,4 +24,34 @@ class ReportFilters extends Libraries\Dto
      * @var string
      */
     public $WalletId;
+
+    /**
+     * @var string
+     */
+    public $PaymentMethod;
+
+    /**
+     * @var string
+     */
+    public $Status;
+
+    /**
+     * @var string
+     */
+    public $Type;
+
+    /**
+     * @var string
+     */
+    public $IntentId;
+
+    /**
+     * @var string
+     */
+    public $ExternalProviderName;
+
+    /**
+     * @var bool
+     */
+    public $Scheduled;
 }
