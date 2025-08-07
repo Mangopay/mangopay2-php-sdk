@@ -2,7 +2,7 @@
 
 namespace MangoPay;
 
-class PayInIntentSplit extends Libraries\Dto
+class PayInIntentSplit extends Libraries\EntityBase
 {
     /**
      * @var string The unique identifier of an item in Mangopay ecosystem
