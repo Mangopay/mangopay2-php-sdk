@@ -341,7 +341,7 @@ abstract class ApiBase
     /**
      * Create object in API
      * @param string $methodKey Key with request data
-     * @param object $entity Entity object
+     * @param object|null $entity Entity object
      * @param object $responseClassName Name of entity class from response
      * @param string $entityId Entity identifier
      * @return object Response data
@@ -410,7 +410,8 @@ abstract class ApiBase
     /**
      * Get entity object from API
      * @param string $methodKey Key with request data
-     * @param object $responseClassName Name of entity class from response
+     * @param string $responseClassName Name of entity class from response
+     * @param array $params path variable in urls
      * @return object Response data
      * @throws Exception
      */
