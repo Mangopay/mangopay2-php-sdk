@@ -57,7 +57,7 @@ class UserLegalSca extends User
 
     /**
      * Information about the action required from the user if UserStatus is PENDING_USER_ACTION (otherwise returned null).
-     * @var PendingUserAction
+     * @var PendingUserAction|null
      */
     public $PendingUserAction;
 
