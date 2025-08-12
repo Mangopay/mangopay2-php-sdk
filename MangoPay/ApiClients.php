@@ -183,4 +183,15 @@ class ApiClients extends Libraries\ApiBase
     {
         return $this->CreateObject('client_create_payout', $payOut, '\MangoPay\PayOut', null, null, $idempotencyKey);
     }
+
+    /**
+     * This endpoint allows the platform to make a Direct Bank Wire PayIn, instead of a Settlement Transfer
+     * to their Repudiation Wallet in order to settle the negative balance due to a LOST dispute.
+     * @param \MangoPay\PayIn $payIn \MangoPay\PayIn object
+     * @return \MangoPay\PayIn Object returned from API
+     */
+    public function CreateBankWireDirectPayIn($payIn, $idempotencyKey = null)
+    {
+        return $this->CreateObject('client_create_bank_wire_direct_payin', $payIn, '\MangoPay\PayIn', null, null, $idempotencyKey);
+    }
 }
