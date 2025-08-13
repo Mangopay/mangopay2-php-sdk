@@ -703,9 +703,8 @@ abstract class ApiBase
 
                 // is sub object?
                 if (isset($subObjects[$name])) {
-                    if (is_null($value)) {
-                        $object = null;
-                    } else {
+                    $object = null;
+                    if (!is_null($value)) {
                         if (is_array($subObjects[$name])) {
                             $type = $subObjects[$name][0];
                             $class = $subObjects[$name][1];
