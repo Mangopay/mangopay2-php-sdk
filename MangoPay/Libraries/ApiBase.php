@@ -706,9 +706,38 @@ abstract class ApiBase
                     if (is_null($value)) {
                         $object = null;
                     } else {
-                        $object = $this->CastResponseToEntity($value, $subObjects[$name]);
-                    }
+                        if (is_array($subObjects[$name])) {
+                            $type = $subObjects[$name][0];
+                            $class = $subObjects[$name][1];
 
+                            if ($value instanceof \stdClass) {
+                                $value = (array)$value;
+                            }
+
+                            // handle single array
+                            if ($type === 'array_single') {
+                                $object = [];
+                                foreach ($value as $k => $subValue) {
+                                    $object[$k] = $this->CastResponseToEntity($subValue, $class);
+                                }
+                            } elseif ($type === 'array_nested') {
+                                // handle nested array
+                                $object = [];
+                                foreach ($value as $k => $subValue) {
+                                    if ($subValue instanceof \stdClass) {
+                                        $subValue = (array)$subValue;
+                                    }
+                                    $nestedArray = [];
+                                    foreach ($subValue as $nk => $nestedObj) {
+                                        $nestedArray[$nk] = $this->CastResponseToEntity($nestedObj, $class);
+                                    }
+                                    $object[$k] = $nestedArray;
+                                }
+                            }
+                        } else {
+                            $object = $this->CastResponseToEntity($value, $subObjects[$name]);
+                        }
+                    }
                     $entityProperty->setValue($entity, $object);
                 } else {
                     $entityProperty->setValue($entity, $value);
@@ -855,7 +884,7 @@ abstract class ApiBase
 
         foreach ($map as $key => $className) {
             $sourceUrl = $this->GetRequestUrl($key);
-            $sourceUrl = str_replace("%s", "[0-9a-zA-Z_]*", $sourceUrl);
+            $sourceUrl = str_replace("%s", "[0-9a-zA-Z_-]*", $sourceUrl);
             $sourceUrl = str_replace("/", "\/", $sourceUrl);
             $pattern = '/' . $sourceUrl . '/';
             if (preg_match($pattern, $url) > 0) {
