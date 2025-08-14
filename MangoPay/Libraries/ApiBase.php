@@ -232,6 +232,7 @@ abstract class ApiBase
         'client_wallets_transactions_credit_currency' => ['/clients/wallets/credit/%s/transactions', RequestType::GET],
         'client_create_bank_account_iban' => ['/clients/bankaccounts/iban', RequestType::POST],
         'client_create_payout' => ['/clients/payouts', RequestType::POST],
+        'client_create_bank_wire_direct_payin' => ['/clients/payins/bankwire/direct', RequestType::POST],
 
         'banking_aliases_iban_create' => ['/wallets/%s/bankingaliases/iban', RequestType::POST],
         'banking_aliases_get' => ['/bankingaliases/%s', RequestType::GET],
