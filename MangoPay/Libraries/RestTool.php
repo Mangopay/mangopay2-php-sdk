@@ -4,7 +4,6 @@ namespace MangoPay\Libraries;
 
 use CURLFile;
 use MangoPay\MangoPayApi;
-use MangoPay\PendingUserAction;
 use MangoPay\RateLimit;
 use Psr\Log\LoggerInterface;
 
@@ -13,7 +12,7 @@ use Psr\Log\LoggerInterface;
  */
 class RestTool
 {
-    const VERSION = '3.44.0';
+    const VERSION = '3.45.0';
 
     /**
      * Root/parent instance that holds the OAuthToken and Configuration instance

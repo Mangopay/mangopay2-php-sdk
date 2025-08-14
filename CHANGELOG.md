@@ -1,3 +1,14 @@
+## [3.45.0] - 2025-08-14
+### Changed
+- Type casting to deserialize arrays in `GetSchema` #732 (#717 thanks for raising @tarsFromTesseract).
+> ⚠️**Caution – Potentially breaking**
+> The new `GetSchema` typings may result in a breaking change if your integration relies on the `stdClass` returned previously.
+
+- Made `PendingUserAction` nullable #730 (#726 thanks for raising @williamdes)
+
+### Added
+- Support for [POST Create a Bank Wire to the Repudiation Wallet](https://docs.mangopay.com/api-reference/dispute-settlement/create-bank-wire-payin-to-repudiation-wallet) #731
+
 ## [3.44.0] - 2025-08-07
 ### Added
 Support for new Splits endpoints for Echo (#727, [API release note](https://docs.mangopay.com/release-notes/api/2025-07-16)):
