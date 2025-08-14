@@ -2256,7 +2256,7 @@ abstract class Base extends TestCase
 
         $externalData = new PayInIntentExternalData();
         $externalData->ExternalProcessingDate = 1728133765;
-        $externalData->ExternalProviderReference = strval(rand(0, 10000));
+        $externalData->ExternalProviderReference = strval(round(microtime(true) * 1000));
         $externalData->ExternalMerchantReference = "Order-xyz-35e8490e-2ec9-4c82-978e-c712a3f5ba16";
         $externalData->ExternalProviderName = "Stripe";
         $externalData->ExternalProviderPaymentMethod = "PAYPAL";
