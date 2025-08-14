@@ -65,12 +65,15 @@ class RecipientSchema extends Libraries\Dto
 
         $subObjects['DisplayName'] = '\MangoPay\RecipientPropertySchema';
         $subObjects['Currency'] = '\MangoPay\RecipientPropertySchema';
+        $subObjects['Country'] = '\MangoPay\RecipientPropertySchema';
         $subObjects['RecipientType'] = '\MangoPay\RecipientPropertySchema';
         $subObjects['PayoutMethodType'] = '\MangoPay\RecipientPropertySchema';
         $subObjects['RecipientScope'] = '\MangoPay\RecipientPropertySchema';
         $subObjects['Tag'] = '\MangoPay\RecipientPropertySchema';
         $subObjects['IndividualRecipient'] = '\MangoPay\IndividualRecipientPropertySchema';
         $subObjects['BusinessRecipient'] = '\MangoPay\BusinessRecipientPropertySchema';
+        $subObjects['LocalBankTransfer'] = ['array_nested', '\MangoPay\RecipientPropertySchema'];
+        $subObjects['InternationalBankTransfer'] = ['array_single', '\MangoPay\RecipientPropertySchema'];
 
         return $subObjects;
     }

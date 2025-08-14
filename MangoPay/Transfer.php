@@ -25,7 +25,7 @@ class Transfer extends Transaction
     public $ScaContext;
 
     /**
-     * @var PendingUserAction
+     * @var PendingUserAction|null
      */
     public $PendingUserAction;
 

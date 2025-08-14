@@ -4,6 +4,10 @@ namespace MangoPay\Tests\Cases;
 
 use MangoPay\BusinessType;
 use MangoPay\Money;
+use MangoPay\PayIn;
+use MangoPay\PayInExecutionDetailsDirect;
+use MangoPay\PayInPaymentDetailsBankWire;
+use MangoPay\PayInStatus;
 use MangoPay\PayOut;
 use MangoPay\PayOutPaymentDetailsBankWire;
 use MangoPay\Sector;
@@ -278,5 +282,27 @@ class ClientTest extends Base
 
         $this->assertNotNull($createdPayOut);
         $this->assertNotNull($createdPayOut->Id);
+    }
+
+    public function test_CreateBankWireDirectPayIn()
+    {
+        $payIn = new PayIn();
+        $payIn->CreditedWalletId = "CREDIT_EUR";
+        $payIn->PaymentDetails = new PayInPaymentDetailsBankWire();
+        $payIn->PaymentDetails->DeclaredDebitedFunds = new Money();
+        $payIn->PaymentDetails->DeclaredDebitedFunds->Amount = 100;
+        $payIn->PaymentDetails->DeclaredDebitedFunds->Currency = 'EUR';
+        $payIn->ExecutionDetails = new PayInExecutionDetailsDirect();
+
+        $createPayIn = $this->_api->Clients->CreateBankWireDirectPayIn($payIn);
+
+        $this->assertNotNull($createPayIn->Id);
+        $this->assertEquals(\MangoPay\PayInPaymentType::BankWire, $createPayIn->PaymentType);
+        $this->assertInstanceOf('\MangoPay\PayInPaymentDetailsBankWire', $createPayIn->PaymentDetails);
+        $this->assertInstanceOf('\MangoPay\Money', $createPayIn->PaymentDetails->DeclaredDebitedFunds);
+        $this->assertEquals(\MangoPay\PayInExecutionType::Direct, $createPayIn->ExecutionType);
+        $this->assertInstanceOf('\MangoPay\PayInExecutionDetailsDirect', $createPayIn->ExecutionDetails);
+        $this->assertEquals(PayInStatus::Created, $createPayIn->Status);
+        $this->assertEquals('PAYIN', $createPayIn->Type);
     }
 }

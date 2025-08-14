@@ -232,6 +232,7 @@ abstract class ApiBase
         'client_wallets_transactions_credit_currency' => ['/clients/wallets/credit/%s/transactions', RequestType::GET],
         'client_create_bank_account_iban' => ['/clients/bankaccounts/iban', RequestType::POST],
         'client_create_payout' => ['/clients/payouts', RequestType::POST],
+        'client_create_bank_wire_direct_payin' => ['/clients/payins/bankwire/direct', RequestType::POST],
 
         'banking_aliases_iban_create' => ['/wallets/%s/bankingaliases/iban', RequestType::POST],
         'banking_aliases_get' => ['/bankingaliases/%s', RequestType::GET],
@@ -703,12 +704,40 @@ abstract class ApiBase
 
                 // is sub object?
                 if (isset($subObjects[$name])) {
-                    if (is_null($value)) {
-                        $object = null;
-                    } else {
-                        $object = $this->CastResponseToEntity($value, $subObjects[$name]);
-                    }
+                    $object = null;
+                    if (!is_null($value)) {
+                        if (is_array($subObjects[$name])) {
+                            $type = $subObjects[$name][0];
+                            $class = $subObjects[$name][1];
 
+                            if ($value instanceof \stdClass) {
+                                $value = (array)$value;
+                            }
+
+                            // handle single array
+                            if ($type === 'array_single') {
+                                $object = [];
+                                foreach ($value as $k => $subValue) {
+                                    $object[$k] = $this->CastResponseToEntity($subValue, $class);
+                                }
+                            } elseif ($type === 'array_nested') {
+                                // handle nested array
+                                $object = [];
+                                foreach ($value as $k => $subValue) {
+                                    if ($subValue instanceof \stdClass) {
+                                        $subValue = (array)$subValue;
+                                    }
+                                    $nestedArray = [];
+                                    foreach ($subValue as $nk => $nestedObj) {
+                                        $nestedArray[$nk] = $this->CastResponseToEntity($nestedObj, $class);
+                                    }
+                                    $object[$k] = $nestedArray;
+                                }
+                            }
+                        } else {
+                            $object = $this->CastResponseToEntity($value, $subObjects[$name]);
+                        }
+                    }
                     $entityProperty->setValue($entity, $object);
                 } else {
                     $entityProperty->setValue($entity, $value);
@@ -855,7 +884,7 @@ abstract class ApiBase
 
         foreach ($map as $key => $className) {
             $sourceUrl = $this->GetRequestUrl($key);
-            $sourceUrl = str_replace("%s", "[0-9a-zA-Z_]*", $sourceUrl);
+            $sourceUrl = str_replace("%s", "[0-9a-zA-Z_-]*", $sourceUrl);
             $sourceUrl = str_replace("/", "\/", $sourceUrl);
             $pattern = '/' . $sourceUrl . '/';
             if (preg_match($pattern, $url) > 0) {
