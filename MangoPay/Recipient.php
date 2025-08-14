@@ -89,7 +89,7 @@ class Recipient extends Libraries\EntityBase
 
     /**
      * Information about the action required from the user
-     * @var PendingUserAction
+     * @var PendingUserAction|null
      */
     public $PendingUserAction;
 
