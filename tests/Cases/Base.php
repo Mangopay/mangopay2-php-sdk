@@ -204,6 +204,7 @@ abstract class Base extends TestCase
         $user->CountryOfResidence = "FR";
         $user->Occupation = "programmer";
         $user->IncomeRange = 3;
+        $user->TermsAndConditionsAccepted = true;
         return $user;
     }
 
@@ -233,6 +234,7 @@ abstract class Base extends TestCase
         $user->LegalRepresentativeNationality = $john->Nationality;
         $user->LegalRepresentativeCountryOfResidence = $john->CountryOfResidence;
         $user->CompanyNumber = "LU123456";
+        $user->TermsAndConditionsAccepted = true;
         return $user;
     }
 
