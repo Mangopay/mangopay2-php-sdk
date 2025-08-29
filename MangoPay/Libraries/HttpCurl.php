@@ -46,10 +46,7 @@ class HttpCurl extends HttpBase
 
         curl_setopt($this->_curlHandle, CURLOPT_RETURNTRANSFER, true);
 
-        if ($this->_root->Config->CertificatesFilePath == '') {
-            curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, false);
-        } else {
-            curl_setopt($this->_curlHandle, CURLOPT_SSL_VERIFYPEER, true);
+        if (!empty($this->_root->Config->CertificatesFilePath)) {
             curl_setopt($this->_curlHandle, CURLOPT_CAINFO, $this->_root->Config->CertificatesFilePath);
         }
 
