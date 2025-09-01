@@ -571,7 +571,7 @@ abstract class ApiBase
     protected function DeleteObject($methodKey, $entity, $responseClassName = null)
     {
         if (!isset($entity->Id)) {
-            throw new Libraries\Exception('The entity must have the Id set');
+            throw new Exception('The entity must have the Id set');
         }
 
         $apiVersion = $this->GetApiVersion($methodKey);
@@ -653,7 +653,7 @@ abstract class ApiBase
      * Cast response object to entity object
      * @param object $response Object from API response
      * @param string $entityClassName Name of entity class to cast
-     * @return \MangoPay\$entityClassName Return entity object
+     * @return object $entityClassName Return entity object
      */
     protected function CastResponseToEntity($response, $entityClassName, $asDependentObject = false)
     {
