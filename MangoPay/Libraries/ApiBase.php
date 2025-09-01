@@ -653,7 +653,7 @@ abstract class ApiBase
      * Cast response object to entity object
      * @param object $response Object from API response
      * @param string $entityClassName Name of entity class to cast
-     * @return object $entityClassName Return entity object
+     * @return \MangoPay\$entityClassName Return entity object
      */
     protected function CastResponseToEntity($response, $entityClassName, $asDependentObject = false)
     {
