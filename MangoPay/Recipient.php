@@ -94,6 +94,11 @@ class Recipient extends Libraries\EntityBase
     public $PendingUserAction;
 
     /**
+     * @var VerificationOfPayee
+     */
+    public $RecipientVerificationOfPayee;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */
@@ -103,6 +108,7 @@ class Recipient extends Libraries\EntityBase
         $subObjects['IndividualRecipient'] = '\MangoPay\IndividualRecipient';
         $subObjects['BusinessRecipient'] = '\MangoPay\BusinessRecipient';
         $subObjects['PendingUserAction'] = '\MangoPay\PendingUserAction';
+        $subObjects['RecipientVerificationOfPayee'] = '\MangoPay\VerificationOfPayee';
 
         return $subObjects;
     }
