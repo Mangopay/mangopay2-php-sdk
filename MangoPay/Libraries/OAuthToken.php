@@ -42,7 +42,7 @@ class OAuthToken extends Dto
      */
     public function __construct()
     {
-        $this->create_time = time() - 5;
+        $this->create_time = time() - 30;
     }
 
     /**
