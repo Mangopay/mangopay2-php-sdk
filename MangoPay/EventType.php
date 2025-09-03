@@ -131,4 +131,21 @@ class EventType
 
     const ReportGenerated = "REPORT_GENERATED";
     const ReportFailed = "REPORT_FAILED";
+
+    const IntentAuthorized = "INTENT_AUTHORIZED";
+    const IntentCaptured = "INTENT_CAPTURED";
+    const IntentRefunded = "INTENT_REFUNDED";
+    const IntentRefundReversed = "INTENT_REFUND_REVERSED";
+    const IntentDisputeCreated = "INTENT_DISPUTE_CREATED";
+    const IntentDisputeDefended = "INTENT_DISPUTE_DEFENDED";
+    const IntentDisputeWon = "INTENT_DISPUTE_WON";
+    const IntentDisputeLost = "INTENT_DISPUTE_LOST";
+    const IntentSettledNotPaid = "INTENT_SETTLED_NOT_PAID";
+    const IntentPaid = "INTENT_PAID";
+
+    const SplitCreated = "SPLIT_CREATED";
+    const SplitPendingFundsReception = "SPLIT_PENDING_FUNDS_RECEPTION";
+    const SplitAvailable = "SPLIT_AVAILABLE";
+    const SplitRejected = "SPLIT_REJECTED";
+    const SplitReversed = "SPLIT_REVERSED";
 }
