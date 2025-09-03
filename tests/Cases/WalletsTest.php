@@ -57,7 +57,7 @@ class WalletsTest extends Base
         $wallet = $this->getJohnsWallet();
         self::$JohnsPayInCardWeb = null;
         $payIn = $this->getJohnsPayInCardWeb();
-        sleep(2);
+        sleep(5);
 
         $pagination = new \MangoPay\Pagination(1, 1);
         $filter = new \MangoPay\FilterTransactions();
@@ -105,6 +105,7 @@ class WalletsTest extends Base
         $filter = new \MangoPay\FilterTransactions();
         $filter->BeforeDate = time();
         $filter->AfterDate = strtotime("-1 day");
+        sleep(5);
         $transactions = $this->_api->Wallets->GetTransactions($wallet->Id, $pagination, $filter);
 
         $this->assertEquals(1, count($transactions));

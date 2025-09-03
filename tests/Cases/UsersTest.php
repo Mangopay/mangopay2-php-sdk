@@ -702,7 +702,7 @@ class UsersTest extends Base
     {
         $john = $this->getJohn();
         $payIn = $this->getNewPayInCardDirect();
-        sleep(2);
+        sleep(5);
         $pagination = new \MangoPay\Pagination(1, 1);
         $filter = new \MangoPay\FilterTransactions();
         $filter->Type = 'PAYIN';

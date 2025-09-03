@@ -135,7 +135,7 @@ class DepositTest extends Base
         $dto->Fees = $fees;
 
         $this->_api->PayIns->CreateDepositPreauthorizedPayInWithoutComplement($dto);
-        sleep(1);
+        sleep(5);
         $transactions = $this->_api->Deposits->GetTransactions($deposit->Id);
 
         self::assertNotNull($transactions);
