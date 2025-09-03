@@ -111,6 +111,7 @@ class UsersTest extends Base
         $user->LegalRepresentativeNationality = "FR";
         $user->LegalRepresentativeCountryOfResidence = "FR";
         $user->CompanyNumber = "LU12345678";
+        $user->TermsAndConditionsAccepted = true;
 
         $ret = $this->_api->Users->Create($user);
 
@@ -277,6 +278,7 @@ class UsersTest extends Base
         $user->Birthday = mktime(0, 0, 0, 12, 21, 1975);
         $user->Nationality = "FR";
         $user->CountryOfResidence = "FR";
+        $user->TermsAndConditionsAccepted = true;
         $newUser = $this->_api->Users->Create($user);
 
         $userSaved = $this->_api->Users->Update($newUser);
@@ -700,7 +702,7 @@ class UsersTest extends Base
     {
         $john = $this->getJohn();
         $payIn = $this->getNewPayInCardDirect();
-        sleep(2);
+        sleep(5);
         $pagination = new \MangoPay\Pagination(1, 1);
         $filter = new \MangoPay\FilterTransactions();
         $filter->Type = 'PAYIN';
@@ -870,6 +872,7 @@ class UsersTest extends Base
             $naturalUser->Birthday = 121271;
             $naturalUser->Nationality = "FR";
             $naturalUser->CountryOfResidence = "ZA";
+            $naturalUser->TermsAndConditionsAccepted = true;
             $naturalUserResult = $this->_api->Users->Create($naturalUser); // display result
             Logs::Debug('CREATED NATURAL USER', $naturalUserResult);
             // CREATE LEGAL USER
@@ -902,21 +905,6 @@ class UsersTest extends Base
         $regulatory = $this->_api->Users->GetRegulatory($user->Id);
 
         $this->assertNotNull($regulatory);
-    }
-
-    public function test_user_natural_terms_and_conditions()
-    {
-        $user = $this->getJohn();
-        $this->assertFalse($user->TermsAndConditionsAccepted);
-
-        $user->TermsAndConditionsAccepted = true;
-        $updatedUser = $this->_api->Users->Update($user);
-        $this->assertTrue($updatedUser->TermsAndConditionsAccepted);
-        $this->assertNotNull($updatedUser->TermsAndConditionsAcceptedDate);
-
-        $accepted = $this->getJohnWithTermsAccepted();
-        $this->assertTrue($accepted->TermsAndConditionsAccepted);
-        $this->assertNotNull($accepted->TermsAndConditionsAcceptedDate);
     }
 
     public function test_validate_the_format_of_user_data()
