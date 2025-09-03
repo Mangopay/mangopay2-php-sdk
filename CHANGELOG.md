@@ -1,3 +1,15 @@
+## [3.45.1] - 2025-09-03
+### Added
+- Support for `Fees` on `ConversionQuote` #736 (thank you @pkly #647)
+
+### Improved
+- OAuth token refresh buffer before expiry updated to 30s #740
+- Curl verification of SSL certificate #737 (thank you @Kelthan #695)
+- PHP 8.2 compatibility #738 (thank you @Nek- #588  @nurul-umbhiya #640)
+
+### Fixed
+- Tests #734
+
 ## [3.45.0] - 2025-08-14
 ### Changed
 - Type casting to deserialize arrays in `GetSchema` #732 (#717 thanks for raising @tarsFromTesseract).
