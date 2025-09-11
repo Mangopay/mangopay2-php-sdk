@@ -46,7 +46,7 @@ class BankingAlias extends Libraries\EntityBase
     /**
      * The type of the virtual account
      * Allowed values: `COLLECTION`, `USER_OWNED`
-     * @var string
+     * @var string|null
      * @see VirtualAccountPurpose
      */
     public $VirtualAccountPurpose;

@@ -58,7 +58,7 @@ class PayOutPaymentDetailsBankWire extends Libraries\Dto implements PayOutPaymen
     public $Status;
 
     /**
-     * @var VerificationOfPayee
+     * @var VerificationOfPayee|null
      */
     public $RecipientVerificationOfPayee;
 

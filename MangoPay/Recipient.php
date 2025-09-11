@@ -94,7 +94,7 @@ class Recipient extends Libraries\EntityBase
     public $PendingUserAction;
 
     /**
-     * @var VerificationOfPayee
+     * @var VerificationOfPayee|null
      */
     public $RecipientVerificationOfPayee;
 
