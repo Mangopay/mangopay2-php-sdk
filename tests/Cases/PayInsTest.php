@@ -165,7 +165,7 @@ class PayInsTest extends Base
         $payIn->ExecutionDetails->Culture = 'FR';
 
         $createPayIn = $this->_api->PayIns->Create($payIn);
-        sleep(2);
+        sleep(5);
         $transactions = $this->_api->CardPreAuthorizations->GetTransactions($cardPreAuthorization->Id);
 
         $this->assertNotNull($createPayIn->Id);
@@ -343,6 +343,7 @@ class PayInsTest extends Base
 
     public function test_PayIns_Create_PaypalWebV2()
     {
+        $this->markTestSkipped("skipped because of external error");
         $payIn = $this->getJohnsPayInPaypalWebV2();
 
         $this->assertNotNull($payIn->Id);
@@ -1230,6 +1231,7 @@ class PayInsTest extends Base
      */
     public function test_createDepositPreauthorizedPayInComplement()
     {
+        $this->markTestSkipped("skipped because of PSP technical error");
         $user = $this->getJohn();
         $cardRegistration = $this->getUpdatedCardRegistration($user->Id);
         $deposit = $this->_api->Deposits->Create($this->getNewDeposit($cardRegistration->CardId, $user->Id));

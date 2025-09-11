@@ -571,7 +571,7 @@ abstract class ApiBase
     protected function DeleteObject($methodKey, $entity, $responseClassName = null)
     {
         if (!isset($entity->Id)) {
-            throw new Libraries\Exception('The entity must have the Id set');
+            throw new Exception('The entity must have the Id set');
         }
 
         $apiVersion = $this->GetApiVersion($methodKey);
