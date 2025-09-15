@@ -66,6 +66,8 @@ abstract class ApiBase
         'payins_directdebitdirect-direct_create' => ['/payins/directdebit/direct', RequestType::POST],
         'payins_paypal-web_create' => ['/payins/paypal/web', RequestType::POST],
         'payins_paypal-web_create_v2' => ['/payins/payment-methods/paypal', RequestType::POST],
+        'payins_paypal_data_collection_create' => ['/payins/payment-methods/paypal/data-collection', RequestType::POST],
+        'payins_paypal_data_collection_get' => ['/payins/payment-methods/paypal/data-collection/%s', RequestType::GET],
         'payins_payconiq-web_create' => ['/payins/payconiq/web', RequestType::POST],
         'payins_payconiqv2-web_create' => ['/payins/payment-methods/payconiq', RequestType::POST],
         'payins_get' => ['/payins/%s', RequestType::GET],
@@ -783,8 +785,12 @@ abstract class ApiBase
             }
             $entity->DeclaredUBOs = $declaredUboIds;
         }*/
+        if (method_exists($entity, 'GetReadOnlyProperties')) {
+            $blackList = $entity->GetReadOnlyProperties();
+        } else {
+            $blackList = [];
+        }
         $entityProperties = get_object_vars($entity);
-        $blackList = $entity->GetReadOnlyProperties();
         $requestData = [];
         foreach ($entityProperties as $propertyName => $propertyValue) {
             if (in_array($propertyName, $blackList)) {
