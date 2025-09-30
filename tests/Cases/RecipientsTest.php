@@ -17,10 +17,39 @@ class RecipientsTest extends Base
 {
     public static $recipient;
 
-    public function test_Recipient_Create()
+    public function test_Recipient_Create_Vop_Null()
     {
         $recipient = $this->getNewRecipient();
         $this->assertRecipient($recipient);
+        $this->assertNull($recipient->RecipientVerificationOfPayee);
+    }
+
+    public function test_Recipient_Create_Vop_Not_Null()
+    {
+        $john = $this->getJohnSca(UserCategory::Payer, false);
+
+        $localBankTransfer = [];
+        $gbpDetails = [];
+        $gbpDetails["IBAN"] = "DE75512108001245126199";
+        $localBankTransfer["EUR"] = $gbpDetails;
+
+        $individualRecipient = new IndividualRecipient();
+        $individualRecipient->FirstName = "John";
+        $individualRecipient->LastName = "Doe";
+        $individualRecipient->Address = $this->getNewAddress();
+
+        $recipient = new Recipient();
+        $recipient->DisplayName = "My EUR account";
+        $recipient->PayoutMethodType = "LocalBankTransfer";
+        $recipient->RecipientType = "Individual";
+        $recipient->Currency = CurrencyIso::EUR;
+        $recipient->IndividualRecipient = $individualRecipient;
+        $recipient->LocalBankTransfer = $localBankTransfer;
+        $recipient->Country = "DE";
+
+        $recipient = $this->_api->Recipients->Create($recipient, $john->Id);
+        $this->assertNotNull($recipient);
+        $this->assertNotNull($recipient->RecipientVerificationOfPayee);
     }
 
     public function test_Recipient_Get()
@@ -165,10 +194,10 @@ class RecipientsTest extends Base
         self::assertNotNull($recipient->UserId);
         self::assertNotNull($recipient->IndividualRecipient);
         self::assertNotNull($recipient->LocalBankTransfer);
-        self::assertNotNull($recipient->LocalBankTransfer->EUR);
-        self::assertNotNull($recipient->LocalBankTransfer->EUR->IBAN);
+        self::assertNotNull($recipient->LocalBankTransfer->GBP);
+        self::assertNotNull($recipient->LocalBankTransfer->GBP->SortCode);
+        self::assertNotNull($recipient->LocalBankTransfer->GBP->AccountNumber);
         self::assertNotNull($recipient->Country);
-        self::assertNotNull($recipient->RecipientVerificationOfPayee);
     }
 
     private function getNewRecipient()
@@ -177,25 +206,24 @@ class RecipientsTest extends Base
             $john = $this->getJohnSca(UserCategory::Payer, false);
 
             $localBankTransfer = [];
-            $details = [];
-            $details["SortCode"] = "010039";
-            $details["AccountNumber"] = "11696419";
-            $details["IBAN"] = "DE75512108001245126199";
-            $localBankTransfer["EUR"] = $details;
+            $gbpDetails = [];
+            $gbpDetails["SortCode"] = "010039";
+            $gbpDetails["AccountNumber"] = "11696419";
+            $localBankTransfer["GBP"] = $gbpDetails;
 
             $individualRecipient = new IndividualRecipient();
-            $individualRecipient->FirstName = "John";
-            $individualRecipient->LastName = "Doe";
+            $individualRecipient->FirstName = "Payout";
+            $individualRecipient->LastName = "Team";
             $individualRecipient->Address = $this->getNewAddress();
 
             $recipient = new Recipient();
-            $recipient->DisplayName = "My DE account";
+            $recipient->DisplayName = "My GB account";
             $recipient->PayoutMethodType = "LocalBankTransfer";
             $recipient->RecipientType = "Individual";
-            $recipient->Currency = CurrencyIso::EUR;
+            $recipient->Currency = CurrencyIso::GBP;
             $recipient->IndividualRecipient = $individualRecipient;
             $recipient->LocalBankTransfer = $localBankTransfer;
-            $recipient->Country = "DE";
+            $recipient->Country = "GB";
 
             self::$recipient = $this->_api->Recipients->Create($recipient, $john->Id);
         }
