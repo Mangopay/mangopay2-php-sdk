@@ -165,10 +165,10 @@ class RecipientsTest extends Base
         self::assertNotNull($recipient->UserId);
         self::assertNotNull($recipient->IndividualRecipient);
         self::assertNotNull($recipient->LocalBankTransfer);
-        self::assertNotNull($recipient->LocalBankTransfer->GBP);
-        self::assertNotNull($recipient->LocalBankTransfer->GBP->SortCode);
-        self::assertNotNull($recipient->LocalBankTransfer->GBP->AccountNumber);
+        self::assertNotNull($recipient->LocalBankTransfer->EUR);
+        self::assertNotNull($recipient->LocalBankTransfer->EUR->IBAN);
         self::assertNotNull($recipient->Country);
+        self::assertNotNull($recipient->RecipientVerificationOfPayee);
     }
 
     private function getNewRecipient()
@@ -177,24 +177,25 @@ class RecipientsTest extends Base
             $john = $this->getJohnSca(UserCategory::Payer, false);
 
             $localBankTransfer = [];
-            $gbpDetails = [];
-            $gbpDetails["SortCode"] = "010039";
-            $gbpDetails["AccountNumber"] = "11696419";
-            $localBankTransfer["GBP"] = $gbpDetails;
+            $details = [];
+            $details["SortCode"] = "010039";
+            $details["AccountNumber"] = "11696419";
+            $details["IBAN"] = "DE75512108001245126199";
+            $localBankTransfer["EUR"] = $details;
 
             $individualRecipient = new IndividualRecipient();
-            $individualRecipient->FirstName = "Payout";
-            $individualRecipient->LastName = "Team";
+            $individualRecipient->FirstName = "John";
+            $individualRecipient->LastName = "Doe";
             $individualRecipient->Address = $this->getNewAddress();
 
             $recipient = new Recipient();
-            $recipient->DisplayName = "My GB account";
+            $recipient->DisplayName = "My DE account";
             $recipient->PayoutMethodType = "LocalBankTransfer";
             $recipient->RecipientType = "Individual";
-            $recipient->Currency = CurrencyIso::GBP;
+            $recipient->Currency = CurrencyIso::EUR;
             $recipient->IndividualRecipient = $individualRecipient;
             $recipient->LocalBankTransfer = $localBankTransfer;
-            $recipient->Country = "GB";
+            $recipient->Country = "DE";
 
             self::$recipient = $this->_api->Recipients->Create($recipient, $john->Id);
         }
