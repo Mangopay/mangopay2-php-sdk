@@ -14,6 +14,7 @@ class BankingAliasTest extends Base
         $bankingAliasIBAN = $this->getJohnsBankingAliasIBAN();
 
         $this->assertNotNull($bankingAliasIBAN->Id);
+        $this->assertNotNull($bankingAliasIBAN->VirtualAccountPurpose);
     }
 
     public function test_BankingAliasGB_Create()

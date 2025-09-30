@@ -52,6 +52,13 @@ class PayIn extends Transaction
     public $PaymentCategory;
 
     /**
+     * The unique reference generated for the profiling session,
+     * used by the fraud prevention solution to produce recommendations for the transaction using the profiling data
+     * @var string
+     */
+    public $ProfilingAttemptReference;
+
+    /**
      * Get array with mapping which property depends on other property
      * @return array
      */

@@ -20,10 +20,4 @@ class PayInPaymentDetailsBizum extends Libraries\Dto implements PayInPaymentDeta
      * @var string
      */
     public $StatementDescriptor;
-
-    /**
-     * The unique reference generated for the profiling session, used by the fraud prevention solution to produce recommendations for the transaction using the profiling data
-     * @var string
-     */
-    public $ProfilingAttemptReference;
 }
