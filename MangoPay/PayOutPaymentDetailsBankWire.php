@@ -56,4 +56,23 @@ class PayOutPaymentDetailsBankWire extends Libraries\Dto implements PayOutPaymen
      * @var string
      */
     public $Status;
+
+    /**
+     * @var VerificationOfPayee|null
+     */
+    public $RecipientVerificationOfPayee;
+
+    /**
+     * Get array with mapping which property is object and what type of object
+     * @return array
+     */
+    public function GetSubObjects()
+    {
+        $subObjects = parent::GetSubObjects();
+        $subObjects['PaymentRef'] = '\MangoPay\PayOutPaymentRef';
+        $subObjects['FallbackReason'] = '\MangoPay\FallbackReason';
+        $subObjects['RecipientVerificationOfPayee'] = '\MangoPay\VerificationOfPayee';
+
+        return $subObjects;
+    }
 }
