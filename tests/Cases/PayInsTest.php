@@ -1345,17 +1345,17 @@ class PayInsTest extends Base
         $this->assertEquals($intent->Status, $fetched->Status);
     }
 
-//    public function test_CancelPayInIntent()
-//    {
-//        $intent = $this->getNewPayInIntentAuthorization();
-//        $details = new PayInIntent();
-//        $externalData = new PayInIntentExternalData();
-//        $externalData->ExternalProcessingDate = 1728133765;
-//        $externalData->ExternalProviderReference = strval(rand(0, 10000));
-//        $details->ExternalData = $externalData;
-//        $canceled = $this->_api->PayIns->CancelPayInIntent($intent->Id, $details);
-//        $this->assertEquals($canceled->Status, 'CANCELED');
-//    }
+    public function test_CancelPayInIntent()
+    {
+        $intent = $this->getNewPayInIntentAuthorization();
+        $details = new PayInIntent();
+        $externalData = new PayInIntentExternalData();
+        $externalData->ExternalProcessingDate = 1728133765;
+        $externalData->ExternalProviderReference = strval(rand(0, 10000));
+        $details->ExternalData = $externalData;
+        $cancelled = $this->_api->PayIns->CancelPayInIntent($intent->Id, $details);
+        $this->assertEquals($cancelled->Status, 'CANCELLED');
+    }
 
     public function test_CreatePayInIntentSplits()
     {
@@ -1449,5 +1449,42 @@ class PayInsTest extends Base
         $resultFilteredPaginated = $this->_api->PayIns->GetPayByBankSupportedBanks($pagination, $filter);
         $this->assertEquals(1, sizeof($resultFilteredPaginated->SupportedBanks->Countries));
         $this->assertEquals(2, sizeof($resultFilteredPaginated->SupportedBanks->Countries[0]->Banks));
+    }
+
+    public function test_CreateAndFetchPayPalDataCollection()
+    {
+        $dataCollection = new \stdClass();
+        $dataCollection->sender_account_id = "A12345N343";
+        $dataCollection->sender_first_name = "Jane";
+        $dataCollection->sender_last_name = "Doe";
+        $dataCollection->sender_email = "jane.doe@sample.com";
+        $dataCollection->sender_phone = "(042) 1123 4567";
+        $dataCollection->sender_address_zip = "75009";
+        $dataCollection->sender_country_code = "FR";
+        $dataCollection->sender_create_date = "2012-12-09T19:14:55.277-0:00";
+        $dataCollection->sender_signup_ip = "10.220.90.20";
+        $dataCollection->sender_popularity_score = "high";
+
+        $dataCollection->receiver_account_id = "A12345N344";
+        $dataCollection->receiver_create_date = "2012-12-09T19:14:55.277-0:00";
+        $dataCollection->receiver_email = "jane@sample.com";
+        $dataCollection->receiver_address_country_code = "FR";
+
+        $dataCollection->business_name = "Jane Ltd";
+        $dataCollection->recipient_popularity_score = "high";
+        $dataCollection->first_interaction_date = "2012-12-09T19:14:55.277-0:00";
+        $dataCollection->txn_count_total = "34";
+        $dataCollection->vertical = "Household goods";
+        $dataCollection->transaction_is_tangible = "0";
+
+        $created = $this->_api->PayIns->CreatePayPalDataCollection($dataCollection);
+        $this->assertNotNull($created);
+        $this->assertNotNull($created->dataCollectionId);
+
+        $fetched = $this->_api->PayIns->GetPayPalDataCollection($created->dataCollectionId);
+        $this->assertNotNull($fetched);
+        $this->assertEquals($created->dataCollectionId, $fetched->DataCollectionId);
+        $this->assertEquals("Jane", $fetched->sender_first_name);
+        $this->assertEquals("Doe", $fetched->sender_last_name);
     }
 }

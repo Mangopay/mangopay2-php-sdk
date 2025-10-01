@@ -2,6 +2,8 @@
 
 namespace MangoPay;
 
+use MangoPay\Libraries\Exception;
+
 /**
  * Class to management MangoPay API for pay-ins
  */
@@ -284,16 +286,24 @@ class ApiPayIns extends Libraries\ApiBase
         return $this->GetObject('payins_intent_get', '\MangoPay\PayInIntent', $intentId);
     }
 
-//    /**
-//     * Cancel a pay in intent
-//     * @param string $intentId The identifier of the PayInIntent
-//     * @param PayInIntent $details Intent details
-//     * @return \MangoPay\PayInIntent Object returned from API
-//     */
-//    public function CancelPayInIntent($intentId, $details)
-//    {
-//        return $this->SaveObject('payins_intent_cancel', $details, '\MangoPay\PayInIntent', $intentId);
-//    }
+    /**
+     * Cancel a pay in intent
+     * @param string $intentId The identifier of the PayInIntent
+     * @param PayInIntent $details Intent details
+     * @param string|null $idempotencyKey Idempotency key for this request (optional)
+     * @return \MangoPay\PayInIntent Object returned from API
+     */
+    public function CancelPayInIntent($intentId, $details, $idempotencyKey = null)
+    {
+        return $this->CreateObject(
+            'payins_intent_cancel',
+            $details,
+            '\MangoPay\PayInIntent',
+            $intentId,
+            null,
+            $idempotencyKey
+        );
+    }
 
     /**
      * Create Intent splits
@@ -303,7 +313,14 @@ class ApiPayIns extends Libraries\ApiBase
      */
     public function CreatePayInIntentSplits($intentId, $splits, $idempotencyKey = null)
     {
-        return $this->CreateObject('payins_intent_create_splits', $splits, '\MangoPay\IntentSplits', $intentId, null, $idempotencyKey);
+        return $this->CreateObject(
+            'payins_intent_create_splits',
+            $splits,
+            '\MangoPay\IntentSplits',
+            $intentId,
+            null,
+            $idempotencyKey
+        );
     }
 
     /**
@@ -389,5 +406,33 @@ class ApiPayIns extends Libraries\ApiBase
             $pagination,
             $filter
         );
+    }
+
+    /**
+     * Send key pre-transaction data such as order details, buyer information,
+     * and merchant context before initiating a PayPal payment
+     *
+     * Since the fields needed by PayPal are dynamic and can change, the method expects a stdClass as payload
+     *
+     * @param \stdClass $dataCollection
+     * @param string $idempotencyKey
+     * @return \stdClass
+     */
+    public function CreatePayPalDataCollection($dataCollection, $idempotencyKey = null)
+    {
+        return $this->CreateObject('payins_paypal_data_collection_create', $dataCollection, null, null, null, $idempotencyKey);
+    }
+
+    /**
+     * Send key pre-transaction data such as order details, buyer information,
+     * and merchant context before initiating a PayPal payment
+     *
+     * @param string $dataCollectionId
+     * @return \stdClass
+     * @throws Exception
+     */
+    public function GetPayPalDataCollection($dataCollectionId, $idempotencyKey = null)
+    {
+        return $this->GetObject('payins_paypal_data_collection_get', null, $dataCollectionId);
     }
 }

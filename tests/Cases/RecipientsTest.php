@@ -17,10 +17,39 @@ class RecipientsTest extends Base
 {
     public static $recipient;
 
-    public function test_Recipient_Create()
+    public function test_Recipient_Create_Vop_Null()
     {
         $recipient = $this->getNewRecipient();
         $this->assertRecipient($recipient);
+        $this->assertNull($recipient->RecipientVerificationOfPayee);
+    }
+
+    public function test_Recipient_Create_Vop_Not_Null()
+    {
+        $john = $this->getJohnSca(UserCategory::Payer, false);
+
+        $localBankTransfer = [];
+        $gbpDetails = [];
+        $gbpDetails["IBAN"] = "DE75512108001245126199";
+        $localBankTransfer["EUR"] = $gbpDetails;
+
+        $individualRecipient = new IndividualRecipient();
+        $individualRecipient->FirstName = "John";
+        $individualRecipient->LastName = "Doe";
+        $individualRecipient->Address = $this->getNewAddress();
+
+        $recipient = new Recipient();
+        $recipient->DisplayName = "My EUR account";
+        $recipient->PayoutMethodType = "LocalBankTransfer";
+        $recipient->RecipientType = "Individual";
+        $recipient->Currency = CurrencyIso::EUR;
+        $recipient->IndividualRecipient = $individualRecipient;
+        $recipient->LocalBankTransfer = $localBankTransfer;
+        $recipient->Country = "DE";
+
+        $recipient = $this->_api->Recipients->Create($recipient, $john->Id);
+        $this->assertNotNull($recipient);
+        $this->assertNotNull($recipient->RecipientVerificationOfPayee);
     }
 
     public function test_Recipient_Get()
