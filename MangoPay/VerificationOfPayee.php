@@ -8,7 +8,7 @@ class VerificationOfPayee extends Dto
 {
     /**
      * A unique identifier of the VOP check performed by Mangopay.
-     * @var string
+     * @var string|null
      */
     public $RecipientVerificationId;
 
