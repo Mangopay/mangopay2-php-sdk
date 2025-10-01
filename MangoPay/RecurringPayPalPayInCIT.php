@@ -74,4 +74,9 @@ class RecurringPayPalPayInCIT extends Libraries\Dto
      * @var string
      */
     public $Reference;
+
+    /**
+     * @var string
+     */
+    public $DataCollectionId;
 }

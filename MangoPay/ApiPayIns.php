@@ -295,8 +295,14 @@ class ApiPayIns extends Libraries\ApiBase
      */
     public function CancelPayInIntent($intentId, $details, $idempotencyKey = null)
     {
-        return $this->CreateObject('payins_intent_cancel', $details,
-            '\MangoPay\PayInIntent', $intentId, null, $idempotencyKey);
+        return $this->CreateObject(
+            'payins_intent_cancel',
+            $details,
+            '\MangoPay\PayInIntent',
+            $intentId,
+            null,
+            $idempotencyKey
+        );
     }
 
     /**
@@ -307,8 +313,14 @@ class ApiPayIns extends Libraries\ApiBase
      */
     public function CreatePayInIntentSplits($intentId, $splits, $idempotencyKey = null)
     {
-        return $this->CreateObject('payins_intent_create_splits', $splits,
-            '\MangoPay\IntentSplits', $intentId, null, $idempotencyKey);
+        return $this->CreateObject(
+            'payins_intent_create_splits',
+            $splits,
+            '\MangoPay\IntentSplits',
+            $intentId,
+            null,
+            $idempotencyKey
+        );
     }
 
     /**

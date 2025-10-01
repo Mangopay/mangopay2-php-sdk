@@ -92,4 +92,9 @@ class RecurringPayPalPayInMIT extends Libraries\Dto
      * @var string
      */
     public $Reference;
+
+    /**
+     * @var string
+     */
+    public $DataCollectionId;
 }

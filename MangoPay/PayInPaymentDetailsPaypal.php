@@ -92,6 +92,11 @@ class PayInPaymentDetailsPaypal extends Libraries\Dto implements PayInPaymentDet
      */
     public $Trackings;
 
+    /**
+     * @var string
+     */
+    public $DataCollectionId;
+
 
     public function GetSubObjects()
     {
