@@ -93,7 +93,7 @@ class PayInPaymentDetailsPaypal extends Libraries\Dto implements PayInPaymentDet
     public $Trackings;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $DataCollectionId;
 
