@@ -98,6 +98,12 @@ class Client extends Libraries\EntityBase
     public $TaxNumber;
 
     /**
+     * @var string
+     * The licensor of the platform’s company account, indicating the Mangopay entity the platform contracted with
+     */
+    public $Licensor;
+
+    /**
      * Get array with mapping which property is object and what type of object
      * @return array
      */
