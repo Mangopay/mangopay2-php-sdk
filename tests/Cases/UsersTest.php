@@ -238,6 +238,7 @@ class UsersTest extends Base
         $johnPayer->Address = $this->getNewAddress();
         $johnPayer->PhoneNumber = "+33611111111";
         $johnPayer->PhoneNumberCountry = "FR";
+        $johnPayer->ScaContext = "USER_PRESENT";
 
         // transition from Payer to Owner
         $johnOwner = $this->_api->Users->Categorize($johnPayer);
@@ -263,6 +264,7 @@ class UsersTest extends Base
         $matrix->TermsAndConditionsAccepted = true;
         $matrix->LegalRepresentative = $legalRepresentative;
         $matrix->CompanyNumber = "12345678";
+        $matrix->ScaContext = "USER_NOT_PRESENT";
 
         // transition from Payer to Owner
         $matrixOwner = $this->_api->Users->Categorize($matrix);
