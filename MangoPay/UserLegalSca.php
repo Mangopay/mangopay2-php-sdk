@@ -68,6 +68,12 @@ class UserLegalSca extends User
     public $LegalRepresentative;
 
     /**
+     * @var string|null
+     * If provided, possible values: USER_PRESENT, USER_NOT_PRESENT.
+     */
+    public $ScaContext;
+
+    /**
      * Construct
      */
     public function __construct($id = null)

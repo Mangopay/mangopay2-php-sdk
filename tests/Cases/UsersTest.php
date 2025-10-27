@@ -238,6 +238,7 @@ class UsersTest extends Base
         $johnPayer->Address = $this->getNewAddress();
         $johnPayer->PhoneNumber = "+33611111111";
         $johnPayer->PhoneNumberCountry = "FR";
+        $johnPayer->ScaContext = "USER_PRESENT";
 
         // transition from Payer to Owner
         $johnOwner = $this->_api->Users->Categorize($johnPayer);
@@ -263,6 +264,7 @@ class UsersTest extends Base
         $matrix->TermsAndConditionsAccepted = true;
         $matrix->LegalRepresentative = $legalRepresentative;
         $matrix->CompanyNumber = "12345678";
+        $matrix->ScaContext = "USER_NOT_PRESENT";
 
         // transition from Payer to Owner
         $matrixOwner = $this->_api->Users->Categorize($matrix);
@@ -930,6 +932,18 @@ class UsersTest extends Base
         $enrollmentResult = $this->_api->Users->Enroll($user->Id);
         $this->assertTrue($enrollmentResult->PendingUserAction instanceof PendingUserAction);
         $this->assertNotNull($enrollmentResult->PendingUserAction->RedirectUrl);
+    }
+
+    public function test_manage_user_consent()
+    {
+        $user = $this->getJohn();
+        $enrollmentResult = $this->_api->Users->Enroll($user->Id);
+        $this->assertTrue($enrollmentResult->PendingUserAction instanceof PendingUserAction);
+        $this->assertNotNull($enrollmentResult->PendingUserAction->RedirectUrl);
+
+        $consentResult = $this->_api->Users->ManageConsent($user->Id);
+        $this->assertTrue($consentResult->PendingUserAction instanceof PendingUserAction);
+        $this->assertNotNull($consentResult->PendingUserAction->RedirectUrl);
     }
 
     public function test_Users_close_natural()

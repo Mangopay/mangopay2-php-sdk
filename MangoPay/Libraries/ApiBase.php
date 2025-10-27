@@ -137,6 +137,7 @@ abstract class ApiBase
         'users_createlegals' => ['/users/legal', RequestType::POST],
         'users_createlegals_sca' => ['/sca/users/legal', RequestType::POST],
         'users_enroll_sca' => ['/sca/users/%s/enrollment', RequestType::POST],
+        'users_manage_consent' => ['/sca/users/%s/consent', RequestType::POST],
 
         'users_createbankaccounts_iban' => ['/users/%s/bankaccounts/iban', RequestType::POST],
         'users_createbankaccounts_gb' => ['/users/%s/bankaccounts/gb', RequestType::POST],
@@ -596,7 +597,7 @@ abstract class ApiBase
      * @param $entityId Entity identifier
      * @return object Response data
      */
-    protected function ExecutePostRequest($methodKey, $entity, $responseClassName, $entityId = null)
+    protected function ExecutePostRequest($methodKey, $entity, $responseClassName, $entityId = null, $idempotency_key = null)
     {
         if ($entityId != null) {
             $urlMethod = sprintf($this->GetRequestUrl($methodKey), $entityId);
@@ -607,7 +608,7 @@ abstract class ApiBase
         $requestData = $this->BuildRequestData($entity);
         $apiVersion = $this->GetApiVersion($methodKey);
         $rest = new RestTool($this->_root, true);
-        $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey), $requestData, null);
+        $response = $rest->Request($urlMethod, $apiVersion, $this->GetRequestType($methodKey), $requestData, $idempotency_key);
 
         if (!is_null($responseClassName)) {
             return $this->CastResponseToEntity($response, $responseClassName);
