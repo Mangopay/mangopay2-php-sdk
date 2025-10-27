@@ -23,6 +23,7 @@ class ClientTest extends Base
         $getClients = $this->_api->Clients->Get();
 
         $this->assertEquals($this->_api->Config->ClientId, $getClients->ClientId);
+        $this->assertNotNull($getClients->Licensor);
     }
 
     public function test_Clients_Save()
