@@ -556,8 +556,13 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function Enroll($userId, $idempotencyKey = null)
     {
-        return $this->ExecutePostRequest('users_enroll_sca', new UserNatural(),
-            '\MangoPay\UserEnrollmentResult', $userId, $idempotencyKey);
+        return $this->ExecutePostRequest(
+            'users_enroll_sca',
+            new UserNatural(),
+            '\MangoPay\UserEnrollmentResult',
+            $userId,
+            $idempotencyKey
+        );
     }
 
     /**
@@ -569,8 +574,14 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function ManageConsent($userId, $idempotencyKey = null)
     {
-        return $this->CreateObject('users_manage_consent', null,
-            '\MangoPay\UserConsent', $userId, null, $idempotencyKey);
+        return $this->CreateObject(
+            'users_manage_consent',
+            null,
+            '\MangoPay\UserConsent',
+            $userId,
+            null,
+            $idempotencyKey
+        );
     }
 
     /**
