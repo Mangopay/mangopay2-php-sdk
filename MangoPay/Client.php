@@ -98,7 +98,7 @@ class Client extends Libraries\EntityBase
     public $TaxNumber;
 
     /**
-     * @var string
+     * @var string|null
      * The licensor of the platform’s company account, indicating the Mangopay entity the platform contracted with
      */
     public $Licensor;
