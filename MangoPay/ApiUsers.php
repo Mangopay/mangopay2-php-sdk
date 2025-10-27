@@ -556,7 +556,21 @@ class ApiUsers extends Libraries\ApiBase
      */
     public function Enroll($userId, $idempotencyKey = null)
     {
-        return $this->ExecutePostRequest('users_enroll_sca', new UserNatural(), '\MangoPay\UserEnrollmentResult', $userId);
+        return $this->ExecutePostRequest('users_enroll_sca', new UserNatural(),
+            '\MangoPay\UserEnrollmentResult', $userId, $idempotencyKey);
+    }
+
+    /**
+     * Manage user consent
+     *
+     * @param string $userId
+     * @return UserConsent User object returned from API
+     * @throws Libraries\Exception If occur Wrong entity class for user
+     */
+    public function ManageConsent($userId, $idempotencyKey = null)
+    {
+        return $this->CreateObject('users_manage_consent', null,
+            '\MangoPay\UserConsent', $userId, null, $idempotencyKey);
     }
 
     /**
