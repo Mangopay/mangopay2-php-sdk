@@ -104,6 +104,12 @@ class UserNaturalSca extends User
     public $PendingUserAction;
 
     /**
+     * @var string|null
+     * If provided, possible values: USER_PRESENT, USER_NOT_PRESENT.
+     */
+    public $ScaContext;
+
+    /**
      * Construct
      */
     public function __construct($id = null)
